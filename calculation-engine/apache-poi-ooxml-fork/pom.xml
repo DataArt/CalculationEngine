@@ -4,7 +4,7 @@
 
   <groupId>org.apache.poi</groupId>
   <artifactId>poi-ooxml-fork</artifactId>
-  <version>3.12-FINAL-fork</version>
+  <version>3.12</version>
   <packaging>pom</packaging>
 
   <name>poi-ooxml-fork</name>
@@ -42,7 +42,7 @@
             <configuration>
               <goals>checkout</goals>
               <connectionUrl>scm:git:git@github.com:vasily-bernstein/poi.git</connectionUrl>
-              <skipCheckoutIfExists>false</skipCheckoutIfExists>
+              <skipCheckoutIfExists>true</skipCheckoutIfExists>
               <scmVersionType>tag</scmVersionType>
               <scmVersion>REL_3_12_FINAL</scmVersion>
               <checkoutDirectory>${basedir}/code</checkoutDirectory>
