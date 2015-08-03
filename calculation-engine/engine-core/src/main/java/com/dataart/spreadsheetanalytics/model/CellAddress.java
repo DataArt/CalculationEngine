@@ -58,4 +58,10 @@ public class CellAddress implements ICellAddress {
         return this;
     }
 
+    @Override
+    public int sheetIndex() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }

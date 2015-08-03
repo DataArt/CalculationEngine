@@ -16,6 +16,10 @@ public interface ICellAddress {
     A1Address a1Address();
 
     R1C1Address r1c1Address();
+    
+
+    //TODO: to diuscuss
+    int sheetIndex();
 
     /**
      * A1 format

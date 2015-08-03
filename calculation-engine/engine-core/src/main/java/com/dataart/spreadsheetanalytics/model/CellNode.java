@@ -12,7 +12,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.ICellNode;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.model.util.CellNodePrinter;
+import com.dataart.spreadsheetanalytics.util.print.ExecutionGraphConsolePrinter;
 
 //TODO should be graph actually
 public class CellNode implements ICellNode {
@@ -93,9 +93,10 @@ public class CellNode implements ICellNode {
     public void formula(ICellFormulaExpression formula) {
         this.formula = formula;
     }
-
-    public static CellNodePrinter newCellNodePrinter(CellNode node) {
-        return new CellNodePrinter(node);
+    
+    public static ExecutionGraphConsolePrinter newCellNodePrinter(CellNode node) {
+        return new ExecutionGraphConsolePrinter(node);
     }
+
 
 }

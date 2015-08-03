@@ -4,7 +4,7 @@
 
   <groupId>org.apache.poi</groupId>
   <artifactId>poi-fork</artifactId>
-  <version>3.12</version>
+  <version>3.13-beta1</version>
   <packaging>pom</packaging>
 
   <name>poi-fork</name>
@@ -12,7 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <originalVersion>3.12</originalVersion>
+    <originalVersion>3.13-beta1</originalVersion>
     <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
   </properties>
 
@@ -28,7 +28,10 @@
         </configuration>
       </plugin>
       
-      <plugin>
+	  <!-- This plugin will pull all the code from apache-poi git or apache-poi-fork git if you want. 
+	  Not sure we need it, because we hava downloaded poi once via 'git submodule add' and can do changes and merge them with original poi-git-url.
+	  But let's leave it as is for now. -->
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
         <version>1.9.4</version>
@@ -45,11 +48,11 @@
               <skipCheckoutIfExists>true</skipCheckoutIfExists>
               <scmVersionType>tag</scmVersionType>
               <scmVersion>REL_3_12_FINAL</scmVersion>
-              <checkoutDirectory>${basedir}/code</checkoutDirectory>
+              <checkoutDirectory>../apache-poi/poi</checkoutDirectory>
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </plugin-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -60,7 +63,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <tasks>
-                <ant antfile="${basedir}/code/build.xml" target="jar" dir="${basedir}/code" />
+                <ant antfile="../poi/build.xml" target="jar" dir="../apache-poi/poi" />
               </tasks>
             </configuration>
             <goals>
@@ -84,7 +87,7 @@
             <configuration>
               <artifacts>
                 <artifact>
-                  <file>${basedir}/code/build/dist/poi-${originalVersion}-${maven.build.timestamp}.jar</file>
+                  <file>../apache-poi/poi/build/dist/poi-${originalVersion}-${maven.build.timestamp}.jar</file>
                   <type>jar</type>
                 </artifact>
               </artifacts>
