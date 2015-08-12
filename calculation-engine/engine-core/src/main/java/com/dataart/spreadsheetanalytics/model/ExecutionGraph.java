@@ -1,20 +1,25 @@
 package com.dataart.spreadsheetanalytics.model;
 
+import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphNode;
 
 public class ExecutionGraph implements IExecutionGraph {
 
-    protected ExecutionGraph(DirectedGraph<IExecutionGraphNode, DefaultEdge> dgraph) {
-        // TODO Auto-generated constructor stub
+    protected DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
+
+    protected ExecutionGraph(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
+        this.dgraph = dgraph;
     }
 
-    public static ExecutionGraph wrap(DirectedGraph<IExecutionGraphNode, DefaultEdge> dgraph) {
-        // TODO Auto-generated method stub
+    public static ExecutionGraph wrap(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
         return new ExecutionGraph(dgraph);
+    }
+
+    public static DirectedGraph unwrap(ExecutionGraph egraph) {
+        return egraph.dgraph;
     }
 
 }

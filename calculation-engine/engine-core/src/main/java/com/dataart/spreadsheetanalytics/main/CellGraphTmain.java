@@ -13,7 +13,7 @@ public class CellGraphTMain {
     
     public static void main(String[] args) throws Exception {
         
-        final String path = "src/main/resources/excel/1.xlsx";
+        final String path = "src/main/resources/excel/2.xlsx";
         // TODO: this part  should somewhere in dataprovider and Class should be something like IWorkbook or IModel
         final XSSFWorkbook model = new XSSFWorkbook(path);
         

@@ -124,7 +124,7 @@ public class PrintStaticTreeMain {
         return node;
     }
 
-    private static String ptgToSingleOperator(Ptg ptg) {
+    public static String ptgToSingleOperator(Ptg ptg) {
         if (ptg.getClass().isAssignableFrom(AddPtg.class)) {
             return "+";
         } else if (ptg.getClass().isAssignableFrom(SubtractPtg.class)) {

@@ -5,6 +5,7 @@ import java.util.List;
 import com.dataart.spreadsheetanalytics.api.model.ICellNode;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.model.CellNode;
+import com.dataart.spreadsheetanalytics.model.ExecutionGraph;
 
 public class ExecutionGraphConsolePrinter {
 
@@ -15,7 +16,7 @@ public class ExecutionGraphConsolePrinter {
     }
 
     public static void print(IExecutionGraph graph) {
-        System.out.println("TODO: " + graph);
+        JGraphVisualizator.visualize(ExecutionGraph.unwrap((ExecutionGraph) graph));
     }
 
     public void printStaticGraph() {

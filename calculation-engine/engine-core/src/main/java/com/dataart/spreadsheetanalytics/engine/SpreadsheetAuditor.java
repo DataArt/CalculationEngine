@@ -1,8 +1,7 @@
 package com.dataart.spreadsheetanalytics.engine;
 
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,7 +19,7 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
 
 public class SpreadsheetAuditor implements IAuditor {
 
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final Lock lock = new ReentrantLock();
 
     protected final IEvaluator evaluator;
 
@@ -32,21 +31,20 @@ public class SpreadsheetAuditor implements IAuditor {
     public IExecutionGraph buildStaticExecutionGraph(XSSFWorkbook model, ICellAddress cell) {
         return null;
     }
-    
+
     @Override
     public IExecutionGraph buildStaticExecutionGraph(XSSFWorkbook model) {
 
         ExecutionGraphBuilder graphBuilder = new ExecutionGraphBuilder();
 
-        Lock l = null;
         try {
-            l = lock.readLock();
+            lock.lock();
 
             ((SpreadsheetEvaluator) evaluator).setExecutionGraphBuilder(graphBuilder);
 
             //Model Iterator
-            for (XSSFSheet xssfSheet : model)
-                for (Row row : xssfSheet)
+            for (XSSFSheet xssfSheet : model) {
+                for (Row row : xssfSheet) {
                     for (Cell cell : row) {
 
                         ICellAddress addr = new CellAddress()
@@ -55,10 +53,14 @@ public class SpreadsheetAuditor implements IAuditor {
                                                 .column(cell.getColumnIndex());
 
                         ICellValue v = evaluator.evaluate(addr);
-                        System.out.println(v);
+                        break;
                     }
+                    break;
+                }
+                break;
+            }
         } finally {
-            l.unlock();
+            lock.unlock();
         }
 
         return graphBuilder.get();
@@ -69,7 +71,7 @@ public class SpreadsheetAuditor implements IAuditor {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
     public IExecutionGraph buildDynamicExecutionGraph(XSSFWorkbook model) {
         // TODO Auto-generated method stub
