@@ -27,13 +27,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
     @Override
     public ICellValue evaluate(ICellAddress addr) {
 
-        Sheet s = model.getSheetAt(addr.sheetIndex());
+        Sheet s = model.getSheetAt(0 /*sheet number 1*/ );
         Cell c = s.getRow(addr.row().intValue()).getCell(addr.column().intValue());
 
-        return CellValue.fromString(poiEvaluator.evaluate(c).formatAsString());
+        return new CellValue(poiEvaluator.evaluate(c).formatAsString());
     }
 
-    public void setExecutionGraphBuilder(ExecutionGraphBuilder graphBuilder) {
+    public void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {
         this.graphBuilder = graphBuilder;
         this.poiEvaluator = model.getCreationHelper().createFormulaEvaluator(graphBuilder);
     }

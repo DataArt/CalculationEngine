@@ -6,25 +6,32 @@ import java.util.Map;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.ss.formula.eval.ValueEval;
+import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
+import org.apache.poi.ss.formula.ptg.AreaPtg;
 import org.apache.poi.ss.formula.ptg.DividePtg;
 import org.apache.poi.ss.formula.ptg.EqualPtg;
 import org.apache.poi.ss.formula.ptg.MultiplyPtg;
 import org.apache.poi.ss.formula.ptg.OperationPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
+import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.SubtractPtg;
+import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.model.ExecutionGraphVertex;
 
 /**
  * TODO: write about internal representation, not thread safe, one instance per calculation, etc.
  * @author rroschin
  *
  */
-public class ExecutionGraphBuilder implements IExecutionGraphBuilder {
+public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
     
@@ -32,7 +39,7 @@ public class ExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected Map<Ptg, IExecutionGraphVertex> ptgToVertex;
     protected Map<Integer, Map<Integer, IExecutionGraphVertex>> rowcolToVertex;
 
-    public ExecutionGraphBuilder() {
+    public PoiExecutionGraphBuilder() {
         this.dgraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         this.valueToVertex = new HashMap<>();
         this.ptgToVertex = new HashMap<>();
@@ -43,6 +50,13 @@ public class ExecutionGraphBuilder implements IExecutionGraphBuilder {
         return ExecutionGraph.wrap(dgraph);
     }
 
+    @Override
+    public IExecutionGraphVertex createVertex(String name) {
+        ExecutionGraphVertex v = new ExecutionGraphVertex(name);
+        dgraph.addVertex(v);
+        return v;
+    }
+    
     @Override
     public IExecutionGraphVertex getOrCreateVertex(Ptg ptg) {
         ExecutionGraphVertex v;
@@ -108,16 +122,26 @@ public class ExecutionGraphBuilder implements IExecutionGraphBuilder {
         dgraph.addEdge(from, to);
     }
 
-    private static String ptgToOperatorString(Ptg ptg) {
-        if (ptg.getClass().isAssignableFrom(AddPtg.class)) {
+    /**
+     * Do anything you want here. After graph is completed and we are out of POI context
+     * you can add\remove\etc any information you want.
+     */
+    public static IExecutionGraph runPostProcessing(ExecutionGraph executionGraph) {
+        return executionGraph;
+    }
+    
+    public static String ptgToOperatorString(Ptg ptg) {
+        Class<? extends Ptg> ptgCls = ptg.getClass();
+        
+        if (ptgCls.isAssignableFrom(AddPtg.class)) {
             return "+";
-        } else if (ptg.getClass().isAssignableFrom(SubtractPtg.class)) {
+        } else if (ptgCls.isAssignableFrom(SubtractPtg.class)) {
             return "-";
-        } else if (ptg.getClass().isAssignableFrom(DividePtg.class)) {
+        } else if (ptgCls.isAssignableFrom(DividePtg.class)) {
             return "/";
-        } else if (ptg.getClass().isAssignableFrom(MultiplyPtg.class)) {
+        } else if (ptgCls.isAssignableFrom(MultiplyPtg.class)) {
             return "*";
-        } else if (ptg.getClass().isAssignableFrom(EqualPtg.class)) {
+        } else if (ptgCls.isAssignableFrom(EqualPtg.class)) {
             return "=";
         }
 
@@ -128,4 +152,19 @@ public class ExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
     }
 
+    public static Type ptgToVertexType(Ptg ptg) {
+
+        if (ptg instanceof AbstractFunctionPtg) { //functions: SUM, COUNT, COS, etc.
+            return Type.FUNCTION;
+        }else if (ptg instanceof ValueOperatorPtg) { //single operators: +, -, /, *, =
+            return Type.OPERATOR;
+        } else if (ptg instanceof RefPtg) { //
+            return Type.CELL_WITH_REFERENCE;
+        } else if (ptg instanceof AreaPtg) {
+            return Type.RANGE;
+        }
+        //TODO: add more for our cases
+        throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
+    }
+    
 }

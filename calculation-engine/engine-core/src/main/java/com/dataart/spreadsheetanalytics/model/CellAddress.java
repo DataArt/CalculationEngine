@@ -2,16 +2,13 @@ package com.dataart.spreadsheetanalytics.model;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IModelId;
-import com.dataart.spreadsheetanalytics.api.model.ISheetId;
 
 public class CellAddress implements ICellAddress {
 
     protected IModelId modelId;
-    protected ISheetId sheetId;
-    protected Long row;
-    protected Long column;
+    protected Integer row;
+    protected Integer column;
     protected A1Address a1Address;
-    protected R1C1Address r1c1Address;
 
     @Override
     public IModelId modelId() {
@@ -19,17 +16,12 @@ public class CellAddress implements ICellAddress {
     }
 
     @Override
-    public ISheetId sheetId() {
-        return sheetId;
-    }
-
-    @Override
-    public Long row() {
+    public Integer row() {
         return row;
     }
 
     @Override
-    public Long column() {
+    public Integer column() {
         return column;
     }
 
@@ -38,30 +30,19 @@ public class CellAddress implements ICellAddress {
         return a1Address;
     }
 
-    @Override
-    public R1C1Address r1c1Address() {
-        return r1c1Address;
-    }
-
     public CellAddress a1Address(A1Address a1Address) {
         this.a1Address = a1Address;
         return this;
     }
 
-    public CellAddress row(long row) {
-        this.row = Long.valueOf(row);
+    public CellAddress row(int row) {
+        this.row = Integer.valueOf(row);
         return this;
     }
 
-    public ICellAddress column(long column) {
-        this.column = Long.valueOf(column);
+    public ICellAddress column(int column) {
+        this.column = Integer.valueOf(column);
         return this;
-    }
-
-    @Override
-    public int sheetIndex() {
-        // TODO Auto-generated method stub
-        return 0;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.main;
+package com.dataart.spreadsheetanalytics.demo;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -24,13 +24,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress.A1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
-import com.dataart.spreadsheetanalytics.api.model.ICellNode;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
 import com.dataart.spreadsheetanalytics.model.CellNode;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 
-public class PrintStaticTreeMain {
+public class DependencyGraphDemo {
     public static void main(String[] args) throws IOException, InvalidFormatException {
         final String path = "src/main/resources/excel/1.xlsx";
 
@@ -45,22 +44,17 @@ public class PrintStaticTreeMain {
                 for (Cell cell : row) {
 
                     ICellAddress addr = new CellAddress()
-                                            .a1Address(A1Address.from(new CellReference(cell).formatAsString()))
+                                            .a1Address(new A1Address(new CellReference(cell).formatAsString()))
                                             .row(cell.getRowIndex())
                                             .column(cell.getColumnIndex());
 
                     CellNode root = new CellNode(addr);
 
                     root = buildTree(root, cell, xssfW, xssfEW, xssfFE, 0);
-                    root.value(CellValue.fromString(xssfFE.evaluate(cell).formatAsString()));
+                    root.value(new CellValue(xssfFE.evaluate(cell).formatAsString()));
                     root.formula(generateNodeFormulaExpression(xssfFE, cell, root));
                     lst.add(root);
                 }
-
-        lst.forEach(root -> {
-            System.out.println("********************");
-            CellNode.newCellNodePrinter(root).printStaticGraph();
-        });
     }
 
     private static ICellFormulaExpression generateNodeFormulaExpression(XSSFFormulaEvaluator xssfFE, Cell cell, CellNode node) {
@@ -73,9 +67,9 @@ public class PrintStaticTreeMain {
         }
 
         StringBuilder sb = new StringBuilder();
-        for (ICellNode cn : node.getStaticNodes()) {
+        for (CellNode cn : node.getStaticNodes()) {
             CellFormulaExpression formula = (CellFormulaExpression) node.formula();
-            sb.append(cn.value()).append(formula != null ? formula.singleOperator() : "");
+            sb.append(cn.value()).append(formula != null ? "XZ" : "");
         }
         if (sb.length() > 3) {
             sb.deleteCharAt(sb.length() - 1);
@@ -87,7 +81,7 @@ public class PrintStaticTreeMain {
 
         opts[2] = node.value();
 
-        return CellFormulaExpression.fromString(String.format("(=%s) => (=%s) => (=%s)", opts));
+        return new CellFormulaExpression(String.format("(=%s) => (=%s) => (=%s)", opts));
     }
 
     private static CellNode buildTree(CellNode node, Cell c, XSSFWorkbook xssfW, XSSFEvaluationWorkbook xssfEW, XSSFFormulaEvaluator xssfFE, int sheetIdx) {
@@ -98,9 +92,9 @@ public class PrintStaticTreeMain {
                 if (!ptgItem.getClass().isAssignableFrom(RefPtg.class)) {
                     CellFormulaExpression formula = (CellFormulaExpression) node.formula();
                     if (formula == null) {
-                        node.formula(formula = new CellFormulaExpression());
+                        formula = new CellFormulaExpression(ptgToSingleOperator(ptgItem));
+                        node.formula(formula);
                     }
-                    formula.singleOperator(ptgToSingleOperator(ptgItem));
                     continue;
                 }
 
@@ -108,14 +102,14 @@ public class PrintStaticTreeMain {
                 Cell next = xssfW.getSheetAt(sheetIdx).getRow(refPtg.getRow()).getCell(refPtg.getColumn());
 
                 ICellAddress addr = new CellAddress()
-                                        .a1Address(A1Address.from(new CellReference(next).formatAsString()))
+                                        .a1Address(new A1Address(new CellReference(next).formatAsString()))
                                         .row(next.getRowIndex())
                                         .column(next.getColumnIndex());
 
                 CellNode cn = new CellNode(addr);
 
                 cn = buildTree(cn, next, xssfW, xssfEW, xssfFE, sheetIdx);
-                cn.value(CellValue.fromString(xssfFE.evaluate(next).formatAsString()));
+                cn.value(new CellValue(xssfFE.evaluate(next).formatAsString()));
                 cn.formula(generateNodeFormulaExpression(xssfFE, next, cn));
 
                 node.addStaticChild(cn);

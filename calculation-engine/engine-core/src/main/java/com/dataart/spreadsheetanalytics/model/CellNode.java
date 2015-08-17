@@ -10,19 +10,17 @@ import org.apache.poi.ss.formula.eval.NotImplementedException;
 import com.dataart.spreadsheetanalytics.api.model.ICell;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
-import com.dataart.spreadsheetanalytics.api.model.ICellNode;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.util.print.ExecutionGraphConsolePrinter;
 
-//TODO should be graph actually
-public class CellNode implements ICellNode {
+//TODO replace with IExecGraph
+public class CellNode {
 
     protected final ICellAddress address;
     protected ICellValue value;
     protected ICellFormulaExpression formula;
 
-    protected List<ICellNode> dynamicChildren;
-    protected List<ICellNode> staticChildren;
+    protected List<CellNode> dynamicChildren;
+    protected List<CellNode> staticChildren;
     protected List<ICell> supports;
 
     protected String alias;
@@ -36,52 +34,43 @@ public class CellNode implements ICellNode {
         this.supports = new LinkedList<>();
     }
 
-    @Override
-    public Iterator<ICellNode> iterator() {
+    public Iterator<CellNode> iterator() {
         throw new NotImplementedException("not yet");
     }
 
-    @Override
     public ICellValue value() {
         return value;
     }
 
-    @Override
     public ICellFormulaExpression formula() {
         return formula;
     }
 
-    @Override
     public ICellAddress address() {
         return address;
     }
 
-    @Override
     public String alias() {
         return alias;
     }
 
-    @Override
     public String comment() {
         return comment;
     }
 
-    @Override
-    public List<ICellNode> getDynamicNodes() {
-        return Collections.<ICellNode>emptyList();
+    public List<CellNode> getDynamicNodes() {
+        return Collections.<CellNode>emptyList();
     }
 
-    @Override
-    public List<ICellNode> getStaticNodes() {
+    public List<CellNode> getStaticNodes() {
         return Collections.unmodifiableList(staticChildren);
     }
 
-    @Override
     public List<ICell> getSupportedCells() {
         return Collections.<ICell>emptyList();
     }
 
-    public int addStaticChild(ICellNode child) {
+    public int addStaticChild(CellNode child) {
         staticChildren.add(child);
         return staticChildren.size();
     }
@@ -93,10 +82,5 @@ public class CellNode implements ICellNode {
     public void formula(ICellFormulaExpression formula) {
         this.formula = formula;
     }
-    
-    public static ExecutionGraphConsolePrinter newCellNodePrinter(CellNode node) {
-        return new ExecutionGraphConsolePrinter(node);
-    }
-
 
 }

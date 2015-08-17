@@ -1,29 +1,26 @@
 package com.dataart.spreadsheetanalytics.model;
 
+import org.apache.poi.ss.formula.ptg.Ptg;
+
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 
 public class CellFormulaExpression implements ICellFormulaExpression {
 
-    String fullExpression;
-    String singleOperator;
+    protected final String formulaStr;
+    protected Ptg[] ptgs;
 
-    public String singleOperator() {
-        return singleOperator;
+    public CellFormulaExpression(String formulaStr) {
+        this(formulaStr, null);
     }
 
-    public void singleOperator(String singleOperator) {
-        this.singleOperator = singleOperator;
-    }
-
-    public static ICellFormulaExpression fromString(String expression) {
-        CellFormulaExpression cfe = new CellFormulaExpression();
-        cfe.fullExpression = expression;
-        return cfe;
+    public CellFormulaExpression(String formulaStr, Ptg[] ptgs) {
+        this.formulaStr = formulaStr;
+        this.ptgs = ptgs;
     }
 
     @Override
     public String toString() {
-        return fullExpression;
+        return formulaStr;
     }
 
 }

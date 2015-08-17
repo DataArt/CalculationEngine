@@ -8,7 +8,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 
 public class ExecutionGraph implements IExecutionGraph {
 
-    protected DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
+    protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
     protected ExecutionGraph(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
         this.dgraph = dgraph;
