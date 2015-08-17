@@ -24,6 +24,7 @@ public class ExecutionGraphVertex implements
     protected Type type;
     protected Object sourceObjectId;
     protected int iptg;
+    protected Ptg[] ptgs;
 
     protected Map<PropertyName, IExecutionGraphVertexProperty> properties = new EnumMap<>(PropertyName.class);
     
@@ -107,19 +108,19 @@ public class ExecutionGraphVertex implements
                     break;
                 }
                 case PTGS: {
-                    //TODO Monday
+                    ptgs = (Ptg[]) pvalue;
                     break;
                 }
                 case SOURCE_OBJECT_ID: {
-    
+                    sourceObjectId = pvalue;
                     break;
                 }
                 case TYPE: {
-    
+                    type = pvalue instanceof Ptg ? PoiExecutionGraphBuilder.ptgToVertexType((Ptg) pvalue) : Enum.valueOf(Type.class, (String) pvalue);
                     break;
                 }
                 case VALUE: {
-    
+                    value = new CellValue(pvalue);
                     break;
                 }
                 default:{
