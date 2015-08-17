@@ -93,6 +93,9 @@ public class ExecutionGraphVertex implements
         public ExecutionGraphVertexProperty(PropertyName pname) {
             this.pname = pname;
         }
+        
+        @Override
+        public Object get() { return pvalue; }
 
         @Override
         public void set(Object pvalue) {

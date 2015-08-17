@@ -1,10 +1,13 @@
 package com.dataart.spreadsheetanalytics.engine;
 
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
+import org.apache.poi.ss.formula.eval.RefEvalBase;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
@@ -62,7 +65,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         ExecutionGraphVertex v;
         if (ptg instanceof OperationPtg) {
             v = new ExecutionGraphVertex(ptgToOperatorString(ptg));
-            dgraph.addVertex(v);
         } else {
             
             if (ptgToVertex.containsKey(ptg)) {
@@ -70,10 +72,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
 
             v = new ExecutionGraphVertex(ptgToOperatorString(ptg));
-            dgraph.addVertex(v);
             ptgToVertex.put(ptg, v);
         }
         
+        dgraph.addVertex(v);
         return v;
     }
     
@@ -127,7 +129,25 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
      * you can add\remove\etc any information you want.
      */
     public static IExecutionGraph runPostProcessing(ExecutionGraph executionGraph) {
-        return executionGraph;
+        DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph = ExecutionGraph.unwrap(executionGraph);
+        
+        //Convert POI's cell values (NumberEval, StringEval, LazyRefEval to real values of type Object (e.g. Integer, String, etc.)
+        for (IExecutionGraphVertex vertex : graph.vertexSet()) {
+            Object value = vertex.property(VALUE).get();
+            if (value instanceof String) {
+                //this is really nice case, value can be a string which looks like:
+                //org.apache.poi.ss.formula.eval.NumberEval [2], that is, full class name and actual value in brakets
+                String svalue = (String) value;
+                if (svalue.startsWith("org.apache")) {
+                    svalue = svalue.substring(svalue.indexOf("[") + 1, svalue.indexOf("]"));
+                }
+                vertex.property(VALUE).set(svalue);
+            } else if (value instanceof RefEvalBase) {
+                //TODO: get from some cache
+            }
+        }
+        
+        return ExecutionGraph.wrap(graph);
     }
     
     public static String ptgToOperatorString(Ptg ptg) {
