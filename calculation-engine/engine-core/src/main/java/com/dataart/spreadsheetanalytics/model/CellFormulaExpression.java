@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.model;
 
 import java.util.Arrays;
 
+import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
@@ -38,9 +39,9 @@ public class CellFormulaExpression implements ICellFormulaExpression {
                              
                               formulaStr,
                               formulaValues,
-                              Arrays.toString(formulaPtg),
-                              ptgs,
-                              iptg);
+                              formulaPtg == null ? "..." : (formulaPtg[0] + ", " + Arrays.toString((ValueEval[]) formulaPtg[1])),
+                              Arrays.toString(ptgs),
+                              Integer.toString(iptg));
     }
 
 }

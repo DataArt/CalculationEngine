@@ -1,6 +1,8 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.*;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.SubtractPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
+import org.apache.poi.ss.util.CellReference;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -42,12 +45,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     
     protected Map<ValueEval, IExecutionGraphVertex> valueToVertex;
     protected Map<Ptg, IExecutionGraphVertex> ptgToVertex;
+    protected Map<String, IExecutionGraphVertex> addressToVertex;
     protected Map<Integer, Map<Integer, IExecutionGraphVertex>> rowcolToVertex;
 
     public PoiExecutionGraphBuilder() {
         this.dgraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         this.valueToVertex = new HashMap<>();
         this.ptgToVertex = new HashMap<>();
+        this.addressToVertex = new HashMap<>();
         this.rowcolToVertex = new HashMap<>();
     }
 
@@ -56,15 +61,23 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     @Override
-    public IExecutionGraphVertex createVertex(String name) {
-        ExecutionGraphVertex v = new ExecutionGraphVertex(name);
+    public IExecutionGraphVertex getOrCreateVertex(String address) {
+        if (addressToVertex.containsKey(address)) { return addressToVertex.get(address); } 
+        ExecutionGraphVertex v = new ExecutionGraphVertex(address);
         dgraph.addVertex(v);
+        addressToVertex.put(address, v);
         return v;
     }
     
     @Override
     public IExecutionGraphVertex getOrCreateVertex(Ptg ptg) {
         ExecutionGraphVertex v;
+        
+        String address = ptgToAddress(ptg);
+        if (address != null && addressToVertex.containsKey(address)) {
+            return addressToVertex.get(address);
+        }
+
         if (ptg instanceof OperationPtg) {
             v = new ExecutionGraphVertex(ptgToOperatorString(ptg));
         } else {
@@ -75,6 +88,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
             v = new ExecutionGraphVertex(ptgToOperatorString(ptg));
             ptgToVertex.put(ptg, v);
+            addressToVertex.put(address, v);
         }
         
         dgraph.addVertex(v);
@@ -212,6 +226,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
         //TODO: add more for our cases
         throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
+    }
+    
+    private String ptgToAddress(Ptg ptg) {
+        if (!(ptg instanceof RefPtg)) { return null; }
+        
+        RefPtg refPtg = (RefPtg) ptg;
+        return new CellReference(refPtg.getRow(), refPtg.getColumn()).formatAsString();
     }
     
 }
