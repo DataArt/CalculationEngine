@@ -35,6 +35,11 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 ((CellFormulaExpression) parent.formula).iptg((int) pvalue);
                 break;
             }
+            case FORMULA_VALUES: {
+                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
+                ((CellFormulaExpression) parent.formula).formulaValues((String) pvalue);
+                break;
+            }
             case PTGS: {
                 if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).ptgs((Ptg[]) pvalue);

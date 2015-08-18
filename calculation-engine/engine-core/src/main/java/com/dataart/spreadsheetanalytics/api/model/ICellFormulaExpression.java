@@ -6,6 +6,8 @@ public interface ICellFormulaExpression {
 
     String formulaStr();
 
+    String formulaValues();
+
     Ptg[] ptgs();
 
     int iptg();

@@ -1,9 +1,11 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
@@ -130,6 +132,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         
         //Convert POI's cell values (NumberEval, StringEval, LazyRefEval to real values of type Object (e.g. Integer, String, etc.)
         for (IExecutionGraphVertex vertex : graph.vertexSet()) {
+            
+            /* Modifications for: VALUE */
             Object value = vertex.property(VALUE).get();
             if (value instanceof String) {
                 //this is really nice case, value can be a string which looks like:
@@ -141,6 +145,32 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 vertex.property(VALUE).set(svalue);
             } else if (value instanceof RefEvalBase) {
                 //TODO: get from some cache
+            }
+            
+            /* Modifications for: FORMULA */
+            Object[] formulaPtg= (Object[]) vertex.property(FORMULA_PTG).get();
+            if (formulaPtg != null) {
+                Ptg optg = (Ptg) formulaPtg[0];
+                ValueEval[] vals = (ValueEval[]) formulaPtg[1];
+                
+                String formulaValues = null;
+                if (optg instanceof AbstractFunctionPtg) {
+                    //FUNC(arg,arg,...)
+                    formulaValues = String.format("%s(%s)", 
+                                                    ptgToOperatorString(optg), 
+                                                    String.join(",", Arrays.asList(vals)
+                                                                           .stream()
+                                                                           .map( v -> v.toString() )
+                                                                           .collect(Collectors.toList())));
+                } else if(optg instanceof ValueOperatorPtg) {
+                    //arg optr arg
+                    //TODO: what if unary?
+                    formulaValues = String.format("%s %s %s", vals[0], ptgToOperatorString(optg), vals[1]); 
+                }
+                
+                if (formulaValues != null) {
+                    vertex.property(FORMULA_VALUES).set(formulaValues);
+                }
             }
         }
         
