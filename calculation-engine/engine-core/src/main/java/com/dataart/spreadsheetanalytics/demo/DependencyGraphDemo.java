@@ -81,7 +81,9 @@ public class DependencyGraphDemo {
 
         opts[2] = node.value();
 
-        return new CellFormulaExpression(String.format("(=%s) => (=%s) => (=%s)", opts));
+        CellFormulaExpression cfe = new CellFormulaExpression();
+        cfe.formulaStr(String.format("(=%s) => (=%s) => (=%s)", opts));
+        return cfe;
     }
 
     private static CellNode buildTree(CellNode node, Cell c, XSSFWorkbook xssfW, XSSFEvaluationWorkbook xssfEW, XSSFFormulaEvaluator xssfFE, int sheetIdx) {
@@ -92,7 +94,8 @@ public class DependencyGraphDemo {
                 if (!ptgItem.getClass().isAssignableFrom(RefPtg.class)) {
                     CellFormulaExpression formula = (CellFormulaExpression) node.formula();
                     if (formula == null) {
-                        formula = new CellFormulaExpression(ptgToSingleOperator(ptgItem));
+                        formula = new CellFormulaExpression();
+                        formula.formulaStr(ptgToSingleOperator(ptgItem));
                         node.formula(formula);
                     }
                     continue;

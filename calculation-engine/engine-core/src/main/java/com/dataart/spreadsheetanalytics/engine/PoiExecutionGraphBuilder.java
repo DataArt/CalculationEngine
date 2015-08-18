@@ -81,18 +81,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     
     @Override
     public IExecutionGraphVertex putVertex(ValueEval value, IExecutionGraphVertex vertex) {
-        if (value == null) {
-            throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null.");
-        }
+        if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
+        
         valueToVertex.put(value, vertex);
         return vertex;
     }
 
     @Override
     public IExecutionGraphVertex getVertex(ValueEval value) {
-        if (value == null) {
-            throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null.");
-        }
+        if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
 
         return valueToVertex.get(value);
     }

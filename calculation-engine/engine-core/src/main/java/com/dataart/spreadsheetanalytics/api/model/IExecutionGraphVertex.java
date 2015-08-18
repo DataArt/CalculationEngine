@@ -17,6 +17,11 @@ package com.dataart.spreadsheetanalytics.api.model;
 public interface IExecutionGraphVertex {
     
     /**
+     * Id of this vertex. Should be unique in scope of one ExecutionGraph
+     */
+    Object id();
+    
+    /**
      * Name of vertex, since vertices can be different in type, 
      * name should provide information to read this vertex easily.
      * E.g. name can be: A1, Sheet1!A1, ModelX!A1, ModelX!PropertyName, +, *, SUM, COS, IF, =, etc.  

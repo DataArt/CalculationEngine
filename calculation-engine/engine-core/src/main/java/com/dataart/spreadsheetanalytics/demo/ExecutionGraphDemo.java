@@ -5,13 +5,16 @@ import javax.swing.JScrollPane;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jgraph.JGraph;
+import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
+import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress.A1Address;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
@@ -31,6 +34,7 @@ public class ExecutionGraphDemo {
         
         IExecutionGraph graph = auditor.buildDynamicExecutionGraph(model, addr);
         
+        plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
         visualize(ExecutionGraph.unwrap((ExecutionGraph) graph));
     }
 
@@ -44,6 +48,18 @@ public class ExecutionGraphDemo {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+    
+    public static void plainprint(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+        for (IExecutionGraphVertex vertex : graph.vertexSet()) {
+            System.out.println("---------------------------------");
+            System.out.println("Vertex Id: " + vertex.id());
+            System.out.println("Name: " + vertex.name());
+            System.out.println("Type: " + vertex.type());
+            System.out.println("Formula Expression: " + vertex.formula());
+            System.out.println("Value: " + vertex.value());
+            System.out.println("Source Object Id: " + vertex.sourceObjectId());
+        }
     }
     
 }
