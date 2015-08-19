@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.model;
 
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
@@ -19,7 +21,7 @@ public class ExecutionGraphVertex implements
                                     /* Public API interface */
                                     IExecutionGraphVertex {
 
-    protected String id;
+    protected Object id;
     protected String name;
     protected ICellValue value;
     protected ICellFormulaExpression formula;
@@ -31,6 +33,8 @@ public class ExecutionGraphVertex implements
     public ExecutionGraphVertex(String name) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        
+        property(VERTEX_ID).set(this.id);
     }
 
     @Override

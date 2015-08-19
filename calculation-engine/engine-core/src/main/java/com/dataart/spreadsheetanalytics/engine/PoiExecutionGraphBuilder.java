@@ -220,7 +220,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }else if (ptg instanceof ValueOperatorPtg) { //single operators: +, -, /, *, =
             return Type.OPERATOR;
         } else if (ptg instanceof RefPtg) { //
-            return Type.CELL_WITH_REFERENCE;
+            return Type.CELL_WITH_VALUE;
         } else if (ptg instanceof AreaPtg) {
             return Type.RANGE;
         }
