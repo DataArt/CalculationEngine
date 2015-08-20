@@ -14,4 +14,6 @@ public interface ICellFormulaExpression {
 
     Object[] formulaPtg();
 
+    Object rootFormulaId();
+
 }

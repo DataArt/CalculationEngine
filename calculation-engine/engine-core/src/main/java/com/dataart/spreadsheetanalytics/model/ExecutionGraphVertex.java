@@ -1,6 +1,7 @@
 package com.dataart.spreadsheetanalytics.model;
 
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class ExecutionGraphVertex implements
         this.name = name;
         
         property(VERTEX_ID).set(this.id);
+        property(NAME).set(this.name);
     }
 
     @Override

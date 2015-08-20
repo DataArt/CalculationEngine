@@ -6,11 +6,15 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
+import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
 import org.apache.poi.ss.formula.eval.RefEvalBase;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
@@ -22,6 +26,7 @@ import org.apache.poi.ss.formula.ptg.MultiplyPtg;
 import org.apache.poi.ss.formula.ptg.OperationPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
+import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.SubtractPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.apache.poi.ss.util.CellReference;
@@ -62,10 +67,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     @Override
     public IExecutionGraphVertex getOrCreateVertex(String address) {
-        if (addressToVertex.containsKey(address)) { return addressToVertex.get(address); } 
+//        if (addressToVertex.containsKey(address)) { return addressToVertex.get(address); } 
         ExecutionGraphVertex v = new ExecutionGraphVertex(address);
         dgraph.addVertex(v);
-        addressToVertex.put(address, v);
+//        addressToVertex.put(address, v);
         return v;
     }
     
@@ -88,7 +93,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
             v = new ExecutionGraphVertex(ptgToOperatorString(ptg));
             ptgToVertex.put(ptg, v);
-            addressToVertex.put(address, v);
+//            addressToVertex.put(address, v);
         }
         
         dgraph.addVertex(v);
@@ -144,6 +149,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     public static IExecutionGraph runPostProcessing(ExecutionGraph executionGraph) {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph = ExecutionGraph.unwrap(executionGraph);
         
+        Map<String, AtomicInteger> adressToCount = new HashMap<>();
+        
         //Convert POI's cell values (NumberEval, StringEval, LazyRefEval to real values of type Object (e.g. Integer, String, etc.)
         for (IExecutionGraphVertex vertex : graph.vertexSet()) {
             
@@ -186,6 +193,35 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     vertex.property(FORMULA_VALUES).set(formulaValues);
                 }
             }
+            
+            //restore/add subgraphs to identical vertices
+            Type type = (Type) vertex.property(PropertyName.TYPE).get();
+            if (Type.CELL_WITH_FORMULA == type || Type.CELL_WITH_REFERENCE == type) {
+                String address = (String) vertex.property(PropertyName.NAME).get();
+
+                adressToCount.putIfAbsent(address, new AtomicInteger(1));
+                int count = adressToCount.get(address).incrementAndGet();
+
+                if (count > 1) {
+                    //need to link
+                    Set<IExecutionGraphVertex> subgraphTops = new HashSet<>();
+                    
+                    //TODO: point to optimize!
+                    for (IExecutionGraphVertex tmpVertex : graph.vertexSet()) {
+                        String tmpAddress = (String) tmpVertex.property(PropertyName.NAME).get();
+                        if (address.equals(tmpAddress)) { //check for subgraph
+                            Set<DefaultEdge> tmpEdges = graph.incomingEdgesOf(tmpVertex);
+                            for (DefaultEdge tmpEdge : tmpEdges) {
+                                subgraphTops.add(graph.getEdgeSource(tmpEdge));
+                            }
+                        }
+                    }
+
+                    for (IExecutionGraphVertex subVertex : subgraphTops) {
+                        graph.addEdge(subVertex, vertex);
+                    }
+                }
+            }
         }
         
         return ExecutionGraph.wrap(graph);
@@ -219,7 +255,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             return Type.FUNCTION;
         }else if (ptg instanceof ValueOperatorPtg) { //single operators: +, -, /, *, =
             return Type.OPERATOR;
-        } else if (ptg instanceof RefPtg) { //
+        } else if (ptg instanceof RefPtg || ptg instanceof ScalarConstantPtg) { //
             return Type.CELL_WITH_VALUE;
         } else if (ptg instanceof AreaPtg) {
             return Type.RANGE;

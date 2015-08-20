@@ -13,6 +13,7 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     protected String formulaValues;
     protected Ptg[] ptgs;
     protected int iptg;
+    protected Object rootFormulaId;
     protected Object[] formulaPtg; //TODO: this is something to organize: [0] - OperationPtg, [1],[2]... - values 
 
     public CellFormulaExpression() { /* default constructor to create instance with nothing, then fill it with everything */ }
@@ -21,6 +22,7 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     @Override public String formulaValues() { return this.formulaValues; }
     @Override public Ptg[] ptgs() { return this.ptgs; }
     @Override public int iptg() { return this.iptg; }
+    @Override public Object rootFormulaId() { return this.rootFormulaId; }
     @Override public Object[] formulaPtg() { return this.formulaPtg; }
     
     public void formulaStr(String formulaStr) { this.formulaStr = formulaStr; }
@@ -28,6 +30,8 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     public void ptgs(Ptg[] ptgs) { this.ptgs = ptgs; }
     public void formulaPtg(Object[] formulaPtg) { this.formulaPtg = formulaPtg; }
     public void iptg(int iptg) { this.iptg = iptg; }
+    public void rootFormulaId(Object rootFormulaId) { this.rootFormulaId = rootFormulaId; }
+
     
     @Override
     public String toString() {

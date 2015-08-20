@@ -35,6 +35,11 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 ((CellFormulaExpression) parent.formula).iptg((int) pvalue);
                 break;
             }
+            case ROOT_FORMULA_ID: {
+                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
+                ((CellFormulaExpression) parent.formula).rootFormulaId(pvalue);
+                break;
+            }
             case FORMULA_VALUES: {
                 if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).formulaValues((String) pvalue);
@@ -55,8 +60,9 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 break;
             }
             case TYPE: {
-                if (parent.type != null && (parent.type == Type.CELL_WITH_FORMULA)) { break; }
+                if (parent.type != null && (parent.type == Type.CELL_WITH_FORMULA)) { this.pvalue = parent.type; break; }
                 parent.type = pvalue instanceof Ptg ? PoiExecutionGraphBuilder.ptgToVertexType((Ptg) pvalue) : Enum.valueOf(Type.class, (String) pvalue);
+                this.pvalue = parent.type;
                 break;
             }
             case VALUE: {
@@ -65,6 +71,10 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
             }
             case VERTEX_ID: {
                 parent.id = pvalue;
+                break;
+            }
+            case NAME: {
+                parent.name = (String) pvalue;
                 break;
             }
             default:{
