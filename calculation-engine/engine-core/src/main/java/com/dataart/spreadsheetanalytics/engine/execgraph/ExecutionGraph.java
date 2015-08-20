@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.engine.execgraph;
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.jgrapht.DirectedGraph;

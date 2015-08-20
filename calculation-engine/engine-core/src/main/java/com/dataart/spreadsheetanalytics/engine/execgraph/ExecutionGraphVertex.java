@@ -1,7 +1,7 @@
-package com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.engine.execgraph;
 
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -14,13 +14,12 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.engine.PoiExecutionGraphBuilder;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 
-public class ExecutionGraphVertex implements 
-                                    /* POI Vertex interface (internal) */ 
-                                    org.apache.poi.common.execgraph.IExecutionGraphVertex,
-                                    /* Public API interface */
-                                    IExecutionGraphVertex {
+public class ExecutionGraphVertex /* POI Vertex interface (internal) */ 
+                                  extends org.apache.poi.common.execgraph.IExecutionGraphVertex
+                                  /* Public API interface */
+                                  implements IExecutionGraphVertex {
 
     protected Object id;
     protected String name;

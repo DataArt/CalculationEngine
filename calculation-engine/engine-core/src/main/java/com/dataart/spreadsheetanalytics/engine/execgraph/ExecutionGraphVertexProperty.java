@@ -1,10 +1,11 @@
-package com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.engine.execgraph;
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
-import com.dataart.spreadsheetanalytics.engine.PoiExecutionGraphBuilder;
+import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 
 class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
     public final PropertyName pname;

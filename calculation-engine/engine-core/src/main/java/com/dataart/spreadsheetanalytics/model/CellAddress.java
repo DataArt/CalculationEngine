@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.model;
 
+import org.apache.poi.ss.util.CellReference;
+
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IModelId;
 
@@ -43,6 +45,10 @@ public class CellAddress implements ICellAddress {
     public ICellAddress column(int column) {
         this.column = Integer.valueOf(column);
         return this;
+    }
+
+    public static String toA1Address(int row, int column) {
+        return new CellReference(row, column).formatAsString();
     }
 
 }

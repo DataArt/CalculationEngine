@@ -10,6 +10,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress.A1Address;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 
 public class SpreadsheetAuditor implements IAuditor {
@@ -37,7 +38,8 @@ public class SpreadsheetAuditor implements IAuditor {
     @Override
     public IExecutionGraph buildDynamicExecutionGraph(XSSFWorkbook model, ICellAddress cell) {
         evaluator.evaluate(cell);
-        return PoiExecutionGraphBuilder.runPostProcessing(graphBuilder.get());
+        graphBuilder.runPostProcessing();
+        return graphBuilder.get();
     }
 
     @Override
@@ -58,6 +60,7 @@ public class SpreadsheetAuditor implements IAuditor {
             }
         }
 
-        return PoiExecutionGraphBuilder.runPostProcessing(graphBuilder.get());
+        graphBuilder.runPostProcessing();
+        return graphBuilder.get();
     }
 }
