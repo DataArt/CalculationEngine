@@ -1,5 +1,11 @@
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.FUNCTION;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
@@ -201,10 +207,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
             //restore/add subgraphs to identical vertices
             Type type = (Type) vertex.property(PropertyName.TYPE).get();
-            if (/*skip for now*/false && (Type.CELL_WITH_FORMULA == type || Type.CELL_WITH_REFERENCE == type)) {
+            if (isCellType(type)) {
                 String address = (String) vertex.property(PropertyName.NAME).get();
 
-                adressToCount.putIfAbsent(address, new AtomicInteger(1));
+                adressToCount.putIfAbsent(address, new AtomicInteger(0));
                 int count = adressToCount.get(address).incrementAndGet();
 
                 if (count > 1) {
@@ -226,7 +232,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     }
 
                     for (IExecutionGraphVertex subVertex : subgraphTops) {
-                        graph.addEdge(subVertex, vertex);
+                        for (IExecutionGraphVertex vertexOfAddress : addressToVertices.get(address)) {
+                            graph.addEdge(subVertex, vertexOfAddress);
+                        }
                     }
                 }
             }
@@ -258,23 +266,21 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     public static Type ptgToVertexType(Ptg ptg) {
 
         if (ptg instanceof AbstractFunctionPtg) { //functions: SUM, COUNT, COS, etc.
-            return Type.FUNCTION;
+            return FUNCTION;
         } else if (ptg instanceof ValueOperatorPtg) { //single operators: +, -, /, *, =
-            return Type.OPERATOR;
+            return OPERATOR;
         } else if (ptg instanceof RefPtg || ptg instanceof ScalarConstantPtg) { //
-            return Type.CELL_WITH_VALUE;
+            return CELL_WITH_VALUE;
         } else if (ptg instanceof AreaPtg) {
-            return Type.RANGE;
+            return RANGE;
         }
         //TODO: add more for our cases
         throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
     }
 
-    //    private String ptgToAddress(Ptg ptg) {
-    //        if (!(ptg instanceof RefPtg)) { return null; }
-    //        
-    //        RefPtg refPtg = (RefPtg) ptg;
-    //        return new CellReference(refPtg.getRow(), refPtg.getColumn()).formatAsString();
-    //    }
-
+    private static boolean isCellType(Type type) {
+        return CELL_WITH_REFERENCE == type
+            || CELL_WITH_FORMULA == type
+            || CELL_WITH_VALUE == type;
+    }
 }
