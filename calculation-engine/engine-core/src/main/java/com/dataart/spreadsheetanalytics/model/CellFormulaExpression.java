@@ -35,11 +35,11 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     
     @Override
     public String toString() {
-        return String.format("\nFormula String: %s;" + 
-                             "\nFormula Values: %s;" + 
-                             "\nFormula Ptg: %s;" + 
-                             "\nPtgs: %s" + 
-                             "\nIndex in Ptgs: %s",
+        return String.format("Formula String: %s; " + 
+                             "Formula Values: %s; " + 
+                             "Formula Ptg: %s; " + 
+                             "Ptgs: %s " + 
+                             "Index in Ptgs: %s ",
                              
                               formulaStr,
                               formulaValues,

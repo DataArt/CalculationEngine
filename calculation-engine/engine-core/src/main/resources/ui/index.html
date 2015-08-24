@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  <title>Calculation Graph</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.7.0/vis.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.7.0/vis.min.css">
+  <script src="data.js"></script>
+
+</head>
+<body>
+
+  <div id="graph"></div>
+  
+  <script type="text/javascript">
+  
+    // create a network
+    var container = document.getElementById('graph');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = {
+      		height: '900px',
+      		nodes: {shape: 'box'},
+      		edges: {arrows: {to: {scaleFactor: 1}}},
+      		layout: {
+                hierarchical: {
+                	enabled: false,
+                    direction: 'LR',
+                    sortMethod: 'directed'
+                }
+            },
+            physics: {
+            	enabled: true,
+            	solver: 'repulsion'
+            	},
+            interaction: {dragNodes: true}
+      		};
+    var network = new vis.Network(container, data, options);
+  </script>
+
+</body>
+</html>
