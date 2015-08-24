@@ -8,7 +8,8 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +23,6 @@ import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
-import org.apache.poi.ss.formula.eval.RefEvalBase;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
@@ -158,57 +158,44 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     public void runPostProcessing() {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph = dgraph;
 
+        //make identical vertices have the same set of properties
+        //two vertices are identical if they have the same address value. 
+        //Id for every vertex is unique, so this is not a flag here
+        for (String address : addressToVertices.keySet()) {
+            Set<IExecutionGraphVertex> vs = addressToVertices.get(address);
+            
+            //the logic below is very fragile and based on some empirical model and may not work for other type of graphs
+            if (vs != null && vs.size() > 1) {
+                IExecutionGraphVertex standard = null;
+                
+                for (IExecutionGraphVertex ivertex : vs) {
+                    ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+                    Type type = (Type) vertex.property(TYPE).get();
+                    if (CELL_WITH_FORMULA == type) {
+                        standard = vertex;
+                        break;
+                    }
+                }
+                
+                if (standard != null) {
+                    copyProperties(standard, vs);
+                }
+            }
+            
+        }
+        
+        //copy or link subgraphs to identical vertices
+        //and
+        //modify Formula field with additional values
         Map<String, AtomicInteger> adressToCount = new HashMap<>();
-
-        //Convert POI's cell values (NumberEval, StringEval, LazyRefEval to real values of type Object (e.g. Integer, String, etc.)
         for (IExecutionGraphVertex ivertex : graph.vertexSet()) {
 
             ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
             
-            /* Modifications for: VALUE */
-            Object value = vertex.property(VALUE).get();
-            if (value instanceof String) {
-                //this is really nice case, value can be a string which looks like:
-                //org.apache.poi.ss.formula.eval.NumberEval [2], that is, full class name and actual value in brakets
-                String svalue = (String) value;
-                if (svalue.startsWith("org.apache")) {
-                    svalue = svalue.substring(svalue.indexOf("[") + 1, svalue.indexOf("]"));
-                }
-                vertex.property(VALUE).set(svalue);
-            } else if (value instanceof RefEvalBase) {
-                //TODO: get from some cache
-            }
-
-            /* Modifications for: FORMULA */
-            Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
-            if (formulaPtg != null) {
-                Ptg optg = (Ptg) formulaPtg[0];
-                ValueEval[] vals = (ValueEval[]) formulaPtg[1];
-
-                String formulaValues = null;
-                if (optg instanceof AbstractFunctionPtg) {
-                    //FUNC(arg,arg,...)
-                    formulaValues = String.format("%s(%s)",
-                            ptgToString(optg),
-                            String.join(",", Arrays.asList(vals)
-                                    .stream()
-                                    .map(v -> v.toString())
-                                    .collect(Collectors.toList())));
-                } else if (optg instanceof ValueOperatorPtg) {
-                    //arg optr arg
-                    //TODO: what if unary?
-                    formulaValues = String.format("%s %s %s", vals[0], ptgToString(optg), vals[1]);
-                }
-
-                if (formulaValues != null) {
-                    vertex.property(FORMULA_VALUES).set(formulaValues);
-                }
-            }
-
             //restore/add subgraphs to identical vertices
-            Type type = (Type) vertex.property(PropertyName.TYPE).get();
+            Type type = (Type) vertex.property(TYPE).get();
             if (isCellType(type)) {
-                String address = (String) vertex.property(PropertyName.NAME).get();
+                String address = (String) vertex.property(NAME).get();
 
                 adressToCount.putIfAbsent(address, new AtomicInteger(0));
                 int count = adressToCount.get(address).incrementAndGet();
@@ -222,7 +209,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                         
                         ExecutionGraphVertex tmpVertex = (ExecutionGraphVertex) itmpVertex;
                         
-                        String tmpAddress = (String) tmpVertex.property(PropertyName.NAME).get();
+                        String tmpAddress = (String) tmpVertex.property(NAME).get();
                         if (address.equals(tmpAddress)) { //check for subgraph
                             Set<DefaultEdge> tmpEdges = graph.incomingEdgesOf(tmpVertex);
                             for (DefaultEdge tmpEdge : tmpEdges) {
@@ -236,6 +223,33 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                             graph.addEdge(subVertex, vertexOfAddress);
                         }
                     }
+                }
+            }
+            
+            /* Modifications for: FORMULA */
+            // set formula_values to user-friendly string like: '1 + 2' or 'SUM(2,1)'
+            Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
+            if (formulaPtg != null) {
+                Ptg optg = (Ptg) formulaPtg[0];
+                ValueEval[] vals = (ValueEval[]) formulaPtg[1];
+
+                String formulaValues = null;
+                if (optg instanceof AbstractFunctionPtg) {
+                    //FUNC(arg,arg,...)
+                    formulaValues = String.format("%s(%s)",
+                            ptgToString(optg),
+                            String.join(",", Arrays.asList(vals)
+                                                   .stream()
+                                                   .map(v -> v.toString())
+                                                   .collect(Collectors.toList())));
+                } else if (optg instanceof ValueOperatorPtg) {
+                    //arg optr arg
+                    //TODO: what if unary?
+                    formulaValues = String.format("%s %s %s", vals[0], ptgToString(optg), vals[1]);
+                }
+
+                if (formulaValues != null) {
+                    vertex.property(FORMULA_VALUES).set(formulaValues);
                 }
             }
         }
@@ -282,5 +296,26 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return CELL_WITH_REFERENCE == type
             || CELL_WITH_FORMULA == type
             || CELL_WITH_VALUE == type;
+    }
+    
+    /**
+     * Does copy of all properties for every Vertex from @param vertices.
+     * the first @param istandard is used as object to copy from.
+     */
+    private static void copyProperties(IExecutionGraphVertex istandard, Set<IExecutionGraphVertex> vertices) {
+        for (IExecutionGraphVertex ivertex : vertices) {
+            if (istandard == ivertex) { continue; }
+            
+            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+            ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
+            
+            //copy properties
+            for (PropertyName pname : PropertyName.values()) {
+                if (pname == PropertyName.VERTEX_ID) continue;
+                if (pname == PropertyName.INDEX_IN_FORMULA) continue;
+                
+                vertex.property(pname).set(standard.property(pname).get());
+            } 
+        }
     }
 }

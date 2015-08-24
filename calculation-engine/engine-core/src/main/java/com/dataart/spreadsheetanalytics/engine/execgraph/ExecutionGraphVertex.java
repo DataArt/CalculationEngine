@@ -9,12 +9,10 @@ import java.util.UUID;
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
-import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.model.CellValue;
 
 public class ExecutionGraphVertex /* POI Vertex interface (internal) */ 
                                   extends org.apache.poi.common.execgraph.IExecutionGraphVertex
@@ -46,18 +44,6 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
             properties.put(name, property);
         }
         return property;
-    }
-
-    public void value(Object value) {
-        this.value = new CellValue(value);
-    }
-    
-    public void type(Ptg ptg) {
-        this.type = PoiExecutionGraphBuilder.ptgToVertexType(ptg);
-    }
-    
-    public void sourceObjectId(Object id) {
-        this.sourceObjectId = id;
     }
 
     @Override public Object id() { return id; }

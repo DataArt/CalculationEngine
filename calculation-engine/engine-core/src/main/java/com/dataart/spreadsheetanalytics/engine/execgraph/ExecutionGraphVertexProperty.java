@@ -62,7 +62,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
             }
             case TYPE: {
                 if (parent.type != null && (parent.type == Type.CELL_WITH_FORMULA)) { this.pvalue = parent.type; break; }
-                parent.type = pvalue instanceof Ptg ? PoiExecutionGraphBuilder.ptgToVertexType((Ptg) pvalue) : Enum.valueOf(Type.class, (String) pvalue);
+                parent.type = pvalue instanceof Type ? (Type) pvalue : pvalue instanceof Ptg ? PoiExecutionGraphBuilder.ptgToVertexType((Ptg) pvalue) : Enum.valueOf(Type.class, (String) pvalue);
                 this.pvalue = parent.type;
                 break;
             }
