@@ -10,7 +10,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.CellValue;
+import com.dataart.spreadsheetanalytics.model.TmpDataModel;
 
 public class SpreadsheetEvaluator implements IEvaluator {
 
@@ -19,9 +21,9 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected XSSFWorkbook model;
     protected XSSFFormulaEvaluator poiEvaluator;
 
-    public SpreadsheetEvaluator(XSSFWorkbook model) {
-        this.model = model;
-        this.poiEvaluator = model.getCreationHelper().createFormulaEvaluator();
+    public SpreadsheetEvaluator(IDataModel model) {
+        this.model = ((TmpDataModel) model).model;
+        this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator();
     }
 
     @Override

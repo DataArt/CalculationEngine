@@ -1,17 +1,9 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.util.CellReference;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress.A1Address;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
-import com.dataart.spreadsheetanalytics.model.CellAddress;
 
 public class SpreadsheetAuditor implements IAuditor {
 
@@ -26,25 +18,25 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     @Override
-    public IExecutionGraph buildStaticExecutionGraph(XSSFWorkbook model, ICellAddress cell) {
+    public IExecutionGraph buildStaticExecutionGraph(ICellAddress cell) {
         return null;
     }
 
     @Override
-    public IExecutionGraph buildStaticExecutionGraph(XSSFWorkbook model) {
+    public IExecutionGraph buildStaticExecutionGraph() {
         return null;
     }
 
     @Override
-    public IExecutionGraph buildDynamicExecutionGraph(XSSFWorkbook model, ICellAddress cell) {
+    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
         evaluator.evaluate(cell);
         graphBuilder.runPostProcessing();
         return graphBuilder.get();
     }
 
     @Override
-    public IExecutionGraph buildDynamicExecutionGraph(XSSFWorkbook model) {
-
+    public IExecutionGraph buildDynamicExecutionGraph() {
+        /*
         //Model Iterator
         for (XSSFSheet xssfSheet : model) {
             for (Row row : xssfSheet) {
@@ -62,5 +54,7 @@ public class SpreadsheetAuditor implements IAuditor {
 
         graphBuilder.runPostProcessing();
         return graphBuilder.get();
+        */
+        return null;
     }
 }

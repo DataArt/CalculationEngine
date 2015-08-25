@@ -1,35 +1,8 @@
 package com.dataart.spreadsheetanalytics.demo;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.formula.FormulaParser;
-import org.apache.poi.ss.formula.FormulaType;
-import org.apache.poi.ss.formula.ptg.AddPtg;
-import org.apache.poi.ss.formula.ptg.DividePtg;
-import org.apache.poi.ss.formula.ptg.MultiplyPtg;
-import org.apache.poi.ss.formula.ptg.Ptg;
-import org.apache.poi.ss.formula.ptg.RefPtg;
-import org.apache.poi.ss.formula.ptg.SubtractPtg;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.util.CellReference;
-import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress.A1Address;
-import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
-import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
-import com.dataart.spreadsheetanalytics.model.CellNode;
-import com.dataart.spreadsheetanalytics.model.CellValue;
-
 public class DependencyGraphDemo {
+    // Contains some logic to generate dependency tree
+    /*
     public static void main(String[] args) throws IOException, InvalidFormatException {
         final String path = "src/main/resources/excel/1.xlsx";
 
@@ -133,4 +106,5 @@ public class DependencyGraphDemo {
         }
         return "?";
     }
+    */
 }
