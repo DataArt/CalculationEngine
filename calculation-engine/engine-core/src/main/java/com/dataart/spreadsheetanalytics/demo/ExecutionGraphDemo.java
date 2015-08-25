@@ -78,7 +78,7 @@ public class ExecutionGraphDemo {
             
             StringBuilder verticesJson = new StringBuilder();
             StringBuilder edgesJson = new StringBuilder();
-
+            
             for (IExecutionGraphVertex vertex : graph.vertexSet()) {
                 /* {id: a, label: b, ...}, */
                 
@@ -86,6 +86,8 @@ public class ExecutionGraphDemo {
                             .append(vertex.id())
                             .append("', label: '")
                             .append(vertex.name())
+                            .append("\\n")
+                            .append(vertex.value().toString().length() > 8 ? "..." : vertex.value())
                             .append("', color: '")
                             .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
                             .append("', title: '")
@@ -125,8 +127,8 @@ public class ExecutionGraphDemo {
             edgesJson.setLength(edgesJson.length() - 2);
 
             String content = new String(Files.readAllBytes(Paths.get(dataTemplateFileStr)), StandardCharsets.UTF_8);
-            content = content.replaceAll(VERTICES_PLACEHOLDER, verticesJson.toString())
-                             .replaceAll(EDGES_PLACEHOLDER, edgesJson.toString());
+            content = content.replace(VERTICES_PLACEHOLDER, verticesJson.toString())
+                             .replace(EDGES_PLACEHOLDER, edgesJson.toString());
             
             Files.write(Paths.get(dataFileStr), content.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
