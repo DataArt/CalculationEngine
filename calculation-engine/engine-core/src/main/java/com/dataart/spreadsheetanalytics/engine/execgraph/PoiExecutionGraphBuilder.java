@@ -234,7 +234,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             /* Adding IF Value*/
             if ("IF".equals(vertex.property(NAME).get())) {
                 Object val = vertex.property(VALUE).get();
-            	vertex.property(VALUE).set(tryGetValue(val));
+            	vertex.property(VALUE).set(getVertexById(val.toString(), graph).value());
             }
             
             /* Modifications for: FORMULA */
@@ -265,28 +265,22 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
     }
-        
-    private String tryGetValue(Object in) {
-    	if (in instanceof NumberEval) {
-    		return ((NumberEval)in).getStringValue();
-    	}    	
-    	if (in instanceof RefEval) {
-    		RefEval value = (RefEval)in; 
-    		try {
-    			return tryGetValue(OperandResolver.getSingleValue(value, 0, 0));
-    		} catch (EvaluationException e) {
-    			return e.getErrorEval().getErrorString();
-    		}
-    	}
-    	if (in instanceof ValueEval) {
-    		ValueEval value = (ValueEval)in;
-    		return value.toString();
-    	}
-    	return in.toString();
+            
+    private ExecutionGraphVertex getVertexById(String id, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    	ExecutionGraphVertex result = null;
+    	String name = "";
+        if (id.contains("!")) {
+        	name = id.substring(id.indexOf("!")+1).replaceAll("]", "");        	
+        }    	
+        for (IExecutionGraphVertex ivertex : graph.vertexSet()) {
+        	ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+        	if (name.equals(vertex.name())) {
+        		result = vertex;
+        	} 
+        }
+        return result;
     }
     
-    
-
     public static String ptgToString(Ptg ptg) {
         Class<? extends Ptg> ptgCls = ptg.getClass();
 
