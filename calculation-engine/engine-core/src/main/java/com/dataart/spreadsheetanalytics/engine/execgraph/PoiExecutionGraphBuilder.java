@@ -232,7 +232,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             
             /* Adding IF Value*/
-            if ("IF".equals(vertex.property(NAME).get())) {
+            if ("IF".equals(vertex.property(TYPE).get().toString())) {
                 Object val = vertex.property(VALUE).get();
             	vertex.property(VALUE).set(getVertexById(val.toString(), graph).value());
             }
