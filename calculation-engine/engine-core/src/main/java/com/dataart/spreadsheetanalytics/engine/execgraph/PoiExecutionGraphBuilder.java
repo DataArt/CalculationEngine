@@ -24,10 +24,6 @@ import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
-import org.apache.poi.ss.formula.eval.EvaluationException;
-import org.apache.poi.ss.formula.eval.NumberEval;
-import org.apache.poi.ss.formula.eval.OperandResolver;
-import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
@@ -232,9 +228,19 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             
             /* Adding IF Value*/
-            if ("IF".equals(vertex.property(NAME).get())) {
-                Object val = vertex.property(VALUE).get();
-            	vertex.property(VALUE).set(getVertexById(val.toString(), graph).value());
+            if (Type.IF == type) {
+                Set<DefaultEdge> two = graph.incomingEdgesOf(vertex);
+                if (two.size() != 2) { throw new IllegalStateException("IF must have only two incoming edges."); }
+                
+                Object ifBranchValue = null;
+                for (DefaultEdge e : two) {
+                    ExecutionGraphVertex oneOfTwo = (ExecutionGraphVertex) graph.getEdgeSource(e);
+                    if (!isCompareOperand(oneOfTwo.name())) {
+                        ifBranchValue = oneOfTwo.property(VALUE).get();
+                        break;
+                    }
+                }
+                vertex.property(VALUE).set(ifBranchValue);
             }
             
             /* Modifications for: FORMULA */
@@ -264,21 +270,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
             }
         }
-    }
-            
-    private ExecutionGraphVertex getVertexById(String id, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
-    	ExecutionGraphVertex result = null;
-    	String name = "";
-        if (id.contains("!")) {
-        	name = id.substring(id.indexOf("!")+1).replaceAll("]", "");        	
-        }    	
-        for (IExecutionGraphVertex ivertex : graph.vertexSet()) {
-        	ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-        	if (name.equals(vertex.name())) {
-        		result = vertex;
-        	} 
-        }
-        return result;
     }
     
     public static String ptgToString(Ptg ptg) {
@@ -344,4 +335,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             } 
         }
     }
+
+    //TODO: not the best solution, but works as for now
+    private static boolean isCompareOperand(String name) {
+        return "=".equals(name) ||
+               ">".equals(name) ||
+               "<".equals(name) ||
+               "<>".equals(name);
+    }
+
 }
