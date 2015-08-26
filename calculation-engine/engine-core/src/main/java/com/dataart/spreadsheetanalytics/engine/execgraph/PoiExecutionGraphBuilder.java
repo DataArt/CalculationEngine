@@ -10,6 +10,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,6 +24,10 @@ import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
+import org.apache.poi.ss.formula.eval.EvaluationException;
+import org.apache.poi.ss.formula.eval.NumberEval;
+import org.apache.poi.ss.formula.eval.OperandResolver;
+import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
@@ -226,6 +231,12 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
             }
             
+            /* Adding IF Value*/
+            if ("IF".equals(vertex.property(NAME).get())) {
+                Object val = vertex.property(VALUE).get();
+            	vertex.property(VALUE).set(tryGetValue(val));
+            }
+            
             /* Modifications for: FORMULA */
             // set formula_values to user-friendly string like: '1 + 2' or 'SUM(2,1)'
             Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
@@ -254,6 +265,27 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
     }
+        
+    private String tryGetValue(Object in) {
+    	if (in instanceof NumberEval) {
+    		return ((NumberEval)in).getStringValue();
+    	}    	
+    	if (in instanceof RefEval) {
+    		RefEval value = (RefEval)in; 
+    		try {
+    			return tryGetValue(OperandResolver.getSingleValue(value, 0, 0));
+    		} catch (EvaluationException e) {
+    			return e.getErrorEval().getErrorString();
+    		}
+    	}
+    	if (in instanceof ValueEval) {
+    		ValueEval value = (ValueEval)in;
+    		return value.toString();
+    	}
+    	return in.toString();
+    }
+    
+    
 
     public static String ptgToString(Ptg ptg) {
         Class<? extends Ptg> ptgCls = ptg.getClass();
