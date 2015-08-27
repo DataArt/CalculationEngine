@@ -6,6 +6,9 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.FUNCTION;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
@@ -24,10 +27,6 @@ import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
-import org.apache.poi.ss.formula.eval.EvaluationException;
-import org.apache.poi.ss.formula.eval.NumberEval;
-import org.apache.poi.ss.formula.eval.OperandResolver;
-import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
@@ -231,47 +230,58 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
             }
             
-            /* Adding IF Value*/
-            if ("IF".equals(vertex.property(TYPE).get().toString())) {
-                Object val = vertex.property(VALUE).get();
-            	vertex.property(VALUE).set(getVertexById(val.toString(), graph).value());
-            }
-            
-            /* Modifications for: FORMULA */
-            // set formula_values to user-friendly string like: '1 + 2' or 'SUM(2,1)'
-            Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
-            if (formulaPtg != null) {
-                Ptg optg = (Ptg) formulaPtg[0];
-                ValueEval[] vals = (ValueEval[]) formulaPtg[1];
+			/* Adding IF Value */
+			if ("IF".equals(vertex.property(TYPE).get().toString())) {
+				Object val = vertex.property(VALUE).get();
+				vertex.property(VALUE).set(getVertexById(val.toString(), graph).value());
+			}
 
-                String formulaValues = null;
-                if (optg instanceof AbstractFunctionPtg) {
-                    //FUNC(arg,arg,...)
-                    formulaValues = String.format("%s(%s)",
-                            ptgToString(optg),
-                            String.join(",", Arrays.asList(vals)
-                                                   .stream()
-                                                   .map(v -> v.toString())
-                                                   .collect(Collectors.toList())));
-                } else if (optg instanceof ValueOperatorPtg) {
-                    //arg optr arg
-                    //TODO: what if unary?
-                    formulaValues = String.format("%s %s %s", vals[0], ptgToString(optg), vals[1]);
-                }
+			/* Modifications for: FORMULA */
+			// set formula_values to user-friendly string like: '1 + 2' or
+			// 'SUM(2,1)'
+			// For OPERATOR and FUNCTION types
+			if ("OPERATOR".equals(vertex.property(TYPE).get().toString())
+					|| "FUNCTION".equals(vertex.property(TYPE).get().toString())) {
+				Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
+				if (formulaPtg != null) {
+					Ptg optg = (Ptg) formulaPtg[0];
+					String[] vals = getStringValuesByIds((ValueEval[]) formulaPtg[1], graph);
+					String[] names = this.getNamesByIds((ValueEval[]) formulaPtg[1], graph);
+					String formulaStr = null;
+					String formulaValues = null;
+					if (optg instanceof AbstractFunctionPtg) {
+						// FUNC(arg,arg,...)
+						formulaValues = String.format("%s(%s)", ptgToString(optg), String.join(",",
+								Arrays.asList(vals).stream().map(v -> v.toString()).collect(Collectors.toList())));
+						formulaStr = String.format("%s %s", String.join(" ",
+								Arrays.asList(names).stream().map(v -> v.toString()).collect(Collectors.toList())),
+								ptgToString(optg));
+					} else if (optg instanceof ValueOperatorPtg) {
+						// arg optr arg
+						// TODO: what if unary?
+						formulaValues = String.format("%s %s %s", vals[0], ptgToString(optg), vals[1]);
+						formulaStr = String.format("%s %s %s", names[0], ptgToString(optg), names[1]);
+					}
 
-                if (formulaValues != null) {
-                    vertex.property(FORMULA_VALUES).set(formulaValues);
-                }
-            }
-        }
-    }
+					if (formulaValues != null) {
+						vertex.property(FORMULA_VALUES).set(formulaValues);
+					}
+					if (formulaStr != null) {
+						vertex.property(FORMULA_STRING).set(formulaStr);
+					}
+					vertex.property(FORMULA_PTG_STRING).set("");
+					vertex.property(PTG_STRING).set("");
+				}
+			}
+		}
+	}
             
     private ExecutionGraphVertex getVertexById(String id, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
     	ExecutionGraphVertex result = null;
     	String name = "";
         if (id.contains("!")) {
         	name = id.substring(id.indexOf("!")+1).replaceAll("]", "");        	
-        }    	
+        }        
         for (IExecutionGraphVertex ivertex : graph.vertexSet()) {
         	ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
         	if (name.equals(vertex.name())) {
@@ -279,6 +289,40 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         	} 
         }
         return result;
+    }
+    
+    private String getStringValueById(String id, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    	if (id.contains("RefEval")) {
+    		return getVertexById(id, graph).value().toString();
+    	} else if (id.contains("NumberEval")) {
+    		return id.substring(id.indexOf("[")+1).replaceAll("]", "");
+    	}
+    	return "";
+    }
+    
+    private String[] getStringValuesByIds(ValueEval[] ids, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    	String[] result = new String[ids.length];
+    	for (int i = 0 ; i < ids.length ; i++) {
+    		result[i] = getStringValueById(ids[i].toString(), graph);
+    	}
+    	return result;
+    }
+    
+    private String getNameById(String id, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    	if (id.contains("RefEval")) {
+    		return id.substring(id.indexOf("!")+1).replaceAll("]", "");
+    	} else if (id.contains("NumberEval")) {
+    		return id.substring(id.indexOf("[")+1).replaceAll("]", "");
+    	}
+    	return ""; 
+    }    
+    
+    private String[] getNamesByIds(ValueEval[] ids, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    	String[] result = new String[ids.length];
+    	for (int i = 0 ; i < ids.length ; i++) {
+    		result[i] = getNameById(ids[i].toString(), graph);
+    	}
+    	return result;
     }
     
     public static String ptgToString(Ptg ptg) {

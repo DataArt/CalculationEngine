@@ -11,6 +11,8 @@ public class CellFormulaExpression implements ICellFormulaExpression {
 
     protected String formulaStr;
     protected String formulaValues;
+    protected String formulaPtgStr;
+    protected String ptgStr;
     protected Ptg[] ptgs;
     protected int iptg;
     protected Object rootFormulaId;
@@ -24,7 +26,11 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     @Override public int iptg() { return this.iptg; }
     @Override public Object rootFormulaId() { return this.rootFormulaId; }
     @Override public Object[] formulaPtg() { return this.formulaPtg; }
+    @Override public String formulaPtgStr() { return this.formulaPtgStr; }
+    @Override public String ptgStr() { return this.ptgStr; }
     
+    public void ptgStr(String ptgStr) { this.ptgStr = ptgStr; }
+    public void formulaPtgStr(String formulaPtgStr) { this.formulaPtgStr = formulaPtgStr; }
     public void formulaStr(String formulaStr) { this.formulaStr = formulaStr; }
     public void formulaValues(String formulaValues) { this.formulaValues = formulaValues; }
     public void ptgs(Ptg[] ptgs) { this.ptgs = ptgs; }
@@ -43,8 +49,8 @@ public class CellFormulaExpression implements ICellFormulaExpression {
                              
                               formulaStr,
                               formulaValues,
-                              formulaPtg == null ? "..." : (formulaPtg[0] + ", " + Arrays.toString((ValueEval[]) formulaPtg[1])),
-                              Arrays.toString(ptgs),
+                              formulaPtgStr,
+                              ptgStr,
                               Integer.toString(iptg));
     }
 
