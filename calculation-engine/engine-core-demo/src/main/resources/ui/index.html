@@ -23,8 +23,17 @@
     };
     var options = {
       		height: '900px',
-      		nodes: {shape: 'box'},
-      		edges: {arrows: {to: {scaleFactor: 1}}},
+      		nodes: {
+      			shape: 'box'	
+      			},
+      		edges: {
+      			arrows: {to: {scaleFactor: 1}},
+      			smooth: {
+      				enabled: true,
+      				type: 'curvedCW',
+      				roundness: 0.1
+      				}
+      			},
       		layout: {
                 hierarchical: {
                 	enabled: false,
@@ -34,11 +43,16 @@
             },
             physics: {
             	enabled: true,
-            	solver: 'repulsion'
+            	solver: 'forceAtlas2Based'
             	},
             interaction: {dragNodes: true}
       		};
     var network = new vis.Network(container, data, options);
+    
+    network.on("stabilizationIterationsDone", function (params) {
+        console.log('хуй работает');
+    	this.setOptions({physics:{enabled: false}});
+      });
   </script>
 
 </body>
