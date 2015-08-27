@@ -32,7 +32,7 @@
         <version>1.4.0</version>
         <configuration>
           <mainClass>com.dataart.spreadsheetanalytics.demo.ExecutionGraphDemo</mainClass>
-          <commandlineArgs>src/main/resources/excel/2.xlsx A1</commandlineArgs>
+          <commandlineArgs>src/main/resources/excel/3.xlsx A3</commandlineArgs>
         </configuration>
       </plugin>
     </plugins>
@@ -51,20 +51,6 @@
       <artifactId>jgrapht-core</artifactId>
       <version>0.9.1</version>
     </dependency>
-    
-    <!-- Only for visualization, must not be part of calc-engine core jar -->
-    <!-- REMOVE LATER -->
-    <dependency>
-      <groupId>jgraph</groupId>
-      <artifactId>jgraph</artifactId>
-      <version>5.13.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jgrapht</groupId>
-      <artifactId>jgrapht-ext</artifactId>
-      <version>0.9.1</version>
-    </dependency>
-    <!-- REMOVE LATER -->
 
   </dependencies>
 </project>

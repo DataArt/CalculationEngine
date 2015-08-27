@@ -4,13 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-
-import org.jgraph.JGraph;
 import org.jgrapht.DirectedGraph;
-import org.jgrapht.Graph;
-import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
@@ -48,19 +42,6 @@ public class ExecutionGraphDemo {
         
         generateVisJsData(ExecutionGraph.unwrap((ExecutionGraph) graph));
         plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
-        visualize(ExecutionGraph.unwrap((ExecutionGraph) graph));
-    }
-
-    public static void visualize(Graph graphT) {
-
-        JGraph graph = new JGraph(new JGraphModelAdapter(graphT));
-
-        // Show in Frame
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(new JScrollPane(graph));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
     }
     
     public static void plainprint(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
