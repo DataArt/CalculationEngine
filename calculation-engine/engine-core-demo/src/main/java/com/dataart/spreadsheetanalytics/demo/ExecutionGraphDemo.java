@@ -15,7 +15,6 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress.A1Address;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
@@ -23,6 +22,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.TmpDataModel;
 
@@ -30,13 +30,19 @@ public class ExecutionGraphDemo {
     
     public static void main(String[] args) throws Exception {
         
-        final String path = "src/main/resources/excel/2.xlsx";
+        if (args.length != 2) {
+            System.err.println("Excel file path and Cell Address, please!");
+            return;
+        }
+
+        final String path = args[0];
+        final String address = args[1];
 
         final IDataModel model = new TmpDataModel(path);
         
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
         
-        ICellAddress addr = new CellAddress().a1Address(new A1Address("A1")).row(0).column(0);
+        ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         
         IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
         

@@ -230,11 +230,22 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
             }
             
-			/* Adding IF Value */
-			if ("IF".equals(vertex.property(TYPE).get().toString())) {
-				Object val = vertex.property(VALUE).get();
-				vertex.property(VALUE).set(getVertexById(val.toString(), graph).value());
-			}
+
+             /* Adding IF Value*/
+            if (Type.IF == type) {
+                Set<DefaultEdge> two = graph.incomingEdgesOf(vertex);
+                if (two.size() != 2) { throw new IllegalStateException("IF must have only two incoming edges."); }
+    
+                Object ifBranchValue = null;
+                for (DefaultEdge e : two) {
+                    ExecutionGraphVertex oneOfTwo = (ExecutionGraphVertex) graph.getEdgeSource(e);
+                    if (!isCompareOperand(oneOfTwo.name())) {
+                        ifBranchValue = oneOfTwo.property(VALUE).get();
+                        break;
+                    }
+                }
+                vertex.property(VALUE).set(ifBranchValue);
+            }
 
 			/* Modifications for: FORMULA */
 			// set formula_values to user-friendly string like: '1 + 2' or
@@ -388,4 +399,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             } 
         }
     }
+
+    //TODO: not the best solution, but works as for now
+    private static boolean isCompareOperand(String name) {
+        return "=".equals(name) ||
+               ">".equals(name) ||
+               "<".equals(name) ||
+               "<>".equals(name);
+    }
+
 }

@@ -30,7 +30,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     public ICellValue evaluate(ICellAddress addr) {
 
         Sheet s = model.getSheetAt(0 /*sheet number 1*/ );
-        Cell c = s.getRow(addr.row().intValue()).getCell(addr.column().intValue());
+        Cell c = s.getRow(addr.row()).getCell(addr.column());
 
         return new CellValue(poiEvaluator.evaluate(c).formatAsString());
     }
