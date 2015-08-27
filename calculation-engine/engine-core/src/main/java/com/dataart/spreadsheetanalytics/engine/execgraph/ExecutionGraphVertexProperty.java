@@ -56,6 +56,16 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 ((CellFormulaExpression) parent.formula).formulaPtg((Object[]) pvalue);
                 break;
             }
+            case FORMULA_PTG_STRING: {
+                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
+                ((CellFormulaExpression) parent.formula).formulaPtgStr((String) pvalue);
+                break;                
+            }
+            case PTG_STRING: {
+                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
+                ((CellFormulaExpression) parent.formula).ptgStr((String) pvalue);
+                break;                                
+            }
             case SOURCE_OBJECT_ID: {
                 parent.sourceObjectId = pvalue;
                 break;
