@@ -1,6 +1,7 @@
 package com.dataart.spreadsheetanalytics.engine;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
+import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
@@ -57,4 +58,7 @@ public class SpreadsheetAuditor implements IAuditor {
         */
         return null;
     }
+
+    @Override
+    public IEvaluator getEvaluator() { return evaluator; }
 }

@@ -1,19 +1,7 @@
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.FUNCTION;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.*;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,7 +21,10 @@ import org.apache.poi.ss.formula.ptg.AddPtg;
 import org.apache.poi.ss.formula.ptg.AreaPtg;
 import org.apache.poi.ss.formula.ptg.DividePtg;
 import org.apache.poi.ss.formula.ptg.EqualPtg;
+import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
+import org.apache.poi.ss.formula.ptg.LessThanPtg;
 import org.apache.poi.ss.formula.ptg.MultiplyPtg;
+import org.apache.poi.ss.formula.ptg.NotEqualPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
@@ -349,6 +340,12 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             return "*";
         } else if (ptgCls.isAssignableFrom(EqualPtg.class)) {
             return "=";
+        } else if (ptgCls.isAssignableFrom(GreaterThanPtg.class)) {
+            return ">";
+        } else if (ptgCls.isAssignableFrom(LessThanPtg.class)) {
+            return "<";
+        } else if (ptgCls.isAssignableFrom(NotEqualPtg.class)) {
+            return "<>";
         }
 
         try {

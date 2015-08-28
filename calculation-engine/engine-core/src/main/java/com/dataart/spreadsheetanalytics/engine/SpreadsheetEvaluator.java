@@ -11,6 +11,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.TmpDataModel;
 
@@ -32,7 +33,17 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Sheet s = model.getSheetAt(0 /*sheet number 1*/ );
         Cell c = s.getRow(addr.row()).getCell(addr.column());
 
-        return new CellValue(poiEvaluator.evaluate(c).formatAsString());
+        ICellValue cv = new CellValue(poiEvaluator.evaluate(c).formatAsString());
+        
+        finish();
+        
+        return cv;
+    }
+
+    @Override
+    public IDataSet evaluate(IDataModel model) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {
