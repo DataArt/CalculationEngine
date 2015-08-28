@@ -6,6 +6,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -237,13 +238,23 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
                 vertex.property(VALUE).set(ifBranchValue);
             }
+            
+            if (Type.CELL_WITH_REFERENCE == type) {
+            	 Set<DefaultEdge> in = graph.incomingEdgesOf(vertex);
+            	 if (in.size() != 1) { throw new IllegalStateException("CELL_WITH_REFERENCE has no reference."); }
+            	 Iterator<DefaultEdge> it = in.iterator();
+            	 ExecutionGraphVertex parent = (ExecutionGraphVertex)graph.getEdgeSource(it.next());
+            	 vertex.property(FORMULA_VALUES).set(parent.property(VALUE).get().toString());
+            	 vertex.property(FORMULA_PTG_STRING).set(parent.property(VALUE).get().toString());
+            	 vertex.property(PTG_STRING).set(parent.property(NAME).get().toString());
+            }
 
 			/* Modifications for: FORMULA */
 			// set formula_values to user-friendly string like: '1 + 2' or
 			// 'SUM(2,1)'
 			// For OPERATOR and FUNCTION types
-			if ("OPERATOR".equals(vertex.property(TYPE).get().toString())
-					|| "FUNCTION".equals(vertex.property(TYPE).get().toString())) {
+			if (Type.OPERATOR == type
+					|| Type.FUNCTION == type) {
 				Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
 				if (formulaPtg != null) {
 					Ptg optg = (Ptg) formulaPtg[0];
@@ -251,11 +262,18 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 					String[] names = this.getNamesByIds((ValueEval[]) formulaPtg[1], graph);
 					String formulaStr = null;
 					String formulaValues = null;
+					String formulaPtgString = null;
+					String ptgString = null;
 					if (optg instanceof AbstractFunctionPtg) {
 						// FUNC(arg,arg,...)
 						formulaValues = String.format("%s(%s)", ptgToString(optg), String.join(",",
 								Arrays.asList(vals).stream().map(v -> v.toString()).collect(Collectors.toList())));
-						formulaStr = String.format("%s %s", String.join(" ",
+						formulaStr = String.format("%s (%s)", ptgToString(optg), String.join(" ",
+								Arrays.asList(names).stream().map(v -> v.toString()).collect(Collectors.toList())));
+						formulaPtgString = String.format("%s %s", String.join(" ",
+								Arrays.asList(vals).stream().map(v -> v.toString()).collect(Collectors.toList())),
+								ptgToString(optg));
+						ptgString = String.format("%s %s", String.join(" ",
 								Arrays.asList(names).stream().map(v -> v.toString()).collect(Collectors.toList())),
 								ptgToString(optg));
 					} else if (optg instanceof ValueOperatorPtg) {
@@ -263,6 +281,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 						// TODO: what if unary?
 						formulaValues = String.format("%s %s %s", vals[0], ptgToString(optg), vals[1]);
 						formulaStr = String.format("%s %s %s", names[0], ptgToString(optg), names[1]);
+						formulaPtgString = String.format("%s %s %s", vals[0], vals[1], ptgToString(optg));
+						ptgString = String.format("%s %s %s", names[0], names[1], ptgToString(optg));
 					}
 
 					if (formulaValues != null) {
@@ -271,12 +291,48 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 					if (formulaStr != null) {
 						vertex.property(FORMULA_STRING).set(formulaStr);
 					}
+					
+					
+					Set<IExecutionGraphVertex> formulaVertices = getOperationResultVertices(vertex, graph);
+					for (IExecutionGraphVertex formulaVertex : formulaVertices) {
+					    if (formulaVertex instanceof ExecutionGraphVertex) {
+						    ExecutionGraphVertex iformulaVertex = (ExecutionGraphVertex)formulaVertex;
+						    if (Type.CELL_WITH_FORMULA == iformulaVertex.property(TYPE).get()) {
+							    iformulaVertex.property(FORMULA_VALUES).set(formulaValues);
+							    iformulaVertex.property(FORMULA_PTG_STRING).set(formulaPtgString);
+							    iformulaVertex.property(PTG_STRING).set(ptgString);
+						    }
+					    }
+					}
 					vertex.property(FORMULA_PTG_STRING).set("");
 					vertex.property(PTG_STRING).set("");
 				}
 			}
+			if (Type.CELL_WITH_VALUE == type) {
+				vertex.property(FORMULA_STRING).set(vertex.property(NAME).get());
+				vertex.property(FORMULA_VALUES).set(vertex.property(VALUE).get().toString());
+				vertex.property(FORMULA_PTG_STRING).set("");
+				vertex.property(PTG_STRING).set("");
+			}
 		}
 	}
+    
+    private Set<IExecutionGraphVertex> getOperationResultVertices(ExecutionGraphVertex in, 
+    		DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    	Set<IExecutionGraphVertex> result = new HashSet<IExecutionGraphVertex>();
+    	Set<DefaultEdge> edges = graph.outgoingEdgesOf(in);
+    	ExecutionGraphVertex element = null;
+    	Iterator<DefaultEdge> it = edges.iterator();
+    	if (it.hasNext()) {element = (ExecutionGraphVertex)graph.getEdgeTarget(it.next()); }
+    	for (IExecutionGraphVertex vert : graph.vertexSet()) {
+    		if (vert instanceof ExecutionGraphVertex) {
+    			if (((ExecutionGraphVertex)vert).property(NAME).get().toString().equals(element.property(NAME).get().toString())) {
+    				result.add(vert);
+    			}
+    		}
+    	}
+    	return result;
+    }
             
     private ExecutionGraphVertex getVertexById(String id, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
     	ExecutionGraphVertex result = null;
@@ -291,7 +347,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         	} 
         }
         return result;
-    }
+    }            
     
     private String getStringValueById(String id, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
     	if (id.contains("RefEval")) {
