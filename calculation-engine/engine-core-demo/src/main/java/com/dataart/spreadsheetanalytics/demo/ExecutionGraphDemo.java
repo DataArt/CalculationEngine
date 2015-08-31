@@ -98,7 +98,7 @@ public class ExecutionGraphDemo {
                                 .append(vertex.sourceObjectId())
                             .append("'},\n");
             }
-            verticesJson.setLength(verticesJson.length() - 2);
+            verticesJson.setLength(verticesJson.length() > 0 ? verticesJson.length() - 2 : 0);
 
             for (DefaultEdge edge : graph.edgeSet()) {
                 /* {from: id_a, to: id_b}, */
