@@ -4,6 +4,8 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 
 public interface IAuditor {
+    
+    IEvaluator getEvaluator();
 
     IExecutionGraph buildStaticExecutionGraph();
 

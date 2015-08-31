@@ -13,14 +13,17 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <modules>
+    <module>../engine-core</module>
     <module>engine-core-unit</module>
     <module>engine-core-it</module>
   </modules>
-  
+
   <build>
     <plugins>
+      
+      <!-- Compile at 1.8 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -30,6 +33,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 

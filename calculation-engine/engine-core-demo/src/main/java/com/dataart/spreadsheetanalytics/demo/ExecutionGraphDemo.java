@@ -75,7 +75,7 @@ public class ExecutionGraphDemo {
                             .append("', label: '")
                             .append(vertex.name())
                             .append("\\n")
-                            .append(vertex.value().toString().length() > 8 ? "..." : vertex.value())
+                            .append(vertex.value() == null || vertex.value().toString().length() > 8 ? "..." : vertex.value())
                             .append("', color: '")
                             .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
                             .append("', title: '")

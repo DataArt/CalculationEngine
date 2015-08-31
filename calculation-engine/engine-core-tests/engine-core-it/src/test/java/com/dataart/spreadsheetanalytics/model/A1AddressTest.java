@@ -21,27 +21,4 @@ public class A1AddressTest {
         assertThat(address.column()).isEqualTo(column);
     }
 
-    @Test
-    public void fromA1Address_A1_ReturnedA1() {
-        //given
-        String a1 = "A1";
-
-        //when
-        A1Address address = A1Address.fromA1Address(a1);
-
-        //then
-        assertThat(address.address()).isEqualTo(a1);
-    }
-
-    @Test
-    public void fromA1Address_A1_ReturnedTheSameObject() {
-        //given
-        String a1 = "A1";
-
-        //when
-        A1Address address = A1Address.fromA1Address(a1);
-
-        //then
-        assertThat(address.a1Address()).isEqualTo(address);
-    }
 }

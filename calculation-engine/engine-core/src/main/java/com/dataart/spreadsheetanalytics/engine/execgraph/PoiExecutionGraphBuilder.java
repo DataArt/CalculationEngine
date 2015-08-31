@@ -6,9 +6,9 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.FUNCTION;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,7 +35,10 @@ import org.apache.poi.ss.formula.ptg.AddPtg;
 import org.apache.poi.ss.formula.ptg.AreaPtg;
 import org.apache.poi.ss.formula.ptg.DividePtg;
 import org.apache.poi.ss.formula.ptg.EqualPtg;
+import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
+import org.apache.poi.ss.formula.ptg.LessThanPtg;
 import org.apache.poi.ss.formula.ptg.MultiplyPtg;
+import org.apache.poi.ss.formula.ptg.NotEqualPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
@@ -189,7 +191,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     copyProperties(standard, vs);
                 }
             }
-            
         }
         
         //copy or link subgraphs to identical vertices
@@ -252,18 +253,18 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             
             if (Type.CELL_WITH_REFERENCE == type) {
-            	 Set<DefaultEdge> in = graph.incomingEdgesOf(vertex);
-            	 if (in.size() != 1) { throw new IllegalStateException("CELL_WITH_REFERENCE has no reference."); }
-            	 Iterator<DefaultEdge> it = in.iterator();
-            	 ExecutionGraphVertex parent = (ExecutionGraphVertex)graph.getEdgeSource(it.next());
-            	 vertex.property(FORMULA_VALUES).set(parent.property(VALUE).get().toString());
-            	 vertex.property(FORMULA_PTG_STRING).set(parent.property(VALUE).get().toString());
-            	 vertex.property(PTG_STRING).set(parent.property(NAME).get().toString());
+                Set<DefaultEdge> in = graph.incomingEdgesOf(vertex);
+                if (in.size() != 1) { throw new IllegalStateException("CELL_WITH_REFERENCE has no reference."); }
+                
+                ExecutionGraphVertex parent = (ExecutionGraphVertex) graph.getEdgeSource(in.iterator().next());
+
+                vertex.property(FORMULA_VALUES).set(parent.property(VALUE).get().toString());
+                vertex.property(FORMULA_PTG_STRING).set(parent.property(VALUE).get().toString());
+                vertex.property(PTG_STRING).set(parent.property(NAME).get().toString());
             }
 
 			/* Modifications for: FORMULA */
-			// set formula_values to user-friendly string like: '1 + 2' or
-			// 'SUM(2,1)'
+			// set formula_values to user-friendly string like: '1 + 2' or 'SUM(2,1)'
 			// For OPERATOR and FUNCTION types
             			
 		} 
@@ -414,6 +415,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return result;
     	}
     	return "";    	
+
     }
         
     public static String ptgToString(Ptg ptg) {
@@ -429,6 +431,12 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             return "*";
         } else if (ptgCls.isAssignableFrom(EqualPtg.class)) {
             return "=";
+        } else if (ptgCls.isAssignableFrom(GreaterThanPtg.class)) {
+            return ">";
+        } else if (ptgCls.isAssignableFrom(LessThanPtg.class)) {
+            return "<";
+        } else if (ptgCls.isAssignableFrom(NotEqualPtg.class)) {
+            return "<>";
         }
 
         try {
