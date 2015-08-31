@@ -250,18 +250,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     }
                 }
                 vertex.property(VALUE).set(ifBranchValue);
-            }
-            
-            if (Type.CELL_WITH_REFERENCE == type) {
-                Set<DefaultEdge> in = graph.incomingEdgesOf(vertex);
-                if (in.size() != 1) { throw new IllegalStateException("CELL_WITH_REFERENCE has no reference."); }
-                
-                ExecutionGraphVertex parent = (ExecutionGraphVertex) graph.getEdgeSource(in.iterator().next());
-
-                vertex.property(FORMULA_VALUES).set(parent.property(VALUE).get().toString());
-                vertex.property(FORMULA_PTG_STRING).set(parent.property(VALUE).get().toString());
-                vertex.property(PTG_STRING).set(parent.property(NAME).get().toString());
-            }
+            }            
 
 			/* Modifications for: FORMULA */
 			// set formula_values to user-friendly string like: '1 + 2' or 'SUM(2,1)'
