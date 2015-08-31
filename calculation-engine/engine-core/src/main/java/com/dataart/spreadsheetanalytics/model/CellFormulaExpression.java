@@ -3,7 +3,6 @@ package com.dataart.spreadsheetanalytics.model;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 
 public class CellFormulaExpression implements ICellFormulaExpression {
 
@@ -58,9 +57,5 @@ public class CellFormulaExpression implements ICellFormulaExpression {
                               ptgStr,
                               Integer.toString(iptg));
     }
-	
-	public static boolean isFunction(Type type) {
-		return (type == Type.OPERATOR || type == Type.IF || type == Type.FUNCTION);
-	}
 
 }
