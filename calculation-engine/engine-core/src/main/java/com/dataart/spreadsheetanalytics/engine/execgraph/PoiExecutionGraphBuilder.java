@@ -457,12 +457,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	 * first @param istandard is used as object to copy from.
 	 */
 	private static void copyProperties(IExecutionGraphVertex istandard, Set<IExecutionGraphVertex> vertices) {
-		for (IExecutionGraphVertex ivertex : vertices) {
+	    ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
+	    
+	    for (IExecutionGraphVertex ivertex : vertices) {
 			if (istandard == ivertex) { continue; }
 
 			ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-			ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
-
+			
 			// copy properties
 			for (PropertyName pname : PropertyName.values()) {
 				if (pname == PropertyName.VERTEX_ID) continue;
