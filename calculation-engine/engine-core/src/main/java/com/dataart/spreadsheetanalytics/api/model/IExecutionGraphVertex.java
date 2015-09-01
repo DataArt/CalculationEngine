@@ -97,7 +97,8 @@ public interface IExecutionGraphVertex {
          */
         IF,
         /**
-         * Constant coefficient not related to any cell
+         * Constant coefficient not related to any cell.
+         * E.g. in SUM(2,B1,3) 2,3 are CONSTANT_VALUEs
          */
         CONSTANT_VALUE;
         
