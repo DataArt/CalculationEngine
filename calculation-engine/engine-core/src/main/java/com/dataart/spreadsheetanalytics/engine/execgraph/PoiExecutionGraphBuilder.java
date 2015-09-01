@@ -30,6 +30,7 @@ import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
 import org.apache.poi.ss.formula.eval.ValueEval;
+import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
 import org.apache.poi.ss.formula.ptg.AreaPtg;
@@ -51,6 +52,7 @@ import org.jgrapht.graph.DefaultEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 
 /**
  * TODO: write about internal representation, not thread safe, one instance per
@@ -342,6 +344,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 iformula.formulaValues(vertex.property(VALUE).get().toString());
                 iformula.formulaPtgStr(vertex.property(VALUE).get().toString());
                 iformula.ptgStr(vertex.property(NAME).get().toString());
+                connectValuesToRange(vertex);
                 return iformula;
             }
             default: {
@@ -349,6 +352,22 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 		
+	}
+
+	private void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
+		Object cellValue = ((CellValue) rangeVertex.value()).get();
+		if (cellValue instanceof Area2DValues) {
+			Area2DValues value = (Area2DValues) cellValue;
+			List<String> adresses = value.getRangeCellAddresses();
+			for (String adress : adresses) {
+				Set<IExecutionGraphVertex> cellVertices = this.addressToVertices.get(adress);
+				if (cellVertices != null) {
+					for (IExecutionGraphVertex cellVertex : cellVertices) {
+						this.connect(cellVertex, rangeVertex);
+					}
+				}
+			}
+		}
 	}
 
 	private String createFormulaString(Object optg, List<String> ops) {
