@@ -360,10 +360,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			Area2DValues value = (Area2DValues) cellValue;
 			List<String> adresses = value.getRangeCellAddresses();
 			for (String adress : adresses) {
-				Set<IExecutionGraphVertex> cellVertices = this.addressToVertices.get(adress);
+				Set<IExecutionGraphVertex> cellVertices = addressToVertices.get(adress);
 				if (cellVertices != null) {
 					for (IExecutionGraphVertex cellVertex : cellVertices) {
-						this.connect(cellVertex, rangeVertex);
+						connect(cellVertex, rangeVertex);
 					}
 				}
 			}
