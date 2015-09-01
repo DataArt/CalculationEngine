@@ -6,6 +6,7 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.IF;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CONSTANT_VALUE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.isCell;
 import static java.lang.String.format;
 import static java.lang.String.join;
@@ -347,6 +348,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 connectValuesToRange(vertex);
                 return iformula;
             }
+		case CONSTANT_VALUE: {
+			vertex.property(NAME).set("VALUE");
+			CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
+			formula.formulaStr(vertex.property(NAME).get().toString());
+			formula.formulaValues(vertex.property(VALUE).get().toString());
+			formula.formulaPtgStr(vertex.property(VALUE).get().toString());
+			formula.ptgStr(vertex.property(NAME).get().toString());
+			return new CellFormulaExpression(formula);
+		}
             default: {
                 return (CellFormulaExpression) vertex.formula;
             }
@@ -461,12 +471,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return FUNCTION;
 		} else if (ptg instanceof ValueOperatorPtg) { // single operators: +, -, /, *, =
 			return OPERATOR;
-		} else if (ptg instanceof RefPtg || ptg instanceof ScalarConstantPtg) {
+		} else if (ptg instanceof RefPtg) {
 			return CELL_WITH_VALUE;
+		} else if (ptg instanceof ScalarConstantPtg) {
+			return CONSTANT_VALUE;
 		} else if (ptg instanceof AreaPtg) {
 			return RANGE;
 		}
-		
+
 		// TODO: add more for our cases
 		throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
 	}

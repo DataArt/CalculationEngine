@@ -95,7 +95,11 @@ public interface IExecutionGraphVertex {
         /**
          * IF and IF-like (COUNTIF, SUMIF) functions.
          */
-        IF;
+        IF,
+        /**
+         * Constant coefficient not related to any cell
+         */
+        CONSTANT_VALUE;
         
         public static boolean isFunction(Type type) {
             if (type == null) { throw new NullPointerException("Type argument cannot be null"); }
