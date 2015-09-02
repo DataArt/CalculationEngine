@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dataart</groupId>
-  <artifactId>spreadsheetanalytics</artifactId>
+  <artifactId>spreadsheetanalytics-data</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>spreadsheetanalytics</name>
+  <name>spreadsheetanalytics-data</name>
   <url>https://github.com/DataArt/CalculationEngine</url>
 
   <properties>
@@ -49,11 +49,6 @@
       <artifactId>spreadsheetanalytics-model</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>com.dataart</groupId>
-      <artifactId>spreadsheetanalytics-functions</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
     <!-- Apache POI Fork -->
     <dependency>
       <groupId>org.apache.poi</groupId>
@@ -75,12 +70,5 @@
       <artifactId>ooxml-schemas</artifactId>
       <version>1.0</version>
     </dependency>
-
-    <dependency>
-      <groupId>org.jgrapht</groupId>
-      <artifactId>jgrapht-core</artifactId>
-      <version>0.9.1</version>
-    </dependency>
-
   </dependencies>
 </project>

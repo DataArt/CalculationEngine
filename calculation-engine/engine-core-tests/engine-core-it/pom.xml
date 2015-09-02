@@ -56,8 +56,8 @@
             <id>unpack-classes</id>
             <phase>generate-sources</phase>
             <configuration>
-              <includeArtifactIds>spreadsheetanalytics</includeArtifactIds>
-              <outputDirectory>../../engine-core/target/classes</outputDirectory>
+              <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
+              <outputDirectory>../target/classes</outputDirectory>
             </configuration>
             <goals>
               <goal>unpack-dependencies</goal>
@@ -68,8 +68,8 @@
             <phase>generate-sources</phase>
             <configuration>
               <classifier>sources</classifier>
-              <includeArtifactIds>spreadsheetanalytics</includeArtifactIds>
-              <outputDirectory>../../engine-core/target/sources</outputDirectory>
+              <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
+              <outputDirectory>../target/sources</outputDirectory>
             </configuration>
             <goals>
               <goal>unpack-dependencies</goal>
@@ -91,7 +91,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>../../engine-core/target/sources</source>
+                <source>../target/sources</source>
               </sources>
             </configuration>
           </execution>

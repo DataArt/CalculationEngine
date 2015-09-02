@@ -39,13 +39,17 @@
   </build>
 
   <dependencies>
-    <!-- Apache POI Fork -->
+    <dependency>
+      <groupId>com.dataart</groupId>
+      <artifactId>spreadsheetanalytics-model</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
     <dependency>
       <groupId>com.dataart</groupId>
       <artifactId>spreadsheetanalytics</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
-	  
+
     <dependency>
       <groupId>org.jgrapht</groupId>
       <artifactId>jgrapht-core</artifactId>
