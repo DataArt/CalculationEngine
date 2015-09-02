@@ -6,6 +6,7 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.IF;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CONSTANT_VALUE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.isCell;
 import static java.lang.String.format;
 import static java.lang.String.join;
@@ -40,7 +41,9 @@ import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
 import org.apache.poi.ss.formula.ptg.LessThanPtg;
 import org.apache.poi.ss.formula.ptg.MultiplyPtg;
 import org.apache.poi.ss.formula.ptg.NotEqualPtg;
+import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
+import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.SubtractPtg;
@@ -105,6 +108,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	@Override
 	public IExecutionGraphVertex createVertex(Ptg ptg) {
 		boolean isCell = ptg instanceof RefPtg;
+		if (ptg instanceof ParenthesisPtg) {
+			return null;
+		}
 		String name = ptgToString(ptg);
 
 		if (isCell) { // cell
@@ -347,6 +353,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 connectValuesToRange(vertex);
                 return iformula;
             }
+		case CONSTANT_VALUE: {
+			vertex.property(NAME).set("VALUE");
+			CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
+			formula.formulaStr(vertex.property(NAME).get().toString());
+			formula.formulaValues(vertex.property(VALUE).get().toString());
+			formula.formulaPtgStr(vertex.property(VALUE).get().toString());
+			formula.ptgStr(vertex.property(NAME).get().toString());
+			return new CellFormulaExpression(formula);
+		}
             default: {
                 return (CellFormulaExpression) vertex.formula;
             }
@@ -461,12 +476,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return FUNCTION;
 		} else if (ptg instanceof ValueOperatorPtg) { // single operators: +, -, /, *, =
 			return OPERATOR;
-		} else if (ptg instanceof RefPtg || ptg instanceof ScalarConstantPtg) {
+		} else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg) {
 			return CELL_WITH_VALUE;
+		} else if (ptg instanceof ScalarConstantPtg) {
+			return CONSTANT_VALUE;
 		} else if (ptg instanceof AreaPtg) {
 			return RANGE;
 		}
-		
+
 		// TODO: add more for our cases
 		throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
 	}
