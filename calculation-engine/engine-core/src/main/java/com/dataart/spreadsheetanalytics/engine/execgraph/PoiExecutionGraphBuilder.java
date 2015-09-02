@@ -108,15 +108,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	@Override
 	public IExecutionGraphVertex createVertex(Ptg ptg) {
 		boolean isCell = ptg instanceof RefPtg;
+		if (ptg instanceof ParenthesisPtg) {
+			return null;
+		}
 		String name = ptgToString(ptg);
 
 		if (isCell) { // cell
 			return createVertex(name);
 		} else { // operation
 			ExecutionGraphVertex v = new ExecutionGraphVertex(name);
-			if (ptg instanceof ParenthesisPtg) {
-				return v;
-			}
 			dgraph.addVertex(v);
 			return v;
 		}
