@@ -35,13 +35,13 @@ import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
 import org.apache.poi.ss.formula.ptg.AreaPtg;
-import org.apache.poi.ss.formula.ptg.ControlPtg;
 import org.apache.poi.ss.formula.ptg.DividePtg;
 import org.apache.poi.ss.formula.ptg.EqualPtg;
 import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
 import org.apache.poi.ss.formula.ptg.LessThanPtg;
 import org.apache.poi.ss.formula.ptg.MultiplyPtg;
 import org.apache.poi.ss.formula.ptg.NotEqualPtg;
+import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
@@ -113,7 +113,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return createVertex(name);
 		} else { // operation
 			ExecutionGraphVertex v = new ExecutionGraphVertex(name);
-			if (ptg instanceof ControlPtg) {
+			if (ptg instanceof ParenthesisPtg) {
 				return v;
 			}
 			dgraph.addVertex(v);
