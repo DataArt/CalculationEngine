@@ -1,8 +1,13 @@
 package com.dataart.spreadsheetanalytics.engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.poi.common.execgraph.EmptyExecutionGraph;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
-import org.apache.poi.ss.formula.WorkbookEvaluator;
+import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
+import org.apache.poi.ss.formula.udf.DefaultUDFFinder;
+import org.apache.poi.ss.formula.udf.UDFFinder;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
@@ -17,7 +22,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
-import com.dataart.spreadsheetanalytics.model.TmpDataModel;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class SpreadsheetEvaluator implements IEvaluator {
 
@@ -26,8 +31,10 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected XSSFWorkbook model;
     protected XSSFFormulaEvaluator poiEvaluator;
     
+    protected SpreadsheetEvaluator() {}
+    
     public SpreadsheetEvaluator(IDataModel model) {
-        this.model = ((TmpDataModel) model).model;
+        this.model = ((DataModel) model).model;
         this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator();
     }
 
@@ -39,7 +46,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
 
         ICellValue cv = new CellValue(poiEvaluator.evaluate(c).formatAsString());
         
-        finish();
+        destroy();
         
         return cv;
     }
@@ -55,17 +62,50 @@ public class SpreadsheetEvaluator implements IEvaluator {
         this.poiEvaluator = model.getCreationHelper().createFormulaEvaluator(graphBuilder);
     }
 
-    public void finish() {
+    @Override
+    public void init(IDataModel model) {
+        this.model = ((DataModel) model).model;
+        
+        if (this.graphBuilder != null) {
+            this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator(this.graphBuilder);
+        } else {
+            this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator();
+        }
+    }
+    
+    @Override
+    public void destroy() {
         graphBuilder = EmptyExecutionGraph.DoNothingExecutionGraphBuilder.get();
     }
 
-    public static void loadCustomFunctions(IDataProvider dataProvider) throws ReflectiveOperationException {
+    /**
+     * TODO: this should be provided with really good java doc of how to use it
+     */
+    public void loadCustomFunctions(IDataProvider dataProvider) throws ReflectiveOperationException {
+        if (this.model == null) {
+            throw new IllegalStateException("Evaluator must be provided with model to register custom functions.");
+        }
+        
+        List<String> names = new ArrayList<>(Functions.get().size());
+        List<CustomFunction> functions = new ArrayList<>(Functions.get().size());
+        
         for (String fname: Functions.get().keySet()) {
             
             CustomFunction cf = Functions.get().get(fname).newInstance();
+            
             cf.setDataProvider(dataProvider);
             
-            WorkbookEvaluator.registerFunction(fname, cf);
+            SpreadsheetEvaluator ev = new SpreadsheetEvaluator();
+            ev.graphBuilder = this.graphBuilder;
+            cf.setEvaluator(ev);
+            
+            names.add(fname);
+            functions.add(cf);
         }
+        
+        UDFFinder udfToolpack = new AggregatingUDFFinder(new DefaultUDFFinder(
+                                                            names.toArray(new String[names.size()]),
+                                                            functions.toArray(new CustomFunction[functions.size()])));  
+        this.model.addToolPack(udfToolpack);
     }
 }

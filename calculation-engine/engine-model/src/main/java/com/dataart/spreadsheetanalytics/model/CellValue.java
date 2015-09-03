@@ -10,13 +10,12 @@ public class CellValue implements ICellValue {
         this.value = value;
     }
 
-    public Object get() {
-        return value;
-    }
+    @Override
+    public Object get() { return value; }
 
     @Override
     public String toString() {
-        return value.toString();
+        return get().toString();
     }
 
 }

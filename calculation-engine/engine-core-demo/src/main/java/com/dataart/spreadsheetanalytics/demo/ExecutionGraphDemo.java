@@ -18,7 +18,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.TmpDataModel;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class ExecutionGraphDemo {
     
@@ -32,7 +32,7 @@ public class ExecutionGraphDemo {
         final String path = args[0];
         final String address = args[1];
 
-        final IDataModel model = new TmpDataModel(path);
+        final IDataModel model = new DataModel(path);
         
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
         
