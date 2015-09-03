@@ -107,10 +107,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 	@Override
 	public IExecutionGraphVertex createVertex(Ptg ptg) {
-		boolean isCell = ptg instanceof RefPtg;
-		if (ptg instanceof ParenthesisPtg) {
+		if (isSkipVertex(ptg)) {
 			return null;
 		}
+		boolean isCell = ptg instanceof RefPtg;
 		String name = ptgToString(ptg);
 
 		if (isCell) { // cell
@@ -383,6 +383,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 				}
 			}
 		}
+	}
+
+	private boolean isSkipVertex(Ptg ptg) {
+		return ptg instanceof ParenthesisPtg;
 	}
 
 	private String createFormulaString(Object optg, List<String> ops) {
