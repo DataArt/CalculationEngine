@@ -3,10 +3,18 @@ package com.dataart.spreadsheetanalytics.functions.poi.data;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
-import org.apache.poi.ss.formula.functions.FreeRefFunction;
 
-public class FUNCEXEC implements FreeRefFunction {
+import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
+import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
+import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
+@FunctionMeta("FUNCEXEC")
+public class FuncexecFunction implements CustomFunction {
+    
+    protected IDataProvider dataProvider;
+
+    public FuncexecFunction() {}
+    
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
         return new NumberEval(42.0);
@@ -32,5 +40,7 @@ public class FUNCEXEC implements FreeRefFunction {
         years = OperandResolver.coerceValueToDouble( v3 ) ;
          */
     }
+    
+    @Override public void setDataProvider(IDataProvider dataProvider) { this.dataProvider = dataProvider; }
 
 }
