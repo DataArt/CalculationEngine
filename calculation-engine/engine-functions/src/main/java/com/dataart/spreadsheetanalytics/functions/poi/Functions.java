@@ -3,25 +3,38 @@ package com.dataart.spreadsheetanalytics.functions.poi;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-import org.apache.poi.ss.formula.functions.FreeRefFunction;
+import org.reflections.Reflections;
 
-public class Functions {
+public abstract class Functions {
 
-    protected static Map<String, FreeRefFunction> fs;
+    public final static String PACKAGE_FUNCTIONS = "com.dataart.spreadsheetanalytics.functions.poi";
 
-    private Functions() {}
+    protected static Map<String, Class<? extends CustomFunction>> fs;
 
     static {
-        reload();
+        fs = load(PACKAGE_FUNCTIONS);
     }
 
-    private static void reload() {
-        fs = new HashMap<>();
-        
+    protected static Map<String, Class<? extends CustomFunction>> load(String functionPackage) {
+        Map<String, Class<? extends CustomFunction>> map = new HashMap<>();
+
+        Set<Class<? extends CustomFunction>> classes = new Reflections(functionPackage).getSubTypesOf(CustomFunction.class);
+
+        for (Class<? extends CustomFunction> cls : classes) {
+
+            if (cls.isAnnotationPresent(FunctionMeta.class)) {
+                FunctionMeta meta = cls.getAnnotation(FunctionMeta.class);
+                map.put(meta.value(), cls);
+            }
+        }
+
+        return map;
+
     }
 
-    public static Map<String, FreeRefFunction> get() {
+    public static Map<String, Class<? extends CustomFunction>> get() {
         return Collections.unmodifiableMap(fs);
     }
 

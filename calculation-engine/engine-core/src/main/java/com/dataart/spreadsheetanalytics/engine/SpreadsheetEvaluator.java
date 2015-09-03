@@ -8,11 +8,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.TmpDataModel;
@@ -24,12 +26,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected XSSFWorkbook model;
     protected XSSFFormulaEvaluator poiEvaluator;
     
-    static {
-        for (String fname: Functions.get().keySet()) {
-            WorkbookEvaluator.registerFunction(fname, Functions.get().get(fname));
-        }
-    }
-
     public SpreadsheetEvaluator(IDataModel model) {
         this.model = ((TmpDataModel) model).model;
         this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator();
@@ -63,4 +59,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
         graphBuilder = EmptyExecutionGraph.DoNothingExecutionGraphBuilder.get();
     }
 
+    public static void loadCustomFunctions(IDataProvider dataProvider) throws ReflectiveOperationException {
+        for (String fname: Functions.get().keySet()) {
+            
+            CustomFunction cf = Functions.get().get(fname).newInstance();
+            cf.setDataProvider(dataProvider);
+            
+            WorkbookEvaluator.registerFunction(fname, cf);
+        }
+    }
 }

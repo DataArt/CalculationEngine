@@ -40,6 +40,7 @@ public class DefineFunctionDemo {
 
         ICellAddress addr = new CellAddress(modelFuncexec.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
 
+        SpreadsheetEvaluator.loadCustomFunctions(null);
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);
 
         ICellValue cv = evaluator.evaluate(addr);
