@@ -82,6 +82,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		return ExecutionGraph.wrap(dgraph);
 	}
 
+	public ExecutionGraph getEmptyGraph() {
+		DefaultDirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+		return ExecutionGraph.wrap(emptyGraph);
+	}
+
 	/**
 	 * This method should be used when creating a new vertex from a cell, so
 	 * vertex name is a cell's address. New Vertex will be created any time this
