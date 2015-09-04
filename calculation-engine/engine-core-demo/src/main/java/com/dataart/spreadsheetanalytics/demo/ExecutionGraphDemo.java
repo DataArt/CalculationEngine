@@ -51,7 +51,7 @@ public class ExecutionGraphDemo {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + vertex.value());
+            System.out.println("Value: " + vertex.value() + " (" + vertex.value().get().getClass() + ")");
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
         }
     }
