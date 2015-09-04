@@ -1,9 +1,14 @@
 package com.dataart.spreadsheetanalytics.engine;
 
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 
 public class SpreadsheetAuditor implements IAuditor {
@@ -29,11 +34,14 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     @Override
-    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
-        evaluator.evaluate(cell);
-        graphBuilder.runPostProcessing();
-        return graphBuilder.get();
-    }
+	public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
+		ICellValue evaluatedCell = evaluator.evaluate(cell);
+		if (evaluatedCell == null) {
+			return graphBuilder.getSingleNodeGraph(cell);
+		}
+		graphBuilder.runPostProcessing();
+		return graphBuilder.get();
+	}
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph() {

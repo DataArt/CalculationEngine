@@ -51,7 +51,7 @@ public class ExecutionGraphDemo {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + vertex.value() + " (" + vertex.value().get().getClass() + ")");
+            System.out.println("Value: " + vertex.value() + ((vertex.value() == null)?"":" (" + vertex.value().get().getClass() + ")"));
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
         }
     }
@@ -112,7 +112,8 @@ public class ExecutionGraphDemo {
                          .append(to.id())
                          .append("'},\n");
             }
-            edgesJson.setLength(edgesJson.length() - 2);
+
+			edgesJson.setLength(edgesJson.length() > 0 ? edgesJson.length() - 2 : 0);
 
             String content = new String(Files.readAllBytes(Paths.get(dataTemplateFileStr)), StandardCharsets.UTF_8);
             content = content.replace(VERTICES_PLACEHOLDER, verticesJson.toString())
