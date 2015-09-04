@@ -38,6 +38,12 @@ public class SpreadsheetEvaluator implements IEvaluator {
         this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator();
     }
 
+	public boolean isFormulaCell(ICellAddress addr) {
+		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
+		Cell c = s.getRow(addr.row()).getCell(addr.column());
+		return (Cell.CELL_TYPE_FORMULA == c.getCellType());
+	}
+
     @Override
 	public ICellValue evaluate(ICellAddress addr) {
 		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
