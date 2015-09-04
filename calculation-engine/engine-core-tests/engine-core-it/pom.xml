@@ -58,6 +58,7 @@
             <configuration>
               <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
               <outputDirectory>../target/classes</outputDirectory>
+              <overWriteIfNewer>true</overWriteIfNewer>
             </configuration>
             <goals>
               <goal>unpack-dependencies</goal>
@@ -70,6 +71,7 @@
               <classifier>sources</classifier>
               <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
               <outputDirectory>../target/sources</outputDirectory>
+              <overWriteIfNewer>true</overWriteIfNewer>
             </configuration>
             <goals>
               <goal>unpack-dependencies</goal>

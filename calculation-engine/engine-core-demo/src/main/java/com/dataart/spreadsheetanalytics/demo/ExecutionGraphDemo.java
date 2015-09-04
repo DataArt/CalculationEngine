@@ -18,7 +18,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.TmpDataModel;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class ExecutionGraphDemo {
     
@@ -32,17 +32,17 @@ public class ExecutionGraphDemo {
         final String path = args[0];
         final String address = args[1];
 
-        final IDataModel model = new TmpDataModel(path);
-
-		final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
-
-		ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
-
-		IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
-
-		generateVisJsData(ExecutionGraph.unwrap((ExecutionGraph) graph));
-		plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
-	}
+        final IDataModel model = new DataModel(path);
+        
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+        
+        ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+        
+        IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+        
+        generateVisJsData(ExecutionGraph.unwrap((ExecutionGraph) graph));
+        plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
+    }
     
     public static void plainprint(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
         for (IExecutionGraphVertex vertex : graph.vertexSet()) {

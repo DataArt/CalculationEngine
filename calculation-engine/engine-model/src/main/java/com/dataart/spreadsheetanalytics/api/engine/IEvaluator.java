@@ -9,6 +9,14 @@ public interface IEvaluator {
 
     ICellValue evaluate(ICellAddress addr);
     
-    IDataSet evaluate(IDataModel model);
+    IDataSet evaluate(IDataModel dataModel);
+    
+    /**
+     * Lazy initialization of data model. Usefull for cases when you do not have a model in a moment of Evaluator initialization,
+     * but still want to use it. 
+     */
+    void init(IDataModel dataModel);
+    
+    void destroy();
 
 }
