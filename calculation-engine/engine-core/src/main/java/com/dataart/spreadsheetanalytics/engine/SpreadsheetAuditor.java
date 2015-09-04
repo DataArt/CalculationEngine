@@ -34,14 +34,14 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     @Override
-    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
-        ICellValue evaluatedCell = evaluator.evaluate(cell);
-        if (evaluatedCell == null) {
-        	return graphBuilder.getEmptyGraph();
-        }
-        graphBuilder.runPostProcessing();
-        return graphBuilder.get();
-    }
+	public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
+		ICellValue evaluatedCell = evaluator.evaluate(cell);
+		if (evaluatedCell == null) {
+			return graphBuilder.getSingleNodeGraph(cell);
+		}
+		graphBuilder.runPostProcessing();
+		return graphBuilder.get();
+	}
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph() {

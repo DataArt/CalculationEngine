@@ -52,6 +52,7 @@ import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
@@ -82,8 +83,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		return ExecutionGraph.wrap(dgraph);
 	}
 
-	public ExecutionGraph getEmptyGraph() {
+	public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
 		DefaultDirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().toString());
+		emptyGraph.addVertex(vertex);
 		return ExecutionGraph.wrap(emptyGraph);
 	}
 
