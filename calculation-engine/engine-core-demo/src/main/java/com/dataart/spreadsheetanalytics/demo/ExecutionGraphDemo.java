@@ -33,16 +33,16 @@ public class ExecutionGraphDemo {
         final String address = args[1];
 
         final IDataModel model = new TmpDataModel(path);
-        
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
-        
-        ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
-        
-        IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
-        
-        generateVisJsData(ExecutionGraph.unwrap((ExecutionGraph) graph));
-        plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
-    }
+
+		final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+
+		ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+
+		IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+
+		generateVisJsData(ExecutionGraph.unwrap((ExecutionGraph) graph));
+		plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
+	}
     
     public static void plainprint(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
         for (IExecutionGraphVertex vertex : graph.vertexSet()) {
@@ -112,7 +112,8 @@ public class ExecutionGraphDemo {
                          .append(to.id())
                          .append("'},\n");
             }
-            edgesJson.setLength(edgesJson.length() - 2);
+
+			edgesJson.setLength(edgesJson.length() > 0 ? edgesJson.length() - 2 : 0);
 
             String content = new String(Files.readAllBytes(Paths.get(dataTemplateFileStr)), StandardCharsets.UTF_8);
             content = content.replace(VERTICES_PLACEHOLDER, verticesJson.toString())
