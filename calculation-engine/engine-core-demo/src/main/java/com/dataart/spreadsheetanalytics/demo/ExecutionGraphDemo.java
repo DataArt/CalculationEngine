@@ -4,11 +4,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.apache.poi.ss.formula.eval.NumberEval;
+import org.apache.poi.ss.formula.eval.StringValueEval;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
@@ -16,6 +19,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -51,11 +55,30 @@ public class ExecutionGraphDemo {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + vertex.value() + ((vertex.value() == null)?"":" (" + vertex.value().get().getClass() + ")"));
+            System.out.println("Value: " + generateValueField(vertex.value()));
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
-        }
-    }
-    
+		}
+	}
+
+	private static String generateValueField(ICellValue value) {
+		if (value == null) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		Object fieldValue = value.get();
+		if (fieldValue instanceof StringValueEval) {
+			StringValueEval stringValue = (StringValueEval) fieldValue;
+			sb.append(stringValue.getStringValue());
+		} else if (fieldValue instanceof NumberEval) {
+			NumberEval numValue = (NumberEval) fieldValue;
+			sb.append(Double.toString(numValue.getNumberValue()));
+		} else {
+			sb.append(fieldValue.toString());
+		}
+		sb.append(" (").append(fieldValue.getClass().toString()).append(")");
+		return sb.toString();
+	}
+
     private static void generateVisJsData(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
         try {
             final String dataTemplateFileStr = "src/main/resources/ui/data_template.js";
@@ -68,8 +91,8 @@ public class ExecutionGraphDemo {
             StringBuilder edgesJson = new StringBuilder();
             
             for (IExecutionGraphVertex vertex : graph.vertexSet()) {
-                /* {id: a, label: b, ...}, */
-                
+				/* {id: a, label: b, ...}, */
+
                 verticesJson.append("{id: '")
                             .append(vertex.id())
                             .append("', label: '")
@@ -83,7 +106,7 @@ public class ExecutionGraphDemo {
                                 .append(vertex.name())
                                 .append("<br>")
                                 .append("Value: ")
-                                .append(vertex.value())
+                                .append(generateValueField(vertex.value()))
                                 .append("<br>")
                                 .append("Type: ")
                                 .append(vertex.type())
