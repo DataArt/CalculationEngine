@@ -19,6 +19,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -54,28 +55,9 @@ public class ExecutionGraphDemo {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + generateValueField(vertex.value()));
+            System.out.println("Value: " + PoiExecutionGraphBuilder.generateValueField(vertex.value(), true));
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
 		}
-	}
-
-	private static String generateValueField(ICellValue value) {
-		if (value == null) {
-			return "";
-		}
-		StringBuilder sb = new StringBuilder();
-		Object fieldValue = value.get();
-		if (fieldValue instanceof StringValueEval) {
-			StringValueEval stringValue = (StringValueEval) fieldValue;
-			sb.append(stringValue.getStringValue());
-		} else if (fieldValue instanceof NumberEval) {
-			NumberEval numValue = (NumberEval) fieldValue;
-			sb.append(Double.toString(numValue.getNumberValue()));
-		} else {
-			sb.append(fieldValue.toString());
-		}
-		sb.append(" (").append(fieldValue.getClass().toString()).append(")");
-		return sb.toString();
 	}
 
     private static void generateVisJsData(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
@@ -105,7 +87,7 @@ public class ExecutionGraphDemo {
                                 .append(vertex.name())
                                 .append("<br>")
                                 .append("Value: ")
-                                .append(generateValueField(vertex.value()))
+                                .append(PoiExecutionGraphBuilder.generateValueField(vertex.value(), true))
                                 .append("<br>")
                                 .append("Type: ")
                                 .append(vertex.type())
