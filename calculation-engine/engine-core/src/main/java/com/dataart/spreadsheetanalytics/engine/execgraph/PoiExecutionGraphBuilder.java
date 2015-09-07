@@ -30,6 +30,8 @@ import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
+import org.apache.poi.ss.formula.eval.NumberEval;
+import org.apache.poi.ss.formula.eval.StringValueEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
@@ -40,6 +42,7 @@ import org.apache.poi.ss.formula.ptg.EqualPtg;
 import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
 import org.apache.poi.ss.formula.ptg.LessThanPtg;
 import org.apache.poi.ss.formula.ptg.MultiplyPtg;
+import org.apache.poi.ss.formula.ptg.NameXPxg;
 import org.apache.poi.ss.formula.ptg.NotEqualPtg;
 import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
@@ -53,6 +56,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
@@ -290,8 +294,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CELL_WITH_VALUE: {
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
-                formula.formulaValues(vertex.property(VALUE).get().toString());
-                formula.formulaPtgStr(vertex.property(VALUE).get().toString());
+                formula.formulaValues(generateValueField(vertex.value(), false));
+                formula.formulaPtgStr(generateValueField(vertex.value(), false));
                 formula.ptgStr(vertex.property(NAME).get().toString());
 			    if (vertex.property(VALUE).get().toString().isEmpty()) {
 				    vertex.property(TYPE).set(Type.EMPTY_CELL);
@@ -372,8 +376,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			    vertex.property(NAME).set("VALUE");
 			    CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
 			    formula.formulaStr(vertex.property(NAME).get().toString());
-			    formula.formulaValues(vertex.property(VALUE).get().toString());
-			    formula.formulaPtgStr(vertex.property(VALUE).get().toString());
+			    formula.formulaValues(generateValueField(vertex.value(), false));
+			    formula.formulaPtgStr(generateValueField(vertex.value(), false));
 			    formula.ptgStr(vertex.property(NAME).get().toString());
 			    return new CellFormulaExpression(formula);
 		    }
@@ -382,6 +386,28 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 		
+	}
+
+	public static String generateValueField(ICellValue value, boolean appendClass) {
+		if (value == null) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		Object fieldValue = value.get();
+		if (fieldValue instanceof StringValueEval) {
+			StringValueEval stringValue = (StringValueEval) fieldValue;
+			sb.append(stringValue.getStringValue());
+		} else if (fieldValue instanceof NumberEval) {
+			NumberEval numValue = (NumberEval) fieldValue;
+			sb.append(Double.toString(numValue.getNumberValue()));
+		} else {
+			sb.append(fieldValue.toString());
+		}
+
+		if (appendClass) {
+			sb.append(" (").append(fieldValue.getClass().toString()).append(")");
+		}
+		return sb.toString();
 	}
 
 	private void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
