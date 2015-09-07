@@ -285,7 +285,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // For OPERATOR and FUNCTION types
 	private CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
 
-        switch (vertex.type) {
+		switch (vertex.type) {
     
             case CELL_WITH_VALUE: {
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
@@ -302,8 +302,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CELL_WITH_FORMULA: {
                 DefaultEdge edge = graph.incomingEdgesOf(vertex).iterator().next();
                 ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                CellFormulaExpression formula = buildFormula(ivertex, graph);
-                vertex.formula = new CellFormulaExpression(formula);
+			    CellFormulaExpression formula = buildFormula(ivertex, graph);
+			    vertex.formula = new CellFormulaExpression(formula);
+                vertex.value = ivertex.value;
                 return new CellFormulaExpression(formula);
             }
             case OPERATOR:
@@ -328,21 +329,24 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 iformula.formulaPtgStr(createPtgString(formulaPtg[0], formulaPtgNodes));
                 iformula.ptgStr(createPtgString(formulaPtg[0], ptgNodes));
                 CellFormulaExpression result = new CellFormulaExpression(iformula);
-                iformula.formulaPtgStr("");
-                iformula.ptgStr("");
+			    iformula.formulaPtgStr("");
+			    iformula.ptgStr("");
                 return result;
             }
             case IF: {
                 Set<DefaultEdge> edges = graph.incomingEdgesOf(vertex);
                 List<String> formulaValuesNodes = new LinkedList<>();
                 List<String> formulaPtgNodes = new LinkedList<>();
-                List<String> ptgNodes = new LinkedList<>();
+			    List<String> ptgNodes = new LinkedList<>();
                 for (DefaultEdge edge : edges) {
                     ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
                     CellFormulaExpression formula = buildFormula(ivertex, graph);
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
+				    if (ivertex.type != Type.OPERATOR) {
+					    vertex.value = ivertex.value;
+				    }
                 }
                 //TODO: are you sure you need only '=' ?
                 Collections.sort(formulaValuesNodes, (n1, n2) -> n1.contains("=") ? -1 : 0);
@@ -352,7 +356,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 iformula.ptgStr(createPtgString(null, ptgNodes));
                 CellFormulaExpression result = new CellFormulaExpression(iformula);
                 iformula.formulaPtgStr("");
-                iformula.ptgStr("");
+			    iformula.ptgStr("");
                 return result;
             }
             case RANGE: {
@@ -364,15 +368,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 connectValuesToRange(vertex);
                 return iformula;
             }
-		case CONSTANT_VALUE: {
-			vertex.property(NAME).set("VALUE");
-			CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
-			formula.formulaStr(vertex.property(NAME).get().toString());
-			formula.formulaValues(vertex.property(VALUE).get().toString());
-			formula.formulaPtgStr(vertex.property(VALUE).get().toString());
-			formula.ptgStr(vertex.property(NAME).get().toString());
-			return new CellFormulaExpression(formula);
-		}
+		    case CONSTANT_VALUE: {
+			    vertex.property(NAME).set("VALUE");
+			    CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
+			    formula.formulaStr(vertex.property(NAME).get().toString());
+			    formula.formulaValues(vertex.property(VALUE).get().toString());
+			    formula.formulaPtgStr(vertex.property(VALUE).get().toString());
+			    formula.ptgStr(vertex.property(NAME).get().toString());
+			    return new CellFormulaExpression(formula);
+		    }
             default: {
                 return (CellFormulaExpression) vertex.formula;
             }
