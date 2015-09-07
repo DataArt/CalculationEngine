@@ -293,7 +293,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 formula.formulaValues(vertex.property(VALUE).get().toString());
                 formula.formulaPtgStr(vertex.property(VALUE).get().toString());
                 formula.ptgStr(vertex.property(NAME).get().toString());
-			    if ("".equals(vertex.property(VALUE).get().toString())) {
+			    if (vertex.property(VALUE).get().toString().isEmpty()) {
 				    vertex.property(TYPE).set(Type.EMPTY_CELL);
 			    }
                 return formula;
