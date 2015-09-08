@@ -16,18 +16,21 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 public class DataModel implements IDataModel {
 
     public final XSSFWorkbook model;
+    public final IDataModelId dataModelId;
 
     public DataModel(String path) throws IOException {
         this.model = new XSSFWorkbook(path);
+        this.dataModelId = new DataModelId(model.toString());
     }
 
     public DataModel(InputStream in) throws IOException {
         this.model = new XSSFWorkbook(in);
+        this.dataModelId = new DataModelId(model.toString());
     }
 
     @Override
     public IDataModelId dataModelId() {
-        return new DataModelId(model.toString());
+        return this.dataModelId;
     }
 
     @Override
