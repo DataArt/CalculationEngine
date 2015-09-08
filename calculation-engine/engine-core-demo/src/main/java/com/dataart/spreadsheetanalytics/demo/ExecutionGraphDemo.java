@@ -22,6 +22,7 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class ExecutionGraphDemo {
@@ -55,7 +56,7 @@ public class ExecutionGraphDemo {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + PoiExecutionGraphBuilder.generateValueField(vertex.value(), true));
+            System.out.println("Value: " + CellValue.fromCellTypeHereToString(vertex.value(), true));
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
 		}
 	}
@@ -87,7 +88,7 @@ public class ExecutionGraphDemo {
                                 .append(vertex.name())
                                 .append("<br>")
                                 .append("Value: ")
-                                .append(PoiExecutionGraphBuilder.generateValueField(vertex.value(), true))
+                                .append(CellValue.fromCellTypeHereToString(vertex.value(), true))
                                 .append("<br>")
                                 .append("Type: ")
                                 .append(vertex.type())
