@@ -13,12 +13,12 @@ import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.eval.ValueEvalArray;
 
-import com.dataart.spreadsheetanalytics.api.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.model.CellValue;

@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.api.engine;
+package com.dataart.spreadsheetanalytics.engine;
 
 import java.util.List;
 
@@ -6,6 +6,9 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
 public class DefineFunctionMeta {
+    
+    public static final String KEYWORD = "DEFINE";
+    public static final String IN_OUT_SEPARATOR = "#";
     
     protected String name;
     protected List<ICellAddress> inputs;
