@@ -42,7 +42,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
 		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
 		Cell c = s.getRow(addr.row()).getCell(addr.column());
 		if (c == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("Cell at row " + addr.row() + ", column " + addr.column() + " is null");
 		}
 		return (Cell.CELL_TYPE_FORMULA == c.getCellType());
 	}

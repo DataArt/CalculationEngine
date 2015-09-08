@@ -42,10 +42,8 @@ public class SpreadsheetAuditor implements IAuditor {
     @Override
 	public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
 		ICellValue evaluatedCell = evaluator.evaluate(cell);
-		IExecutionGraph nonFormulaResult = handleNullAndNonFormulaCell(evaluatedCell, cell);
-		if (nonFormulaResult != null) {
-			return nonFormulaResult;
-		}
+		IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(evaluatedCell, cell);
+		if (nonFormulaResult != null) { return nonFormulaResult; }
 		graphBuilder.runPostProcessing();
 		return graphBuilder.get();
 	}
@@ -61,7 +59,7 @@ public class SpreadsheetAuditor implements IAuditor {
 		return result;
 	}
 
-	protected IExecutionGraph handleNullAndNonFormulaCell(ICellValue evalCell, ICellAddress cell) {
+	protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
 		if (evalCell == null) {
 			return graphBuilder.getSingleNodeGraph(cell);
 		}
