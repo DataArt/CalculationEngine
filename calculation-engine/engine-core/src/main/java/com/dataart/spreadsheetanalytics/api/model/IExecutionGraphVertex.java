@@ -100,7 +100,11 @@ public interface IExecutionGraphVertex {
          * Constant coefficient not related to any cell.
          * E.g. in SUM(2,B1,3) 2,3 are CONSTANT_VALUEs
          */
-        CONSTANT_VALUE;
+        CONSTANT_VALUE,
+        /**
+         * Empty cell (does not contains formula, reference or constant coefficient)
+         */
+        EMPTY_CELL;
         
         public static boolean isFunction(Type type) {
             if (type == null) { throw new NullPointerException("Type argument cannot be null"); }

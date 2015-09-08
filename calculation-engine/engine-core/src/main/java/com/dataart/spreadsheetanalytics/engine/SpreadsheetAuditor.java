@@ -1,6 +1,9 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import org.jgrapht.graph.DefaultDirectedGraph;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+
+import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
@@ -8,8 +11,11 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
+import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 
 public class SpreadsheetAuditor implements IAuditor {
 
@@ -36,11 +42,33 @@ public class SpreadsheetAuditor implements IAuditor {
     @Override
 	public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
 		ICellValue evaluatedCell = evaluator.evaluate(cell);
-		if (evaluatedCell == null) {
-			return graphBuilder.getSingleNodeGraph(cell);
+		IExecutionGraph nonFormulaResult = handleNullAndNonFormulaCell(evaluatedCell, cell);
+		if (nonFormulaResult != null) {
+			return nonFormulaResult;
 		}
 		graphBuilder.runPostProcessing();
 		return graphBuilder.get();
+	}
+
+	private IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue icell) {
+		ExecutionGraph result = gBuilder.get();
+		ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
+		vertex.property(VALUE).set(icell.get());
+		vertex.property(TYPE).set(Type.CELL_WITH_VALUE);
+		DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph = ExecutionGraph.unwrap(result);
+		dgraph.addVertex(vertex);
+		result = ExecutionGraph.wrap(dgraph);
+		return result;
+	}
+
+	protected IExecutionGraph handleNullAndNonFormulaCell(ICellValue evalCell, ICellAddress cell) {
+		if (evalCell == null) {
+			return graphBuilder.getSingleNodeGraph(cell);
+		}
+		if (!evaluator.isFormulaCell(cell)) {
+			return buildGraphForNonFormulaCell(graphBuilder, evalCell);
+		}
+		return null;
 	}
 
     @Override
