@@ -328,10 +328,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 				ptgNodes.add(formula.ptgStr());
 			}
 			CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula();
-			iformula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes));
-			iformula.formulaValues(createFormulaString(formulaPtg[0], formulaValuesNodes));
-			iformula.formulaPtgStr(createPtgString(formulaPtg[0], formulaPtgNodes));
-			iformula.ptgStr(createPtgString(formulaPtg[0], ptgNodes));
+			iformula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes, vertex));
+			iformula.formulaValues(createFormulaString(formulaPtg[0], formulaValuesNodes, vertex));
+			iformula.formulaPtgStr(createPtgString(formulaPtg[0], formulaPtgNodes, vertex));
+			iformula.ptgStr(createPtgString(formulaPtg[0], ptgNodes, vertex));
 			CellFormulaExpression result = new CellFormulaExpression(iformula);
 			iformula.formulaPtgStr("");
 			iformula.ptgStr("");
@@ -355,9 +355,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			// TODO: are you sure you need only '=' ?
 			Collections.sort(formulaValuesNodes, (n1, n2) -> n1.contains("=") ? -1 : 0);
 			CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula;
-			iformula.formulaValues(createFormulaString(null, formulaValuesNodes));
-			iformula.formulaPtgStr(createPtgString(null, formulaPtgNodes));
-			iformula.ptgStr(createPtgString(null, ptgNodes));
+			iformula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
+			iformula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
+			iformula.ptgStr(createPtgString(null, ptgNodes, vertex));
 			CellFormulaExpression result = new CellFormulaExpression(iformula);
 			iformula.formulaPtgStr("");
 			iformula.ptgStr("");
@@ -408,12 +408,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		return ptg instanceof ParenthesisPtg;
 	}
 
-	private String createFormulaString(Object optg, List<String> ops) {
+	private String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
 		String opname = "";
 		if (optg == null) { // IF
 			opname = "IF";
 		} else if (optg instanceof Ptg) {
 			opname = ptgToString((Ptg) optg);
+			if ("#external#".equals(opname)) {
+				opname = vertex.name();
+			}
 		} else {
 			opname = optg.toString();
 		}
@@ -428,11 +431,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		} else if (optg instanceof ValueOperatorPtg) {
 			return stripBracesAndCommas(format("%s %s %s", ops.get(0), opname, ops.get(1)));
 		}
-		
 		return "";
 	}
 
-	private String createPtgString(Object optg, List<String> ops) {
+	private String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
 		String opname = "";
 		
 		if (optg == null) {
@@ -445,7 +447,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 					                            opname));
 		} else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
-			
+			opname = "#external#".equals(opname) ? vertex.name() : opname;
+			}
 			if (optg instanceof AbstractFunctionPtg) {
 				return stripBracesAndCommas(format("%s %s ",
 						                            join(",", asList(ops)
@@ -456,9 +459,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			} else if (optg instanceof ValueOperatorPtg) {
 				return stripBracesAndCommas(String.format("%s %s %s", ops.get(0), ops.get(1), opname));
 			}
-			
-			return "";
-		}
+
+		return "";
 	}
 
 	private static String stripBracesAndCommas(String inline) {
@@ -499,7 +501,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return FUNCTION;
 		} else if (ptg instanceof ValueOperatorPtg) { // single operators: +, -, /, *, =
 			return OPERATOR;
-		} else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg) {
+		} else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg) {
 			return CELL_WITH_VALUE;
 		} else if (ptg instanceof ScalarConstantPtg) {
 			return CONSTANT_VALUE;
