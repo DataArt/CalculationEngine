@@ -56,7 +56,7 @@ public class ExecutionGraphDemo {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + CellValue.fromCellTypeHereToString(vertex.value(), true));
+            System.out.println("Value: " + CellValue.fromCellValueToString(vertex.value(), true));
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
 		}
 	}
@@ -88,7 +88,7 @@ public class ExecutionGraphDemo {
                                 .append(vertex.name())
                                 .append("<br>")
                                 .append("Value: ")
-                                .append(CellValue.fromCellTypeHereToString(vertex.value(), true))
+                                .append(CellValue.fromCellValueToString(vertex.value(), true))
                                 .append("<br>")
                                 .append("Type: ")
                                 .append(vertex.type())

@@ -294,8 +294,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		case CELL_WITH_VALUE: {
 			CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
 			formula.formulaStr(vertex.property(NAME).get().toString());
-			formula.formulaValues(CellValue.fromCellTypeHereToString(vertex.value(), false));
-			formula.formulaPtgStr(CellValue.fromCellTypeHereToString(vertex.value(), false));
+			formula.formulaValues(CellValue.fromCellValueToString(vertex.value(), false));
+			formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value(), false));
 			formula.ptgStr(vertex.property(NAME).get().toString());
 			if (vertex.property(VALUE).get().toString().isEmpty()) {
 				vertex.property(TYPE).set(Type.EMPTY_CELL);
@@ -376,8 +376,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			vertex.property(NAME).set("VALUE");
 			CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
 			formula.formulaStr(vertex.property(NAME).get().toString());
-			formula.formulaValues(CellValue.fromCellTypeHereToString(vertex.value(), false));
-			formula.formulaPtgStr(CellValue.fromCellTypeHereToString(vertex.value(), false));
+			formula.formulaValues(CellValue.fromCellValueToString(vertex.value(), false));
+			formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value(), false));
 			formula.ptgStr(vertex.property(NAME).get().toString());
 			return new CellFormulaExpression(formula);
 		}

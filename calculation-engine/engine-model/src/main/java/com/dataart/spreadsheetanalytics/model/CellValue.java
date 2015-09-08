@@ -13,7 +13,7 @@ public class CellValue implements ICellValue {
         this.value = value;
     }
 
-	public static String fromCellTypeHereToString(ICellValue value, boolean appendClass) {
+	public static String fromCellValueToString(ICellValue value, boolean appendClass) {
 		if (value == null) {
 			return "";
 		}
