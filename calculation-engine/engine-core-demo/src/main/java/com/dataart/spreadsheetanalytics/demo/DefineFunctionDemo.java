@@ -19,7 +19,7 @@ public class DefineFunctionDemo {
         final String cellToEvaluate = "C2";
 
         final IDataModel modelFuncexec = new DataModel(funcexec);
-
+        
         IDataProvider dataProvider = DataProvider.getDummyDataProvider();
 
         final ICellAddress addr = new CellAddress(modelFuncexec.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
