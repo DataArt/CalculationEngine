@@ -52,9 +52,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
 		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
 		Cell c = s.getRow(addr.row()).getCell(addr.column());
 		org.apache.poi.ss.usermodel.CellValue icv = poiEvaluator.evaluate(c);
-		if (icv == null) {
-			return null;
-		}
+		if (icv == null) { return null; }
 
         ICellValue cv = new CellValue(poiEvaluator.evaluate(c).formatAsString());
         
