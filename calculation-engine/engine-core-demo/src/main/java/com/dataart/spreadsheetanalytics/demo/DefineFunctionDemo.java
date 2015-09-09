@@ -18,14 +18,15 @@ public class DefineFunctionDemo {
 
     public static void main(String[] args) throws Exception {
 
-        final String funcexec = "src/main/resources/excel/define-funcexec/funcexec.xlsx";
-        final String cellToEvaluate = "C2";
+        final String storage = args[0]; //"src/main/resources/excel/define-funcexec/";
+        final String funcexec = args[1]; // "src/main/resources/excel/define-funcexec/funcexec.xlsx";
+        final String cellToEvaluate = args[2]; //"C2";
 
         final IDataModel modelFuncexec = new DataModel(funcexec);
         
         final IDataProvider dataProvider = DataProvider.createEmptyDataProvider();
         final FileSystemDataModelLocation location = new FileSystemDataModelLocation();
-        location.setPath(Paths.get("src/main/resources/excel/define-funcexec/"));
+        location.setPath(Paths.get(storage));
         
         dataProvider.updateDataModels(location);
         dataProvider.updateDefineFunctions();

@@ -12,8 +12,13 @@ import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyNam
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 
+/**
+ * Representation of {@link IExecutionGraphVertex} (Vertex, Node) in {@link IExecutionGraph}.
+ * Simple class with list of properties inside.
+ */
 public class ExecutionGraphVertex /* POI Vertex interface (internal) */ 
                                   extends org.apache.poi.common.execgraph.IExecutionGraphVertex
                                   /* Public API interface */

@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.api.model;
 
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
+
 /**
  * Represents a vertex (node) in execution graph (static or dynamic).
  * Graph basically consists of Vertices and Edges. 
@@ -10,9 +12,8 @@ package com.dataart.spreadsheetanalytics.api.model;
  * The Vertex Edge can be one of {@link Type}.
  * 
  * See methods docs for more information about every piece of information.
- * 
- * @author rroschin
  *
+ * Basic implementation: {@link ExecutionGraphVertex}.
  */
 public interface IExecutionGraphVertex {
     
