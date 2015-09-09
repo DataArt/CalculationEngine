@@ -20,12 +20,12 @@ public class DataModel implements IDataModel {
 
     public DataModel(String path) throws IOException {
         this.model = new XSSFWorkbook(path);
-        this.dataModelId = new DataModelId(model.toString());
+        this.dataModelId = new DataModelId(this.model.toString());
     }
 
     public DataModel(InputStream in) throws IOException {
         this.model = new XSSFWorkbook(in);
-        this.dataModelId = new DataModelId(model.toString());
+        this.dataModelId = new DataModelId(this.model.toString());
     }
 
     @Override

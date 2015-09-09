@@ -4,6 +4,11 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 
+/**
+ * Basic implementation of {@link ICellFormulaExpression}.
+ * Contains appropriate fields for interfaces's getters.
+ * Also provides a copy-method to clone the major information. 
+ */
 public class CellFormulaExpression implements ICellFormulaExpression {
 
     protected String formulaStr;    
@@ -13,18 +18,11 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     protected Ptg[] ptgs;
     protected int iptg;    
     protected Object rootFormulaId;
-    protected Object[] formulaPtg; //TODO: this is something to organize: [0] - OperationPtg, [1],[2]... - values 
+    protected Object[] formulaPtg; //[0] - OperationPtg, [1] - array of values 
 
-    public CellFormulaExpression() { /* default constructor to create instance with nothing, then fill it with everything */ }
+    /** Default constructor to create instance with nothing, then fill it with everything. */
+    public CellFormulaExpression() {}
     
-    public CellFormulaExpression(CellFormulaExpression formula) {
-    	formulaStr = formula.formulaStr;    
-        formulaValues = formula.formulaValues;
-        formulaPtgStr = formula.formulaPtgStr;    
-        ptgStr = formula.ptgStr;        
-        iptg = formula.iptg;                        
-    }
-
     @Override public String formulaStr() { return this.formulaStr; }
     @Override public String formulaValues() { return this.formulaValues; }
     @Override public Ptg[] ptgs() { return this.ptgs; }
@@ -42,6 +40,27 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     public void formulaPtg(Object[] formulaPtg) { this.formulaPtg = formulaPtg; }
     public void iptg(int iptg) { this.iptg = iptg; }
     public void rootFormulaId(Object rootFormulaId) { this.rootFormulaId = rootFormulaId; }    
+
+    /**
+     * Does copy of provided instance.
+     * Fileds to be copied: 
+     * {@link #formulaPtg()}
+     * {@link #formulaValues()}
+     * {@link #formulaPtgStr()}
+     * {@link #ptgStr()}
+     * {@link #iptg()}
+     */
+    public static CellFormulaExpression copyOf(CellFormulaExpression formula) {
+        CellFormulaExpression copy = new CellFormulaExpression();
+
+        copy.formulaStr = formula.formulaStr().intern();
+        copy.formulaValues = formula.formulaValues().intern();
+        copy.formulaPtgStr = formula.formulaPtgStr().intern();
+        copy.ptgStr = formula.ptgStr().intern();
+        copy.iptg = formula.iptg();
+
+        return copy;
+    }
 
 	@Override
     public String toString() {

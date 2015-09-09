@@ -16,9 +16,12 @@ public class DefineFunction implements CustomFunction {
     
     public DefineFunction() {}
 
+    /**
+     * This function does nothing, since it should never be evaluated.
+     * DEFINE function is a spreadsheet metadata and it cannot have value.
+     */
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
-        // TODO Auto-generated method stub
         return null;
     }
 

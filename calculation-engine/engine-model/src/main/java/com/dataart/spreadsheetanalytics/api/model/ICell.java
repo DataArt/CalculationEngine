@@ -1,7 +1,7 @@
 package com.dataart.spreadsheetanalytics.api.model;
 
 /**
- * Cell in the spreadsheet
+ * Cell in a spreadsheet.
  */
 public interface ICell {
 

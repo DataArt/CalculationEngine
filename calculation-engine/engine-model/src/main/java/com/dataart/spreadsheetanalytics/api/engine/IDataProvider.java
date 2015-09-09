@@ -17,7 +17,10 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
  * The particular use is not specified, but usually it may be a singleton type for all application or prototype.
  * In case of singleton it may aggregate other data providers inside of itself and gice facade like access to Auditor and Evaluator.
  * In case of prototype it may be created every time for every evaluation operation and destroyed just after.
+ * 
+ * Basic implemetation: {@link DataProvider} from engine-data library.
  */
+@SuppressWarnings("javadoc")
 public interface IDataProvider {
 
     /**
@@ -49,7 +52,7 @@ public interface IDataProvider {
     void updateDataModels(IDataModelLocation location);
     
     /**
-     * Adds new {@link IDataModel} to cache
+     * Adds all {@link IDataModel} to cache, DataModels are taken from given {@link IDataModelLocation}.
      */
     void addDataModel(IDataModelLocation location);
     

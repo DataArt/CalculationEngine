@@ -4,14 +4,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.apache.poi.ss.formula.eval.NumberEval;
-import org.apache.poi.ss.formula.eval.StringValueEval;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
@@ -19,7 +16,6 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellValue;
@@ -56,7 +52,7 @@ public class ExecutionGraphDemo {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + CellValue.fromCellValueToString(vertex.value(), true));
+            System.out.println("Value: " + CellValue.fromCellValueToString(vertex.value()));
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
 		}
 	}
@@ -88,7 +84,7 @@ public class ExecutionGraphDemo {
                                 .append(vertex.name())
                                 .append("<br>")
                                 .append("Value: ")
-                                .append(CellValue.fromCellValueToString(vertex.value(), true))
+                                .append(CellValue.fromCellValueToString(vertex.value()))
                                 .append("<br>")
                                 .append("Type: ")
                                 .append(vertex.type())

@@ -5,38 +5,35 @@ import org.apache.poi.ss.formula.eval.StringValueEval;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 
+/**
+ * Basic implementation of {@link ICellValue}.
+ * It is a simple wrapper for {@link Object} (represents the value).
+ */
 public class CellValue implements ICellValue {
 
     protected final Object value;
 
-    public CellValue(Object value) {
-        this.value = value;
-    }
-
-	public static String fromCellValueToString(ICellValue value, boolean appendClass) {
-		if (value == null) {
-			return "";
-		}
-		StringBuilder sb = new StringBuilder();
-		Object fieldValue = value.get();
-		if (fieldValue instanceof StringValueEval) {
-			StringValueEval stringValue = (StringValueEval) fieldValue;
-			sb.append(stringValue.getStringValue());
-		} else if (fieldValue instanceof NumberEval) {
-			NumberEval numValue = (NumberEval) fieldValue;
-			sb.append(Double.toString(numValue.getNumberValue()));
-		} else {
-			sb.append(fieldValue.toString());
-		}
-
-		if (appendClass) {
-			sb.append(" (").append(fieldValue.getClass().toString()).append(")");
-		}
-		return sb.toString();
-	}
+    public CellValue(Object value) { this.value = value; }
 
     @Override
     public Object get() { return value; }
+
+    /**
+     * Util toString with some additional logic in case the value is of type String or Number. 
+     */
+    public static String fromCellValueToString(ICellValue value) {
+        if (value == null) { return ""; }
+
+        Object v = value.get();
+
+        if (v instanceof StringValueEval) {
+            return ((StringValueEval) v).getStringValue();
+        } else if (v instanceof NumberEval) {
+            return Double.toString(((NumberEval) v).getNumberValue());
+        }
+
+        return v.toString();
+    }
 
     @Override
     public String toString() {

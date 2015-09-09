@@ -2,6 +2,14 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 import org.apache.poi.ss.formula.ptg.Ptg;
 
+import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
+
+/**
+ * Container for formula related information.
+ * Contains everything from original string formula to formula with evaluated values.
+ * 
+ * Basic implementation: {@link CellFormulaExpression}.
+ */
 public interface ICellFormulaExpression {
 
     /**

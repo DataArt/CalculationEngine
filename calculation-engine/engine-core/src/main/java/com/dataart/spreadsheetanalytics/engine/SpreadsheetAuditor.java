@@ -17,6 +17,9 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 
+/**
+ * TODO
+ */
 public class SpreadsheetAuditor implements IAuditor {
 
     protected final SpreadsheetEvaluator evaluator;
@@ -26,16 +29,18 @@ public class SpreadsheetAuditor implements IAuditor {
         this.evaluator = evaluator;
         
         this.graphBuilder = new PoiExecutionGraphBuilder();
-        this.evaluator.setExecutionGraphBuilder(graphBuilder);
+        this.evaluator.setExecutionGraphBuilder(this.graphBuilder);
     }
 
     @Override
     public IExecutionGraph buildStaticExecutionGraph(ICellAddress cell) {
+        //TODO: implement
         return null;
     }
 
     @Override
     public IExecutionGraph buildStaticExecutionGraph() {
+        //TODO: implement
         return null;
     }
 
@@ -48,26 +53,6 @@ public class SpreadsheetAuditor implements IAuditor {
 		
 		graphBuilder.runPostProcessing();
 		return graphBuilder.get();
-	}
-
-	private IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue cell) {
-		DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph = ExecutionGraph.unwrap(gBuilder.get());
-		
-		ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
-		vertex.property(VALUE).set(cell.get());
-		vertex.property(TYPE).set(Type.CELL_WITH_VALUE);
-		 
-		dgraph.addVertex(vertex);
-
-		return ExecutionGraph.wrap(dgraph);
-	}
-
-	protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
-		if (evalCell == null) { return graphBuilder.getSingleNodeGraph(cell); }
-		
-		if (!evaluator.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder, evalCell); }
-		
-		return null;
 	}
 
     @Override
@@ -94,6 +79,26 @@ public class SpreadsheetAuditor implements IAuditor {
         return null;
     }
 
+    protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
+        if (evalCell == null) { return graphBuilder.getSingleNodeGraph(cell); }
+        
+        if (!evaluator.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder, evalCell); }
+        
+        return null;
+    }
+
+    private IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue cell) {
+        DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph = ExecutionGraph.unwrap(gBuilder.get());
+        
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
+        vertex.property(VALUE).set(cell.get());
+        vertex.property(TYPE).set(Type.CELL_WITH_VALUE);
+         
+        dgraph.addVertex(vertex);
+
+        return ExecutionGraph.wrap(dgraph);
+    }
+    
     @Override
     public IEvaluator getEvaluator() { return evaluator; }
 }

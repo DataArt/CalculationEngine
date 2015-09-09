@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,11 +33,10 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
-import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 /**
- * Simple {@link IDataProvider} realisation based on HashMaps.
+ * Simple {@link IDataProvider} implementations based on HashMaps.
  */
 public class DataProvider implements IDataProvider {
 
@@ -50,6 +48,10 @@ public class DataProvider implements IDataProvider {
 
     protected DataProvider() {}
 
+    /**
+     * Creates new instance of {@link IDataProvider} with nothing inside.
+     * Since data provider can be filled up with data later. 
+     */
     public static IDataProvider createEmptyDataProvider() {
         DataProvider dp = new DataProvider();
         dp.defines = new HashMap<>();
@@ -139,6 +141,17 @@ public class DataProvider implements IDataProvider {
         return execModel;
     }
 
+    /**
+     * Does exact copy of {@link DataModel} to memory.
+     * There some cases when original model should contains different (replaced) values and
+     * only then executed.
+     * To avoid copying model to files this method can store it in memory.
+     * 
+     *  Implementation is based on {@link PipedInputStream} and {@link PipedOutputStream}
+     *  and two threads: new and current one.
+     *  
+     *  Returned {@link IDataModel} will not be equal to original one. But may contain the same Id.
+     */
     protected IDataModel copyModelInMemory(DataModel model) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         model.model.write(os);
@@ -148,15 +161,15 @@ public class DataProvider implements IDataProvider {
 
         //this strange (from first view) code does copy from one stream to another.
         //It uses 2 threads - new and current one. So do not worry about it.
-        new Thread(() -> {
-            try {
-                os.writeTo(out);
-            } catch (IOException e) {}
-        }).start();
+        new Thread(() -> { try { os.writeTo(out); } catch (IOException e) {} }).start();
 
         return new DataModel(in);
     }
 
+    /**
+     * Does full scan given {@link IDataModel} for DEFINE functions ({@link DefineFunctionMeta}).
+     * 3 iterators are used inside to go through all the cells and find 'DEFINE' keyword.
+     */
     protected Map<String, DefineFunctionMeta> scanDataModelForDefines(IDataModel dataModel) {
         DataModel dm = (DataModel) dataModel;
         
@@ -181,43 +194,9 @@ public class DataProvider implements IDataProvider {
                         //TODO log or throw?? if throw create exception?
                         throw new RuntimeException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR);
                     }
-                    
-                    //TODO: parsing mechanism might be better, use POI's parser or think about it again
-                    //DEFINE("name", A1, A2, "#", B1, B2, B3)
-                    String[] ptgs = formula
-                                        .replace(KEYWORD, "")
-                                        .replace("(", "")
-                                        .replace(")", "")
-                                        .replace("\"", "")
-                                        .replace(" ", "")
-                                        .split(",");
-                    if (ptgs.length < 2) {
-                        //TODO log or throw?? if throw create exception?                        
-                        throw new RuntimeException("Number of Ptgs in " + KEYWORD + " function must be more than 2");
-                    }
 
-                    DefineFunctionMeta meta = new DefineFunctionMeta();
-                    meta.name(ptgs[0]);
+                    DefineFunctionMeta meta = DefineFunctionMeta.parse(formula);
                     meta.dataModelId(dataModel.dataModelId());
-
-                    List<ICellAddress> in = new LinkedList<>();
-                    List<ICellAddress> out = new LinkedList<>();
-                    
-                    boolean passedSeparator = false;
-
-                    for (int i = 1; i < ptgs.length; i++) {
-
-                        if (IN_OUT_SEPARATOR.equals(ptgs[i])) { passedSeparator = true; continue; }
-
-                        if (passedSeparator) {
-                            out.add(A1Address.fromA1Address(ptgs[i]));
-                        } else {
-                            in.add(A1Address.fromA1Address(ptgs[i]));
-                        }
-                    }
-                    
-                    meta.inputs(in);
-                    meta.outputs(out);
                     
                     map.put(meta.name(), meta);
                 }
@@ -226,5 +205,5 @@ public class DataProvider implements IDataProvider {
         
         return map;
     }
-
+    
 }

@@ -3,11 +3,17 @@ package com.dataart.spreadsheetanalytics.engine.execgraph;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 
+/**
+ * Class represent ony property of {@link IExecutionGraphVertex}.
+ * Internal use only.
+ */
 class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
+    
     public final PropertyName pname;
     protected Object pvalue;
     

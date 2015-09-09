@@ -6,6 +6,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+/**
+ * Marker for {@link CustomFunction}s.
+ * Must contain name of function and (optional) number of arguments.
+ */
 @Target(TYPE)
 @Retention(RUNTIME)
 public @interface FunctionMeta {
