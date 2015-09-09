@@ -66,6 +66,8 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
  */
 public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
+	private static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
+
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
 	protected Map<ValueEval, IExecutionGraphVertex> valueToVertex;
@@ -407,7 +409,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			opname = "IF";
 		} else if (optg instanceof Ptg) {
 			opname = ptgToString((Ptg) optg);
-			if ("#external#".equals(opname)) {
+			if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) {
+				/* if the function was not recognized as
+				   internal function we use the node
+				   name as the function name */
 				opname = vertex.name();
 			}
 		} else {
@@ -440,7 +445,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 					                            opname));
 		} else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
-			opname = "#external#".equals(opname) ? vertex.name() : opname;
+			/* if the function was not recognized as
+			   internal function we use the node
+			   name as the function name */
+			opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
 			}
 			if (optg instanceof AbstractFunctionPtg) {
 				return stripBracesAndCommas(format("%s %s ",
