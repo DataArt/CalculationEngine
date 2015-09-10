@@ -51,10 +51,10 @@ public class SpreadsheetEvaluator implements IEvaluator {
 	public ICellValue evaluate(ICellAddress addr) {
 		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
 		Cell c = s.getRow(addr.row()).getCell(addr.column());
-		org.apache.poi.ss.usermodel.CellValue icv = poiEvaluator.evaluate(c);
-		if (icv == null) { return null; }
+		org.apache.poi.ss.usermodel.CellValue poiValue = poiEvaluator.evaluate(c);
+		if (poiValue == null) { return null; }
 
-        ICellValue cv = new CellValue(poiEvaluator.evaluate(c).formatAsString());
+        ICellValue cv = new CellValue(fromPoiValue(poiValue));
         
         destroy();
         
@@ -117,5 +117,17 @@ public class SpreadsheetEvaluator implements IEvaluator {
                                                             names.toArray(new String[names.size()]),
                                                             functions.toArray(new CustomFunction[functions.size()])));  
         this.model.addToolPack(udfToolpack);
+    }
+
+    //TODO: look for similar methods in POI code and move to some good place
+    protected Object fromPoiValue(org.apache.poi.ss.usermodel.CellValue poiValue) {
+        switch (poiValue.getCellType()) {
+            case Cell.CELL_TYPE_STRING: { return poiValue.getStringValue(); }
+            case Cell.CELL_TYPE_NUMERIC: { return Double.valueOf(poiValue.getNumberValue()); }
+            case Cell.CELL_TYPE_BOOLEAN: { return Boolean.valueOf(poiValue.getBooleanValue()); }
+            case Cell.CELL_TYPE_ERROR: { return null; /* TODO we do not have special classes for error values yet */ }
+            case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
+            case Cell.CELL_TYPE_BLANK: default: { return ""; }
+        }
     }
 }
