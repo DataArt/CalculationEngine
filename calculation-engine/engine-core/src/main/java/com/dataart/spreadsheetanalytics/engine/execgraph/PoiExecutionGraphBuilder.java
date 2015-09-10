@@ -48,6 +48,7 @@ import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.SubtractPtg;
+import org.apache.poi.ss.formula.ptg.UnaryPlusPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -427,7 +428,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			                                                   .map(v -> v.toString())
 			                                                   .collect(toList()))));
 		} else if (optg instanceof ValueOperatorPtg) {
-			return stripBracesAndCommas(format("%s %s %s", ops.get(0), opname, ops.get(1)));
+			return stripBracesAndCommas(format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", opname, (ops.size() > 1) ? ops.get(1) : ""));
 		}
 		return "";
 	}
@@ -458,7 +459,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 						                                        .collect(toList())), 
 						                            opname));
 			} else if (optg instanceof ValueOperatorPtg) {
-				return stripBracesAndCommas(String.format("%s %s %s", ops.get(0), ops.get(1), opname));
+			return stripBracesAndCommas(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
 			}
 
 		return "";
@@ -487,6 +488,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return "<";
 		} else if (ptgCls.isAssignableFrom(NotEqualPtg.class)) {
 			return "<>";
+		} else if (ptgCls.isAssignableFrom(UnaryPlusPtg.class)) {
+			return "+";
 		}
 
 		try {
