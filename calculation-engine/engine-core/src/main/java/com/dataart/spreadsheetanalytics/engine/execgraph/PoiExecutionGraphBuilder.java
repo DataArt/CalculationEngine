@@ -3,6 +3,7 @@ package com.dataart.spreadsheetanalytics.engine.execgraph;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CONSTANT_VALUE;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.EMPTY_CELL;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.FUNCTION;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.IF;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
@@ -67,7 +68,8 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
  */
 public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
-	private static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
+    protected static final String CONSTANT_VALUE_NAME = "VALUE";
+    protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
 
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
@@ -86,8 +88,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	}
 
 	public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
-		DefaultDirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
-		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().toString());
+		DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+		vertex.property(TYPE).set(EMPTY_CELL);
 		emptyGraph.addVertex(vertex);
 		return ExecutionGraph.wrap(emptyGraph);
 	}
@@ -95,8 +98,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	/**
 	 * This method should be used when creating a new vertex from a cell, so
 	 * vertex name is a cell's address. New Vertex will be created any time this
-	 * method is invoked. New vertex will be stored in
-	 * address-to-set-of-vertices map.
+	 * method is invoked. New vertex will be stored in address-to-set-of-vertices map.
 	 */
 	@Override
 	public IExecutionGraphVertex createVertex(String address) {
@@ -117,9 +119,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 	@Override
 	public IExecutionGraphVertex createVertex(Ptg ptg) {
-		if (isSkipVertex(ptg)) {
-			return null;
-		}
+		if (isSkipVertex(ptg)) { return null; }
+		
 		boolean isCell = ptg instanceof RefPtg;
 		String name = ptgToString(ptg);
 
@@ -157,7 +158,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 	@Override
 	public void putVertexToCache(String address, IExecutionGraphVertex vertex) {
-		if (!addressToVertices.containsKey(address)) addressToVertices.put(address, new HashSet<>());
+		if (!addressToVertices.containsKey(address)) { addressToVertices.put(address, new HashSet<>()); }
 		addressToVertices.get(address).add(vertex);
 	}
 
@@ -201,11 +202,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 				for (IExecutionGraphVertex ivertex : vs) {
 					ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-					Type type = (Type) vertex.property(TYPE).get();
-					if (CELL_WITH_FORMULA == type) {
-						standard = vertex;
-						break;
-					}
+					if (CELL_WITH_FORMULA == (Type) vertex.property(TYPE).get()) { standard = vertex; break; }
 				}
 
 				if (standard != null) {
@@ -285,7 +282,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // set formula_values to user-friendly string like: '1 + 2' or
     // 'SUM(2,1)'
     // For OPERATOR and FUNCTION types
-	private CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
 
         switch (vertex.type) {
 
@@ -296,7 +293,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value()));
                 formula.ptgStr(vertex.property(NAME).get().toString());
                 if (vertex.property(VALUE).get().toString().isEmpty()) {
-                    vertex.property(TYPE).set(Type.EMPTY_CELL);
+                    vertex.property(TYPE).set(EMPTY_CELL);
                 }
                 return formula;
             }
@@ -346,9 +343,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
-                    if (ivertex.type != Type.OPERATOR) {
-                        vertex.value = ivertex.value;
-                    }
+                    if (OPERATOR != ivertex.type) { vertex.value = ivertex.value; }
                 }
                 // TODO: are you sure you need only '=' ?
                 Collections.sort(formulaValuesNodes, (n1, n2) -> n1.contains("=") ? -1 : 0);
@@ -371,7 +366,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return iformula;
             }
             case CONSTANT_VALUE: {
-                vertex.property(NAME).set("VALUE");
+                vertex.property(NAME).set(CONSTANT_VALUE_NAME);
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(CellValue.fromCellValueToString(vertex.value()));
@@ -386,7 +381,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 	}
 
-	private void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
+	protected void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
 		Object cellValue = ((CellValue) rangeVertex.value()).get();
 		if (cellValue instanceof Area2DValues) {
 			
@@ -400,11 +395,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		}
 	}
 
-	private boolean isSkipVertex(Ptg ptg) {
+	protected boolean isSkipVertex(Ptg ptg) {
 		return ptg instanceof ParenthesisPtg;
 	}
 
-	private String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+	protected String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
 		String opname = "";
 		if (optg == null) { // IF
 			opname = "IF";
@@ -433,7 +428,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		return "";
 	}
 
-	private String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+	protected String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
 		String opname = "";
 		
 		if (optg == null) {
@@ -465,7 +460,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		return "";
 	}
 
-	private static String stripBracesAndCommas(String inline) {
+	protected static String stripBracesAndCommas(String inline) {
 	    return inline.replace("[", "").replace("]", "").replace(",", "");
 	}
 
@@ -521,7 +516,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	 * Does copy of all properties for every Vertex from @param vertices. the
 	 * first @param istandard is used as object to copy from.
 	 */
-	private static void copyProperties(IExecutionGraphVertex istandard, Set<IExecutionGraphVertex> vertices) {
+	protected static void copyProperties(IExecutionGraphVertex istandard, Set<IExecutionGraphVertex> vertices) {
 	    ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
 	    
 	    for (IExecutionGraphVertex ivertex : vertices) {
@@ -540,7 +535,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	}
 
     // TODO: not the best solution, but works as for now
-    private static boolean isCompareOperand(String name) {
+	protected static boolean isCompareOperand(String name) {
         return "=".equals(name) || ">".equals(name) || "<".equals(name) || "<>".equals(name);
     }
 

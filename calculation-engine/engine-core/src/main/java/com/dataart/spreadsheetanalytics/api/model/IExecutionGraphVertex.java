@@ -62,6 +62,7 @@ public interface IExecutionGraphVertex {
      *
      */
     public static enum Type {
+        
         /**
          * Cell with value. This value is static data, not a formula or reference.
          * It cannot be evaluated, only accessed in static way, meaning getting this value will not produce 
