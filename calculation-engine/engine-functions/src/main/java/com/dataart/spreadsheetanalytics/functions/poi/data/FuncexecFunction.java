@@ -4,14 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.ss.formula.ArrayEval;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
+import org.apache.poi.ss.formula.TwoDEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.EvaluationException;
 import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.OperandResolver;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
-import org.apache.poi.ss.formula.eval.ValueEvalArray;
 
 import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
@@ -77,20 +78,23 @@ public class FuncexecFunction implements CustomFunction {
                 outputValues.add(outputValue);
             }
 
-            ValueEvalArray values = new ValueEvalArray();
-            values.setValueEvals(toValueEval(outputValues));
-            return values.getValueEvals().get(0); //TODO: because we do not have INDEX function as for now
-            
+            return outputValues.size() == 1 
+                    ? new NumberEval((double) outputValues.get(0).get()) /* TODO: do correct conversion to type */
+                    : toTwoDEval(outputValues);
         } catch (IOException e) {
             return ErrorEval.NA;
         }
     }
     
-    private static List<ValueEval> toValueEval(List<ICellValue> outputValues) {
+    private static TwoDEval toTwoDEval(List<ICellValue> outputValues) {
+        
+        ArrayEval ae = new ArrayEval();
+        
         List<ValueEval> values = new ArrayList<>(outputValues.size());
         
         for (ICellValue outputValue : outputValues) {
             CellValue ov = (CellValue) outputValue;
+            
             if (ov.get() instanceof Number) {
                 values.add(new NumberEval((double) ov.get()));
             } else if (ov.get() instanceof String) {
@@ -99,7 +103,9 @@ public class FuncexecFunction implements CustomFunction {
             //TODO: add more types
         }
         
-        return values;
+        ae.setValues(values);
+        
+        return ae;
     }
 
     private static ICellValue toCellValue(ValueEval value) throws EvaluationException {
