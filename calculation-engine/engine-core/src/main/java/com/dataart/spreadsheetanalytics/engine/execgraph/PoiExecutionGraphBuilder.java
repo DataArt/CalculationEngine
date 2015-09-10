@@ -352,7 +352,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     }
                 }
                 // TODO: are you sure you need only '=' ?
-                Collections.sort(formulaValuesNodes, (n1, n2) -> n1.contains("=") ? -1 : 0);
+                Collections.sort(formulaValuesNodes, (n1, n2) -> (n1.contains("=")||n1.contains("<")||n1.contains(">")) ? -1 : 0);
                 CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula;
                 iformula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
                 iformula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
@@ -422,14 +422,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		}
 		
 		if (optg == null || optg instanceof AbstractFunctionPtg) {
-			return stripBracesAndCommas(format("%s(%s)", 
+			return stripRedundantSymbols(format("%s(%s)", 
 			                                     opname,
 			                                     join(",", asList(ops)
 			                                                   .stream()
 			                                                   .map(v -> v.toString())
 			                                                   .collect(toList()))));
 		} else if (optg instanceof ValueOperatorPtg) {
-			return stripBracesAndCommas(format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", opname, (ops.size() > 1) ? ops.get(1) : ""));
+			return stripRedundantSymbols(format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", opname, (ops.size() > 1) ? ops.get(1) : ""));
 		}
 		return "";
 	}
@@ -439,7 +439,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		
 		if (optg == null) {
 			opname = "IF";
-			return stripBracesAndCommas(format("%s %s ",
+			return stripRedundantSymbols(format("%s %s ",
 					                            join(",", asList(ops)
 					                                        .stream()
 					                                        .map(v -> v.toString())
@@ -453,21 +453,21 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
 			}
 			if (optg instanceof AbstractFunctionPtg) {
-				return stripBracesAndCommas(format("%s %s ",
+				return stripRedundantSymbols(format("%s %s ",
 						                            join(",", asList(ops)
 						                                        .stream()
 						                                        .map(v -> v.toString())
 						                                        .collect(toList())), 
 						                            opname));
 			} else if (optg instanceof ValueOperatorPtg) {
-			return stripBracesAndCommas(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
+			return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
 			}
 
 		return "";
 	}
 
-	private static String stripBracesAndCommas(String inline) {
-	    return inline.replace("[", "").replace("]", "").replace(",", "");
+	private static String stripRedundantSymbols(String inline) {
+	    return inline.replace("[", "").replace("]", "");
 	}
 
 	public static String ptgToString(Ptg ptg) {
