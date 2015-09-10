@@ -88,6 +88,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
 		DefaultDirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
 		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().toString());
+		vertex.property(TYPE).set(Type.EMPTY_CELL);
 		emptyGraph.addVertex(vertex);
 		return ExecutionGraph.wrap(emptyGraph);
 	}

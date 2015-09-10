@@ -9,6 +9,7 @@ import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
 import org.apache.poi.ss.formula.udf.DefaultUDFFinder;
 import org.apache.poi.ss.formula.udf.UDFFinder;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -50,7 +51,9 @@ public class SpreadsheetEvaluator implements IEvaluator {
     @Override
 	public ICellValue evaluate(ICellAddress addr) {
 		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
-		Cell c = s.getRow(addr.row()).getCell(addr.column());
+		Row row = s.getRow(addr.row());
+		if (row == null) { return null; }
+		Cell c = row.getCell(addr.column());
 		org.apache.poi.ss.usermodel.CellValue icv = poiEvaluator.evaluate(c);
 		if (icv == null) { return null; }
 
