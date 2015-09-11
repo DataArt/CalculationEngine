@@ -18,6 +18,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -70,6 +71,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
+    protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
@@ -98,7 +100,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	/**
 	 * This method should be used when creating a new vertex from a cell, so
 	 * vertex name is a cell's address. New Vertex will be created any time this
-	 * method is invoked. New vertex will be stored in address-to-set-of-vertices map.
+	 * method is invoked. New vertex will be stored in
+	 * address-to-set-of-vertices map.
 	 */
 	@Override
 	public IExecutionGraphVertex createVertex(String address) {
@@ -346,7 +349,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     if (OPERATOR != ivertex.type) { vertex.value = ivertex.value; }
                 }
                 // TODO: are you sure you need only '=' ?
-                Collections.sort(formulaValuesNodes, (n1, n2) -> n1.contains("=") ? -1 : 0);
+                Collections.sort(formulaValuesNodes, (n1, n2) -> isCompareOperand(n1) ? -1 : 0);
                 CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula;
                 iformula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
                 iformula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
@@ -416,14 +419,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		}
 		
 		if (optg == null || optg instanceof AbstractFunctionPtg) {
-			return stripBracesAndCommas(format("%s(%s)", 
+			return stripRedundantSymbols(format("%s(%s)", 
 			                                     opname,
 			                                     join(",", asList(ops)
 			                                                   .stream()
 			                                                   .map(v -> v.toString())
 			                                                   .collect(toList()))));
 		} else if (optg instanceof ValueOperatorPtg) {
-			return stripBracesAndCommas(format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", opname, (ops.size() > 1) ? ops.get(1) : ""));
+			return stripRedundantSymbols(format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", opname, (ops.size() > 1) ? ops.get(1) : ""));
 		}
 		return "";
 	}
@@ -433,34 +436,39 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		
 		if (optg == null) {
 			opname = "IF";
-			return stripBracesAndCommas(format("%s %s ",
+			return stripRedundantSymbols(format("%s %s ",
 					                            join(",", asList(ops)
 					                                        .stream()
 					                                        .map(v -> v.toString())
 					                                        .collect(toList())), 
 					                            opname));
-		} else {
+        } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
-			/* if the function was not recognized as
-			   internal function we use the node
-			   name as the function name */
-			opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
-		} if (optg instanceof AbstractFunctionPtg) {
-				return stripBracesAndCommas(format("%s %s ",
-						                            join(",", asList(ops)
-						                                        .stream()
-						                                        .map(v -> v.toString())
-						                                        .collect(toList())), 
-						                            opname));
+            /* if the function was not recognized as
+               internal function we use the node
+               name as the function name */
+            opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
+
+        }
+        if (optg instanceof AbstractFunctionPtg) {
+            return stripRedundantSymbols(format("%s %s ",
+                                                join(",", asList(ops)
+                                                            .stream()
+                                                            .map(v -> v.toString())
+                                                            .collect(toList())),
+                                                opname));
         } else if (optg instanceof ValueOperatorPtg) {
-            return stripBracesAndCommas(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
+            return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
         }
 
-		return "";
+        return "";
 	}
 
-	protected static String stripBracesAndCommas(String inline) {
-	    return inline.replace("[", "").replace("]", "").replace(",", "");
+	protected static String stripRedundantSymbols(String inline) {
+		for (String token : POI_VALUE_REDUNDANT_SYMBOLS) {
+			inline = inline.replace(token, "");
+		}
+		return inline;
 	}
 
 	public static String ptgToString(Ptg ptg) {
@@ -535,7 +543,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     // TODO: not the best solution, but works as for now
 	protected static boolean isCompareOperand(String name) {
-        return "=".equals(name) || ">".equals(name) || "<".equals(name) || "<>".equals(name);
+		return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
     }
 
 }
