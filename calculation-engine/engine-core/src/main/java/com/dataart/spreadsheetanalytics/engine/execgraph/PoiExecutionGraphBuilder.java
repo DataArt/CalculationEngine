@@ -18,6 +18,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -56,6 +57,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
@@ -70,6 +72,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
+    protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
@@ -98,7 +101,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	/**
 	 * This method should be used when creating a new vertex from a cell, so
 	 * vertex name is a cell's address. New Vertex will be created any time this
-	 * method is invoked. New vertex will be stored in address-to-set-of-vertices map.
+	 * method is invoked. New vertex will be stored in
+	 * address-to-set-of-vertices map.
 	 */
 	@Override
 	public IExecutionGraphVertex createVertex(String address) {
@@ -346,7 +350,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     if (OPERATOR != ivertex.type) { vertex.value = ivertex.value; }
                 }
                 // TODO: are you sure you need only '=' ?
-                Collections.sort(formulaValuesNodes, (n1, n2) -> (n1.contains("=")||n1.contains("<")||n1.contains(">")) ? -1 : 0);
+                Collections.sort(formulaValuesNodes, (n1, n2) -> isCompareOperand(n1) ? -1 : 0);
                 CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula;
                 iformula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
                 iformula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
@@ -460,9 +464,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		return "";
 	}
 
-
 	protected static String stripRedundantSymbols(String inline) {
-	    return inline.replace("[", "").replace("]", "");
+		for (String token : POI_VALUE_REDUNDANT_SYMBOLS) {
+			inline.replace(token, "");
+		}
+		return inline;
 	}
 
 	public static String ptgToString(Ptg ptg) {
@@ -537,7 +543,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     // TODO: not the best solution, but works as for now
 	protected static boolean isCompareOperand(String name) {
-        return "=".equals(name) || ">".equals(name) || "<".equals(name) || "<>".equals(name);
+		return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
     }
 
 }
