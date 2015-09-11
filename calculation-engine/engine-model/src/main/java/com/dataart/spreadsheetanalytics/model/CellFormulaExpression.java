@@ -62,7 +62,7 @@ public class CellFormulaExpression implements ICellFormulaExpression {
         return copy;
     }
 
-	@Override
+    @Override
     public String toString() {
         return String.format("Formula String: %s; " + 
                              "Formula Values: %s; " + 

@@ -445,17 +445,16 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			   internal function we use the node
 			   name as the function name */
 			opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
-			}
-			if (optg instanceof AbstractFunctionPtg) {
+		} if (optg instanceof AbstractFunctionPtg) {
 				return stripBracesAndCommas(format("%s %s ",
 						                            join(",", asList(ops)
 						                                        .stream()
 						                                        .map(v -> v.toString())
 						                                        .collect(toList())), 
 						                            opname));
-			} else if (optg instanceof ValueOperatorPtg) {
-			return stripBracesAndCommas(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
-			}
+        } else if (optg instanceof ValueOperatorPtg) {
+            return stripBracesAndCommas(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
+        }
 
 		return "";
 	}
@@ -526,8 +525,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			
 			// copy properties
 			for (PropertyName pname : PropertyName.values()) {
-				if (pname == PropertyName.VERTEX_ID) continue;
-				if (pname == PropertyName.INDEX_IN_FORMULA) continue;
+				if (pname == PropertyName.VERTEX_ID) { continue; }
+				if (pname == PropertyName.INDEX_IN_FORMULA) { continue; }
 
 				vertex.property(pname).set(standard.property(pname).get());
 			}

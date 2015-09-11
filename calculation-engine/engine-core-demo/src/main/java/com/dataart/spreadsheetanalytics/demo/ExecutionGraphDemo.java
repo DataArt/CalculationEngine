@@ -45,7 +45,7 @@ public class ExecutionGraphDemo {
         plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
     }
     
-    public static void plainprint(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    protected static void plainprint(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
         for (IExecutionGraphVertex vertex : graph.vertexSet()) {
             System.out.println("---------------------------------");
             System.out.println("Vertex Id: " + vertex.id());
@@ -57,7 +57,7 @@ public class ExecutionGraphDemo {
 		}
 	}
 
-    private static void generateVisJsData(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    protected static void generateVisJsData(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
         try {
             final String dataTemplateFileStr = "src/main/resources/ui/data_template.js";
             final String dataFileStr = "src/main/resources/ui/data.js";
@@ -76,7 +76,7 @@ public class ExecutionGraphDemo {
                             .append("', label: '")
                             .append(vertex.name())
                             .append("\\n")
-                            .append(vertex.value() == null || vertex.value().toString().length() > 8 ? "..." : vertex.value())
+                            .append(vertex.value() == null || CellValue.fromCellValueToString(vertex.value()).length() > 25 ? "..." : CellValue.fromCellValueToString(vertex.value()))
                             .append("', color: '")
                             .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
                             .append("', title: '")
