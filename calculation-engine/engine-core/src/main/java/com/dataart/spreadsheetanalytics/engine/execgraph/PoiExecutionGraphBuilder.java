@@ -466,7 +466,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 	protected static String stripRedundantSymbols(String inline) {
 		for (String token : POI_VALUE_REDUNDANT_SYMBOLS) {
-			inline.replace(token, "");
+			inline = inline.replace(token, "");
 		}
 		return inline;
 	}
