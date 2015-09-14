@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.model;
 
 import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.StringValueEval;
+import org.apache.poi.ss.formula.eval.ErrorEval;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 
@@ -26,13 +27,15 @@ public class CellValue implements ICellValue {
 
         Object v = value.get();
 
-        if (v instanceof StringValueEval) {
-            return ((StringValueEval) v).getStringValue();
-        } else if (v instanceof NumberEval) {
-            return Double.toString(((NumberEval) v).getNumberValue());
-        }
+		if (v instanceof StringValueEval) {
+			return ((StringValueEval) v).getStringValue();
+		} else if (v instanceof NumberEval) {
+			return Double.toString(((NumberEval) v).getNumberValue());
+		} else if (v instanceof ErrorEval) {
+			return ((ErrorEval) v).getErrorString();
+		}
 
-        return v.toString();
+		return v.toString();
     }
 
     @Override

@@ -18,6 +18,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -73,6 +74,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
+    protected static final List<String> ERROR_VALUES = new ArrayList<>(Arrays.asList("#NAME", "#NUM", "#REF", "#VALUE"));
 
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
@@ -325,6 +327,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
+				if (isErrorValue(ivertex.value())) {
+					vertex.value = ivertex.value();
+				}
                 }
                 CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula();
                 iformula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes, vertex));
@@ -469,6 +474,28 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			inline = inline.replace(token, "");
 		}
 		return inline;
+	}
+
+	public ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address) {
+		DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+		vertex.property(TYPE).set(CELL_WITH_FORMULA);
+		vertex.property(VALUE).set(ERROR_VALUES.get(0) + "?");
+		emptyGraph.addVertex(vertex);
+		return ExecutionGraph.wrap(emptyGraph);
+	}
+
+	protected static boolean isErrorValue(ICellValue val) {
+		String value = CellValue.fromCellValueToString(val);
+		if (value == null) {
+			return false;
+		}
+		for (String error : ERROR_VALUES) {
+			if (value.contains(error)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static String ptgToString(Ptg ptg) {
