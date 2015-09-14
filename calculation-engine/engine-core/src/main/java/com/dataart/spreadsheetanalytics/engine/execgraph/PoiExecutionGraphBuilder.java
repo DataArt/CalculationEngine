@@ -327,7 +327,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
-				if (isErrorValue(ivertex.value())) {
+				if (isErrorValue(ivertex.value()) && !isErrorValue(vertex.value())) {
 					vertex.value = ivertex.value();
 				}
                 }
