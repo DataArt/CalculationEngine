@@ -1,5 +1,0 @@
-run-build:
-  script: "cd calculation-engine && cd poi-fork-parent && mvn install && cd ../ && cd engine-jars-parent && mvn clean install"
-
-run-tests:
-  script: "cd calculation-engine && cd poi-fork-parent && mvn install && cd ../ && cd engine-core-tests && mvn clean install"

@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
+import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.ptgToVertexType;
+
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
@@ -78,7 +80,11 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
             }
             case TYPE: {
                 if (parent.type != null && (parent.type == Type.CELL_WITH_FORMULA)) { this.pvalue = parent.type; break; }
-                parent.type = pvalue instanceof Type ? (Type) pvalue : pvalue instanceof Ptg ? PoiExecutionGraphBuilder.ptgToVertexType((Ptg) pvalue) : Enum.valueOf(Type.class, (String) pvalue);
+                parent.type = pvalue instanceof Type 
+                                ? (Type) pvalue 
+                                : pvalue instanceof Ptg 
+                                    ? ptgToVertexType((Ptg) pvalue) 
+                                    : Enum.valueOf(Type.class, (String) pvalue);
                 this.pvalue = parent.type;
                 break;
             }

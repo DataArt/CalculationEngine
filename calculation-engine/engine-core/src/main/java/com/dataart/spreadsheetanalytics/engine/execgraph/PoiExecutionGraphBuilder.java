@@ -58,7 +58,6 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
@@ -448,25 +447,26 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 					                                        .map(v -> v.toString())
 					                                        .collect(toList())), 
 					                            opname));
-		} else {
+        } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
-			/* if the function was not recognized as
-			   internal function we use the node
-			   name as the function name */
-			opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
-			}
-			if (optg instanceof AbstractFunctionPtg) {
-				return stripRedundantSymbols(format("%s %s ",
-						                            join(",", asList(ops)
-						                                        .stream()
-						                                        .map(v -> v.toString())
-						                                        .collect(toList())), 
-						                            opname));
-			} else if (optg instanceof ValueOperatorPtg) {
-			return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
-			}
+            /* if the function was not recognized as
+               internal function we use the node
+               name as the function name */
+            opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
 
-		return "";
+        }
+        if (optg instanceof AbstractFunctionPtg) {
+            return stripRedundantSymbols(format("%s %s ",
+                                                join(",", asList(ops)
+                                                            .stream()
+                                                            .map(v -> v.toString())
+                                                            .collect(toList())),
+                                                opname));
+        } else if (optg instanceof ValueOperatorPtg) {
+            return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
+        }
+
+        return "";
 	}
 
 	protected static String stripRedundantSymbols(String inline) {
@@ -560,8 +560,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			
 			// copy properties
 			for (PropertyName pname : PropertyName.values()) {
-				if (pname == PropertyName.VERTEX_ID) continue;
-				if (pname == PropertyName.INDEX_IN_FORMULA) continue;
+				if (pname == PropertyName.VERTEX_ID) { continue; }
+				if (pname == PropertyName.INDEX_IN_FORMULA) { continue; }
 
 				vertex.property(pname).set(standard.property(pname).get());
 			}

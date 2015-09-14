@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.dataart</groupId>
+  <artifactId>spreadsheetanalytics-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>spreadsheetanalytics-parent</name>
+  <url>https://github.com/DataArt/CalculationEngine</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <modules>
+    <module>poi-fork-parent</module>
+    <module>engine-model</module>
+    <module>engine-data</module>
+    <module>engine-functions</module>
+    <module>engine-core</module>
+    <module>engine-core-tests</module>
+  </modules>
+
+  <build>
+    <plugins>
+      
+      <!-- Compile at 1.8 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+	  
+	  <!-- Code Quality -->
+      <!-- plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.5</version>
+        <dependencies>
+          <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.4</version>
+            <exclusions>
+              <exclusion>
+                <groupId>maven-plugins</groupId>
+                <artifactId>maven-cobertura-plugin</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>maven-plugins</groupId>
+                <artifactId>maven-findbugs-plugin</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <rulesets>
+            <ruleset>engine-core-tests/code-quality/pmd_rule_set.xml</ruleset>
+          </rulesets>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>cpd-check</goal>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <verbose>true</verbose>
+              <failurePriority>5</failurePriority>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.16</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>6.1.1</version>
+          </dependency>
+          <dependency>
+            <groupId>com.dataart</groupId>
+            <artifactId>spreadsheetanalytics-code-quality</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+  

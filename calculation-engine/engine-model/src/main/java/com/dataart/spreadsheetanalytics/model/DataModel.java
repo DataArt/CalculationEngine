@@ -41,8 +41,10 @@ public class DataModel implements IDataModel {
         Cell c = r.getCell(address.column());
         if (c == null) { c = r.createCell(address.column()); }
 
-        if (value.get() instanceof Number) {
+        if (value.get() instanceof Double) {
             c.setCellValue((double) value.get());
+        } else if (value.get() instanceof Integer) {
+            c.setCellValue((int) value.get());
         } else if (value.get() instanceof String) {
             c.setCellValue((String) value.get());
         }
