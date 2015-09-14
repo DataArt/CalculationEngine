@@ -13,7 +13,11 @@ import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
@@ -482,6 +486,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
 		vertex.property(TYPE).set(CELL_WITH_FORMULA);
 		vertex.property(VALUE).set(ERROR_VALUES.get(0) + "?");
+		vertex.property(FORMULA_STRING).set(ERROR_VALUES.get(0) + "?");
+		vertex.property(FORMULA_VALUES).set(ERROR_VALUES.get(0) + "?");
+		vertex.property(FORMULA_PTG_STRING).set(ERROR_VALUES.get(0) + "?");
+		vertex.property(PTG_STRING).set(ERROR_VALUES.get(0) + "?");
 		emptyGraph.addVertex(vertex);
 		return ExecutionGraph.wrap(emptyGraph);
 	}
