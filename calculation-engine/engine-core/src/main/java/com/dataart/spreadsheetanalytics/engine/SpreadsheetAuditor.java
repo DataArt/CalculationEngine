@@ -4,6 +4,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
+import org.apache.poi.ss.formula.FormulaParseException;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -46,11 +47,16 @@ public class SpreadsheetAuditor implements IAuditor {
 
     @Override
 	public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
-		ICellValue cv = evaluator.evaluate(cell);
-		
+		ICellValue cv = null;
+		try {
+			cv = evaluator.evaluate(cell);
+		} catch (FormulaParseException e) {
+			return graphBuilder.getSingleNodeGraphForParseException(cell);
+		}
+
 		IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
 		if (nonFormulaResult != null) { return nonFormulaResult; }
-		
+
 		graphBuilder.runPostProcessing();
 		return graphBuilder.get();
 	}
@@ -76,11 +82,11 @@ public class SpreadsheetAuditor implements IAuditor {
         graphBuilder.runPostProcessing();
         return graphBuilder.get();
         */
-        return null;
-    }
+		return null;
+	}
 
-    protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
-        if (evalCell == null) { return graphBuilder.getSingleNodeGraph(cell); }
+	protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
+		if (evalCell == null) {	return graphBuilder.getSingleNodeGraph(cell); }
         
         if (!evaluator.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder, evalCell); }
         
