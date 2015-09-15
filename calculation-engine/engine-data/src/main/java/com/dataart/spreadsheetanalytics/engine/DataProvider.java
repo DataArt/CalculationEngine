@@ -6,14 +6,15 @@ import static java.lang.Runtime.getRuntime;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
+import java.io.InputStream;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -132,11 +134,21 @@ public class DataProvider implements IDataProvider {
     @Override
     public IDataModel createModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException {
         IDataModel model = getDataModel(dataModelId);
+        
+        //debug
+        long time1 = System.nanoTime();
         IDataModel execModel = copyModelInMemory((DataModel) model);
+        long time2 = System.nanoTime();
+        System.out.println("Time for copy model into memory: " + TimeUnit.NANOSECONDS.toSeconds((time2 - time1)) + " sec.");
 
+        //debug
+        long time3 = System.nanoTime();
         for (int i = 0; i < inputAddresses.size(); i++) {
             execModel.replaceCellValue(inputAddresses.get(i), inputValues.get(i));
         }
+        long time4 = System.nanoTime();
+        System.out.println("Time for replace all cell values in model: " + TimeUnit.NANOSECONDS.toSeconds((time4 - time3)) + " sec.");
+
 
         return execModel;
     }
@@ -147,21 +159,17 @@ public class DataProvider implements IDataProvider {
      * only then executed.
      * To avoid copying model to files this method can store it in memory.
      * 
-     *  Implementation is based on {@link PipedInputStream} and {@link PipedOutputStream}
-     *  and two threads: new and current one.
+     *  Implementation is based on {@link ByteArrayInputStream} and {@link ByteArrayOutputStream}
+     *  and {@link Arrays#copyOf(boolean[], int)} to do the actual copy command.
      *  
      *  Returned {@link IDataModel} will not be equal to original one. But may contain the same Id.
      */
     protected IDataModel copyModelInMemory(DataModel model) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         model.model.write(os);
-
-        PipedInputStream in = new PipedInputStream();
-        PipedOutputStream out = new PipedOutputStream(in);
-
-        //this strange (from first view) code does copy from one stream to another.
-        //It uses 2 threads - new and current one. So do not worry about it.
-        new Thread(() -> { try { os.writeTo(out); } catch (IOException e) {} }).start();
+        
+        byte[] b = os.toByteArray();
+        InputStream in = new ByteArrayInputStream(Arrays.copyOf(b, b.length));
 
         return new DataModel(in);
     }
@@ -179,6 +187,9 @@ public class DataProvider implements IDataProvider {
             Sheet sh = (Sheet) sheeterator.next();
             for (Iterator rowterator = sh.iterator(); rowterator.hasNext();) {
                 Row ro = (Row) rowterator.next();
+                
+                String lastSuccessFormula = "";
+                
                 for (Iterator celterator = ro.iterator(); celterator.hasNext();) {
                     Cell ce = (Cell) celterator.next();
                     if (ce == null) continue;
@@ -187,7 +198,16 @@ public class DataProvider implements IDataProvider {
                     //then get it and parse to DefineFunctionMeta
                     if (CELL_TYPE_FORMULA != ce.getCellType()) continue;
                     
-                    String formula = ce.getCellFormula();
+                    //DEBUG
+                    String formula = "";
+                    try {
+                        formula = ce.getCellFormula();
+                        lastSuccessFormula = formula;
+                    }catch(Exception e) {
+                        System.out.println(lastSuccessFormula);
+                        System.exit(0);
+                    }
+                    
                     if (!formula.startsWith(KEYWORD)) continue;
                     
                     if (!formula.contains(IN_OUT_SEPARATOR)) {
