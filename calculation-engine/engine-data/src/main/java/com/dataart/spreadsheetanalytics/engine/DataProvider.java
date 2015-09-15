@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -134,21 +133,11 @@ public class DataProvider implements IDataProvider {
     @Override
     public IDataModel createModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException {
         IDataModel model = getDataModel(dataModelId);
-        
-        //debug
-        long time1 = System.nanoTime();
         IDataModel execModel = copyModelInMemory((DataModel) model);
-        long time2 = System.nanoTime();
-        System.out.println("Time for copy model into memory: " + TimeUnit.NANOSECONDS.toSeconds((time2 - time1)) + " sec.");
 
-        //debug
-        long time3 = System.nanoTime();
         for (int i = 0; i < inputAddresses.size(); i++) {
             execModel.replaceCellValue(inputAddresses.get(i), inputValues.get(i));
         }
-        long time4 = System.nanoTime();
-        System.out.println("Time for replace all cell values in model: " + TimeUnit.NANOSECONDS.toSeconds((time4 - time3)) + " sec.");
-
 
         return execModel;
     }
