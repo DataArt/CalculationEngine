@@ -4,6 +4,7 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
@@ -79,6 +80,7 @@ public class SpreadsheetAuditor implements IAuditor {
         vertex.property(FORMULA_VALUES).set(ERROR_VALUE);
         vertex.property(FORMULA_PTG_STRING).set(ERROR_VALUE);
         vertex.property(PTG_STRING).set(ERROR_VALUE);
+        vertex.property(SOURCE_OBJECT_ID).set("");
         emptyGraph.addVertex(vertex);
         return ExecutionGraph.wrap(emptyGraph);
     }
