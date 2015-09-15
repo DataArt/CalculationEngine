@@ -1,11 +1,18 @@
 package com.dataart.spreadsheetanalytics.engine;
 
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.ss.formula.FormulaParseException;
+
 import org.jgrapht.DirectedGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
@@ -22,6 +29,8 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilde
  * TODO
  */
 public class SpreadsheetAuditor implements IAuditor {
+
+    protected static final String ERROR_VALUE = "#NAME?";
 
     protected final SpreadsheetEvaluator evaluator;
     protected final PoiExecutionGraphBuilder graphBuilder;
@@ -51,7 +60,7 @@ public class SpreadsheetAuditor implements IAuditor {
 		try {
 			cv = evaluator.evaluate(cell);
 		} catch (FormulaParseException e) {
-			return graphBuilder.getSingleNodeGraphForParseException(cell);
+			return getSingleNodeGraphForParseException(cell);
 		}
 
 		IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
@@ -60,6 +69,19 @@ public class SpreadsheetAuditor implements IAuditor {
 		graphBuilder.runPostProcessing();
 		return graphBuilder.get();
 	}
+
+    protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address) {
+        DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.property(TYPE).set(CELL_WITH_FORMULA);
+        vertex.property(VALUE).set(ERROR_VALUE);
+        vertex.property(FORMULA_STRING).set(ERROR_VALUE);
+        vertex.property(FORMULA_VALUES).set(ERROR_VALUE);
+        vertex.property(FORMULA_PTG_STRING).set(ERROR_VALUE);
+        vertex.property(PTG_STRING).set(ERROR_VALUE);
+        emptyGraph.addVertex(vertex);
+        return ExecutionGraph.wrap(emptyGraph);
+    }
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph() {

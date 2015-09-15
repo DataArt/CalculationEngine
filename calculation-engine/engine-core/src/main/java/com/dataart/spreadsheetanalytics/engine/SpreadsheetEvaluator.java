@@ -59,9 +59,9 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Cell c = r.getCell(addr.column());
         if (c == null) { return null; }
 
-		org.apache.poi.ss.usermodel.CellValue poiValue = poiEvaluator.evaluate(c);
+        org.apache.poi.ss.usermodel.CellValue poiValue = poiEvaluator.evaluate(c);
 
-		if (poiValue == null) {	return null; }
+        if (poiValue == null) {	return null; }
 
         ICellValue cv = new CellValue(fromPoiValue(poiValue));
         
