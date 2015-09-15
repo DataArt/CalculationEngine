@@ -50,7 +50,6 @@
     var network = new vis.Network(container, data, options);
     
     network.on("stabilizationIterationsDone", function (params) {
-        console.log('хуй работает');
     	this.setOptions({physics:{enabled: false}});
       });
   </script>
