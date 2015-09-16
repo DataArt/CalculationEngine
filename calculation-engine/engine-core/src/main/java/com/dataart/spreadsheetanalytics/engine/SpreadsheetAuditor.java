@@ -11,7 +11,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.ss.formula.FormulaParseException;
-
+import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -30,8 +30,6 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilde
  * TODO
  */
 public class SpreadsheetAuditor implements IAuditor {
-
-    protected static final String ERROR_VALUE = "#NAME?";
 
     protected final SpreadsheetEvaluator evaluator;
     protected final PoiExecutionGraphBuilder graphBuilder;
@@ -61,7 +59,11 @@ public class SpreadsheetAuditor implements IAuditor {
 		try {
 			cv = evaluator.evaluate(cell);
 		} catch (FormulaParseException e) {
-			return getSingleNodeGraphForParseException(cell);
+			return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID);
+		} catch (IllegalStateException e) {
+		    if (e.getMessage().contains(ErrorEval.VALUE_INVALID.getErrorString())) {
+		        return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID);
+		    }
 		}
 
 		IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
@@ -71,15 +73,15 @@ public class SpreadsheetAuditor implements IAuditor {
 		return graphBuilder.get();
 	}
 
-    protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address) {
+    protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error) {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
         vertex.property(TYPE).set(CELL_WITH_FORMULA);
-        vertex.property(VALUE).set(ERROR_VALUE);
-        vertex.property(FORMULA_STRING).set(ERROR_VALUE);
-        vertex.property(FORMULA_VALUES).set(ERROR_VALUE);
-        vertex.property(FORMULA_PTG_STRING).set(ERROR_VALUE);
-        vertex.property(PTG_STRING).set(ERROR_VALUE);
+        vertex.property(VALUE).set(error);
+        vertex.property(FORMULA_STRING).set(error.getErrorString());
+        vertex.property(FORMULA_VALUES).set(error.getErrorString());
+        vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
+        vertex.property(PTG_STRING).set(error.getErrorString());
         vertex.property(SOURCE_OBJECT_ID).set("");
         emptyGraph.addVertex(vertex);
         return ExecutionGraph.wrap(emptyGraph);
