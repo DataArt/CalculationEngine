@@ -23,7 +23,7 @@ public class CellValue implements ICellValue {
      * Util toString with some additional logic in case the value is of type String or Number. 
      */
     public static String fromCellValueToString(ICellValue value) {
-	    if (value == null) { return "";	}
+	    if (value == null) { return ""; }
 
         Object v = value.get();
 
