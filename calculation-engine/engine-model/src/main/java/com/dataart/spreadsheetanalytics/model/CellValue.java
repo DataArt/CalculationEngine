@@ -3,6 +3,7 @@ package com.dataart.spreadsheetanalytics.model;
 import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.StringValueEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
+import org.apache.poi.ss.formula.eval.BlankEval;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 
@@ -33,6 +34,8 @@ public class CellValue implements ICellValue {
             return Double.toString(((NumberEval) v).getNumberValue());
         } else if (v instanceof ErrorEval) {
             return ((ErrorEval) v).getErrorString();
+        } else if (v instanceof BlankEval) {
+            return "";
         }
 
         return v.toString();
