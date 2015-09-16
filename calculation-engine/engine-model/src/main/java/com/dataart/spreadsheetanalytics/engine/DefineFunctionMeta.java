@@ -7,6 +7,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 
 /**
  * Class which integrates all the information about 'DEFINE' function.
@@ -73,7 +74,12 @@ public class DefineFunctionMeta {
             if (IN_OUT_SEPARATOR.equals(ptgs[i])) { passedSeparator = true; continue; }
 
             if (passedSeparator) {
-                out.add(A1Address.fromA1Address(ptgs[i]));
+                A1Address outAddr = A1Address.fromA1Address(ptgs[i]);
+                if (outAddr instanceof A1RangeAddress) {
+                    out.addAll(A1RangeAddress.toCellAddresses((A1RangeAddress) outAddr));
+                } else {
+                    out.add(outAddr);
+                }
             } else {
                 in.add(A1Address.fromA1Address(ptgs[i]));
             }

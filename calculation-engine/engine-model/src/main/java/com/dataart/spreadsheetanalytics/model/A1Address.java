@@ -25,6 +25,8 @@ public class A1Address implements ICellAddress, IA1Address {
     @Override public int column() { return column; }
 
     public static A1Address fromA1Address(String a1address) {
+        if (isRange(a1address)) { return new A1RangeAddress(a1address); }
+        
         A1Address a = new A1Address();
         a.address = a1address;
 
@@ -46,6 +48,10 @@ public class A1Address implements ICellAddress, IA1Address {
         return a;
     }
 
+    protected static boolean isRange(String a1address) {
+        return a1address.contains(":");
+    }
+    
     @Override
     public String toString() {
         return String.format("%s[%s,%s]", address, row, column);
