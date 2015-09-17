@@ -31,6 +31,8 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilde
  */
 public class SpreadsheetAuditor implements IAuditor {
 
+    private static final String WORKBOOK_NAME = "workbook name";
+
     protected final SpreadsheetEvaluator evaluator;
     protected final PoiExecutionGraphBuilder graphBuilder;
 
@@ -63,6 +65,10 @@ public class SpreadsheetAuditor implements IAuditor {
 		} catch (IllegalStateException e) {
 		    if (e.getMessage().contains(ErrorEval.VALUE_INVALID.getErrorString())) {
 		        return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID);
+		    }
+		} catch (RuntimeException e) {
+		    if (e.getMessage().contains(WORKBOOK_NAME)) {
+		        return getSingleNodeGraphForParseException(cell, ErrorEval.REF_INVALID);
 		    }
 		}
 
