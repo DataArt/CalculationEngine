@@ -392,9 +392,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     private void checkForEmptyValues(ExecutionGraphVertex vertex) {
         Object value = vertex.property(VALUE).get();
-        if (value.toString().isEmpty()) {
-            vertex.property(TYPE).set(EMPTY_CELL);
-        } else if (value instanceof BlankEval) {
+        if (value.toString().isEmpty() || value instanceof BlankEval) {
             vertex.property(TYPE).set(EMPTY_CELL);
         }
     }
