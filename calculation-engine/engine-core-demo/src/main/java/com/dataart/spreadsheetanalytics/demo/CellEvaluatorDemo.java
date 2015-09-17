@@ -25,6 +25,7 @@ public class CellEvaluatorDemo {
         final IDataModel model = new DataModel(path);
         
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
+        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions(null);
         
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         
