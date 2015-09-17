@@ -32,6 +32,7 @@ import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
+import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.Area2DValues;
@@ -297,9 +298,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 formula.formulaValues(CellValue.fromCellValueToString(vertex.value()));
                 formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value()));
                 formula.ptgStr(vertex.property(NAME).get().toString());
-                if (vertex.property(VALUE).get().toString().isEmpty()) {
-                    vertex.property(TYPE).set(EMPTY_CELL);
-                }
+                checkForEmptyValues(vertex);
                 return formula;
             }
             case CELL_WITH_REFERENCE:
@@ -390,6 +389,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
 
 	}
+
+    private void checkForEmptyValues(ExecutionGraphVertex vertex) {
+        Object value = vertex.property(VALUE).get();
+        if (value.toString().isEmpty()) {
+            vertex.property(TYPE).set(EMPTY_CELL);
+        } else if (value instanceof BlankEval) {
+            vertex.property(TYPE).set(EMPTY_CELL);
+        }
+    }
 
 	protected void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
 		Object cellValue = ((CellValue) rangeVertex.value()).get();
