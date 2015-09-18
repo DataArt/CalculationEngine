@@ -439,7 +439,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			                                                   .map(v -> v.toString())
 			                                                   .collect(toList()))));
 		} else if (optg instanceof ValueOperatorPtg) {
-			return stripRedundantSymbols(format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", opname, (ops.size() > 1) ? ops.get(1) : ""));
+			return stripRedundantSymbols(format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", opname, (ops.size() > 0) ? ops.get(0) : ""));
 		}
 		return "";
 	}
@@ -471,7 +471,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                             .collect(toList())),
                                                 opname));
         } else if (optg instanceof ValueOperatorPtg) {
-            return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
+            return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", (ops.size() > 0) ? ops.get(0) : "", opname));
         }
 
         return "";

@@ -22,4 +22,12 @@ public class ExecutionGraph implements IExecutionGraph {
         return egraph.dgraph;
     }
 
+    @Override
+    public IExecutionGraphVertex getGraphRootVertex() {
+        for (IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
+            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return ivertex; }
+        }
+        return null;
+    }
+
 }
