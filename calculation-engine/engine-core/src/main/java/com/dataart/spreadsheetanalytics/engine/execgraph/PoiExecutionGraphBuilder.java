@@ -382,8 +382,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 vertex.property(NAME).set(CONSTANT_VALUE_NAME);
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
-                formula.formulaValues(CellValue.fromCellValueToString(vertex.value()));
-                formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value()));
+                formula.formulaValues(CellValue.fromCellValueToString(vertex.value())); //TODO remove CellValue.fromCellValueToString
+                formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value())); //TODO remove CellValue.fromCellValueToString
                 formula.ptgStr(vertex.property(NAME).get().toString());
                 return CellFormulaExpression.copyOf(formula);
             }

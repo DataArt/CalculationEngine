@@ -23,9 +23,9 @@ public class ExecutionGraph implements IExecutionGraph {
     }
 
     @Override
-    public IExecutionGraphVertex getGraphRootVertex() {
+    public com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex getRootVertex() {
         for (IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
-            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return ivertex; }
+            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return (ExecutionGraphVertex) ivertex; }
         }
         return null;
     }

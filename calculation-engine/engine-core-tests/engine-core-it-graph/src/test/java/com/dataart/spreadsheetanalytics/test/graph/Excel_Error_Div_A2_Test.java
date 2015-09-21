@@ -1,11 +1,12 @@
-package com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.test.graph;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
-public class Excel_Error_Div_A2_Test {
+public class Excel_Error_Div_A2_Test extends SerializedGraphTest {
 
     static String address = "A2";  
     

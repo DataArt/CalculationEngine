@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.test.graph;
 
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
@@ -17,8 +17,12 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
+import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
-public class Excel_Empty_Cell_E6_Test {
+public class Excel_Empty_Cell_E6_Test extends SerializedGraphTest {
     static String address = "E6";
     static String path = "src/test/resources/standard_excel_files/Empty_cell.xlsx";
     static IExecutionGraph graph;
@@ -30,7 +34,7 @@ public class Excel_Empty_Cell_E6_Test {
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
         ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
         graph = auditor.buildDynamicExecutionGraph(addr);
-        rootVertex = (ExecutionGraphVertex)graph.getGraphRootVertex();
+        rootVertex = (ExecutionGraphVertex)graph.getRootVertex();
     }
 
     @Test
