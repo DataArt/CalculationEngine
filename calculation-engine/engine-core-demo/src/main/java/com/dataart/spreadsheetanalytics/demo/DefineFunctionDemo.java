@@ -36,7 +36,7 @@ public class DefineFunctionDemo {
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions(dataProvider);
 
         final ICellValue cv = evaluator.evaluate(addr);
-        System.out.println(cv.toString());
+        System.out.println(cv);
 
     }
 

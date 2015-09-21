@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.poi.common.execgraph.EmptyExecutionGraph;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
-import org.apache.poi.ss.formula.FormulaParseException;
-import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
 import org.apache.poi.ss.formula.udf.DefaultUDFFinder;
 import org.apache.poi.ss.formula.udf.UDFFinder;
@@ -64,8 +62,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
         if (poiValue == null) {	return null; }
 
         ICellValue cv = new CellValue(fromPoiValue(poiValue));
-        
-        destroy();
         
         return cv;
     }

@@ -1,9 +1,9 @@
 package com.dataart.spreadsheetanalytics.model;
 
+import org.apache.poi.ss.formula.eval.BlankEval;
+import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.StringValueEval;
-import org.apache.poi.ss.formula.eval.ErrorEval;
-import org.apache.poi.ss.formula.eval.BlankEval;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 
@@ -43,7 +43,7 @@ public class CellValue implements ICellValue {
 
     @Override
     public String toString() {
-        return get().toString();
+        return value == null ? "null" : value.toString();
     }
 
 }
