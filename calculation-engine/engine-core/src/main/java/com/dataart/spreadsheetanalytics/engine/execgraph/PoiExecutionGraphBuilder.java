@@ -76,18 +76,22 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
-	protected final PoiDirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
+	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 	protected Map<ValueEval, IExecutionGraphVertex> valueToVertex;
 	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
+	protected Set<ExecutionGraphVertex> connectedGraphVertices;
 
 	public PoiExecutionGraphBuilder() {
-		this.dgraph = new PoiDirectedGraph<>(DefaultEdge.class);
+		this.dgraph =  new DefaultDirectedGraph<>(DefaultEdge.class);
 		this.valueToVertex = new HashMap<>();
 		this.addressToVertices = new HashMap<>();
+		connectedGraphVertices = new HashSet<>();
 	}
 
 	public ExecutionGraph get() {
-		return ExecutionGraph.wrap(dgraph);
+	    ExecutionGraph result = ExecutionGraph.wrap(dgraph);
+	    result.setVertices(connectedGraphVertices);
+		return result;
 	}
 
 	public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
@@ -273,16 +277,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 		}
 
-		Set<IExecutionGraphVertex> newSet = new HashSet<>();
 		for (IExecutionGraphVertex vert : graph.vertexSet()) {
 			if (graph.outgoingEdgesOf(vert).isEmpty()) {
 			    ExecutionGraphVertex root = (ExecutionGraphVertex) vert;
-				root.formula = buildFormula(root, graph, newSet);
+				root.formula = buildFormula(root, graph, connectedGraphVertices);
 				break;
 			}
 		}
-
-		dgraph.setFilteredVertices(newSet);
 
 	}
 
@@ -290,7 +291,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // set formula_values to user-friendly string like: '1 + 2' or
     // 'SUM(2,1)'
     // For OPERATOR and FUNCTION types
-	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph, Set<IExecutionGraphVertex> vertices) {
+	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph, Set<ExecutionGraphVertex> vertices) {
 
 	    vertices.add(vertex);
 
@@ -567,28 +568,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // TODO: not the best solution, but works as for now
 	protected static boolean isCompareOperand(String name) {
 		return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
-    }
-
-    private class PoiDirectedGraph<V, E> extends DefaultDirectedGraph<V, E> {
-
-        private Set<V> filteredVertices = null;
-
-        public PoiDirectedGraph(Class<? extends E> edgeClass) {
-            super(edgeClass);
-        }
-
-        public void setFilteredVertices(Set<V> vertices) {
-            filteredVertices = vertices;
-        }
-
-        @Override
-        public Set<V> vertexSet() {
-            if (filteredVertices == null) {
-                return super.vertexSet();
-            } else {
-                return filteredVertices;
-            }
-        }
     }
 
 }
