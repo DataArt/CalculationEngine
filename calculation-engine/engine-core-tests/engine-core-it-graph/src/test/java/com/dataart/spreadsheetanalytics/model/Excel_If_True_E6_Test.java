@@ -6,6 +6,7 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.IOException;
 
+import org.jgrapht.DirectedGraph;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,20 +19,13 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 
-public class Excel_If_True_E6_Test {
-    
-    static String address = "E6";
-    static String path = "src/test/resources/standard_excel_files/IF_TRUE.xlsx";
-    static IExecutionGraph graph;
-    static ExecutionGraphVertex rootVertex;
+public class Excel_If_True_E6_Test extends AbstractExcelTest {
     
     @BeforeClass
     public static void before() throws IOException {
-        final IDataModel model = new DataModel(path);        
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
-        ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
-        graph = auditor.buildDynamicExecutionGraph(addr);
-        rootVertex = (ExecutionGraphVertex)graph.getGraphRootVertex();        
+        address = "E6";
+        path = GraphTestUtil.EXCELS_PATH + "IF_TRUE.xlsx";
+        AbstractExcelTest.before();
     }
     
     @Test
@@ -42,7 +36,6 @@ public class Excel_If_True_E6_Test {
     @Test
     public void assert_root_vertex_fields() {
         assertThat(rootVertex.property(NAME).get()).isEqualTo(address);
-//        assertThat(rootVertex.property(VALUE).get()).isEqualTo(null);        
     }
     
     @Test
@@ -52,10 +45,21 @@ public class Excel_If_True_E6_Test {
     
     @Test
     public void assert_root_formula_fields() {
-        assertThat(rootVertex.formula().formulaStr()).isEqualTo("IF(D1<5,D2,C3)");
-        assertThat(rootVertex.formula().formulaValues()).isEqualTo("IF(4.0 < 5, 65.0)");
-        assertThat(rootVertex.formula().formulaPtgStr()).isEqualTo("65.0, 4.0 5 < IF ");
-        assertThat(rootVertex.formula().ptgStr()).isEqualTo("D2, D1 VALUE < IF ");
+        String expectedFormulaStr = "IF(D1<5,D2,C3)";
+        String actualFormulaStr = rootVertex.formula().formulaStr();
+        assertThat(actualFormulaStr).isEqualTo(expectedFormulaStr);
+
+        String expectedFormulaVals = "IF(4.0 < 5, 65.0)";
+        String actualFormulaVals = rootVertex.formula().formulaValues();
+        assertThat(actualFormulaVals).isEqualTo(expectedFormulaVals);
+
+        String expectedFormulaPtgStr = "65.0, 4.0 5 < IF ";
+        String actualFormulaPtgStr = rootVertex.formula().formulaPtgStr();
+        assertThat(actualFormulaPtgStr).isEqualTo(expectedFormulaPtgStr);
+
+        String expectedPtgStr = "D2, D1 VALUE < IF ";
+        String actualPtgStr = rootVertex.formula().ptgStr();
+        assertThat(actualPtgStr).isEqualTo(expectedPtgStr);
     }        
 
 }

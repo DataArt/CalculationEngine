@@ -6,6 +6,7 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.IOException;
 
+import org.jgrapht.DirectedGraph;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,19 +19,13 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 
-public class Excel_Empty_Cell_E6_Test {
-    static String address = "E6";
-    static String path = "src/test/resources/standard_excel_files/Empty_cell.xlsx";
-    static IExecutionGraph graph;
-    static ExecutionGraphVertex rootVertex;
+public class Excel_Empty_Cell_E6_Test extends AbstractExcelTest {
     
     @BeforeClass
     public static void before() throws IOException {
-        final IDataModel model = new DataModel(path);        
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
-        ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
-        graph = auditor.buildDynamicExecutionGraph(addr);
-        rootVertex = (ExecutionGraphVertex)graph.getGraphRootVertex();
+        address = "E6";
+        path = GraphTestUtil.EXCELS_PATH + "Empty_cell.xlsx";
+        AbstractExcelTest.before();
     }
 
     @Test
