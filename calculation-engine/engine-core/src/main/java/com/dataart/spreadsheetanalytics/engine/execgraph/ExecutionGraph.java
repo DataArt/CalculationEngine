@@ -11,7 +11,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 
 public class ExecutionGraph implements IExecutionGraph {
 
-    protected Set<ExecutionGraphVertex> vertices;
+    protected Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices;
     protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
     protected ExecutionGraph(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
@@ -28,20 +28,19 @@ public class ExecutionGraph implements IExecutionGraph {
     }
 
     @Override
-    public com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex getRootVertex() throws IllegalStateException {
+    public com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex getRootVertex() {
         for (IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
-            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) {
-                return (ExecutionGraphVertex) ivertex;
-            }
+            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return (ExecutionGraphVertex) ivertex; }
         }
         throw new IllegalStateException();
     }
 
-    public Set<ExecutionGraphVertex> getVertices() {
+    @Override
+    public Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> getVertices() {
         return vertices;
     }
 
-    public void setVertices(Set<ExecutionGraphVertex> vertices) {
+    public void setVertices(Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices) {
         this.vertices = vertices;
     }
 

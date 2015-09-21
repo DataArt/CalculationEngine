@@ -1,7 +1,7 @@
-package com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.test.graph;
 
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.IOException;
@@ -10,22 +10,18 @@ import org.jgrapht.DirectedGraph;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
-public class Excel_If_True_E6_Test extends AbstractExcelTest {
+public class Excel_If_True_E6_Test extends SerializedGraphTest {
+    
+    static String address = "E6";
+    static String file = "IF_TRUE";
+    static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     
     @BeforeClass
     public static void before() throws IOException {
-        address = "E6";
-        path = GraphTestUtil.EXCELS_PATH + "IF_TRUE.xlsx";
-        AbstractExcelTest.before();
+        before(path, address);        
     }
     
     @Test

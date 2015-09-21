@@ -79,7 +79,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 	protected Map<ValueEval, IExecutionGraphVertex> valueToVertex;
 	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
-	protected Set<ExecutionGraphVertex> connectedGraphVertices;
+	protected Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> connectedGraphVertices;
 
 	public PoiExecutionGraphBuilder() {
 		this.dgraph =  new DefaultDirectedGraph<>(DefaultEdge.class);
@@ -294,7 +294,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // set formula_values to user-friendly string like: '1 + 2' or
     // 'SUM(2,1)'
     // For OPERATOR and FUNCTION types
-	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph, Set<ExecutionGraphVertex> vertices) {
+	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph, Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices) {
 
 	    vertices.add(vertex);
 
@@ -386,8 +386,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 vertex.property(NAME).set(CONSTANT_VALUE_NAME);
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
-                formula.formulaValues(CellValue.fromCellValueToString(vertex.value()));
-                formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value()));
+                formula.formulaValues(CellValue.fromCellValueToString(vertex.value())); //TODO remove CellValue.fromCellValueToString
+                formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value())); //TODO remove CellValue.fromCellValueToString
                 formula.ptgStr(vertex.property(NAME).get().toString());
                 return CellFormulaExpression.copyOf(formula);
             }
