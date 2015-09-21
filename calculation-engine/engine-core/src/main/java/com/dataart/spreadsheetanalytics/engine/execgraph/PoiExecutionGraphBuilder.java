@@ -76,14 +76,12 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
-	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
-
+	protected final PoiDirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 	protected Map<ValueEval, IExecutionGraphVertex> valueToVertex;
 	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
 
 	public PoiExecutionGraphBuilder() {
-		this.dgraph = new DefaultDirectedGraph<>(DefaultEdge.class);
-
+		this.dgraph = new PoiDirectedGraph<>(DefaultEdge.class);
 		this.valueToVertex = new HashMap<>();
 		this.addressToVertices = new HashMap<>();
 	}
@@ -275,20 +273,26 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 		}
 
+		Set<IExecutionGraphVertex> newSet = new HashSet<>();
 		for (IExecutionGraphVertex vert : graph.vertexSet()) {
 			if (graph.outgoingEdgesOf(vert).isEmpty()) {
 			    ExecutionGraphVertex root = (ExecutionGraphVertex) vert;
-				root.formula = buildFormula(root, graph);
+				root.formula = buildFormula(root, graph, newSet);
 				break;
 			}
 		}
+
+		dgraph.setFilteredVertices(newSet);
+
 	}
 
     /* Modifications for: FORMULA */
     // set formula_values to user-friendly string like: '1 + 2' or
     // 'SUM(2,1)'
     // For OPERATOR and FUNCTION types
-	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph, Set<IExecutionGraphVertex> vertices) {
+
+	    vertices.add(vertex);
 
         switch (vertex.type) {
 
@@ -305,7 +309,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CELL_WITH_FORMULA: {
                 DefaultEdge edge = graph.incomingEdgesOf(vertex).iterator().next();
                 ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                CellFormulaExpression formula = buildFormula(ivertex, graph);
+                CellFormulaExpression formula = buildFormula(ivertex, graph, vertices);
                 vertex.formula = CellFormulaExpression.copyOf(formula);
                 vertex.value = ivertex.value;
                 return CellFormulaExpression.copyOf(formula);
@@ -320,7 +324,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
                 for (DefaultEdge edge : edges) {
                     ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, graph);
+                    CellFormulaExpression formula = buildFormula(ivertex, graph, vertices);
                     formulaStringNodes.add(formula.formulaStr());
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
@@ -348,7 +352,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 List<String> ptgNodes = new LinkedList<>();
                 for (DefaultEdge edge : edges) {
                     ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, graph);
+                    CellFormulaExpression formula = buildFormula(ivertex, graph, vertices);
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
@@ -439,7 +443,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			                                                   .map(v -> v.toString())
 			                                                   .collect(toList()))));
 		} else if (optg instanceof ValueOperatorPtg) {
-			return stripRedundantSymbols(format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", opname, (ops.size() > 1) ? ops.get(1) : ""));
+			return stripRedundantSymbols(format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", opname, (ops.size() > 0) ? ops.get(0) : ""));
 		}
 		return "";
 	}
@@ -471,7 +475,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                             .collect(toList())),
                                                 opname));
         } else if (optg instanceof ValueOperatorPtg) {
-            return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 0) ? ops.get(0) : "", (ops.size() > 1) ? ops.get(1) : "", opname));
+            return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", (ops.size() > 0) ? ops.get(0) : "", opname));
         }
 
         return "";
@@ -563,6 +567,28 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // TODO: not the best solution, but works as for now
 	protected static boolean isCompareOperand(String name) {
 		return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
+    }
+
+    private class PoiDirectedGraph<V, E> extends DefaultDirectedGraph<V, E> {
+
+        private Set<V> filteredVertices = null;
+
+        public PoiDirectedGraph(Class<? extends E> edgeClass) {
+            super(edgeClass);
+        }
+
+        public void setFilteredVertices(Set<V> vertices) {
+            filteredVertices = vertices;
+        }
+
+        @Override
+        public Set<V> vertexSet() {
+            if (filteredVertices == null) {
+                return super.vertexSet();
+            } else {
+                return filteredVertices;
+            }
+        }
     }
 
 }
