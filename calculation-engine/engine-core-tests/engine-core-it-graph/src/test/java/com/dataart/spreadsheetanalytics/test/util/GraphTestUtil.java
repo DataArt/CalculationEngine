@@ -29,12 +29,12 @@ import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class GraphTestUtil {
     
+    public final static String STANDARD_EXCELS_DIR = "src/test/resources/standard_excel_files/";
+    public final static String STANDARD_GRAPHML_DIR = "src/test/resources/standard_graphml_files/";
+    
     final static String TEST_FILES = "com.dataart.spreadsheetanalytics.test.graph";
     
-    final static String STANDARD_GRAPHML_DIR = "src/test/resources/standard_graphml_files/";
-    final static String STANDARD_EXCELS_DIR = "src/test/resources/standard_excel_files/";
     final static String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
-    
     
     @Test
     public void it_GraphPaths_NumbrOfTestFiles() throws IOException {

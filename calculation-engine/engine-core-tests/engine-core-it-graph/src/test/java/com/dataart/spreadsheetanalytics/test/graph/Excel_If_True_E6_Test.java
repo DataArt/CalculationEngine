@@ -1,5 +1,6 @@
 package com.dataart.spreadsheetanalytics.test.graph;
 
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
@@ -8,33 +9,18 @@ import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_If_True_E6_Test extends SerializedGraphTest {
     
     static String address = "E6";
-    static String path = "src/test/resources/standard_excel_files/IF_TRUE.xlsx";
-    static IExecutionGraph graph;
-    static ExecutionGraphVertex rootVertex;
+    static String file = "IF_TRUE";
+    static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     
     @BeforeClass
     public static void before() throws IOException {
-        final IDataModel model = new DataModel(path);        
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
-        ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
-        graph = auditor.buildDynamicExecutionGraph(addr);
-        rootVertex = (ExecutionGraphVertex)graph.getRootVertex();        
+        before(path, address);        
     }
     
     @Test
