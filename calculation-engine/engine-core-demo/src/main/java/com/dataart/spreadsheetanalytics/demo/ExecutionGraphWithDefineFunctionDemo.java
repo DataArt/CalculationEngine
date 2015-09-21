@@ -41,8 +41,8 @@ public class ExecutionGraphWithDefineFunctionDemo {
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
         final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
         
-        ExecutionGraphDemo.generateVisJsData(ExecutionGraph.unwrap((ExecutionGraph) graph));
-        ExecutionGraphDemo.plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
+        ExecutionGraphDemo.generateVisJsData(graph);
+        ExecutionGraphDemo.plainprint(graph);
 
     }
 

@@ -15,7 +15,6 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellValue;
@@ -41,12 +40,12 @@ public class ExecutionGraphDemo {
         
         IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
         
-        generateVisJsData(ExecutionGraph.unwrap((ExecutionGraph) graph));
-        plainprint(ExecutionGraph.unwrap((ExecutionGraph) graph));
+        generateVisJsData(graph);
+        plainprint(graph);
     }
     
-    protected static void plainprint(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
-        for (IExecutionGraphVertex vertex : graph.vertexSet()) {
+    protected static void plainprint(IExecutionGraph graph) {
+        for (IExecutionGraphVertex vertex : graph.getVertices()) {
             System.out.println("---------------------------------");
             System.out.println("Vertex Id: " + vertex.id());
             System.out.println("Name: " + vertex.name());
@@ -57,7 +56,7 @@ public class ExecutionGraphDemo {
 		}
 	}
 
-    protected static void generateVisJsData(DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+    protected static void generateVisJsData(IExecutionGraph graph) {
         try {
             final String dataTemplateFileStr = "src/main/resources/ui/data_template.js";
             final String dataFileStr = "src/main/resources/ui/data.js";
@@ -68,7 +67,7 @@ public class ExecutionGraphDemo {
             StringBuilder verticesJson = new StringBuilder();
             StringBuilder edgesJson = new StringBuilder();
             
-            for (IExecutionGraphVertex vertex : graph.vertexSet()) {
+            for (IExecutionGraphVertex vertex : graph.getVertices()) {
 				/* {id: a, label: b, ...}, */
 
                 verticesJson.append("{id: '")
@@ -101,7 +100,7 @@ public class ExecutionGraphDemo {
             }
             verticesJson.setLength(verticesJson.length() > 0 ? verticesJson.length() - 2 : 0);
 
-            for (DefaultEdge edge : graph.edgeSet()) {
+            for (DefaultEdge edge : graph.getEdges()) {
                 /* {from: id_a, to: id_b}, */
                 
                 IExecutionGraphVertex from = graph.getEdgeSource(edge);

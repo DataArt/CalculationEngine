@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
+import java.util.Set;
+
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -8,6 +10,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 
 public class ExecutionGraph implements IExecutionGraph {
 
+    protected Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices;
     protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
     protected ExecutionGraph(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
@@ -27,7 +30,31 @@ public class ExecutionGraph implements IExecutionGraph {
         for (IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
             if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return (ExecutionGraphVertex) ivertex; }
         }
-        return null;
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices) {
+        this.vertices = vertices;
+    }
+
+    @Override
+    public Set<DefaultEdge> getEdges() {
+        return dgraph.edgeSet();
+    }
+
+    @Override
+    public ExecutionGraphVertex getEdgeSource(DefaultEdge edge) {
+        return (ExecutionGraphVertex) dgraph.getEdgeSource(edge);
+    }
+
+    @Override
+    public ExecutionGraphVertex getEdgeTarget(DefaultEdge edge) {
+        return (ExecutionGraphVertex) dgraph.getEdgeTarget(edge);
     }
 
 }
