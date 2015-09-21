@@ -100,7 +100,7 @@ public class SpreadsheetAuditor implements IAuditor {
         vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
         vertex.property(PTG_STRING).set(error.getErrorString());
         vertex.property(SOURCE_OBJECT_ID).set("");
-        Set<ExecutionGraphVertex> vertices = new HashSet<>();
+        Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices = new HashSet<>();
         emptyGraph.addVertex(vertex);
         vertices.add(vertex);
         ExecutionGraph graph = ExecutionGraph.wrap(emptyGraph);
