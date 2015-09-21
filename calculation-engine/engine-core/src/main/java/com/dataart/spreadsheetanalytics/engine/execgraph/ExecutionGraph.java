@@ -1,5 +1,6 @@
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
@@ -15,6 +16,7 @@ public class ExecutionGraph implements IExecutionGraph {
 
     protected ExecutionGraph(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
         this.dgraph = dgraph;
+        this.vertices = new HashSet<>();
     }
 
     public static ExecutionGraph wrap(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {

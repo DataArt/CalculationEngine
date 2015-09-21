@@ -99,7 +99,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
 		vertex.property(TYPE).set(EMPTY_CELL);
 		emptyGraph.addVertex(vertex);
-		return ExecutionGraph.wrap(emptyGraph);
+		ExecutionGraph result = ExecutionGraph.wrap(emptyGraph);
+		connectedGraphVertices.add(vertex);
+		result.setVertices(connectedGraphVertices);
+		return result;
 	}
 
 	/**

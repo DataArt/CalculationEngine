@@ -9,6 +9,9 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -32,6 +35,7 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilde
 public class SpreadsheetAuditor implements IAuditor {
 
     private static final String WORKBOOK_NAME = "workbook name";
+    private static final String FORMULA_STRING_PREFIX = "Cell with formula:";
 
     protected final SpreadsheetEvaluator evaluator;
     protected final PoiExecutionGraphBuilder graphBuilder;
@@ -61,14 +65,17 @@ public class SpreadsheetAuditor implements IAuditor {
 		try {
 			cv = evaluator.evaluate(cell);
 		} catch (FormulaParseException e) {
-			return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID);
+			return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
 		} catch (IllegalStateException e) {
 		    if (e.getMessage().contains(ErrorEval.VALUE_INVALID.getErrorString())) {
-		        return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID);
+		        return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
 		    }
 		} catch (RuntimeException e) {
 		    if (e.getMessage().contains(WORKBOOK_NAME)) {
-		        return getSingleNodeGraphForParseException(cell, ErrorEval.REF_INVALID);
+	            int index = e.getMessage().indexOf(FORMULA_STRING_PREFIX);
+	            String formulaStr = e.getMessage().substring(index+FORMULA_STRING_PREFIX.length()+3);
+		        ExecutionGraph result = getSingleNodeGraphForParseException(cell, ErrorEval.REF_INVALID, formulaStr);
+		        return result;
 		    }
 		}
 
@@ -79,18 +86,26 @@ public class SpreadsheetAuditor implements IAuditor {
 		return graphBuilder.get();
 	}
 
-    protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error) {
+    protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
         vertex.property(TYPE).set(CELL_WITH_FORMULA);
         vertex.property(VALUE).set(error);
-        vertex.property(FORMULA_STRING).set(error.getErrorString());
+        if (formulaString != null) {
+            vertex.property(FORMULA_STRING).set(formulaString);
+        } else {
+            vertex.property(FORMULA_STRING).set(error.getErrorString());
+        }
         vertex.property(FORMULA_VALUES).set(error.getErrorString());
         vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
         vertex.property(PTG_STRING).set(error.getErrorString());
         vertex.property(SOURCE_OBJECT_ID).set("");
+        Set<ExecutionGraphVertex> vertices = new HashSet<>();
         emptyGraph.addVertex(vertex);
-        return ExecutionGraph.wrap(emptyGraph);
+        vertices.add(vertex);
+        ExecutionGraph graph = ExecutionGraph.wrap(emptyGraph);
+        graph.setVertices(vertices);
+        return graph;
     }
 
     @Override
