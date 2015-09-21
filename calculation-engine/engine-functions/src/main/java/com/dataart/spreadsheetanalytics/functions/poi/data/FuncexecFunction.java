@@ -70,17 +70,18 @@ public class FuncexecFunction implements CustomFunction {
             List<ICellValue> outputValues = new ArrayList<>(meta.outputs().size());
             //TODO: here we should call evaluator.evaluate(execModel), but we do not have this method yet implemented
             //so we will do it cell by cell
+            
+            evaluator.init(execModel); //TODO: this is probably not a good solution
+            //because we set another model to existing evaluator and it might not be completed yet
+            
             for (ICellAddress addr : meta.outputs()) {
-
-                evaluator.init(execModel);
+    
                 ICellValue outputValue = evaluator.evaluate(addr);
                 //TODO: log this value
                 outputValues.add(outputValue);
             }
 
-            return outputValues.size() == 1 
-                    ? new NumberEval((double) outputValues.get(0).get()) /* TODO: do correct conversion to type */
-                    : toTwoDEval(outputValues);
+            return toTwoDEval(outputValues);
         } catch (IOException e) {
             return ErrorEval.NA;
         }
