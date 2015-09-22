@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="B12">
+<node id="B12_&amp;#8;_CELL_WITH_FORMULA">
+<data key="name">B12</data>
+<data key="value">&amp;#8;</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: CHAR(VALUE); Formula Values: CHAR(8); Formula Ptg: 8 CHAR ; Ptgs: VALUE CHAR  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@340b9973</data>
+</node>
+<node id="VALUE_8_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">8</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 8; Formula Ptg: 8; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@340b9973</data>
+</node>
+<node id="CHAR_&amp;#8;_FUNCTION">
+<data key="name">CHAR</data>
+<data key="value">&amp;#8;</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: CHAR(VALUE); Formula Values: CHAR(8); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@340b9973</data>
+</node>
+<edge source="VALUE_8_CONSTANT_VALUE" target="CHAR_&amp;#8;_FUNCTION"/>
+<edge source="CHAR_&amp;#8;_FUNCTION" target="B12_&amp;#8;_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

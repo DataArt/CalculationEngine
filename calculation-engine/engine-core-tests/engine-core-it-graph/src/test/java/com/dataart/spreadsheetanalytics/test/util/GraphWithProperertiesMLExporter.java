@@ -73,8 +73,11 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
         // Add all the vertices as <node> elements...
         for (ExecutionGraphVertex v : g.vertexSet()) {
             // <node>
+            String value = CellValue.fromCellValueToString(v.value()); 
+            
+            String graphmlId = v.name() + "_" + value + "_" + v.type();
             attr.clear();
-            attr.addAttribute("", "", "id", "CDATA", v.id().toString());
+            attr.addAttribute("", "", "id", "CDATA", graphmlId);
             handler.startElement("", "", "node", attr);
 
             // name
@@ -88,7 +91,7 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
             attr.clear();
             attr.addAttribute("", "", "key", "CDATA", "value");
             handler.startElement("", "", "data", attr);
-            /*TODO: remove static call*/ handler.characters(CellValue.fromCellValueToString(v.value()).toCharArray(), 0, CellValue.fromCellValueToString(v.value()).length()); // Content for <data>
+            /*TODO: remove static call*/ handler.characters(value.toCharArray(), 0, value.length()); // Content for <data>
             handler.endElement("", "", "data");
             
             // type
@@ -118,9 +121,13 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
         // Add all the edges as <edge> elements...
         for (DefaultEdge e : g.edgeSet()) {
             // <edge>
+            
+            String graphmlId_1 = g.getEdgeSource(e).name() + "_" + CellValue.fromCellValueToString(g.getEdgeSource(e).value()) + "_" + g.getEdgeSource(e).type();
+            String graphmlId_2 = g.getEdgeTarget(e).name() + "_" + CellValue.fromCellValueToString(g.getEdgeTarget(e).value()) + "_" + g.getEdgeTarget(e).type();
+            
             attr.clear();
-            attr.addAttribute("", "", "source", "CDATA", g.getEdgeSource(e).id().toString());
-            attr.addAttribute("", "", "target", "CDATA", g.getEdgeTarget(e).id().toString());
+            attr.addAttribute("", "", "source", "CDATA", graphmlId_1);
+            attr.addAttribute("", "", "target", "CDATA", graphmlId_2);
             handler.startElement("", "", "edge", attr);
 
             handler.endElement("", "", "edge");

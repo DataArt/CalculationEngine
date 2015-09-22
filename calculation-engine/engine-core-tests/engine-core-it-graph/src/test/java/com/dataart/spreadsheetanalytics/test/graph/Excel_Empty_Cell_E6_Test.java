@@ -7,11 +7,8 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.IOException;
 
-import javax.xml.transform.TransformerConfigurationException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
@@ -28,7 +25,7 @@ public class Excel_Empty_Cell_E6_Test extends SerializedGraphTest {
     }
     
     @Test
-    public void assert_ExcelFile_SerializedGraph() throws TransformerConfigurationException, SAXException {
+    public void assert_ExcelFile_SerializedGraph() {
         super.assert_ExcelFile_SerializedGraph(file, address);
     }
 

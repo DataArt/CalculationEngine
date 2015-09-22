@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="D5">
+<node id="D5_Why do you think so?_CELL_WITH_FORMULA">
+<data key="name">D5</data>
+<data key="value">Why do you think so?</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula Values: CONCATENATE(?, so, think , you , do , Why ); Formula Ptg: ?, so, think , you , do , Why  CONCATENATE ; Ptgs: C3, C2, B2, C1, B1, A1 CONCATENATE  Index in Ptgs: 6 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<node id="A1_Why _CELL_WITH_VALUE">
+<data key="name">A1</data>
+<data key="value">Why </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A1; Formula Values: Why ; Formula Ptg: Why ; Ptgs: A1 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<node id="B1_do _CELL_WITH_VALUE">
+<data key="name">B1</data>
+<data key="value">do </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B1; Formula Values: do ; Formula Ptg: do ; Ptgs: B1 Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<node id="C1_you _CELL_WITH_VALUE">
+<data key="name">C1</data>
+<data key="value">you </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C1; Formula Values: you ; Formula Ptg: you ; Ptgs: C1 Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<node id="B2_think _CELL_WITH_VALUE">
+<data key="name">B2</data>
+<data key="value">think </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B2; Formula Values: think ; Formula Ptg: think ; Ptgs: B2 Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<node id="C2_so_CELL_WITH_VALUE">
+<data key="name">C2</data>
+<data key="value">so</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C2; Formula Values: so; Formula Ptg: so; Ptgs: C2 Index in Ptgs: 4 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<node id="C3_?_CELL_WITH_VALUE">
+<data key="name">C3</data>
+<data key="value">?</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C3; Formula Values: ?; Formula Ptg: ?; Ptgs: C3 Index in Ptgs: 5 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<node id="CONCATENATE_Why do you think so?_FUNCTION">
+<data key="name">CONCATENATE</data>
+<data key="value">Why do you think so?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula Values: CONCATENATE(?, so, think , you , do , Why ); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1c7fd41f</data>
+</node>
+<edge source="C3_?_CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
+<edge source="C2_so_CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
+<edge source="B2_think _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
+<edge source="C1_you _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
+<edge source="B1_do _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
+<edge source="A1_Why _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
+<edge source="CONCATENATE_Why do you think so?_FUNCTION" target="D5_Why do you think so?_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

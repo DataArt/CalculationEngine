@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="E12">
+<node id="E12_41686.05_CELL_WITH_FORMULA">
+<data key="name">E12</data>
+<data key="value">41686.05</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: E5 * E4 / VALUE; Formula Values: 107.3 * 77.7 / 0.2; Formula Ptg: 107.3 77.7 0.2 / *; Ptgs: E5 E4 VALUE / * Index in Ptgs: 5 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@41d426b5</data>
+</node>
+<node id="E5_107.3_CELL_WITH_VALUE">
+<data key="name">E5</data>
+<data key="value">107.3</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: E5; Formula Values: 107.3; Formula Ptg: 107.3; Ptgs: E5 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@41d426b5</data>
+</node>
+<node id="E4_77.7_CELL_WITH_VALUE">
+<data key="name">E4</data>
+<data key="value">77.7</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: E4; Formula Values: 77.7; Formula Ptg: 77.7; Ptgs: E4 Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@41d426b5</data>
+</node>
+<node id="VALUE_0.2_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">0.2</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 0.2; Formula Ptg: 0.2; Ptgs: VALUE Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@41d426b5</data>
+</node>
+<node id="/_388.5_OPERATOR">
+<data key="name">/</data>
+<data key="value">388.5</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: E4 / VALUE; Formula Values: 77.7 / 0.2; Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@41d426b5</data>
+</node>
+<node id="*_41686.05_OPERATOR">
+<data key="name">*</data>
+<data key="value">41686.05</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: E5 * E4 / VALUE; Formula Values: 107.3 * 77.7 / 0.2; Formula Ptg: ; Ptgs:  Index in Ptgs: 5 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@41d426b5</data>
+</node>
+<edge source="VALUE_0.2_CONSTANT_VALUE" target="/_388.5_OPERATOR"/>
+<edge source="E4_77.7_CELL_WITH_VALUE" target="/_388.5_OPERATOR"/>
+<edge source="/_388.5_OPERATOR" target="*_41686.05_OPERATOR"/>
+<edge source="E5_107.3_CELL_WITH_VALUE" target="*_41686.05_OPERATOR"/>
+<edge source="*_41686.05_OPERATOR" target="E12_41686.05_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

@@ -37,7 +37,7 @@ public class GraphTestUtil {
     final static String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
     
     @Test
-    public void it_GraphPaths_NumbrOfTestFiles() throws IOException {
+    public void it_GraphPaths_NumbrOfTestFilesGreaterThenExcels() throws IOException {
         //given
         int lines = -1;        
         try (LineNumberReader lnr = new LineNumberReader(new FileReader(new File(GRAPH_PATHS_FILE)))){ lines = lnr.getLineNumber() + 1; }
@@ -47,7 +47,7 @@ public class GraphTestUtil {
         
         //then
         assertThat(lines).isGreaterThan(0);
-        assertThat(tests).isEqualTo(lines);
+        assertThat(tests).isGreaterThan(lines);
     }
 
     public static void generateGraphmlFileset() throws Exception {

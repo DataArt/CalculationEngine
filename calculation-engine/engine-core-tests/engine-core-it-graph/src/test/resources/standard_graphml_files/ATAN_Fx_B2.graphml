@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="B2">
+<node id="B2_0.785398163397448_CELL_WITH_FORMULA">
+<data key="name">B2</data>
+<data key="value">0.785398163397448</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ATAN(VALUE); Formula Values: ATAN(1); Formula Ptg: 1 ATAN ; Ptgs: VALUE ATAN  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@10f7f7de</data>
+</node>
+<node id="VALUE_1_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">1</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 1; Formula Ptg: 1; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@10f7f7de</data>
+</node>
+<node id="ATAN_0.785398163397448_FUNCTION">
+<data key="name">ATAN</data>
+<data key="value">0.785398163397448</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ATAN(VALUE); Formula Values: ATAN(1); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@10f7f7de</data>
+</node>
+<edge source="VALUE_1_CONSTANT_VALUE" target="ATAN_0.785398163397448_FUNCTION"/>
+<edge source="ATAN_0.785398163397448_FUNCTION" target="B2_0.785398163397448_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>
