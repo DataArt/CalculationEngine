@@ -26,6 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
@@ -77,7 +78,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
-	protected Map<ValueEval, IExecutionGraphVertex> valueToVertex;
+	protected Map<ValueEval, Stack<IExecutionGraphVertex>> valueToVertex;
 	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
 	protected Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> connectedGraphVertices;
 
@@ -158,13 +159,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	@Override
 	public void putVertexToCache(ValueEval value, IExecutionGraphVertex vertex) {
 		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
-		valueToVertex.put(value, vertex);
+		if (!valueToVertex.keySet().contains(value)) { valueToVertex.put(value, new Stack<IExecutionGraphVertex>()); }
+		valueToVertex.get(value).push(vertex);
 	}
 
 	@Override
 	public IExecutionGraphVertex getVertexFromCache(ValueEval value) {
 		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
-		return valueToVertex.get(value);
+		return valueToVertex.get(value).pop();
 	}
 
 	@Override
