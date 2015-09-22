@@ -8,7 +8,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
-
+import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,14 +69,11 @@ public class SpreadsheetAuditor implements IAuditor {
 		} catch (IllegalStateException e) {
 		    if (e.getMessage().contains(ErrorEval.VALUE_INVALID.getErrorString())) {
 		        return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
+		    } else {
+		        throw e;
 		    }
-		} catch (RuntimeException e) {
-		    if (e.getMessage().contains(WORKBOOK_NAME)) {
-	            int index = e.getMessage().indexOf(FORMULA_STRING_PREFIX);
-	            String formulaStr = e.getMessage().substring(index+FORMULA_STRING_PREFIX.length()+3);
-		        ExecutionGraph result = getSingleNodeGraphForParseException(cell, ErrorEval.REF_INVALID, formulaStr);
-		        return result;
-		    }
+		} catch (IncorrectExternalReferenceException e) {
+		    return handleIncorrectExternalReference(e, cell);
 		}
 
 		IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
@@ -85,6 +82,12 @@ public class SpreadsheetAuditor implements IAuditor {
 		graphBuilder.runPostProcessing();
 		return graphBuilder.get();
 	}
+
+    private ExecutionGraph handleIncorrectExternalReference(IncorrectExternalReferenceException e, ICellAddress cell) {
+        String formulaString = e.getFormulaString();
+        ExecutionGraph result = getSingleNodeGraphForParseException(cell, ErrorEval.REF_INVALID, formulaString);
+        return result;
+    }
 
     protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
