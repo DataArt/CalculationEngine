@@ -30,23 +30,23 @@ public class Excel_Empty_Cell_E6_Test extends SerializedGraphTest {
     }
 
     @Test
-    public void assert_root_vertex_not_null() {
+    public void assert_RootVertex_NotNull() {
         assertThat(rootVertex).isNotEqualTo(null);
     }
     
     @Test
-    public void assert_root_vertex_fields() {
+    public void assert_RootVertex_Fields() {
         assertThat(rootVertex.property(NAME).get()).isEqualTo(address);
         assertThat(rootVertex.property(VALUE).get()).isEqualTo(null);        
     }
     
     @Test
-    public void assert_number_of_nodes() {
+    public void assert_NumberOfNodes_1() {
         assertThat(ExecutionGraph.unwrap((ExecutionGraph)graph).vertexSet().size()).isEqualTo(1);
     }
     
     @Test
-    public void assert_root_formula_fields() {
+    public void assert_RootFormula_Null() {
         assertThat(rootVertex.formula()).isEqualTo(null);
     }    
 
