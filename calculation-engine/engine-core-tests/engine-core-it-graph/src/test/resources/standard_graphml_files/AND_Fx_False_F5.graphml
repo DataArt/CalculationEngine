@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="F5">
+<node id="F5_FALSE_CELL_WITH_FORMULA">
+<data key="name">F5</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AND(E1 + D3 = C4); Formula Values: AND(5.0 + 367.0 = 89.0); Formula Ptg: 5.0 367.0 + 89.0 = AND ; Ptgs: E1 D3 + C4 = AND  Index in Ptgs: 8 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="1_1_CONSTANT_VALUE">
+<data key="name">1</data>
+<data key="value">1</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="D1_0.4_CELL_WITH_VALUE">
+<data key="name">D1</data>
+<data key="value">0.4</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="&lt;_FALSE_OPERATOR">
+<data key="name">&lt;</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="E1_5.0_CELL_WITH_VALUE">
+<data key="name">E1</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: E1; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: E1 Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="D3_367.0_CELL_WITH_VALUE">
+<data key="name">D3</data>
+<data key="value">367.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D3; Formula Values: 367.0; Formula Ptg: 367.0; Ptgs: D3 Index in Ptgs: 4 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="+_372_OPERATOR">
+<data key="name">+</data>
+<data key="value">372</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: E1 + D3; Formula Values: 5.0 + 367.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 5 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="C4_89.0_CELL_WITH_VALUE">
+<data key="name">C4</data>
+<data key="value">89.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C4; Formula Values: 89.0; Formula Ptg: 89.0; Ptgs: C4 Index in Ptgs: 6 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="=_FALSE_OPERATOR">
+<data key="name">=</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: E1 + D3 = C4; Formula Values: 5.0 + 367.0 = 89.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 7 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<node id="AND_FALSE_FUNCTION">
+<data key="name">AND</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: AND(E1 + D3 = C4); Formula Values: AND(5.0 + 367.0 = 89.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 8 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2a7ed1f</data>
+</node>
+<edge source="D1_0.4_CELL_WITH_VALUE" target="&lt;_FALSE_OPERATOR"/>
+<edge source="1_1_CONSTANT_VALUE" target="&lt;_FALSE_OPERATOR"/>
+<edge source="D3_367.0_CELL_WITH_VALUE" target="+_372_OPERATOR"/>
+<edge source="E1_5.0_CELL_WITH_VALUE" target="+_372_OPERATOR"/>
+<edge source="C4_89.0_CELL_WITH_VALUE" target="=_FALSE_OPERATOR"/>
+<edge source="+_372_OPERATOR" target="=_FALSE_OPERATOR"/>
+<edge source="=_FALSE_OPERATOR" target="AND_FALSE_FUNCTION"/>
+<edge source="AND_FALSE_FUNCTION" target="F5_FALSE_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

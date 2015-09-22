@@ -6,11 +6,9 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.IOException;
 
-import org.jgrapht.DirectedGraph;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_If_True_E6_Test extends SerializedGraphTest {
@@ -25,22 +23,27 @@ public class Excel_If_True_E6_Test extends SerializedGraphTest {
     }
     
     @Test
-    public void assert_root_vertex_not_null() {
+    public void assert_ExcelFile_SerializedGraph() {
+        super.assert_ExcelFile_SerializedGraph(file, address);
+    }
+    
+    @Test
+    public void assert_RootVertex_NotNull() {
         assertThat(rootVertex).isNotEqualTo(null);
     }
     
     @Test
-    public void assert_root_vertex_fields() {
-        assertThat(rootVertex.property(NAME).get()).isEqualTo(address);
+    public void assert_RootVertex_NameIsAddress() {
+        assertThat(rootVertex.property(NAME).get()).isEqualTo(address);        
     }
     
     @Test
-    public void assert_number_of_nodes() {
-        assertThat(ExecutionGraph.unwrap((ExecutionGraph)graph).vertexSet().size()).isEqualTo(6);
+    public void assert_Graph_NumberOfNodes() {
+        assertThat(dgraph.vertexSet().size()).isEqualTo(6);
     }
     
     @Test
-    public void assert_root_formula_fields() {
+    public void assert_RootFormula_FormulasFromExcel() {
         String expectedFormulaStr = "IF(D1<5,D2,C3)";
         String actualFormulaStr = rootVertex.formula().formulaStr();
         assertThat(actualFormulaStr).isEqualTo(expectedFormulaStr);
