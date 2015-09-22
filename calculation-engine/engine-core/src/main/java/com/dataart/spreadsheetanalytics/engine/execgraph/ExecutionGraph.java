@@ -32,7 +32,7 @@ public class ExecutionGraph implements IExecutionGraph {
         for (IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
             if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return (ExecutionGraphVertex) ivertex; }
         }
-        throw new IllegalStateException();
+        throw new IllegalStateException("No graph root found");
     }
 
     @Override

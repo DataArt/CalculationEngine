@@ -80,6 +80,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 	protected Map<ValueEval, Stack<IExecutionGraphVertex>> valueToVertex;
 	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
+	/* Here we store only that vertices which participate in the main graph.
+	 * All the redundant unconnected vertices are filtered out */
 	protected Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> connectedGraphVertices;
 
 	public PoiExecutionGraphBuilder() {

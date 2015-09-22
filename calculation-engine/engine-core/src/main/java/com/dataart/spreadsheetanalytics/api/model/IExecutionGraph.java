@@ -9,7 +9,7 @@ public interface IExecutionGraph {
     /**
      * Returns the root vertex of ExecutionGraph
      *
-     * @throws IllegalStateException if there is no root vertex or several vertices that can be treated as 'root'
+     * @throws IllegalStateException if there is no root vertex
      */
     IExecutionGraphVertex getRootVertex() throws IllegalStateException;
 
