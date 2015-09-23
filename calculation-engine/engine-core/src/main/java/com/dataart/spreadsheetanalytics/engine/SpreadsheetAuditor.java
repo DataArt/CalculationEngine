@@ -29,6 +29,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 
 /**
  * TODO
@@ -134,17 +135,22 @@ public class SpreadsheetAuditor implements IAuditor {
 	protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
 		if (evalCell == null) {	return graphBuilder.getSingleNodeGraph(cell); }
         
-        if (!evaluator.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder, evalCell); }
+        if (!evaluator.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder, evalCell, cell); }
         
         return null;
     }
 
-    private IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue cell) {
+    private IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue cell, ICellAddress address) {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph = ExecutionGraph.unwrap(gBuilder.get());
         
         ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
         vertex.property(VALUE).set(cell.get());
         vertex.property(TYPE).set(Type.CELL_WITH_VALUE);
+        vertex.property(FORMULA_STRING).set(address.a1Address().address());
+        vertex.property(FORMULA_VALUES).set(CellValue.fromCellValueToString(cell));
+        vertex.property(FORMULA_PTG_STRING).set("");
+        vertex.property(PTG_STRING).set("");
+        vertex.property(SOURCE_OBJECT_ID).set(address.dataModelId());
          
         dgraph.addVertex(vertex);
 

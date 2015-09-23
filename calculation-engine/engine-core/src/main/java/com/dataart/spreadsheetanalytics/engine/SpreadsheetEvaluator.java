@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.poi.common.execgraph.EmptyExecutionGraph;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
+import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
 import org.apache.poi.ss.formula.udf.DefaultUDFFinder;
 import org.apache.poi.ss.formula.udf.UDFFinder;
@@ -130,7 +131,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
             case Cell.CELL_TYPE_STRING: { return poiValue.getStringValue(); }
             case Cell.CELL_TYPE_NUMERIC: { return Double.valueOf(poiValue.getNumberValue()); }
             case Cell.CELL_TYPE_BOOLEAN: { return Boolean.valueOf(poiValue.getBooleanValue()); }
-            case Cell.CELL_TYPE_ERROR: { return null; /* TODO we do not have special classes for error values yet */ }
+            case Cell.CELL_TYPE_ERROR: { return ErrorEval.valueOf(poiValue.getErrorValue()); /* TODO we do not have special classes for error values yet */ }
             case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
             case Cell.CELL_TYPE_BLANK: default: { return ""; }
         }

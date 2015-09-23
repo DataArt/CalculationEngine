@@ -28,6 +28,8 @@ public class CellValue implements ICellValue {
 
         Object v = value.get();
 
+        if (v == null) return "";
+
         if (v instanceof StringValueEval) {
             return ((StringValueEval) v).getStringValue();
         } else if (v instanceof NumberEval) {
