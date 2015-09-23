@@ -9,6 +9,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
+import org.apache.poi.common.execgraph.StackNotEmptyException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,12 +67,8 @@ public class SpreadsheetAuditor implements IAuditor {
 			cv = evaluator.evaluate(cell);
 		} catch (FormulaParseException e) {
 			return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
-		} catch (IllegalStateException e) {
-		    if (e.getMessage().contains(ErrorEval.VALUE_INVALID.getErrorString())) {
-		        return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
-		    } else {
-		        throw e;
-		    }
+		} catch (StackNotEmptyException e) {
+		    return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
 		} catch (IncorrectExternalReferenceException e) {
 		    return handleIncorrectExternalReference(e, cell);
 		}
@@ -107,7 +104,6 @@ public class SpreadsheetAuditor implements IAuditor {
         emptyGraph.addVertex(vertex);
         vertices.add(vertex);
         ExecutionGraph graph = ExecutionGraph.wrap(emptyGraph);
-        graph.setVertices(vertices);
         return graph;
     }
 
