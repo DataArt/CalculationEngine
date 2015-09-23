@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -177,8 +178,6 @@ public class DataProvider implements IDataProvider {
             for (Iterator rowterator = sh.iterator(); rowterator.hasNext();) {
                 Row ro = (Row) rowterator.next();
                 
-                String lastSuccessFormula = "";
-                
                 for (Iterator celterator = ro.iterator(); celterator.hasNext();) {
                     Cell ce = (Cell) celterator.next();
                     if (ce == null) continue;
@@ -187,19 +186,23 @@ public class DataProvider implements IDataProvider {
                     //then get it and parse to DefineFunctionMeta
                     if (CELL_TYPE_FORMULA != ce.getCellType()) continue;
                     
-                    String formula = ce.getCellFormula();
-                    
-                    if (!formula.startsWith(KEYWORD)) continue;
-                    
-                    if (!formula.contains(IN_OUT_SEPARATOR)) {
-                        //TODO log or throw?? if throw create exception?
-                        throw new RuntimeException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR);
-                    }
+                    try {
+                        String formula = ce.getCellFormula();
 
-                    DefineFunctionMeta meta = DefineFunctionMeta.parse(formula);
-                    meta.dataModelId(dataModel.dataModelId());
-                    
-                    map.put(meta.name(), meta);
+                        if (!formula.startsWith(KEYWORD)) continue;
+
+                        if (!formula.contains(IN_OUT_SEPARATOR)) {
+                            //TODO log or throw?? if throw create exception?
+                            throw new RuntimeException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR);
+                        }
+
+                        DefineFunctionMeta meta = DefineFunctionMeta.parse(formula);
+                        meta.dataModelId(dataModel.dataModelId());
+
+                        map.put(meta.name(), meta);
+                    } catch (FormulaParseException e) {
+                        //silent, we do not interested in custom formulas on this step
+                    }
                 }
             }
         }
