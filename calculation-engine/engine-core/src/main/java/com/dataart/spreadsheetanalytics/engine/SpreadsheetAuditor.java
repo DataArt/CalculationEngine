@@ -9,7 +9,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
-import org.apache.poi.common.execgraph.StackNotEmptyException;
+import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,9 +35,6 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
  * TODO
  */
 public class SpreadsheetAuditor implements IAuditor {
-
-    private static final String WORKBOOK_NAME = "workbook name";
-    private static final String FORMULA_STRING_PREFIX = "Cell with formula:";
 
     protected final SpreadsheetEvaluator evaluator;
     protected final PoiExecutionGraphBuilder graphBuilder;
@@ -68,7 +65,7 @@ public class SpreadsheetAuditor implements IAuditor {
 			cv = evaluator.evaluate(cell);
 		} catch (FormulaParseException e) {
 			return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
-		} catch (StackNotEmptyException e) {
+		} catch (ValuesStackNotEmptyException e) {
 		    return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
 		} catch (IncorrectExternalReferenceException e) {
 		    return handleIncorrectExternalReference(e, cell);
