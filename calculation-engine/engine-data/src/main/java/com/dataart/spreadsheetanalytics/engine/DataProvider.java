@@ -187,15 +187,7 @@ public class DataProvider implements IDataProvider {
                     //then get it and parse to DefineFunctionMeta
                     if (CELL_TYPE_FORMULA != ce.getCellType()) continue;
                     
-                    //DEBUG
-                    String formula = "";
-                    try {
-                        formula = ce.getCellFormula();
-                        lastSuccessFormula = formula;
-                    }catch(Exception e) {
-                        System.out.println(lastSuccessFormula);
-                        System.exit(0);
-                    }
+                    String formula = ce.getCellFormula();
                     
                     if (!formula.startsWith(KEYWORD)) continue;
                     
