@@ -402,7 +402,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 	}
 
-    private void checkForEmptyValues(ExecutionGraphVertex vertex) {
+    protected void checkForEmptyValues(ExecutionGraphVertex vertex) {
         Object value = vertex.property(VALUE).get();
         if (value.toString().isEmpty() || value instanceof BlankEval) {
             vertex.property(TYPE).set(EMPTY_CELL);
