@@ -11,12 +11,10 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 
 public class ExecutionGraph implements IExecutionGraph {
 
-    protected Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices;
     protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
 
     protected ExecutionGraph(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
         this.dgraph = dgraph;
-        this.vertices = new HashSet<>();
     }
 
     public static ExecutionGraph wrap(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
@@ -37,11 +35,9 @@ public class ExecutionGraph implements IExecutionGraph {
 
     @Override
     public Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> getVertices() {
+        Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices = new HashSet<>();
+        dgraph.vertexSet().forEach(vertex -> vertices.add((ExecutionGraphVertex)vertex));
         return vertices;
-    }
-
-    public void setVertices(Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices) {
-        this.vertices = vertices;
     }
 
     @Override

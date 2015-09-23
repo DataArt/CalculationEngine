@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.Deque;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
@@ -78,22 +79,21 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
 	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
-	protected Map<ValueEval, Stack<IExecutionGraphVertex>> valueToVertex;
+	/*
+     * The map is used to store vertices using value field as a key
+     * One value may correspond to several vertices. That's why we use Deques instead single values
+     */
+	protected Map<ValueEval, Deque<IExecutionGraphVertex>> valueToVertex;
 	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
-	/* Here we store only that vertices which participate in the main graph.
-	 * All the redundant unconnected vertices are filtered out */
-	protected Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> connectedGraphVertices;
 
 	public PoiExecutionGraphBuilder() {
 		this.dgraph =  new DefaultDirectedGraph<>(DefaultEdge.class);
 		this.valueToVertex = new HashMap<>();
 		this.addressToVertices = new HashMap<>();
-		connectedGraphVertices = new HashSet<>();
 	}
 
 	public ExecutionGraph get() {
 	    ExecutionGraph result = ExecutionGraph.wrap(dgraph);
-	    result.setVertices(connectedGraphVertices);
 		return result;
 	}
 
@@ -103,8 +103,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		vertex.property(TYPE).set(EMPTY_CELL);
 		emptyGraph.addVertex(vertex);
 		ExecutionGraph result = ExecutionGraph.wrap(emptyGraph);
-		connectedGraphVertices.add(vertex);
-		result.setVertices(connectedGraphVertices);
 		return result;
 	}
 
@@ -159,15 +157,16 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	}
 
 	@Override
-	public void putVertexToCache(ValueEval value, IExecutionGraphVertex vertex) {
+	public void putVertexToStack(ValueEval value, IExecutionGraphVertex vertex) {
 		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
-		if (!valueToVertex.keySet().contains(value)) { valueToVertex.put(value, new Stack<IExecutionGraphVertex>()); }
+		if (!valueToVertex.containsKey(value)) { valueToVertex.put(value, new LinkedList<IExecutionGraphVertex>()); }
 		valueToVertex.get(value).push(vertex);
 	}
 
 	@Override
-	public IExecutionGraphVertex getVertexFromCache(ValueEval value) {
+	public IExecutionGraphVertex getVertexFromStack(ValueEval value) {
 		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
+		/* the value is taken from the Deque while it is taken from the stack in poi WorkbookEvaluator class */
 		return valueToVertex.get(value).pop();
 	}
 
@@ -287,7 +286,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 		for (IExecutionGraphVertex vert : graph.vertexSet()) {
 			if (graph.outgoingEdgesOf(vert).isEmpty()) {
 			    ExecutionGraphVertex root = (ExecutionGraphVertex) vert;
-				root.formula = buildFormula(root, graph, connectedGraphVertices);
+				root.formula = buildFormula(root, graph);
 				break;
 			}
 		}
@@ -298,9 +297,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // set formula_values to user-friendly string like: '1 + 2' or
     // 'SUM(2,1)'
     // For OPERATOR and FUNCTION types
-	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph, Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices) {
-
-	    vertices.add(vertex);
+	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
 
         switch (vertex.type) {
 
@@ -317,7 +314,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CELL_WITH_FORMULA: {
                 DefaultEdge edge = graph.incomingEdgesOf(vertex).iterator().next();
                 ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                CellFormulaExpression formula = buildFormula(ivertex, graph, vertices);
+                CellFormulaExpression formula = buildFormula(ivertex, graph);
                 vertex.formula = CellFormulaExpression.copyOf(formula);
                 vertex.value = ivertex.value;
                 return CellFormulaExpression.copyOf(formula);
@@ -332,7 +329,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
                 for (DefaultEdge edge : edges) {
                     ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, graph, vertices);
+                    CellFormulaExpression formula = buildFormula(ivertex, graph);
                     formulaStringNodes.add(formula.formulaStr());
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
@@ -360,7 +357,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 List<String> ptgNodes = new LinkedList<>();
                 for (DefaultEdge edge : edges) {
                     ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, graph, vertices);
+                    CellFormulaExpression formula = buildFormula(ivertex, graph);
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
