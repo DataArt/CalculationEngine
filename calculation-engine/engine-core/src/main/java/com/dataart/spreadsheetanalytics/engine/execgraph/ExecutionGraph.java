@@ -2,10 +2,12 @@ package com.dataart.spreadsheetanalytics.engine.execgraph;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 
@@ -35,8 +37,10 @@ public class ExecutionGraph implements IExecutionGraph {
 
     @Override
     public Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> getVertices() {
-        Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices = new HashSet<>();
-        dgraph.vertexSet().forEach(vertex -> vertices.add((ExecutionGraphVertex)vertex));
+        Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices = dgraph.vertexSet()
+                                                                                               .stream()
+                                                                                               .map(s -> (ExecutionGraphVertex) s)
+                                                                                               .collect(Collectors.toSet());
         return vertices;
     }
 
