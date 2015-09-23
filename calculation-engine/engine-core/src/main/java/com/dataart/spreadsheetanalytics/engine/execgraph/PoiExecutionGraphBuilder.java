@@ -159,13 +159,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	@Override
 	public void putVertexToStack(ValueEval value, IExecutionGraphVertex vertex) {
 		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
-		if (!valueToVertex.keySet().contains(value)) { valueToVertex.put(value, new LinkedList<IExecutionGraphVertex>()); }
+		if (!valueToVertex.containsKey(value)) { valueToVertex.put(value, new LinkedList<IExecutionGraphVertex>()); }
 		valueToVertex.get(value).push(vertex);
 	}
 
 	@Override
 	public IExecutionGraphVertex getVertexFromStack(ValueEval value) {
 		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
+		/* the value is taken from the Deque while it is taken from the stack in poi WorkbookEvaluator class */
 		return valueToVertex.get(value).pop();
 	}
 
