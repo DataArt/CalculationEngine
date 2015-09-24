@@ -56,7 +56,7 @@
             <id>unpack-classes</id>
             <phase>generate-sources</phase>
             <configuration>
-              <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
+              <includeArtifactIds>spreadsheetanalytics-evaluation,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
               <source>../target/sources</source>
             </configuration>
             <goals>
@@ -68,7 +68,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <classifier>sources</classifier>
-              <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
+              <includeArtifactIds>spreadsheetanalytics-evaluation,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
               <source>../target/sources</source>
             </configuration>
             <goals>
@@ -103,7 +103,7 @@
   <dependencies>
     <dependency>
       <groupId>com.dataart</groupId>
-      <artifactId>spreadsheetanalytics</artifactId>
+      <artifactId>spreadsheetanalytics-evaluation</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
