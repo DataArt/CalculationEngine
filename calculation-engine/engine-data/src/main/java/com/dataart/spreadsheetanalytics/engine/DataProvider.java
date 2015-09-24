@@ -20,10 +20,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -46,6 +50,8 @@ public class DataProvider implements IDataProvider {
 
     //TODO: this should be a persistent storage
     protected Map<IDataModelId, IDataModel> dataModels;
+    
+    protected ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> dataModelsForExecution;
 
     protected DataProvider() {}
 
@@ -57,6 +63,7 @@ public class DataProvider implements IDataProvider {
         DataProvider dp = new DataProvider();
         dp.defines = new HashMap<>();
         dp.dataModels = new HashMap<>();
+        dp.dataModelsForExecution = new ConcurrentHashMap<>();
 
         return dp;
     }
@@ -86,6 +93,25 @@ public class DataProvider implements IDataProvider {
         }
         
         defines.putAll(map);
+        
+        dataModelsForExecution = warmUpDataModelsForExecutionCache(defines);
+    }
+
+    protected ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> warmUpDataModelsForExecutionCache(Map<String, DefineFunctionMeta> defs) {
+        ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> map = new ConcurrentHashMap<>();
+        /*TODO: cache size*/ int cacheSize = 10;
+        for (DefineFunctionMeta dmeta : defs.values()) {
+            IDataModelId id = dmeta.dataModelId();
+            try {
+                DataModel dm = copyModelInMemory((DataModel) getDataModel(id));
+                BlockingQueue q = new ArrayBlockingQueue(cacheSize);
+                for (int i = 0; i < cacheSize; i++) {
+                    q.put(dm.clone());
+                }
+                map.put(id, q);
+            } catch (IOException | CloneNotSupportedException | InterruptedException e) { /* TODO smth */ }
+        }
+        return map;
     }
 
     @Override
@@ -132,13 +158,20 @@ public class DataProvider implements IDataProvider {
 
     @Override
     public IDataModel createModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException {
+        /*
         IDataModel model = getDataModel(dataModelId);
         IDataModel execModel = copyModelInMemory((DataModel) model);
-
+         */
+        IDataModel execModel = dataModelsForExecution.get(dataModelId).poll();
+        
         for (int i = 0; i < inputAddresses.size(); i++) {
             execModel.replaceCellValue(inputAddresses.get(i), inputValues.get(i));
         }
 
+        try {
+            dataModelsForExecution.get(dataModelId).put(execModel);
+        } catch (InterruptedException e) {}
+        
         return execModel;
     }
 
@@ -153,7 +186,7 @@ public class DataProvider implements IDataProvider {
      *  
      *  Returned {@link IDataModel} will not be equal to original one. But may contain the same Id.
      */
-    protected IDataModel copyModelInMemory(DataModel model) throws IOException {
+    protected DataModel copyModelInMemory(DataModel model) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         model.model.write(os);
         
@@ -177,8 +210,6 @@ public class DataProvider implements IDataProvider {
             for (Iterator rowterator = sh.iterator(); rowterator.hasNext();) {
                 Row ro = (Row) rowterator.next();
                 
-                String lastSuccessFormula = "";
-                
                 for (Iterator celterator = ro.iterator(); celterator.hasNext();) {
                     Cell ce = (Cell) celterator.next();
                     if (ce == null) continue;
@@ -187,19 +218,23 @@ public class DataProvider implements IDataProvider {
                     //then get it and parse to DefineFunctionMeta
                     if (CELL_TYPE_FORMULA != ce.getCellType()) continue;
                     
-                    String formula = ce.getCellFormula();
-                    
-                    if (!formula.startsWith(KEYWORD)) continue;
-                    
-                    if (!formula.contains(IN_OUT_SEPARATOR)) {
-                        //TODO log or throw?? if throw create exception?
-                        throw new RuntimeException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR);
-                    }
+                    try {
+                        String formula = ce.getCellFormula();
 
-                    DefineFunctionMeta meta = DefineFunctionMeta.parse(formula);
-                    meta.dataModelId(dataModel.dataModelId());
-                    
-                    map.put(meta.name(), meta);
+                        if (!formula.startsWith(KEYWORD)) continue;
+
+                        if (!formula.contains(IN_OUT_SEPARATOR)) {
+                            //TODO log or throw?? if throw create exception?
+                            throw new RuntimeException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR);
+                        }
+
+                        DefineFunctionMeta meta = DefineFunctionMeta.parse(formula);
+                        meta.dataModelId(dataModel.dataModelId());
+
+                        map.put(meta.name(), meta);
+                    } catch (FormulaParseException e) {
+                        //silent, we do not interested in custom formulas on this step
+                    }
                 }
             }
         }

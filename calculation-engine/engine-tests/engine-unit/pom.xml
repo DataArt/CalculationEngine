@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dataart</groupId>
-  <artifactId>spreadsheetanalytics-tests-it</artifactId>
+  <artifactId>spreadsheetanalytics-tests-unit</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>spreadsheetanalytics-tests-it</name>
+  <name>spreadsheetanalytics-tests-unit</name>
   <url>https://gitlab.com/DataArt/CalculationEngine</url>
 
   <properties>
@@ -56,9 +56,8 @@
             <id>unpack-classes</id>
             <phase>generate-sources</phase>
             <configuration>
-              <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
-              <outputDirectory>../target/classes</outputDirectory>
-              <overWriteIfNewer>true</overWriteIfNewer>
+              <includeArtifactIds>spreadsheetanalytics-evaluation,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
+              <source>../target/sources</source>
             </configuration>
             <goals>
               <goal>unpack-dependencies</goal>
@@ -69,9 +68,8 @@
             <phase>generate-sources</phase>
             <configuration>
               <classifier>sources</classifier>
-              <includeArtifactIds>spreadsheetanalytics,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
-              <outputDirectory>../target/sources</outputDirectory>
-              <overWriteIfNewer>true</overWriteIfNewer>
+              <includeArtifactIds>spreadsheetanalytics-evaluation,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
+              <source>../target/sources</source>
             </configuration>
             <goals>
               <goal>unpack-dependencies</goal>
@@ -105,7 +103,7 @@
   <dependencies>
     <dependency>
       <groupId>com.dataart</groupId>
-      <artifactId>spreadsheetanalytics</artifactId>
+      <artifactId>spreadsheetanalytics-evaluation</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 

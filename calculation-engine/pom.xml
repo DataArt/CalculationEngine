@@ -19,8 +19,8 @@
     <module>engine-model</module>
     <module>engine-data</module>
     <module>engine-functions</module>
-    <module>engine-core</module>
-    <module>engine-core-tests</module>
+    <module>engine-evaluation</module>
+    <module>engine-tests</module>
   </modules>
 
   <build>
@@ -100,11 +100,6 @@
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
             <version>6.1.1</version>
-          </dependency>
-          <dependency>
-            <groupId>com.dataart</groupId>
-            <artifactId>spreadsheetanalytics-code-quality</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
           </dependency>
         </dependencies>
       </plugin>

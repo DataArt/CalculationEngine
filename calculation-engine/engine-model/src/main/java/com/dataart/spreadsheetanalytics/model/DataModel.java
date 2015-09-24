@@ -55,4 +55,8 @@ public class DataModel implements IDataModel {
         return model.getSheet(sheetName);
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
