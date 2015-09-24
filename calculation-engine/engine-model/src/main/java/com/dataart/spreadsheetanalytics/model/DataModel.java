@@ -50,4 +50,8 @@ public class DataModel implements IDataModel {
         }
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

@@ -10,7 +10,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
  * 
  * Known subinterface: {@link IDataModel}.
  */
-public interface IDataSet {
+public interface IDataSet extends Cloneable {
 
     /**
      * Returns the id of the instance.
