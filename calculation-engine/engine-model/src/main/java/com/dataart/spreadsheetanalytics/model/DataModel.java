@@ -16,7 +16,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 public class DataModel implements IDataModel {
 
     public final XSSFWorkbook model;
-    public final IDataModelId dataModelId;
+    public final IDataModelId dataModelId;    
 
     public DataModel(String path) throws IOException {
         this.model = new XSSFWorkbook(path);
@@ -48,6 +48,11 @@ public class DataModel implements IDataModel {
         } else if (value.get() instanceof String) {
             c.setCellValue((String) value.get());
         }
+    }
+    
+    @Override
+    public Sheet getDataModelSheet(String sheetName) {
+        return model.getSheet(sheetName);
     }
 
 }
