@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,7 +41,11 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.engine.temp.TempSqlDataSource;
 import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.DsRow;
 
 /**
  * Simple {@link IDataProvider} implementations based on HashMaps.
@@ -51,7 +58,12 @@ public class DataProvider implements IDataProvider {
     //TODO: this should be a persistent storage
     protected Map<IDataModelId, IDataModel> dataModels;
     
+    //TODO: this should be manageble with Scope.LOCAL and should be deleted at some action or period of time
+    protected Map<String, IDataSet> localDataSets = new HashMap<>();
+    
     protected ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> dataModelsForExecution;
+
+    private TempSqlDataSource tempSqlDataSource;
 
     protected DataProvider() {}
 
@@ -157,7 +169,7 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public IDataModel createModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException {
+    public IDataModel loadDataModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException {
         /*
         IDataModel model = getDataModel(dataModelId);
         IDataModel execModel = copyModelInMemory((DataModel) model);
@@ -173,6 +185,43 @@ public class DataProvider implements IDataProvider {
         } catch (InterruptedException e) {}
         
         return execModel;
+    }
+    
+    @Override
+    public IDataSet executeQuery(String query, List<Object> params) throws SQLException {
+        //TODO: no validation!!
+        
+        if (tempSqlDataSource == null) { throw new IllegalStateException("TempSqlDataSource must be initialized to execute queries from QUERY function!"); }
+        
+        
+        DataSet ds = new DataSet();
+        
+        ResultSet rs = tempSqlDataSource.executeQuery(query, params);
+        
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int cols = rsmd.getColumnCount();
+        while (rs.next()) {
+            
+            DsRow dsrow = ds.createRow();
+            
+            for (int i = 1; i <= cols; i++) {
+                dsrow.createCell().value(rs.getObject(i));
+            }
+        }
+        
+        return ds;
+    }
+
+    @Override
+    public void saveDataSet(IDataSet dset, DataModelScope scope) {
+        //TODO: it is a temporary solution
+        switch (scope) {
+            case LOCAL:
+                this.localDataSets.put(dset.name(), dset);
+                break;
+            case GLOBAL:
+                break;
+        }
     }
 
     /**
@@ -212,11 +261,11 @@ public class DataProvider implements IDataProvider {
                 
                 for (Iterator celterator = ro.iterator(); celterator.hasNext();) {
                     Cell ce = (Cell) celterator.next();
-                    if (ce == null) continue;
+                    if (ce == null) { continue; }
                         
                     //for each cell we should scan for =DEFINE key word
                     //then get it and parse to DefineFunctionMeta
-                    if (CELL_TYPE_FORMULA != ce.getCellType()) continue;
+                    if (CELL_TYPE_FORMULA != ce.getCellType()) { continue; }
                     
                     try {
                         String formula = ce.getCellFormula();
@@ -240,6 +289,23 @@ public class DataProvider implements IDataProvider {
         }
         
         return map;
+    }
+
+    //TODO: this a temp solution, should be removed after QUERY clarification
+    public void initTempSqlDataSource() {
+        this.tempSqlDataSource = new TempSqlDataSource();
+    }
+
+    @Override
+    public IDataSet getDataSet(IDataModelId dataModelId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IDataSet getDataSet(String name) {
+        //TODO
+        return localDataSets.get(name);
     }
     
 }

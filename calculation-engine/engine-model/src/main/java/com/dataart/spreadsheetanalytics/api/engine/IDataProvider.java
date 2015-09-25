@@ -1,6 +1,7 @@
 package com.dataart.spreadsheetanalytics.api.engine;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.engine.DataModelScope;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 
 /**
@@ -43,6 +46,16 @@ public interface IDataProvider {
      * Does find operation for given {@link IDataModelId}. Simple select by Id. 
      */
     IDataModel getDataModel(IDataModelId dataModelId);
+    
+    /**
+     * Does find operation for given {@link IDataModelId}. Simple select by Id.
+     */
+    IDataSet getDataSet(IDataModelId dataModelId);
+    
+    /**
+     * Does find operation for given name. Simple select by name.
+     */
+    IDataSet getDataSet(String name);
 
     /**
      * Replaces all old {@link IDataModel}s from cache with new ones.
@@ -72,6 +85,22 @@ public interface IDataProvider {
      * @return in-memory copy of existing model with replaced values
      * @throws IOException if original model is not found, or memory allocation error.
      */
-    IDataModel createModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException;
+    IDataModel loadDataModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException;
+    
+    /**
+     * TODO
+     * @param stringValue
+     * @param queryParams
+     * @return
+     * @throws SQLException 
+     */
+    IDataSet executeQuery(String stringValue, List<Object> queryParams) throws SQLException;
+
+    /**
+     * 
+     * @param dset
+     * @param local
+     */
+    void saveDataSet(IDataSet dset, DataModelScope local);
 
 }

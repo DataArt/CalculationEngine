@@ -65,7 +65,7 @@ public class FuncexecFunction implements CustomFunction {
         }
 
         try {
-            IDataModel execModel = dataProvider.createModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
+            IDataModel execModel = dataProvider.loadDataModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
 
             List<ICellValue> outputValues = new ArrayList<>(meta.outputs().size());
             //TODO: here we should call evaluator.evaluate(execModel), but we do not have this method yet implemented
