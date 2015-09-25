@@ -11,26 +11,21 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
-public class DataModel implements IDataModel {
+public class DataModel extends DataSet implements IDataModel {
 
     public final XSSFWorkbook model;
-    public final IDataModelId dataModelId;
 
     public DataModel(String path) throws IOException {
+        super();
         this.model = new XSSFWorkbook(path);
         this.dataModelId = new DataModelId(this.model.toString());
     }
 
     public DataModel(InputStream in) throws IOException {
+        super();
         this.model = new XSSFWorkbook(in);
         this.dataModelId = new DataModelId(this.model.toString());
-    }
-
-    @Override
-    public IDataModelId dataModelId() {
-        return this.dataModelId;
     }
 
     @Override
@@ -54,4 +49,5 @@ public class DataModel implements IDataModel {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+    
 }

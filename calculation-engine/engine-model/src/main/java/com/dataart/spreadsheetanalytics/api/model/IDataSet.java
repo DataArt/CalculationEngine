@@ -1,5 +1,8 @@
 package com.dataart.spreadsheetanalytics.api.model;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 
 /**
@@ -10,11 +13,18 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
  * 
  * Known subinterface: {@link IDataModel}.
  */
-public interface IDataSet extends Cloneable {
+public interface IDataSet extends Cloneable, Iterable<IDsRow>, Iterator<IDsRow> {
 
-    /**
-     * Returns the id of the instance.
-     */
     IDataModelId dataModelId();
+    
+    String name();
+    
+    void name(String name);
+
+    int length();
+    
+    int width();
+
+    List<IDsRow> rows();
 
 }
