@@ -115,13 +115,13 @@ public class DataProvider implements IDataProvider {
         for (DefineFunctionMeta dmeta : defs.values()) {
             IDataModelId id = dmeta.dataModelId();
             try {
-                DataModel dm = copyModelInMemory((DataModel) getDataModel(id));
+//                DataModel dm = copyModelInMemory((DataModel) getDataModel(id));
                 BlockingQueue q = new ArrayBlockingQueue(cacheSize);
                 for (int i = 0; i < cacheSize; i++) {
-                    q.put(dm.clone());
+                    q.put(copyModelInMemory((DataModel) getDataModel(id)));
                 }
                 map.put(id, q);
-            } catch (IOException | CloneNotSupportedException | InterruptedException e) { /* TODO smth */ }
+            } catch (IOException | InterruptedException e) { /* TODO smth */ }
         }
         return map;
     }
