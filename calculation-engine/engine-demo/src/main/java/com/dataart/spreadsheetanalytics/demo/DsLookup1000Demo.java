@@ -2,10 +2,9 @@ package com.dataart.spreadsheetanalytics.demo;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
