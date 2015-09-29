@@ -16,13 +16,13 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.DefineFunctionsCache;
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.engine.IDefineFunctionsCache;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
+import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.model.CellValue;
@@ -46,7 +46,7 @@ public class FuncexecFunction implements CustomFunction {
 
         String defineFunctionName = ((StringEval) args[0]).getStringValue();
 
-        DefineFunctionsCache dfCache = external.getDefineFunctionsCache();
+        IDefineFunctionsCache dfCache = external.getDefineFunctionsCache();
 
         if (!dfCache.getDefineFunctions().containsKey(defineFunctionName)) {
             //TODO: log that there is no such function is system            

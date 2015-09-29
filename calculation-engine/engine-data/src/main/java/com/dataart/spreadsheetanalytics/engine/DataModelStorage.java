@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.api.engine;
+package com.dataart.spreadsheetanalytics.engine;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,6 +22,8 @@ import java.util.concurrent.ConcurrentMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.IDataModelLocation;
+import com.dataart.spreadsheetanalytics.api.engine.IDataModelStorage;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -30,7 +32,7 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
-public enum DataModelStorage {
+public enum DataModelStorage implements IDataModelStorage {
     INSTANCE;
     private final static Logger log = LoggerFactory.getLogger(DataModelStorage.class);
 
@@ -39,6 +41,7 @@ public enum DataModelStorage {
     
     protected ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> dataModelsForExecution;
 
+    @Override
     public void addDataModels(IDataModelLocation location) {
         if (!(location instanceof FileSystemDataModelLocation)) {
             throw new IllegalArgumentException(getClass().getSimpleName() + " does not support " + location.getClass().getSimpleName() + ". Only " + FileSystemDataModelLocation.class.getSimpleName() + " is supported.");
@@ -56,19 +59,23 @@ public enum DataModelStorage {
         }
     }
 
+    @Override
     public void addDataModel(IDataModel dataModel) {
         dataModelsToId.put(dataModel.dataModelId(), dataModel);
         dataModelsToName.put(dataModel.name(), dataModel);
     }
 
+    @Override
     public IDataModel getDataModel(IDataModelId dataModelId) {
         return dataModelsToId.get(dataModelId);
     }
     
+    @Override
     public IDataModel getDataModel(String dataModelName) {
         return dataModelsToName.get(dataModelName);
     }
     
+    @Override
     public IDataModel prepareDataModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException {
         IDataModel execModel = dataModelsForExecution.get(dataModelId).poll();
         
@@ -103,6 +110,7 @@ public enum DataModelStorage {
         return new DataModel(in);
     }
     
+    @Override
     public ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> warmUpDataModelsForExecutionCache(Map<String, DefineFunctionMeta> defs) {
         ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> map = new ConcurrentHashMap<>();
         /*TODO: cache size*/ int cacheSize = 10;
@@ -123,6 +131,7 @@ public enum DataModelStorage {
         return map;
     }
 
+    @Override
     public Set<IDataModel> getDataModels() {
         return Collections.unmodifiableSet(new HashSet<>(this.dataModelsToId.values()));
     }
