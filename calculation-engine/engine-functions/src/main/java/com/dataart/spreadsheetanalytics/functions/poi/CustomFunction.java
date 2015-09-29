@@ -2,8 +2,8 @@ package com.dataart.spreadsheetanalytics.functions.poi;
 
 import org.apache.poi.ss.formula.functions.FreeRefFunction;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
+import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 
 /**
  * High level interface for all custom functions for spreadsheet.

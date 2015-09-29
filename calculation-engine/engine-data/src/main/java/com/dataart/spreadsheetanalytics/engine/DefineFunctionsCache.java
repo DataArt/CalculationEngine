@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.api.engine;
+package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta.IN_OUT_SEPARATOR;
 import static com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta.KEYWORD;
@@ -24,28 +24,28 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.IDefineFunctionsCache;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
-public enum DefineFunctionsCache {
+public enum DefineFunctionsCache implements IDefineFunctionsCache {
     INSTANCE;
     private final static Logger log = LoggerFactory.getLogger(DefineFunctionsCache.class);
 
     protected Map<String, DefineFunctionMeta> defines = new HashMap<>();
-    
+
+    @Override
     public void addDefineFunction(DefineFunctionMeta meta) {
         this.defines.put(meta.name(), meta);
     }
     
+    @Override
     public Map<String, DefineFunctionMeta> getDefineFunctions() {
         return Collections.<String, DefineFunctionMeta> unmodifiableMap(defines);
     }
     
-    /**
-     * Does full scan given {@link IDataModel} for DEFINE functions ({@link DefineFunctionMeta}).
-     * 3 iterators are used inside to go through all the cells and find 'DEFINE' keyword.
-     */
+    @Override
     public Map<String, DefineFunctionMeta> scanDataModelForDefines(IDataModel dataModel) {
         DataModel dm = (DataModel) dataModel;
         
@@ -88,6 +88,7 @@ public enum DefineFunctionsCache {
         return map;
     }
     
+    @Override
     public void updateDefineFunctions(Set<IDataModel> dataModels) {
         ConcurrentHashMap<String, DefineFunctionMeta> map = new ConcurrentHashMap<>(defines.size());
         defines.clear();

@@ -3,10 +3,10 @@ package com.dataart.spreadsheetanalytics.demo;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;

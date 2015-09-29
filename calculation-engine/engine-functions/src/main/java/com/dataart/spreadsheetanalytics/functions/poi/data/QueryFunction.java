@@ -14,10 +14,10 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
+import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
