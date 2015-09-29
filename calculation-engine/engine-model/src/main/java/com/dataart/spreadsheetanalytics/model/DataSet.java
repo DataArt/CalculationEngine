@@ -1,6 +1,7 @@
 package com.dataart.spreadsheetanalytics.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +32,7 @@ public class DataSet implements IDataSet {
     @Override public int length() { return this.rows.size(); }
     @Override public int width() { return rows.isEmpty() ? 0 : rows.get(0).width(); }
 
-    @Override public List<IDsRow> rows() { return this.rows; }
+    @Override public List<IDsRow> rows() { return Collections.<IDsRow> unmodifiableList(this.rows); }
     
     public DsRow createRow() {
         DsRow row = new DsRow(rows.size() + 1);

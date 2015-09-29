@@ -1,6 +1,7 @@
 package com.dataart.spreadsheetanalytics.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class DsRow implements IDsRow {
     
     @Override public int width() { return cells.size(); }
     
-    @Override public List<IDsCell> cells() { return this.cells; }
+    @Override public List<IDsCell> cells() { return Collections.<IDsCell> unmodifiableList(this.cells); }
     
     public DsCell createCell() {
         DsCell cell = new DsCell(cells.size() + 1);

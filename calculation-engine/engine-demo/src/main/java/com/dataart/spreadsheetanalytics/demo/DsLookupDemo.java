@@ -27,18 +27,16 @@ public class DsLookupDemo {
         final String dslookup = args[0]; //"src/main/resources/excel/DsLookup/DsLookup.xlsx";
         final String cellToEvaluate = args[1]; //"F7";
 
+        //Application startup -> read from DB
         final XSSFWorkbook excel = new XSSFWorkbook(dslookup);
         final IDataSet dataSet = PoiFileConverter.toDataSet(excel);
+                
+        //Application action -> Button click
         final IDataModel dataModel = new DataModel(dslookup);
 
         ExternalServices external = ExternalServices.INSTANCE;
         
         external.getDataSetStorage().saveDataSet(dataSet, DataSetScope.LOCAL);
-        // TODO In this class we instantiate Workbook twice 
-        // 1) in createDataSetFromExcelDocumentSheet 
-        // 2) in DataModel
-        // Think about creating DataSet instance in the DataEngine object
-        // For example change getDataModelSheet to getDataSet
         final ICellAddress addr = new CellAddress(dataSet.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
         final IEvaluator evaluator = new SpreadsheetEvaluator(dataModel);        
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
