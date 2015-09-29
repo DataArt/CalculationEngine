@@ -38,15 +38,15 @@ public class DsLookupFunction implements CustomFunction {
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
         if (args.length < 4 || args.length % 2 != 0) {
-            log.warn("TODO" /*TODO: Maks*/);
+            log.warn("The number of input arguments should be even and more than 4");
             return ErrorEval.VALUE_INVALID;
         }
         if (!(args[0] instanceof StringValueEval)) {
-            log.warn("TODO" /*TODO: Maks*/);
+            log.warn("The first input argument should be string representing the dataset name");
             return ErrorEval.VALUE_INVALID;
         }
         if (!(args[args.length - 1] instanceof StringValueEval)) {
-            log.warn("TODO" /*TODO: Maks*/);
+            log.warn("The last input argument shoud be string representing the name of column which values should be returned");
             return ErrorEval.VALUE_INVALID;
         }
         
@@ -60,7 +60,7 @@ public class DsLookupFunction implements CustomFunction {
         for (int i = 1; i < args.length - 1; i += 2) {
             
             if (!(args[i] instanceof StringEval)) {
-                log.warn("TODO" /*TODO: Maks*/);
+                log.warn("The "+i+"th input argument should be the string representing the name of condition field");
                 return ErrorEval.VALUE_INVALID;   
             }
             
@@ -69,7 +69,13 @@ public class DsLookupFunction implements CustomFunction {
         }
 
         IDataSet dataSet = external.getDataSetStorage().getDataSet(datasetName);
-        IDsRow titleRow = dataSet.next(); //TODO: Maks - what if DataSet has no title row? Return error
+        IDsRow titleRow = null;
+        if (dataSet.hasNext()) {
+            titleRow = dataSet.next();
+        } else {
+            log.warn("The spreadsheet shoud have at least 2 rows");
+            return ErrorEval.VALUE_INVALID;
+        }
 
         Map<Integer, Object> indexToValue = new HashMap<>();
 
@@ -78,7 +84,6 @@ public class DsLookupFunction implements CustomFunction {
             
             if (pairs.containsKey(value)) { indexToValue.put(cell.index(), pairs.get(value)); }
 
-            //TODO: Maks are you sure you do not need to 'break' the loop here?
             if (value.equals(columnName)) { columnIndex = cell.index(); }
         }
         
