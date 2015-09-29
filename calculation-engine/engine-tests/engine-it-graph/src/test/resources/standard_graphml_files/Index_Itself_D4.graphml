@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="D4">
+<node id="D4_[[]]_CELL_WITH_FORMULA">
+<data key="name">D4</data>
+<data key="value">[[]]</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INDEX(VALUE, VALUE, A1:D4); Formula Values: INDEX(4, 4, Apples, Lemons, 7.0, 6.0, Bananas, Pears, u, 5.0, 67.0, 6.0, u, hgdhgj, 9.0, 98.0, 98.0, ); Formula Ptg: 4, 4, Apples, Lemons, 7.0, 6.0, Bananas, Pears, u, 5.0, 67.0, 6.0, u, hgdhgj, 9.0, 98.0, 98.0,  INDEX ; Ptgs: VALUE, VALUE, A1:D4 INDEX  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@61df66b6</data>
+</node>
+<node id="A1:D4_[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ]]_RANGE">
+<data key="name">A1:D4</data>
+<data key="value">[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula String: A1:D4; Formula Values: [[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ]]; Formula Ptg: [[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ]]; Ptgs: A1:D4 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@61df66b6</data>
+</node>
+<node id="VALUE_4_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">4</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 4; Formula Ptg: 4; Ptgs: VALUE Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@61df66b6</data>
+</node>
+<node id="VALUE_4_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">4</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 4; Formula Ptg: 4; Ptgs: VALUE Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@61df66b6</data>
+</node>
+<node id="INDEX_[[]]_FUNCTION">
+<data key="name">INDEX</data>
+<data key="value">[[]]</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: INDEX(VALUE, VALUE, A1:D4); Formula Values: INDEX(4, 4, Apples, Lemons, 7.0, 6.0, Bananas, Pears, u, 5.0, 67.0, 6.0, u, hgdhgj, 9.0, 98.0, 98.0, ); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@61df66b6</data>
+</node>
+<edge source="VALUE_4_CONSTANT_VALUE" target="INDEX_[[]]_FUNCTION"/>
+<edge source="VALUE_4_CONSTANT_VALUE" target="INDEX_[[]]_FUNCTION"/>
+<edge source="A1:D4_[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ]]_RANGE" target="INDEX_[[]]_FUNCTION"/>
+<edge source="INDEX_[[]]_FUNCTION" target="D4_[[]]_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

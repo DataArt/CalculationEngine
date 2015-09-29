@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="C6">
+<node id="C6_org.apache.poi.ss.formula.LazyRefEval[Sheet1!B2]_CELL_WITH_FORMULA">
+<data key="name">C6</data>
+<data key="value">org.apache.poi.ss.formula.LazyRefEval[Sheet1!B2]</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INDIRECT(A2); Formula Values: INDIRECT(B2); Formula Ptg: B2 INDIRECT ; Ptgs: A2 INDIRECT  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@3bb9a3ff</data>
+</node>
+<node id="A2_B2_CELL_WITH_VALUE">
+<data key="name">A2</data>
+<data key="value">B2</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A2; Formula Values: B2; Formula Ptg: B2; Ptgs: A2 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@3bb9a3ff</data>
+</node>
+<node id="INDIRECT_org.apache.poi.ss.formula.LazyRefEval[Sheet1!B2]_FUNCTION">
+<data key="name">INDIRECT</data>
+<data key="value">org.apache.poi.ss.formula.LazyRefEval[Sheet1!B2]</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: INDIRECT(A2); Formula Values: INDIRECT(B2); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@3bb9a3ff</data>
+</node>
+<edge source="A2_B2_CELL_WITH_VALUE" target="INDIRECT_org.apache.poi.ss.formula.LazyRefEval[Sheet1!B2]_FUNCTION"/>
+<edge source="INDIRECT_org.apache.poi.ss.formula.LazyRefEval[Sheet1!B2]_FUNCTION" target="C6_org.apache.poi.ss.formula.LazyRefEval[Sheet1!B2]_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>
