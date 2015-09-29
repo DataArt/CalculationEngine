@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -43,9 +42,8 @@ public class SpreadsheetEvaluator implements IEvaluator {
 	public boolean isFormulaCell(ICellAddress addr) {
 		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
 		Cell c = s.getRow(addr.row()).getCell(addr.column());
-		if (c == null) {
-			throw new NullPointerException("Cell at row " + addr.row() + ", column " + addr.column() + " is null");
-		}
+		if (c == null) { throw new NullPointerException("Cell at row " + addr.row() + ", column " + addr.column() + " is null"); }
+
 		return (Cell.CELL_TYPE_FORMULA == c.getCellType());
 	}
 
@@ -97,7 +95,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     /**
      * TODO: this should be provided with really good java doc of how to use it
      */
-    public void loadCustomFunctions(IDataProvider dataProvider) throws ReflectiveOperationException {
+    public void loadCustomFunctions() throws ReflectiveOperationException {
         if (this.model == null) {
             throw new IllegalStateException("Evaluator must be provided with model to register custom functions.");
         }
@@ -108,12 +106,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         for (String fname: Functions.get().keySet()) {
             
             CustomFunction cf = Functions.get().get(fname).newInstance();
-            
-            cf.setDataProvider(dataProvider);
-            
-            SpreadsheetEvaluator ev = new SpreadsheetEvaluator();
-            ev.graphBuilder = this.graphBuilder;
-            cf.setEvaluator(ev);
+            cf.setEvaluator(new SpreadsheetEvaluator());
             
             names.add(fname);
             functions.add(cf);

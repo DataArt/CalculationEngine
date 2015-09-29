@@ -1,18 +1,19 @@
 package com.dataart.spreadsheetanalytics.demo;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
-import com.dataart.spreadsheetanalytics.engine.DataModelScope;
-import com.dataart.spreadsheetanalytics.engine.DataProvider;
+import com.dataart.spreadsheetanalytics.engine.DataSetScope;
+import com.dataart.spreadsheetanalytics.engine.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
-import com.dataart.spreadsheetanalytics.engine.ExcelDataFileUtil;
 
 public class DsLookupDemo {
 
@@ -26,10 +27,13 @@ public class DsLookupDemo {
         final String dslookup = args[0]; //"src/main/resources/excel/DsLookup/DsLookup.xlsx";
         final String cellToEvaluate = args[1]; //"F7";
 
-        final IDataSet dataSet = ExcelDataFileUtil.createDataSetFromExcelDocumentSheet(dslookup);
+        final XSSFWorkbook excel = new XSSFWorkbook(dslookup);
+        final IDataSet dataSet = PoiFileConverter.toDataSet(excel);
         final IDataModel dataModel = new DataModel(dslookup);
-        final IDataProvider dataProvider = DataProvider.createEmptyDataProvider();        
-        dataProvider.saveDataSet(dataSet, DataModelScope.LOCAL);
+
+        ExternalServices external = ExternalServices.INSTANCE;
+        
+        external.getDataSetStorage().saveDataSet(dataSet, DataSetScope.LOCAL);
         // TODO In this class we instantiate Workbook twice 
         // 1) in createDataSetFromExcelDocumentSheet 
         // 2) in DataModel
@@ -37,7 +41,7 @@ public class DsLookupDemo {
         // For example change getDataModelSheet to getDataSet
         final ICellAddress addr = new CellAddress(dataSet.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
         final IEvaluator evaluator = new SpreadsheetEvaluator(dataModel);        
-        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions(dataProvider);
+        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
         
         final ICellValue cv = evaluator.evaluate(addr);
         System.out.println(cv);

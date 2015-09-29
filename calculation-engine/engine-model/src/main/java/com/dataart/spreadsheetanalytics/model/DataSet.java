@@ -36,10 +36,11 @@ public class DataSet implements IDataSet {
     public DsRow createRow() {
         DsRow row = new DsRow(rows.size() + 1);
         rows.add(row);
+        this.iterator = rows.iterator();
         return row;
     }
 
-    @Override public Iterator<IDsRow> iterator() { 
+    @Override public Iterator<IDsRow> iterator() {
         this.iterator = rows.iterator();
         return this; 
     }

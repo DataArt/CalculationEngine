@@ -3,11 +3,10 @@ package com.dataart.spreadsheetanalytics.demo;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.engine.DataProvider;
 import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -30,15 +29,18 @@ public class FuncexecFunction1000Demo {
 
         final IDataModel modelFuncexec = new DataModel(funcexec);
         
-        final IDataProvider dataProvider = DataProvider.createEmptyDataProvider();
         final FileSystemDataModelLocation location = new FileSystemDataModelLocation();
         location.setPath(Paths.get(storage));
         
-        dataProvider.updateDataModels(location);
-        dataProvider.updateDefineFunctions();
+        ExternalServices external = ExternalServices.INSTANCE;
+        
+        //add datamodels to storage - demo only
+        external.getDataModelStorage().addDataModels(location);
+        //add define functions to storage - demo only
+        external.getDefineFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);
-        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions(dataProvider);
+        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
 
         long time1 = System.nanoTime();
         for (int i = start; i < Integer.valueOf(times) + start; i++) {

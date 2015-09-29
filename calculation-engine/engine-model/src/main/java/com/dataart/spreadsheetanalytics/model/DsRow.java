@@ -28,6 +28,7 @@ public class DsRow implements IDsRow {
     public DsCell createCell() {
         DsCell cell = new DsCell(cells.size() + 1);
         cells.add(cell);
+        this.iterator = this.cells.iterator();
         return cell;
     }
 

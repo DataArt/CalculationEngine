@@ -14,10 +14,10 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
-import com.dataart.spreadsheetanalytics.engine.DataModelScope;
+import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
@@ -26,7 +26,7 @@ public class QueryFunction implements CustomFunction {
     
     private final static Logger log = LoggerFactory.getLogger(QueryFunction.class);
     
-    protected IDataProvider dataProvider;
+    protected ExternalServices external = ExternalServices.INSTANCE;
     protected IEvaluator evaluator;
     
     public QueryFunction() {}
@@ -60,10 +60,13 @@ public class QueryFunction implements CustomFunction {
         }
 
         try {
-            IDataSet dset = dataProvider.executeQuery(((StringEval) queryStr).getStringValue(), queryParams);
-            dset.name(((StringEval) cachedDataSetName).getStringValue());
+            String query = ((StringEval) queryStr).getStringValue();
+            IDataSet dset = external.getSqlDataSourceHub().executeQuery("TEMP_DS", query, queryParams);
+            
+            String dsName = ((StringEval) cachedDataSetName).getStringValue();
+            dset.name(dsName);
 
-            dataProvider.saveDataSet(dset, DataModelScope.LOCAL);
+            external.getDataSetStorage().saveDataSet(dset, DataSetScope.LOCAL);
 
             return new NumberEval(dset.length());
         } catch (Exception e) {
@@ -72,7 +75,6 @@ public class QueryFunction implements CustomFunction {
 
     }
 
-    @Override public void setDataProvider(IDataProvider dataProvider) { this.dataProvider = dataProvider; }
     @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }
 
 }

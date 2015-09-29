@@ -1,14 +1,19 @@
-package com.dataart.spreadsheetanalytics.engine.temp;
+package com.dataart.spreadsheetanalytics.engine;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-public class TempSqlDataSource {
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.DsRow;
+
+public class TempSqlDataSource implements SqlDataSource {
 
     private Connection co;
     
@@ -43,17 +48,39 @@ public class TempSqlDataSource {
             e.printStackTrace();
         }
     }
-    
-    public ResultSet executeQuery(String query, List<Object> params) throws SQLException {
-        
+
+    @Override
+    public IDataSet executeQuery(String query, List<Object> params) throws SQLException {
+
+        DataSet ds = new DataSet();
+
         String queryToExecute = query;
         for (int i = 0; i < params.size(); i++) {
             queryToExecute = queryToExecute.replace(i + "", params.get(i).toString());
         }
-        
+
         PreparedStatement st = co.prepareStatement(queryToExecute);
         st.execute();
-        return st.getResultSet();
+
+        ResultSet rs = st.getResultSet();
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int cols = rsmd.getColumnCount();
+        while (rs.next()) {
+
+            DsRow dsrow = ds.createRow();
+
+            for (int i = 1; i <= cols; i++) {
+                dsrow.createCell().value(rs.getObject(i));
+            }
+        }
+
+        return ds;
+
     }
 
+    @Override
+    public String name() {
+        return "TEMP";
+    }
 }

@@ -13,8 +13,11 @@ import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.OperandResolver;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDataProvider;
+import com.dataart.spreadsheetanalytics.api.engine.DefineFunctionsCache;
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -26,8 +29,9 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 
 @FunctionMeta("FUNCEXEC")
 public class FuncexecFunction implements CustomFunction {
+    private final static Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
     
-    protected IDataProvider dataProvider;
+    protected ExternalServices external = ExternalServices.INSTANCE;
     protected IEvaluator evaluator; 
 
     public FuncexecFunction() {}
@@ -35,19 +39,22 @@ public class FuncexecFunction implements CustomFunction {
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
         
-        if(!(args[0] instanceof StringEval)) {
+        if (!(args[0] instanceof StringEval)) {
             //TODO: log that first arg should be string - name of function
             return ErrorEval.VALUE_INVALID;
         }
-        
-        String defineFunctionName = ((StringEval)args[0]).getStringValue();
-        if (!dataProvider.getDefineFunctions().containsKey(defineFunctionName)) {
+
+        String defineFunctionName = ((StringEval) args[0]).getStringValue();
+
+        DefineFunctionsCache dfCache = external.getDefineFunctionsCache();
+
+        if (!dfCache.getDefineFunctions().containsKey(defineFunctionName)) {
             //TODO: log that there is no such function is system            
             return ErrorEval.NAME_INVALID;
         }
-        
-        DefineFunctionMeta meta = dataProvider.getDefineFunctions().get(defineFunctionName);
-        
+
+        DefineFunctionMeta meta = dfCache.getDefineFunctions().get(defineFunctionName);
+
         if (meta.inputs().size() != args.length - 1) {
             //TODO: log wrong number of input arguments
             return ErrorEval.VALUE_INVALID;
@@ -62,10 +69,12 @@ public class FuncexecFunction implements CustomFunction {
             }
         } catch (EvaluationException e) {
             // TODO log this and do smth, probably return an error
+            return ErrorEval.REF_INVALID;
         }
 
         try {
-            IDataModel execModel = dataProvider.loadDataModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
+            
+            IDataModel execModel = external.getDataModelStorage().prepareDataModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
 
             List<ICellValue> outputValues = new ArrayList<>(meta.outputs().size());
             //TODO: here we should call evaluator.evaluate(execModel), but we do not have this method yet implemented
@@ -116,10 +125,9 @@ public class FuncexecFunction implements CustomFunction {
             return new CellValue(OperandResolver.coerceValueToString(value));
         }// TODO: add more types
         
-        return new CellValue(0);
+        return new CellValue("");
     }
 
-    @Override public void setDataProvider(IDataProvider dataProvider) { this.dataProvider = dataProvider; }
     @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }
 
 }

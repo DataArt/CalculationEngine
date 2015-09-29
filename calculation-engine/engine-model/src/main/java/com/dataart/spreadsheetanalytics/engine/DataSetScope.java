@@ -1,6 +1,6 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-public enum DataModelScope {
+public enum DataSetScope {
     LOCAL,
     GLOBAL;
 }

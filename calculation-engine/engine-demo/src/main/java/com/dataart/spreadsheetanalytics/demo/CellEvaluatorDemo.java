@@ -1,6 +1,5 @@
 package com.dataart.spreadsheetanalytics.demo;
 
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -24,8 +23,8 @@ public class CellEvaluatorDemo {
 
         final IDataModel model = new DataModel(path);
         
-        final IEvaluator evaluator = new SpreadsheetEvaluator(model);
-        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions(null);
+        final SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(model);
+        evaluator.loadCustomFunctions();
         
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         
