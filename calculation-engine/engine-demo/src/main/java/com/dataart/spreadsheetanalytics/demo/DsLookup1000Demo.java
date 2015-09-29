@@ -16,42 +16,41 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class DsLookup1000Demo {
-    
+
     public static void main(String[] args) throws Exception {
-        
+
         if (args.length < 3) {
             System.err.println("Excel file path, Start and Finish Cell Addresses, please!");
             return;
         }
-        
-        final String dslookup = args[0]; //"src/main/resources/excel/DsLookup/DsLookup.xlsx";
-        final Integer startCell = Integer.valueOf(args[1]); //"1";
-        final Integer endCell = Integer.valueOf(args[2]); //"1000"
-        
 
-        //Application startup -> read from DB
+        final String dslookup = args[0]; // "src/main/resources/excel/DsLookup/DsLookup.xlsx";
+        final Integer startCell = Integer.valueOf(args[1]); // "1";
+        final Integer endCell = Integer.valueOf(args[2]); // "1000"
+
+        // Application startup -> read from DB
         final XSSFWorkbook excel = new XSSFWorkbook(dslookup);
         final IDataSet dataSet = PoiFileConverter.toDataSet(excel);
-                
-        //Application action -> Button click
+
+        // Application action -> Button click
         final IDataModel dataModel = new DataModel(dslookup);
 
-        ExternalServices external = ExternalServices.INSTANCE;        
-        
+        ExternalServices external = ExternalServices.INSTANCE;
+
         external.getDataSetStorage().saveDataSet(dataSet, DataSetScope.LOCAL);
         final IEvaluator evaluator = new SpreadsheetEvaluator(dataModel);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
-        
+
         long dslookupTime = evaluateColumn("F", startCell, endCell, evaluator, dataSet);
         long vlookupTime = evaluateColumn("H", startCell, endCell, evaluator, dataSet);
-                
+
         System.out.println("1000 DsLookup took " + dslookupTime + " nanoseconds");
         System.out.println("1000 VLookup took " + vlookupTime + " nanoseconds");
     }
-    
+
     static long evaluateColumn(String prefix, int start, int finish, IEvaluator evaluator, IDataSet dataSet) throws Exception {
-        long result = 0l;        
-        for (int i = start ; i < finish ; i++) {
+        long result = 0l;
+        for (int i = start; i < finish; i++) {
             String cellToEvaluate = prefix + i;
             final ICellAddress addr = new CellAddress(dataSet.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
             long time1 = System.nanoTime();
@@ -59,7 +58,7 @@ public class DsLookup1000Demo {
             long time2 = System.nanoTime();
             result += time2 - time1;
         }
-        return result;        
+        return result;
     }
 
 }
