@@ -1,13 +1,11 @@
 package com.dataart.spreadsheetanalytics.api.engine;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentMap;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDataModelLocation;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -24,7 +22,7 @@ public interface IDataModelStorage {
     
     IDataModel getDataModel(String dataModelName);
     
-    IDataModel prepareDataModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException;
+    IDataModel prepareDataModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws Exception;
 
     ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> warmUpDataModelsForExecutionCache(Map<String, DefineFunctionMeta> defs);
 

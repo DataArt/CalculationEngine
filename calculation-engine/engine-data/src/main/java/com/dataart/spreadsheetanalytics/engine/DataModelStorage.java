@@ -18,6 +18,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +29,6 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
-import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
-import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public enum DataModelStorage implements IDataModelStorage {
@@ -76,15 +75,20 @@ public enum DataModelStorage implements IDataModelStorage {
     }
     
     @Override
-    public IDataModel prepareDataModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws IOException {
-        IDataModel execModel = dataModelsForExecution.get(dataModelId).poll();
+    public IDataModel prepareDataModelForExecution(IDataModelId dataModelId, List<ICellAddress> inputAddresses, List<ICellValue> inputValues) throws Exception {
+        log.debug(String.format("Preparing DataModel instance for execution..."));
+        
+        IDataModel execModel = dataModelsForExecution.get(dataModelId).poll(5, TimeUnit.MINUTES);
+        
+        log.debug(String.format("Original DataModel: Id=%s; Executional DataModel: Id=%s.", dataModelId, execModel.dataModelId()));
         
         for (int i = 0; i < inputAddresses.size(); i++) {
             execModel.replaceCellValue(inputAddresses.get(i), inputValues.get(i));
+            log.debug(String.format("Replaced %s with %s in executional model.", inputAddresses.get(i), inputValues.get(i)));
         }
 
         try { dataModelsForExecution.get(dataModelId).put(execModel); }
-        catch (InterruptedException e) {}
+        catch (InterruptedException e) { log.warn("Cannot return Executional DataModel to cache", e); }
         
         return execModel;
     }
