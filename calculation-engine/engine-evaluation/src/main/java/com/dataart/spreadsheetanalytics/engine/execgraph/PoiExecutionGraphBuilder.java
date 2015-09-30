@@ -41,6 +41,7 @@ import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
 import org.apache.poi.ss.formula.ptg.AddPtg;
 import org.apache.poi.ss.formula.ptg.AreaPtg;
+import org.apache.poi.ss.formula.ptg.ConcatPtg;
 import org.apache.poi.ss.formula.ptg.DividePtg;
 import org.apache.poi.ss.formula.ptg.EqualPtg;
 import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
@@ -520,6 +521,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return "<>";
 		} else if (ptgCls.isAssignableFrom(UnaryPlusPtg.class)) {
 			return "+";
+		} else if (ptgCls.isAssignableFrom(ConcatPtg.class)) {
+		    return "&";
 		}
 
 		try {
