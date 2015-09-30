@@ -71,7 +71,8 @@
             <version>1.4.0</version>
             <configuration>
               <mainClass>com.dataart.spreadsheetanalytics.demo.DefineFunctionDemo</mainClass>
-              <commandlineArgs>src/main/resources/excel/define-funcexec/index/ src/main/resources/excel/define-funcexec/index/define.xlsx F17</commandlineArgs>
+              <commandlineArgs>src/main/resources/excel/define-funcexec/index/ src/main/resources/excel/define-funcexec/index/define.xlsx
+                F17</commandlineArgs>
             </configuration>
           </plugin>
         </plugins>
@@ -95,6 +96,22 @@
       <groupId>org.jgrapht</groupId>
       <artifactId>jgrapht-core</artifactId>
       <version>0.9.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.4</version>
     </dependency>
 
   </dependencies>

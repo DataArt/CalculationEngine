@@ -20,7 +20,7 @@ public class Funcexec10Function1000Demo {
 
     public static void main(String[] args) throws Exception {
 
-        Thread.sleep(10000);
+        Thread.sleep(20000); //VisualVM connect
         
         final String storage = "src/main/resources/excel/define-funcexec/index1000/";
         final int funcexecs = 11;
