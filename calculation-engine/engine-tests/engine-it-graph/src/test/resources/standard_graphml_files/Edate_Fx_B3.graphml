@@ -5,40 +5,32 @@
 <data key="name">B3</data>
 <data key="value">40589</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: #external#(VALUE, A1, EDATE); Formula Values: #external#(1, 40558, org.apache.poi.ss.formula.eval.FunctionNameEval EDATE); Formula Ptg: 1, 40558, org.apache.poi.ss.formula.eval.FunctionNameEval EDATE #external# ; Ptgs: VALUE, A1, EDATE #external#  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60285225</data>
-</node>
-<node id="EDATE_org.apache.poi.ss.formula.eval.FunctionNameEval [EDATE]_CELL_WITH_VALUE">
-<data key="name">EDATE</data>
-<data key="value">org.apache.poi.ss.formula.eval.FunctionNameEval [EDATE]</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: EDATE; Formula Values: org.apache.poi.ss.formula.eval.FunctionNameEval [EDATE]; Formula Ptg: org.apache.poi.ss.formula.eval.FunctionNameEval [EDATE]; Ptgs: EDATE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60285225</data>
+<data key="formula">Formula String: EDATE(VALUE, A1); Formula Values: EDATE(1, 40558); Formula Ptg: 1, 40558 EDATE ; Ptgs: VALUE, A1 EDATE  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51b01960</data>
 </node>
 <node id="A1_40558_CELL_WITH_VALUE">
 <data key="name">A1</data>
 <data key="value">40558</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A1; Formula Values: 40558; Formula Ptg: 40558; Ptgs: A1 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60285225</data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51b01960</data>
 </node>
 <node id="VALUE_1_CONSTANT_VALUE">
 <data key="name">VALUE</data>
 <data key="value">1</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula String: VALUE; Formula Values: 1; Formula Ptg: 1; Ptgs: VALUE Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60285225</data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51b01960</data>
 </node>
-<node id="#external#_40589_FUNCTION">
-<data key="name">#external#</data>
+<node id="EDATE_40589_FUNCTION">
+<data key="name">EDATE</data>
 <data key="value">40589</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: #external#(VALUE, A1, EDATE); Formula Values: #external#(1, 40558, org.apache.poi.ss.formula.eval.FunctionNameEval EDATE); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60285225</data>
+<data key="formula">Formula String: EDATE(VALUE, A1); Formula Values: EDATE(1, 40558); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51b01960</data>
 </node>
-<edge source="VALUE_1_CONSTANT_VALUE" target="#external#_40589_FUNCTION"/>
-<edge source="A1_40558_CELL_WITH_VALUE" target="#external#_40589_FUNCTION"/>
-<edge source="EDATE_org.apache.poi.ss.formula.eval.FunctionNameEval [EDATE]_CELL_WITH_VALUE" target="#external#_40589_FUNCTION"/>
-<edge source="#external#_40589_FUNCTION" target="B3_40589_CELL_WITH_FORMULA"/>
+<edge source="VALUE_1_CONSTANT_VALUE" target="EDATE_40589_FUNCTION"/>
+<edge source="A1_40558_CELL_WITH_VALUE" target="EDATE_40589_FUNCTION"/>
+<edge source="EDATE_40589_FUNCTION" target="B3_40589_CELL_WITH_FORMULA"/>
 </graph>
 </graphml>
