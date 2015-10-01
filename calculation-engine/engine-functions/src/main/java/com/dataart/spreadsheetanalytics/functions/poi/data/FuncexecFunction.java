@@ -72,9 +72,8 @@ public class FuncexecFunction implements CustomFunction {
 
         for (int i = 1; i < args.length; i++) {
             
-            try {
-                inputValues.add(new CellValue(coerceValueTo(OperandResolver.getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex()))));
-            } catch (EvaluationException e) {
+            try { inputValues.add(new CellValue(coerceValueTo(OperandResolver.getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex())))); }
+            catch (EvaluationException e) {
                 log.error(String.format("Cannot resolve value of input argument %s.", args[i]), e);
                 return ErrorEval.REF_INVALID;
             }

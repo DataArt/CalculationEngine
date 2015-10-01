@@ -17,12 +17,13 @@ public enum SqlDataSourceHub implements ISqlDataSourceHub {
     protected Map<String, SqlDataSource> sqlDataSources;
  
     @Override
-    public IDataSet executeQuery(String dataSourceName, String query, List<Object> params) throws SQLException {
+    public IDataSet executeQuery(String queryDataModel, List<Object> params) throws SQLException {
         
-        SqlDataSource ds = sqlDataSources.get(sqlDataSources);
+        return null;
+        /*SqlDataSource ds = sqlDataSources.get(sqlDataSources);
         if (ds == null) { throw new IllegalStateException(String.format("SqlDataSource with name %s is not found.", dataSourceName)); }
         
-        return ds.executeQuery(query, params);
+        return ds.executeQuery(queryDataModel, params);*/
     }
     
     @Override

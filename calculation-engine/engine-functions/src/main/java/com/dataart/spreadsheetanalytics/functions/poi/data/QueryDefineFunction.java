@@ -8,22 +8,20 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
-@FunctionMeta("DEFINE")
-public class DefineFunction implements CustomFunction {
+@FunctionMeta("QUERYDEFINE")
+public class QueryDefineFunction implements CustomFunction {
 
-    protected IEvaluator evaluator;
-    
-    public DefineFunction() {}
+    public QueryDefineFunction() {}
 
     /**
      * This function does nothing, since it should never be evaluated.
-     * DEFINE function is a spreadsheet metadata and it cannot have a value.
+     * QUERYDEFINE function is a spreadsheet metadata and it cannot have a value.
      */
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
-        return new StringEval(DefineFunction.class.getAnnotation(FunctionMeta.class).value());
+        return new StringEval(QueryDefineFunction.class.getAnnotation(FunctionMeta.class).value());
     }
 
-    @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }
+    @Override public void setEvaluator(IEvaluator evaluator) {}
 
 }

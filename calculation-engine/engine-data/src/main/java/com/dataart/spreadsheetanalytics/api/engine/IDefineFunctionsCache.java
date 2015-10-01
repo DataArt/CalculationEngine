@@ -11,11 +11,6 @@ public interface IDefineFunctionsCache {
     void addDefineFunction(DefineFunctionMeta meta);
     
     Map<String, DefineFunctionMeta> getDefineFunctions();
-    /**
-     * Does full scan given {@link IDataModel} for DEFINE functions ({@link DefineFunctionMeta}).
-     * 3 iterators are used inside to go through all the cells and find 'DEFINE' keyword.
-     */
-    Map<String, DefineFunctionMeta> scanDataModelForDefines(IDataModel dataModel);
     
     void updateDefineFunctions(Set<IDataModel> dataModels);
 

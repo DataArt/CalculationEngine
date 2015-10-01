@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.model;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
