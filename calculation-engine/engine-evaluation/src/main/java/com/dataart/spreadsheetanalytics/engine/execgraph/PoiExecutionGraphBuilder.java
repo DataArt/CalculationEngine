@@ -47,6 +47,7 @@ import org.apache.poi.ss.formula.ptg.EqualPtg;
 import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
 import org.apache.poi.ss.formula.ptg.LessThanPtg;
 import org.apache.poi.ss.formula.ptg.MultiplyPtg;
+import org.apache.poi.ss.formula.ptg.NamePtg;
 import org.apache.poi.ss.formula.ptg.NameXPxg;
 import org.apache.poi.ss.formula.ptg.NotEqualPtg;
 import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
@@ -545,7 +546,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 			return FUNCTION;
 		} else if (ptg instanceof ValueOperatorPtg) { // single operators: +, -, /, *, =
 			return OPERATOR;
-		} else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg) {
+		} else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg || ptg instanceof NamePtg) {
 			return CELL_WITH_VALUE;
 		} else if (ptg instanceof ScalarConstantPtg) {
 			return CONSTANT_VALUE;
