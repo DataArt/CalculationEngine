@@ -337,7 +337,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     ptgNodes.add(formula.ptgStr());
                     // if the parent node has error value we leave it as it is
                     // otherwise it will represent the child's node error value
-                    if (isErrorValue(ivertex.value()) && !isErrorValue(vertex.value())) {
+                    if (isErrorValue(ivertex.value()) && inheritsErrorValue(vertex)) {
                         vertex.value = ivertex.value();
                     }
                 }
@@ -498,6 +498,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (val == null) { return false; }
         if (val.get() instanceof ErrorEval) { return true; }
         else { return false; }
+    }
+
+    protected static boolean inheritsErrorValue(IExecutionGraphVertex ivertex) {
+        ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+        boolean isIsErrorFunction = "ISERROR".equals(vertex.name());
+        boolean isError = isErrorValue(vertex.value());
+        return !(isError || isIsErrorFunction);
     }
 
 	public static String ptgToString(Ptg ptg) {
