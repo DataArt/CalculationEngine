@@ -68,7 +68,8 @@ public class SpreadsheetAuditor implements IAuditor {
 		} catch (ValuesStackNotEmptyException e) {
 		    return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
 		} catch (IncorrectExternalReferenceException e) {
-		    return handleIncorrectExternalReference(e, cell);
+		    graphBuilder.runPostProcessing();
+		    return graphBuilder.get();
 		}
 
 		IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
@@ -77,12 +78,6 @@ public class SpreadsheetAuditor implements IAuditor {
 		graphBuilder.runPostProcessing();
 		return graphBuilder.get();
 	}
-
-    private ExecutionGraph handleIncorrectExternalReference(IncorrectExternalReferenceException e, ICellAddress cell) {
-        String formulaString = e.getFormulaString();
-        ExecutionGraph result = getSingleNodeGraphForParseException(cell, ErrorEval.REF_INVALID, formulaString);
-        return result;
-    }
 
     protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
