@@ -2,7 +2,7 @@ package com.dataart.spreadsheetanalytics.engine;
 
 import com.dataart.spreadsheetanalytics.api.engine.IDataModelStorage;
 import com.dataart.spreadsheetanalytics.api.engine.IDataSetStorage;
-import com.dataart.spreadsheetanalytics.api.engine.IDefineFunctionsCache;
+import com.dataart.spreadsheetanalytics.api.engine.IAttributeFunctionsCache;
 import com.dataart.spreadsheetanalytics.api.engine.ISqlDataSourceHub;
 
 /**
@@ -16,7 +16,7 @@ public enum ExternalServices {
     protected IDataSetStorage dataSetStorage = DataSetStorage.INSTANCE;
     protected IDataModelStorage dataModelStorage = DataModelStorage.INSTANCE;
     protected ISqlDataSourceHub sqlDataSourceHub = SqlDataSourceHub.INSTANCE;
-    protected IDefineFunctionsCache defineFunctionsCache = DefineFunctionsCache.INSTANCE;
+    protected IAttributeFunctionsCache defineFunctionsCache = AttributeFunctionsCache.INSTANCE;
 
     public IDataSetStorage getDataSetStorage() { return dataSetStorage; }
     public void setDataSetStorage(IDataSetStorage dataSetStorage) { this.dataSetStorage = dataSetStorage; }
@@ -27,7 +27,7 @@ public enum ExternalServices {
     public ISqlDataSourceHub getSqlDataSourceHub() { return sqlDataSourceHub; }
     public void setSqlDataSourceHub(ISqlDataSourceHub sqlDataSourceHub) { this.sqlDataSourceHub = sqlDataSourceHub; }
 
-    public IDefineFunctionsCache getDefineFunctionsCache() { return defineFunctionsCache; }
-    public void setDefineFunctionsCache(IDefineFunctionsCache defineFunctionsCache) { this.defineFunctionsCache = defineFunctionsCache; }
+    public IAttributeFunctionsCache getDefineFunctionsCache() { return defineFunctionsCache; }
+    public void setDefineFunctionsCache(IAttributeFunctionsCache defineFunctionsCache) { this.defineFunctionsCache = defineFunctionsCache; }
     
 }

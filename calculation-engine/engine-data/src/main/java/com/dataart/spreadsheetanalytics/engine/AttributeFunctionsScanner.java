@@ -54,7 +54,7 @@ public abstract class AttributeFunctionsScanner {
                         String formula = ce.getCellFormula();
 
                         String keyword = null;
-                        for (String key : attrFunctions.keySet()) if (formula.startsWith(keyword)) { keyword = key; break; }
+                        for (String key : attrFunctions.keySet()) if (formula.startsWith(key)) { keyword = key; break; }
                         
                         if (keyword == null) { continue; }
 

@@ -1,7 +1,5 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import static com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta.ATTRIBUTE_FUNCTION;
-import static com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta.KEYWORD;
 import static java.lang.Runtime.getRuntime;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
@@ -12,20 +10,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDefineFunctionsCache;
+import com.dataart.spreadsheetanalytics.api.engine.IAttributeFunctionsCache;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 
-public enum DefineFunctionsCache implements IDefineFunctionsCache {
+public enum AttributeFunctionsCache implements IAttributeFunctionsCache {
     INSTANCE;
-    private final static Logger log = LoggerFactory.getLogger(DefineFunctionsCache.class);
+    private final static Logger log = LoggerFactory.getLogger(AttributeFunctionsCache.class);
 
     protected Map<String, DefineFunctionMeta> defines = new HashMap<>();
+    protected Map<String, QueryDefineFunctionMeta> queryDefines = new HashMap<>();
 
     @Override
     public void addDefineFunction(DefineFunctionMeta meta) {
@@ -39,24 +39,42 @@ public enum DefineFunctionsCache implements IDefineFunctionsCache {
     
     @Override
     public void updateDefineFunctions(Set<IDataModel> dataModels) {
-        ConcurrentHashMap<String, DefineFunctionMeta> map = new ConcurrentHashMap<>(defines.size());
-        defines.clear();
+        this.defines = updateAnyFunctions(dataModels, DefineFunctionMeta.KEYWORD, DefineFunctionMeta.ATTRIBUTE_FUNCTION);
+    }
+
+    @Override
+    public void addQueryDefineFunction(QueryDefineFunctionMeta meta) {
+        this.queryDefines.put(meta.name(), meta);
+    }
+
+    @Override
+    public Map<String, QueryDefineFunctionMeta> getQueryDefineFunctions() {
+        return Collections.<String, QueryDefineFunctionMeta> unmodifiableMap(queryDefines);
+    }
+
+    @Override
+    public void updateQueryDefineFunctions(Set<IDataModel> dataModels) {
+        this.queryDefines = updateAnyFunctions(dataModels, QueryDefineFunctionMeta.KEYWORD, QueryDefineFunctionMeta.ATTRIBUTE_FUNCTION);
+    }
+    
+    protected <T extends AttributeFunctionMeta> Map<String, T> updateAnyFunctions(Set<IDataModel> dataModels, String keyword, Map<String, Class<T>> attributeFunction) {
+        ConcurrentMap<String, T> map = new ConcurrentHashMap<>(defines.size());
         
         ExecutorService scanner = Executors.newFixedThreadPool(getRuntime().availableProcessors() > dataModels.size()
                                                                     ? dataModels.size()
                                                                     : getRuntime().availableProcessors());
         List<Runnable> targets = new ArrayList<>(dataModels.size());
-        dataModels.forEach((v) -> { targets.add(() -> map.putAll(AttributeFunctionsScanner.scan(v, ATTRIBUTE_FUNCTION).get(KEYWORD))); });
+        dataModels.forEach((v) -> { targets.add(() -> map.putAll(AttributeFunctionsScanner.scan(v, attributeFunction).get(keyword))); });
 
         try {
             targets.forEach(r -> scanner.execute(r));
             scanner.shutdown();
             scanner.awaitTermination(/* TODO */5, MINUTES);
         } catch (InterruptedException e) {
-            // TODO
+            log.warn("Error while updating attribute functions cache.", e);
         }
         
-        defines.putAll(map);
-    }
+        return map;
+    }    
     
 }
