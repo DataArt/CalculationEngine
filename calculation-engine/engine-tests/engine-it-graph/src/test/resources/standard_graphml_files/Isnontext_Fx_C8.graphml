@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="C8">
+<node id="C8_TRUE_CELL_WITH_FORMULA">
+<data key="name">C8</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISNONTEXT(VALUE); Formula Values: ISNONTEXT(67); Formula Ptg: 67 ISNONTEXT ; Ptgs: VALUE ISNONTEXT  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@13b13b5d</data>
+</node>
+<node id="VALUE_67_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">67</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 67; Formula Ptg: 67; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@13b13b5d</data>
+</node>
+<node id="ISNONTEXT_TRUE_FUNCTION">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ISNONTEXT(VALUE); Formula Values: ISNONTEXT(67); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@13b13b5d</data>
+</node>
+<edge source="VALUE_67_CONSTANT_VALUE" target="ISNONTEXT_TRUE_FUNCTION"/>
+<edge source="ISNONTEXT_TRUE_FUNCTION" target="C8_TRUE_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="D9">
+<node id="D9_TRUE_CELL_WITH_FORMULA">
+<data key="name">D9</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISLOGICAL(ISLOGICAL(A2)); Formula Values: ISLOGICAL(ISLOGICAL(FALSE)); Formula Ptg: FALSE ISLOGICAL  ISLOGICAL ; Ptgs: A2 ISLOGICAL  ISLOGICAL  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@411f53a0</data>
+</node>
+<node id="C6_TRUE_CELL_WITH_FORMULA">
+<data key="name">C6</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISLOGICAL(A2); Formula Values: ISLOGICAL(FALSE); Formula Ptg: FALSE ISLOGICAL ; Ptgs: A2 ISLOGICAL  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@411f53a0</data>
+</node>
+<node id="ISLOGICAL_TRUE_FUNCTION">
+<data key="name">ISLOGICAL</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ISLOGICAL(ISLOGICAL(A2)); Formula Values: ISLOGICAL(ISLOGICAL(FALSE)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@411f53a0</data>
+</node>
+<node id="A2_FALSE_CELL_WITH_VALUE">
+<data key="name">A2</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A2; Formula Values: FALSE; Formula Ptg: FALSE; Ptgs: A2 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@411f53a0</data>
+</node>
+<node id="ISLOGICAL_TRUE_FUNCTION">
+<data key="name">ISLOGICAL</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ISLOGICAL(A2); Formula Values: ISLOGICAL(FALSE); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@411f53a0</data>
+</node>
+<edge source="C6_TRUE_CELL_WITH_FORMULA" target="ISLOGICAL_TRUE_FUNCTION"/>
+<edge source="A2_FALSE_CELL_WITH_VALUE" target="ISLOGICAL_TRUE_FUNCTION"/>
+<edge source="ISLOGICAL_TRUE_FUNCTION" target="C6_TRUE_CELL_WITH_FORMULA"/>
+<edge source="ISLOGICAL_TRUE_FUNCTION" target="D9_TRUE_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

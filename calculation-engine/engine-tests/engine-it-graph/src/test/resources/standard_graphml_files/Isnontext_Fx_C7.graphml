@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="C7">
+<node id="C7_TRUE_CELL_WITH_FORMULA">
+<data key="name">C7</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISNONTEXT(ISNONTEXT(A1)); Formula Values: ISNONTEXT(ISNONTEXT(1.0)); Formula Ptg: 1.0 ISNONTEXT  ISNONTEXT ; Ptgs: A1 ISNONTEXT  ISNONTEXT  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@69fb6037</data>
+</node>
+<node id="C5_TRUE_CELL_WITH_FORMULA">
+<data key="name">C5</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISNONTEXT(A1); Formula Values: ISNONTEXT(1.0); Formula Ptg: 1.0 ISNONTEXT ; Ptgs: A1 ISNONTEXT  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@69fb6037</data>
+</node>
+<node id="ISNONTEXT_TRUE_FUNCTION">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ISNONTEXT(ISNONTEXT(A1)); Formula Values: ISNONTEXT(ISNONTEXT(1.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@69fb6037</data>
+</node>
+<node id="A1_1.0_CELL_WITH_VALUE">
+<data key="name">A1</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A1; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: A1 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@69fb6037</data>
+</node>
+<node id="ISNONTEXT_TRUE_FUNCTION">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ISNONTEXT(A1); Formula Values: ISNONTEXT(1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@69fb6037</data>
+</node>
+<edge source="C5_TRUE_CELL_WITH_FORMULA" target="ISNONTEXT_TRUE_FUNCTION"/>
+<edge source="A1_1.0_CELL_WITH_VALUE" target="ISNONTEXT_TRUE_FUNCTION"/>
+<edge source="ISNONTEXT_TRUE_FUNCTION" target="C5_TRUE_CELL_WITH_FORMULA"/>
+<edge source="ISNONTEXT_TRUE_FUNCTION" target="C7_TRUE_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>
