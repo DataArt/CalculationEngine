@@ -60,7 +60,7 @@ public class DsLookupFunction implements CustomFunction {
         for (int i = 1; i < args.length - 1; i += 2) {
             
             if (!(args[i] instanceof StringEval)) {
-                log.warn("The "+i+"th input argument in DSLOOKUP function should be the string representing the name of condition field");
+                log.warn("The " + i + "th input argument in DSLOOKUP function should be the string representing the name of condition field");
                 return ErrorEval.VALUE_INVALID;
             }
             

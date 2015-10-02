@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
-
 /**
  * This class integrates all the information about 'QUERYDEFINE' function.
  * Function itself (function code, implementation) can be found in {@link QueryDefineFunction} and {@link QueryFunction} engine-functions library.

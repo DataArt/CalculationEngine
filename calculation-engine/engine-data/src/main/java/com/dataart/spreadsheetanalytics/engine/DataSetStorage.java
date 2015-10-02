@@ -1,6 +1,7 @@
 package com.dataart.spreadsheetanalytics.engine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.formula.eval.NotImplementedException;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import com.dataart.spreadsheetanalytics.api.engine.IDataSetStorage;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
-import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 
 public enum DataSetStorage implements IDataSetStorage {
     INSTANCE;
@@ -44,6 +44,12 @@ public enum DataSetStorage implements IDataSetStorage {
     @Override
     public IDataSet getDataSet(String name) {
         return localDataSetsToName.get(name);
+    }
+
+    @Override
+    public IDataSet getExecutableDataSet(String name, List<Object> execParams) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

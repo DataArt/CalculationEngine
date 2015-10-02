@@ -4,12 +4,12 @@ import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceV
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
+import org.apache.poi.ss.formula.TableEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
-import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.OperandResolver;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IDsCell;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
@@ -37,48 +39,63 @@ public class QueryFunction implements CustomFunction {
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
         log.debug(String.format("In evaluate() of QUERY function. Args = %s", Arrays.toString(args)));
-        
+
         if (!(args[0] instanceof StringEval)) {
-            log.warn("1st parameter in QUERY function must be a QueryDataModel name [String].");
+            log.warn("1st parameter in QUERY function must be a ExecutableDataSet name [String].");
             return ErrorEval.VALUE_INVALID;
         }
-        
+
         if (!(args[1] instanceof StringEval)) {
-            log.warn("2d parameter in QUERY function must be a DS name [String].");
+            log.warn("2d parameter in QUERY function must be a new (local) DataSet name [String].");
             return ErrorEval.VALUE_INVALID;
         }
-        
-        String queryDataModel = ((StringEval) args[0]).getStringValue();
+
+        String execDataSet = ((StringEval) args[0]).getStringValue();
         String cachedDataSet = ((StringEval) args[1]).getStringValue();
-        
-        List<ValueEval> queryArgs = new LinkedList<>(Arrays.asList(args));
+
+        List<ValueEval> queryArgs = new ArrayList<>(Arrays.asList(args));
         queryArgs.remove(0);
         queryArgs.remove(0);
-        
-        List<Object> queryParams = new ArrayList<>(queryArgs.size());
+
+        List<Object> execParams = new ArrayList<>(queryArgs.size());
 
         for (ValueEval v : queryArgs) {
-            try { queryParams.add(coerceValueTo(OperandResolver.getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex()))); }
+            try { execParams.add(coerceValueTo(OperandResolver.getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex()))); }
             catch (Exception e) {
                 log.warn(String.format("Error while resolving input arguments for QUERY function. Argument: %s", v), e);
                 return ErrorEval.VALUE_INVALID;
             }
         }
         
-        log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", queryDataModel, cachedDataSet, queryParams);
+        log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {
-            IDataSet dset = external.getSqlDataSourceHub().executeQuery(queryDataModel, queryParams);
+            IDataSet dset = external.getDataSetStorage().getExecutableDataSet(execDataSet, execParams);
             
             dset.name(cachedDataSet);
-
             external.getDataSetStorage().saveDataSet(dset, DataSetScope.LOCAL);
 
-            return new NumberEval(dset.length()); /*TODO: Table to return*/
+            return toTableEval(dset);
         } catch (Exception e) {
+            log.error("No QueryDataModel with name {} is found to execute SQL QUERY in.", execDataSet);
             return ErrorEval.NA;
         }
+        
+    }
 
+    private static TableEval toTableEval(IDataSet dset) {
+        TableEval table = new TableEval(1, 1, dset.length(), dset.width());
+        
+        List<List<ValueEval>> rows = new ArrayList<>(dset.length());
+        
+        for (IDsRow row : dset) {
+            List<ValueEval> cells = new ArrayList<>(dset.width());
+            for (IDsCell cell : row) cells.add(ExecutionGraphBuilderUtils.valueToValueEval(cell.value()));
+            rows.add(cells);
+        }
+        
+        table.setValues(rows);
+        return table;
     }
 
     @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }

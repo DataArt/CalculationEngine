@@ -36,9 +36,9 @@ public class FuncexecFunction1000Demo {
         //add datamodels to storage - demo only
         external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
-        external.getDefineFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
         //copy data models to cache - demo only
-        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getDefineFunctionsCache().getDefineFunctions());
+        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();

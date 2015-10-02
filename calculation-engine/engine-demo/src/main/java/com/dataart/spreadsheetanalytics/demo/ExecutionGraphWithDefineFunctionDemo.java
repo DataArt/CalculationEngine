@@ -33,7 +33,7 @@ public class ExecutionGraphWithDefineFunctionDemo {
         //add datamodels to storage - demo only
         external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
-        external.getDefineFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
 
         final ICellAddress addr = new CellAddress(modelFuncexec.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);

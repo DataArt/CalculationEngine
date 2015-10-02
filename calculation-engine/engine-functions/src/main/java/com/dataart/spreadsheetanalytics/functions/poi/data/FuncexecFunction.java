@@ -51,7 +51,7 @@ public class FuncexecFunction implements CustomFunction {
 
         String defineFunctionName = ((StringEval) args[0]).getStringValue();
 
-        IAttributeFunctionsCache dfCache = external.getDefineFunctionsCache();
+        IAttributeFunctionsCache dfCache = external.getAttributeFunctionsCache();
 
         if (!dfCache.getDefineFunctions().containsKey(defineFunctionName)) {
             log.warn(String.format("No DEFINE function with name %s is found.", defineFunctionName));
@@ -84,26 +84,20 @@ public class FuncexecFunction implements CustomFunction {
         try {
             
             IDataModel execModel = external.getDataModelStorage().prepareDataModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
-
             log.debug(String.format("Got DataModel for DEFINE execution, Id: %s, Name: %s.", execModel.dataModelId(), execModel.name()));
             
-            List<ICellValue> outputValues = new ArrayList<>(meta.outputs().size());
-            //TODO: here we should call evaluator.evaluate(execModel), but we do not have this method yet implemented
-            //so we will do it cell by cell
-            
             evaluator.init(execModel);
-            
-            for (ICellAddress addr : meta.outputs()) {
-    
-                ICellValue outputValue = evaluator.evaluate(addr);
-                outputValues.add(outputValue);
-            }
+
+            //TODO: here we should call evaluator.evaluate(execModel), 
+            //but we do not have this method yet implemented so we will do it cell by cell
+            List<ICellValue> outputValues = new ArrayList<>(meta.outputs().size());
+            meta.outputs().forEach(addr -> outputValues.add(evaluator.evaluate(addr)));
             
             log.debug(String.format("Output Values of DEFINE execution: %s.", outputValues));
             
             return outputValues.size() == 1 ? valueToValueEval(outputValues.get(0)) : toTwoDEval(outputValues);
         } catch (Exception e) {
-            log.error(String.format("Error while executing DEFINE function."), e);
+            log.error("Error while executing DEFINE (FUNCEXEC) function.", e);
             return ErrorEval.NA;
         }
     }

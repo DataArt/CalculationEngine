@@ -13,7 +13,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
  * 
  * Known subinterface: {@link IDataModel}.
  */
-public interface IDataSet extends Cloneable, Iterable<IDsRow>, Iterator<IDsRow> {
+public interface IDataSet extends Iterable<IDsRow>, Iterator<IDsRow> {
 
     IDataModelId dataModelId();
     
