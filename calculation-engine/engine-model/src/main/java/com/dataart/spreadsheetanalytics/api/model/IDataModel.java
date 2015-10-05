@@ -1,7 +1,5 @@
 package com.dataart.spreadsheetanalytics.api.model;
 
-import org.apache.poi.ss.usermodel.Sheet;
-
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
@@ -22,12 +20,4 @@ public interface IDataModel extends IDataSet {
      */
     void replaceCellValue(ICellAddress address, ICellValue value);
 
-    /**
-     * Returns sheet from the data model
-     * 
-     * @param sheetName
-     * @return
-     */
-    Sheet getDataModelSheet(String sheetName);
-    
 }

@@ -2,11 +2,11 @@ package com.dataart.spreadsheetanalytics.demo;
 
 import java.nio.file.Paths;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -31,9 +31,9 @@ public class DefineFunctionDemo {
         //add datamodels to storage - demo only
         external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
-        external.getDefineFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
         //copy data models to cache - demo only
-        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getDefineFunctionsCache().getDefineFunctions());
+        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
 
         final ICellAddress addr = new CellAddress(modelFuncexec.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);

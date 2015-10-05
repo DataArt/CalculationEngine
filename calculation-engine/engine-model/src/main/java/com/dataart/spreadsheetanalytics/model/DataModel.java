@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,6 +21,7 @@ public class DataModel extends DataSet implements IDataModel {
         super();
         this.model = new XSSFWorkbook(path);
         this.dataModelId = new DataModelId(this.model.toString());
+        this.name(Paths.get(path).getFileName().toString());
     }
 
     public DataModel(InputStream in) throws IOException {
@@ -44,15 +46,5 @@ public class DataModel extends DataSet implements IDataModel {
             c.setCellValue((String) value.get());
         }
     }
-    
-    @Override
-    public Sheet getDataModelSheet(String sheetName) {
-        return model.getSheet(sheetName);
-    }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-    
+        
 }

@@ -94,6 +94,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
 
     /**
      * TODO: this should be provided with really good java doc of how to use it
+     * Or removed. change to static call (ExternalServices is singleton and Evaluator can be created in constructor)
      */
     public void loadCustomFunctions() throws ReflectiveOperationException {
         if (this.model == null) {

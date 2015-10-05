@@ -3,10 +3,10 @@ package com.dataart.spreadsheetanalytics.demo;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -36,9 +36,9 @@ public class FuncexecFunction1000Demo {
         //add datamodels to storage - demo only
         external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
-        external.getDefineFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
         //copy data models to cache - demo only
-        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getDefineFunctionsCache().getDefineFunctions());
+        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();

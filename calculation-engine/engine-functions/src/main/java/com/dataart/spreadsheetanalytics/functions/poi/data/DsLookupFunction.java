@@ -18,11 +18,11 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
-import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
@@ -61,7 +61,7 @@ public class DsLookupFunction implements CustomFunction {
         for (int i = 1; i < args.length - 1; i += 2) {
             
             if (!(args[i] instanceof StringEval)) {
-                log.warn("The "+i+"th input argument in DSLOOKUP function should be the string representing the name of condition field");
+                log.warn("The " + i + "th input argument in DSLOOKUP function should be the string representing the name of condition field");
                 return ErrorEval.VALUE_INVALID;
             }
             

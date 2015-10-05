@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="D7">
+<node id="D7_TRUE_CELL_WITH_FORMULA">
+<data key="name">D7</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISERROR(SUM(B2, VALUE)); Formula Values: ISERROR(SUM(6, #REF!)); Formula Ptg: 6, #REF! SUM  ISERROR ; Ptgs: B2, VALUE SUM  ISERROR  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@134593bf</data>
+</node>
+<node id="D2_#REF!_CELL_WITH_FORMULA">
+<data key="name">D2</data>
+<data key="value">#REF!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: SUM(B2, VALUE); Formula Values: SUM(6, #REF!); Formula Ptg: 6, #REF! SUM ; Ptgs: B2, VALUE SUM  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@134593bf</data>
+</node>
+<node id="ISERROR_TRUE_FUNCTION">
+<data key="name">ISERROR</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ISERROR(SUM(B2, VALUE)); Formula Values: ISERROR(SUM(6, #REF!)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@134593bf</data>
+</node>
+<node id="VALUE_#REF!_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: #REF!; Formula Ptg: #REF!; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@134593bf</data>
+</node>
+<node id="B2_6_CELL_WITH_VALUE">
+<data key="name">B2</data>
+<data key="value">6</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B2; Formula Values: 6; Formula Ptg: 6; Ptgs: B2 Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@134593bf</data>
+</node>
+<node id="SUM_#REF!_FUNCTION">
+<data key="name">SUM</data>
+<data key="value">#REF!</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: SUM(B2, VALUE); Formula Values: SUM(6, #REF!); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@134593bf</data>
+</node>
+<edge source="D2_#REF!_CELL_WITH_FORMULA" target="ISERROR_TRUE_FUNCTION"/>
+<edge source="B2_6_CELL_WITH_VALUE" target="SUM_#REF!_FUNCTION"/>
+<edge source="VALUE_#REF!_CONSTANT_VALUE" target="SUM_#REF!_FUNCTION"/>
+<edge source="SUM_#REF!_FUNCTION" target="D2_#REF!_CELL_WITH_FORMULA"/>
+<edge source="ISERROR_TRUE_FUNCTION" target="D7_TRUE_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

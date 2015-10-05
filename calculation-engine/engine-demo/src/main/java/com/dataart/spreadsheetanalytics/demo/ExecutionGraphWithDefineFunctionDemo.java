@@ -2,12 +2,12 @@ package com.dataart.spreadsheetanalytics.demo;
 
 import java.nio.file.Paths;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
@@ -33,7 +33,7 @@ public class ExecutionGraphWithDefineFunctionDemo {
         //add datamodels to storage - demo only
         external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
-        external.getDefineFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
 
         final ICellAddress addr = new CellAddress(modelFuncexec.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);
