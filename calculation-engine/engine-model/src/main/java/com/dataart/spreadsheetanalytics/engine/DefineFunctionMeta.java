@@ -1,7 +1,10 @@
 package com.dataart.spreadsheetanalytics.engine;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -10,8 +13,8 @@ import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 
 /**
- * Class which integrates all the information about 'DEFINE' function.
- * Function itself (function code, implementation) can be found in {@link DefineFunction} in engine-functions library.
+ * This class integrates all the information about 'DEFINE' function.
+ * Function itself (function code, implementation) can be found in {@link DefineFunction} and {@link FuncexecFunction} in engine-functions library.
  * 
  * This class is only the container for meta information.
  * When parsing of spreadsheet is done (search for DEFINEs) all information is stored in instances of this class.
@@ -24,32 +27,30 @@ import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
  * 
  */
 @SuppressWarnings("javadoc")
-public class DefineFunctionMeta {
+public class DefineFunctionMeta extends AttributeFunctionMeta {
 
     /** Name of DEFINE function in excel */
     public static final String KEYWORD = "DEFINE";
     /** Separator for intput and output arguments */
     public static final String IN_OUT_SEPARATOR = "#";
     
-    protected String name;
+    public final static Map<String, Class<DefineFunctionMeta>> ATTRIBUTE_FUNCTION = Collections.unmodifiableMap(new LinkedHashMap() {
+        {
+            put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
+        }
+    });
+    
     protected List<ICellAddress> inputs;
     protected List<ICellAddress> outputs;
-    protected IDataModelId dataModelId;
     
-    public String name() { return this.name; }
     public List<ICellAddress> inputs() { return this.inputs; }
     public List<ICellAddress> outputs() { return this.outputs; }
-    public IDataModelId dataModelId() { return this.dataModelId; }
     
-    public void name(String name) { this.name = name; }
     public void inputs(List<ICellAddress> inputs) { this.inputs = inputs; }
     public void outputs(List<ICellAddress> outputs) { this.outputs = outputs; }
-    public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
     
-    public static DefineFunctionMeta parse(String formula) {
+    public DefineFunctionMeta parse(String formula) {
 
-        //TODO: parsing mechanism might be better, use POI's parser or think about it again
-        //DEFINE("name", A1, A2, "#", B1, B2, B3)
         String[] ptgs = formula
                             .replace(KEYWORD, "")
                             .replace("(", "")
@@ -58,8 +59,8 @@ public class DefineFunctionMeta {
                             .replace(" ", "")
                             .split(",");
         
-        //TODO log or throw?? if throw create exception?
-        if (ptgs.length < 2) { throw new RuntimeException("Number of Ptgs in " + KEYWORD + " function must be more than 2"); }
+        if (ptgs.length < 2) { throw new IllegalArgumentException("Number of arguments in " + KEYWORD + " function must be more than 2"); }
+        if (!formula.contains(IN_OUT_SEPARATOR)) { throw new IllegalArgumentException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR); }
         
         DefineFunctionMeta meta = new DefineFunctionMeta();
         meta.name(ptgs[0]);

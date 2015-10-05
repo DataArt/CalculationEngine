@@ -19,7 +19,7 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDefineFunctionsCache;
+import com.dataart.spreadsheetanalytics.api.engine.IAttributeFunctionsCache;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -51,7 +51,7 @@ public class FuncexecFunction implements CustomFunction {
 
         String defineFunctionName = ((StringEval) args[0]).getStringValue();
 
-        IDefineFunctionsCache dfCache = external.getDefineFunctionsCache();
+        IAttributeFunctionsCache dfCache = external.getDefineFunctionsCache();
 
         if (!dfCache.getDefineFunctions().containsKey(defineFunctionName)) {
             log.warn(String.format("No DEFINE function with name %s is found.", defineFunctionName));
@@ -72,9 +72,8 @@ public class FuncexecFunction implements CustomFunction {
 
         for (int i = 1; i < args.length; i++) {
             
-            try {
-                inputValues.add(new CellValue(coerceValueTo(OperandResolver.getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex()))));
-            } catch (EvaluationException e) {
+            try { inputValues.add(new CellValue(coerceValueTo(OperandResolver.getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex())))); }
+            catch (EvaluationException e) {
                 log.error(String.format("Cannot resolve value of input argument %s.", args[i]), e);
                 return ErrorEval.REF_INVALID;
             }

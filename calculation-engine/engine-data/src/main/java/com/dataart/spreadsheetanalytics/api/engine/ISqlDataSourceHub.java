@@ -8,7 +8,7 @@ import com.dataart.spreadsheetanalytics.engine.SqlDataSource;
 
 public interface ISqlDataSourceHub {
 
-    IDataSet executeQuery(String dataSourceName, String query, List<Object> params) throws SQLException;
+    IDataSet executeQuery(String queryDataModel, List<Object> params) throws SQLException;
 
     void addSqlDataSource(SqlDataSource sqlDataSource);
 }

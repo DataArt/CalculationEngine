@@ -1,14 +1,16 @@
 package com.dataart.spreadsheetanalytics.functions.poi.data;
 
+import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.NumberEval;
+import org.apache.poi.ss.formula.eval.OperandResolver;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
@@ -33,42 +35,46 @@ public class QueryFunction implements CustomFunction {
 
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
+
+        log.debug(String.format("In evaluate() of QUERY function. Args = %s", Arrays.toString(args)));
         
-        ValueEval queryStr = args[0];
-        ValueEval cachedDataSetName = args[1];
+        if (!(args[0] instanceof StringEval)) {
+            log.warn("1st parameter in QUERY function must be a QueryDataModel name [String].");
+            return ErrorEval.VALUE_INVALID;
+        }
+        
+        if (!(args[1] instanceof StringEval)) {
+            log.warn("2d parameter in QUERY function must be a DS name [String].");
+            return ErrorEval.VALUE_INVALID;
+        }
+        
+        String queryDataModel = ((StringEval) args[0]).getStringValue();
+        String cachedDataSet = ((StringEval) args[1]).getStringValue();
         
         List<ValueEval> queryArgs = new LinkedList<>(Arrays.asList(args));
         queryArgs.remove(0);
         queryArgs.remove(0);
         
-        if (!(queryStr instanceof StringEval)) {
-            log.warn("1st parameter in QUERY function must be a SQL query [String].");
-            return ErrorEval.VALUE_INVALID;
+        List<Object> queryParams = new ArrayList<>(queryArgs.size());
+
+        for (ValueEval v : queryArgs) {
+            try { queryParams.add(coerceValueTo(OperandResolver.getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex()))); }
+            catch (Exception e) {
+                log.warn(String.format("Error while resolving input arguments for QUERY function. Argument: %s", v), e);
+                return ErrorEval.VALUE_INVALID;
+            }
         }
         
-        if (!(cachedDataSetName instanceof StringEval)) {
-            log.warn("2d parameter in QUERY function must be a DS name [String].");
-            return ErrorEval.VALUE_INVALID;
-        }
-
-        List<Object> queryParams;
-        try {
-            queryParams = queryArgs.stream().map(v -> ExecutionGraphBuilderUtils.coerceValueTo(v)).collect(Collectors.<Object> toList());
-        } catch (RuntimeException e) {
-            log.warn("Error while resolving input arguments for QUERY function.", e);
-            return ErrorEval.VALUE_INVALID;
-        }
+        log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", queryDataModel, cachedDataSet, queryParams);
 
         try {
-            String query = ((StringEval) queryStr).getStringValue();
-            IDataSet dset = external.getSqlDataSourceHub().executeQuery("TEMP_DS", query, queryParams);
+            IDataSet dset = external.getSqlDataSourceHub().executeQuery(queryDataModel, queryParams);
             
-            String dsName = ((StringEval) cachedDataSetName).getStringValue();
-            dset.name(dsName);
+            dset.name(cachedDataSet);
 
             external.getDataSetStorage().saveDataSet(dset, DataSetScope.LOCAL);
 
-            return new NumberEval(dset.length());
+            return new NumberEval(dset.length()); /*TODO: Table to return*/
         } catch (Exception e) {
             return ErrorEval.NA;
         }

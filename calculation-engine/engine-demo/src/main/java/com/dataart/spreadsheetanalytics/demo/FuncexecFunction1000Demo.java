@@ -22,10 +22,9 @@ public class FuncexecFunction1000Demo {
         final String funcexec = args[1];
         
         final String indexA1 = args[2]; //M
-        final String indexA2 = args[3]; //N
         
-        final Integer start = Integer.valueOf(args[4]); //4
-        final String times = args[5]; //1000
+        final Integer start = Integer.valueOf(args[3]); //4
+        final String times = args[4]; //1000
 
         final IDataModel modelFuncexec = new DataModel(funcexec);
         
@@ -38,6 +37,8 @@ public class FuncexecFunction1000Demo {
         external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
         external.getDefineFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        //copy data models to cache - demo only
+        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getDefineFunctionsCache().getDefineFunctions());
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
@@ -45,12 +46,10 @@ public class FuncexecFunction1000Demo {
         long time1 = System.nanoTime();
         for (int i = start; i < Integer.valueOf(times) + start; i++) {
             String address1 = indexA1 + i;
-            String address2 = indexA2 + i;
             
             final ICellValue cv1 = evaluator.evaluate(new CellAddress(modelFuncexec.dataModelId(), A1Address.fromA1Address(address1)));
-            final ICellValue cv2 = evaluator.evaluate(new CellAddress(modelFuncexec.dataModelId(), A1Address.fromA1Address(address2)));
             
-            System.out.println(address1 + ": " + CellValue.fromCellValueToString(cv1) + " | " + address2 + ": " + CellValue.fromCellValueToString(cv2));
+            System.out.println(address1 + ": " + CellValue.fromCellValueToString(cv1));
         }
         long time2 = System.nanoTime();
         
