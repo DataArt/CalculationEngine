@@ -25,7 +25,6 @@ public enum AttributeFunctionsCache implements IAttributeFunctionsCache {
     private final static Logger log = LoggerFactory.getLogger(AttributeFunctionsCache.class);
 
     protected Map<String, DefineFunctionMeta> defines = new HashMap<>();
-    protected Map<String, QueryDefineFunctionMeta> queryDefines = new HashMap<>();
 
     @Override
     public void addDefineFunction(DefineFunctionMeta meta) {
@@ -40,21 +39,6 @@ public enum AttributeFunctionsCache implements IAttributeFunctionsCache {
     @Override
     public void updateDefineFunctions(Set<IDataModel> dataModels) {
         this.defines = updateAnyFunctions(dataModels, DefineFunctionMeta.KEYWORD, DefineFunctionMeta.ATTRIBUTE_FUNCTION);
-    }
-
-    @Override
-    public void addQueryDefineFunction(QueryDefineFunctionMeta meta) {
-        this.queryDefines.put(meta.name(), meta);
-    }
-
-    @Override
-    public Map<String, QueryDefineFunctionMeta> getQueryDefineFunctions() {
-        return Collections.<String, QueryDefineFunctionMeta> unmodifiableMap(queryDefines);
-    }
-
-    @Override
-    public void updateQueryDefineFunctions(Set<IDataModel> dataModels) {
-        this.queryDefines = updateAnyFunctions(dataModels, QueryDefineFunctionMeta.KEYWORD, QueryDefineFunctionMeta.ATTRIBUTE_FUNCTION);
     }
     
     protected <T extends AttributeFunctionMeta> Map<String, T> updateAnyFunctions(Set<IDataModel> dataModels, String keyword, Map<String, Class<T>> attributeFunction) {

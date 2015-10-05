@@ -21,7 +21,6 @@ public abstract class AttributeFunctionsScanner {
     public final static Map<String, Class<? extends AttributeFunctionMeta>> ALL_ATTRIBUTE_FUNCTIONS = Collections.unmodifiableMap(new LinkedHashMap() {
         {
             put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
-            put(QueryDefineFunctionMeta.KEYWORD, QueryDefineFunctionMeta.class);
         }
     });
     

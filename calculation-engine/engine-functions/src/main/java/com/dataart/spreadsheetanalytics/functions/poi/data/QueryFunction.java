@@ -16,12 +16,12 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
-import com.dataart.spreadsheetanalytics.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
@@ -70,7 +70,7 @@ public class QueryFunction implements CustomFunction {
         log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {
-            IDataSet dset = external.getDataSetStorage().getExecutableDataSet(execDataSet, execParams);
+            IDataSet dset = external.getDataSetStorage().getLazyDataSet(execDataSet, execParams);
             
             dset.name(cachedDataSet);
             external.getDataSetStorage().saveDataSet(dset, DataSetScope.LOCAL);

@@ -20,7 +20,7 @@ public class DataSet implements IDataSet {
     protected Iterator<IDsRow> iterator;
 
     public DataSet() {
-        this.dataModelId = new DataModelId(UUID.randomUUID().toString());
+        this.dataModelId = new DataModelId(UUID.randomUUID().toString()); /*TODO: generate ID*/
         this.rows = new ArrayList<>();
     }
 

@@ -1,6 +1,5 @@
 package com.dataart.spreadsheetanalytics.demo;
 
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,45 +11,43 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
+import com.dataart.spreadsheetanalytics.api.engine.SqlDataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
-import com.dataart.spreadsheetanalytics.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
+import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.SqlDataSource;
+import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class QueryFunctionDemo {
 
     public static void main(String[] args) throws Exception {
 
-        final String path = args[0];
-        final String query = args[1];
+        final String query = args[0];
         final List<String> cellsToEvaluate = new ArrayList<>(Arrays.asList(args));
         cellsToEvaluate.remove(0);
-        cellsToEvaluate.remove(0);
 
-        final FileSystemDataModelLocation location = new FileSystemDataModelLocation();
-        location.setPath(Paths.get(path));
-        
         final IDataModel model = new DataModel(query);
         
         ExternalServices external = ExternalServices.INSTANCE;
         
-        //add datamodels to storage - demo only
-        external.getDataModelStorage().addDataModels(location);
         //in memoty sql data source - demo only
-        external.getSqlDataSourceHub().addSqlDataSource(new TempSqlDataSource());
+        external.getDataSourceHub().addSqlDataSource(new TempSqlDataSource());
         //add define functions to storage - demo only
-        external.getAttributeFunctionsCache().updateQueryDefineFunctions(external.getDataModelStorage().getDataModels());
+        final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
+        final ILazyDataSet sqlDataSet = new SqlDataSet(sql);
+        sqlDataSet.name("P");
+        external.getDataSetStorage().saveLazyDataSet(sqlDataSet);
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
@@ -125,15 +122,16 @@ class TempSqlDataSource implements SqlDataSource {
         ResultSet rs = st.getResultSet();
         ResultSetMetaData rsmd = rs.getMetaData();
         
-        while (rs.next()) 
-            for (int i = 1; i <= rsmd.getColumnCount(); i++) 
-                ds.createRow().createCell().value(rs.getObject(i));
-
+        while (rs.next()) {
+            DsRow row = ds.createRow();
+            for (int i = 1; i <= rsmd.getColumnCount(); i++)
+                row.createCell().value(rs.getObject(i));
+        }
         return ds;
     }
 
     @Override
     public String name() {
-        return "TEMP";
+        return null;
     }
 }

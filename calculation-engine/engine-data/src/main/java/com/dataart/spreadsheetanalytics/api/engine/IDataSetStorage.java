@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 
 public interface IDataSetStorage {
@@ -19,5 +20,8 @@ public interface IDataSetStorage {
     
     IDataSet getDataSet(String name);
 
-    IDataSet getExecutableDataSet(String name, List<Object> execParams);
+    void saveLazyDataSet(ILazyDataSet dset);
+    
+    IDataSet getLazyDataSet(String name, List<Object> execParams) throws Exception;
+
 }
