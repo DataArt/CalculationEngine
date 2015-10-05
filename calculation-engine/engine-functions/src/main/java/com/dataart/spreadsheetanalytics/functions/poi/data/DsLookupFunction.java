@@ -91,12 +91,7 @@ public class DsLookupFunction implements CustomFunction {
         List<ValueEval> fetchedValues = fetchValues(dataSet, indexToValue, columnIndex);
         int size = fetchedValues.size();
         if (size != 0) {
-            if (size == 1) {
                 result = fetchedValues.get(0);
-            } else {
-                result = new ArrayEval();
-                ((ArrayEval) result).setValues(fetchedValues);
-            }
         }
 
         return result;
@@ -121,7 +116,10 @@ public class DsLookupFunction implements CustomFunction {
                 }
             }
             
-            if (!where.isEmpty() && allFieldsPresent == 0 && allFieldsMatch) { found.add(valueToValueEval(row.cells().get(columnIndex - 1).value())); }
+            if (!where.isEmpty() && allFieldsPresent == 0 && allFieldsMatch) {
+                found.add(valueToValueEval(row.cells().get(columnIndex - 1).value()));
+                break; // collecting only the first matching record according to product owner requirements
+            }
         }
 
         return found;
