@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.poi.ss.formula.ArrayEval;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
+import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.StringValueEval;
@@ -85,10 +86,19 @@ public class DsLookupFunction implements CustomFunction {
             if (value.equals(columnName)) { columnIndex = cell.index(); }
         }
         
-        ArrayEval result = new ArrayEval();
+        ValueEval result = BlankEval.instance;
         
-        result.setValues(fetchValues(dataSet, indexToValue, columnIndex));
-        
+        List<ValueEval> fetchedValues = fetchValues(dataSet, indexToValue, columnIndex);
+        int size = fetchedValues.size();
+        if (size != 0) {
+            if (size == 1) {
+                result = fetchedValues.get(0);
+            } else {
+                result = new ArrayEval();
+                ((ArrayEval) result).setValues(fetchedValues);
+            }
+        }
+
         return result;
     }
 

@@ -314,12 +314,16 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
+                if (!graph.incomingEdgesOf(vertex).isEmpty()) {
                 DefaultEdge edge = graph.incomingEdgesOf(vertex).iterator().next();
                 ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
                 CellFormulaExpression formula = buildFormula(ivertex, graph);
                 vertex.formula = CellFormulaExpression.copyOf(formula);
                 vertex.value = ivertex.value;
                 return CellFormulaExpression.copyOf(formula);
+                } else {
+                    return null;
+                }
             }
             case OPERATOR:
             case FUNCTION: {
@@ -503,9 +507,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static boolean inheritsErrorValue(IExecutionGraphVertex ivertex) {
         ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-        boolean isIsErrorFunction = "ISERROR".equals(vertex.name());
+        boolean isNotInherFunction = "ISERROR".equals(vertex.name());
         boolean isError = isErrorValue(vertex.value());
-        return !(isError || isIsErrorFunction);
+        return !(isError || isNotInherFunction);
     }
 
 	public static String ptgToString(Ptg ptg) {
