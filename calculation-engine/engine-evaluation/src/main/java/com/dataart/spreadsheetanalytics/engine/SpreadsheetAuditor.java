@@ -13,6 +13,7 @@ import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -59,25 +60,28 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     @Override
-	public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
-		ICellValue cv = null;
-		try {
+    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
+        ICellValue cv = null;
+        try {
 			cv = evaluator.evaluate(cell);
-		} catch (FormulaParseException e) {
-			return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
-		} catch (ValuesStackNotEmptyException e) {
+        } catch (FormulaParseNameException e) {
+            return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
+        } catch (FormulaParseException e) {
+            graphBuilder.runPostProcessing();
+            return graphBuilder.get();
+        } catch (ValuesStackNotEmptyException e) {
 		    return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
-		} catch (IncorrectExternalReferenceException e) {
-		    graphBuilder.runPostProcessing();
-		    return graphBuilder.get();
-		}
+        } catch (IncorrectExternalReferenceException e) {
+            graphBuilder.runPostProcessing();
+            return graphBuilder.get();
+        }
 
-		IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
-		if (nonFormulaResult != null) { return nonFormulaResult; }
+        IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
+        if (nonFormulaResult != null) { return nonFormulaResult; }
 
-		graphBuilder.runPostProcessing();
-		return graphBuilder.get();
-	}
+        graphBuilder.runPostProcessing();
+        return graphBuilder.get();
+    }
 
     protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
