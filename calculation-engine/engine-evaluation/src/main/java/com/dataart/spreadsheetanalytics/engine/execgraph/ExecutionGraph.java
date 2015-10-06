@@ -1,25 +1,23 @@
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.jgrapht.DirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 
 public class ExecutionGraph implements IExecutionGraph {
 
-    protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
+    protected final DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
 
-    protected ExecutionGraph(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
+    protected ExecutionGraph(DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
         this.dgraph = dgraph;
     }
 
-    public static ExecutionGraph wrap(DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph) {
+    public static ExecutionGraph wrap(DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
         return new ExecutionGraph(dgraph);
     }
 
@@ -28,35 +26,34 @@ public class ExecutionGraph implements IExecutionGraph {
     }
 
     @Override
-    public com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex getRootVertex() {
-        for (IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
+    public IExecutionGraphVertex getRootVertex() {
+        for (org.apache.poi.common.execgraph.IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
             if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return (ExecutionGraphVertex) ivertex; }
         }
         throw new IllegalStateException("No graph root found");
     }
 
     @Override
-    public Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> getVertices() {
-        Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices = dgraph.vertexSet()
-                                                                                               .stream()
-                                                                                               .map(s -> (ExecutionGraphVertex) s)
-                                                                                               .collect(Collectors.toSet());
-        return vertices;
+    public Set<IExecutionGraphVertex> getVertices() {
+        return dgraph.vertexSet().stream()
+                                 .map(s -> (ExecutionGraphVertex) s)
+                                 .collect(Collectors.<IExecutionGraphVertex> toSet());
     }
 
     @Override
-    public Set<DefaultEdge> getEdges() {
-        return dgraph.edgeSet();
+    public Set<IExecutionGraphEdge> getEdges() {
+        return dgraph.edgeSet().stream()
+                               .collect(Collectors.<IExecutionGraphEdge> toSet());
     }
 
     @Override
-    public ExecutionGraphVertex getEdgeSource(DefaultEdge edge) {
-        return (ExecutionGraphVertex) dgraph.getEdgeSource(edge);
+    public IExecutionGraphVertex getEdgeSource(IExecutionGraphEdge edge) {
+        return (ExecutionGraphVertex) dgraph.getEdgeSource((ExecutionGraphEdge) edge);
     }
 
     @Override
-    public ExecutionGraphVertex getEdgeTarget(DefaultEdge edge) {
-        return (ExecutionGraphVertex) dgraph.getEdgeTarget(edge);
+    public IExecutionGraphVertex getEdgeTarget(IExecutionGraphEdge edge) {
+        return (ExecutionGraphVertex) dgraph.getEdgeTarget((ExecutionGraphEdge) edge);
     }
 
 }

@@ -47,7 +47,7 @@ public class QueryFunctionDemo {
         final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
         final ILazyDataSet sqlDataSet = new SqlDataSet(sql);
         sqlDataSet.name("P");
-        external.getDataSetStorage().saveLazyDataSet(sqlDataSet);
+        external.getDataSetStorage().saveDataSet(sqlDataSet);
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();

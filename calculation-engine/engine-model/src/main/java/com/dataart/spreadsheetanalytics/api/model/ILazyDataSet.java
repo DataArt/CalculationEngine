@@ -1,5 +1,6 @@
 package com.dataart.spreadsheetanalytics.api.model;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,9 +25,11 @@ public interface ILazyDataSet extends IDataSet {
      * Parameters for execution. Can be anything, it is just a container.
      */
     public static class Parameters {
+        public static final Parameters EMPTY = new Parameters();
+        
         protected List<Object> parameters;
         
-        public Parameters() { }
+        public Parameters() { this.parameters = Collections.<Object> emptyList(); }
         public Parameters(List<Object> parameters) { this.parameters = parameters; }
         
         public List<Object> getParameters() { return parameters; }

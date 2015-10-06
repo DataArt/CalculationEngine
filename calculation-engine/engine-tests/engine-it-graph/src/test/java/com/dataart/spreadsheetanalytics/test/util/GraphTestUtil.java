@@ -56,7 +56,7 @@ public class GraphTestUtil {
     }
 
     public static void generateGraphmlFileset(boolean all) throws Exception {
-        System.out.println("Begin.");
+        System.out.println("Begin. Fileset.");
 
         String testTemplate = null;
         try (FileInputStream fis = new FileInputStream(TEST_CLASS_TEMPLATE)) {
@@ -99,11 +99,42 @@ public class GraphTestUtil {
                 System.out.println();
             }
         }
-        System.out.println("\nEnd.");
+        System.out.println("\nEnd. Fileset.");
+    }
+    
+    public static void generateGraphmlFile(String excelFile, String excelAddress) throws Exception {
+        System.out.println("Begin. One file.");
+
+        System.out.println("For file [" + excelFile + "] and address [" + excelAddress + "]\n");
+
+        String path = STANDARD_EXCELS_DIR + excelFile + ".xlsx";
+        String address = excelAddress;
+        String filename = STANDARD_GRAPHML_DIR + excelFile + "_" + address + ".graphml";
+
+        System.out.println("Excel file [" + path + "], address [" + address + "]");
+
+        final IDataModel model = new DataModel(path);
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
+
+        Writer fw = new FileWriter(filename);
+
+        GraphMLExporter exporter = new GraphWithProperertiesMLExporter(address);
+        exporter.export(fw, dgraph);
+
+        System.out.println("GraphML file is written to [" + filename + "]");
+
+        System.out.println("\nEnd. One file.");
     }
     
     public static void main(String[] args) throws Exception {
-        boolean all = args.length > 0 && args[0].equals("all");
-        generateGraphmlFileset(all);
+        boolean oneFile = args.length > 0 && !args[0].equals("all");
+        if (oneFile) {
+            generateGraphmlFile(args[0], args[1]);
+        } else {
+            boolean all = args.length > 0 && args[0].equals("all");
+            generateGraphmlFileset(all);
+        }
     }
 }

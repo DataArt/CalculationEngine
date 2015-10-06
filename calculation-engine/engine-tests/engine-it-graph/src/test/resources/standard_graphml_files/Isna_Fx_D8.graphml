@@ -5,8 +5,24 @@
 <data key="name">D8</data>
 <data key="value">#NAME?</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: #NAME?; Formula Values: #NAME?; Formula Ptg: #NAME?; Ptgs: #NAME? Index in Ptgs: 0 </data>
-<data key="sourceObjectId"/>
+<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(); Formula Ptg:  ISNA ; Ptgs: D6 ISNA  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1e965684</data>
 </node>
+<node id="D6__EMPTY_CELL">
+<data key="name">D6</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula String: D6; Formula Values: ; Formula Ptg: ; Ptgs: D6 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1e965684</data>
+</node>
+<node id="ISNA_#NAME?_FUNCTION">
+<data key="name">ISNA</data>
+<data key="value">#NAME?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1e965684</data>
+</node>
+<edge source="D6__EMPTY_CELL" target="ISNA_#NAME?_FUNCTION"/>
+<edge source="ISNA_#NAME?_FUNCTION" target="D8_#NAME?_CELL_WITH_FORMULA"/>
 </graph>
 </graphml>

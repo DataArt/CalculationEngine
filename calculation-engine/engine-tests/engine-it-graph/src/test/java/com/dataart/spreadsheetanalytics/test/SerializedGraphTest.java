@@ -43,7 +43,7 @@ public abstract class SerializedGraphTest {
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
         graph = auditor.buildDynamicExecutionGraph(addr);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex)graph.getRootVertex();        
+        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();        
     }
     
     public void assert_ExcelFile_SerializedGraph(String file, String address) {

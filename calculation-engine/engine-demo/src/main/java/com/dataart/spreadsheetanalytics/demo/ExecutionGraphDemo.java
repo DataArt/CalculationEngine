@@ -4,12 +4,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.jgrapht.graph.DefaultEdge;
-
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
@@ -99,7 +98,7 @@ public class ExecutionGraphDemo {
             }
             verticesJson.setLength(verticesJson.length() > 0 ? verticesJson.length() - 2 : 0);
 
-            for (DefaultEdge edge : graph.getEdges()) {
+            for (IExecutionGraphEdge edge : graph.getEdges()) {
                 /* {from: id_a, to: id_b}, */
                 
                 IExecutionGraphVertex from = graph.getEdgeSource(edge);

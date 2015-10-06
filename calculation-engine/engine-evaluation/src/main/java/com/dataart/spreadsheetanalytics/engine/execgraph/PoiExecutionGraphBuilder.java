@@ -20,14 +20,13 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
-import java.util.Deque;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
@@ -60,7 +59,6 @@ import org.apache.poi.ss.formula.ptg.UnaryPlusPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -80,7 +78,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
-	protected final DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph;
+	protected final DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
 	/*
      * The map is used to store vertices using value field as a key
      * One value may correspond to several vertices. That's why we use Deques instead single values
@@ -89,7 +87,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
 
 	public PoiExecutionGraphBuilder() {
-		this.dgraph =  new DefaultDirectedGraph<>(DefaultEdge.class);
+		this.dgraph =  new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
 		this.valueToVertex = new HashMap<>();
 		this.addressToVertices = new HashMap<>();
 	}
@@ -100,7 +98,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	}
 
 	public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
-		DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+		DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
 		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
 		vertex.property(TYPE).set(EMPTY_CELL);
 		emptyGraph.addVertex(vertex);
@@ -203,7 +201,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 	 * context you can add\remove\etc any information you want.
 	 */
 	public void runPostProcessing() {
-		DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph = dgraph;
+		DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph = dgraph;
 
 		// make identical vertices have the same set of properties
 		// two vertices are identical if they have the same address value.
@@ -253,7 +251,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 						String tmpAddress = (String) tmpVertex.property(NAME).get();
 						if (address.equals(tmpAddress)) { // check for subgraph
-							for (DefaultEdge tmpEdge : graph.incomingEdgesOf(tmpVertex)) {
+							for (ExecutionGraphEdge tmpEdge : graph.incomingEdgesOf(tmpVertex)) {
 								subgraphTops.add(graph.getEdgeSource(tmpEdge));
 							}
 						}
@@ -269,11 +267,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
 			/* Adding IF Value */
 			if (IF == type) {
-				Set<DefaultEdge> two = graph.incomingEdgesOf(vertex);
+				Set<ExecutionGraphEdge> two = graph.incomingEdgesOf(vertex);
 				if (two.size() != 2) { throw new IllegalStateException("IF must have only two incoming edges."); }
 
 				Object ifBranchValue = null;
-				for (DefaultEdge e : two) {
+				for (ExecutionGraphEdge e : two) {
 					ExecutionGraphVertex oneOfTwo = (ExecutionGraphVertex) graph.getEdgeSource(e);
 					if (!isCompareOperand(oneOfTwo.name())) {
 						ifBranchValue = oneOfTwo.property(VALUE).get();
@@ -299,7 +297,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // set formula_values to user-friendly string like: '1 + 2' or
     // 'SUM(2,1)'
     // For OPERATOR and FUNCTION types
-	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, DefaultEdge> graph) {
+	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph) {
 
         switch (vertex.type) {
 
@@ -315,7 +313,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
                 if (!graph.incomingEdgesOf(vertex).isEmpty()) {
-                DefaultEdge edge = graph.incomingEdgesOf(vertex).iterator().next();
+                ExecutionGraphEdge edge = graph.incomingEdgesOf(vertex).iterator().next();
                 ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
                 CellFormulaExpression formula = buildFormula(ivertex, graph);
                 vertex.formula = CellFormulaExpression.copyOf(formula);
@@ -327,13 +325,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             case OPERATOR:
             case FUNCTION: {
-                Set<DefaultEdge> edges = graph.incomingEdgesOf(vertex);
+                Set<ExecutionGraphEdge> edges = graph.incomingEdgesOf(vertex);
                 List<String> formulaStringNodes = new LinkedList<>();
                 List<String> formulaValuesNodes = new LinkedList<>();
                 List<String> formulaPtgNodes = new LinkedList<>();
                 List<String> ptgNodes = new LinkedList<>();
                 Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
-                for (DefaultEdge edge : edges) {
+                for (ExecutionGraphEdge edge : edges) {
                     ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
                     CellFormulaExpression formula = buildFormula(ivertex, graph);
                     formulaStringNodes.add(formula.formulaStr());
@@ -357,11 +355,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return result;
             }
             case IF: {
-                Set<DefaultEdge> edges = graph.incomingEdgesOf(vertex);
+                Set<ExecutionGraphEdge> edges = graph.incomingEdgesOf(vertex);
                 List<String> formulaValuesNodes = new LinkedList<>();
                 List<String> formulaPtgNodes = new LinkedList<>();
                 List<String> ptgNodes = new LinkedList<>();
-                for (DefaultEdge edge : edges) {
+                for (ExecutionGraphEdge edge : edges) {
                     ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
                     CellFormulaExpression formula = buildFormula(ivertex, graph);
                     formulaValuesNodes.add(formula.formulaValues());
