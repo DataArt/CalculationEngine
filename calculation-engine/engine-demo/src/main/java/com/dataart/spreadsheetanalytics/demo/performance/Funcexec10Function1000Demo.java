@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.demo;
+package com.dataart.spreadsheetanalytics.demo.performance;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
@@ -31,14 +30,8 @@ public class Funcexec10Function1000Demo {
         final int start = 4;
         final int times = 1000;
 
-
-        final FileSystemDataModelLocation location = new FileSystemDataModelLocation();
-        location.setPath(Paths.get(storage));
-        
         ExternalServices external = ExternalServices.INSTANCE;
         
-        //add datamodels to storage - demo only
-        external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
         external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
         //copy data models to cache - demo only
@@ -48,7 +41,7 @@ public class Funcexec10Function1000Demo {
         for (int i = 1; i <= funcexecs; i++) {
             
             final String file = funcexec.replace("[i]", i + "");
-            DataModel dm = new DataModel(file);
+            DataModel dm = new DataModel(Paths.get(file).getFileName().toString(), file);
 
             SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(dm);
             evaluator.loadCustomFunctions();

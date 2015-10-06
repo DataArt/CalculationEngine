@@ -1,5 +1,6 @@
 package com.dataart.spreadsheetanalytics.demo;
 
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
@@ -38,7 +40,7 @@ public class QueryFunctionDemo {
         cellsToEvaluate.remove(0);
         final String dslookupAddress = cellsToEvaluate.remove(cellsToEvaluate.size() - 1);
 
-        final IDataModel model = new DataModel(query);
+        final IDataModel model = new DataModel(Paths.get(query).getFileName().toString(), query);
         
         ExternalServices external = ExternalServices.INSTANCE;
         
@@ -46,8 +48,7 @@ public class QueryFunctionDemo {
         external.getDataSourceHub().addSqlDataSource(new TempSqlDataSource());
         //add define functions to storage - demo only
         final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
-        final ILazyDataSet sqlDataSet = new SqlDataSet(sql);
-        sqlDataSet.name("P");
+        final ILazyDataSet sqlDataSet = new SqlDataSet("P", sql);
         external.getDataSetStorage().saveDataSet(sqlDataSet);
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
@@ -73,7 +74,7 @@ public class QueryFunctionDemo {
             System.out.println();
         }
         
-        System.out.println("\n");
+        System.out.println();
         System.out.println("DSLOOKUP with DataSet from QUERY function:");
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(dslookupAddress));
         final ICellValue cv = evaluator.evaluate(addr);
@@ -121,7 +122,7 @@ class TempSqlDataSource implements SqlDataSource {
     @Override
     public IDataSet executeQuery(String query, List<Object> params) throws SQLException {
 
-        final DataSet ds = new DataSet();
+        final DataSet ds = new DataSet(UUID.randomUUID().toString());
 
         String queryToExecute = query;
         for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        

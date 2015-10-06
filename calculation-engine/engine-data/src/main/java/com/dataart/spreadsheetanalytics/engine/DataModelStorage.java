@@ -4,9 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.IDataModelLocation;
 import com.dataart.spreadsheetanalytics.api.engine.IDataModelStorage;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -39,24 +36,6 @@ public enum DataModelStorage implements IDataModelStorage {
     protected Map<String, IDataModel> dataModelsToName = new HashMap<>();;
     
     protected ConcurrentMap<IDataModelId, BlockingQueue<IDataModel>> dataModelsForExecution;
-
-    @Override
-    public void addDataModels(IDataModelLocation location) {
-        if (!(location instanceof FileSystemDataModelLocation)) {
-            throw new IllegalArgumentException(getClass().getSimpleName() + " does not support " + location.getClass().getSimpleName() + ". Only " + FileSystemDataModelLocation.class.getSimpleName() + " is supported.");
-        }
-
-        FileSystemDataModelLocation l = (FileSystemDataModelLocation) location;
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(l.getPath())) {
-            for (Path file : stream) {
-                DataModel dm = new DataModel(file.toAbsolutePath().toString());
-                dataModelsToId.put(dm.dataModelId(), dm);
-                dataModelsToName.put(dm.name(), dm);
-            }
-        } catch (IOException e) {
-            //TODO
-        }
-    }
 
     @Override
     public void addDataModel(IDataModel dataModel) {
@@ -111,7 +90,7 @@ public enum DataModelStorage implements IDataModelStorage {
         byte[] b = os.toByteArray();
         InputStream in = new ByteArrayInputStream(Arrays.copyOf(b, b.length));
 
-        return new DataModel(in);
+        return new DataModel(UUID.randomUUID().toString(), in);
     }
     
     @Override

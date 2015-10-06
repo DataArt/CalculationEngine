@@ -30,7 +30,7 @@ public class ExecutionGraphDemo {
         final String path = args[0];
         final String address = args[1];
 
-        final IDataModel model = new DataModel(path);
+        final IDataModel model = new DataModel(Paths.get(path).getFileName().toString(), path);
         
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
         

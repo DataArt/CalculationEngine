@@ -14,8 +14,6 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 
 public interface IDataModelStorage {
 
-    void addDataModels(IDataModelLocation location);
-    
     void addDataModel(IDataModel dataModel);
     
     IDataModel getDataModel(IDataModelId dataModelId);

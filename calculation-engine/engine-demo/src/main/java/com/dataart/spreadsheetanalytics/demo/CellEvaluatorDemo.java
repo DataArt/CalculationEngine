@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.demo;
 
+import java.nio.file.Paths;
+
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -21,7 +23,7 @@ public class CellEvaluatorDemo {
         final String path = args[0];
         final String address = args[1];
 
-        final IDataModel model = new DataModel(path);
+        final IDataModel model = new DataModel(Paths.get(path).getFileName().toString(), path);
         
         final SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(model);
         evaluator.loadCustomFunctions();

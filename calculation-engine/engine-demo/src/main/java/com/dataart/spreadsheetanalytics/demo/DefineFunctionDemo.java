@@ -7,7 +7,6 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.engine.FileSystemDataModelLocation;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
@@ -17,19 +16,13 @@ public class DefineFunctionDemo {
 
     public static void main(String[] args) throws Exception {
 
-        final String storage = args[0]; //"src/main/resources/excel/define-funcexec/";
         final String funcexec = args[1]; // "src/main/resources/excel/define-funcexec/funcexec.xlsx";
         final String cellToEvaluate = args[2]; //"C2";
 
-        final IDataModel modelFuncexec = new DataModel(funcexec);
-        
-        final FileSystemDataModelLocation location = new FileSystemDataModelLocation();
-        location.setPath(Paths.get(storage));
+        final IDataModel modelFuncexec = new DataModel(Paths.get(funcexec).getFileName().toString(), funcexec);
         
         ExternalServices external = ExternalServices.INSTANCE;
         
-        //add datamodels to storage - demo only
-        external.getDataModelStorage().addDataModels(location);
         //add define functions to storage - demo only
         external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
         //copy data models to cache - demo only

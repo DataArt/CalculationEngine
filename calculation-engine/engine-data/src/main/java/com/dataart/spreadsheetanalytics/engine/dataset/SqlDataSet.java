@@ -13,14 +13,14 @@ public class SqlDataSet extends AbstractLazyDataSet {
 
     protected IDataSourceHub dataSourceHub = ExternalServices.INSTANCE.getDataSourceHub();
 
-    public SqlDataSet(String sql, String sqlDataSource) {
-        super();
+    public SqlDataSet(String name, String sql, String sqlDataSource) {
+        super(name);
         this.sql = sql;
         this.sqlDataSource = sqlDataSource;
     }
 
-    public SqlDataSet(String sql) {
-        this(sql, null);
+    public SqlDataSet(String name, String sql) {
+        this(name, sql, null);
     }
 
     @Override
