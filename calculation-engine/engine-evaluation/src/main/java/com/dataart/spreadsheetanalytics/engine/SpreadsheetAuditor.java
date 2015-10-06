@@ -4,22 +4,22 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
-import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
-import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
+import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
+import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
 import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
@@ -28,6 +28,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.model.CellValue;
@@ -84,7 +85,7 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
-        DirectedGraph<IExecutionGraphVertex, DefaultEdge> emptyGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
         vertex.property(TYPE).set(CELL_WITH_FORMULA);
         vertex.property(VALUE).set(error);
@@ -137,7 +138,7 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     private IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue cell, ICellAddress address) {
-        DirectedGraph<IExecutionGraphVertex, DefaultEdge> dgraph = ExecutionGraph.unwrap(gBuilder.get());
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph = ExecutionGraph.unwrap(gBuilder.get());
         
         ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
         vertex.property(VALUE).set(cell.get());

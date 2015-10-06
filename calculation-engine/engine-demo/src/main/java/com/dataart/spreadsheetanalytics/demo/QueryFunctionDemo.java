@@ -1,5 +1,6 @@
 package com.dataart.spreadsheetanalytics.demo;
 
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
@@ -36,8 +38,9 @@ public class QueryFunctionDemo {
         final String query = args[0];
         final List<String> cellsToEvaluate = new ArrayList<>(Arrays.asList(args));
         cellsToEvaluate.remove(0);
+        final String dslookupAddress = cellsToEvaluate.remove(cellsToEvaluate.size() - 1);
 
-        final IDataModel model = new DataModel(query);
+        final IDataModel model = new DataModel(Paths.get(query).getFileName().toString(), query);
         
         ExternalServices external = ExternalServices.INSTANCE;
         
@@ -45,13 +48,13 @@ public class QueryFunctionDemo {
         external.getDataSourceHub().addSqlDataSource(new TempSqlDataSource());
         //add define functions to storage - demo only
         final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
-        final ILazyDataSet sqlDataSet = new SqlDataSet(sql);
-        sqlDataSet.name("P");
-        external.getDataSetStorage().saveLazyDataSet(sqlDataSet);
+        final ILazyDataSet sqlDataSet = new SqlDataSet("P", sql);
+        external.getDataSetStorage().saveDataSet(sqlDataSet);
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
         
+        System.out.println("QUERY function with INDEX function:");
         for (String cellToEvaluate : cellsToEvaluate) {
             final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
 
@@ -60,14 +63,22 @@ public class QueryFunctionDemo {
         }
 
         IDataSet ds = external.getDataSetStorage().getDataSet("pers");
-        
+
+        System.out.println();
+        System.out.println("Result DataSet of QUERY function with parameters:");
         for (IDsRow row : ds) {
-            System.out.println();
             for (IDsCell cell : row) {
                 System.out.print(cell.value());
                 System.out.print(" | ");
             }
+            System.out.println();
         }
+        
+        System.out.println();
+        System.out.println("DSLOOKUP with DataSet from QUERY function:");
+        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(dslookupAddress));
+        final ICellValue cv = evaluator.evaluate(addr);
+        System.out.println("Result: " + cv);
     }
 
 }
@@ -111,7 +122,7 @@ class TempSqlDataSource implements SqlDataSource {
     @Override
     public IDataSet executeQuery(String query, List<Object> params) throws SQLException {
 
-        DataSet ds = new DataSet();
+        final DataSet ds = new DataSet(UUID.randomUUID().toString());
 
         String queryToExecute = query;
         for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        
@@ -122,11 +133,16 @@ class TempSqlDataSource implements SqlDataSource {
         ResultSet rs = st.getResultSet();
         ResultSetMetaData rsmd = rs.getMetaData();
         
+        DsRow row = ds.createRow();
+        for (int i = 1; i <= rsmd.getColumnCount(); i++)
+            row.createCell().value(rsmd.getColumnLabel(i));
+        
         while (rs.next()) {
-            DsRow row = ds.createRow();
+            row = ds.createRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
                 row.createCell().value(rs.getObject(i));
         }
+        
         return ds;
     }
 

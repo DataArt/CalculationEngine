@@ -12,8 +12,8 @@ public abstract class AbstractLazyDataSet implements ILazyDataSet {
     protected DataSet dataSet;
     protected Boolean executed = Boolean.FALSE;
         
-    public AbstractLazyDataSet() {
-        this.dataSet = new DataSet();
+    public AbstractLazyDataSet(String name) {
+        this.dataSet = new DataSet(name);
     }
 
     @Override public IDataModelId dataModelId() { return this.dataSet.dataModelId(); }

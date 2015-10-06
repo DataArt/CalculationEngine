@@ -8,9 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.ss.formula.ArrayEval;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
-import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.StringValueEval;
@@ -31,7 +29,6 @@ public class DsLookupFunction implements CustomFunction {
     private final static Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE;
-    protected IEvaluator evaluator;
 
     public DsLookupFunction() {}
 
@@ -61,7 +58,7 @@ public class DsLookupFunction implements CustomFunction {
         for (int i = 1; i < args.length - 1; i += 2) {
             
             if (!(args[i] instanceof StringEval)) {
-                log.warn("The " + i + "th input argument in DSLOOKUP function should be the string representing the name of condition field");
+                log.warn("The {}th input argument in DSLOOKUP function should be the string representing the name of condition field", i);
                 return ErrorEval.VALUE_INVALID;
             }
             
@@ -69,9 +66,14 @@ public class DsLookupFunction implements CustomFunction {
             pairs.put(key, args[i + 1]);
         }
 
-        IDataSet dataSet = external.getDataSetStorage().getDataSet(datasetName);
+        IDataSet dataSet;
+        try { dataSet = external.getDataSetStorage().getDataSet(datasetName); }
+        catch (Exception e) {
+            log.error("The DataSet with name = {} cannot be found\retrived from DataSet storage.", datasetName);
+            return ErrorEval.NA;
+        }
 
-        if (!dataSet.hasNext()) {
+        if (!dataSet.iterator().hasNext()) {
             log.warn("The spreadsheet shoud have at least 2 rows to run DSLOOKUP function");
             return ErrorEval.VALUE_INVALID;
         }
@@ -86,15 +88,10 @@ public class DsLookupFunction implements CustomFunction {
             if (value.equals(columnName)) { columnIndex = cell.index(); }
         }
         
-        ValueEval result = BlankEval.instance;
-        
         List<ValueEval> fetchedValues = fetchValues(dataSet, indexToValue, columnIndex);
-        int size = fetchedValues.size();
-        if (size != 0) {
-                result = fetchedValues.get(0);
-        }
 
-        return result;
+        //This is per PO decision: DSLOOKUP should return only one value - first found.
+        return fetchedValues.isEmpty() ? ErrorEval.NA : fetchedValues.get(0);
     }
 
     private List<ValueEval> fetchValues(IDataSet set, Map<Integer, Object> where, int columnIndex) {
@@ -125,5 +122,5 @@ public class DsLookupFunction implements CustomFunction {
         return found;
     }
 
-    @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }
+    @Override public void setEvaluator(IEvaluator evaluator) { }
 }

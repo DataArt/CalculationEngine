@@ -11,8 +11,6 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 @FunctionMeta("DEFINE")
 public class DefineFunction implements CustomFunction {
 
-    protected IEvaluator evaluator;
-    
     public DefineFunction() {}
 
     /**
@@ -24,6 +22,6 @@ public class DefineFunction implements CustomFunction {
         return new StringEval(DefineFunction.class.getAnnotation(FunctionMeta.class).value());
     }
 
-    @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }
+    @Override public void setEvaluator(IEvaluator evaluator) { }
 
 }

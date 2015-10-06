@@ -1,4 +1,6 @@
-package com.dataart.spreadsheetanalytics.demo;
+package com.dataart.spreadsheetanalytics.demo.performance;
+
+import java.nio.file.Paths;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -29,10 +31,10 @@ public class DsLookup1000Demo {
 
         // Application startup -> read from DB
         final XSSFWorkbook excel = new XSSFWorkbook(dslookup);
-        final IDataSet dataSet = PoiFileConverter.toDataSet(excel);
+        final IDataSet dataSet = PoiFileConverter.toDataSet(excel, "EDS");
 
         // Application action -> Button click
-        final IDataModel dataModel = new DataModel(dslookup);
+        final IDataModel dataModel = new DataModel(Paths.get(dslookup).getFileName().toString(), dslookup);
 
         ExternalServices external = ExternalServices.INSTANCE;
 

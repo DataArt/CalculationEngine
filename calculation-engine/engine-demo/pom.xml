@@ -30,7 +30,7 @@
 
   <profiles>
     <profile>
-      <id>graph</id>
+      <id>all</id>
       <build>
         <plugins>
           <plugin>
@@ -38,41 +38,8 @@
             <artifactId>exec-maven-plugin</artifactId>
             <version>1.4.0</version>
             <configuration>
-              <mainClass>com.dataart.spreadsheetanalytics.demo.ExecutionGraphDemo</mainClass>
-              <commandlineArgs>src/main/resources/excel/array_and_index.xlsx E1</commandlineArgs>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>eval</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.4.0</version>
-            <configuration>
-              <mainClass>com.dataart.spreadsheetanalytics.demo.CellEvaluatorDemo</mainClass>
-              <commandlineArgs>src/main/resources/excel/array_and_index.xlsx E1</commandlineArgs>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>define</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.4.0</version>
-            <configuration>
-              <mainClass>com.dataart.spreadsheetanalytics.demo.DefineFunctionDemo</mainClass>
-              <commandlineArgs>src/main/resources/excel/define-funcexec/index/ src/main/resources/excel/define-funcexec/index/define.xlsx
-                F17</commandlineArgs>
+              <mainClass>com.dataart.spreadsheetanalytics.demo.EvaluationWithExecutionGraphDemo</mainClass>
+              <commandlineArgs>src/main/resources/excel/query/query.xlsx A1 A2 A3 A4 A6</commandlineArgs>
             </configuration>
           </plugin>
         </plugins>

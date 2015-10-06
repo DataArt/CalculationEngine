@@ -2,7 +2,6 @@ package com.dataart.spreadsheetanalytics.model;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -17,15 +16,14 @@ public class DataModel extends DataSet implements IDataModel {
 
     public final XSSFWorkbook model;
 
-    public DataModel(String path) throws IOException {
-        super();
+    public DataModel(String name, String path) throws IOException {
+        super(name);
         this.model = new XSSFWorkbook(path);
         this.dataModelId = new DataModelId(this.model.toString());
-        this.name(Paths.get(path).getFileName().toString());
     }
 
-    public DataModel(InputStream in) throws IOException {
-        super();
+    public DataModel(String name, InputStream in) throws IOException {
+        super(name);
         this.model = new XSSFWorkbook(in);
         this.dataModelId = new DataModelId(this.model.toString());
     }

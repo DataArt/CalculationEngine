@@ -19,7 +19,8 @@ public class DataSet implements IDataSet {
     
     protected Iterator<IDsRow> iterator;
 
-    public DataSet() {
+    public DataSet(String name) {
+        this.name = name;
         this.dataModelId = new DataModelId(UUID.randomUUID().toString()); /*TODO: generate ID*/
         this.rows = new ArrayList<>();
     }

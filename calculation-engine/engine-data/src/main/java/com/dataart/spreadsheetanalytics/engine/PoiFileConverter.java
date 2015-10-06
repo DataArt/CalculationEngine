@@ -15,8 +15,8 @@ import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class PoiFileConverter {
 
-    public static IDataSet toDataSet(XSSFWorkbook workbook) throws IOException {
-        DataSet result = new DataSet();
+    public static IDataSet toDataSet(XSSFWorkbook workbook, String dsname) throws IOException {
+        DataSet result = new DataSet(dsname);
         XSSFSheet sheet = workbook.getSheetAt(0); //TODO: this works only for single sheet documents
         result.name(sheet.getSheetName());
         for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {

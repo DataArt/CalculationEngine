@@ -38,12 +38,12 @@ public abstract class SerializedGraphTest {
     protected static ExecutionGraphVertex rootVertex;
 
     public static void before(String path, String address) throws IOException {
-        final IDataModel model = new DataModel(path);        
+        final IDataModel model = new DataModel(path, path);        
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
         graph = auditor.buildDynamicExecutionGraph(addr);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex)graph.getRootVertex();        
+        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();        
     }
     
     public void assert_ExcelFile_SerializedGraph(String file, String address) {

@@ -2,8 +2,6 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 import java.util.Set;
 
-import org.jgrapht.graph.DefaultEdge;
-
 public interface IExecutionGraph {
 
     /**
@@ -14,10 +12,9 @@ public interface IExecutionGraph {
     IExecutionGraphVertex getRootVertex() throws IllegalStateException;
 
     /**
-     * Returns the set of the graph edges
-     * TODO: think twice about giving 3pty interface to outworld 
+     * Returns the set of the graph edges 
      */
-    Set<DefaultEdge> getEdges();
+    Set<IExecutionGraphEdge> getEdges();
 
     /**
      * Returns the set of the graph vertices
@@ -27,11 +24,11 @@ public interface IExecutionGraph {
     /**
      * Returns the source vertex of specified edge
      */
-    IExecutionGraphVertex getEdgeSource(DefaultEdge edge);
+    IExecutionGraphVertex getEdgeSource(IExecutionGraphEdge edge);
 
     /**
      * Returns the target vertex of specified edge
      */
-    IExecutionGraphVertex getEdgeTarget(DefaultEdge edge);
+    IExecutionGraphVertex getEdgeTarget(IExecutionGraphEdge edge);
 
 }

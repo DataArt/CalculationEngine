@@ -21,6 +21,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
+import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
@@ -31,7 +32,6 @@ public class QueryFunction implements CustomFunction {
     private final static Logger log = LoggerFactory.getLogger(QueryFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE;
-    protected IEvaluator evaluator;
     
     public QueryFunction() {}
 
@@ -70,7 +70,7 @@ public class QueryFunction implements CustomFunction {
         log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {
-            IDataSet dset = external.getDataSetStorage().getLazyDataSet(execDataSet, execParams);
+            IDataSet dset = external.getDataSetStorage().getDataSet(execDataSet, new Parameters(execParams));
             
             dset.name(cachedDataSet);
             external.getDataSetStorage().saveDataSet(dset, DataSetScope.LOCAL);
@@ -98,6 +98,6 @@ public class QueryFunction implements CustomFunction {
         return table;
     }
 
-    @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }
+    @Override public void setEvaluator(IEvaluator evaluator) { }
 
 }
