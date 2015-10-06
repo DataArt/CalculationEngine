@@ -36,6 +36,7 @@ public class QueryFunctionDemo {
         final String query = args[0];
         final List<String> cellsToEvaluate = new ArrayList<>(Arrays.asList(args));
         cellsToEvaluate.remove(0);
+        final String dslookupAddress = cellsToEvaluate.remove(cellsToEvaluate.size() - 1);
 
         final IDataModel model = new DataModel(query);
         
@@ -52,6 +53,7 @@ public class QueryFunctionDemo {
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
         ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
         
+        System.out.println("QUERY function with INDEX function:");
         for (String cellToEvaluate : cellsToEvaluate) {
             final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
 
@@ -60,14 +62,22 @@ public class QueryFunctionDemo {
         }
 
         IDataSet ds = external.getDataSetStorage().getDataSet("pers");
-        
+
+        System.out.println();
+        System.out.println("Result DataSet of QUERY function with parameters:");
         for (IDsRow row : ds) {
-            System.out.println();
             for (IDsCell cell : row) {
                 System.out.print(cell.value());
                 System.out.print(" | ");
             }
+            System.out.println();
         }
+        
+        System.out.println("\n");
+        System.out.println("DSLOOKUP with DataSet from QUERY function:");
+        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(dslookupAddress));
+        final ICellValue cv = evaluator.evaluate(addr);
+        System.out.println("Result: " + cv);
     }
 
 }
@@ -111,7 +121,7 @@ class TempSqlDataSource implements SqlDataSource {
     @Override
     public IDataSet executeQuery(String query, List<Object> params) throws SQLException {
 
-        DataSet ds = new DataSet();
+        final DataSet ds = new DataSet();
 
         String queryToExecute = query;
         for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        
@@ -122,11 +132,16 @@ class TempSqlDataSource implements SqlDataSource {
         ResultSet rs = st.getResultSet();
         ResultSetMetaData rsmd = rs.getMetaData();
         
+        DsRow row = ds.createRow();
+        for (int i = 1; i <= rsmd.getColumnCount(); i++)
+            row.createCell().value(rsmd.getColumnLabel(i));
+        
         while (rs.next()) {
-            DsRow row = ds.createRow();
+            row = ds.createRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
                 row.createCell().value(rs.getObject(i));
         }
+        
         return ds;
     }
 

@@ -73,7 +73,7 @@ public class DsLookupFunction implements CustomFunction {
             return ErrorEval.NA;
         }
 
-        if (!dataSet.hasNext()) {
+        if (!dataSet.iterator().hasNext()) {
             log.warn("The spreadsheet shoud have at least 2 rows to run DSLOOKUP function");
             return ErrorEval.VALUE_INVALID;
         }
