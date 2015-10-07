@@ -28,7 +28,7 @@ public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
     public void assert_ExcelFile_SerializedGraph() throws IOException {
         //given
         final IDataModel model = new DataModel(file, path);        
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
         graph = auditor.buildDynamicExecutionGraph(addr);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);

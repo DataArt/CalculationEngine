@@ -28,7 +28,7 @@ public abstract class AttributeFunctionsScanner {
      * Does full scan given {@link IDataModel} for Model-Attribute functions (like DEFINE or QUERYDEFINE) to ({@link AttributeFunctionMeta}).
      * 3 iterators are used inside to go through all the cells and find 'function' keyword.
      */
-    //                keyword     name    instance
+    //                                                  keyword     name    instance
     public static <T extends AttributeFunctionMeta> Map<String, Map<String, T>> scan(IDataModel dataModel, Map<String, Class<T>> attrFunctions) {
         
         DataModel dm = (DataModel) dataModel;
@@ -36,7 +36,7 @@ public abstract class AttributeFunctionsScanner {
         Map<String, Map<String, T>> map = new HashMap<>();
         for (String key : attrFunctions.keySet()) map.put(key, new HashMap<>());
 
-        for (Iterator sheeterator = dm.model.iterator(); sheeterator.hasNext();) {
+        for (Iterator sheeterator = dm.poiModel.iterator(); sheeterator.hasNext();) {
             Sheet sh = (Sheet) sheeterator.next();
             for (Iterator rowterator = sh.iterator(); rowterator.hasNext();) {
                 Row ro = (Row) rowterator.next();

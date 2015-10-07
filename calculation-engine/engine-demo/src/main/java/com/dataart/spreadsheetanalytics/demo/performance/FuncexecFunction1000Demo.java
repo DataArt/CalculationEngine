@@ -33,8 +33,7 @@ public class FuncexecFunction1000Demo {
         //copy data models to cache - demo only
         external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
 
-        final IEvaluator evaluator = new SpreadsheetEvaluator(modelFuncexec);
-        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
+        final IEvaluator evaluator = new SpreadsheetEvaluator((DataModel) modelFuncexec);
 
         long time1 = System.nanoTime();
         for (int i = start; i < Integer.valueOf(times) + start; i++) {

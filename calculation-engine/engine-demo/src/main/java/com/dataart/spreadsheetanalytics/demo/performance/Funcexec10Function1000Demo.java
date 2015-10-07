@@ -21,7 +21,6 @@ public class Funcexec10Function1000Demo {
 
 //        Thread.sleep(20000); //VisualVM connect
         
-        final String storage = "src/main/resources/excel/define-funcexec/index1000/";
         final int funcexecs = 11;
         final String funcexec = "src/main/resources/excel/define-funcexec/index1000/f[i].xlsx";
         
@@ -44,7 +43,6 @@ public class Funcexec10Function1000Demo {
             DataModel dm = new DataModel(Paths.get(file).getFileName().toString(), file);
 
             SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(dm);
-            evaluator.loadCustomFunctions();
             
             robins.add( () -> {
                 String cv = null;

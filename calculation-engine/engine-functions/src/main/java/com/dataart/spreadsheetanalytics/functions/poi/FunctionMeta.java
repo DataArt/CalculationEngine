@@ -14,7 +14,12 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 public @interface FunctionMeta {
 
+    /** Name of this function */
     String value();
 
+    /** Number of input arguments in case this is static data */
     int numberOfArguments() default 0;
+    
+    /** Stateless - means no external objects are required for execution. */
+    boolean stateless() default true;
 }

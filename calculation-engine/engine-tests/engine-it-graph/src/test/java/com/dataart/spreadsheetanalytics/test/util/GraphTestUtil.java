@@ -80,7 +80,7 @@ public class GraphTestUtil {
                 System.out.println("Excel file [" + path + "], address [" + address + "]");
 
                 final IDataModel model = new DataModel(filename, path);
-                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
                 final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
 
@@ -114,7 +114,7 @@ public class GraphTestUtil {
         System.out.println("Excel file [" + path + "], address [" + address + "]");
 
         final IDataModel model = new DataModel(filename, path);
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
 

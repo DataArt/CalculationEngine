@@ -36,16 +36,8 @@ public interface IEvaluator {
     IDataSet evaluate(IDataModel dataModel);
 
     /**
-     * Lazy initialization of data model. 
-     * Usefull for cases when you do not have a model in a moment of Evaluator initialization,
-     * but still want to use it. 
+     * Replaces old {@link IDataModel} in this Evaluator with new one.
      */
-    void init(IDataModel dataModel);
-
-    /**
-     * Does some operation after evaluation is completed.
-     * With this method and {@link #init(IDataModel)} it can be reused for different {@link IDataModel}s.
-     */
-    void destroy();
+    void setDataModel(IDataModel execModel);
 
 }

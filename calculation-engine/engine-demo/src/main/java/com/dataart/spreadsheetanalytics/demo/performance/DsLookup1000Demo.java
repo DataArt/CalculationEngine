@@ -31,7 +31,7 @@ public class DsLookup1000Demo {
 
         // Application startup -> read from DB
         final XSSFWorkbook excel = new XSSFWorkbook(dslookup);
-        final IDataSet dataSet = PoiFileConverter.toDataSet(excel, "EDS");
+        final IDataSet dataSet = PoiFileConverter.toDataSet(excel);
 
         // Application action -> Button click
         final IDataModel dataModel = new DataModel(Paths.get(dslookup).getFileName().toString(), dslookup);
@@ -39,8 +39,7 @@ public class DsLookup1000Demo {
         ExternalServices external = ExternalServices.INSTANCE;
 
         external.getDataSetStorage().saveDataSet(dataSet, DataSetScope.LOCAL);
-        final IEvaluator evaluator = new SpreadsheetEvaluator(dataModel);
-        ((SpreadsheetEvaluator) evaluator).loadCustomFunctions();
+        final IEvaluator evaluator = new SpreadsheetEvaluator((DataModel) dataModel);
 
         long dslookupTime = evaluateColumn("F", startCell, endCell, evaluator, dataSet);
         long vlookupTime = evaluateColumn("H", startCell, endCell, evaluator, dataSet);

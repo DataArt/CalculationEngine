@@ -39,7 +39,7 @@ public abstract class SerializedGraphTest {
 
     public static void before(String path, String address) throws IOException {
         final IDataModel model = new DataModel(path, path);        
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
         graph = auditor.buildDynamicExecutionGraph(addr);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);

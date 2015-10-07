@@ -3,17 +3,17 @@ package com.dataart.spreadsheetanalytics.engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.common.execgraph.EmptyExecutionGraph;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
+import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
 import org.apache.poi.ss.formula.udf.DefaultUDFFinder;
-import org.apache.poi.ss.formula.udf.UDFFinder;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
@@ -21,35 +21,35 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
+import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class SpreadsheetEvaluator implements IEvaluator {
+    private final static Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);
 
-    protected IExecutionGraphBuilder graphBuilder = EmptyExecutionGraph.DoNothingExecutionGraphBuilder.get();
-
-    protected XSSFWorkbook model;
+    protected DataModel model;
     protected XSSFFormulaEvaluator poiEvaluator;
+    
+    {
+        try { loadCustomFunctions(); }
+        catch (Exception e) { log.error("Custom functions loading was unsuccessful. This may cause Evaluator to not work with custom functions.", e); }
+    }
     
     protected SpreadsheetEvaluator() {}
     
-    public SpreadsheetEvaluator(IDataModel model) {
-        this.model = ((DataModel) model).model;
-        this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator();
+    public SpreadsheetEvaluator(DataModel model) {
+        this.model = model;
+        this.poiEvaluator = this.model.poiModel.getCreationHelper().createFormulaEvaluator();
+        
+        try { loadCustomFunctions(model); }
+        catch (Exception e) { log.warn("Custom functions loading was unsuccessful. This may cause DataModel and Evaluator to not work with custom functions.", e); }
     }
-
-	public boolean isFormulaCell(ICellAddress addr) {
-		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
-		Cell c = s.getRow(addr.row()).getCell(addr.column());
-		if (c == null) { throw new NullPointerException("Cell at row " + addr.row() + ", column " + addr.column() + " is null"); }
-
-		return (Cell.CELL_TYPE_FORMULA == c.getCellType());
-	}
 
     @Override
 	public ICellValue evaluate(ICellAddress addr) {
-		Sheet s = model.getSheetAt(0 /* sheet number 1 */ );
+		Sheet s = model.poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
 		Row r = s.getRow(addr.row());
 		if (r == null) { return null; }
 		
@@ -70,56 +70,52 @@ public class SpreadsheetEvaluator implements IEvaluator {
         // TODO Auto-generated method stub
         return null;
     }
-
-    public void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {
-        this.graphBuilder = graphBuilder;
-        this.poiEvaluator = model.getCreationHelper().createFormulaEvaluator(graphBuilder);
+    
+    @Override
+    public void setDataModel(IDataModel execModel) {
+        this.model = (DataModel) execModel;
     }
 
-    @Override
-    public void init(IDataModel model) {
-        this.model = ((DataModel) model).model;
+    public void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {
+        this.poiEvaluator = model.poiModel.getCreationHelper().createFormulaEvaluator(graphBuilder);
+    }
+
+    protected static void loadCustomFunctions() throws ReflectiveOperationException {
         
-        if (this.graphBuilder != null) {
-            this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator(this.graphBuilder);
-        } else {
-            this.poiEvaluator = this.model.getCreationHelper().createFormulaEvaluator();
+        for (String fname: Functions.get().keySet()) {
+            CustomFunction cf = Functions.get().get(fname).newInstance();
+            
+            if (cf.getClass().getAnnotation(FunctionMeta.class).stateless()) 
+                WorkbookEvaluator.registerFunction(fname, cf);
         }
     }
     
-    @Override
-    public void destroy() {
-        graphBuilder = EmptyExecutionGraph.DoNothingExecutionGraphBuilder.get();
-    }
-
-    /**
-     * TODO: this should be provided with really good java doc of how to use it
-     * Or removed. change to static call (ExternalServices is singleton and Evaluator can be created in constructor)
-     */
-    public void loadCustomFunctions() throws ReflectiveOperationException {
-        if (this.model == null) {
+    protected static void loadCustomFunctions(DataModel dataModel) throws ReflectiveOperationException {
+        if (dataModel == null || dataModel.poiModel == null) {
             throw new IllegalStateException("Evaluator must be provided with model to register custom functions.");
         }
         
         List<String> names = new ArrayList<>(Functions.get().size());
-        List<CustomFunction> functions = new ArrayList<>(Functions.get().size());
+        List<CustomFunction> funcs = new ArrayList<>(Functions.get().size());
         
         for (String fname: Functions.get().keySet()) {
             
             CustomFunction cf = Functions.get().get(fname).newInstance();
-            cf.setEvaluator(new SpreadsheetEvaluator());
+            if (cf.getClass().getAnnotation(FunctionMeta.class).stateless()) { continue; }
+            
+            cf.setEvaluator(new SpreadsheetEvaluator()); /* TODO: ForkedEvaluator?*/
             
             names.add(fname);
-            functions.add(cf);
+            funcs.add(cf);
         }
         
-        UDFFinder udfToolpack = new AggregatingUDFFinder(new DefaultUDFFinder(
-                                                            names.toArray(new String[names.size()]),
-                                                            functions.toArray(new CustomFunction[functions.size()])));  
-        this.model.addToolPack(udfToolpack);
+        if (names.isEmpty()) { return; }
+               
+        dataModel.poiModel.addToolPack(new AggregatingUDFFinder(new DefaultUDFFinder(
+                                            names.toArray(new String[names.size()]),
+                                            funcs.toArray(new CustomFunction[funcs.size()]))));
     }
 
-    //TODO: look for similar methods in POI code and move to some good place
     protected Object fromPoiValue(org.apache.poi.ss.usermodel.CellValue poiValue) {
         switch (poiValue.getCellType()) {
             case Cell.CELL_TYPE_STRING: { return poiValue.getStringValue(); }
@@ -130,4 +126,5 @@ public class SpreadsheetEvaluator implements IEvaluator {
             case Cell.CELL_TYPE_BLANK: default: { return ""; }
         }
     }
+
 }

@@ -85,7 +85,7 @@ public enum DataModelStorage implements IDataModelStorage {
      */
     protected DataModel copyModelInMemory(DataModel model) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        model.model.write(os);
+        model.poiModel.write(os);
         
         byte[] b = os.toByteArray();
         InputStream in = new ByteArrayInputStream(Arrays.copyOf(b, b.length));

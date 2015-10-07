@@ -66,12 +66,12 @@ public class SpreadsheetAuditor implements IAuditor {
         try {
 			cv = evaluator.evaluate(cell);
         } catch (FormulaParseNameException e) {
-            return getSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
+            return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
         } catch (FormulaParseException e) {
             graphBuilder.runPostProcessing();
             return graphBuilder.get();
         } catch (ValuesStackNotEmptyException e) {
-		    return getSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
+		    return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null);
         } catch (IncorrectExternalReferenceException e) {
             graphBuilder.runPostProcessing();
             return graphBuilder.get();
@@ -82,27 +82,6 @@ public class SpreadsheetAuditor implements IAuditor {
 
         graphBuilder.runPostProcessing();
         return graphBuilder.get();
-    }
-
-    protected ExecutionGraph getSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
-        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-        vertex.property(TYPE).set(CELL_WITH_FORMULA);
-        vertex.property(VALUE).set(error);
-        if (formulaString != null) {
-            vertex.property(FORMULA_STRING).set(formulaString);
-        } else {
-            vertex.property(FORMULA_STRING).set(error.getErrorString());
-        }
-        vertex.property(FORMULA_VALUES).set(error.getErrorString());
-        vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
-        vertex.property(PTG_STRING).set(error.getErrorString());
-        vertex.property(SOURCE_OBJECT_ID).set("");
-        Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices = new HashSet<>();
-        emptyGraph.addVertex(vertex);
-        vertices.add(vertex);
-        ExecutionGraph graph = ExecutionGraph.wrap(emptyGraph);
-        return graph;
     }
 
     @Override
@@ -132,12 +111,33 @@ public class SpreadsheetAuditor implements IAuditor {
 	protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
 		if (evalCell == null) {	return graphBuilder.getSingleNodeGraph(cell); }
         
-        if (!evaluator.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder, evalCell, cell); }
+        if (!evaluator.model.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder, evalCell, cell); }
         
         return null;
     }
+	
+    protected static ExecutionGraph buildSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.property(TYPE).set(CELL_WITH_FORMULA);
+        vertex.property(VALUE).set(error);
+        if (formulaString != null) {
+            vertex.property(FORMULA_STRING).set(formulaString);
+        } else {
+            vertex.property(FORMULA_STRING).set(error.getErrorString());
+        }
+        vertex.property(FORMULA_VALUES).set(error.getErrorString());
+        vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
+        vertex.property(PTG_STRING).set(error.getErrorString());
+        vertex.property(SOURCE_OBJECT_ID).set("");
+        Set<com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex> vertices = new HashSet<>();
+        emptyGraph.addVertex(vertex);
+        vertices.add(vertex);
+        ExecutionGraph graph = ExecutionGraph.wrap(emptyGraph);
+        return graph;
+    }
 
-    private IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue cell, ICellAddress address) {
+    protected static IExecutionGraph buildGraphForNonFormulaCell(PoiExecutionGraphBuilder gBuilder, ICellValue cell, ICellAddress address) {
         DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph = ExecutionGraph.unwrap(gBuilder.get());
         
         ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");

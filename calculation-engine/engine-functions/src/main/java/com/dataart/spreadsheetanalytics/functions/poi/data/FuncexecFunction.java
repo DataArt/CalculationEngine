@@ -30,7 +30,7 @@ import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 
-@FunctionMeta("FUNCEXEC")
+@FunctionMeta(value = "FUNCEXEC", stateless = false)
 public class FuncexecFunction implements CustomFunction {
     private final static Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
     
@@ -86,7 +86,7 @@ public class FuncexecFunction implements CustomFunction {
             IDataModel execModel = external.getDataModelStorage().prepareDataModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
             log.debug(String.format("Got DataModel for DEFINE execution, Id: %s, Name: %s.", execModel.dataModelId(), execModel.name()));
             
-            evaluator.init(execModel);
+            evaluator.setDataModel(execModel);
 
             //TODO: here we should call evaluator.evaluate(execModel), 
             //but we do not have this method yet implemented so we will do it cell by cell
