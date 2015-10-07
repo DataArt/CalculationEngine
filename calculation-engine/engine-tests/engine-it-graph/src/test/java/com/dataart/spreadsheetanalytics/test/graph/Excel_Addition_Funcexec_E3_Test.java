@@ -5,7 +5,6 @@ import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_
 import java.io.IOException;
 
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
@@ -22,7 +21,6 @@ public class Excel_Addition_Funcexec_E3_Test extends SerializedGraphTest {
     }
     
     @Test
-    @Ignore //TODO
     public void assert_ExcelFile_SerializedGraph() {
         super.assert_ExcelFile_SerializedGraph(file, address);
     }

@@ -19,6 +19,7 @@ import org.jgrapht.ext.GraphMLExporter;
 import org.junit.Test;
 import org.reflections.Reflections;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -65,6 +66,8 @@ public class GraphTestUtil {
             testTemplate = new String(b);
         }
         
+        final ExternalServices external = ExternalServices.INSTANCE;
+        
         try (Scanner sc = new Scanner(Paths.get(GRAPH_PATHS_FILE))) {
 
             System.out.println("For each line in file [" + GRAPH_PATHS_FILE + "]\n");
@@ -82,6 +85,14 @@ public class GraphTestUtil {
                 final IDataModel model = new DataModel(filename, path);
                 final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
                 final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+                
+                //add datamodels to storage
+                external.getDataModelStorage().addDataModel(model);
+                //add define functions to storage
+                external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+                //copy data models to cache
+                external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
+                
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
 
                 Writer fw = new FileWriter(filename);
@@ -113,9 +124,19 @@ public class GraphTestUtil {
 
         System.out.println("Excel file [" + path + "], address [" + address + "]");
 
+        final ExternalServices external = ExternalServices.INSTANCE;
+        
         final IDataModel model = new DataModel(filename, path);
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+        
+        //add datamodels to storage
+        external.getDataModelStorage().addDataModel(model);
+        //add define functions to storage
+        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        //copy data models to cache
+        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
+        
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
 
         Writer fw = new FileWriter(filename);

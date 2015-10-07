@@ -18,6 +18,7 @@ import org.xmlunit.diff.ComparisonResult;
 import org.xmlunit.diff.DOMDifferenceEngine;
 import org.xmlunit.diff.DifferenceEngine;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -38,9 +39,19 @@ public abstract class SerializedGraphTest {
     protected static ExecutionGraphVertex rootVertex;
 
     public static void before(String path, String address) throws IOException {
+        final ExternalServices external = ExternalServices.INSTANCE;
+        
         final IDataModel model = new DataModel(path, path);        
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
-        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
+        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+
+        //add datamodels to storage
+        external.getDataModelStorage().addDataModel(model);
+        //add define functions to storage
+        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
+        //copy data models to cache
+        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
+        
         graph = auditor.buildDynamicExecutionGraph(addr);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();        
