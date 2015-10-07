@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.engine.execgraph;
 
 import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.ptgToVertexType;
 
+import org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
@@ -89,7 +90,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 break;
             }
             case VALUE: {
-                parent.value = new CellValue(pvalue);
+                parent.value = new CellValue(ExecutionGraphBuilderUtils.coerceValueTo(pvalue));
                 break;
             }
             case VERTEX_ID: {

@@ -303,9 +303,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         switch (vertex.type) {
 
             case CELL_WITH_VALUE: {
-                if (vertex.value.get() instanceof NumberEval) {
-                    vertex.value = new CellValue(((NumberEval) vertex.value.get()).getNumberValue());
-                }
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(CellValue.fromCellValueToString(vertex.value()));
