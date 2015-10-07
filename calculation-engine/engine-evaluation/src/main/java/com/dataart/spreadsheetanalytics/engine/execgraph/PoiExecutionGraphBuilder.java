@@ -35,6 +35,7 @@ import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
 import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
+import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
@@ -59,6 +60,7 @@ import org.apache.poi.ss.formula.ptg.UnaryPlusPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -302,6 +304,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         switch (vertex.type) {
 
             case CELL_WITH_VALUE: {
+                if (vertex.value.get() instanceof NumberEval) {
+                    vertex.value = new CellValue(((NumberEval) vertex.value.get()).getNumberValue());
+                }
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(CellValue.fromCellValueToString(vertex.value()));
@@ -312,16 +317,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
-                if (!graph.incomingEdgesOf(vertex).isEmpty()) {
-                ExecutionGraphEdge edge = graph.incomingEdgesOf(vertex).iterator().next();
-                ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
-                CellFormulaExpression formula = buildFormula(ivertex, graph);
+                ExecutionGraphVertex ivertex = null;
+                CellFormulaExpression formula = null;
+                for (ExecutionGraphEdge edge : graph.incomingEdgesOf(vertex)) {
+                    ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
+                    formula = buildFormula(ivertex, graph);
+                }
                 vertex.formula = CellFormulaExpression.copyOf(formula);
                 vertex.value = ivertex.value;
                 return CellFormulaExpression.copyOf(formula);
-                } else {
-                    return null;
-                }
             }
             case OPERATOR:
             case FUNCTION: {
@@ -385,6 +389,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 iformula.formulaPtgStr(vertex.property(VALUE).get().toString());
                 iformula.ptgStr(vertex.property(NAME).get().toString());
                 connectValuesToRange(vertex);
+                Set<ExecutionGraphEdge> edges = graph.incomingEdgesOf(vertex);
+                for (ExecutionGraphEdge edge : edges) {
+                    ExecutionGraphVertex ivertex = (ExecutionGraphVertex) graph.getEdgeSource(edge);
+                    buildFormula(ivertex, graph);
+                }
                 return iformula;
             }
             case CONSTANT_VALUE: {
