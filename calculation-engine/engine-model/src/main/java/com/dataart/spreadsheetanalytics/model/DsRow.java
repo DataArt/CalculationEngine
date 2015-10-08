@@ -42,4 +42,9 @@ public class DsRow implements IDsRow {
     @Override public boolean hasNext() { return this.iterator.hasNext(); }
     @Override public IDsCell next() { return this.iterator.next(); }
 
+    @Override
+    public String toString() {
+        return cells.toString();
+    }
+    
 }

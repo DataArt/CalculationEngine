@@ -107,7 +107,8 @@ public class DsLookupFunction implements CustomFunction {
                 if (where.containsKey(cell.index())) {
                     allFieldsPresent--;
                     Object extValue = coerceValueTo(where.get(cell.index()));
-                    Object intValue = cell.value();
+                    /* Such a strange conversion because of Number types - everythin is Double in POI */
+                    Object intValue = coerceValueTo(valueToValueEval(cell.value()));
 
                     if (!intValue.equals(extValue)) { allFieldsMatch = false; break; }
                 }

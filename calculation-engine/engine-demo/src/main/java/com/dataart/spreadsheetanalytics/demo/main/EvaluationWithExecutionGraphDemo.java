@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.demo.main;
 
 import static javax.cache.expiry.Duration.ONE_HOUR;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,8 +26,6 @@ import javax.cache.CacheManager;
 import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
-
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
@@ -79,7 +78,40 @@ public class EvaluationWithExecutionGraphDemo {
         cellsToEvaluate.remove(0);
 
         //prepare DataModel to work with
-        final IDataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
+        final DataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
+        
+        initCaches(model);
+        
+        //create Evaluator
+        final IEvaluator evaluator = new SpreadsheetEvaluator(model);
+        
+        //evaluate and save to map to print later
+        Map<String, Object> values = new LinkedHashMap<>();
+        for (String cell : cellsToEvaluate) {
+            values.put(cell, evaluator.evaluate(new CellAddress(model.dataModelId(), A1Address.fromA1Address(cell))));
+        }
+        
+        //last cell
+        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1)));
+
+        //create Auditor
+        final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
+        //build graph
+        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+        
+        //print graph
+        generateVisJsData(graph);
+        plainprint(graph);
+
+        //pring values\
+        System.out.println("\n\n***********");
+        for (String cell : values.keySet()) {
+            System.out.println("Result of " + cell + " is: " + values.get(cell));
+        }
+        
+    }
+    
+    protected static void initCaches(DataModel model) throws IOException, InterruptedException {
         
         //prepare caches to be used as storages
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
@@ -113,7 +145,7 @@ public class EvaluationWithExecutionGraphDemo {
         
         //if this model is a dataset also - put it to cache
         try {
-            final IDataSet dataSet = PoiFileConverter.toDataSet(new XSSFWorkbook(excel));
+            final IDataSet dataSet = PoiFileConverter.toDataSet(model.poiModel);
             dataSetStorage.saveDataSet(dataSet);
         } catch (Exception e) { }
         
@@ -137,35 +169,8 @@ public class EvaluationWithExecutionGraphDemo {
         final ILazyDataSet sqlDataSet = new SqlDataSet("P", sql);
         dataSetStorage.saveDataSet(sqlDataSet);
 
-        //create Evaluator
-        final IEvaluator evaluator = new SpreadsheetEvaluator((DataModel) model);
-        
-        //evaluate and save to map to print later
-        Map<String, Object> values = new LinkedHashMap<>();
-        for (String cell : cellsToEvaluate) {
-            values.put(cell, evaluator.evaluate(new CellAddress(model.dataModelId(), A1Address.fromA1Address(cell))));
-        }
-        
-        //last cell
-        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1)));
-
-        //create Auditor
-        final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
-        //build graph
-        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
-        
-        //print graph
-        generateVisJsData(graph);
-        plainprint(graph);
-
-        //pring values\
-        System.out.println("\n\n***********");
-        for (String cell : values.keySet()) {
-            System.out.println("Result of " + cell + " is: " + values.get(cell));
-        }
-        
     }
-    
+
     protected static void plainprint(IExecutionGraph graph) {
         for (IExecutionGraphVertex vertex : graph.getVertices()) {
             System.out.println("---------------------------------");
