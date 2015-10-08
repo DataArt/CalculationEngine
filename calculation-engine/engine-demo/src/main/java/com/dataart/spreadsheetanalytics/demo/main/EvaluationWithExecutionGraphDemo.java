@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.demo.main;
 
+import static javax.cache.expiry.Duration.ONE_HOUR;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,33 +10,53 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.BlockingQueue;
+
+import javax.cache.Cache;
+import javax.cache.CacheManager;
+import javax.cache.Caching;
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.expiry.AccessedExpiryPolicy;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.engine.SqlDataSource;
+import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
+import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSourceQuery;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
-import com.dataart.spreadsheetanalytics.engine.PoiFileConverter;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
+import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
+import com.dataart.spreadsheetanalytics.engine.util.DataModelOperations;
+import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellValue;
@@ -46,6 +68,7 @@ public class EvaluationWithExecutionGraphDemo {
 
     public static void main(String[] args) throws Exception {
 
+        //input arguments: filename and list of cells to evaluate
         if (args.length < 2) {
             System.err.println("Excel file path and Cell Address, please!");
             return;
@@ -55,46 +78,87 @@ public class EvaluationWithExecutionGraphDemo {
         final List<String> cellsToEvaluate = new ArrayList<>(Arrays.asList(args));
         cellsToEvaluate.remove(0);
 
+        //prepare DataModel to work with
         final IDataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
+        
+        //prepare caches to be used as storages
+        CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
+
+        MutableConfiguration config = new MutableConfiguration();
+        //some cache configurations
+        config.setStoreByValue(false)
+              .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(ONE_HOUR))
+              .setStatisticsEnabled(true);
+
+        //create the caches for application
+        Cache<IDataModelId, BlockingQueue> dmeCache = cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODELS_FOR_EXECUTION_CACHE_NAME, config.setTypes(IDataModelId.class, BlockingQueue.class));
+        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
+        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
+        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
+        cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));        
         
         final ExternalServices external = ExternalServices.INSTANCE;
 
+        DataModelStorage dataModelStorage = new CacheBasedDataModelStorage();
+        DataSetStorage dataSetStorage = new CacheBasedDataSetStorage();
+        DataSourceHub dataSourceHub = new CacheBasedDataSourceHub();
+        AttributeFunctionStorage attributeFunctionStorage = new CacheBasedAttributeFunctionStorage(); 
+        
+        external.setDataModelStorage(dataModelStorage);
+        external.setDataSetStorage(dataSetStorage);
+        external.setDataSourceHub(dataSourceHub);
+        external.setAttributeFunctionStorage(attributeFunctionStorage);
+        
+        //if this model is a dataset also - put it to cache
         try {
-            final XSSFWorkbook xssf = new XSSFWorkbook(excel);
-            final IDataSet dataSet = PoiFileConverter.toDataSet(xssf);
-            external.getDataSetStorage().saveDataSet(dataSet);
+            final IDataSet dataSet = PoiFileConverter.toDataSet(new XSSFWorkbook(excel));
+            dataSetStorage.saveDataSet(dataSet);
         } catch (Exception e) { }
         
-        //add datamodels to storage
-        external.getDataModelStorage().addDataModel(model);
-        //add define functions to storage
-        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
-        //copy data models to cache
-        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
+        //add data model to storage
+        dataModelStorage.addDataModel(model);
         
-        //in memoty sql data source
-        external.getDataSourceHub().addSqlDataSource(new TempSqlDataSource());
-        //add sql dataset to storage
+        //update all define functions based on data models in cache
+        attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
+        
+        //create data models for execution cache
+        dmeCache.putAll(DataModelOperations.createDataModelsForExecution(
+                                                attributeFunctionStorage.getDefineFunctions(), 
+                                                dataModelStorage.getDataModels(), 
+                                                10));
+        ((CacheBasedDataModelStorage) dataModelStorage).setDataModelsForExecutionCache(dmeCache);
+        
+        //add in memory sql data source
+        dataSourceHub.addDataSource(new TempSqlDataSource());
+        //add lazy sql dataset to storage
         final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
         final ILazyDataSet sqlDataSet = new SqlDataSet("P", sql);
-        external.getDataSetStorage().saveDataSet(sqlDataSet);
+        dataSetStorage.saveDataSet(sqlDataSet);
 
         //create Evaluator
         final IEvaluator evaluator = new SpreadsheetEvaluator((DataModel) model);
         
+        //evaluate and save to map to print later
         Map<String, Object> values = new LinkedHashMap<>();
         for (String cell : cellsToEvaluate) {
             values.put(cell, evaluator.evaluate(new CellAddress(model.dataModelId(), A1Address.fromA1Address(cell))));
         }
         
+        //last cell
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1)));
 
+        //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
+        //build graph
         final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
         
+        //print graph
         generateVisJsData(graph);
         plainprint(graph);
 
+        //pring values\
         System.out.println("\n\n***********");
         for (String cell : values.keySet()) {
             System.out.println("Result of " + cell + " is: " + values.get(cell));
@@ -184,7 +248,7 @@ public class EvaluationWithExecutionGraphDemo {
     }
 
 }
-class TempSqlDataSource implements SqlDataSource {
+class TempSqlDataSource implements DataSource {
 
     private Connection co;
     
@@ -221,11 +285,12 @@ class TempSqlDataSource implements SqlDataSource {
     }
 
     @Override
-    public IDataSet executeQuery(String query, List<Object> params) throws SQLException {
+    public IDataSet executeQuery(DataSourceQuery query, List<Object> params) throws Exception {
 
+        TextDataSourceQuery textQuery = (TextDataSourceQuery) query;
         final DataSet ds = new DataSet(UUID.randomUUID().toString());
 
-        String queryToExecute = query;
+        String queryToExecute = textQuery.query();
         for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        
 
         PreparedStatement st = co.prepareStatement(queryToExecute);

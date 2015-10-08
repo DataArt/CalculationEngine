@@ -4,8 +4,6 @@ import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
-import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,7 +16,7 @@ public class Excel_If_True_E6_Test extends SerializedGraphTest {
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     
     @BeforeClass
-    public static void before() throws IOException {
+    public static void before() throws Exception {
         before(path, address);        
     }
     

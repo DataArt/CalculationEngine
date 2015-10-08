@@ -2,8 +2,6 @@ package com.dataart.spreadsheetanalytics.test.graph;
 
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
-import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,7 +14,7 @@ public class Excel_Cell_with_data_instead_of_formula_E4_Test extends SerializedG
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     
     @BeforeClass
-    public static void before() throws IOException {
+    public static void before() throws Exception {
         before(path, address);        
     }
     

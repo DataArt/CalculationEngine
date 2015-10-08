@@ -3,7 +3,6 @@ package com.dataart.spreadsheetanalytics.test;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_GRAPHML_DIR;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
 import java.io.StringWriter;
 
 import javax.xml.transform.Source;
@@ -18,7 +17,6 @@ import org.xmlunit.diff.ComparisonResult;
 import org.xmlunit.diff.DOMDifferenceEngine;
 import org.xmlunit.diff.DifferenceEngine;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -30,6 +28,7 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 import com.dataart.spreadsheetanalytics.test.util.GraphWithProperertiesMLExporter;
 
 public abstract class SerializedGraphTest {
@@ -38,20 +37,16 @@ public abstract class SerializedGraphTest {
     protected static DirectedGraph<ExecutionGraphVertex, DefaultEdge> dgraph;
     protected static ExecutionGraphVertex rootVertex;
 
-    public static void before(String path, String address) throws IOException {
-        final ExternalServices external = ExternalServices.INSTANCE;
+    public static void before(String path, String address) throws Exception {
         
-        final IDataModel model = new DataModel(path, path);        
+        final IDataModel model = new DataModel(path, path);
+        
+        GraphTestUtil.initExternalServices((DataModel) model);
+        
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
-
-        //add datamodels to storage
-        external.getDataModelStorage().addDataModel(model);
-        //add define functions to storage
-        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
-        //copy data models to cache
-        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
         
+        //build
         graph = auditor.buildDynamicExecutionGraph(addr);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();        

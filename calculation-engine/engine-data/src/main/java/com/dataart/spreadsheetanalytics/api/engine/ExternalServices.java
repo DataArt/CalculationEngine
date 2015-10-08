@@ -1,10 +1,5 @@
 package com.dataart.spreadsheetanalytics.api.engine;
 
-import com.dataart.spreadsheetanalytics.engine.AttributeFunctionsCache;
-import com.dataart.spreadsheetanalytics.engine.DataModelStorage;
-import com.dataart.spreadsheetanalytics.engine.DataSetStorage;
-import com.dataart.spreadsheetanalytics.engine.DataSourceHub;
-
 /**
  * This is a singlethon class-facade to all external services 
  * needed for calculation engine to calculate and build graphs.
@@ -12,21 +7,21 @@ import com.dataart.spreadsheetanalytics.engine.DataSourceHub;
 public enum ExternalServices {
     INSTANCE;
 
-    protected IDataSetStorage dataSetStorage = DataSetStorage.INSTANCE;
-    protected IDataModelStorage dataModelStorage = DataModelStorage.INSTANCE;
-    protected IDataSourceHub dataSourceHub = DataSourceHub.INSTANCE;
-    protected IAttributeFunctionsCache attributeFunctionsCache = AttributeFunctionsCache.INSTANCE;
+    protected DataSetStorage dataSetStorage;
+    protected DataModelStorage dataModelStorage;
+    protected DataSourceHub dataSourceHub;
+    protected AttributeFunctionStorage attributeFunctionStorage;
 
-    public IDataSetStorage getDataSetStorage() { return dataSetStorage; }
-    public void setDataSetStorage(IDataSetStorage dataSetStorage) { this.dataSetStorage = dataSetStorage; }
+    public DataSetStorage getDataSetStorage() { return dataSetStorage; }
+    public void setDataSetStorage(DataSetStorage dataSetStorage) { this.dataSetStorage = dataSetStorage; }
 
-    public IDataModelStorage getDataModelStorage() { return dataModelStorage; }
-    public void setDataModelStorage(IDataModelStorage dataModelStorage) { this.dataModelStorage = dataModelStorage; }
+    public DataModelStorage getDataModelStorage() { return dataModelStorage; }
+    public void setDataModelStorage(DataModelStorage dataModelStorage) { this.dataModelStorage = dataModelStorage; }
 
-    public IDataSourceHub getDataSourceHub() { return dataSourceHub; }
-    public void setDataSourceHub(IDataSourceHub dataSourceHub) { this.dataSourceHub = dataSourceHub; }
+    public DataSourceHub getDataSourceHub() { return dataSourceHub; }
+    public void setDataSourceHub(DataSourceHub dataSourceHub) { this.dataSourceHub = dataSourceHub; }
 
-    public IAttributeFunctionsCache getAttributeFunctionsCache() { return attributeFunctionsCache; }
-    public void setAttributeFunctionsCache(IAttributeFunctionsCache attributeFunctionsCache) { this.attributeFunctionsCache = attributeFunctionsCache; }
+    public AttributeFunctionStorage getAttributeFunctionStorage() { return attributeFunctionStorage; }
+    public void setAttributeFunctionStorage(AttributeFunctionStorage attributeFunctionStorage) { this.attributeFunctionStorage = attributeFunctionStorage; }
     
 }

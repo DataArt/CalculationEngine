@@ -5,8 +5,6 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
-import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,7 +18,7 @@ public class Excel_Empty_Cell_E6_Test extends SerializedGraphTest {
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     
     @BeforeClass
-    public static void before() throws IOException {
+    public static void before() throws Exception {
         before(path, address);
     }
     

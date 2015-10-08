@@ -1,5 +1,6 @@
 package com.dataart.spreadsheetanalytics.test.util;
 
+import static javax.cache.expiry.Duration.ONE_HOUR;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.File;
@@ -12,20 +13,41 @@ import java.io.LineNumberReader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
+
+import javax.cache.Cache;
+import javax.cache.CacheManager;
+import javax.cache.Caching;
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.expiry.AccessedExpiryPolicy;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.ext.GraphMLExporter;
 import org.junit.Test;
 import org.reflections.Reflections;
 
+import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
+import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.util.DataModelOperations;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -66,8 +88,6 @@ public class GraphTestUtil {
             testTemplate = new String(b);
         }
         
-        final ExternalServices external = ExternalServices.INSTANCE;
-        
         try (Scanner sc = new Scanner(Paths.get(GRAPH_PATHS_FILE))) {
 
             System.out.println("For each line in file [" + GRAPH_PATHS_FILE + "]\n");
@@ -83,15 +103,11 @@ public class GraphTestUtil {
                 System.out.println("Excel file [" + path + "], address [" + address + "]");
 
                 final IDataModel model = new DataModel(filename, path);
+                
+                GraphTestUtil.initExternalServices((DataModel) model);
+                
                 final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
                 final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
-                
-                //add datamodels to storage
-                external.getDataModelStorage().addDataModel(model);
-                //add define functions to storage
-                external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
-                //copy data models to cache
-                external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
                 
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
 
@@ -124,18 +140,13 @@ public class GraphTestUtil {
 
         System.out.println("Excel file [" + path + "], address [" + address + "]");
 
-        final ExternalServices external = ExternalServices.INSTANCE;
         
         final IDataModel model = new DataModel(filename, path);
+        
+        GraphTestUtil.initExternalServices((DataModel) model);
+        
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
-        
-        //add datamodels to storage
-        external.getDataModelStorage().addDataModel(model);
-        //add define functions to storage
-        external.getAttributeFunctionsCache().updateDefineFunctions(external.getDataModelStorage().getDataModels());
-        //copy data models to cache
-        external.getDataModelStorage().warmUpDataModelsForExecutionCache(external.getAttributeFunctionsCache().getDefineFunctions());
         
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
 
@@ -147,6 +158,52 @@ public class GraphTestUtil {
         System.out.println("GraphML file is written to [" + filename + "]");
 
         System.out.println("\nEnd. One file.");
+    }
+
+    public static void initExternalServices(DataModel model) throws IOException, InterruptedException {
+        final ExternalServices external = ExternalServices.INSTANCE;
+        
+        //prepare caches to be used as storages
+        CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
+
+        MutableConfiguration config = new MutableConfiguration();
+        //some cache configurations
+        config.setStoreByValue(false)
+              .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(ONE_HOUR))
+              .setStatisticsEnabled(true);
+
+        //create the caches for application
+        if (cacheManager.getCacheNames().iterator().hasNext()) { return; }
+        Cache<IDataModelId, BlockingQueue> dmeCache = cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODELS_FOR_EXECUTION_CACHE_NAME, config.setTypes(IDataModelId.class, BlockingQueue.class));
+        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
+        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
+        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
+        cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));        
+        
+        DataModelStorage dataModelStorage = new CacheBasedDataModelStorage();
+        DataSetStorage dataSetStorage = new CacheBasedDataSetStorage();
+        DataSourceHub dataSourceHub = new CacheBasedDataSourceHub();
+        AttributeFunctionStorage attributeFunctionStorage = new CacheBasedAttributeFunctionStorage(); 
+        
+        external.setDataModelStorage(dataModelStorage);
+        external.setDataSetStorage(dataSetStorage);
+        external.setDataSourceHub(dataSourceHub);
+        external.setAttributeFunctionStorage(attributeFunctionStorage);
+        
+        //add data model to storage
+        dataModelStorage.addDataModel(model);
+        
+        //update all define functions based on data models in cache
+        attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
+        
+        //create data models for execution cache
+        dmeCache.putAll(DataModelOperations.createDataModelsForExecution(
+                                                attributeFunctionStorage.getDefineFunctions(), 
+                                                dataModelStorage.getDataModels(), 
+                                                10));
+        ((CacheBasedDataModelStorage) dataModelStorage).setDataModelsForExecutionCache(dmeCache);
     }
     
     public static void main(String[] args) throws Exception {

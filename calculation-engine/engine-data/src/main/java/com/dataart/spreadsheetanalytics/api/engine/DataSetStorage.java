@@ -5,7 +5,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 
-public interface IDataSetStorage {
+public interface DataSetStorage {
     
     /**
      * {@link #saveDataSet(IDataSet, DataSetScope)} with {@link DataSetScope#GLOBAL}

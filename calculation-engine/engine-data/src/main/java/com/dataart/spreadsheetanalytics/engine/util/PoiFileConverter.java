@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.engine;
+package com.dataart.spreadsheetanalytics.engine.util;
 
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.cellValueToObject;
 

@@ -6,7 +6,7 @@ import java.util.Set;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 
-public interface IAttributeFunctionsCache {
+public interface AttributeFunctionStorage {
 
     void addDefineFunction(DefineFunctionMeta meta);
     

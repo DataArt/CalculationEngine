@@ -34,7 +34,7 @@ public class QueryFunctionDemo {
         ExternalServices external = ExternalServices.INSTANCE;
         
         //in memoty sql data source - demo only
-        external.getDataSourceHub().addSqlDataSource(new TempSqlDataSource());
+        external.getDataSourceHub().addDataSource(new TempSqlDataSource());
         //add define functions to storage - demo only
         final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
         final ILazyDataSet sqlDataSet = new SqlDataSet("P", sql);
