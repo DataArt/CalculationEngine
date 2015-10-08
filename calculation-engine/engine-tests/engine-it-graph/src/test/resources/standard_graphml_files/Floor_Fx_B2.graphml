@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B2">
-<node id="B2_30_CELL_WITH_FORMULA">
+<node id="B2_30.0_CELL_WITH_FORMULA">
 <data key="name">B2</data>
-<data key="value">30</data>
+<data key="value">30.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(3, 32.5678); Formula Ptg: 3, 32.5678 FLOOR ; Ptgs: VALUE, VALUE FLOOR  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@30b7c004</data>
+<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(3.0, 32.5678); Formula Ptg: 3.0, 32.5678 FLOOR ; Ptgs: VALUE, VALUE FLOOR  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5fa07e12</data>
 </node>
 <node id="VALUE_32.5678_CONSTANT_VALUE">
 <data key="name">VALUE</data>
 <data key="value">32.5678</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula String: VALUE; Formula Values: 32.5678; Formula Ptg: 32.5678; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@30b7c004</data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5fa07e12</data>
 </node>
-<node id="VALUE_3_CONSTANT_VALUE">
+<node id="VALUE_3.0_CONSTANT_VALUE">
 <data key="name">VALUE</data>
-<data key="value">3</data>
+<data key="value">3.0</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 3; Formula Ptg: 3; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@30b7c004</data>
+<data key="formula">Formula String: VALUE; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: VALUE Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5fa07e12</data>
 </node>
-<node id="FLOOR_30_FUNCTION">
+<node id="FLOOR_30.0_FUNCTION">
 <data key="name">FLOOR</data>
-<data key="value">30</data>
+<data key="value">30.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(3, 32.5678); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@30b7c004</data>
+<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(3.0, 32.5678); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5fa07e12</data>
 </node>
-<edge source="VALUE_3_CONSTANT_VALUE" target="FLOOR_30_FUNCTION"/>
-<edge source="VALUE_32.5678_CONSTANT_VALUE" target="FLOOR_30_FUNCTION"/>
-<edge source="FLOOR_30_FUNCTION" target="B2_30_CELL_WITH_FORMULA"/>
+<edge source="VALUE_3.0_CONSTANT_VALUE" target="FLOOR_30.0_FUNCTION"/>
+<edge source="VALUE_32.5678_CONSTANT_VALUE" target="FLOOR_30.0_FUNCTION"/>
+<edge source="FLOOR_30.0_FUNCTION" target="B2_30.0_CELL_WITH_FORMULA"/>
 </graph>
 </graphml>

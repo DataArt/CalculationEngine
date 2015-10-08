@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="A4">
-<node id="A4_110_CELL_WITH_FORMULA">
+<node id="A4_110.0_CELL_WITH_FORMULA">
 <data key="name">A4</data>
-<data key="value">110</data>
+<data key="value">110.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: A1 + $C$1 + Sheet2!$B$1; Formula Values: 20.0 + 5.0 + 85; Formula Ptg: 20.0 5.0 + 85 +; Ptgs: A1 $C$1 + Sheet2!$B$1 + Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@403132fc</data>
+<data key="formula">Formula String: A1 + $C$1 + Sheet2!$B$1; Formula Values: 20.0 + 5.0 + 85.0; Formula Ptg: 20.0 5.0 + 85.0 +; Ptgs: A1 $C$1 + Sheet2!$B$1 + Index in Ptgs: 4 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@682b2fa</data>
 </node>
 <node id="A1_20.0_CELL_WITH_VALUE">
 <data key="name">A1</data>
 <data key="value">20.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A1; Formula Values: 20.0; Formula Ptg: 20.0; Ptgs: A1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@403132fc</data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@682b2fa</data>
 </node>
 <node id="$C$1_5.0_CELL_WITH_VALUE">
 <data key="name">$C$1</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: $C$1; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: $C$1 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@403132fc</data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@682b2fa</data>
 </node>
-<node id="+_25_OPERATOR">
+<node id="+_25.0_OPERATOR">
 <data key="name">+</data>
-<data key="value">25</data>
+<data key="value">25.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula String: A1 + $C$1; Formula Values: 20.0 + 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@403132fc</data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@682b2fa</data>
 </node>
-<node id="Sheet2!$B$1_85_CELL_WITH_VALUE">
+<node id="Sheet2!$B$1_85.0_CELL_WITH_VALUE">
 <data key="name">Sheet2!$B$1</data>
-<data key="value">85</data>
+<data key="value">85.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: Sheet2!$B$1; Formula Values: 85; Formula Ptg: 85; Ptgs: Sheet2!$B$1 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@403132fc</data>
+<data key="formula">Formula String: Sheet2!$B$1; Formula Values: 85.0; Formula Ptg: 85.0; Ptgs: Sheet2!$B$1 Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@682b2fa</data>
 </node>
-<node id="+_110_OPERATOR">
+<node id="+_110.0_OPERATOR">
 <data key="name">+</data>
-<data key="value">110</data>
+<data key="value">110.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula String: A1 + $C$1 + Sheet2!$B$1; Formula Values: 20.0 + 5.0 + 85; Formula Ptg: ; Ptgs:  Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@403132fc</data>
+<data key="formula">Formula String: A1 + $C$1 + Sheet2!$B$1; Formula Values: 20.0 + 5.0 + 85.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 4 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@682b2fa</data>
 </node>
-<edge source="$C$1_5.0_CELL_WITH_VALUE" target="+_25_OPERATOR"/>
-<edge source="A1_20.0_CELL_WITH_VALUE" target="+_25_OPERATOR"/>
-<edge source="Sheet2!$B$1_85_CELL_WITH_VALUE" target="+_110_OPERATOR"/>
-<edge source="+_25_OPERATOR" target="+_110_OPERATOR"/>
-<edge source="+_110_OPERATOR" target="A4_110_CELL_WITH_FORMULA"/>
+<edge source="$C$1_5.0_CELL_WITH_VALUE" target="+_25.0_OPERATOR"/>
+<edge source="A1_20.0_CELL_WITH_VALUE" target="+_25.0_OPERATOR"/>
+<edge source="Sheet2!$B$1_85.0_CELL_WITH_VALUE" target="+_110.0_OPERATOR"/>
+<edge source="+_25.0_OPERATOR" target="+_110.0_OPERATOR"/>
+<edge source="+_110.0_OPERATOR" target="A4_110.0_CELL_WITH_FORMULA"/>
 </graph>
 </graphml>
