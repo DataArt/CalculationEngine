@@ -1,10 +1,13 @@
 package com.dataart.spreadsheetanalytics.engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
+import org.apache.poi.ss.formula.atp.AnalysisToolPak;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
 import org.apache.poi.ss.formula.udf.DefaultUDFFinder;
@@ -81,9 +84,12 @@ public class SpreadsheetEvaluator implements IEvaluator {
     }
 
     protected static void loadCustomFunctions() throws ReflectiveOperationException {
+        Map<String, Class<? extends CustomFunction>> map = Functions.get();
+        AnalysisToolPak._saFunctionsByName = new HashMap<>();
+        map.forEach((k, v) -> AnalysisToolPak._saFunctionsByName.put(k, null));
         
-        for (String fname: Functions.get().keySet()) {
-            CustomFunction cf = Functions.get().get(fname).newInstance();
+        for (String fname: map.keySet()) {
+            CustomFunction cf = map.get(fname).newInstance();
             
             if (cf.getClass().getAnnotation(FunctionMeta.class).stateless()) 
                 WorkbookEvaluator.registerFunction(fname, cf);
