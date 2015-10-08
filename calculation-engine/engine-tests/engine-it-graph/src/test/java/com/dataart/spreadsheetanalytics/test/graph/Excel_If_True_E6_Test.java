@@ -46,11 +46,11 @@ public class Excel_If_True_E6_Test extends SerializedGraphTest {
         String actualFormulaStr = rootVertex.formula().formulaStr();
         assertThat(actualFormulaStr).isEqualTo(expectedFormulaStr);
 
-        String expectedFormulaVals = "IF(4.0 < 5, 65.0)";
+        String expectedFormulaVals = "IF(4.0 < 5.0, 65.0)";
         String actualFormulaVals = rootVertex.formula().formulaValues();
         assertThat(actualFormulaVals).isEqualTo(expectedFormulaVals);
 
-        String expectedFormulaPtgStr = "65.0, 4.0 5 < IF ";
+        String expectedFormulaPtgStr = "65.0, 4.0 5.0 < IF ";
         String actualFormulaPtgStr = rootVertex.formula().formulaPtgStr();
         assertThat(actualFormulaPtgStr).isEqualTo(expectedFormulaPtgStr);
 
