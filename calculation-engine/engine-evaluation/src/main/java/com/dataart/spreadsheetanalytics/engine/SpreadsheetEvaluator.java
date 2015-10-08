@@ -35,7 +35,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected DataModel model;
     protected XSSFFormulaEvaluator poiEvaluator;
     
-    {
+    static {
         try { loadCustomFunctions(); }
         catch (Exception e) { log.error("Custom functions loading was unsuccessful. This may cause Evaluator to not work with custom functions.", e); }
     }
