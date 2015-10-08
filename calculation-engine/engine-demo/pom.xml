@@ -87,10 +87,16 @@
       <version>2.3.3</version>
     </dependency>
 
-    <dependency>
+<!-- Switcher between JCache RI and EhCache -->
+    <!-- dependency>
       <groupId>org.jsr107.ri</groupId>
       <artifactId>cache-ri-impl</artifactId>
       <version>1.0.0</version>
+    </dependency-->
+    <dependency>
+      <groupId>com.dataart</groupId>
+      <artifactId>spreadsheetanalytics-data-ehcache-impl</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
   </dependencies>

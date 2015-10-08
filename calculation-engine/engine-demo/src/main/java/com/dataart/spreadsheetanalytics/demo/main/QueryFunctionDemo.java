@@ -9,13 +9,10 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
-import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -29,18 +26,11 @@ public class QueryFunctionDemo {
         cellsToEvaluate.remove(0);
         final String dslookupAddress = cellsToEvaluate.remove(cellsToEvaluate.size() - 1);
 
-        final IDataModel model = new DataModel(Paths.get(query).getFileName().toString(), query);
+        final DataModel model = new DataModel(Paths.get(query).getFileName().toString(), query);
         
-        ExternalServices external = ExternalServices.INSTANCE;
+        EvaluationWithExecutionGraphDemo.initCaches(model);
         
-        //in memoty sql data source - demo only
-        external.getDataSourceHub().addDataSource(new TempSqlDataSource());
-        //add define functions to storage - demo only
-        final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
-        final ILazyDataSet sqlDataSet = new SqlDataSet("P", sql);
-        external.getDataSetStorage().saveDataSet(sqlDataSet);
-
-        final IEvaluator evaluator = new SpreadsheetEvaluator((DataModel) model);
+        final IEvaluator evaluator = new SpreadsheetEvaluator(model);
         
         System.out.println("QUERY function with INDEX function:");
         for (String cellToEvaluate : cellsToEvaluate) {
@@ -50,6 +40,8 @@ public class QueryFunctionDemo {
             System.out.println("Result: " + cv);            
         }
 
+        ExternalServices external = ExternalServices.INSTANCE;
+        
         IDataSet ds = external.getDataSetStorage().getDataSet("pers");
 
         System.out.println();
