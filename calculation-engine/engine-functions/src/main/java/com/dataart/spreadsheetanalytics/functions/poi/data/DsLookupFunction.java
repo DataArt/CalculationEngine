@@ -10,6 +10,9 @@ import java.util.Map;
 
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.eval.ErrorEval;
+import org.apache.poi.ss.formula.eval.EvaluationException;
+import org.apache.poi.ss.formula.eval.OperandResolver;
+import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.StringValueEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
@@ -39,17 +42,24 @@ public class DsLookupFunction implements CustomFunction {
             log.warn("The number of input arguments in DSLOOKUP function should be even and more than 4");
             return ErrorEval.VALUE_INVALID;
         }
-        if (!(args[0] instanceof StringValueEval)) {
+        if (!(args[0] instanceof StringValueEval) && !(args[0] instanceof RefEval)) {
             log.warn("The first input argument in DSLOOKUP function should be string representing the dataset name");
             return ErrorEval.VALUE_INVALID;
         }
-        if (!(args[args.length - 1] instanceof StringValueEval)) {
+        if (!(args[args.length - 1] instanceof StringValueEval) && !(args[args.length - 1] instanceof RefEval)) {
             log.warn("The last input argument in DSLOOKUP function shoud be string representing the name of column which values should be returned");
             return ErrorEval.VALUE_INVALID;
         }
         
-        String datasetName = ((StringEval) args[0]).getStringValue();
-        String columnName = ((StringEval) args[args.length - 1]).getStringValue();
+        String datasetName = null;
+        String columnName = null;
+        try {
+            datasetName = (String) coerceValueTo(OperandResolver.getSingleValue(args[0], ec.getRowIndex(), ec.getColumnIndex()));
+            columnName = (String) coerceValueTo(OperandResolver.getSingleValue(args[args.length - 1], ec.getRowIndex(), ec.getColumnIndex()));
+        } catch (EvaluationException e1) {
+            //TODO log
+            return ErrorEval.VALUE_INVALID;
+        }
         
         int columnIndex = -1;
 
@@ -57,13 +67,19 @@ public class DsLookupFunction implements CustomFunction {
 
         for (int i = 1; i < args.length - 1; i += 2) {
             
-            if (!(args[i] instanceof StringEval)) {
+            if (!(args[i] instanceof StringEval) && !(args[i] instanceof RefEval)) {
                 log.warn("The {}th input argument in DSLOOKUP function should be the string representing the name of condition field", i);
                 return ErrorEval.VALUE_INVALID;
             }
             
-            String key = ((StringEval) args[i]).getStringValue();
-            pairs.put(key, args[i + 1]);
+            try {
+                String key = (String) coerceValueTo(OperandResolver.getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex()));
+                ValueEval val = OperandResolver.getSingleValue(args[i + 1], ec.getRowIndex(), ec.getColumnIndex());
+                pairs.put(key, val);
+            } catch (EvaluationException e) {
+                //TODO log
+                return ErrorEval.VALUE_INVALID;
+            }
         }
 
         IDataSet dataSet;
