@@ -4,8 +4,14 @@
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
+    <Console name="BlankConsole" target="SYSTEM_OUT">
+      <PatternLayout pattern="%msg"/>
+    </Console>
   </appenders>
   <loggers>
+    <logger name="com.dataart.spreadsheetanalytics.demo.main" level="INFO" additivity="false">
+      <appender-ref ref="BlankConsole"/>
+    </logger>
     <root level="OFF">
       <appender-ref ref="Console"/>
     </root>

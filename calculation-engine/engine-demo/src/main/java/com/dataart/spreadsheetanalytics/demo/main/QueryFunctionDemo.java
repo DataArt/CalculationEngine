@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
@@ -18,6 +21,7 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class QueryFunctionDemo {
+    private final static Logger log = LoggerFactory.getLogger(QueryFunctionDemo.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -32,33 +36,31 @@ public class QueryFunctionDemo {
         
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
         
-        System.out.println("QUERY function with INDEX function:");
+        log.info("QUERY function with INDEX function:\n");
         for (String cellToEvaluate : cellsToEvaluate) {
             final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(cellToEvaluate));
 
             final ICellValue cv = evaluator.evaluate(addr);
-            System.out.println("Result: " + cv);            
+            log.info("Result: " + cv + "\n");            
         }
 
         ExternalServices external = ExternalServices.INSTANCE;
         
         IDataSet ds = external.getDataSetStorage().getDataSet("pers");
 
-        System.out.println();
-        System.out.println("Result DataSet of QUERY function with parameters:");
+        log.info("\nResult DataSet of QUERY function with parameters (called 'pers'):\n");
         for (IDsRow row : ds) {
             for (IDsCell cell : row) {
-                System.out.print(cell.value());
-                System.out.print(" | ");
+                log.info(cell.value() + "");
+                log.info(" | ");
             }
-            System.out.println();
+            log.info("\n");
         }
         
-        System.out.println();
-        System.out.println("DSLOOKUP with DataSet from QUERY function:");
+        log.info("\nDSLOOKUP with DataSet from QUERY function:\n");
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(dslookupAddress));
         final ICellValue cv = evaluator.evaluate(addr);
-        System.out.println("Result: " + cv);
+        log.info("Result: " + cv);
     }
 
 }

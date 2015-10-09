@@ -1,7 +1,5 @@
 package com.dataart.spreadsheetanalytics.demo.main;
 
-import static javax.cache.expiry.Duration.ONE_HOUR;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -26,6 +24,7 @@ import javax.cache.CacheManager;
 import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
+import javax.cache.expiry.Duration;
 
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
@@ -64,7 +63,7 @@ import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class EvaluationWithExecutionGraphDemo {
-
+    
     public static void main(String[] args) throws Exception {
 
         //input arguments: filename and list of cells to evaluate
@@ -119,8 +118,8 @@ public class EvaluationWithExecutionGraphDemo {
         MutableConfiguration config = new MutableConfiguration();
         //some cache configurations
         config.setStoreByValue(false)
-              .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(ONE_HOUR))
-              .setStatisticsEnabled(true);
+              .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(Duration.ETERNAL))
+              .setStatisticsEnabled(false);
 
         //create the caches for application
         Cache<IDataModelId, BlockingQueue> dmeCache = cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODELS_FOR_EXECUTION_CACHE_NAME, config.setTypes(IDataModelId.class, BlockingQueue.class));

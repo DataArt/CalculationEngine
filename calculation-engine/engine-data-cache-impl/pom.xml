@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dataart</groupId>
-  <artifactId>spreadsheetanalytics-data-ehcache-impl</artifactId>
+  <artifactId>spreadsheetanalytics-data-cache-impl</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>spreadsheetanalytics-data-ehcache-impl</name>
+  <name>spreadsheetanalytics-data-cache-impl</name>
   <url>https://gitlab.com/DataArt/CalculationEngine</url>
 
   <properties>
@@ -51,6 +51,12 @@
       <artifactId>spreadsheetanalytics-data</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+
+<!--     <dependency> -->
+<!--       <groupId>org.jsr107.ri</groupId> -->
+<!--       <artifactId>cache-ri-impl</artifactId> -->
+<!--       <version>1.0.0</version> -->
+<!--     </dependency> -->
 
     <dependency>
       <groupId>org.ehcache</groupId>

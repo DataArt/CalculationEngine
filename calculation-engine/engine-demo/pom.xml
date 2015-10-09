@@ -39,7 +39,7 @@
             <version>1.4.0</version>
             <configuration>
               <mainClass>com.dataart.spreadsheetanalytics.demo.main.EvaluationWithExecutionGraphDemo</mainClass>
-              <commandlineArgs>src/main/resources/excel/query/query.xlsx A1 A2 A3 A4 A6</commandlineArgs>
+              <commandlineArgs>src/main/resources/excel/query/query.xlsx C1 C2 C6 C7</commandlineArgs>
             </configuration>
           </plugin>
         </plugins>
@@ -87,15 +87,9 @@
       <version>2.3.3</version>
     </dependency>
 
-<!-- Switcher between JCache RI and EhCache -->
-    <!-- dependency>
-      <groupId>org.jsr107.ri</groupId>
-      <artifactId>cache-ri-impl</artifactId>
-      <version>1.0.0</version>
-    </dependency-->
     <dependency>
       <groupId>com.dataart</groupId>
-      <artifactId>spreadsheetanalytics-data-ehcache-impl</artifactId>
+      <artifactId>spreadsheetanalytics-data-cache-impl</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
