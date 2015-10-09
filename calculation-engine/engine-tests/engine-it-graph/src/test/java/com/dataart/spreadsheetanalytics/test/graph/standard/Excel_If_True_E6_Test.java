@@ -4,6 +4,7 @@ import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,7 +18,12 @@ public class Excel_If_True_E6_Test extends SerializedGraphTest {
     
     @BeforeClass
     public static void before() throws Exception {
-        before(path, address);        
+        SerializedGraphTest.before(path, address);        
+    }
+
+    @AfterClass
+    public static void after() throws Exception {
+        SerializedGraphTest.after();
     }
     
     @Test

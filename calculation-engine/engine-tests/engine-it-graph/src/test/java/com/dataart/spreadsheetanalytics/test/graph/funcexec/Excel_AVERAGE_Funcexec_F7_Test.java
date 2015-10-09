@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.test.graph.funcexec;
 
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,9 +16,14 @@ public class Excel_AVERAGE_Funcexec_F7_Test extends SerializedGraphTest {
     
     @BeforeClass
     public static void before() throws Exception {
-        before(path, address);        
+        SerializedGraphTest.before(path, address);        
     }
-
+    
+    @AfterClass
+    public static void after() throws Exception {
+        SerializedGraphTest.after();
+    }
+    
     @Test
     public void assert_ExcelFile_SerializedGraph() {
         super.assert_ExcelFile_SerializedGraph(file, address);

@@ -52,6 +52,10 @@ public abstract class SerializedGraphTest {
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();        
     }
     
+    public static void after() throws Exception {
+        GraphTestUtil.destroyExternalServices();
+    }
+    
     public void assert_ExcelFile_SerializedGraph(String file, String address) {
         //given
         String expectedGraphML = file + "_" + address + ".graphml";
@@ -82,6 +86,6 @@ public abstract class SerializedGraphTest {
             }
         });
 
-        de.compare(actual, expected);
+        de.compare(expected, actual);
     }
 }

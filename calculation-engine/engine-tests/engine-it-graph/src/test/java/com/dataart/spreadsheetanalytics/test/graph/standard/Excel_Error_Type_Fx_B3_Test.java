@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.test.graph.standard;
 
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,7 +16,12 @@ public class Excel_Error_Type_Fx_B3_Test extends SerializedGraphTest {
     
     @BeforeClass
     public static void before() throws Exception {
-        before(path, address);        
+        SerializedGraphTest.before(path, address);        
+    }
+
+    @AfterClass
+    public static void after() throws Exception {
+        SerializedGraphTest.after();
     }
     
     @Test

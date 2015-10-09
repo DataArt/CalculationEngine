@@ -160,7 +160,7 @@ public class GraphTestUtil {
         System.out.println("\nEnd. One file.");
     }
 
-    public static void initExternalServices(DataModel model) throws IOException, InterruptedException {
+    public static void initExternalServices(DataModel model) throws Exception {
         final ExternalServices external = ExternalServices.INSTANCE;
         
         //prepare caches to be used as storages
@@ -173,7 +173,6 @@ public class GraphTestUtil {
               .setStatisticsEnabled(true);
 
         //create the caches for application
-        if (cacheManager.getCacheNames().iterator().hasNext()) { return; }
         Cache<IDataModelId, BlockingQueue> dmeCache = cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODELS_FOR_EXECUTION_CACHE_NAME, config.setTypes(IDataModelId.class, BlockingQueue.class));
         cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
@@ -204,6 +203,18 @@ public class GraphTestUtil {
                                                 dataModelStorage.getDataModels(), 
                                                 10));
         ((CacheBasedDataModelStorage) dataModelStorage).setDataModelsForExecutionCache(dmeCache);
+    }
+    
+    public static void destroyExternalServices() throws Exception {
+        CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
+
+        cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODELS_FOR_EXECUTION_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);        
     }
     
     public static void main(String[] args) throws Exception {
