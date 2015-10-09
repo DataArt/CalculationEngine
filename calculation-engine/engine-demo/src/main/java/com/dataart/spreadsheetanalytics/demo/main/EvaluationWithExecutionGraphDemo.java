@@ -146,7 +146,9 @@ public class EvaluationWithExecutionGraphDemo {
         try {
             final IDataSet dataSet = PoiFileConverter.toDataSet(model.poiModel);
             dataSetStorage.saveDataSet(dataSet);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.out.println("DataSet reading error. Verify the DataSet is not used by any other application");
+        }
         
         //add data model to storage
         dataModelStorage.addDataModel(model);
