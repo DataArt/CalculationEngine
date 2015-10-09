@@ -38,7 +38,7 @@ public class QueryFunction implements CustomFunction {
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
-        log.debug(String.format("In evaluate() of QUERY function. Args = %s", Arrays.toString(args)));
+        log.debug("In evaluate() of QUERY function. Args = {}", Arrays.toString(args));
 
         if (!(args[0] instanceof StringEval)) {
             log.warn("1st parameter in QUERY function must be a ExecutableDataSet name [String].");
@@ -84,7 +84,7 @@ public class QueryFunction implements CustomFunction {
     }
 
     private static TableEval toTableEval(IDataSet dset) {
-        TableEval table = new TableEval(1, 1, dset.length(), dset.width());
+        TableEval table = new TableEval(0, 0, dset.length() - 1, dset.width() - 1);
         
         List<List<ValueEval>> rows = new ArrayList<>(dset.length());
         

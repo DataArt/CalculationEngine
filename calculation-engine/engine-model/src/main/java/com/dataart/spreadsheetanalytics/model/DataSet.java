@@ -50,4 +50,12 @@ public class DataSet implements IDataSet {
     @Override public boolean hasNext() { return this.iterator.hasNext(); }
     @Override public IDsRow next() { return this.iterator.next(); }
 
+    @Override
+    public String toString() {
+        StringBuilder toString = new StringBuilder();
+        rows.forEach(r -> toString.append(r).append("\n"));
+        return toString.toString();
+    }
+
+    
 }

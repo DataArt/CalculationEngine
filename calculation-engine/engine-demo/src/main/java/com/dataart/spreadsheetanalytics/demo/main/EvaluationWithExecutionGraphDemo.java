@@ -165,9 +165,17 @@ public class EvaluationWithExecutionGraphDemo {
         //add in memory sql data source
         dataSourceHub.addDataSource(new TempSqlDataSource());
         //add lazy sql dataset to storage
-        final String sql = "SELECT * FROM PERSONS WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
-        final ILazyDataSet sqlDataSet = new SqlDataSet("P", sql);
+        String sql = "SELECT * FROM creaditcards WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
+        final ILazyDataSet sqlDataSet = new SqlDataSet("PersonsWithCreaditCard", sql);
         dataSetStorage.saveDataSet(sqlDataSet);
+        
+        dataSetStorage.saveDataSet(new SqlDataSet("AllSkills", "SELECT * FROM skills"));
+        dataSetStorage.saveDataSet(new SqlDataSet("SkillsInCity", "SELECT * FROM skills WHERE CITY = '?'"));
+        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForQualification", "SELECT FirstName, LastName FROM skills WHERE Qualification = '?'"));
+        dataSetStorage.saveDataSet(new SqlDataSet("LevelFromSkillsInCity", "SELECT Level FROM skills WHERE City = '?'"));
+        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForNotLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish is not '?'"));
+        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish = '?'"));
+        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLivel", "SELECT FirstName, LastName FROM skills WHERE Level = '?'"));
 
     }
 
@@ -257,7 +265,7 @@ class TempSqlDataSource implements DataSource {
 
     private Connection co;
     
-    private String initSql_1 = "CREATE TABLE Persons "
+    private String initSql_1 = "CREATE TABLE creaditcards "
                                 + "("
                                     + "PersonId int,"
                                     + "LastName varchar(255),"
@@ -269,11 +277,38 @@ class TempSqlDataSource implements DataSource {
                                 + ");";
     
     private String initSql_2 = 
-            "INSERT INTO Persons (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (1,'Erichsen','Tom B.','Abc St.','Lublin',36, 0001000100010001);" +
-            "INSERT INTO Persons (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (2,'Tomasson','John B.','Abc St.','Lublin',25, 0002000200020002);" +
-            "INSERT INTO Persons (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (3,'Bedersson','Richard B.','Abc St.','Lublin',48, 0003000300030003);" +
-            "INSERT INTO Persons (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (4,'Chrenesson','Michael B.','Abc St.','Lublin',77, 0004000400040004);" +
-            "INSERT INTO Persons (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (5,'Nefasson','Hank B.','Abc St.','Lublin',19, 0005000500050005);";
+            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (1,'Erichsen','Tom B.','Abc St.','Lublin',36, 0001000100010001);" +
+            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (2,'Tomasson','John B.','Abc St.','Lublin',25, 0002000200020002);" +
+            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (3,'Bedersson','Richard B.','Abc St.','Lublin',48, 0003000300030003);" +
+            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (4,'Chrenesson','Michael B.','Abc St.','Lublin',77, 0004000400040004);" +
+            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (5,'Nefasson','Hank B.','Abc St.','Lublin',19, 0005000500050005);";
+    
+    private String initSql_3 = "CREATE TABLE skills "
+                                + "("
+                                    + "FirstName varchar(255),"
+                                    + "LastName varchar(255),"
+                                    + "Qualification varchar(255),"
+                                    + "City varchar(255),"
+                                    + "Level varchar(255),"
+                                    + "LevelOfEnglish varchar(255)"
+                                + ");";
+    private String initSql_4 = 
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Urik','Koroshev','Java','NY','Senior','n/a');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Sasha','Gust','Java','Voronezh','Senior','n/a');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Nikolay','Frix','.Net','Dnipropetrovsk','Middle','n/a');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Lucasz','Gnap','C++','Lublin','Middle','3.8');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Andrey','Ivanovich','Android','Dnipropetrovsk','Middle','2.4');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Oleg','Krutoy','Android','Lviv','Senior','4.0');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Alexander','Global','iPhone','Dnipropetrovsk','Middle','4.4');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Aliester','Douglas','Cameron','iPhone','NY','Senior  5.0');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Oles','Lopster','PHP','Odessa','Middle','n/a');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Pavel','Haliver','Python','Kyiv','Junior','n/a');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Kostya','Holiver','Python','Lublin','Middle','n/a');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Ekaterina','Skakunova','QA','Odessa','Middle','2.8');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Ksenia','Brigida','QA','Odessa','Middle','3.2');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Roman','Romanov','QA','Odessa','Junior','n/a');" +
+            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Tatiana','Smeshko','QA','Odessa','Middle','3.6');";
+
     
     public TempSqlDataSource() {
         
@@ -281,10 +316,13 @@ class TempSqlDataSource implements DataSource {
             Class.forName("org.hsqldb.jdbcDriver" );
             co = DriverManager.getConnection("jdbc:hsqldb:mem:aname", "sa", "");
             Statement st = co.createStatement();
+            
             st.execute(initSql_1);
             st.execute(initSql_2);
+            
+            st.execute(initSql_3);
+            st.execute(initSql_4);
         } catch (Exception e) {
-            //TODO: this is temp!!
             e.printStackTrace();
         }
     }
