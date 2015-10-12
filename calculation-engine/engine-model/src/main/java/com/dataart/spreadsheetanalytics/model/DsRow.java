@@ -26,6 +26,10 @@ public class DsRow implements IDsRow {
     
     @Override public List<IDsCell> cells() { return Collections.<IDsCell> unmodifiableList(this.cells); }
     
+    @Override public IDsCell cellAt(int cellIndex) {
+        return cellIndex < 0 || cellIndex >= cells().size() ? null : cells().get(cellIndex);
+    }
+    
     public DsCell createCell() {
         DsCell cell = new DsCell(cells.size() + 1);
         cells.add(cell);
@@ -45,6 +49,5 @@ public class DsRow implements IDsRow {
     @Override
     public String toString() {
         return cells.toString();
-    }
-    
+    }    
 }

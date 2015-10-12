@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.functions.poi.data;
 
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.valueToValueEval;
+import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +12,6 @@ import java.util.Map;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.EvaluationException;
-import org.apache.poi.ss.formula.eval.OperandResolver;
 import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.StringValueEval;
@@ -39,45 +39,49 @@ public class DsLookupFunction implements CustomFunction {
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
         if (args.length < 4 || args.length % 2 != 0) {
-            log.warn("The number of input arguments in DSLOOKUP function should be even and more than 4");
+            log.warn("The number of input arguments of DSLOOKUP function should be even and no less than 4.");
             return ErrorEval.VALUE_INVALID;
         }
         if (!(args[0] instanceof StringValueEval) && !(args[0] instanceof RefEval)) {
-            log.warn("The first input argument in DSLOOKUP function should be string representing the dataset name");
+            log.warn("The first input argument of DSLOOKUP function should be a string (or a reference to a cell) with a dataset name.");
             return ErrorEval.VALUE_INVALID;
         }
         if (!(args[args.length - 1] instanceof StringValueEval) && !(args[args.length - 1] instanceof RefEval)) {
-            log.warn("The last input argument in DSLOOKUP function shoud be string representing the name of column which values should be returned");
+            log.warn("The last input argument of DSLOOKUP function should be a string (or a reference to a cell) with a name of a column which values should be returned.");
             return ErrorEval.VALUE_INVALID;
         }
         
-        String datasetName = null;
-        String columnName = null;
-        try {
-            datasetName = (String) coerceValueTo(OperandResolver.getSingleValue(args[0], ec.getRowIndex(), ec.getColumnIndex()));
-            columnName = (String) coerceValueTo(OperandResolver.getSingleValue(args[args.length - 1], ec.getRowIndex(), ec.getColumnIndex()));
-        } catch (EvaluationException e1) {
-            //TODO log
+        String datasetName;
+        try { datasetName = (String) coerceValueTo(getSingleValue(args[0], ec.getRowIndex(), ec.getColumnIndex())); }
+        catch (EvaluationException e) {
+            log.error(String.format("Cannot get the value of DataSet name: %s", args[0]), e);
+            return ErrorEval.VALUE_INVALID;
+        }
+        
+        String columnName;
+        try { columnName = (String) coerceValueTo(getSingleValue(args[args.length - 1], ec.getRowIndex(), ec.getColumnIndex())); }
+        catch (EvaluationException e) {
+            log.error(String.format("Cannot get the value of target column name: %s", args[args.length - 1]), e);
             return ErrorEval.VALUE_INVALID;
         }
         
         int columnIndex = -1;
-
+        
         Map<Object, ValueEval> pairs = new HashMap<>();
 
         for (int i = 1; i < args.length - 1; i += 2) {
             
             if (!(args[i] instanceof StringEval) && !(args[i] instanceof RefEval)) {
-                log.warn("The {}th input argument in DSLOOKUP function should be the string representing the name of condition field", i);
+                log.warn("The {}th input argument in DSLOOKUP function should be a string (or a reference to a cell) with a name of a condition field", i);
                 return ErrorEval.VALUE_INVALID;
             }
             
             try {
-                String key = (String) coerceValueTo(OperandResolver.getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex()));
-                ValueEval val = OperandResolver.getSingleValue(args[i + 1], ec.getRowIndex(), ec.getColumnIndex());
+                String key = (String) coerceValueTo(getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex()));
+                ValueEval val = getSingleValue(args[i + 1], ec.getRowIndex(), ec.getColumnIndex());
                 pairs.put(key, val);
             } catch (EvaluationException e) {
-                //TODO log
+                log.error(String.format("Cannot get the value of matcher column: {}", args[i]), e);
                 return ErrorEval.VALUE_INVALID;
             }
         }
@@ -93,6 +97,7 @@ public class DsLookupFunction implements CustomFunction {
             log.warn("The spreadsheet shoud have at least 2 rows to run DSLOOKUP function");
             return ErrorEval.VALUE_INVALID;
         }
+        
         IDsRow titleRow = dataSet.next();
         Map<Integer, Object> indexToValue = new HashMap<>();
 
@@ -102,6 +107,16 @@ public class DsLookupFunction implements CustomFunction {
             if (pairs.containsKey(value)) { indexToValue.put(cell.index(), pairs.get(value)); }
 
             if (value.equals(columnName)) { columnIndex = cell.index(); }
+        }
+        
+        if (columnIndex < 0) {
+            log.warn("No such column to retreive value from is found: {}.", columnName);
+            return ErrorEval.VALUE_INVALID;
+        }
+
+        if (indexToValue.isEmpty()) {
+            log.warn("No filter columns are found.");
+            return ErrorEval.VALUE_INVALID;
         }
         
         List<ValueEval> fetchedValues = fetchValues(dataSet, indexToValue, columnIndex);
@@ -118,19 +133,20 @@ public class DsLookupFunction implements CustomFunction {
             boolean allFieldsMatch = true;
             int allFieldsPresent = where.size();
             
-            for (IDsCell cell : row) {
-
-                if (where.containsKey(cell.index())) {
+            for (Integer whereColumnIndex : where.keySet()) {
+                IDsCell cell = row.cellAt(whereColumnIndex - 1);
+                
+                if (cell != null) {
                     allFieldsPresent--;
-                    Object extValue = coerceValueTo(where.get(cell.index()));
-                    /* Such a strange conversion because of Number types - everythin is Double in POI */
+                    Object extValue = coerceValueTo(where.get(whereColumnIndex));
+                    /* Such a strange conversion because of Number types - everything is Double in POI */
                     Object intValue = coerceValueTo(valueToValueEval(cell.value()));
 
                     if (!intValue.equals(extValue)) { allFieldsMatch = false; break; }
                 }
             }
             
-            if (!where.isEmpty() && allFieldsPresent == 0 && allFieldsMatch) {
+            if (allFieldsPresent == 0 && allFieldsMatch) {
                 found.add(valueToValueEval(row.cells().get(columnIndex - 1).value()));
                 break; // collecting only the first matching record according to product owner requirements
             }

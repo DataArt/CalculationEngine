@@ -11,4 +11,6 @@ public interface IDsRow extends Iterable<IDsCell>, Iterator<IDsCell> {
     
     List<IDsCell> cells();
     
+    IDsCell cellAt(int cellIndex);
+    
 }
