@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.functions.poi.data;
 
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.valueToValueEval;
+import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,14 +14,14 @@ import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.TwoDEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.EvaluationException;
-import org.apache.poi.ss.formula.eval.OperandResolver;
+import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -42,49 +43,54 @@ public class FuncexecFunction implements CustomFunction {
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
         
-        log.debug(String.format("In evaluate() of FUNCEXEC function. Args = %s", Arrays.toString(args))); 
+        log.debug("In evaluate() of FUNCEXEC function. Args = {}", Arrays.toString(args));
         
-        if (!(args[0] instanceof StringEval)) {
-            log.warn(String.format("First argument of FUNCEXEC function must be a string - name of function. But was: %s", args[0]));
+        if (!(args[0] instanceof StringEval) && !(args[0] instanceof RefEval)) {
+            log.warn("The first argument of FUNCEXEC function must be a string (or a reference to a cell) - name of DEFINE function.");
             return ErrorEval.VALUE_INVALID;
         }
 
-        String defineFunctionName = ((StringEval) args[0]).getStringValue();
+        String defineFunctionName;
+        try { defineFunctionName = (String) coerceValueTo(getSingleValue(args[0], ec.getRowIndex(), ec.getColumnIndex())); }
+        catch (EvaluationException e) {
+            log.error(String.format("Cannot get the value of DEFINE functuion name: %s", args[0]), e);
+            return ErrorEval.VALUE_INVALID;
+        }
 
-        AttributeFunctionStorage dfCache = external.getAttributeFunctionStorage();
+        final AttributeFunctionStorage defines = external.getAttributeFunctionStorage();
 
-        if (!dfCache.getDefineFunctions().containsKey(defineFunctionName)) {
-            log.warn(String.format("No DEFINE function with name %s is found.", defineFunctionName));
+        if (!defines.getDefineFunctions().containsKey(defineFunctionName)) {
+            log.warn("No DEFINE function with name {} is found.", defineFunctionName);
             return ErrorEval.NAME_INVALID;
         }
 
-        DefineFunctionMeta meta = dfCache.getDefineFunctions().get(defineFunctionName);
+        final DefineFunctionMeta meta = defines.getDefineFunctions().get(defineFunctionName);
 
         if (meta.inputs().size() != args.length - 1) {
-            log.warn(String.format("Wrong number of input arguments for FUNCEXEC+DEFINE. Expected %s, Actual %s.", meta.inputs().size(), args.length - 1));
+            log.warn("Wrong number of input arguments for FUNCEXEC+DEFINE. Expected: {}, Actua: {}.", meta.inputs().size(), args.length - 1);
             return ErrorEval.VALUE_INVALID;
         }
         
-        log.info(String.format("Found DEFINE function to invoke. Name = %s.", defineFunctionName));
+        log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
 
         List<ICellAddress> inputAddresses = meta.inputs();
         List<ICellValue> inputValues = new ArrayList<>(meta.inputs().size());
 
         for (int i = 1; i < args.length; i++) {
             
-            try { inputValues.add(new CellValue(coerceValueTo(OperandResolver.getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex())))); }
+            try { inputValues.add(new CellValue(coerceValueTo(getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex())))); }
             catch (EvaluationException e) {
-                log.error(String.format("Cannot resolve value of input argument %s.", args[i]), e);
-                return ErrorEval.REF_INVALID;
+                log.error(String.format("Cannot resolve value of %sth input argument %s.", i, args[i]), e);
+                return ErrorEval.VALUE_INVALID;
             }
         }
         
-        log.info(String.format("Input Addresses for DEFINE: %s, Input Values for DEFINE: %s.", inputAddresses, inputValues));
+        log.debug("Input Addresses for DEFINE: {}, Input Values for DEFINE: {}.", inputAddresses, inputValues);
 
         try {
             
             IDataModel execModel = external.getDataModelStorage().prepareDataModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
-            log.debug(String.format("Got DataModel for DEFINE execution, Id: %s, Name: %s.", execModel.dataModelId(), execModel.name()));
+            log.debug("Got DataModel for DEFINE execution, Id: {}, Name: {}.", execModel.dataModelId(), execModel.name());
             
             evaluator.setDataModel(execModel);
 
@@ -93,11 +99,11 @@ public class FuncexecFunction implements CustomFunction {
             List<ICellValue> outputValues = new ArrayList<>(meta.outputs().size());
             meta.outputs().forEach(addr -> outputValues.add(evaluator.evaluate(addr)));
             
-            log.debug(String.format("Output Values of DEFINE execution: %s.", outputValues));
+            log.debug("Output Values of DEFINE execution: {}.", outputValues);
             
             return outputValues.size() == 1 ? valueToValueEval(outputValues.get(0)) : toTwoDEval(outputValues);
         } catch (Exception e) {
-            log.error("Error while executing DEFINE (FUNCEXEC) function.", e);
+            log.error("Error while executing DEFINE part of FUNCEXEC function.", e);
             return ErrorEval.NA;
         }
     }

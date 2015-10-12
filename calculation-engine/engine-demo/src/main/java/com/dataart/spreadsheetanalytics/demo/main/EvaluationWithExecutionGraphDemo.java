@@ -147,7 +147,7 @@ public class EvaluationWithExecutionGraphDemo {
             final IDataSet dataSet = PoiFileConverter.toDataSet(model.poiModel);
             dataSetStorage.saveDataSet(dataSet);
         } catch (Exception e) {
-            System.out.println("DataSet reading error. Verify the DataSet is not used by any other application");
+            System.out.println("This workbook is not a dataset itself.");
         }
         
         //add data model to storage
@@ -176,7 +176,7 @@ public class EvaluationWithExecutionGraphDemo {
         dataSetStorage.saveDataSet(new SqlDataSet("LevelFromSkillsInCity", "SELECT Level FROM skills WHERE City = '?'"));
         dataSetStorage.saveDataSet(new SqlDataSet("SkillsForNotLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish is not '?'"));
         dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish = '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLivel", "SELECT FirstName, LastName FROM skills WHERE Level = '?'"));
+        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLevel", "SELECT FirstName, LastName FROM skills WHERE Level = '?'"));
 
     }
 

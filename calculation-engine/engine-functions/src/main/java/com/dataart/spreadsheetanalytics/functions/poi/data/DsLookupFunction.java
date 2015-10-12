@@ -5,6 +5,7 @@ import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.valueTo
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,8 @@ public class DsLookupFunction implements CustomFunction {
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
+        log.debug("In evaluate() of DSLOOKUP function. Args = {}", Arrays.toString(args));
+        
         if (args.length < 4 || args.length % 2 != 0) {
             log.warn("The number of input arguments of DSLOOKUP function should be even and no less than 4.");
             return ErrorEval.VALUE_INVALID;
