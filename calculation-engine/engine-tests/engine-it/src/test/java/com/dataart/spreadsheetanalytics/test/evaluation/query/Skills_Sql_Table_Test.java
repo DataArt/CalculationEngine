@@ -133,8 +133,6 @@ public class Skills_Sql_Table_Test {
             //then
             assertThat(value).isNotNull();
             assertThat(value.get()).isEqualTo(expectedValues.get(expectedColumn + i));
-            
-            System.out.println(i + "");
         }
     
         //And check that local DataSets are saved to storage (when they need to be removed?)
