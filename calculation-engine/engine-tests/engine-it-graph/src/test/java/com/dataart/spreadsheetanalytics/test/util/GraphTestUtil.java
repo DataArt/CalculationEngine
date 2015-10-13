@@ -15,9 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.concurrent.BlockingQueue;
 
-import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
@@ -47,7 +45,6 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.util.DataModelOperations;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -173,7 +170,6 @@ public class GraphTestUtil {
               .setStatisticsEnabled(true);
 
         //create the caches for application
-        Cache<IDataModelId, BlockingQueue> dmeCache = cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODELS_FOR_EXECUTION_CACHE_NAME, config.setTypes(IDataModelId.class, BlockingQueue.class));
         cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
@@ -196,13 +192,6 @@ public class GraphTestUtil {
         
         //update all define functions based on data models in cache
         attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
-        
-        //create data models for execution cache
-        dmeCache.putAll(DataModelOperations.createDataModelsForExecution(
-                                                attributeFunctionStorage.getDefineFunctions(), 
-                                                dataModelStorage.getDataModels(), 
-                                                10));
-        ((CacheBasedDataModelStorage) dataModelStorage).setDataModelsForExecutionCache(dmeCache);
     }
     
     public static void destroyExternalServices() throws Exception {

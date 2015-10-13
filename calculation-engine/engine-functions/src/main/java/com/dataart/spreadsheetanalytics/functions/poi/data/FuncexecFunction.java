@@ -6,7 +6,6 @@ import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.poi.ss.formula.ArrayEval;
 import org.apache.poi.ss.formula.IStabilityClassifier;
@@ -112,12 +111,12 @@ public class FuncexecFunction implements CustomFunction {
 
         log.debug("Output Values of DEFINE execution: {}.", outputValues);
 
-        return outputValues.size() == 1 ? outputValues.get(0) : toTwoDEval(outputValues);
+        return outputValues.size() == 1 ? outputValues.get(0) : toArrayEval(outputValues);
     }
     
-    private static TwoDEval toTwoDEval(List<ValueEval> outputValues) {
+    private static TwoDEval toArrayEval(List<ValueEval> outputValues) {
         ArrayEval ae = new ArrayEval();
-        ae.setValues(outputValues.stream().map(v -> v).collect(Collectors.toList()));
+        ae.setValues(outputValues);
         return ae;
     }
 
