@@ -55,5 +55,10 @@ public class DataModel extends DataSet implements IDataModel {
 
         return (Cell.CELL_TYPE_FORMULA == c.getCellType());
     }
+    
+    @Override
+    public String toString() {
+        return name();
+    }
         
 }

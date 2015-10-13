@@ -8,7 +8,6 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
@@ -28,7 +27,5 @@ public class DefineFunction implements CustomFunction {
         
         return new StringEval(DefineFunction.class.getAnnotation(FunctionMeta.class).value());
     }
-
-    @Override public void setEvaluator(IEvaluator evaluator) { }
 
 }

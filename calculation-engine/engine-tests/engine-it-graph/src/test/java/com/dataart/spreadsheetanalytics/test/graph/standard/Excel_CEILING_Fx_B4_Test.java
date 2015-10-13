@@ -9,14 +9,14 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_CEILING_Fx_B4_Test extends SerializedGraphTest {
-    
+
     static String address = "B4";
     static String file = "CEILING_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    
+
     @BeforeClass
     public static void before() throws Exception {
-        SerializedGraphTest.before(path, address);        
+        SerializedGraphTest.before(path, address);
     }
 
     @AfterClass

@@ -1,15 +1,14 @@
 package com.dataart.spreadsheetanalytics.functions.poi.data;
 
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
-import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.valueToValueEval;
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.poi.ss.formula.ArrayEval;
+import org.apache.poi.ss.formula.IStabilityClassifier;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.TwoDEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -17,26 +16,28 @@ import org.apache.poi.ss.formula.eval.EvaluationException;
 import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
+import org.apache.poi.ss.formula.eval.forked.ForkedEvaluator;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFForkedEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
-import com.dataart.spreadsheetanalytics.model.CellValue;
+import com.dataart.spreadsheetanalytics.functions.poi.Functions;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 
-@FunctionMeta(value = "FUNCEXEC", stateless = false)
+@FunctionMeta(value = "FUNCEXEC")
 public class FuncexecFunction implements CustomFunction {
     private final static Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
     
-    protected ExternalServices external = ExternalServices.INSTANCE;
-    protected IEvaluator evaluator; 
+    protected ExternalServices external = ExternalServices.INSTANCE; 
 
     public FuncexecFunction() {}
     
@@ -74,11 +75,11 @@ public class FuncexecFunction implements CustomFunction {
         log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
 
         List<ICellAddress> inputAddresses = meta.inputs();
-        List<ICellValue> inputValues = new ArrayList<>(meta.inputs().size());
+        List<ValueEval> inputValues = new ArrayList<>(meta.inputs().size());
 
         for (int i = 1; i < args.length; i++) {
             
-            try { inputValues.add(new CellValue(coerceValueTo(getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex())))); }
+            try { inputValues.add(getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex())); }
             catch (EvaluationException e) {
                 log.error(String.format("Cannot resolve value of %sth input argument %s.", i, args[i]), e);
                 return ErrorEval.VALUE_INVALID;
@@ -87,33 +88,36 @@ public class FuncexecFunction implements CustomFunction {
         
         log.debug("Input Addresses for DEFINE: {}, Input Values for DEFINE: {}.", inputAddresses, inputValues);
 
-        try {
-            
-            IDataModel execModel = external.getDataModelStorage().prepareDataModelForExecution(meta.dataModelId(), inputAddresses, inputValues);
-            log.debug("Got DataModel for DEFINE execution, Id: {}, Name: {}.", execModel.dataModelId(), execModel.name());
-            
-            evaluator.setDataModel(execModel);
+        DataModel dmWithDefine = (DataModel) external.getDataModelStorage().getDataModel(meta.dataModelId());
+        ForkedEvaluator forkedEvaluator = XSSFForkedEvaluator.create(dmWithDefine.poiModel, IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUDFFinder());
 
-            //TODO: here we should call evaluator.evaluate(execModel), 
-            //but we do not have this method yet implemented so we will do it cell by cell
-            List<ICellValue> outputValues = new ArrayList<>(meta.outputs().size());
-            meta.outputs().forEach(addr -> outputValues.add(evaluator.evaluate(addr)));
+        Sheet s = dmWithDefine.poiModel.getSheetAt(0);
+        String firstSheetName = s.getSheetName(); /*TODO: one sheet support only*/
+        for (int i = 0; i < inputAddresses.size(); i++) {
             
-            log.debug("Output Values of DEFINE execution: {}.", outputValues);
+            Row r = s.getRow(inputAddresses.get(i).row());
+            if (r == null) { r = s.createRow(inputAddresses.get(i).row()); }
+            Cell c = r.getCell(inputAddresses.get(i).column());
+            if (c == null) { c = r.createCell(inputAddresses.get(i).column()); }
             
-            return outputValues.size() == 1 ? valueToValueEval(outputValues.get(0)) : toTwoDEval(outputValues);
-        } catch (Exception e) {
-            log.error("Error while executing DEFINE part of FUNCEXEC function.", e);
-            return ErrorEval.NA;
+            forkedEvaluator.updateCell(firstSheetName, 
+                                       inputAddresses.get(i).row(), inputAddresses.get(i).column(),
+                                       inputValues.get(i));
         }
+            
+        List<ValueEval> outputValues = new ArrayList<>(meta.outputs().size());
+        meta.outputs()
+            .forEach(a -> outputValues.add(forkedEvaluator.evaluate(firstSheetName, a.row(), a.column())));
+
+        log.debug("Output Values of DEFINE execution: {}.", outputValues);
+
+        return outputValues.size() == 1 ? outputValues.get(0) : toArrayEval(outputValues);
     }
     
-    private static TwoDEval toTwoDEval(List<ICellValue> outputValues) {
+    private static TwoDEval toArrayEval(List<ValueEval> outputValues) {
         ArrayEval ae = new ArrayEval();
-        ae.setValues(outputValues.stream().map(v -> valueToValueEval(v.get())).collect(Collectors.<ValueEval> toList()));
+        ae.setValues(outputValues);
         return ae;
     }
-
-    @Override public void setEvaluator(IEvaluator evaluator) { this.evaluator = evaluator; }
 
 }

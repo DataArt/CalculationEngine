@@ -19,7 +19,4 @@ public @interface FunctionMeta {
 
     /** Number of input arguments in case this is static data */
     int numberOfArguments() default 0;
-    
-    /** Stateless - means no external objects are required for execution. */
-    boolean stateless() default true;
 }

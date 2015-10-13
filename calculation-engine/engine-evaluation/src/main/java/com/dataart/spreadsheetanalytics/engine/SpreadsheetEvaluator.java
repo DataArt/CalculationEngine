@@ -1,16 +1,12 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
 import org.apache.poi.ss.formula.eval.ErrorEval;
-import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
-import org.apache.poi.ss.formula.udf.DefaultUDFFinder;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,7 +20,6 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
-import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -45,9 +40,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
     public SpreadsheetEvaluator(DataModel model) {
         this.model = model;
         this.poiEvaluator = this.model.poiModel.getCreationHelper().createFormulaEvaluator();
-        
-        try { loadCustomFunctions(model); }
-        catch (Exception e) { log.warn("Custom functions loading was unsuccessful. This may cause DataModel and Evaluator to not work with custom functions.", e); }
     }
 
     @Override
@@ -88,38 +80,8 @@ public class SpreadsheetEvaluator implements IEvaluator {
         AnalysisToolPak._saFunctionsByName = new HashMap<>();
         map.forEach((k, v) -> AnalysisToolPak._saFunctionsByName.put(k, null));
         
-        for (String fname: map.keySet()) {
-            CustomFunction cf = map.get(fname).newInstance();
-            
-            if (cf.getClass().getAnnotation(FunctionMeta.class).stateless()) 
-                WorkbookEvaluator.registerFunction(fname, cf);
-        }
-    }
-    
-    protected static void loadCustomFunctions(DataModel dataModel) throws ReflectiveOperationException {
-        if (dataModel == null || dataModel.poiModel == null) {
-            throw new IllegalStateException("Evaluator must be provided with model to register custom functions.");
-        }
-        
-        List<String> names = new ArrayList<>(Functions.get().size());
-        List<CustomFunction> funcs = new ArrayList<>(Functions.get().size());
-        
-        for (String fname: Functions.get().keySet()) {
-            
-            CustomFunction cf = Functions.get().get(fname).newInstance();
-            if (cf.getClass().getAnnotation(FunctionMeta.class).stateless()) { continue; }
-            
-            cf.setEvaluator(new SpreadsheetEvaluator()); /* TODO: ForkedEvaluator?*/
-            
-            names.add(fname);
-            funcs.add(cf);
-        }
-        
-        if (names.isEmpty()) { return; }
-               
-        dataModel.poiModel.addToolPack(new AggregatingUDFFinder(new DefaultUDFFinder(
-                                            names.toArray(new String[names.size()]),
-                                            funcs.toArray(new CustomFunction[funcs.size()]))));
+        for (String fname : map.keySet())
+            WorkbookEvaluator.registerFunction(fname, map.get(fname).newInstance());
     }
 
     protected Object fromPoiValue(org.apache.poi.ss.usermodel.CellValue poiValue) {
