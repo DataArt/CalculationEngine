@@ -17,6 +17,4 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
  */
 public interface CustomFunction extends FreeRefFunction {
 
-    void setEvaluator(IEvaluator evaluator);
-
 }

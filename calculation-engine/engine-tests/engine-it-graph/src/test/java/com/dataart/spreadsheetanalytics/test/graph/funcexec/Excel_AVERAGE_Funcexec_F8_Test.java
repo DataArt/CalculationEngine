@@ -9,16 +9,16 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_AVERAGE_Funcexec_F8_Test extends SerializedGraphTest {
-    
+
     static String address = "F8";
     static String file = "AVERAGE_Funcexec";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    
+
     @BeforeClass
     public static void before() throws Exception {
         SerializedGraphTest.before(path, address);
     }
-    
+
     @AfterClass
     public static void after() throws Exception {
         SerializedGraphTest.after();

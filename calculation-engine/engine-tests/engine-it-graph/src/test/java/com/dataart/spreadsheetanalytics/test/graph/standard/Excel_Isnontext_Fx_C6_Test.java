@@ -9,21 +9,21 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_Isnontext_Fx_C6_Test extends SerializedGraphTest {
-    
+
     static String address = "C6";
     static String file = "Isnontext_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    
+
     @BeforeClass
     public static void before() throws Exception {
-        SerializedGraphTest.before(path, address);        
+        SerializedGraphTest.before(path, address);
     }
 
     @AfterClass
     public static void after() throws Exception {
         SerializedGraphTest.after();
     }
-    
+
     @Test
     public void assert_ExcelFile_SerializedGraph() {
         super.assert_ExcelFile_SerializedGraph(file, address);

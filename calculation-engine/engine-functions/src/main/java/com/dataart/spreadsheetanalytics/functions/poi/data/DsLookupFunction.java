@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
@@ -158,5 +157,4 @@ public class DsLookupFunction implements CustomFunction {
         return found;
     }
 
-    @Override public void setEvaluator(IEvaluator evaluator) { }
 }

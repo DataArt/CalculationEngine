@@ -19,23 +19,23 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
-    
+
     static String address = "D4";
     static String file = "Index_Itself";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-        
+
     @Test(expected = IllegalStateException.class)
     public void assert_ExcelFile_SerializedGraph() throws IOException {
         //given
-        final IDataModel model = new DataModel(file, path);        
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
-        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));        
+        final IDataModel model = new DataModel(file, path);
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
+        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         graph = auditor.buildDynamicExecutionGraph(addr);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
         //when
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        
+
         //then
         //Exception
     }
