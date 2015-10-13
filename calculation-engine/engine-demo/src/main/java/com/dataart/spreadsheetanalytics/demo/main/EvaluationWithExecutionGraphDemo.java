@@ -17,9 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
 
-import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
@@ -53,7 +51,6 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
-import com.dataart.spreadsheetanalytics.engine.util.DataModelOperations;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
@@ -122,7 +119,6 @@ public class EvaluationWithExecutionGraphDemo {
               .setStatisticsEnabled(false);
 
         //create the caches for application
-        Cache<IDataModelId, BlockingQueue> dmeCache = cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODELS_FOR_EXECUTION_CACHE_NAME, config.setTypes(IDataModelId.class, BlockingQueue.class));
         cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
@@ -155,13 +151,6 @@ public class EvaluationWithExecutionGraphDemo {
         
         //update all define functions based on data models in cache
         attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
-        
-        //create data models for execution cache
-        dmeCache.putAll(DataModelOperations.createDataModelsForExecution(
-                                                attributeFunctionStorage.getDefineFunctions(), 
-                                                dataModelStorage.getDataModels(), 
-                                                10));
-        ((CacheBasedDataModelStorage) dataModelStorage).setDataModelsForExecutionCache(dmeCache);
         
         //add in memory sql data source
         dataSourceHub.addDataSource(new TempSqlDataSource());
