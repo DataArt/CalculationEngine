@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -76,7 +77,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
-    protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
+    
+    static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
     protected final DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
     /*
@@ -206,8 +208,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         // make identical vertices have the same set of properties
         // two vertices are identical if they have the same address value.
         // Id for every vertex is unique, so this is not a flag here
-        for (String address : addressToVertices.keySet()) {
-            Set<IExecutionGraphVertex> vs = addressToVertices.get(address);
+        for (Entry<String, Set<IExecutionGraphVertex>> en : addressToVertices.entrySet()) {
+            Set<IExecutionGraphVertex> vs = addressToVertices.get(en.getKey());
 
             // the logic below is very fragile and based on some empirical model
             // and may not work for other type of graphs

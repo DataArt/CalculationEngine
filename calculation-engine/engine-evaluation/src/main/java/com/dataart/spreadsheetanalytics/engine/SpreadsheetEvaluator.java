@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.engine;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
@@ -80,8 +81,8 @@ public class SpreadsheetEvaluator implements IEvaluator {
         AnalysisToolPak._saFunctionsByName = new HashMap<>();
         map.forEach((k, v) -> AnalysisToolPak._saFunctionsByName.put(k, null));
         
-        for (String fname : map.keySet())
-            { WorkbookEvaluator.registerFunction(fname, map.get(fname).newInstance()); }
+        for (Entry<String, Class<? extends CustomFunction>> en : map.entrySet())
+            { WorkbookEvaluator.registerFunction(en.getKey(), en.getValue().newInstance()); }
     }
 
     protected Object fromPoiValue(org.apache.poi.ss.usermodel.CellValue poiValue) {
