@@ -18,7 +18,7 @@ public class DsCell implements IDsCell {
 
     @Override
     public String toString() {
-        return value == null ? null : value.toString();
+        return value == null ? "null" : value.toString();
     }
 
 }
