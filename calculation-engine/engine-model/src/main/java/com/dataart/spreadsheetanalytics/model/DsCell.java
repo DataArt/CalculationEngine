@@ -11,16 +11,14 @@ public class DsCell implements IDsCell {
         this.index = cellIndex;
     }
 
+    @Override public Object value() { return this.value; }
     public void value(Object value) { this.value = value; }
 
     @Override public int index() { return this.index; }
-    @Override public Object value() { return this.value; }
 
     @Override
     public String toString() {
         return value == null ? null : value.toString();
     }
-    
-    
 
 }

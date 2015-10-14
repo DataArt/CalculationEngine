@@ -37,9 +37,8 @@ public class A1RangeAddress extends A1Address {
     }
     
     public static List<ICellAddress> toCellAddresses(A1RangeAddress rangeAddress) {
-        return Collections.<ICellAddress> unmodifiableList(rangeAddress.addresses
-                                                                            .stream()
-                                                                            .map(e -> { return (ICellAddress) e; })
-                                                                            .collect(Collectors.toList()));
+        return Collections.<ICellAddress>unmodifiableList(rangeAddress.addresses.stream()
+                                                                                .map(e -> { return (ICellAddress) e; })
+                                                                                .collect(Collectors.toList()));
     }
 }

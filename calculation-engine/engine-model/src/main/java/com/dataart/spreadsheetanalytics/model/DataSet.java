@@ -33,7 +33,7 @@ public class DataSet implements IDataSet {
     @Override public int length() { return this.rows.size(); }
     @Override public int width() { return rows.isEmpty() ? 0 : rows.get(0).width(); }
 
-    @Override public List<IDsRow> rows() { return Collections.<IDsRow> unmodifiableList(this.rows); }
+    @Override public List<IDsRow> rows() { return Collections.<IDsRow>unmodifiableList(this.rows); }
     
     public DsRow createRow() {
         DsRow row = new DsRow(rows.size() + 1);

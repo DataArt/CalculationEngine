@@ -21,6 +21,7 @@ public class CellValue implements ICellValue {
     public Object get() { return value; }
 
     /**
+     * TODO: check this method - it shpuld be removed, since all values in CellValue is Object )String, Integer) - not POI's
      * Util toString with some additional logic in case the value is of type String or Number. 
      */
     public static String fromCellValueToString(ICellValue value) {
@@ -28,7 +29,7 @@ public class CellValue implements ICellValue {
 
         Object v = value.get();
 
-        if (v == null) return "";
+        if (v == null) { return ""; }
 
         if (v instanceof StringValueEval) {
             return ((StringValueEval) v).getStringValue();
