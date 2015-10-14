@@ -3,26 +3,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dataart</groupId>
-  <artifactId>spreadsheetanalytics-parent</artifactId>
+  <artifactId>spreadsheetanalytics-code-quality</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>spreadsheetanalytics-parent</name>
+  <name>spreadsheetanalytics--code-quality</name>
   <url>https://github.com/DataArt/CalculationEngine</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <checkstyle.config.location>../checkstyle.xml</checkstyle.config.location>
+    <checkstyle.header.file>../LICENSE.txt</checkstyle.header.file>
   </properties>
 
-  <modules>
-    <module>poi-fork-parent</module>
-    <module>engine-model</module>
-    <module>engine-data</module>
-	<module>engine-data-cache-impl</module>
-    <module>engine-functions</module>
-    <module>engine-evaluation</module>
-    <module>engine-tests</module>
-  </modules>
 
   <build>
     <plugins>
@@ -38,6 +31,33 @@
         </configuration>
       </plugin>
 	  
+      <!-- Attache sources to jar for code coverage -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.16</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>6.1.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
 	  <!-- Code Quality -->
       <!-- plugin>
         <groupId>org.codehaus.mojo</groupId>
