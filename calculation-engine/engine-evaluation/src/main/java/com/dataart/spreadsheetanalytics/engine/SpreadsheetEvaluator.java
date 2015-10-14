@@ -25,7 +25,7 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class SpreadsheetEvaluator implements IEvaluator {
-    private final static Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);
+    private static final Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);
 
     protected DataModel model;
     protected XSSFFormulaEvaluator poiEvaluator;
@@ -43,17 +43,17 @@ public class SpreadsheetEvaluator implements IEvaluator {
     }
 
     @Override
-	public ICellValue evaluate(ICellAddress addr) {
-		Sheet s = model.poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
-		Row r = s.getRow(addr.row());
-		if (r == null) { return null; }
-		
+    public ICellValue evaluate(ICellAddress addr) {
+        Sheet s = model.poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
+        Row r = s.getRow(addr.row());
+        if (r == null) { return null; }
+        
         Cell c = r.getCell(addr.column());
         if (c == null) { return null; }
 
         org.apache.poi.ss.usermodel.CellValue poiValue = poiEvaluator.evaluate(c);
 
-        if (poiValue == null) {	return null; }
+        if (poiValue == null) { return null; }
 
         ICellValue cv = new CellValue(fromPoiValue(poiValue));
         
@@ -81,7 +81,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         map.forEach((k, v) -> AnalysisToolPak._saFunctionsByName.put(k, null));
         
         for (String fname : map.keySet())
-            WorkbookEvaluator.registerFunction(fname, map.get(fname).newInstance());
+            { WorkbookEvaluator.registerFunction(fname, map.get(fname).newInstance()); }
     }
 
     protected Object fromPoiValue(org.apache.poi.ss.usermodel.CellValue poiValue) {

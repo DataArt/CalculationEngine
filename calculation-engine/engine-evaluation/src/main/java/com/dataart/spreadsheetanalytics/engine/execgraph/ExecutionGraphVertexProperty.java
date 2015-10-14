@@ -101,7 +101,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 parent.name = (String) pvalue;
                 break;
             }
-            default:{
+            default: {
                     throw new IllegalArgumentException(String.format("Property %s is not supported by %s.", pname, parent.getClass().getSimpleName()));
                 }
             }

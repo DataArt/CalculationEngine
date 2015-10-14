@@ -4,20 +4,17 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 
 /**
  * One of two basic interfaces to use the library. 
  * It's purpose is to do the evaluation of Cell or whole DataModel.
  * Two methods: {@link #evaluate(ICellAddress)} and {@link #evaluate(IDataModel)} are designed to do it.
  * 
- * This component also provides some kind of life-cycle, since it has {@link #init(IDataModel)} and {@link #destroy()} methods.
- * They can be used to initialize this component and destroy it's context.
- * 
  * Usually new instance of Evaluator should be created for every {@link IDataModel} to evaluate.
  * 
- * Basic implementation: {@link SpreadsheetEvaluator} class from engine-core library.
+ * Basic implementation: {@link SpreadsheetEvaluator}.
  */
-@SuppressWarnings("javadoc")
 public interface IEvaluator {
 
     /**

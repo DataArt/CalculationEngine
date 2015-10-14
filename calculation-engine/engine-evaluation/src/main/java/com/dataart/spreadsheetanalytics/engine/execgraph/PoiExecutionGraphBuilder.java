@@ -35,7 +35,6 @@ import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
 import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
-import org.apache.poi.ss.formula.eval.NumberEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
@@ -79,226 +78,226 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     protected static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
 
-	protected final DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
-	/*
+    protected final DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
+    /*
      * The map is used to store vertices using value field as a key
      * One value may correspond to several vertices. That's why we use Deques instead single values
      */
-	protected Map<ValueEval, Deque<IExecutionGraphVertex>> valueToVertex;
-	protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
+    protected Map<ValueEval, Deque<IExecutionGraphVertex>> valueToVertex;
+    protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
 
-	public PoiExecutionGraphBuilder() {
-		this.dgraph =  new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-		this.valueToVertex = new HashMap<>();
-		this.addressToVertices = new HashMap<>();
-	}
+    public PoiExecutionGraphBuilder() {
+        this.dgraph =  new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        this.valueToVertex = new HashMap<>();
+        this.addressToVertices = new HashMap<>();
+    }
 
-	public ExecutionGraph get() {
-	    ExecutionGraph result = ExecutionGraph.wrap(dgraph);
-		return result;
-	}
+    public ExecutionGraph get() {
+        ExecutionGraph result = ExecutionGraph.wrap(dgraph);
+        return result;
+    }
 
-	public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
-		DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-		ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-		vertex.property(TYPE).set(EMPTY_CELL);
-		emptyGraph.addVertex(vertex);
-		ExecutionGraph result = ExecutionGraph.wrap(emptyGraph);
-		return result;
-	}
+    public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.property(TYPE).set(EMPTY_CELL);
+        emptyGraph.addVertex(vertex);
+        ExecutionGraph result = ExecutionGraph.wrap(emptyGraph);
+        return result;
+    }
 
-	/**
-	 * This method should be used when creating a new vertex from a cell, so
-	 * vertex name is a cell's address. New Vertex will be created any time this
-	 * method is invoked. New vertex will be stored in
-	 * address-to-set-of-vertices map.
-	 */
-	@Override
-	public IExecutionGraphVertex createVertex(String address) {
-		// create new vertex object
-		ExecutionGraphVertex v = new ExecutionGraphVertex(address);
+    /**
+     * This method should be used when creating a new vertex from a cell, so
+     * vertex name is a cell's address. New Vertex will be created any time this
+     * method is invoked. New vertex will be stored in
+     * address-to-set-of-vertices map.
+     */
+    @Override
+    public IExecutionGraphVertex createVertex(String address) {
+        // create new vertex object
+        ExecutionGraphVertex v = new ExecutionGraphVertex(address);
 
-		// add vertex to actual graph
-		dgraph.addVertex(v);
+        // add vertex to actual graph
+        dgraph.addVertex(v);
 
-		// put new vertex to set of vertices with the same address, since they
-		// all must have the same set of properties and values
-		Set<IExecutionGraphVertex> vs = addressToVertices.containsKey(address) ? addressToVertices.get(address) : new HashSet<>();
-		vs.add(v);
-		addressToVertices.put(address, vs);
+        // put new vertex to set of vertices with the same address, since they
+        // all must have the same set of properties and values
+        Set<IExecutionGraphVertex> vs = addressToVertices.containsKey(address) ? addressToVertices.get(address) : new HashSet<>();
+        vs.add(v);
+        addressToVertices.put(address, vs);
 
-		return v;
-	}
+        return v;
+    }
 
-	@Override
-	public IExecutionGraphVertex createVertex(Ptg ptg) {
-		if (isSkipVertex(ptg)) { return null; }
-		
-		boolean isCell = ptg instanceof RefPtg;
-		String name = ptgToString(ptg);
+    @Override
+    public IExecutionGraphVertex createVertex(Ptg ptg) {
+        if (isSkipVertex(ptg)) { return null; }
+        
+        boolean isCell = ptg instanceof RefPtg;
+        String name = ptgToString(ptg);
 
-		if (isCell) { // cell
-			return createVertex(name);
-		} else { // operation
-			ExecutionGraphVertex v = new ExecutionGraphVertex(name);
-			dgraph.addVertex(v);
-			return v;
-		}
-	}
+        if (isCell) { // cell
+            return createVertex(name);
+        } else { // operation
+            ExecutionGraphVertex v = new ExecutionGraphVertex(name);
+            dgraph.addVertex(v);
+            return v;
+        }
+    }
 
-	@Override
-	public void connect(IExecutionGraphVertex from, IExecutionGraphVertex to) {
-		dgraph.addEdge(from, to);
-	}
+    @Override
+    public void connect(IExecutionGraphVertex from, IExecutionGraphVertex to) {
+        dgraph.addEdge(from, to);
+    }
 
-	@Override
-	public void removeVertex(IExecutionGraphVertex vertex) {
-		if (vertex == null) { return; }
-		dgraph.removeVertex(vertex);
-	}
+    @Override
+    public void removeVertex(IExecutionGraphVertex vertex) {
+        if (vertex == null) { return; }
+        dgraph.removeVertex(vertex);
+    }
 
-	@Override
-	public void putVertexToStack(ValueEval value, IExecutionGraphVertex vertex) {
-		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
-		if (!valueToVertex.containsKey(value)) { valueToVertex.put(value, new LinkedList<IExecutionGraphVertex>()); }
-		valueToVertex.get(value).push(vertex);
-	}
+    @Override
+    public void putVertexToStack(ValueEval value, IExecutionGraphVertex vertex) {
+        if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
+        if (!valueToVertex.containsKey(value)) { valueToVertex.put(value, new LinkedList<IExecutionGraphVertex>()); }
+        valueToVertex.get(value).push(vertex);
+    }
 
-	@Override
-	public IExecutionGraphVertex getVertexFromStack(ValueEval value) {
-		if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
-		/* the value is taken from the Deque while it is taken from the stack in poi WorkbookEvaluator class */
-		return valueToVertex.get(value).pop();
-	}
+    @Override
+    public IExecutionGraphVertex getVertexFromStack(ValueEval value) {
+        if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
+        /* the value is taken from the Deque while it is taken from the stack in poi WorkbookEvaluator class */
+        return valueToVertex.get(value).pop();
+    }
 
-	@Override
-	public void putVertexToCache(String address, IExecutionGraphVertex vertex) {
-		if (!addressToVertices.containsKey(address)) { addressToVertices.put(address, new HashSet<>()); }
-		addressToVertices.get(address).add(vertex);
-	}
+    @Override
+    public void putVertexToCache(String address, IExecutionGraphVertex vertex) {
+        if (!addressToVertices.containsKey(address)) { addressToVertices.put(address, new HashSet<>()); }
+        addressToVertices.get(address).add(vertex);
+    }
+    
+    @Override
+    public void putVertexToCache(int row, int column, IExecutionGraphVertex vertex) {
+        putVertexToCache(CellAddress.toA1Address(row, column), vertex);
+    }
+    
+    @Override
+    public Set<IExecutionGraphVertex> getVerticesFromCache(String address) {
+        return addressToVertices.get(address);
+    }
 
-	@Override
-	public Set<IExecutionGraphVertex> getVerticesFromCache(String address) {
-		return addressToVertices.get(address);
-	}
+    @Override
+    public Set<IExecutionGraphVertex> getVerticesFromCache(int row, int column) {
+        return getVerticesFromCache(CellAddress.toA1Address(row, column));
+    }
 
-	@Override
-	public void putVertexToCache(int row, int column, IExecutionGraphVertex vertex) {
-		putVertexToCache(CellAddress.toA1Address(row, column), vertex);
-	}
+    @Override
+    public IExecutionGraphVertexProperty getVertexProperty(IExecutionGraphVertex vertex, PropertyName property) {
+        return ((ExecutionGraphVertex) vertex).property(property);
+    }
 
-	@Override
-	public Set<IExecutionGraphVertex> getVerticesFromCache(int row, int column) {
-		return getVerticesFromCache(CellAddress.toA1Address(row, column));
-	}
+    /**
+     * Do anything you want here. After graph is completed and we are out of POI
+     * context you can add\remove\etc any information you want.
+     */
+    public void runPostProcessing() {
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph = dgraph;
 
-	@Override
-	public IExecutionGraphVertexProperty getVertexProperty(IExecutionGraphVertex vertex, PropertyName property) {
-		return ((ExecutionGraphVertex) vertex).property(property);
-	}
+        // make identical vertices have the same set of properties
+        // two vertices are identical if they have the same address value.
+        // Id for every vertex is unique, so this is not a flag here
+        for (String address : addressToVertices.keySet()) {
+            Set<IExecutionGraphVertex> vs = addressToVertices.get(address);
 
-	/**
-	 * Do anything you want here. After graph is completed and we are out of POI
-	 * context you can add\remove\etc any information you want.
-	 */
-	public void runPostProcessing() {
-		DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph = dgraph;
+            // the logic below is very fragile and based on some empirical model
+            // and may not work for other type of graphs
+            if (vs != null && vs.size() > 1) {
+                IExecutionGraphVertex standard = null;
 
-		// make identical vertices have the same set of properties
-		// two vertices are identical if they have the same address value.
-		// Id for every vertex is unique, so this is not a flag here
-		for (String address : addressToVertices.keySet()) {
-			Set<IExecutionGraphVertex> vs = addressToVertices.get(address);
+                for (IExecutionGraphVertex ivertex : vs) {
+                    ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+                    if (CELL_WITH_FORMULA == (Type) vertex.property(TYPE).get()) { standard = vertex; break; }
+                }
 
-			// the logic below is very fragile and based on some empirical model
-			// and may not work for other type of graphs
-			if (vs != null && vs.size() > 1) {
-				IExecutionGraphVertex standard = null;
+                if (standard != null) {
+                    copyProperties(standard, vs);
+                }
+            }
+        }
 
-				for (IExecutionGraphVertex ivertex : vs) {
-					ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-					if (CELL_WITH_FORMULA == (Type) vertex.property(TYPE).get()) { standard = vertex; break; }
-				}
+        // copy or link subgraphs to identical vertices
+        // and
+        // modify Formula field with additional values
+        Map<String, AtomicInteger> adressToCount = new HashMap<>();
+        for (IExecutionGraphVertex ivertex : graph.vertexSet()) {
 
-				if (standard != null) {
-					copyProperties(standard, vs);
-				}
-			}
-		}
+            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
 
-		// copy or link subgraphs to identical vertices
-		// and
-		// modify Formula field with additional values
-		Map<String, AtomicInteger> adressToCount = new HashMap<>();
-		for (IExecutionGraphVertex ivertex : graph.vertexSet()) {
+            // restore/add subgraphs to identical vertices
+            Type type = (Type) vertex.property(TYPE).get();
+            if (isCell(type)) {
+                String address = (String) vertex.property(NAME).get();
 
-			ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+                adressToCount.putIfAbsent(address, new AtomicInteger(0));
 
-			// restore/add subgraphs to identical vertices
-			Type type = (Type) vertex.property(TYPE).get();
-			if (isCell(type)) {
-				String address = (String) vertex.property(NAME).get();
+                if (adressToCount.get(address).incrementAndGet() > 1) { //count > 1
+                    // need to link
+                    Set<IExecutionGraphVertex> subgraphTops = new HashSet<>();
 
-				adressToCount.putIfAbsent(address, new AtomicInteger(0));
+                    // TODO: point to optimize!
+                    for (IExecutionGraphVertex itmpVertex : graph.vertexSet()) {
 
-				if (adressToCount.get(address).incrementAndGet() > 1) { //count > 1
-					// need to link
-					Set<IExecutionGraphVertex> subgraphTops = new HashSet<>();
+                        ExecutionGraphVertex tmpVertex = (ExecutionGraphVertex) itmpVertex;
 
-					// TODO: point to optimize!
-					for (IExecutionGraphVertex itmpVertex : graph.vertexSet()) {
+                        String tmpAddress = (String) tmpVertex.property(NAME).get();
+                        if (address.equals(tmpAddress)) { // check for subgraph
+                            for (ExecutionGraphEdge tmpEdge : graph.incomingEdgesOf(tmpVertex)) {
+                                subgraphTops.add(graph.getEdgeSource(tmpEdge));
+                            }
+                        }
+                    }
 
-						ExecutionGraphVertex tmpVertex = (ExecutionGraphVertex) itmpVertex;
+                    for (IExecutionGraphVertex subVertex : subgraphTops) {
+                        for (IExecutionGraphVertex vertexOfAddress : addressToVertices.get(address)) {
+                            graph.addEdge(subVertex, vertexOfAddress);
+                        }
+                    }
+                }
+            }
 
-						String tmpAddress = (String) tmpVertex.property(NAME).get();
-						if (address.equals(tmpAddress)) { // check for subgraph
-							for (ExecutionGraphEdge tmpEdge : graph.incomingEdgesOf(tmpVertex)) {
-								subgraphTops.add(graph.getEdgeSource(tmpEdge));
-							}
-						}
-					}
+            /* Adding IF Value */
+            if (IF == type) {
+                Set<ExecutionGraphEdge> two = graph.incomingEdgesOf(vertex);
+                if (two.size() != 2) { throw new IllegalStateException("IF must have only two incoming edges."); }
 
-					for (IExecutionGraphVertex subVertex : subgraphTops) {
-						for (IExecutionGraphVertex vertexOfAddress : addressToVertices.get(address)) {
-							graph.addEdge(subVertex, vertexOfAddress);
-						}
-					}
-				}
-			}
+                Object ifBranchValue = null;
+                for (ExecutionGraphEdge e : two) {
+                    ExecutionGraphVertex oneOfTwo = (ExecutionGraphVertex) graph.getEdgeSource(e);
+                    if (!isCompareOperand(oneOfTwo.name())) {
+                        ifBranchValue = oneOfTwo.property(VALUE).get();
+                        break;
+                    }
+                }
+                vertex.property(VALUE).set(ifBranchValue);
+            }
 
-			/* Adding IF Value */
-			if (IF == type) {
-				Set<ExecutionGraphEdge> two = graph.incomingEdgesOf(vertex);
-				if (two.size() != 2) { throw new IllegalStateException("IF must have only two incoming edges."); }
+        }
 
-				Object ifBranchValue = null;
-				for (ExecutionGraphEdge e : two) {
-					ExecutionGraphVertex oneOfTwo = (ExecutionGraphVertex) graph.getEdgeSource(e);
-					if (!isCompareOperand(oneOfTwo.name())) {
-						ifBranchValue = oneOfTwo.property(VALUE).get();
-						break;
-					}
-				}
-				vertex.property(VALUE).set(ifBranchValue);
-			}
+        for (IExecutionGraphVertex vert : graph.vertexSet()) {
+            if (graph.outgoingEdgesOf(vert).isEmpty()) {
+                ExecutionGraphVertex root = (ExecutionGraphVertex) vert;
+                root.formula = buildFormula(root, graph);
+                break;
+            }
+        }
 
-		}
-
-		for (IExecutionGraphVertex vert : graph.vertexSet()) {
-			if (graph.outgoingEdgesOf(vert).isEmpty()) {
-			    ExecutionGraphVertex root = (ExecutionGraphVertex) vert;
-				root.formula = buildFormula(root, graph);
-				break;
-			}
-		}
-
-	}
+    }
 
     /* Modifications for: FORMULA */
     // set formula_values to user-friendly string like: '1 + 2' or
     // 'SUM(2,1)'
     // For OPERATOR and FUNCTION types
-	protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph) {
+    protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph) {
 
         switch (vertex.type) {
 
@@ -406,7 +405,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-	}
+    }
 
     protected void checkForEmptyValues(ExecutionGraphVertex vertex) {
         Object value = vertex.property(VALUE).get();
@@ -415,64 +414,64 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
     }
 
-	protected void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
-		Object cellValue = ((CellValue) rangeVertex.value()).get();
-		if (cellValue instanceof Area2DValues) {
-			
-			for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
+    protected void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
+        Object cellValue = ((CellValue) rangeVertex.value()).get();
+        if (cellValue instanceof Area2DValues) {
+            
+            for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
                 if (addressToVertices.get(adress) == null) { continue; }
                 
                 for (IExecutionGraphVertex cellVertex : addressToVertices.get(adress)) {
                     connect(cellVertex, rangeVertex);
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 
-	protected boolean isSkipVertex(Ptg ptg) {
-		return ptg instanceof ParenthesisPtg;
-	}
+    protected boolean isSkipVertex(Ptg ptg) {
+        return ptg instanceof ParenthesisPtg;
+    }
 
-	protected String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
-		String opname = "";
-		if (optg == null) { // IF
-			opname = "IF";
-		} else if (optg instanceof Ptg) {
-			opname = ptgToString((Ptg) optg);
-			if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) {
-				/* if the function was not recognized as
-				   internal function we use the node
-				   name as the function name */
-				opname = vertex.name();
-			}
-		} else {
-			opname = optg.toString();
-		}
-		
-		if (optg == null || optg instanceof AbstractFunctionPtg) {
-			return stripRedundantSymbols(format("%s(%s)", 
-			                                     opname,
-			                                     join(",", asList(ops)
-			                                                   .stream()
-			                                                   .map(v -> v.toString())
-			                                                   .collect(toList()))));
-		} else if (optg instanceof ValueOperatorPtg) {
-			return stripRedundantSymbols(format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", opname, (ops.size() > 0) ? ops.get(0) : ""));
-		}
-		return "";
-	}
+    protected String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+        String opname = "";
+        if (optg == null) { // IF
+            opname = "IF";
+        } else if (optg instanceof Ptg) {
+            opname = ptgToString((Ptg) optg);
+            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) {
+                /* if the function was not recognized as
+                   internal function we use the node
+                   name as the function name */
+                opname = vertex.name();
+            }
+        } else {
+            opname = optg.toString();
+        }
+        
+        if (optg == null || optg instanceof AbstractFunctionPtg) {
+            return stripRedundantSymbols(format("%s(%s)", 
+                                                 opname,
+                                                 join(",", asList(ops)
+                                                               .stream()
+                                                               .map(v -> v.toString())
+                                                               .collect(toList()))));
+        } else if (optg instanceof ValueOperatorPtg) {
+            return stripRedundantSymbols(format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", opname, (ops.size() > 0) ? ops.get(0) : ""));
+        }
+        return "";
+    }
 
-	protected String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
-		String opname = "";
-		
-		if (optg == null) {
-			opname = "IF";
-			return stripRedundantSymbols(format("%s %s ",
-					                            join(",", asList(ops)
-					                                        .stream()
-					                                        .map(v -> v.toString())
-					                                        .collect(toList())), 
-					                            opname));
+    protected String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+        String opname = "";
+        
+        if (optg == null) {
+            opname = "IF";
+            return stripRedundantSymbols(format("%s %s ",
+                                                join(",", asList(ops)
+                                                            .stream()
+                                                            .map(v -> v.toString())
+                                                            .collect(toList())), 
+                                                opname));
         } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
             /* if the function was not recognized as
@@ -493,14 +492,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
 
         return "";
-	}
+    }
 
-	protected static String stripRedundantSymbols(String inline) {
-		for (String token : POI_VALUE_REDUNDANT_SYMBOLS) {
-			inline = inline.replace(token, "");
-		}
-		return inline;
-	}
+    protected static String stripRedundantSymbols(String inline) {
+        for (String token : POI_VALUE_REDUNDANT_SYMBOLS) {
+            inline = inline.replace(token, "");
+        }
+        return inline;
+    }
 
     protected static boolean isErrorValue(ICellValue val) {
         if (val == null) { return false; }
@@ -515,81 +514,81 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return !(isError || isNotInherFunction);
     }
 
-	public static String ptgToString(Ptg ptg) {
-		Class<? extends Ptg> ptgCls = ptg.getClass();
+    public static String ptgToString(Ptg ptg) {
+        Class<? extends Ptg> ptgCls = ptg.getClass();
 
-		if (ptgCls.isAssignableFrom(AddPtg.class)) {
-			return "+";
-		} else if (ptgCls.isAssignableFrom(SubtractPtg.class)) {
-			return "-";
-		} else if (ptgCls.isAssignableFrom(DividePtg.class)) {
-			return "/";
-		} else if (ptgCls.isAssignableFrom(MultiplyPtg.class)) {
-			return "*";
-		} else if (ptgCls.isAssignableFrom(EqualPtg.class)) {
-			return "=";
-		} else if (ptgCls.isAssignableFrom(GreaterThanPtg.class)) {
-			return ">";
-		} else if (ptgCls.isAssignableFrom(LessThanPtg.class)) {
-			return "<";
-		} else if (ptgCls.isAssignableFrom(NotEqualPtg.class)) {
-			return "<>";
-		} else if (ptgCls.isAssignableFrom(UnaryPlusPtg.class)) {
-			return "+";
-		} else if (ptgCls.isAssignableFrom(ConcatPtg.class)) {
-		    return "&";
-		}
+        if (ptgCls.isAssignableFrom(AddPtg.class)) {
+            return "+";
+        } else if (ptgCls.isAssignableFrom(SubtractPtg.class)) {
+            return "-";
+        } else if (ptgCls.isAssignableFrom(DividePtg.class)) {
+            return "/";
+        } else if (ptgCls.isAssignableFrom(MultiplyPtg.class)) {
+            return "*";
+        } else if (ptgCls.isAssignableFrom(EqualPtg.class)) {
+            return "=";
+        } else if (ptgCls.isAssignableFrom(GreaterThanPtg.class)) {
+            return ">";
+        } else if (ptgCls.isAssignableFrom(LessThanPtg.class)) {
+            return "<";
+        } else if (ptgCls.isAssignableFrom(NotEqualPtg.class)) {
+            return "<>";
+        } else if (ptgCls.isAssignableFrom(UnaryPlusPtg.class)) {
+            return "+";
+        } else if (ptgCls.isAssignableFrom(ConcatPtg.class)) {
+            return "&";
+        }
 
-		try {
-			return ptg.toFormulaString();
-		} catch (Exception e) {
-			return ptg.getClass().getSimpleName();
-		}
-	}
+        try {
+            return ptg.toFormulaString();
+        } catch (Exception e) {
+            return ptg.getClass().getSimpleName();
+        }
+    }
 
-	public static Type ptgToVertexType(Ptg ptg) {
+    public static Type ptgToVertexType(Ptg ptg) {
 
-		if (ptg instanceof AbstractFunctionPtg) { // functions: SUM, COUNT, COS, etc.
-			return FUNCTION;
-		} else if (ptg instanceof ValueOperatorPtg) { // single operators: +, -, /, *, =
-			return OPERATOR;
-		} else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg || ptg instanceof NamePtg) {
-			return CELL_WITH_VALUE;
-		} else if (ptg instanceof ScalarConstantPtg) {
-			return CONSTANT_VALUE;
-		} else if (ptg instanceof AreaPtg) {
-			return RANGE;
-		}
+        if (ptg instanceof AbstractFunctionPtg) { // functions: SUM, COUNT, COS, etc.
+            return FUNCTION;
+        } else if (ptg instanceof ValueOperatorPtg) { // single operators: +, -, /, *, =
+            return OPERATOR;
+        } else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg || ptg instanceof NamePtg) {
+            return CELL_WITH_VALUE;
+        } else if (ptg instanceof ScalarConstantPtg) {
+            return CONSTANT_VALUE;
+        } else if (ptg instanceof AreaPtg) {
+            return RANGE;
+        }
 
-		// TODO: add more for our cases
-		throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
-	}
+        // TODO: add more for our cases
+        throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
+    }
 
-	/**
-	 * Does copy of all properties for every Vertex from @param vertices. the
-	 * first @param istandard is used as object to copy from.
-	 */
-	protected static void copyProperties(IExecutionGraphVertex istandard, Set<IExecutionGraphVertex> vertices) {
-	    ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
-	    
-	    for (IExecutionGraphVertex ivertex : vertices) {
-			if (istandard == ivertex) { continue; }
+    /**
+     * Does copy of all properties for every Vertex from @param vertices. the
+     * first @param istandard is used as object to copy from.
+     */
+    protected static void copyProperties(IExecutionGraphVertex istandard, Set<IExecutionGraphVertex> vertices) {
+        ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
+        
+        for (IExecutionGraphVertex ivertex : vertices) {
+            if (istandard == ivertex) { continue; }
 
-			ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-			
-			// copy properties
-			for (PropertyName pname : PropertyName.values()) {
-				if (pname == PropertyName.VERTEX_ID) { continue; }
-				if (pname == PropertyName.INDEX_IN_FORMULA) { continue; }
+            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+            
+            // copy properties
+            for (PropertyName pname : PropertyName.values()) {
+                if (pname == PropertyName.VERTEX_ID) { continue; }
+                if (pname == PropertyName.INDEX_IN_FORMULA) { continue; }
 
-				vertex.property(pname).set(standard.property(pname).get());
-			}
-		}
-	}
+                vertex.property(pname).set(standard.property(pname).get());
+            }
+        }
+    }
 
     // TODO: not the best solution, but works as for now
-	protected static boolean isCompareOperand(String name) {
-		return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
+    protected static boolean isCompareOperand(String name) {
+        return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
     }
 
 }
