@@ -14,6 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
     <checkstyle.header.file>../LICENSE.txt</checkstyle.header.file>
+    <findbugs.exclude.filter.file>../code-quality/findbugs-exclude-filter.xml</findbugs.exclude.filter.file>
   </properties>
 
   <build>
@@ -67,10 +68,14 @@
           </execution>
         </executions>
       </plugin>
+      
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
         <version>3.0.2</version>
+        <configuration>
+          <excludeFilterFile>${findbugs.exclude.filter.file}</excludeFilterFile>
+        </configuration>
         <executions>
           <execution>
             <phase>verify</phase>
@@ -80,6 +85,7 @@
           </execution>
         </executions>
       </plugin>
+      
       <!-- plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
