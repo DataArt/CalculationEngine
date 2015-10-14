@@ -13,10 +13,10 @@ import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 
 public class CacheBasedDataSetStorage implements DataSetStorage {
-    private final static Logger log = LoggerFactory.getLogger(CacheBasedDataSetStorage.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheBasedDataSetStorage.class);
     
-    public final static String DATA_SET_TO_ID_CACHE_NAME = "dataSetToIdCache";
-    public final static String DATA_SET_TO_NAME_CACHE_NAME = "dataSetToNameCache";
+    public static final String DATA_SET_TO_ID_CACHE_NAME = "dataSetToIdCache";
+    public static final String DATA_SET_TO_NAME_CACHE_NAME = "dataSetToNameCache";
     
     protected Cache<IDataModelId, IDataSet> dataSetToIdCache = Caching.getCache(DATA_SET_TO_ID_CACHE_NAME, IDataModelId.class, IDataSet.class);
     protected Cache<String, IDataSet> dataSetToNameCache = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, String.class, IDataSet.class);
@@ -37,12 +37,14 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
                 this.dataSetToIdCache.put(dset.dataModelId(), dset);
                 break;
             }
-            case GLOBAL: {
+            case GLOBAL: default: {
                 this.dataSetToNameCache.put(dset.name(), dset);
                 this.dataSetToIdCache.put(dset.dataModelId(), dset);
                 break;
             }
         }
+        
+        log.debug("Saved new DataSet {} with scope {} to DataSetStorage", dset.name(), scope);
     }
 
     @Override

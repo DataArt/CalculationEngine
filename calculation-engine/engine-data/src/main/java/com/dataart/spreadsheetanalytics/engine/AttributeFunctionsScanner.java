@@ -18,7 +18,7 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public abstract class AttributeFunctionsScanner {
     
-    public final static Map<String, Class<? extends AttributeFunctionMeta>> ALL_ATTRIBUTE_FUNCTIONS = Collections.unmodifiableMap(new LinkedHashMap() {
+    public static final Map<String, Class<? extends AttributeFunctionMeta>> ALL_ATTRIBUTE_FUNCTIONS = Collections.unmodifiableMap(new LinkedHashMap() {
         {
             put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
         }
@@ -34,7 +34,7 @@ public abstract class AttributeFunctionsScanner {
         DataModel dm = (DataModel) dataModel;
         
         Map<String, Map<String, T>> map = new HashMap<>();
-        for (String key : attrFunctions.keySet()) map.put(key, new HashMap<>());
+        attrFunctions.forEach((k, v) -> map.put(k, new HashMap<>()));
 
         for (Iterator sheeterator = dm.poiModel.iterator(); sheeterator.hasNext();) {
             Sheet sh = (Sheet) sheeterator.next();
@@ -53,7 +53,7 @@ public abstract class AttributeFunctionsScanner {
                         String formula = ce.getCellFormula();
 
                         String keyword = null;
-                        for (String key : attrFunctions.keySet()) if (formula.startsWith(key)) { keyword = key; break; }
+                        for (String key : attrFunctions.keySet()) { if (formula.startsWith(key)) { keyword = key; break; } }
                         
                         if (keyword == null) { continue; }
 
