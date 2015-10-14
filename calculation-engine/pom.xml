@@ -16,11 +16,7 @@
 
   <modules>
     <module>poi-fork-parent</module>
-    <module>engine-model</module>
-    <module>engine-data</module>
-	<module>engine-data-cache-impl</module>
-    <module>engine-functions</module>
-    <module>engine-evaluation</module>
+	<module>engine-root</module>
     <module>engine-tests</module>
   </modules>
 
@@ -38,60 +34,6 @@
         </configuration>
       </plugin>
 	  
-	  <!-- Code Quality -->
-      <!-- plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.2</version>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.5</version>
-        <dependencies>
-          <dependency>
-            <groupId>jaxen</groupId>
-            <artifactId>jaxen</artifactId>
-            <version>1.1.4</version>
-            <exclusions>
-              <exclusion>
-                <groupId>maven-plugins</groupId>
-                <artifactId>maven-cobertura-plugin</artifactId>
-              </exclusion>
-              <exclusion>
-                <groupId>maven-plugins</groupId>
-                <artifactId>maven-findbugs-plugin</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-        </dependencies>
-        <configuration>
-          <rulesets>
-            <ruleset>engine-core-tests/code-quality/pmd_rule_set.xml</ruleset>
-          </rulesets>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>cpd-check</goal>
-              <goal>check</goal>
-            </goals>
-            <configuration>
-              <verbose>true</verbose>
-              <failurePriority>5</failurePriority>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin -->
     </plugins>
   </build>
 
