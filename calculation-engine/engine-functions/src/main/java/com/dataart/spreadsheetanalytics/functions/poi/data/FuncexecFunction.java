@@ -35,7 +35,7 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 
 @FunctionMeta(value = "FUNCEXEC")
 public class FuncexecFunction implements CustomFunction {
-    private final static Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
+    private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE; 
 
@@ -89,7 +89,7 @@ public class FuncexecFunction implements CustomFunction {
         log.debug("Input Addresses for DEFINE: {}, Input Values for DEFINE: {}.", inputAddresses, inputValues);
 
         DataModel dmWithDefine = (DataModel) external.getDataModelStorage().getDataModel(meta.dataModelId());
-        ForkedEvaluator forkedEvaluator = XSSFForkedEvaluator.create(dmWithDefine.poiModel, IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUDFFinder());
+        ForkedEvaluator forkedEvaluator = XSSFForkedEvaluator.create(dmWithDefine.poiModel, IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUdfFinder());
 
         Sheet s = dmWithDefine.poiModel.getSheetAt(0);
         String firstSheetName = s.getSheetName(); /*TODO: one sheet support only*/

@@ -13,7 +13,7 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
 @FunctionMeta("DEFINE")
 public class DefineFunction implements CustomFunction {
-    private final static Logger log = LoggerFactory.getLogger(DefineFunction.class);
+    private static final Logger log = LoggerFactory.getLogger(DefineFunction.class);
     
     public DefineFunction() {}
 

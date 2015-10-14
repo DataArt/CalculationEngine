@@ -29,7 +29,7 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
 @FunctionMeta(value = "DSLOOKUP")
 public class DsLookupFunction implements CustomFunction {
-    private final static Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
+    private static final Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE;
 

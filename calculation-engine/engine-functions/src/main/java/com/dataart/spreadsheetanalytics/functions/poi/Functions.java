@@ -22,10 +22,10 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public abstract class Functions {
-    private final static Logger log = LoggerFactory.getLogger(Functions.class);
+    private static final Logger log = LoggerFactory.getLogger(Functions.class);
     
     /** Basic package where all the custom function are stored. By default static initializer tries to search it. */
-    public final static String PACKAGE_FUNCTIONS = "com.dataart.spreadsheetanalytics.functions.poi";
+    public static final String PACKAGE_FUNCTIONS = "com.dataart.spreadsheetanalytics.functions.poi";
 
     /**
      * Cache for custom functions (classes).
@@ -94,6 +94,6 @@ public abstract class Functions {
     /**
      * Returns static instance of {@link UDFFinder} for custom functions. Can be null.
      */
-    public static UDFFinder getUDFFinder() { return poifs; }
+    public static UDFFinder getUdfFinder() { return poifs; }
     
 }
