@@ -7,15 +7,14 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>spreadsheetanalytics--code-quality</name>
+  <name>spreadsheetanalytics-code-quality</name>
   <url>https://github.com/DataArt/CalculationEngine</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <checkstyle.config.location>../checkstyle.xml</checkstyle.config.location>
+    <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
     <checkstyle.header.file>../LICENSE.txt</checkstyle.header.file>
   </properties>
-
 
   <build>
     <plugins>
@@ -46,28 +45,28 @@
         </executions>
       </plugin>
 
-<!--       <plugin> -->
-<!--         <groupId>org.apache.maven.plugins</groupId> -->
-<!--         <artifactId>maven-checkstyle-plugin</artifactId> -->
-<!--         <version>2.16</version> -->
-<!--         <executions> -->
-<!--           <execution> -->
-<!--             <id>validate</id> -->
-<!--             <phase>validate</phase> -->
-<!--             <configuration> -->
-<!--               <configLocation>${checkstyle.config.location}</configLocation> -->
-<!--               <headerFile>${checkstyle.header.file}</headerFile> -->
-<!--               <encoding>${project.build.sourceEncoding}</encoding> -->
-<!--               <consoleOutput>true</consoleOutput> -->
-<!--               <failsOnError>true</failsOnError> -->
-<!--               <linkXRef>false</linkXRef> -->
-<!--             </configuration> -->
-<!--             <goals> -->
-<!--               <goal>check</goal> -->
-<!--             </goals> -->
-<!--           </execution> -->
-<!--         </executions> -->
-<!--       </plugin> -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.16</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <configuration>
+              <configLocation>${checkstyle.config.location}</configLocation>
+              <headerFile>${checkstyle.header.file}</headerFile>
+              <encoding>${project.build.sourceEncoding}</encoding>
+              <consoleOutput>true</consoleOutput>
+              <failsOnError>true</failsOnError>
+              <linkXRef>false</linkXRef>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 	  <!-- Code Quality -->
       <!-- plugin>
         <groupId>org.codehaus.mojo</groupId>
