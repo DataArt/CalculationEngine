@@ -46,18 +46,28 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.16</version>
-        <dependencies>
-          <dependency>
-            <groupId>com.puppycrawl.tools</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>6.1.1</version>
-          </dependency>
-        </dependencies>
-      </plugin>
+<!--       <plugin> -->
+<!--         <groupId>org.apache.maven.plugins</groupId> -->
+<!--         <artifactId>maven-checkstyle-plugin</artifactId> -->
+<!--         <version>2.16</version> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <id>validate</id> -->
+<!--             <phase>validate</phase> -->
+<!--             <configuration> -->
+<!--               <configLocation>${checkstyle.config.location}</configLocation> -->
+<!--               <headerFile>${checkstyle.header.file}</headerFile> -->
+<!--               <encoding>${project.build.sourceEncoding}</encoding> -->
+<!--               <consoleOutput>true</consoleOutput> -->
+<!--               <failsOnError>true</failsOnError> -->
+<!--               <linkXRef>false</linkXRef> -->
+<!--             </configuration> -->
+<!--             <goals> -->
+<!--               <goal>check</goal> -->
+<!--             </goals> -->
+<!--           </execution> -->
+<!--         </executions> -->
+<!--       </plugin> -->
 	  <!-- Code Quality -->
       <!-- plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -114,6 +124,23 @@
       </plugin -->
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.16</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>
   

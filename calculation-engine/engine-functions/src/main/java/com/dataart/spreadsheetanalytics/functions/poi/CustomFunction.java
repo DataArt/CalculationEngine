@@ -3,17 +3,11 @@ package com.dataart.spreadsheetanalytics.functions.poi;
 import org.apache.poi.ss.formula.functions.FreeRefFunction;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 
 /**
  * High level interface for all custom functions for spreadsheet.
- * Used as marker with DI. 
- * 'Marker' part is used to locate all custom functions and load them into memory.
- * 'DI' part is used to inject some state-containing object for this function to work.
- * Since some of the functions require data access, it must provide access to {@link ExternalServices}.
- * Some of the functions should be executed in the context as the parent-function, so {@link IEvaluator} should be provided.
- * 
- * All of the dependencies can be omitted in case function does not require any dependencdies to work (e.g. Math functions).
+ * It is a marker interface and is needed only for functions scan part (and loading into memory).
+ * Since some of the functions require data access, it might use access to {@link ExternalServices}.
  */
 public interface CustomFunction extends FreeRefFunction {
 
