@@ -24,7 +24,7 @@ public interface ILazyDataSet extends IDataSet {
     /**
      * Parameters for execution. Can be anything, it is just a container.
      */
-    public static class Parameters {
+    class Parameters {
         public static final Parameters EMPTY = new Parameters();
         
         protected List<Object> parameters;

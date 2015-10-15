@@ -21,9 +21,6 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     protected int iptg;    
     protected Object rootFormulaId;
     protected Object[] formulaPtg; //[0] - OperationPtg, [1] - array of values 
-
-    /** Default constructor to create instance with nothing, then fill it with everything. */
-    public CellFormulaExpression() {}
     
     @Override public String formulaStr() { return this.formulaStr; }
     public void formulaStr(String formulaStr) { this.formulaStr = formulaStr; }
