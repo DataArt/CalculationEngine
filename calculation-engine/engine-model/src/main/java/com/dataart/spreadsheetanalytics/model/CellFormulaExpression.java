@@ -28,8 +28,8 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     @Override public String formulaValues() { return this.formulaValues; }
     public void formulaValues(String formulaValues) { this.formulaValues = formulaValues; }
     
-    @Override public Ptg[] ptgs() { return Arrays.copyOf(this.ptgs, this.ptgs.length); }
-    public void ptgs(Ptg[] ptgs) { this.ptgs = Arrays.copyOf(ptgs, ptgs.length); }
+    @Override public Ptg[] ptgs() { return this.ptgs == null ? null : Arrays.copyOf(this.ptgs, this.ptgs.length); }
+    public void ptgs(Ptg[] ptgs) { this.ptgs = ptgs == null ? null : Arrays.copyOf(ptgs, ptgs.length); }
     
     @Override public int iptg() { return this.iptg; }
     public void iptg(int iptg) { this.iptg = iptg; }
@@ -37,8 +37,8 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     @Override public Object rootFormulaId() { return this.rootFormulaId; }
     public void rootFormulaId(Object rootFormulaId) { this.rootFormulaId = rootFormulaId; }
     
-    @Override public Object[] formulaPtg() { return Arrays.copyOf(this.formulaPtg, this.formulaPtg.length); }
-    public void formulaPtg(Object[] formulaPtg) { this.formulaPtg = Arrays.copyOf(formulaPtg, formulaPtg.length); }
+    @Override public Object[] formulaPtg() { return this.formulaPtg == null ? null : Arrays.copyOf(this.formulaPtg, this.formulaPtg.length); }
+    public void formulaPtg(Object[] formulaPtg) { this.formulaPtg = formulaPtg == null ? null : Arrays.copyOf(formulaPtg, formulaPtg.length); }
     
     @Override public String formulaPtgStr() { return this.formulaPtgStr; }
     public void formulaPtgStr(String formulaPtgStr) { this.formulaPtgStr = formulaPtgStr; }
