@@ -23,7 +23,7 @@ public class PoiFileConverter {
         for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
             DsRow dsRow = result.createRow(); 
             XSSFRow row = sheet.getRow(i);
-            for (short j = row.getFirstCellNum(); j <= row.getLastCellNum(); j++) {
+            for (int j = row.getFirstCellNum(); j <= row.getLastCellNum(); j++) {
                 DsCell cell = dsRow.createCell();
                 cell.value(cellValueToObject(row.getCell(j)));
             }
