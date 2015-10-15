@@ -29,7 +29,7 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
 @FunctionMeta("QUERY")
 public class QueryFunction implements CustomFunction {
-    private final static Logger log = LoggerFactory.getLogger(QueryFunction.class);
+    private static final Logger log = LoggerFactory.getLogger(QueryFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE;
     
@@ -100,7 +100,7 @@ public class QueryFunction implements CustomFunction {
         
         for (IDsRow row : dset) {
             List<ValueEval> cells = new ArrayList<>(dset.width());
-            for (IDsCell cell : row) cells.add(valueToValueEval(cell.value()));
+            for (IDsCell cell : row) { cells.add(valueToValueEval(cell.value())); }
             rows.add(cells);
         }
         

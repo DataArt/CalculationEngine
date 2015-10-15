@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -29,7 +30,7 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
 @FunctionMeta(value = "DSLOOKUP")
 public class DsLookupFunction implements CustomFunction {
-    private final static Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
+    private static final Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE;
 
@@ -83,7 +84,7 @@ public class DsLookupFunction implements CustomFunction {
                 ValueEval val = getSingleValue(args[i + 1], ec.getRowIndex(), ec.getColumnIndex());
                 pairs.put(key, val);
             } catch (EvaluationException e) {
-                log.error(String.format("Cannot get the value of matcher column: {}", args[i]), e);
+                log.error(String.format("Cannot get the value of matcher column: %s", args[i]), e);
                 return ErrorEval.VALUE_INVALID;
             }
         }
@@ -135,12 +136,12 @@ public class DsLookupFunction implements CustomFunction {
             boolean allFieldsMatch = true;
             int allFieldsPresent = where.size();
             
-            for (Integer whereColumnIndex : where.keySet()) {
-                IDsCell cell = row.cellAt(whereColumnIndex - 1);
+            for (Entry<Integer, Object> whereColumn : where.entrySet()) {
+                IDsCell cell = row.cellAt(whereColumn.getKey() - 1);
                 
                 if (cell != null) {
                     allFieldsPresent--;
-                    Object extValue = coerceValueTo(where.get(whereColumnIndex));
+                    Object extValue = coerceValueTo(whereColumn.getValue());
                     /* Such a strange conversion because of Number types - everything is Double in POI */
                     Object intValue = coerceValueTo(valueToValueEval(cell.value()));
 

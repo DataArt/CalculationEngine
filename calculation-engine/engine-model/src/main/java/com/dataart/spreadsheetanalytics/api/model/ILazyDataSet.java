@@ -29,7 +29,7 @@ public interface ILazyDataSet extends IDataSet {
         
         protected List<Object> parameters;
         
-        public Parameters() { this.parameters = Collections.<Object> emptyList(); }
+        public Parameters() { this.parameters = Collections.emptyList(); }
         public Parameters(List<Object> parameters) { this.parameters = parameters; }
         
         public List<Object> getParameters() { return parameters; }

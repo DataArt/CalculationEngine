@@ -14,7 +14,7 @@ import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 
 /**
  * This class integrates all the information about 'DEFINE' function.
- * Function itself (function code, implementation) can be found in {@link DefineFunction} and {@link FuncexecFunction} in engine-functions library.
+ * Function itself (function code, implementation) can be found in DefineFunction and FuncexecFunction in engine-functions library.
  * 
  * This class is only the container for meta information.
  * When parsing of spreadsheet is done (search for DEFINEs) all information is stored in instances of this class.
@@ -26,7 +26,6 @@ import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
  * <li>Id of {@link IDataModel} as {@link IDataModelId}</li>
  * 
  */
-@SuppressWarnings("javadoc")
 public class DefineFunctionMeta extends AttributeFunctionMeta {
 
     /** Name of DEFINE function in excel */
@@ -34,7 +33,7 @@ public class DefineFunctionMeta extends AttributeFunctionMeta {
     /** Separator for intput and output arguments */
     public static final String IN_OUT_SEPARATOR = "#";
     
-    public final static Map<String, Class<DefineFunctionMeta>> ATTRIBUTE_FUNCTION = Collections.unmodifiableMap(new LinkedHashMap() {
+    public static final Map<String, Class<DefineFunctionMeta>> ATTRIBUTE_FUNCTION = Collections.unmodifiableMap(new LinkedHashMap() {
         {
             put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
         }
@@ -44,9 +43,9 @@ public class DefineFunctionMeta extends AttributeFunctionMeta {
     protected List<ICellAddress> outputs;
     
     public List<ICellAddress> inputs() { return this.inputs; }
-    public List<ICellAddress> outputs() { return this.outputs; }
-    
     public void inputs(List<ICellAddress> inputs) { this.inputs = inputs; }
+    
+    public List<ICellAddress> outputs() { return this.outputs; }
     public void outputs(List<ICellAddress> outputs) { this.outputs = outputs; }
     
     public DefineFunctionMeta parse(String formula) {

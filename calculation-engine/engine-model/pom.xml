@@ -2,48 +2,18 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.dataart</groupId>
   <artifactId>spreadsheetanalytics-model</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>spreadsheetanalytics-model</name>
   <url>https://gitlab.com/DataArt/CalculationEngine</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <checkstyle.config.location>../checkstyle.xml</checkstyle.config.location>
-    <checkstyle.header.file>../LICENSE.txt</checkstyle.header.file>
-  </properties>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      
-      <!-- Attache sources to jar for code coverage -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>2.4</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <parent>
+    <version>0.0.1-SNAPSHOT</version>
+    <groupId>com.dataart</groupId>
+    <artifactId>spreadsheetanalytics-code-quality</artifactId>
+    <relativePath>../code-quality/pom.xml</relativePath>
+  </parent>
 
   <dependencies>
     <!-- Apache POI Fork -->

@@ -16,9 +16,9 @@ import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 
 public class CacheBasedAttributeFunctionStorage implements AttributeFunctionStorage {
-    private final static Logger log = LoggerFactory.getLogger(CacheBasedAttributeFunctionStorage.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheBasedAttributeFunctionStorage.class);
 
-    public final static String DEFINE_FUNCTIONS_CACHE_NAME = "defineFunctionsCache";
+    public static final String DEFINE_FUNCTIONS_CACHE_NAME = "defineFunctionsCache";
 
     protected Cache<String, DefineFunctionMeta> defineFunctionsCache = Caching.getCache(DEFINE_FUNCTIONS_CACHE_NAME, String.class, DefineFunctionMeta.class);
 
@@ -33,18 +33,22 @@ public class CacheBasedAttributeFunctionStorage implements AttributeFunctionStor
         for (Entry<String, DefineFunctionMeta> entry : defineFunctionsCache) {
             map.put(entry.getKey(), entry.getValue());
         }
-        return Collections.<String, DefineFunctionMeta> unmodifiableMap(map);
+        return Collections.<String, DefineFunctionMeta>unmodifiableMap(map);
     }
 
     @Override
     public void updateDefineFunctions(Set<IDataModel> dataModels) {
         this.defineFunctionsCache.clear();
-        this.defineFunctionsCache.putAll(collectAttributeFunctions(dataModels, DefineFunctionMeta.KEYWORD, DefineFunctionMeta.ATTRIBUTE_FUNCTION));
+        
+        Map<String, DefineFunctionMeta> map = collectAttributeFunctions(dataModels, DefineFunctionMeta.KEYWORD, DefineFunctionMeta.ATTRIBUTE_FUNCTION);
+        this.defineFunctionsCache.putAll(map);
+        
+        log.info("DEFINE function cache was updated. Current cache: {}", map);
     }
     
-    protected static <T extends AttributeFunctionMeta> Map<String, T> collectAttributeFunctions(Set<IDataModel> dataModels, String keyword, Map<String, Class<T>> attributeFunction) {
+    protected static <T extends AttributeFunctionMeta> Map<String, T> collectAttributeFunctions(Set<IDataModel> dataModels, String keyword, Map<String, Class<T>> attrFunc) {
         Map<String, T> map = new HashMap<>();
-        dataModels.forEach((v) -> map.putAll(AttributeFunctionsScanner.scan(v, attributeFunction).get(keyword)));
+        dataModels.forEach((v) -> map.putAll(AttributeFunctionsScanner.scan(v, attrFunc).get(keyword)));
         return map;
     }
 

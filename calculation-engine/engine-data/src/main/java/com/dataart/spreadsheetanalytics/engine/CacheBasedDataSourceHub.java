@@ -14,9 +14,9 @@ import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSourceQuery;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 
 public class CacheBasedDataSourceHub implements DataSourceHub {
-    private final static Logger log = LoggerFactory.getLogger(CacheBasedDataSourceHub.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheBasedDataSourceHub.class);
 
-    public final static String DATA_SOURCE_CACHE_NAME = "dataSourceCache";
+    public static final String DATA_SOURCE_CACHE_NAME = "dataSourceCache";
 
     protected Cache<Object, DataSource> dataSourceCache = Caching.getCache(DATA_SOURCE_CACHE_NAME, Object.class, DataSource.class);
 

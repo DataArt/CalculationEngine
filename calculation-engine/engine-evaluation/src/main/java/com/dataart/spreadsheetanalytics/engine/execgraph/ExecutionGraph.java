@@ -37,13 +37,13 @@ public class ExecutionGraph implements IExecutionGraph {
     public Set<IExecutionGraphVertex> getVertices() {
         return dgraph.vertexSet().stream()
                                  .map(s -> (ExecutionGraphVertex) s)
-                                 .collect(Collectors.<IExecutionGraphVertex> toSet());
+                                 .collect(Collectors.<IExecutionGraphVertex>toSet());
     }
 
     @Override
     public Set<IExecutionGraphEdge> getEdges() {
         return dgraph.edgeSet().stream()
-                               .collect(Collectors.<IExecutionGraphEdge> toSet());
+                               .collect(Collectors.<IExecutionGraphEdge>toSet());
     }
 
     @Override

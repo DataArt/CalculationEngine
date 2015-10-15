@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
@@ -22,15 +23,15 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public abstract class Functions {
-    private final static Logger log = LoggerFactory.getLogger(Functions.class);
+    private static final Logger log = LoggerFactory.getLogger(Functions.class);
     
     /** Basic package where all the custom function are stored. By default static initializer tries to search it. */
-    public final static String PACKAGE_FUNCTIONS = "com.dataart.spreadsheetanalytics.functions.poi";
+    public static final String PACKAGE_FUNCTIONS = "com.dataart.spreadsheetanalytics.functions.poi";
 
     /**
      * Cache for custom functions (classes).
      */
-    protected static Map<String, Class<? extends CustomFunction>> fs;
+    protected static final Map<String, Class<? extends CustomFunction>> fs;
 
     static {
         fs = load(PACKAGE_FUNCTIONS);
@@ -39,27 +40,27 @@ public abstract class Functions {
     /**
      * POI's cache for custom functions: static instance of {@link UDFFinder}
      */
-    protected static UDFFinder poifs;
+    protected static final UDFFinder poifs;
 
     static {
         List<String> names = new ArrayList<>(Functions.get().size());
         List<CustomFunction> funcs = new ArrayList<>(Functions.get().size());
 
-        for (String fname : fs.keySet()) {
+        for (Entry<String, Class<? extends CustomFunction>> en : fs.entrySet()) {
 
             try {
-                names.add(fname);
-                funcs.add(fs.get(fname).newInstance());
+                names.add(en.getKey());
+                funcs.add(en.getValue().newInstance());
             } catch (Exception e) {
-                log.error(String.format("Cannot create instance of CustomFunction %s", fname), e);
+                log.error(String.format("Cannot create instance of CustomFunction %s", en.getKey()), e);
             }
         }
 
-        if (!names.isEmpty()) {
-            poifs = new AggregatingUDFFinder(new DefaultUDFFinder(
-                        names.toArray(new String[names.size()]),
-                        funcs.toArray(new CustomFunction[funcs.size()])));
-        }
+        poifs = !names.isEmpty()
+              ? new AggregatingUDFFinder(new DefaultUDFFinder(
+                      names.toArray(new String[names.size()]),
+                      funcs.toArray(new CustomFunction[funcs.size()])))
+              : null;
     }
     
     /**
@@ -94,6 +95,6 @@ public abstract class Functions {
     /**
      * Returns static instance of {@link UDFFinder} for custom functions. Can be null.
      */
-    public static UDFFinder getUDFFinder() { return poifs; }
+    public static UDFFinder getUdfFinder() { return poifs; }
     
 }

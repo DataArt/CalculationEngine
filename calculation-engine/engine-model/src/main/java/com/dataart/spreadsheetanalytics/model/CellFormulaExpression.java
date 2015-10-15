@@ -1,5 +1,7 @@
 package com.dataart.spreadsheetanalytics.model;
 
+import java.util.Arrays;
+
 import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
@@ -24,23 +26,29 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     public CellFormulaExpression() {}
     
     @Override public String formulaStr() { return this.formulaStr; }
-    @Override public String formulaValues() { return this.formulaValues; }
-    @Override public Ptg[] ptgs() { return this.ptgs; }
-    @Override public int iptg() { return this.iptg; }
-    @Override public Object rootFormulaId() { return this.rootFormulaId; }
-    @Override public Object[] formulaPtg() { return this.formulaPtg; }
-    @Override public String formulaPtgStr() { return this.formulaPtgStr; }
-    @Override public String ptgStr() { return this.ptgStr; }    
-    
-    public void ptgStr(String ptgStr) { this.ptgStr = ptgStr; }
-    public void formulaPtgStr(String formulaPtgStr) { this.formulaPtgStr = formulaPtgStr; }
     public void formulaStr(String formulaStr) { this.formulaStr = formulaStr; }
+    
+    @Override public String formulaValues() { return this.formulaValues; }
     public void formulaValues(String formulaValues) { this.formulaValues = formulaValues; }
-    public void ptgs(Ptg[] ptgs) { this.ptgs = ptgs; }
-    public void formulaPtg(Object[] formulaPtg) { this.formulaPtg = formulaPtg; }
+    
+    @Override public Ptg[] ptgs() { return Arrays.copyOf(this.ptgs, this.ptgs.length); }
+    public void ptgs(Ptg[] ptgs) { this.ptgs = Arrays.copyOf(ptgs, ptgs.length); }
+    
+    @Override public int iptg() { return this.iptg; }
     public void iptg(int iptg) { this.iptg = iptg; }
-    public void rootFormulaId(Object rootFormulaId) { this.rootFormulaId = rootFormulaId; }    
-
+    
+    @Override public Object rootFormulaId() { return this.rootFormulaId; }
+    public void rootFormulaId(Object rootFormulaId) { this.rootFormulaId = rootFormulaId; }
+    
+    @Override public Object[] formulaPtg() { return Arrays.copyOf(this.formulaPtg, this.formulaPtg.length); }
+    public void formulaPtg(Object[] formulaPtg) { this.formulaPtg = Arrays.copyOf(formulaPtg, formulaPtg.length); }
+    
+    @Override public String formulaPtgStr() { return this.formulaPtgStr; }
+    public void formulaPtgStr(String formulaPtgStr) { this.formulaPtgStr = formulaPtgStr; }
+    
+    @Override public String ptgStr() { return this.ptgStr; }    
+    public void ptgStr(String ptgStr) { this.ptgStr = ptgStr; }
+    
     /**
      * Does copy of provided instance.
      * Fileds to be copied: 

@@ -1,5 +1,8 @@
 package com.dataart.spreadsheetanalytics.engine.dataset;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
@@ -11,6 +14,8 @@ public class SqlDataSet extends AbstractLazyDataSet {
 
     protected String sql;
     protected String sqlDataSource;
+    
+    protected Lock executionLock = new ReentrantLock(); 
 
     protected DataSourceHub dataSourceHub = ExternalServices.INSTANCE.getDataSourceHub();
 
@@ -26,12 +31,16 @@ public class SqlDataSet extends AbstractLazyDataSet {
 
     @Override
     public IDataSet get(Parameters parameters) throws Exception {
-        synchronized (this.executed) {
+        try {
+            executionLock.lock();
             if (this.executed) { return this.dataSet; }
+            
             this.dataSet = (DataSet) dataSourceHub.executeQuery(sqlDataSource, new TextDataSourceQuery(sql), parameters.getParameters());
+            this.executed = Boolean.TRUE;
+            
+            return this.dataSet;
+        } finally {
+            executionLock.unlock();
         }
-        
-        this.executed = Boolean.TRUE;
-        return this.dataSet;
     }
 }

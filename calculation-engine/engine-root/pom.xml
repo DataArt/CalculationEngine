@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.dataart</groupId>
+  <artifactId>spreadsheetanalytics-engine-root</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>spreadsheetanalytics-engine-root</name>
+  <url>https://github.com/DataArt/CalculationEngine</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <modules>
+    <module>../engine-model</module>
+    <module>../engine-data</module>
+	<module>../engine-data-cache-impl</module>
+    <module>../engine-functions</module>
+    <module>../engine-evaluation</module>
+  </modules>
+
+</project>
+  

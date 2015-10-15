@@ -24,7 +24,7 @@ public class DsRow implements IDsRow {
     
     @Override public int width() { return cells.size(); }
     
-    @Override public List<IDsCell> cells() { return Collections.<IDsCell> unmodifiableList(this.cells); }
+    @Override public List<IDsCell> cells() { return Collections.<IDsCell>unmodifiableList(this.cells); }
     
     @Override public IDsCell cellAt(int cellIndex) {
         return cellIndex < 0 || cellIndex >= cells().size() ? null : cells().get(cellIndex);

@@ -15,20 +15,17 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 public class DataModel extends DataSet implements IDataModel {
 
     public final XSSFWorkbook poiModel;
-    public final String originalPath; /*TODO: temporary to resolve runtime issue of copyModelIntoMemory()*/
 
     public DataModel(String name, String path) throws IOException {
         super(name);
         this.poiModel = new XSSFWorkbook(path);
         this.dataModelId = new DataModelId(this.poiModel.toString());
-        this.originalPath = path;
     }
 
     public DataModel(String name, InputStream in) throws IOException {
         super(name);
         this.poiModel = new XSSFWorkbook(in);
         this.dataModelId = new DataModelId(this.poiModel.toString());
-        this.originalPath = null;
     }
 
     @Override

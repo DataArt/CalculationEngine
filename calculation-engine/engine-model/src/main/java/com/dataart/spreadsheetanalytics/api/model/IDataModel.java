@@ -1,12 +1,11 @@
 package com.dataart.spreadsheetanalytics.api.model;
 
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 /**
  * Representation of typical spreadsheet.
  * Can contain formulas and values.
- * Can be evaluated using {@link IEvaluator}.
+ * Can be evaluated using Evaluator.
  * 
  * Basic implementation: {@link DataModel}.
  */
