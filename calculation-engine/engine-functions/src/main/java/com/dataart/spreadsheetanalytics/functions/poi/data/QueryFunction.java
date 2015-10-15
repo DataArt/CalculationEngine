@@ -82,7 +82,7 @@ public class QueryFunction implements CustomFunction {
         log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {
-            IDataSet dset = external.getDataSetStorage().getDataSet(execDataSet, new Parameters(execParams));
+            IDataSet dset = external.getDataSetStorage().getDataSet(execDataSet, new Parameters(execDataSet, execParams));
             
             dset.name(cachedDataSet);
             external.getDataSetStorage().saveDataSet(dset, DataSetScope.LOCAL);

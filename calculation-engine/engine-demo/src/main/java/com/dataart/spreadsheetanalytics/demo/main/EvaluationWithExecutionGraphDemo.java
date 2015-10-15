@@ -70,7 +70,7 @@ public class EvaluationWithExecutionGraphDemo {
             return;
         }
         
-        final String excel = args[0]; // "src/main/resources/excel/define-funcexec/funcexec.xlsx";
+        final String excel = args[0];
         final List<String> cellsToEvaluate = new ArrayList<>(Arrays.asList(args));
         cellsToEvaluate.remove(0);
 
@@ -125,7 +125,8 @@ public class EvaluationWithExecutionGraphDemo {
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
-        cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));        
+        cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
+        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
         
         final ExternalServices external = ExternalServices.INSTANCE;
 

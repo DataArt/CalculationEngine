@@ -25,14 +25,46 @@ public interface ILazyDataSet extends IDataSet {
      * Parameters for execution. Can be anything, it is just a container.
      */
     class Parameters {
-        public static final Parameters EMPTY = new Parameters();
+        public static final Parameters EMPTY = new Parameters(null);
         
+        public final String dsname;
         protected List<Object> parameters;
         
-        public Parameters() { this.parameters = Collections.emptyList(); }
-        public Parameters(List<Object> parameters) { this.parameters = parameters; }
+        public Parameters(String dsname) {
+            this(dsname, Collections.emptyList());
+        }
+        
+        public Parameters(String dsname, List<Object> parameters) {
+            this.dsname = dsname;
+            this.parameters = parameters;
+        }
         
         public List<Object> getParameters() { return parameters; }
         public void setParameters(List<Object> parameters) { this.parameters = parameters; }
+
+        @Override
+        public int hashCode() {
+            int prime = 31;
+            int result = 1;
+            result = prime * result + ((dsname == null) ? 0 : dsname.hashCode());
+            result = prime * result + ((parameters == null) ? 0 : parameters.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) { return true; }
+            if (obj == null) { return false; }
+            if (getClass() != obj.getClass()) { return false; }
+            Parameters other = (Parameters) obj;
+            if (dsname == null) {
+                if (other.dsname != null) { return false; }
+            } else if (!dsname.equals(other.dsname)) { return false; }
+            if (parameters == null) {
+                if (other.parameters != null) { return false; }
+            } else if (!parameters.equals(other.parameters)) { return false; }
+            return true;
+        }
+        
     }
 }

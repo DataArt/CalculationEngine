@@ -22,7 +22,7 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
     protected Cache<IDataModelId, IDataSet> dataSetToIdCache = Caching.getCache(DATA_SET_TO_ID_CACHE_NAME, IDataModelId.class, IDataSet.class);
     protected Cache<String, IDataSet> dataSetToNameCache = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, String.class, IDataSet.class);
     
-    protected Cache<Object, IDataSet> dataSetToLazyParameters = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, Object.class, IDataSet.class);
+    protected Cache<ILazyDataSet.Parameters, IDataSet> dataSetToLazyParameters = Caching.getCache(DATA_SET_TO_LAZY_PARAMETERS, ILazyDataSet.Parameters.class, IDataSet.class);
 
     @Override
     public void saveDataSet(IDataSet dset) {
@@ -60,15 +60,19 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
 
     @Override
     public IDataSet getDataSet(String name) throws Exception {
-        return getDataSet(name, Parameters.EMPTY); 
+        return getDataSet(name, Parameters.EMPTY);
     }
     
     @Override
     public IDataSet getDataSet(String name, Parameters parameters) throws Exception {
+        if (Parameters.EMPTY != parameters && dataSetToLazyParameters.containsKey(parameters)) { return dataSetToLazyParameters.get(parameters); }
+        
         IDataSet dset = this.dataSetToNameCache.get(name);
         if (dset == null) { throw new IllegalStateException(String.format("No DataSet with name = %s is found in DataSet storage.", name)); }
-       
-        return isLazyDataSet(dset) ? ((ILazyDataSet) dset).get(parameters) : dset;
+        
+        dset = isLazyDataSet(dset) ? ((ILazyDataSet) dset).get(parameters) : dset;
+        dataSetToLazyParameters.put(parameters, dset);
+        return dset;
     }
 
     @Override
@@ -84,6 +88,6 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
     public void setDataSetToIdCache(Cache<IDataModelId, IDataSet> dataSetToIdCache) { this.dataSetToIdCache = dataSetToIdCache; }
     public void setDataSetToNameCache(Cache<String, IDataSet> dataSetToNameCache) { this.dataSetToNameCache = dataSetToNameCache; }
 
-    public void setDataSetToLazyParameters(Cache<Object, IDataSet> dataSetToLazyParameters) { this.dataSetToLazyParameters = dataSetToLazyParameters; }
+    public void setDataSetToLazyParameters(Cache<ILazyDataSet.Parameters, IDataSet> dataSetToLazyParameters) { this.dataSetToLazyParameters = dataSetToLazyParameters; }
 
 }
