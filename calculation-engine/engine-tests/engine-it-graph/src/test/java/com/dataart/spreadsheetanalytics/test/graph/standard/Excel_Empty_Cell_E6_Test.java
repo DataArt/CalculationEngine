@@ -51,7 +51,11 @@ public class Excel_Empty_Cell_E6_Test extends SerializedGraphTest {
 
     @Test
     public void assert_RootFormula_Null() {
-        assertThat(rootVertex.formula()).isEqualTo(null);
+        assertThat(rootVertex.formula()).isNotEqualTo(null);
+        assertThat(rootVertex.formula().formulaPtg()).isEqualTo(null);
+        assertThat(rootVertex.formula().formulaPtgStr()).isEqualTo(null);
+        assertThat(rootVertex.formula().formulaStr()).isEqualTo(null);
+        assertThat(rootVertex.formula().formulaValues()).isEqualTo(null);
     }
 
 }

@@ -34,8 +34,6 @@ public class DsLookupFunction implements CustomFunction {
     
     protected ExternalServices external = ExternalServices.INSTANCE;
 
-    public DsLookupFunction() {}
-
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
@@ -68,8 +66,6 @@ public class DsLookupFunction implements CustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
         
-        int columnIndex = -1;
-        
         Map<Object, ValueEval> pairs = new HashMap<>();
 
         for (int i = 1; i < args.length - 1; i += 2) {
@@ -100,7 +96,8 @@ public class DsLookupFunction implements CustomFunction {
             log.warn("The spreadsheet shoud have at least 2 rows to run DSLOOKUP function");
             return ErrorEval.VALUE_INVALID;
         }
-        
+
+        int columnIndex = -1;
         IDsRow titleRow = dataSet.next();
         Map<Integer, Object> indexToValue = new HashMap<>();
 

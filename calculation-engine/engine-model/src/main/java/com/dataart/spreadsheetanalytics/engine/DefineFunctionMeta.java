@@ -33,11 +33,12 @@ public class DefineFunctionMeta extends AttributeFunctionMeta {
     /** Separator for intput and output arguments */
     public static final String IN_OUT_SEPARATOR = "#";
     
-    public static final Map<String, Class<DefineFunctionMeta>> ATTRIBUTE_FUNCTION = Collections.unmodifiableMap(new LinkedHashMap() {
-        {
-            put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
-        }
-    });
+    public static final Map<String, Class<DefineFunctionMeta>> ATTRIBUTE_FUNCTION;
+    static {
+        Map<String, Class<DefineFunctionMeta>> map = new LinkedHashMap<>();
+        map.put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
+        ATTRIBUTE_FUNCTION = Collections.unmodifiableMap(map);
+    }
     
     protected List<ICellAddress> inputs;
     protected List<ICellAddress> outputs;

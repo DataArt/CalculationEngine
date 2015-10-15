@@ -47,10 +47,12 @@ public class DataModel extends DataSet implements IDataModel {
     
     public boolean isFormulaCell(ICellAddress addr) {
         Sheet s = poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
-        Cell c = s.getRow(addr.row()).getCell(addr.column());
-        if (c == null) { throw new NullPointerException("Cell at row " + addr.row() + ", column " + addr.column() + " is null"); }
+        Row r = s.getRow(addr.row());
+        if (r == null) { return false; }
+        Cell c = r.getCell(addr.column());
+        if (c == null) { return false; }
 
-        return (Cell.CELL_TYPE_FORMULA == c.getCellType());
+        return Cell.CELL_TYPE_FORMULA == c.getCellType();
     }
     
     @Override

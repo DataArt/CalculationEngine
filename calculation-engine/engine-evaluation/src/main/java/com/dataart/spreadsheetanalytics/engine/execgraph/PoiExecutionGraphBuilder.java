@@ -18,7 +18,6 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
@@ -78,7 +77,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     
-    static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(Arrays.asList("[", "]"));
+    static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
 
     protected final DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
     /*
@@ -95,8 +94,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     public ExecutionGraph get() {
-        ExecutionGraph result = ExecutionGraph.wrap(dgraph);
-        return result;
+        return ExecutionGraph.wrap(dgraph);
     }
 
     public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
@@ -104,8 +102,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
         vertex.property(TYPE).set(EMPTY_CELL);
         emptyGraph.addVertex(vertex);
-        ExecutionGraph result = ExecutionGraph.wrap(emptyGraph);
-        return result;
+
+        return ExecutionGraph.wrap(emptyGraph);
     }
 
     /**
@@ -295,10 +293,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     }
 
-    /* Modifications for: FORMULA */
-    // set formula_values to user-friendly string like: '1 + 2' or
-    // 'SUM(2,1)'
-    // For OPERATOR and FUNCTION types
     protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph) {
 
         switch (vertex.type) {
@@ -440,12 +434,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             opname = "IF";
         } else if (optg instanceof Ptg) {
             opname = ptgToString((Ptg) optg);
-            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) {
-                /* if the function was not recognized as
-                   internal function we use the node
-                   name as the function name */
-                opname = vertex.name();
-            }
+            /* if the function was not recognized as internal function we use the node name as the function name */
+            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
         } else {
             opname = optg.toString();
         }
@@ -458,7 +448,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                                .map(v -> v.toString())
                                                                .collect(toList()))));
         } else if (optg instanceof ValueOperatorPtg) {
-            return stripRedundantSymbols(format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", opname, (ops.size() > 0) ? ops.get(0) : ""));
+            return stripRedundantSymbols(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", opname, ops.size() > 0 ? ops.get(0) : ""));
         }
         return "";
     }
@@ -476,11 +466,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                 opname));
         } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
-            /* if the function was not recognized as
-               internal function we use the node
-               name as the function name */
-            opname = UNDEFINED_EXTERNAL_FUNCTION.equals(opname) ? vertex.name() : opname;
-
+            /* if the function was not recognized as internal function we use the node name as the function name */
+            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
         }
         if (optg instanceof AbstractFunctionPtg) {
             return stripRedundantSymbols(format("%s %s ",
@@ -490,16 +477,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                             .collect(toList())),
                                                 opname));
         } else if (optg instanceof ValueOperatorPtg) {
-            return stripRedundantSymbols(String.format("%s %s %s", (ops.size() > 1) ? ops.get(1) : "", (ops.size() > 0) ? ops.get(0) : "", opname));
+            return stripRedundantSymbols(String.format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", ops.size() > 0 ? ops.get(0) : "", opname));
         }
 
         return "";
     }
 
     protected static String stripRedundantSymbols(String inline) {
-        for (String token : POI_VALUE_REDUNDANT_SYMBOLS) {
-            inline = inline.replace(token, "");
-        }
+        for (String token : POI_VALUE_REDUNDANT_SYMBOLS) 
+            { inline = inline.replace(token, ""); }
         return inline;
     }
 
@@ -574,7 +560,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
         
         for (IExecutionGraphVertex ivertex : vertices) {
-            if (istandard == ivertex) { continue; }
+            if (istandard.equals(ivertex)) { continue; }
 
             ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
             

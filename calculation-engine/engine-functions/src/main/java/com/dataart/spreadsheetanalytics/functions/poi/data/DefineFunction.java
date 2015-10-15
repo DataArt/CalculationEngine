@@ -14,8 +14,6 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 @FunctionMeta("DEFINE")
 public class DefineFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(DefineFunction.class);
-    
-    public DefineFunction() {}
 
     /**
      * This function does nothing, since it should never be evaluated.

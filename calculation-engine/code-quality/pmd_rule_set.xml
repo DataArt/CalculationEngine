@@ -13,6 +13,11 @@
   
   <rule ref="rulesets/java/codesize.xml">
     <exclude name="TooManyMethods" />
+    <exclude name="CyclomaticComplexity" />
+    <exclude name="NPathComplexity" />
+    <exclude name="StdCyclomaticComplexity" />
+    <exclude name="ModifiedCyclomaticComplexity" />
+    <exclude name="ExcessiveMethodLength" />
   </rule>
 
   <rule ref="rulesets/java/comments.xml">
@@ -27,6 +32,8 @@
     <exclude name="OnlyOneReturn" />
     <exclude name="UseConcurrentHashMap" />
     <exclude name="DefaultPackage" />
+    <exclude name="AvoidLiteralsInIfCondition" />
+    <exclude name="CallSuperInConstructor" />
   </rule>
 
   <rule ref="rulesets/java/coupling.xml">
@@ -40,6 +47,9 @@
     <exclude name="UseCollectionIsEmpty" />
     <exclude name="SimplifyBooleanReturns" />
     <exclude name="FieldDeclarationsShouldBeAtStartOfClass" />
+    <exclude name="UseVarargs" />
+    <exclude name="GodClass" />
+    <exclude name="AvoidReassigningParameters" />
   </rule>
 
   <rule ref="rulesets/java/empty.xml" />
@@ -62,19 +72,17 @@
   <rule ref="rulesets/java/junit.xml">
     <exclude name="TestClassWithoutTestCases" />
   </rule>
-
-  <rule ref="rulesets/java/logging-jakarta-commons.xml" />
-  
-  <rule ref="rulesets/java/logging-java.xml" />
   
   <rule ref="rulesets/java/migrating.xml" />
 
   <rule ref="rulesets/java/naming.xml">
     <exclude name="LongVariable" />
     <exclude name="ShortVariable" />
+    <exclude name="ShortMethodName" />
     <exclude name="VariableNamingConventions" />
     <exclude name="ShortClassName" />
     <exclude name="AbstractNaming" />
+    <exclude name="AvoidFieldNameMatchingMethodName" />
   </rule>
 
   <rule ref="rulesets/java/optimizations.xml">

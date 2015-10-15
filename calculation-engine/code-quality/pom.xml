@@ -15,6 +15,7 @@
     <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
     <checkstyle.header.file>../LICENSE.txt</checkstyle.header.file>
     <findbugs.exclude.filter.file>../code-quality/findbugs-exclude-filter.xml</findbugs.exclude.filter.file>
+    <pmd.rule.set>../code-quality/pmd_rule_set.xml</pmd.rule.set>
   </properties>
 
   <build>
@@ -28,9 +29,18 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <compilerId>javac-with-errorprone</compilerId>
+          <forceJavacCompilerUse>true</forceJavacCompilerUse>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-compiler-javac-errorprone</artifactId>
+            <version>2.6</version>
+          </dependency>
+        </dependencies>
       </plugin>
-	  
+      
       <!-- Attache sources to jar for code coverage -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -68,7 +78,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -85,38 +95,20 @@
           </execution>
         </executions>
       </plugin>
-      
-      <!-- plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.5</version>
-        <dependencies>
-          <dependency>
-            <groupId>jaxen</groupId>
-            <artifactId>jaxen</artifactId>
-            <version>1.1.4</version>
-            <exclusions>
-              <exclusion>
-                <groupId>maven-plugins</groupId>
-                <artifactId>maven-cobertura-plugin</artifactId>
-              </exclusion>
-              <exclusion>
-                <groupId>maven-plugins</groupId>
-                <artifactId>maven-findbugs-plugin</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-        </dependencies>
         <configuration>
           <rulesets>
-            <ruleset>engine-core-tests/code-quality/pmd_rule_set.xml</ruleset>
+            <ruleset>${pmd.rule.set}</ruleset>
           </rulesets>
         </configuration>
         <executions>
           <execution>
             <phase>verify</phase>
             <goals>
-              <goal>cpd-check</goal>
               <goal>check</goal>
             </goals>
             <configuration>
@@ -125,26 +117,9 @@
             </configuration>
           </execution>
         </executions>
-      </plugin -->
-    </plugins>
-  </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.16</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>checkstyle</report>
-            </reports>
-          </reportSet>
-        </reportSets>
       </plugin>
     </plugins>
-  </reporting>
+  </build>
 
 </project>
   

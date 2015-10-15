@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * This class can be extended to support loading of more custom functions from different packages.
  * 
  */
-public abstract class Functions {
+public class Functions {
     private static final Logger log = LoggerFactory.getLogger(Functions.class);
     
     /** Basic package where all the custom function are stored. By default static initializer tries to search it. */
@@ -32,7 +32,6 @@ public abstract class Functions {
      * Cache for custom functions (classes).
      */
     protected static final Map<String, Class<? extends CustomFunction>> fs;
-
     static {
         fs = load(PACKAGE_FUNCTIONS);
     }
@@ -41,7 +40,6 @@ public abstract class Functions {
      * POI's cache for custom functions: static instance of {@link UDFFinder}
      */
     protected static final UDFFinder poifs;
-
     static {
         List<String> names = new ArrayList<>(Functions.get().size());
         List<CustomFunction> funcs = new ArrayList<>(Functions.get().size());
@@ -56,11 +54,11 @@ public abstract class Functions {
             }
         }
 
-        poifs = !names.isEmpty()
-              ? new AggregatingUDFFinder(new DefaultUDFFinder(
+        poifs = names.isEmpty()
+              ? null
+              : new AggregatingUDFFinder(new DefaultUDFFinder(
                       names.toArray(new String[names.size()]),
-                      funcs.toArray(new CustomFunction[funcs.size()])))
-              : null;
+                      funcs.toArray(new CustomFunction[funcs.size()])));
     }
     
     /**

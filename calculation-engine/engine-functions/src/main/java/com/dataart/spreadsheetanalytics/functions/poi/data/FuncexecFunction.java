@@ -38,8 +38,6 @@ public class FuncexecFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE; 
-
-    public FuncexecFunction() {}
     
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
@@ -74,9 +72,7 @@ public class FuncexecFunction implements CustomFunction {
         
         log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
 
-        List<ICellAddress> inputAddresses = meta.inputs();
         List<ValueEval> inputValues = new ArrayList<>(meta.inputs().size());
-
         for (int i = 1; i < args.length; i++) {
             
             try { inputValues.add(getSingleValue(args[i], ec.getRowIndex(), ec.getColumnIndex())); }
@@ -86,6 +82,7 @@ public class FuncexecFunction implements CustomFunction {
             }
         }
         
+        List<ICellAddress> inputAddresses = meta.inputs();
         log.debug("Input Addresses for DEFINE: {}, Input Values for DEFINE: {}.", inputAddresses, inputValues);
 
         DataModel dmWithDefine = (DataModel) external.getDataModelStorage().getDataModel(meta.dataModelId());

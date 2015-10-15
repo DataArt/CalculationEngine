@@ -99,8 +99,8 @@ public class SpreadsheetAuditor implements IAuditor {
         vertex.property(TYPE).set(CELL_WITH_FORMULA);
         vertex.property(VALUE).set(error);
         
-        if (formulaString != null) { vertex.property(FORMULA_STRING).set(formulaString); }
-        else { vertex.property(FORMULA_STRING).set(error.getErrorString()); }
+        if (formulaString == null) { vertex.property(FORMULA_STRING).set(error.getErrorString()); }
+        else { vertex.property(FORMULA_STRING).set(formulaString); }
         
         vertex.property(FORMULA_VALUES).set(error.getErrorString());
         vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());

@@ -9,6 +9,8 @@ import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 
 public abstract class AbstractLazyDataSet implements ILazyDataSet {
 
+    private static final RuntimeException NOT_EXECUTED = new IllegalStateException("DataSet not executed.");
+    
     protected DataSet dataSet;
     protected Boolean executed = Boolean.FALSE;
         
@@ -21,27 +23,27 @@ public abstract class AbstractLazyDataSet implements ILazyDataSet {
     @Override public void name(String name) { this.dataSet.name(name); }
 
     @Override public int length() {
-        if (!executed) { throw new IllegalStateException("DataSet not executed."); }
+        if (!executed) { throw NOT_EXECUTED; }
         return this.dataSet.length();
     }
     @Override public int width() {
-        if (!executed) { throw new IllegalStateException("DataSet not executed."); }
+        if (!executed) { throw NOT_EXECUTED; }
         return this.dataSet.width();
     }
     @Override public List<IDsRow> rows() {
-        if (!executed) { throw new IllegalStateException("DataSet not executed."); }
+        if (!executed) { throw NOT_EXECUTED; }
         return this.dataSet.rows();
     }
     @Override public Iterator<IDsRow> iterator() {
-        if (!executed) { throw new IllegalStateException("DataSet not executed."); }
+        if (!executed) { throw NOT_EXECUTED; }
         return this.dataSet.iterator();
     }
     @Override public boolean hasNext() {
-        if (!executed) { throw new IllegalStateException("DataSet not executed."); }
+        if (!executed) { throw NOT_EXECUTED; }
         return this.dataSet.hasNext();
     }
     @Override public IDsRow next() {
-        if (!executed) { throw new IllegalStateException("DataSet not executed."); }
+        if (!executed) { throw NOT_EXECUTED; }
         return this.dataSet.next();
     }
 
