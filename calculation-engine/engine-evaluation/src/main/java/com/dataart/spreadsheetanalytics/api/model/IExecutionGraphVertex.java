@@ -109,7 +109,7 @@ public interface IExecutionGraphVertex {
         EMPTY_CELL;
         
         public static boolean isFunction(Type type) {
-            if (type == null) { throw new NullPointerException("Type argument cannot be null"); }
+            if (type == null) { throw new IllegalArgumentException("Type argument cannot be null"); }
             
             return type == OPERATOR ||
                    type == IF ||
@@ -117,7 +117,7 @@ public interface IExecutionGraphVertex {
         }
         
         public static boolean isCell(Type type) {
-            if (type == null) { throw new NullPointerException("Type argument cannot be null"); }
+            if (type == null) { throw new IllegalArgumentException("Type argument cannot be null"); }
             
             return type == CELL_WITH_FORMULA ||
                    type == CELL_WITH_REFERENCE ||

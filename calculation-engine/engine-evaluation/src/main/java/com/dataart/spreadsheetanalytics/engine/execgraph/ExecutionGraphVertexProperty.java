@@ -20,11 +20,13 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
     public final PropertyName pname;
     protected Object pvalue;
     
-    private ExecutionGraphVertex parent;
+    private final ExecutionGraphVertex parent;
 
     public ExecutionGraphVertexProperty(ExecutionGraphVertex vertex, PropertyName pname) {
         this.parent = vertex;
         this.pname = pname;
+        
+        if (this.parent.formula == null) { this.parent.formula = new CellFormulaExpression(); }
     }
     
     @Override
@@ -36,42 +38,34 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 
         switch (pname) {
             case FORMULA_STRING: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).formulaStr((String) pvalue);
                 break;
             }
             case INDEX_IN_FORMULA: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).iptg((int) pvalue);
                 break;
             }
             case ROOT_FORMULA_ID: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).rootFormulaId(pvalue);
                 break;
             }
             case FORMULA_VALUES: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).formulaValues((String) pvalue);
                 break;
             }
             case PTGS: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).ptgs((Ptg[]) pvalue);
                 break;
             }
             case FORMULA_PTG: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).formulaPtg((Object[]) pvalue);
                 break;
             }
             case FORMULA_PTG_STRING: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).formulaPtgStr((String) pvalue);
                 break;                
             }
             case PTG_STRING: {
-                if (parent.formula == null) { parent.formula = new CellFormulaExpression(); }
                 ((CellFormulaExpression) parent.formula).ptgStr((String) pvalue);
                 break;                                
             }
@@ -80,7 +74,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 break;
             }
             case TYPE: {
-                if (parent.type != null && (parent.type == Type.CELL_WITH_FORMULA)) { this.pvalue = parent.type; break; }
+                if (parent.type != null && Type.CELL_WITH_FORMULA == parent.type) { this.pvalue = parent.type; break; }
                 parent.type = pvalue instanceof Type 
                                 ? (Type) pvalue 
                                 : pvalue instanceof Ptg 

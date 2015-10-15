@@ -35,9 +35,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         try { loadCustomFunctions(); }
         catch (Exception e) { log.error("Custom functions loading was unsuccessful. This may cause Evaluator to not work with custom functions.", e); }
     }
-    
-    protected SpreadsheetEvaluator() {}
-    
+        
     public SpreadsheetEvaluator(DataModel model) {
         this.model = model;
         this.poiEvaluator = this.model.poiModel.getCreationHelper().createFormulaEvaluator();
