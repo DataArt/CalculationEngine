@@ -29,7 +29,6 @@ public class PoiFileConverter {
             }
         }
         
-        workbook.close();
         return result;
     }
 
