@@ -33,6 +33,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSourceQuery;
+import com.dataart.spreadsheetanalytics.api.engine.datasource.SqlDataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
@@ -251,7 +252,7 @@ public class EvaluationWithExecutionGraphDemo {
     }
 
 }
-class TempSqlDataSource implements DataSource {
+class TempSqlDataSource implements SqlDataSource {
 
     private Connection co;
     

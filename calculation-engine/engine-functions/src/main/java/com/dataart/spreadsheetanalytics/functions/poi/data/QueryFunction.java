@@ -1,11 +1,13 @@
 package com.dataart.spreadsheetanalytics.functions.poi.data;
 
+import static java.util.Arrays.asList;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.valueToValueEval;
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.poi.ss.formula.OperationEvaluationContext;
@@ -62,20 +64,21 @@ public class QueryFunction implements CustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
 
-        List<ValueEval> queryArgs = new ArrayList<>(Arrays.asList(args));
+        List<ValueEval> queryArgs = new ArrayList<>(asList(args));
+        /* remove DS name (1st arg) and remove local Ds name (2d arg) */
         queryArgs.remove(0);
         queryArgs.remove(0);
-
-        List<Object> execParams = new ArrayList<>(queryArgs.size());
-
-        for (ValueEval v : queryArgs) {
-            try { execParams.add(coerceValueTo(getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex()))); }
-            catch (Exception e) {
-                log.error(String.format("Error while resolving input arguments for QUERY function. Argument: %s", v), e);
-                return ErrorEval.VALUE_INVALID;
-            }
-        }
         
+        List<Object> execParams = new LinkedList<>();
+        try {
+            for (ValueEval v : CustomFunction.prepareQueryArgs(queryArgs))
+                { execParams.add(coerceValueTo(getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex()))); }
+            
+        } catch (Exception e) {
+            log.error("Error while resolving input arguments for QUERY function.", e);
+            return ErrorEval.VALUE_INVALID;
+        }
+
         log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {

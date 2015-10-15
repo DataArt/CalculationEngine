@@ -55,7 +55,7 @@ public class Skills_Sql_Table_Test {
     static String toEvaluateColumn = "A";
     static String expectedColumn = "B";
     static int expectedRowStart = 2;
-    static int expectedRowEnd = 12;
+    static int expectedRowEnd = 13;
     
     static SpreadsheetEvaluator evaluator;
     static DataModel dataModel;

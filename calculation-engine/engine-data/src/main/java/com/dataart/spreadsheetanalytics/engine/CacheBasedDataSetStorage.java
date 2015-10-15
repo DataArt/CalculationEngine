@@ -17,9 +17,12 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
     
     public static final String DATA_SET_TO_ID_CACHE_NAME = "dataSetToIdCache";
     public static final String DATA_SET_TO_NAME_CACHE_NAME = "dataSetToNameCache";
+    public static final String DATA_SET_TO_LAZY_PARAMETERS = "dataSetToLazyParameters";
     
     protected Cache<IDataModelId, IDataSet> dataSetToIdCache = Caching.getCache(DATA_SET_TO_ID_CACHE_NAME, IDataModelId.class, IDataSet.class);
     protected Cache<String, IDataSet> dataSetToNameCache = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, String.class, IDataSet.class);
+    
+    protected Cache<Object, IDataSet> dataSetToLazyParameters = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, Object.class, IDataSet.class);
 
     @Override
     public void saveDataSet(IDataSet dset) {
@@ -80,5 +83,7 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
 
     public void setDataSetToIdCache(Cache<IDataModelId, IDataSet> dataSetToIdCache) { this.dataSetToIdCache = dataSetToIdCache; }
     public void setDataSetToNameCache(Cache<String, IDataSet> dataSetToNameCache) { this.dataSetToNameCache = dataSetToNameCache; }
+
+    public void setDataSetToLazyParameters(Cache<Object, IDataSet> dataSetToLazyParameters) { this.dataSetToLazyParameters = dataSetToLazyParameters; }
 
 }
