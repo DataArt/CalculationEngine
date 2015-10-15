@@ -32,8 +32,6 @@ public class QueryFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(QueryFunction.class);
     
     protected ExternalServices external = ExternalServices.INSTANCE;
-    
-    public QueryFunction() {}
 
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
