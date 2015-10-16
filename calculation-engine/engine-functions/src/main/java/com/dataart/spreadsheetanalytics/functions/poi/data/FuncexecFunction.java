@@ -55,6 +55,7 @@ public class FuncexecFunction implements CustomFunction {
             log.error(String.format("Cannot get the value of DEFINE functuion name: %s", args[0]), e);
             return ErrorEval.VALUE_INVALID;
         }
+        defineFunctionName = defineFunctionName.toUpperCase();
 
         final AttributeFunctionStorage defines = external.getAttributeFunctionStorage();
 

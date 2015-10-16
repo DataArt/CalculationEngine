@@ -63,7 +63,7 @@ public class DefineFunctionMeta extends AttributeFunctionMeta {
         if (!formula.contains(IN_OUT_SEPARATOR)) { throw new IllegalArgumentException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR); }
         
         DefineFunctionMeta meta = new DefineFunctionMeta();
-        meta.name(ptgs[0]);
+        meta.name(ptgs[0].toUpperCase());
 
         List<ICellAddress> in = new LinkedList<>();
         List<ICellAddress> out = new LinkedList<>();
