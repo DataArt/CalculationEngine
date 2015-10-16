@@ -132,7 +132,9 @@ public class Skills_Sql_Table_Test {
 
             //then
             assertThat(value).isNotNull();
-            assertThat(value.get()).isEqualTo(expectedValues.get(expectedColumn + i));
+            assertThat(value.get())
+                .overridingErrorMessage("expected:<[%s]> but was:<[%s] at %s]>", expectedValues.get(expectedColumn + i), value.get(), toEvaluateColumn + i)
+                .isEqualTo(expectedValues.get(expectedColumn + i));
         }
     
         //And check that local DataSets are saved to storage (when they need to be removed?)
@@ -156,6 +158,54 @@ public class Skills_Sql_Table_Test {
         IDataSet dsA11 = dsStorage.getDataSet("A11");
         assertThat(dsA11).isNotNull();
         assertThat(dsA11.length()).isEqualTo(4);
+    }
+    
+    @Test
+    public void compare_OneLazyDataSetCall3Times_2dAnd3dTimesAreFaster() throws Exception {
+        //given
+        A1Address A14 = A1Address.fromA1Address("A14");
+        
+        A1Address A15 = A1Address.fromA1Address("A15");
+        A1Address A16 = A1Address.fromA1Address("A16");
+
+        long timeS = System.nanoTime(); evaluator.evaluate(A14); long timeE = System.nanoTime();
+        long timeA14 = timeE - timeS;
+
+        //when
+        timeS = System.nanoTime(); evaluator.evaluate(A15); timeE = System.nanoTime();
+        long timeA15 = timeE - timeS;
+        timeS = System.nanoTime(); evaluator.evaluate(A16); timeE = System.nanoTime();
+        long timeA16 = timeE - timeS;
+        
+        //then
+        assertThat(timeA15).isLessThan(timeA14);
+        assertThat(timeA16).isLessThan(timeA14);
+    }
+    
+    @Test
+    public void compare_OneLazyDataSetCall3Times_2dAnd3dDataSetObjectIsTheSame() throws Exception {
+        //given
+        A1Address A14 = A1Address.fromA1Address("A14");
+        
+        A1Address A15 = A1Address.fromA1Address("A15");
+        A1Address A16 = A1Address.fromA1Address("A16");
+
+        evaluator.evaluate(A14);
+        
+        evaluator.evaluate(A15);
+        evaluator.evaluate(A16);
+        
+        //when
+        IDataSet AllSkills_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("AllSkills");
+        IDataSet A14_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("A14");
+        IDataSet A15_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("A15");
+        IDataSet A16_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("A16");
+        
+        //then
+        assertThat(AllSkills_DS).isInstanceOf(DataSet.class);
+        
+        assertThat(A14_DS).isInstanceOf(DataSet.class);
+        assertThat(A15_DS).isSameAs(A16_DS).isSameAs(A14_DS);
     }
     
 }

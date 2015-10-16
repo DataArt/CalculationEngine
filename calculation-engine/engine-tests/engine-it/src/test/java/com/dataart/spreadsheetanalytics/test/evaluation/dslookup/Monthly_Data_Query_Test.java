@@ -116,7 +116,9 @@ public class Monthly_Data_Query_Test {
 
             //then
             assertThat(value).isNotNull();
-            assertThat(value.get()).isEqualTo(expectedValues.get(expectedColumn + i));
+            assertThat(value.get())
+                .overridingErrorMessage("expected:<[%s]> but was:<[%s] at %s]>", expectedValues.get(expectedColumn + i), value.get(), toEvaluateColumn + i)
+                .isEqualTo(expectedValues.get(expectedColumn + i));
         }
     }
 }
