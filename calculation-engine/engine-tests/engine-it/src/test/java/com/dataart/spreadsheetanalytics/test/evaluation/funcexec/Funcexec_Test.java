@@ -45,7 +45,7 @@ public class Funcexec_Test {
     static String toEvaluateColumn = "A";
     static String expectedColumn = "C";
     static int expectedRowStart = 2;
-    static int expectedRowEnd = 11;
+    static int expectedRowEnd = 12;
 
     static SpreadsheetEvaluator evaluator;
     static DataModel dataModel;
