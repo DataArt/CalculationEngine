@@ -180,8 +180,33 @@ public class Skills_Sql_Table_Test {
         assertThat(timeA15).isLessThan(timeA14);
         assertThat(timeA16).isLessThan(timeA14);
 
-        assertThat(timeA15).isCloseTo(timeA16, Percentage.withPercentage(10));
+        assertThat(timeA15).isCloseTo(timeA16, Percentage.withPercentage(30));
+    }
+    
+    @Test
+    public void compare_OneLazyDataSetCall3Times_2dAnd3dDataSetObjectIsTheSame() throws Exception {
+        //given
+        A1Address A14 = A1Address.fromA1Address("A14");
         
+        A1Address A15 = A1Address.fromA1Address("A15");
+        A1Address A16 = A1Address.fromA1Address("A16");
+
+        evaluator.evaluate(A14);
+        
+        evaluator.evaluate(A15);
+        evaluator.evaluate(A16);
+        
+        //when
+        IDataSet AllSkills_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("AllSkills");
+        IDataSet A14_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("A14");
+        IDataSet A15_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("A15");
+        IDataSet A16_DS = ExternalServices.INSTANCE.getDataSetStorage().getDataSet("A16");
+        
+        //then
+        assertThat(AllSkills_DS).isInstanceOf(DataSet.class);
+        
+        assertThat(A14_DS).isInstanceOf(DataSet.class);
+        assertThat(A15_DS).isSameAs(A16_DS).isSameAs(A14_DS);
     }
     
 }
