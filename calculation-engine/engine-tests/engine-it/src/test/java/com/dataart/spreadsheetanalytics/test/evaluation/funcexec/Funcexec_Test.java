@@ -44,7 +44,7 @@ public class Funcexec_Test {
     static String toEvaluateColumn = "A";
     static String expectedColumn = "B";
     static int expectedRowStart = 2;
-    static int expectedRowEnd = 26;
+    static int expectedRowEnd = 27;
 
     static IEvaluator evaluator;
     static DataModel dataModel;
