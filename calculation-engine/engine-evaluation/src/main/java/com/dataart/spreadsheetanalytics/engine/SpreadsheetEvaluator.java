@@ -15,6 +15,8 @@ import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.poi.common.execgraph.FormulaParseNameException;
+
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -50,7 +52,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Cell c = r.getCell(addr.column());
         if (c == null) { return null; }
 
-        org.apache.poi.ss.usermodel.CellValue poiValue = poiEvaluator.evaluate(c);
+        org.apache.poi.ss.usermodel.CellValue poiValue = null;
+
+        try {
+            poiValue = poiEvaluator.evaluate(c);
+        } catch (FormulaParseNameException e) {
+            return handleNameParseException();
+        }
 
         if (poiValue == null) { return null; }
 
@@ -68,6 +76,10 @@ public class SpreadsheetEvaluator implements IEvaluator {
     @Override
     public void setDataModel(IDataModel execModel) {
         this.model = (DataModel) execModel;
+    }
+
+    protected ICellValue handleNameParseException() {
+        return new CellValue(ErrorEval.NAME_INVALID);
     }
 
     public void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {

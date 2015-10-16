@@ -8,8 +8,6 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
-
-import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
 import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
@@ -62,11 +60,14 @@ public class SpreadsheetAuditor implements IAuditor {
         ICellValue cv = null;
         
         try { cv = evaluator.evaluate(cell); }
-        catch (FormulaParseNameException e) { return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null); }
         catch (ValuesStackNotEmptyException e) { return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
         catch (FormulaParseException | IncorrectExternalReferenceException e) {
             graphBuilder.runPostProcessing();
-            return graphBuilder.get(); 
+            return graphBuilder.get();
+        }
+
+        if (cv != null && ErrorEval.NAME_INVALID.equals(cv.get())) {
+            return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
         }
 
         IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
