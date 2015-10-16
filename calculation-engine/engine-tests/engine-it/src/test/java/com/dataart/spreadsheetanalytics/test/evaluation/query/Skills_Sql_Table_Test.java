@@ -19,7 +19,6 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 import javax.cache.expiry.Duration;
 
-import org.assertj.core.data.Percentage;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -133,7 +132,9 @@ public class Skills_Sql_Table_Test {
 
             //then
             assertThat(value).isNotNull();
-            assertThat(value.get()).isEqualTo(expectedValues.get(expectedColumn + i));
+            assertThat(value.get())
+                .overridingErrorMessage("expected:<[%s]> but was:<[%s] at %s]>", expectedValues.get(expectedColumn + i), value.get(), toEvaluateColumn + i)
+                .isEqualTo(expectedValues.get(expectedColumn + i));
         }
     
         //And check that local DataSets are saved to storage (when they need to be removed?)
@@ -179,8 +180,6 @@ public class Skills_Sql_Table_Test {
         //then
         assertThat(timeA15).isLessThan(timeA14);
         assertThat(timeA16).isLessThan(timeA14);
-
-        assertThat(timeA15).isCloseTo(timeA16, Percentage.withPercentage(30));
     }
     
     @Test

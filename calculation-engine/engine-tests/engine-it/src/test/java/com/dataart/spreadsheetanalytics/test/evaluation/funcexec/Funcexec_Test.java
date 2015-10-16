@@ -21,6 +21,7 @@ import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -39,14 +40,13 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 public class Funcexec_Test {
 
     static String pathDataModel = "src/test/resources/datamodel/Funcexec_Test.xlsx";
-    static String pathDataSet = "src/test/resources/dataset/Funcexec_Test.xlsx";
     static Map<String, Object> expectedValues;
     static String toEvaluateColumn = "A";
-    static String expectedColumn = "C";
+    static String expectedColumn = "B";
     static int expectedRowStart = 2;
-    static int expectedRowEnd = 11;
+    static int expectedRowEnd = 26;
 
-    static SpreadsheetEvaluator evaluator;
+    static IEvaluator evaluator;
     static DataModel dataModel;
 
     @BeforeClass
@@ -118,7 +118,9 @@ public class Funcexec_Test {
 
             //then
             assertThat(value).isNotNull();
-            assertThat(value.get()).isEqualTo(expectedValues.get(expectedColumn + i));
+            assertThat(value.get())
+                .overridingErrorMessage("expected:<[%s]> but was:<[%s] at %s]>", expectedValues.get(expectedColumn + i), value.get(), toEvaluateColumn + i)
+                .isEqualTo(expectedValues.get(expectedColumn + i));
         }
     }    
 }
