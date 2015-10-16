@@ -5,6 +5,7 @@ import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,7 +13,6 @@ import org.apache.poi.ss.formula.ArrayEval;
 import org.apache.poi.ss.formula.IStabilityClassifier;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.TwoDEval;
-import org.apache.poi.ss.formula.eval.AreaEvalBase;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.EvaluationException;
 import org.apache.poi.ss.formula.eval.RefEval;
@@ -66,23 +66,26 @@ public class FuncexecFunction implements CustomFunction {
             return ErrorEval.NAME_INVALID;
         }
 
-        final DefineFunctionMeta meta = defines.getDefineFunctions().get(defineFunctionName);
+        List<ValueEval> inputValues = new LinkedList<>();        
+        List<ValueEval> inArgs = new ArrayList(Arrays.asList(args));
+        inArgs.remove(0); //remove define function name
+        
+        try {
+            for (ValueEval v : CustomFunction.prepareQueryArgs(inArgs))
+                { inputValues.add(getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex())); }
+        }
+        catch (EvaluationException e) {
+            log.error("Cannot resolve input values for FUNCEXEC function", e);
+            return ErrorEval.VALUE_INVALID;
+        }
 
-        if (meta.inputs().size() != args.length - 1 && !containsAreaEvalAndRefEval(args)) {
+        final DefineFunctionMeta meta = defines.getDefineFunctions().get(defineFunctionName);       
+        log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
+        
+        if (meta.inputs().size() != inputValues.size()) {
             log.warn("Wrong number of input arguments for FUNCEXEC+DEFINE. Expected: {}, Actua: {}.", meta.inputs().size(), args.length - 1);
             return ErrorEval.VALUE_INVALID;
         }
-        
-        log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
-
-        List<ValueEval> inputValues = null;        
-            
-        try {
-            inputValues = collectInputValues(args, ec, meta.inputs().size(), true);
-        }
-        catch (EvaluationException e) {
-            return ErrorEval.VALUE_INVALID;
-        }        
                 
         List<ICellAddress> inputAddresses = meta.inputs();
         log.debug("Input Addresses for DEFINE: {}, Input Values for DEFINE: {}.", inputAddresses, inputValues);
@@ -116,38 +119,6 @@ public class FuncexecFunction implements CustomFunction {
         log.debug("Output Values of DEFINE execution: {}.", outputValues);
 
         return outputValues.size() == 1 ? outputValues.get(0) : toArrayEval(outputValues);
-    }
-    
-    private boolean containsAreaEvalAndRefEval(ValueEval[] values) {
-        for (ValueEval value : values) {
-            if (value instanceof AreaEvalBase || value instanceof RefEval) { return true; }
-        }
-        return false;
-    }
-    
-    private List<ValueEval> collectInputValues(ValueEval[] values, OperationEvaluationContext ec, int presumeNum, boolean isInitial) throws EvaluationException {
-        int initIndex = isInitial ? 1 : 0;
-        List<ValueEval> retvals = new ArrayList<>(presumeNum);
-        for (int i = initIndex; i < values.length; i++) {
-            try {
-                if (values[i] instanceof AreaEvalBase) {
-                    AreaEvalBase value = (AreaEvalBase) values[i];                                         
-                    retvals.addAll(collectInputValues(value.getAreaValueEvals(), ec, value.getAreaValueEvals().length, false));
-                } else {
-                    ValueEval value = getSingleValue(values[i], ec.getRowIndex(), ec.getColumnIndex());
-                    if (value instanceof AreaEvalBase) {
-                        AreaEvalBase areaValue = (AreaEvalBase) value;
-                        retvals.addAll(collectInputValues(areaValue.getAreaValueEvals(), ec, areaValue.getAreaValueEvals().length, false));
-                    } else {
-                        retvals.add(value);
-                    }
-                }
-            } catch (EvaluationException e) {
-                log.error(String.format("Cannot resolve value of %sth input argument %s.", i, values[i]), e);
-                throw e;
-            }
-        }        
-        return retvals;
     }
     
     private static TwoDEval toArrayEval(List<ValueEval> outputValues) {
