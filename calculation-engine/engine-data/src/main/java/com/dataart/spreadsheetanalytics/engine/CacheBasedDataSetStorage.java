@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
@@ -22,8 +23,6 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
     protected Cache<IDataModelId, IDataSet> dataSetToIdCache = Caching.getCache(DATA_SET_TO_ID_CACHE_NAME, IDataModelId.class, IDataSet.class);
     protected Cache<String, IDataSet> dataSetToNameCache = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, String.class, IDataSet.class);
     
-    protected Cache<ILazyDataSet.Parameters, IDataSet> dataSetToLazyParameters = Caching.getCache(DATA_SET_TO_LAZY_PARAMETERS, ILazyDataSet.Parameters.class, IDataSet.class);
-
     @Override
     public void saveDataSet(IDataSet dset) {
         saveDataSet(dset, DataSetScope.GLOBAL);
@@ -65,13 +64,17 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
     
     @Override
     public IDataSet getDataSet(String name, Parameters parameters) throws Exception {
-        if (Parameters.EMPTY != parameters && dataSetToLazyParameters.containsKey(parameters)) { return dataSetToLazyParameters.get(parameters); }
+        DataSetOptimisationsCache optimisationsCaches = ExternalServices.INSTANCE.getDataSetOptimisationsCache();
+        
+        if (Parameters.EMPTY != parameters && optimisationsCaches.dataSetToLazyParameters.containsKey(parameters)) {
+            return optimisationsCaches.dataSetToLazyParameters.get(parameters);
+        }
         
         IDataSet dset = this.dataSetToNameCache.get(name);
         if (dset == null) { throw new IllegalStateException(String.format("No DataSet with name = %s is found in DataSet storage.", name)); }
         
         dset = isLazyDataSet(dset) ? ((ILazyDataSet) dset).get(parameters) : dset;
-        dataSetToLazyParameters.put(parameters, dset);
+        optimisationsCaches.dataSetToLazyParameters.put(parameters, dset);
         return dset;
     }
 
@@ -87,7 +90,5 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
 
     public void setDataSetToIdCache(Cache<IDataModelId, IDataSet> dataSetToIdCache) { this.dataSetToIdCache = dataSetToIdCache; }
     public void setDataSetToNameCache(Cache<String, IDataSet> dataSetToNameCache) { this.dataSetToNameCache = dataSetToNameCache; }
-
-    public void setDataSetToLazyParameters(Cache<ILazyDataSet.Parameters, IDataSet> dataSetToLazyParameters) { this.dataSetToLazyParameters = dataSetToLazyParameters; }
 
 }

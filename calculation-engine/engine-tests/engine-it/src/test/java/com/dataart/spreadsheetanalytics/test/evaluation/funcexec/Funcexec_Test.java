@@ -4,6 +4,7 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import javax.cache.CacheManager;
@@ -32,6 +33,8 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorag
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -67,6 +70,7 @@ public class Funcexec_Test {
         cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
         cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
+        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS, config.setTypes(DsLookupParameters.class, List.class));
 
         final ExternalServices external = ExternalServices.INSTANCE;
 
@@ -79,6 +83,7 @@ public class Funcexec_Test {
         external.setDataSetStorage(dataSetStorage);
         external.setDataSourceHub(dataSourceHub);
         external.setAttributeFunctionStorage(attributeFunctionStorage);
+        external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
         dataModelStorage.addDataModel(dataModel);
 
@@ -105,6 +110,7 @@ public class Funcexec_Test {
         cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS);
+        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS);
     }
 
     @Test

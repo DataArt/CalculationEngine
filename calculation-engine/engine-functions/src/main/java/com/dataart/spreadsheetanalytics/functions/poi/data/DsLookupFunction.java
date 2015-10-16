@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.cache.Cache;
+
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.EvaluationException;
@@ -25,6 +27,8 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
@@ -119,13 +123,20 @@ public class DsLookupFunction implements CustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
         
-        List<ValueEval> fetchedValues = fetchValues(dataSet, indexToValue, columnIndex);
+        DsLookupParameters parameters = new DsLookupParameters(dataSet.name(), indexToValue, columnIndex);
+        List<ValueEval> fetchedValues = fetchValuesWithOptimisations(parameters);
+        
+        if (fetchedValues == null) {
+            fetchedValues = fetchValuesWithFullScan(dataSet, indexToValue, columnIndex);
+            
+            updateOptimisationsCache(parameters, dataSet, fetchedValues);
+        }
 
         //This is per PO decision: DSLOOKUP should return only one value - first found.
         return fetchedValues.isEmpty() ? ErrorEval.NA : fetchedValues.get(0);
     }
 
-    private List<ValueEval> fetchValues(IDataSet set, Map<Integer, Object> where, int columnIndex) {
+    protected List<ValueEval> fetchValuesWithFullScan(IDataSet set, Map<Integer, Object> where, int columnIndex) {
 
         List<ValueEval> found = new ArrayList<>();
         
@@ -153,6 +164,25 @@ public class DsLookupFunction implements CustomFunction {
         }
 
         return found;
+    }
+    
+    protected List<ValueEval> fetchValuesWithOptimisations(DsLookupParameters parameters) {
+        DataSetOptimisationsCache caches = external.getDataSetOptimisationsCache();
+        Cache<DsLookupParameters, List> cache = caches.getDataSetToDsLookupParameters();
+       
+        if (cache.containsKey(parameters)) { return cache.get(parameters); }
+
+        return null;
+    }
+
+
+    protected void updateOptimisationsCache(DsLookupParameters parameters, IDataSet dataSet, List<ValueEval> fetchedValues) {
+        if (fetchedValues == null || parameters == null) { return; }
+        
+        DataSetOptimisationsCache caches = external.getDataSetOptimisationsCache();
+        Cache<DsLookupParameters, List> cache = caches.getDataSetToDsLookupParameters();
+        
+        cache.put(parameters, fetchedValues);
     }
 
 }

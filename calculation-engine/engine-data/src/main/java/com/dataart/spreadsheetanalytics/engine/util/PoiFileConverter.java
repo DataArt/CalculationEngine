@@ -31,5 +31,9 @@ public class PoiFileConverter {
         
         return result;
     }
+    
+    public static Workbook toWorkbook(IDataSet dataSet) throws IOException {
+        return null;
+    }
 
 }

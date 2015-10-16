@@ -3,6 +3,7 @@ package com.dataart.spreadsheetanalytics.test.evaluation.dslookup;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.cache.CacheManager;
@@ -30,6 +31,8 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorag
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
@@ -67,6 +70,7 @@ public class Monthly_Data_Query_Test {
         cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
         cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
+        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS, config.setTypes(DsLookupParameters.class, List.class));
         
         final ExternalServices external = ExternalServices.INSTANCE;
 
@@ -79,6 +83,7 @@ public class Monthly_Data_Query_Test {
         external.setDataSetStorage(dataSetStorage);
         external.setDataSourceHub(dataSourceHub);
         external.setAttributeFunctionStorage(attributeFunctionStorage);
+        external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
         final IDataSet dataSet = PoiFileConverter.toDataSet(new DataModel("Monthly_Data_Query", pathDataSet).poiModel);
         dataSetStorage.saveDataSet(dataSet);
@@ -103,6 +108,7 @@ public class Monthly_Data_Query_Test {
         cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS);
+        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS);
     }
 
     @Test
@@ -120,5 +126,22 @@ public class Monthly_Data_Query_Test {
                 .overridingErrorMessage("expected:<[%s]> but was:<[%s] at %s]>", expectedValues.get(expectedColumn + i), value.get(), toEvaluateColumn + i)
                 .isEqualTo(expectedValues.get(expectedColumn + i));
         }
+    }
+    
+    @Test
+    public void compare_DsLookupParametersCache_SecondCallIsFasterThanFirst() {
+        //given
+        A1Address A9 = A1Address.fromA1Address("A9");
+        A1Address A10 = A1Address.fromA1Address("A10");
+
+        long timeS = System.nanoTime(); evaluator.evaluate(A9); long timeE = System.nanoTime();
+        long timeA9 = timeE - timeS;
+
+        //when
+        timeS = System.nanoTime(); evaluator.evaluate(A10); timeE = System.nanoTime();
+        long timeA10 = timeE - timeS;
+        
+        //then
+        assertThat(timeA10).isLessThan(timeA9);
     }
 }
