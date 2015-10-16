@@ -77,13 +77,12 @@ public class DefineFunctionMeta extends AttributeFunctionMeta {
 
             if (passedSeparator) {
                 A1Address outAddr = A1Address.fromA1Address(ptgs[i]);
-                if (outAddr instanceof A1RangeAddress) {
-                    out.addAll(A1RangeAddress.toCellAddresses((A1RangeAddress) outAddr));
-                } else {
-                    out.add(outAddr);
-                }
+                if (outAddr instanceof A1RangeAddress) { out.addAll(A1RangeAddress.toCellAddresses((A1RangeAddress) outAddr)); }
+                else { out.add(outAddr); }
             } else {
-                in.add(A1Address.fromA1Address(ptgs[i]));
+                A1Address inAddr = A1Address.fromA1Address(ptgs[i]);
+                if (inAddr instanceof A1RangeAddress) { in.addAll(A1RangeAddress.toCellAddresses((A1RangeAddress) inAddr)); }
+                else { in.add(inAddr); }
             }
         }
 
