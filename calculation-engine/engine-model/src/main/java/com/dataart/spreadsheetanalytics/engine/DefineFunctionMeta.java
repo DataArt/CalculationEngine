@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
@@ -63,7 +64,7 @@ public class DefineFunctionMeta extends AttributeFunctionMeta {
         if (!formula.contains(IN_OUT_SEPARATOR)) { throw new IllegalArgumentException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR); }
         
         DefineFunctionMeta meta = new DefineFunctionMeta();
-        meta.name(ptgs[0].toUpperCase());
+        meta.name(ptgs[0].toUpperCase(Locale.getDefault()));
 
         List<ICellAddress> in = new LinkedList<>();
         List<ICellAddress> out = new LinkedList<>();

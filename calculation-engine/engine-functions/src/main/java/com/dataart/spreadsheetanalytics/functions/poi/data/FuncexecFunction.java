@@ -6,6 +6,7 @@ import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.poi.ss.formula.ArrayEval;
 import org.apache.poi.ss.formula.IStabilityClassifier;
@@ -56,7 +57,7 @@ public class FuncexecFunction implements CustomFunction {
             log.error(String.format("Cannot get the value of DEFINE functuion name: %s", args[0]), e);
             return ErrorEval.VALUE_INVALID;
         }
-        defineFunctionName = defineFunctionName.toUpperCase();
+        defineFunctionName = defineFunctionName.toUpperCase(Locale.getDefault());
 
         final AttributeFunctionStorage defines = external.getAttributeFunctionStorage();
 
