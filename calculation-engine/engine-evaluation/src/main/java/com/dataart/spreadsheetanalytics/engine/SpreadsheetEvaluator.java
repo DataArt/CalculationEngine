@@ -26,6 +26,9 @@ import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.DsCell;
+import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class SpreadsheetEvaluator implements IEvaluator {
     private static final Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);
@@ -52,6 +55,34 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Cell c = r.getCell(addr.column());
         if (c == null) { return null; }
 
+        return evaluateCell(c);
+    }
+
+    @Override
+    public IDataSet evaluate() {
+        DataSet dataSet = new DataSet(model.name());
+        Sheet sheet = ((DataModel)model).poiModel.getSheetAt(0);
+        for (int i = sheet.getFirstRowNum() ; i < sheet.getLastRowNum() ; i++) {
+            Row row = sheet.getRow(i);
+            DsRow evaluatedRow = dataSet.createRow();
+            for (int j = row.getFirstCellNum() ; j < row.getLastCellNum() ; j++) {
+                Cell cell = row.getCell(j);
+                DsCell evaluatedCell = evaluatedRow.createCell();
+                ICellValue value = evaluateCell(cell);
+                evaluatedCell.value((value == null) ? null : value.get());
+            }
+        }
+        return dataSet;
+    }
+
+    @Override
+    public void setDataModel(IDataModel execModel) {
+        this.model = (DataModel) execModel;
+    }
+
+    protected ICellValue evaluateCell(Cell c) {
+        if (c == null) { return null; }
+
         org.apache.poi.ss.usermodel.CellValue poiValue = null;
 
         try {
@@ -65,17 +96,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
         ICellValue cv = new CellValue(fromPoiValue(poiValue));
         
         return cv;
-    }
-
-    @Override
-    public IDataSet evaluate(IDataModel model) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-    @Override
-    public void setDataModel(IDataModel execModel) {
-        this.model = (DataModel) execModel;
     }
 
     protected ICellValue handleNameParseException() {
