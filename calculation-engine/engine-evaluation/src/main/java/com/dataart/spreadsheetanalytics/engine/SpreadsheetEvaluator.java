@@ -75,15 +75,16 @@ public class SpreadsheetEvaluator implements IEvaluator {
     @Override
     public IDataSet evaluate() {
         DataSet dataSet = new DataSet(model.name());
-        Sheet sheet = ((DataModel)model).poiModel.getSheetAt(0);
-        for (int i = sheet.getFirstRowNum() ; i < sheet.getLastRowNum() ; i++) {
-            Row row = sheet.getRow(i);
+        Sheet sheet = ((DataModel)model).poiModel.getSheetAt(0); // TODO handle sheet number specification
+        for (Row row : sheet) {
             DsRow evaluatedRow = dataSet.createRow();
-            for (int j = row.getFirstCellNum() ; j < row.getLastCellNum() ; j++) {
-                Cell cell = row.getCell(j);
-                DsCell evaluatedCell = evaluatedRow.createCell();
-                ICellValue value = evaluateCell(cell);
-                evaluatedCell.value((value == null) ? null : value.get());
+            if (row != null) {
+                for (Cell cell : row) {
+                    DsCell evaluatedCell = evaluatedRow.createCell();
+                    ICellValue value = evaluateCell(cell);
+                    evaluatedCell.value((value == null) ? null : value.get());
+                    // TODO: Use multithreading to calculate cells in parallel
+                }
             }
         }
         return dataSet;
