@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
@@ -87,11 +86,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
             }
         }
         return dataSet;
-    }
-
-    @Override
-    public void setDataModel(IDataModel execModel) {
-        this.model = (DataModel) execModel;
     }
 
     protected ICellValue evaluateCell(Cell c) {

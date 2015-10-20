@@ -24,7 +24,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 /**
  * One of two basic interfaces to use the library. 
  * It's purpose is to do the evaluation of Cell or whole DataModel.
- * Two methods: {@link #evaluate(ICellAddress)} and {@link #evaluate(IDataModel)} are designed to do it.
+ * Two methods: {@link #evaluate(ICellAddress)} and {@link #evaluate()} are designed to do it.
  * 
  * Usually new instance of Evaluator should be created for every {@link IDataModel} to evaluate.
  * 
@@ -46,10 +46,5 @@ public interface IEvaluator {
      * Returns {@link IDataSet} where no formulas, but values in the cells.
      */
     IDataSet evaluate();
-
-    /**
-     * Replaces old {@link IDataModel} in this Evaluator with new one.
-     */
-    void setDataModel(IDataModel execModel);
 
 }
