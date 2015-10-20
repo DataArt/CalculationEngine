@@ -45,7 +45,7 @@ public interface IEvaluator {
      * 
      * Returns {@link IDataSet} where no formulas, but values in the cells.
      */
-    IDataSet evaluate(IDataModel dataModel);
+    IDataSet evaluate();
 
     /**
      * Replaces old {@link IDataModel} in this Evaluator with new one.
