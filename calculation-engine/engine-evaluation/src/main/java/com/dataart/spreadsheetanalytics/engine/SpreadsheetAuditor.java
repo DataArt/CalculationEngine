@@ -78,7 +78,7 @@ public class SpreadsheetAuditor implements IAuditor {
         try { cv = evaluator.evaluate(cell); }
         catch (ValuesStackNotEmptyException e) { return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
         catch (FormulaParseException | IncorrectExternalReferenceException e) {
-            graphBuilder.runPostProcessing();
+            graphBuilder.runPostProcessing(false);
             return graphBuilder.get();
         }
 
@@ -89,14 +89,15 @@ public class SpreadsheetAuditor implements IAuditor {
         IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
         if (nonFormulaResult != null) { return nonFormulaResult; }
 
-        graphBuilder.runPostProcessing();
+        graphBuilder.runPostProcessing(false);
         return graphBuilder.get();
     }
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph() {
-        /* TODO Graph for all workbook */
-        return null;
+        evaluator.evaluate();
+        graphBuilder.runPostProcessing(true);
+        return graphBuilder.get();
     }
 
     protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {

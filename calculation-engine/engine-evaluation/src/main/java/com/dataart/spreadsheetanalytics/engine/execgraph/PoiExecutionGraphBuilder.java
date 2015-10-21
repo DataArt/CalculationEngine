@@ -215,7 +215,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
      * Do anything you want here. After graph is completed and we are out of POI
      * context you can add\remove\etc any information you want.
      */
-    public void runPostProcessing() {
+    public void runPostProcessing(boolean multiRoot) {
         DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph = dgraph;
 
         // make identical vertices have the same set of properties
@@ -302,7 +302,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             if (graph.outgoingEdgesOf(vert).isEmpty()) {
                 ExecutionGraphVertex root = (ExecutionGraphVertex) vert;
                 root.formula = buildFormula(root, graph);
-                break;
+                if (!multiRoot) { break; }
             }
         }
 
