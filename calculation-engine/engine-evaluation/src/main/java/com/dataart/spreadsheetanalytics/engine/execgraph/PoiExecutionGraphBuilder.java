@@ -33,10 +33,12 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +93,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
+    private boolean allowMultipleGraphs;
     
     static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
 
@@ -106,6 +109,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         this.dgraph =  new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         this.valueToVertex = new HashMap<>();
         this.addressToVertices = new HashMap<>();
+        allowMultipleGraphs = true;
     }
 
     public ExecutionGraph get() {
@@ -244,6 +248,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         // and
         // modify Formula field with additional values
         Map<String, AtomicInteger> adressToCount = new HashMap<>();
+
         for (IExecutionGraphVertex ivertex : graph.vertexSet()) {
 
             ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
@@ -306,6 +311,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
+        if (!this.allowMultipleGraphs) {
+            removeAllDuplicates();
+        }
     }
 
     protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> graph) {
@@ -589,9 +597,77 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
     }
 
+    protected Set<IExecutionGraphVertex> getParents(IExecutionGraphVertex vertex) {
+        Set<IExecutionGraphVertex> retvals = new HashSet<>();
+        for (ExecutionGraphEdge edge : dgraph.outgoingEdgesOf(vertex)) {
+            retvals.add(dgraph.getEdgeTarget(edge));
+        }
+        return retvals;
+    }
+
+    protected void removeAllDuplicates() {
+        Set<IExecutionGraphVertex> leaves = new HashSet<>();
+        for (String address : addressToVertices.keySet()) {
+            leaves.add(removeLeafDublicates(address));
+        }
+        processLeaves(leaves);
+    }
+
+    protected void processLeaves(Set<IExecutionGraphVertex> leaves) {
+        for (IExecutionGraphVertex leaf : leaves) {
+            Set<IExecutionGraphVertex> parents = getParents(leaf);
+            Set<IExecutionGraphVertex> chosen = new HashSet<>();
+            for (IExecutionGraphVertex parent : parents) {
+                IExecutionGraphVertex found = returnVertexDuplicate(chosen, parent);
+                if (found == null) {
+                    chosen.add(parent);
+                } else {
+                    reassignOutgoingEdges(found, parent);
+                    dgraph.removeVertex(parent);
+                }
+            }
+            processLeaves(chosen);
+        }
+    }
+
+    protected static IExecutionGraphVertex returnVertexDuplicate(Collection<IExecutionGraphVertex> set, IExecutionGraphVertex ivalue) {
+        for (IExecutionGraphVertex iitem : set) {
+            ExecutionGraphVertex item = (ExecutionGraphVertex) iitem;
+            ExecutionGraphVertex value = (ExecutionGraphVertex) ivalue;
+            if (item.compareTo(value) == 1) { return item; }
+        }
+        return null;
+    }
+
+    protected void reassignOutgoingEdges(IExecutionGraphVertex ivertex1, IExecutionGraphVertex ivertex2) {
+        Set<ExecutionGraphEdge> set = dgraph.outgoingEdgesOf(ivertex2);
+        for (ExecutionGraphEdge item : set) {
+            dgraph.addEdge(ivertex1, dgraph.getEdgeTarget(item));
+        }
+    }
+
+    protected IExecutionGraphVertex removeLeafDublicates(String address) {
+        Set<IExecutionGraphVertex> vertices = getVerticesFromCache(address);
+        if (!vertices.isEmpty()) {
+            Iterator<IExecutionGraphVertex> it = vertices.iterator();
+            IExecutionGraphVertex champion = it.next();
+            while (it.hasNext()) {
+                IExecutionGraphVertex value = it.next();
+                reassignOutgoingEdges(champion, value);
+                dgraph.removeVertex(value);
+            }
+            return champion;
+        }
+        return null;
+    }
+
     // TODO: not the best solution, but works as for now
     protected static boolean isCompareOperand(String name) {
         return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
+    }
+
+    public void setAllowMultipleGraphs(boolean allowMultipleGraphs) {
+        this.allowMultipleGraphs = allowMultipleGraphs;
     }
 
 }

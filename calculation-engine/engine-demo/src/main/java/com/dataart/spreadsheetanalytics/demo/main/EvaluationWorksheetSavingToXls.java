@@ -44,6 +44,7 @@ public class EvaluationWorksheetSavingToXls {
         
         //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
+        ((SpreadsheetAuditor)auditor).setMultiGraph(false);
         //build graph
         final IExecutionGraph graph = auditor.buildDynamicExecutionGraph();
 

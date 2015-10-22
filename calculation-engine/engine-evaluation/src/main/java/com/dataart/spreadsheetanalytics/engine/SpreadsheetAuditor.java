@@ -100,6 +100,10 @@ public class SpreadsheetAuditor implements IAuditor {
         return graphBuilder.get();
     }
 
+    public void setMultiGraph(boolean multiGraph) {
+        graphBuilder.setAllowMultipleGraphs(multiGraph);
+    }
+
     protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
         if (evalCell == null) { return graphBuilder.getSingleNodeGraph(cell); }
         
