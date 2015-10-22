@@ -49,6 +49,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
+import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
@@ -162,7 +163,7 @@ public class EvaluationWithExecutionGraphDemo {
         attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
         
         //add in memory sql data source
-        dataSourceHub.addDataSource(new TempSqlDataSource());
+        dataSourceHub.addDataSource(new DemoUtil.TempSqlDataSource());
         //add lazy sql dataset to storage
         String sql = "SELECT * FROM creaditcards WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
         final ILazyDataSet sqlDataSet = new SqlDataSet("PersonsWithCreaditCard", sql);

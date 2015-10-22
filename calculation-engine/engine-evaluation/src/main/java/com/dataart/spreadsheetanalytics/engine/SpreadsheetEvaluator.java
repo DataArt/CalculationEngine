@@ -74,7 +74,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     @Override
     public IDataSet evaluate() {
         DataSet dataSet = new DataSet(model.name());
-        Sheet sheet = ((DataModel)model).poiModel.getSheetAt(0); // TODO handle sheet number specification
+        Sheet sheet = model.poiModel.getSheetAt(0); // TODO handle sheet number specification
         for (Row row : sheet) {
             DsRow evaluatedRow = dataSet.createRow();
             if (row != null) {

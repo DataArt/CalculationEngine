@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.demo.main;
+package com.dataart.spreadsheetanalytics.demo.util;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -34,15 +34,15 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
+import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
-import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
+import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
@@ -53,7 +53,7 @@ import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class DemoUtil {
     
-    protected  static void plainprint(IExecutionGraph graph) {
+    public static void plainprint(IExecutionGraph graph) {
         for (IExecutionGraphVertex vertex : graph.getVertices()) {
             System.out.println("---------------------------------");
             System.out.println("Vertex Id: " + vertex.id());
@@ -65,7 +65,7 @@ public class DemoUtil {
         }
     }
 
-    protected static void generateVisJsData(IExecutionGraph graph) {
+    public static void generateVisJsData(IExecutionGraph graph) {
         try {
             final String dataTemplateFileStr = "src/main/resources/ui/data_template.js";
             final String dataFileStr = "src/main/resources/ui/data.js";
@@ -134,7 +134,7 @@ public class DemoUtil {
         }
     }
 
-    protected static void initCaches(DataModel model) throws IOException, InterruptedException {
+    public static void initCaches(DataModel model) throws IOException, InterruptedException {
         
         //prepare caches to be used as storages
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
@@ -198,106 +198,106 @@ public class DemoUtil {
         dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLevel", "SELECT FirstName, LastName FROM skills WHERE Level = '?'"));
 
     }
-    
-}
+    public static class TempSqlDataSource implements SqlDataSource {
 
-class TempSqlDataSource implements SqlDataSource {
-
-    private Connection co;
-    
-    private String initSql_1 = "CREATE TABLE creaditcards "
-                                + "("
-                                    + "PersonId int,"
-                                    + "LastName varchar(255),"
-                                    + "FirstName varchar(255),"
-                                    + "Address varchar(255),"
-                                    + "City varchar(255),"
-                                    + "Age int,"
-                                    + "CreditCardNumber bigint,"
-                                + ");";
-    
-    private String initSql_2 = 
-            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (1,'Erichsen','Tom B.','Abc St.','Lublin',36, 0001000100010001);" +
-            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (2,'Tomasson','John B.','Abc St.','Lublin',25, 0002000200020002);" +
-            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (3,'Bedersson','Richard B.','Abc St.','Lublin',48, 0003000300030003);" +
-            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (4,'Chrenesson','Michael B.','Abc St.','Lublin',77, 0004000400040004);" +
-            "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (5,'Nefasson','Hank B.','Abc St.','Lublin',19, 0005000500050005);";
-    
-    private String initSql_3 = "CREATE TABLE skills "
-                                + "("
-                                    + "FirstName varchar(255),"
-                                    + "LastName varchar(255),"
-                                    + "Qualification varchar(255),"
-                                    + "City varchar(255),"
-                                    + "Level varchar(255),"
-                                    + "LevelOfEnglish varchar(255)"
-                                + ");";
-    private String initSql_4 = 
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Urik','Koroshev','Java','NY','Senior','n/a');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Sasha','Gust','Java','Voronezh','Senior','n/a');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Nikolay','Frix','.Net','Dnipropetrovsk','Middle','n/a');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Lucasz','Gnap','C++','Lublin','Middle','3.8');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Andrey','Ivanovich','Android','Dnipropetrovsk','Middle','2.4');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Oleg','Krutoy','Android','Lviv','Senior','4.0');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Alexander','Global','iPhone','Dnipropetrovsk','Middle','4.4');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Aliester','Douglas','Cameron','iPhone','NY','Senior  5.0');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Oles','Lopster','PHP','Odessa','Middle','n/a');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Pavel','Haliver','Python','Kyiv','Junior','n/a');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Kostya','Holiver','Python','Lublin','Middle','n/a');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Ekaterina','Skakunova','QA','Odessa','Middle','2.8');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Ksenia','Brigida','QA','Odessa','Middle','3.2');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Roman','Romanov','QA','Odessa','Junior','n/a');" +
-            "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Tatiana','Smeshko','QA','Odessa','Middle','3.6');";
-
-    
-    public TempSqlDataSource() {
+        private Connection co;
         
-        try {
-            Class.forName("org.hsqldb.jdbcDriver" );
-            co = DriverManager.getConnection("jdbc:hsqldb:mem:aname", "sa", "");
-            Statement st = co.createStatement();
+        private String initSql_1 = "CREATE TABLE creaditcards "
+                                    + "("
+                                        + "PersonId int,"
+                                        + "LastName varchar(255),"
+                                        + "FirstName varchar(255),"
+                                        + "Address varchar(255),"
+                                        + "City varchar(255),"
+                                        + "Age int,"
+                                        + "CreditCardNumber bigint,"
+                                    + ");";
+        
+        private String initSql_2 = 
+                "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (1,'Erichsen','Tom B.','Abc St.','Lublin',36, 0001000100010001);" +
+                "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (2,'Tomasson','John B.','Abc St.','Lublin',25, 0002000200020002);" +
+                "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (3,'Bedersson','Richard B.','Abc St.','Lublin',48, 0003000300030003);" +
+                "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (4,'Chrenesson','Michael B.','Abc St.','Lublin',77, 0004000400040004);" +
+                "INSERT INTO creaditcards (PersonId, LastName, FirstName, Address, City, Age, CreditCardNumber) VALUES (5,'Nefasson','Hank B.','Abc St.','Lublin',19, 0005000500050005);";
+        
+        private String initSql_3 = "CREATE TABLE skills "
+                                    + "("
+                                        + "FirstName varchar(255),"
+                                        + "LastName varchar(255),"
+                                        + "Qualification varchar(255),"
+                                        + "City varchar(255),"
+                                        + "Level varchar(255),"
+                                        + "LevelOfEnglish varchar(255)"
+                                    + ");";
+        private String initSql_4 = 
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Urik','Koroshev','Java','NY','Senior','n/a');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Sasha','Gust','Java','Voronezh','Senior','n/a');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Nikolay','Frix','.Net','Dnipropetrovsk','Middle','n/a');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Lucasz','Gnap','C++','Lublin','Middle','3.8');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Andrey','Ivanovich','Android','Dnipropetrovsk','Middle','2.4');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Oleg','Krutoy','Android','Lviv','Senior','4.0');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Alexander','Global','iPhone','Dnipropetrovsk','Middle','4.4');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Aliester','Douglas','Cameron','iPhone','NY','Senior  5.0');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Oles','Lopster','PHP','Odessa','Middle','n/a');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Pavel','Haliver','Python','Kyiv','Junior','n/a');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Kostya','Holiver','Python','Lublin','Middle','n/a');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Ekaterina','Skakunova','QA','Odessa','Middle','2.8');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Ksenia','Brigida','QA','Odessa','Middle','3.2');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Roman','Romanov','QA','Odessa','Junior','n/a');" +
+                "INSERT INTO skills (FirstName, LastName, Qualification, City, Level, LevelOfEnglish) VALUES ('Tatiana','Smeshko','QA','Odessa','Middle','3.6');";
+
+        
+        public TempSqlDataSource() {
             
-            st.execute(initSql_1);
-            st.execute(initSql_2);
-            
-            st.execute(initSql_3);
-            st.execute(initSql_4);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                Class.forName("org.hsqldb.jdbcDriver" );
+                co = DriverManager.getConnection("jdbc:hsqldb:mem:aname", "sa", "");
+                Statement st = co.createStatement();
+                
+                st.execute(initSql_1);
+                st.execute(initSql_2);
+                
+                st.execute(initSql_3);
+                st.execute(initSql_4);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }
 
-    @Override
-    public IDataSet executeQuery(DataSourceQuery query, List<Object> params) throws Exception {
+        @Override
+        public IDataSet executeQuery(DataSourceQuery query, List<Object> params) throws Exception {
 
-        TextDataSourceQuery textQuery = (TextDataSourceQuery) query;
-        final DataSet ds = new DataSet(UUID.randomUUID().toString());
+            TextDataSourceQuery textQuery = (TextDataSourceQuery) query;
+            final DataSet ds = new DataSet(UUID.randomUUID().toString());
 
-        String queryToExecute = textQuery.query();
-        for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        
+            String queryToExecute = textQuery.query();
+            for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        
 
-        PreparedStatement st = co.prepareStatement(queryToExecute);
-        st.execute();
+            PreparedStatement st = co.prepareStatement(queryToExecute);
+            st.execute();
 
-        ResultSet rs = st.getResultSet();
-        ResultSetMetaData rsmd = rs.getMetaData();
-        
-        DsRow row = ds.createRow();
-        for (int i = 1; i <= rsmd.getColumnCount(); i++)
-            row.createCell().value(rsmd.getColumnLabel(i));
-        
-        while (rs.next()) {
-            row = ds.createRow();
+            ResultSet rs = st.getResultSet();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            DsRow row = ds.createRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
-                row.createCell().value(rs.getObject(i));
+                row.createCell().value(rsmd.getColumnLabel(i));
+            
+            while (rs.next()) {
+                row = ds.createRow();
+                for (int i = 1; i <= rsmd.getColumnCount(); i++)
+                    row.createCell().value(rs.getObject(i));
+            }
+            
+            return ds;
         }
-        
-        return ds;
-    }
 
-    @Override
-    public String name() {
-        return null;
+        @Override
+        public String name() {
+            return null;
+        }
     }
+    
 }
+
 
