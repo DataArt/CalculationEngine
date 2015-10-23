@@ -39,6 +39,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
@@ -99,8 +100,8 @@ public class SpreadsheetAuditor implements IAuditor {
         return graphBuilder.get();
     }
 
-    public void setAllowedNumberOfDuplicateNodes(int num) {
-        graphBuilder.setAllowedNumberOfDuplicateNodes(num);
+    public void setExecutionGraphConfig(ExecutionGraphConfig config) {
+        graphBuilder.setConfig(config);
     }
 
     protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {

@@ -12,6 +12,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
@@ -45,7 +46,7 @@ public class EvaluationWorksheetSavingToXlsDemo {
         
         //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
-        ((SpreadsheetAuditor)auditor).setAllowedNumberOfDuplicateNodes(-1);
+        ((SpreadsheetAuditor) auditor).setExecutionGraphConfig(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES);
         //build graph
         final IExecutionGraph graph = auditor.buildDynamicExecutionGraph();
 

@@ -94,7 +94,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
-    private int allowedNumberOfDuplicateNodes;
+    protected ExecutionGraphConfig config;
 
     static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
 
@@ -110,7 +110,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         this.dgraph =  new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         this.valueToVertex = new HashMap<>();
         this.addressToVertices = new HashMap<>();
-        allowedNumberOfDuplicateNodes = -1;
+        config = ExecutionGraphConfig.DEFAULT;
     }
 
     public ExecutionGraph get() {
@@ -312,7 +312,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-        if (allowedNumberOfDuplicateNodes != -1) {
+        if (config.getThresholdNumber() != -1) {
             removeAllDuplicates();
         }
     }
@@ -609,9 +609,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected void removeAllDuplicates() {
         Set<IExecutionGraphVertex> leaves = new HashSet<>();
         for (String address : addressToVertices.keySet()) {
-            leaves.addAll(removeLeafDublicates(address, allowedNumberOfDuplicateNodes));
+            leaves.addAll(removeLeafDublicates(address, config.getThresholdNumber()));
         }
-        processLeaves(leaves, allowedNumberOfDuplicateNodes);
+        processLeaves(leaves, config.getThresholdNumber());
     }
 
     protected void processLeaves(Set<IExecutionGraphVertex> leaves, int allowedNum) {
@@ -680,8 +680,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
     }
 
-    public void setAllowedNumberOfDuplicateNodes(int allowedNumberOfDuplicateNodes) {
-        this.allowedNumberOfDuplicateNodes = allowedNumberOfDuplicateNodes;
+    public void setConfig(ExecutionGraphConfig config) {
+        this.config = config;
     }
-
 }
