@@ -54,7 +54,6 @@ public class SpreadsheetAuditor implements IAuditor {
 
     public SpreadsheetAuditor(SpreadsheetEvaluator evaluator) {
         this.evaluator = evaluator;
-        
         this.graphBuilder = new PoiExecutionGraphBuilder();
         this.evaluator.setExecutionGraphBuilder(this.graphBuilder);
     }
@@ -100,8 +99,8 @@ public class SpreadsheetAuditor implements IAuditor {
         return graphBuilder.get();
     }
 
-    public void setMultiGraph(boolean multiGraph) {
-        graphBuilder.setAllowMultipleGraphs(multiGraph);
+    public void setAllowedNumberOfDuplicateNodes(int num) {
+        graphBuilder.setAllowedNumberOfDuplicateNodes(num);
     }
 
     protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {

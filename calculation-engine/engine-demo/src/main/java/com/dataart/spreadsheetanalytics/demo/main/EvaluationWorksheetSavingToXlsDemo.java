@@ -15,7 +15,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
-public class EvaluationWorksheetSavingToXls {
+public class EvaluationWorksheetSavingToXlsDemo {
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
@@ -45,7 +45,7 @@ public class EvaluationWorksheetSavingToXls {
         
         //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
-        ((SpreadsheetAuditor)auditor).setMultiGraph(false);
+        ((SpreadsheetAuditor)auditor).setAllowedNumberOfDuplicateNodes(-1);
         //build graph
         final IExecutionGraph graph = auditor.buildDynamicExecutionGraph();
 
