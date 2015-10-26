@@ -61,6 +61,7 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -173,13 +174,19 @@ public class GraphTestUtil {
         System.out.println("\nEnd. One file.");
     }
 
-    public static void generateGraphmlFile(String excelFile) throws Exception {
+    public static void generateGraphmlFile(String excelFile, ExecutionGraphConfig config) throws Exception {
         System.out.println("Begin. One file. All cells");
 
         System.out.println("For file [" + excelFile + "] \n");
 
+        String suffix = "_All";
+        if (config == ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES) { suffix = "_JOIN_ALL"; }
+        if (config == ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES) { suffix = "_JOIN_10"; }
+        if (config == ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES) { suffix = "_JOIN_2"; }
+        if (config == ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES) { suffix = "_JOIN_5"; }
+
         String path = STANDARD_EXCELS_DIR + excelFile + ".xlsx";
-        String filename = STANDARD_GRAPHML_DIR + excelFile + "_All.graphml";
+        String filename = STANDARD_GRAPHML_DIR + excelFile + suffix + "_.graphml";
 
         System.out.println("Excel file [" + path + "], All cells");
 
@@ -189,16 +196,30 @@ public class GraphTestUtil {
 
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
 
-        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph());
+        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(config));
 
         Writer fw = new FileWriter(filename);
 
-        GraphMLExporter exporter = new GraphWithProperertiesMLExporter("All");
+        GraphMLExporter exporter = new GraphWithProperertiesMLExporter(suffix.substring(1)+"_");
         exporter.export(fw, dgraph);
 
         System.out.println("GraphML file is written to [" + filename + "]");
 
         System.out.println("\nEnd. One file.");
+
+        destroyExternalServices();
+    }
+
+    public static void generateGraphmlFile(String excelFile) throws Exception {
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.DEFAULT);
+    }
+
+    public static void generateGraphmlFileAllJoinModes(String excelFile) throws Exception {
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.DEFAULT);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES);
     }
 
     public static void initExternalServices(DataModel model) throws Exception {
@@ -255,7 +276,11 @@ public class GraphTestUtil {
         boolean oneFile = args.length > 0 && !args[0].equals("all");
         if (oneFile) {
             if (args.length > 1) {
-                generateGraphmlFile(args[0], args[1]);
+                if (args[1].equals("alljoins")) {
+                    generateGraphmlFileAllJoinModes(args[0]);
+                } else {
+                    generateGraphmlFile(args[0], args[1]);
+                }
             } else {
                 generateGraphmlFile(args[0]);
             }
