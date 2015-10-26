@@ -29,7 +29,12 @@ import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
@@ -77,6 +82,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
@@ -94,31 +100,16 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     
     static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
 
-    protected final DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
+    protected DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
     /*
      * The map is used to store vertices using value field as a key
-     * One value may correspond to several vertices. That's why we use Deques instead single values
+     * One value may correspond to several vertices. That's why we use Deques instead of single values.
      */
-    protected Map<ValueEval, Deque<IExecutionGraphVertex>> valueToVertex;
-    protected Map<String, Set<IExecutionGraphVertex>> addressToVertices;
-
-    public PoiExecutionGraphBuilder() {
-        this.dgraph =  new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-        this.valueToVertex = new HashMap<>();
-        this.addressToVertices = new HashMap<>();
-    }
+    protected Map<ValueEval, Deque<IExecutionGraphVertex>> valueToVertex = new HashMap<>();
+    protected Map<String, Set<IExecutionGraphVertex>> addressToVertices = new HashMap<>();
 
     public ExecutionGraph get() {
         return ExecutionGraph.wrap(dgraph);
-    }
-
-    public ExecutionGraph getSingleNodeGraph(ICellAddress address) {
-        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-        vertex.property(TYPE).set(EMPTY_CELL);
-        emptyGraph.addVertex(vertex);
-
-        return ExecutionGraph.wrap(emptyGraph);
     }
 
     /**
@@ -273,6 +264,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     }
 
                     for (IExecutionGraphVertex subVertex : subgraphTops) {
+                        if (!addressToVertices.containsKey(address)) { continue; }
                         for (IExecutionGraphVertex vertexOfAddress : addressToVertices.get(address)) {
                             graph.addEdge(subVertex, vertexOfAddress);
                         }
@@ -315,8 +307,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CELL_WITH_VALUE: {
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
-                formula.formulaValues(CellValue.fromCellValueToString(vertex.value()));
-                formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value()));
+                formula.formulaValues(vertex.value().toString());
+                formula.formulaPtgStr(vertex.value().toString());
                 formula.ptgStr(vertex.property(NAME).get().toString());
                 checkForEmptyValues(vertex);
                 return formula;
@@ -406,8 +398,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 vertex.property(NAME).set(CONSTANT_VALUE_NAME);
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
-                formula.formulaValues(CellValue.fromCellValueToString(vertex.value())); //TODO remove CellValue.fromCellValueToString
-                formula.formulaPtgStr(CellValue.fromCellValueToString(vertex.value())); //TODO remove CellValue.fromCellValueToString
+                formula.formulaValues(vertex.value().toString());
+                formula.formulaPtgStr(vertex.value().toString());
                 formula.ptgStr(vertex.property(NAME).get().toString());
                 return CellFormulaExpression.copyOf(formula);
             }
@@ -592,6 +584,50 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // TODO: not the best solution, but works as for now
     protected static boolean isCompareOperand(String name) {
         return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
+    }
+    
+    public static ExecutionGraph buildSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
+        
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.property(TYPE).set(CELL_WITH_FORMULA);
+        vertex.property(VALUE).set(error);
+        
+        if (formulaString == null) { vertex.property(FORMULA_STRING).set(error.getErrorString()); }
+        else { vertex.property(FORMULA_STRING).set(formulaString); }
+        
+        vertex.property(FORMULA_VALUES).set(error.getErrorString());
+        vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
+        vertex.property(PTG_STRING).set(error.getErrorString());
+        vertex.property(SOURCE_OBJECT_ID).set("");
+        
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        emptyGraph.addVertex(vertex);
+        return ExecutionGraph.wrap(emptyGraph);
+    }
+    
+    public static IExecutionGraph buildGraphForNonFormulaCell(ExecutionGraph executionGraph, ICellValue cell, ICellAddress address) {
+        
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
+        vertex.property(VALUE).set(cell.get());
+        vertex.property(TYPE).set(CELL_WITH_VALUE);
+        vertex.property(FORMULA_STRING).set(address.a1Address().address());
+        vertex.property(FORMULA_VALUES).set(cell.toString());
+        vertex.property(FORMULA_PTG_STRING).set("");
+        vertex.property(PTG_STRING).set("");
+        vertex.property(SOURCE_OBJECT_ID).set(address.dataModelId());
+
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph = ExecutionGraph.unwrap(executionGraph);
+        dgraph.addVertex(vertex);
+        return ExecutionGraph.wrap(dgraph);
+    }
+    
+    public static ExecutionGraph getSingleNodeGraph(ICellAddress address) {
+        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.property(TYPE).set(EMPTY_CELL);
+        emptyGraph.addVertex(vertex);
+
+        return ExecutionGraph.wrap(emptyGraph);
     }
 
 }

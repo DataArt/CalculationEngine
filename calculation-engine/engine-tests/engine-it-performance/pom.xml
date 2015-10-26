@@ -1,5 +1,5 @@
 <!--
-Copyright 2015 DataArt, Inc.
+Copyright 2015 DataArt Apps, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ limitations under the License.
   <packaging>jar</packaging>
 
   <name>spreadsheetanalytics-tests-it-performance</name>
-  <url>https://gitlab.com/DataArt/CalculationEngine</url>
+  <url>https://github.com/DataArt/CalculationEngine</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,80 +39,6 @@ limitations under the License.
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.5.201505241946</version>
-        <executions>
-          <execution>
-            <id>instrument</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>report</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.10</version>
-        <executions>
-          <execution>
-            <id>unpack-classes</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <includeArtifactIds>spreadsheetanalytics-evaluation,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
-              <outputDirectory>../target/classes</outputDirectory>
-              <overWriteIfNewer>true</overWriteIfNewer>
-            </configuration>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>unpack-sources</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <classifier>sources</classifier>
-              <includeArtifactIds>spreadsheetanalytics-evaluation,spreadsheetanalytics-model,spreadsheetanalytics-data,spreadsheetanalytics-functions</includeArtifactIds>
-              <outputDirectory>../target/sources</outputDirectory>
-              <overWriteIfNewer>true</overWriteIfNewer>
-            </configuration>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.9.1</version>
-        <executions>
-          <execution>
-            <id>add-source</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>../target/sources</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
@@ -146,6 +72,18 @@ limitations under the License.
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>2.3.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>1.11.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>1.11.1</version>
     </dependency>
 
   </dependencies>

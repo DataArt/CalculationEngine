@@ -15,48 +15,39 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildGraphForNonFormulaCell;
+import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleNodeGraphForParseException;
+import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.getSingleNodeGraph;
 
-import org.apache.poi.common.execgraph.IExecutionGraphVertex;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
 import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
 import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.eval.ErrorEval;
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.graph.DefaultDirectedGraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphEdge;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
-import com.dataart.spreadsheetanalytics.model.CellValue;
 
 /**
  * TODO
  */
 public class SpreadsheetAuditor implements IAuditor {
+    private static final Logger log = LoggerFactory.getLogger(SpreadsheetAuditor.class);
 
     protected final SpreadsheetEvaluator evaluator;
-    protected final PoiExecutionGraphBuilder graphBuilder;
+    protected final Lock graphLock = new ReentrantLock();
 
     public SpreadsheetAuditor(SpreadsheetEvaluator evaluator) {
         this.evaluator = evaluator;
-        
-        this.graphBuilder = new PoiExecutionGraphBuilder();
-        this.evaluator.setExecutionGraphBuilder(this.graphBuilder);
     }
 
     @Override
@@ -73,76 +64,66 @@ public class SpreadsheetAuditor implements IAuditor {
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
-        ICellValue cv = null;
-        
-        try { cv = evaluator.evaluate(cell); }
-        catch (ValuesStackNotEmptyException e) { return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
-        catch (FormulaParseException | IncorrectExternalReferenceException e) {
+        try {
+            graphLock.lock();
+            log.debug("Building Graph for address: {}.", cell);
+            
+            PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
+            this.evaluator.setExecutionGraphBuilder(graphBuilder);
+            
+            ICellValue cv;
+            
+            try { cv = evaluator.evaluate(cell); }
+            catch (ValuesStackNotEmptyException e) { return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
+            catch (FormulaParseException | IncorrectExternalReferenceException e) {
+                graphBuilder.runPostProcessing(false);
+                return graphBuilder.get();
+            }
+    
+            if (cv != null && ErrorEval.NAME_INVALID.getErrorString().equals(cv.get())) {
+                return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
+            }
+    
+            IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(graphBuilder.get(), cv, cell);
+            if (nonFormulaResult != null) { return nonFormulaResult; }
+    
             graphBuilder.runPostProcessing(false);
             return graphBuilder.get();
+            
+        } finally {
+            graphLock.unlock();
+            log.debug("Building Graph for address: {} is finished.", cell);
         }
-
-        if (cv != null && ErrorEval.NAME_INVALID.equals(cv.get())) {
-            return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
-        }
-
-        IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(cv, cell);
-        if (nonFormulaResult != null) { return nonFormulaResult; }
-
-        graphBuilder.runPostProcessing(false);
-        return graphBuilder.get();
     }
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph() {
-        evaluator.evaluate();
-        graphBuilder.runPostProcessing(true);
-        return graphBuilder.get();
+        try {
+            graphLock.lock();
+            log.debug("Building Graph for DataModel: {}.", evaluator.model.name());
+            
+            PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
+            this.evaluator.setExecutionGraphBuilder(graphBuilder);
+            
+            evaluator.evaluate();
+            
+            graphBuilder.runPostProcessing(true);
+            return graphBuilder.get();
+            
+        } finally {
+            graphLock.unlock();
+            log.debug("Building Graph for DataModel: {} is finished.", evaluator.model.name());
+        }
     }
 
-    protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {
-        if (evalCell == null) { return graphBuilder.getSingleNodeGraph(cell); }
+    protected IExecutionGraph buildGraphForEdgeCases(ExecutionGraph executionGraph, ICellValue evalCell, ICellAddress cell) {
+        if (evalCell == null) { return getSingleNodeGraph(cell); }
         
-        if (!evaluator.model.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(graphBuilder.get(), evalCell, cell); }
+        if (!evaluator.model.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(executionGraph, evalCell, cell); }
         
         return null;
     }
-    
-    protected static ExecutionGraph buildSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
-        
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-        vertex.property(TYPE).set(CELL_WITH_FORMULA);
-        vertex.property(VALUE).set(error);
-        
-        if (formulaString == null) { vertex.property(FORMULA_STRING).set(error.getErrorString()); }
-        else { vertex.property(FORMULA_STRING).set(formulaString); }
-        
-        vertex.property(FORMULA_VALUES).set(error.getErrorString());
-        vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
-        vertex.property(PTG_STRING).set(error.getErrorString());
-        vertex.property(SOURCE_OBJECT_ID).set("");
-        
-        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-        emptyGraph.addVertex(vertex);
-        return ExecutionGraph.wrap(emptyGraph);
-    }
 
-    protected static IExecutionGraph buildGraphForNonFormulaCell(ExecutionGraph executionGraph, ICellValue cell, ICellAddress address) {
-        
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
-        vertex.property(VALUE).set(cell.get());
-        vertex.property(TYPE).set(Type.CELL_WITH_VALUE);
-        vertex.property(FORMULA_STRING).set(address.a1Address().address());
-        vertex.property(FORMULA_VALUES).set(CellValue.fromCellValueToString(cell));
-        vertex.property(FORMULA_PTG_STRING).set("");
-        vertex.property(PTG_STRING).set("");
-        vertex.property(SOURCE_OBJECT_ID).set(address.dataModelId());
-
-        DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph = ExecutionGraph.unwrap(executionGraph);
-        dgraph.addVertex(vertex);
-        return ExecutionGraph.wrap(dgraph);
-    }
-    
     @Override
     public IEvaluator getEvaluator() { return evaluator; }
 }

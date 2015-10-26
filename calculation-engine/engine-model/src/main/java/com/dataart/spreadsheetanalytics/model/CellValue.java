@@ -15,10 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
-import org.apache.poi.ss.formula.eval.BlankEval;
-import org.apache.poi.ss.formula.eval.ErrorEval;
-import org.apache.poi.ss.formula.eval.NumberEval;
-import org.apache.poi.ss.formula.eval.StringValueEval;
+import org.apache.poi.ss.formula.eval.RefEval;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 
@@ -30,34 +27,15 @@ public class CellValue implements ICellValue {
 
     protected final Object value;
 
-    public CellValue(Object value) { this.value = value; }
+    public CellValue(Object value) { 
+        if (value instanceof RefEval) {
+            throw new IllegalArgumentException("Value of CellValue must not be a POI object.");
+        }
+        this.value = value; 
+    }
 
     @Override
     public Object get() { return value; }
-
-    /**
-     * TODO: check this method - it shpuld be removed, since all values in CellValue is Object )String, Integer) - not POI's
-     * Util toString with some additional logic in case the value is of type String or Number. 
-     */
-    public static String fromCellValueToString(ICellValue value) {
-        if (value == null) { return ""; }
-
-        Object v = value.get();
-
-        if (v == null) { return ""; }
-
-        if (v instanceof StringValueEval) {
-            return ((StringValueEval) v).getStringValue();
-        } else if (v instanceof NumberEval) {
-            return Double.toString(((NumberEval) v).getNumberValue());
-        } else if (v instanceof ErrorEval) {
-            return ((ErrorEval) v).getErrorString();
-        } else if (v instanceof BlankEval) {
-            return "";
-        }
-
-        return v.toString();
-    }
 
     @Override
     public String toString() {

@@ -15,7 +15,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
-public class EvaluationWorksheetSavingToXls {
+public class EvaluationWorksheetSavingToXlsDemo {
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
@@ -32,10 +32,8 @@ public class EvaluationWorksheetSavingToXls {
         //create Evaluator
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
 
-        try (
-             FileOutputStream fileOut = new FileOutputStream(outputFile);
-             Workbook output = PoiFileConverter.toWorkbook(evaluator.evaluate());
-        )
+        try (FileOutputStream fileOut = new FileOutputStream(outputFile); 
+             Workbook output = PoiFileConverter.toWorkbook(evaluator.evaluate());)
         {
             output.write(fileOut);
             fileOut.flush();            
@@ -50,9 +48,7 @@ public class EvaluationWorksheetSavingToXls {
 
         //print graph
         DemoUtil.generateVisJsData(graph);
-        DemoUtil.plainprint(graph);
-        
+        DemoUtil.plainprint(graph);    
     }
-
     
 }

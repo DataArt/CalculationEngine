@@ -26,14 +26,12 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 
 public class ExecutionGraph implements IExecutionGraph {
 
-    protected final DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
-
-    protected ExecutionGraph(DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
-        this.dgraph = dgraph;
-    }
+    protected DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
 
     public static ExecutionGraph wrap(DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
-        return new ExecutionGraph(dgraph);
+        ExecutionGraph egraph = new ExecutionGraph();
+        egraph.dgraph = dgraph;
+        return egraph;
     }
 
     public static DirectedGraph unwrap(ExecutionGraph egraph) {
