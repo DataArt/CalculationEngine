@@ -173,6 +173,34 @@ public class GraphTestUtil {
         System.out.println("\nEnd. One file.");
     }
 
+    public static void generateGraphmlFile(String excelFile) throws Exception {
+        System.out.println("Begin. One file. All cells");
+
+        System.out.println("For file [" + excelFile + "] \n");
+
+        String path = STANDARD_EXCELS_DIR + excelFile + ".xlsx";
+        String filename = STANDARD_GRAPHML_DIR + excelFile + "_All.graphml";
+
+        System.out.println("Excel file [" + path + "], All cells");
+
+        final IDataModel model = new DataModel(filename, path);
+
+        GraphTestUtil.initExternalServices((DataModel) model);
+
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
+
+        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph());
+
+        Writer fw = new FileWriter(filename);
+
+        GraphMLExporter exporter = new GraphWithProperertiesMLExporter("All");
+        exporter.export(fw, dgraph);
+
+        System.out.println("GraphML file is written to [" + filename + "]");
+
+        System.out.println("\nEnd. One file.");
+    }
+
     public static void initExternalServices(DataModel model) throws Exception {
         final ExternalServices external = ExternalServices.INSTANCE;
         
@@ -226,7 +254,11 @@ public class GraphTestUtil {
     public static void main(String[] args) throws Exception {
         boolean oneFile = args.length > 0 && !args[0].equals("all");
         if (oneFile) {
-            generateGraphmlFile(args[0], args[1]);
+            if (args.length > 1) {
+                generateGraphmlFile(args[0], args[1]);
+            } else {
+                generateGraphmlFile(args[0]);
+            }
         } else {
             boolean all = args.length > 0 && args[0].equals("all");
             generateGraphmlFileset(all);
