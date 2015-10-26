@@ -35,6 +35,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 
 /**
@@ -64,18 +65,24 @@ public class SpreadsheetAuditor implements IAuditor {
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
+        return buildDynamicExecutionGraph(cell, ExecutionGraphConfig.DEFAULT);
+    }
+    
+    @Override
+    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell, ExecutionGraphConfig config) {
         try {
             graphLock.lock();
             log.debug("Building Graph for address: {}.", cell);
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
-            //TODO graphBuilder.setExecutionGraphConfig(config);
+            graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
             ICellValue cv;
             
             try { cv = evaluator.evaluate(cell); }
-            catch (ValuesStackNotEmptyException e) { return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
+            catch (ValuesStackNotEmptyException e) {
+                return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
             catch (FormulaParseException | IncorrectExternalReferenceException e) {
                 graphBuilder.runPostProcessing(false);
                 return graphBuilder.get();
@@ -99,11 +106,17 @@ public class SpreadsheetAuditor implements IAuditor {
 
     @Override
     public IExecutionGraph buildDynamicExecutionGraph() {
+        return buildDynamicExecutionGraph(ExecutionGraphConfig.DEFAULT);
+    }
+
+    @Override
+    public IExecutionGraph buildDynamicExecutionGraph(ExecutionGraphConfig config) {
         try {
             graphLock.lock();
             log.debug("Building Graph for DataModel: {}.", evaluator.model.name());
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
+            graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
             evaluator.evaluate();

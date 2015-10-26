@@ -103,8 +103,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
     
-    protected ExecutionGraphConfig config = ExecutionGraphConfig.DEFAULT;
     protected DirectedGraph<IExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+    protected ExecutionGraphConfig config = ExecutionGraphConfig.DEFAULT;
     /*
      * The map is used to store vertices using value field as a key
      * One value may correspond to several vertices. That's why we use Deques instead of single values.
@@ -303,7 +303,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-        if (config.getThresholdNumber() != -1) {
+        if (config.getDuplicatesNumberThreshold() != -1) {
             removeAllDuplicates();
         }
     }
@@ -600,9 +600,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected void removeAllDuplicates() {
         Set<IExecutionGraphVertex> leaves = new HashSet<>();
         for (String address : addressToVertices.keySet()) {
-            leaves.addAll(removeLeafDublicates(address, config.getThresholdNumber()));
+            leaves.addAll(removeLeafDublicates(address, config.getDuplicatesNumberThreshold()));
         }
-        processLeaves(leaves, config.getThresholdNumber());
+        processLeaves(leaves, config.getDuplicatesNumberThreshold());
     }
 
     protected void processLeaves(Set<IExecutionGraphVertex> leaves, int allowedNum) {
@@ -715,7 +715,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return ExecutionGraph.wrap(emptyGraph);
     }
 
-    public void setConfig(ExecutionGraphConfig config) {
+    public void setExecutionGraphConfig(ExecutionGraphConfig config) {
         this.config = config;
     }
 }

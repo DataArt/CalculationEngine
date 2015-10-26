@@ -44,9 +44,8 @@ public class EvaluationWorksheetSavingToXlsDemo {
         
         //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
-        ((SpreadsheetAuditor) auditor).setExecutionGraphConfig(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES);
         //build graph
-        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph();
+        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
 
         //print graph
         DemoUtil.generateVisJsData(graph);
