@@ -78,4 +78,17 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
         return String.format("name: %s,%nvalue: %s,%nformula: %s,%ntype: %s", 
                                     name,       value,        formula,   type);
     }
+
+    @Override
+    public int compareTo(IExecutionGraphVertex arg0) {
+        if (arg0 instanceof ExecutionGraphVertex) {
+            ExecutionGraphVertex vertex = (ExecutionGraphVertex) arg0;
+            if (!vertex.name().equals(this.name())) { return -1; }
+            if (!vertex.value().get().equals(this.value().get())) { return -1; }
+            if (!vertex.formula().formulaStr().equals(this.formula().formulaStr())) { return -1; }
+            return 1;
+        }
+        return -1;
+    }
+
 }

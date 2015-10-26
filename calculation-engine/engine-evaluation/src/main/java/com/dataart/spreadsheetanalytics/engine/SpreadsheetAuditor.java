@@ -69,6 +69,7 @@ public class SpreadsheetAuditor implements IAuditor {
             log.debug("Building Graph for address: {}.", cell);
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
+            //TODO graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
             ICellValue cv;
@@ -118,7 +119,7 @@ public class SpreadsheetAuditor implements IAuditor {
 
     protected IExecutionGraph buildGraphForEdgeCases(ExecutionGraph executionGraph, ICellValue evalCell, ICellAddress cell) {
         if (evalCell == null) { return getSingleNodeGraph(cell); }
-        
+
         if (!evaluator.model.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(executionGraph, evalCell, cell); }
         
         return null;

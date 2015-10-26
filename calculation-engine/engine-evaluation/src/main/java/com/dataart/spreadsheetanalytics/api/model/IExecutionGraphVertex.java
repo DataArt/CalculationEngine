@@ -30,7 +30,7 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
  *
  * Basic implementation: {@link ExecutionGraphVertex}.
  */
-public interface IExecutionGraphVertex {
+public interface IExecutionGraphVertex extends Comparable<IExecutionGraphVertex> {
     
     /**
      * Id of this vertex. Should be unique in scope of one ExecutionGraph
