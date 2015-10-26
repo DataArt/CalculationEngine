@@ -33,7 +33,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.model.CellValue;
 
 /**
  * Even though this class 'extends' GraphMLExporter its code looks different in 'export' method.
@@ -88,7 +87,7 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
         // Add all the vertices as <node> elements...
         for (ExecutionGraphVertex v : g.vertexSet()) {
             // <node>
-            String value = CellValue.fromCellValueToString(v.value()); 
+            String value = v.value() == null ? "" : v.value().toString(); 
             
             String graphmlId = v.name() + "_" + value + "_" + v.type();
             attr.clear();
@@ -137,8 +136,8 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
         for (DefaultEdge e : g.edgeSet()) {
             // <edge>
             
-            String graphmlId_1 = g.getEdgeSource(e).name() + "_" + CellValue.fromCellValueToString(g.getEdgeSource(e).value()) + "_" + g.getEdgeSource(e).type();
-            String graphmlId_2 = g.getEdgeTarget(e).name() + "_" + CellValue.fromCellValueToString(g.getEdgeTarget(e).value()) + "_" + g.getEdgeTarget(e).type();
+            String graphmlId_1 = g.getEdgeSource(e).name() + "_" + g.getEdgeSource(e).value().toString() + "_" + g.getEdgeSource(e).type();
+            String graphmlId_2 = g.getEdgeTarget(e).name() + "_" + g.getEdgeTarget(e).value().toString() + "_" + g.getEdgeTarget(e).type();
             
             attr.clear();
             attr.addAttribute("", "", "source", "CDATA", graphmlId_1);

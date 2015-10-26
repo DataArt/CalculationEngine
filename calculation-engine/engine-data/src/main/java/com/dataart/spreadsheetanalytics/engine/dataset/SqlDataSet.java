@@ -30,7 +30,7 @@ public class SqlDataSet extends AbstractLazyDataSet {
     protected String sql;
     protected String sqlDataSource;
     
-    protected Lock executionLock = new ReentrantLock(); 
+    protected final Lock executionLock = new ReentrantLock(); 
 
     protected DataSourceHub dataSourceHub = ExternalServices.INSTANCE.getDataSourceHub();
 
@@ -48,7 +48,6 @@ public class SqlDataSet extends AbstractLazyDataSet {
     public IDataSet get(Parameters parameters) throws Exception {
         try {
             executionLock.lock();
-            if (this.executed) { return this.dataSet; }
             
             this.dataSet = (DataSet) dataSourceHub.executeQuery(sqlDataSource, new TextDataSourceQuery(sql), parameters.getParameters());
             this.executed = Boolean.TRUE;

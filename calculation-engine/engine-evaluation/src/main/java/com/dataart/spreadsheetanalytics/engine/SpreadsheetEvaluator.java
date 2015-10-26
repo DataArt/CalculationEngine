@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
+import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -46,8 +46,8 @@ import com.dataart.spreadsheetanalytics.model.DsRow;
 public class SpreadsheetEvaluator implements IEvaluator {
     private static final Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);
 
-    protected DataModel model;
-    protected XSSFFormulaEvaluator poiEvaluator;
+    protected final DataModel model;
+    protected final XSSFFormulaEvaluator poiEvaluator;
     
     static {
         try { loadCustomFunctions(); }
@@ -62,6 +62,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     @Override
     public ICellValue evaluate(ICellAddress addr) {
         Sheet s = model.poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
+        
         Row r = s.getRow(addr.row());
         if (r == null) { return null; }
         
@@ -77,13 +78,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Sheet sheet = model.poiModel.getSheetAt(0); // TODO handle sheet number specification
         for (Row row : sheet) {
             DsRow evaluatedRow = dataSet.createRow();
-            if (row != null) {
-                for (Cell cell : row) {
-                    DsCell evaluatedCell = evaluatedRow.createCell();
-                    ICellValue value = evaluateCell(cell);
-                    evaluatedCell.value((value == null) ? null : value.get());
-                    // TODO: Use multithreading to calculate cells in parallel
-                }
+            if (row == null) { continue; }
+
+            for (Cell cell : row) {
+                DsCell evaluatedCell = evaluatedRow.createCell();
+                ICellValue value = evaluateCell(cell);
+                evaluatedCell.value((value == null) ? null : value.get());
+                // TODO: Use multithreading to calculate cells in parallel
             }
         }
         return dataSet;
@@ -92,27 +93,16 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected ICellValue evaluateCell(Cell c) {
         if (c == null) { return null; }
 
-        org.apache.poi.ss.usermodel.CellValue poiValue = null;
-
-        try {
-            poiValue = poiEvaluator.evaluate(c);
-        } catch (FormulaParseNameException e) {
-            return handleNameParseException();
-        }
-
-        if (poiValue == null) { return null; }
-
-        ICellValue cv = new CellValue(fromPoiValue(poiValue));
+        org.apache.poi.ss.usermodel.CellValue poiValue;
         
-        return cv;
+        try { poiValue = poiEvaluator.evaluate(c); }
+        catch (FormulaParseException e) { return handleNameParseException(); }
+
+        return poiValue == null ? null : new CellValue(fromPoiValue(poiValue));
     }
 
     protected ICellValue handleNameParseException() {
-        return new CellValue(ErrorEval.NAME_INVALID);
-    }
-
-    public void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {
-        this.poiEvaluator = model.poiModel.getCreationHelper().createFormulaEvaluator(graphBuilder);
+        return new CellValue(ErrorEval.NAME_INVALID.getErrorString());
     }
 
     protected static void loadCustomFunctions() throws ReflectiveOperationException {
@@ -133,6 +123,10 @@ public class SpreadsheetEvaluator implements IEvaluator {
             case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
             case Cell.CELL_TYPE_BLANK: default: { return ""; }
         }
+    }
+
+    void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {
+        this.poiEvaluator.setExecutionGraphBuilder(graphBuilder);
     }
 
 }

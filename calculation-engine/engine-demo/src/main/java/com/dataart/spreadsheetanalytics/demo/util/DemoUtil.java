@@ -46,7 +46,6 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
-import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsRow;
@@ -60,7 +59,7 @@ public class DemoUtil {
             System.out.println("Name: " + vertex.name());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + CellValue.fromCellValueToString(vertex.value()));
+            System.out.println("Value: " + vertex.value());
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
         }
     }
@@ -84,7 +83,7 @@ public class DemoUtil {
                             .append("', label: '")
                             .append(vertex.name())
                             .append("\\n")
-                            .append(vertex.value() == null || CellValue.fromCellValueToString(vertex.value()).length() > 25 ? "..." : CellValue.fromCellValueToString(vertex.value()))
+                            .append(vertex.value() == null || vertex.value().toString().length() > 25 ? "..." : vertex.value().toString())
                             .append("', color: '")
                             .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
                             .append("', title: '")
@@ -92,7 +91,7 @@ public class DemoUtil {
                                 .append(vertex.name())
                                 .append("<br>")
                                 .append("Value: ")
-                                .append(CellValue.fromCellValueToString(vertex.value()))
+                                .append(vertex.value())
                                 .append("<br>")
                                 .append("Type: ")
                                 .append(vertex.type())

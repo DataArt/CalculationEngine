@@ -27,7 +27,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
  * Also provides a copy-method to clone the major information. 
  */
 public class CellFormulaExpression implements ICellFormulaExpression {
-
+    
     protected String formulaStr;    
     protected String formulaValues;
     protected String formulaPtgStr;
@@ -63,12 +63,6 @@ public class CellFormulaExpression implements ICellFormulaExpression {
     
     /**
      * Does copy of provided instance.
-     * Fileds to be copied: 
-     * {@link #formulaPtg()}
-     * {@link #formulaValues()}
-     * {@link #formulaPtgStr()}
-     * {@link #ptgStr()}
-     * {@link #iptg()}
      */
     public static CellFormulaExpression copyOf(CellFormulaExpression formula) {
         CellFormulaExpression copy = new CellFormulaExpression();
@@ -78,6 +72,9 @@ public class CellFormulaExpression implements ICellFormulaExpression {
         copy.formulaPtgStr = formula.formulaPtgStr().intern();
         copy.ptgStr = formula.ptgStr().intern();
         copy.iptg = formula.iptg();
+        copy.rootFormulaId = formula.rootFormulaId;    
+        copy.ptgs(formula.ptgs);    
+        copy.formulaPtg(formula.formulaPtg());
 
         return copy;
     }

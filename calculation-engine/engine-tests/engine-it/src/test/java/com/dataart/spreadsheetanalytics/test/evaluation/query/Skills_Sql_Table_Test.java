@@ -181,28 +181,6 @@ public class Skills_Sql_Table_Test {
     }
     
     @Test
-    public void compare_OneLazyDataSetCall3Times_2dAnd3dTimesAreFaster() throws Exception {
-        //given
-        A1Address A14 = A1Address.fromA1Address("A14");
-        
-        A1Address A15 = A1Address.fromA1Address("A15");
-        A1Address A16 = A1Address.fromA1Address("A16");
-
-        long timeS = System.nanoTime(); evaluator.evaluate(A14); long timeE = System.nanoTime();
-        long timeA14 = timeE - timeS;
-
-        //when
-        timeS = System.nanoTime(); evaluator.evaluate(A15); timeE = System.nanoTime();
-        long timeA15 = timeE - timeS;
-        timeS = System.nanoTime(); evaluator.evaluate(A16); timeE = System.nanoTime();
-        long timeA16 = timeE - timeS;
-        
-        //then
-        assertThat(timeA15).isLessThan(timeA14);
-        assertThat(timeA16).isLessThan(timeA14);
-    }
-    
-    @Test
     public void compare_OneLazyDataSetCall3Times_2dAnd3dDataSetObjectIsTheSame() throws Exception {
         //given
         A1Address A14 = A1Address.fromA1Address("A14");

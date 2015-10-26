@@ -38,7 +38,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
                                   extends org.apache.poi.common.execgraph.IExecutionGraphVertex
                                   /* Public API interface */
                                   implements IExecutionGraphVertex {
-
+    
     protected Object id;
     protected String name;
     protected ICellValue value;
@@ -75,8 +75,8 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
 
     @Override
     public String toString() {
-        return String.format("name: %s,%n value: %s,%n formula: %s,%n type: %s", 
-                                    name,        value,         formula,    type);
+        return String.format("name: %s,%nvalue: %s,%nformula: %s,%ntype: %s", 
+                                    name,       value,        formula,   type);
     }
 
     @Override

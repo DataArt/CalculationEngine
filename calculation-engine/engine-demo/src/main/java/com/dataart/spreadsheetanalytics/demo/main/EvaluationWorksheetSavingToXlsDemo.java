@@ -33,10 +33,8 @@ public class EvaluationWorksheetSavingToXlsDemo {
         //create Evaluator
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
 
-        try (
-             FileOutputStream fileOut = new FileOutputStream(outputFile);
-             Workbook output = PoiFileConverter.toWorkbook(evaluator.evaluate());
-        )
+        try (FileOutputStream fileOut = new FileOutputStream(outputFile); 
+             Workbook output = PoiFileConverter.toWorkbook(evaluator.evaluate());)
         {
             output.write(fileOut);
             fileOut.flush();            
@@ -51,9 +49,7 @@ public class EvaluationWorksheetSavingToXlsDemo {
 
         //print graph
         DemoUtil.generateVisJsData(graph);
-        DemoUtil.plainprint(graph);
-        
+        DemoUtil.plainprint(graph);    
     }
-
     
 }
