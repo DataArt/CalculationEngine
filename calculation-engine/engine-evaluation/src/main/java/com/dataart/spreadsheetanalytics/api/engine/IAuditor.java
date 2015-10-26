@@ -17,9 +17,10 @@ package com.dataart.spreadsheetanalytics.api.engine;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 
 public interface IAuditor {
-    
+
     IEvaluator getEvaluator();
 
     IExecutionGraph buildStaticExecutionGraph();
@@ -28,6 +29,10 @@ public interface IAuditor {
 
     IExecutionGraph buildDynamicExecutionGraph();
 
+    IExecutionGraph buildDynamicExecutionGraph(ExecutionGraphConfig config);
+
     IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell);
+
+    IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell, ExecutionGraphConfig config);
 
 }

@@ -94,14 +94,22 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     @Override
+    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell, ExecutionGraphConfig config) {
+        graphBuilder.setConfig(config);
+        return buildDynamicExecutionGraph(cell);
+    }
+
+    @Override
     public IExecutionGraph buildDynamicExecutionGraph() {
         evaluator.evaluate();
         graphBuilder.runPostProcessing(true);
         return graphBuilder.get();
     }
 
-    public void setExecutionGraphConfig(ExecutionGraphConfig config) {
+    @Override
+    public IExecutionGraph buildDynamicExecutionGraph(ExecutionGraphConfig config) {
         graphBuilder.setConfig(config);
+        return buildDynamicExecutionGraph();
     }
 
     protected IExecutionGraph buildGraphForEdgeCases(ICellValue evalCell, ICellAddress cell) {

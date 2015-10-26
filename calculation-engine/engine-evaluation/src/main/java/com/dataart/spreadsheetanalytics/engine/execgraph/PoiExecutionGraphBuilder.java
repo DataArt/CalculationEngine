@@ -312,7 +312,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-        if (config.getThresholdNumber() != -1) {
+        if (config.getDuplicatesNumberThreshold() != -1) {
             removeAllDuplicates();
         }
     }
@@ -609,9 +609,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected void removeAllDuplicates() {
         Set<IExecutionGraphVertex> leaves = new HashSet<>();
         for (String address : addressToVertices.keySet()) {
-            leaves.addAll(removeLeafDublicates(address, config.getThresholdNumber()));
+            leaves.addAll(removeLeafDublicates(address, config.getDuplicatesNumberThreshold()));
         }
-        processLeaves(leaves, config.getThresholdNumber());
+        processLeaves(leaves, config.getDuplicatesNumberThreshold());
     }
 
     protected void processLeaves(Set<IExecutionGraphVertex> leaves, int allowedNum) {
