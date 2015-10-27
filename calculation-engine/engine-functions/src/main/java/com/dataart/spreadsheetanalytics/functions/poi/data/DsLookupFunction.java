@@ -22,6 +22,7 @@ import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -111,13 +112,14 @@ public class DsLookupFunction implements CustomFunction {
             return ErrorEval.NA;
         }
 
-        if (!dataSet.iterator().hasNext()) {
+        Iterator<IDsRow> rowrator = dataSet.iterator();
+        if (!rowrator.hasNext()) {
             log.warn("The spreadsheet shoud have at least 2 rows to run DSLOOKUP function");
             return ErrorEval.VALUE_INVALID;
         }
 
         int columnIndex = -1;
-        IDsRow titleRow = dataSet.next();
+        IDsRow titleRow = rowrator.next();
         Map<Integer, Object> indexToValue = new HashMap<>();
 
         for (IDsCell cell : titleRow) {

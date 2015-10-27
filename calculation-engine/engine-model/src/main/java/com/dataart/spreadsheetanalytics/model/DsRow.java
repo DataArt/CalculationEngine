@@ -28,8 +28,6 @@ public class DsRow implements IDsRow {
     protected final int index;
     protected List<IDsCell> cells;
     
-    protected Iterator<IDsCell> iterator;
-    
     public DsRow(int rowIndex) {
         this.index = rowIndex;
         this.cells = new ArrayList<>();
@@ -45,21 +43,16 @@ public class DsRow implements IDsRow {
         return cellIndex < 0 || cellIndex >= cells().size() ? null : cells().get(cellIndex);
     }
     
-    public DsCell createCell() {
+    public synchronized DsCell createCell() {
         DsCell cell = new DsCell(cells.size() + 1);
         cells.add(cell);
-        this.iterator = this.cells.iterator();
         return cell;
     }
 
     @Override
     public Iterator<IDsCell> iterator() {
-        this.iterator = this.cells.iterator();
-        return this;
+        return Collections.<IDsCell>unmodifiableList(this.cells).iterator();
     }
-
-    @Override public boolean hasNext() { return this.iterator.hasNext(); }
-    @Override public IDsCell next() { return this.iterator.next(); }
 
     @Override
     public String toString() {

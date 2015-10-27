@@ -22,8 +22,9 @@ public class BenchmarkTestParent {
                                             .measurementIterations(6)
                                             .timeout(TimeValue.seconds(30))
                                             .threads(3)
-                                            .forks(0)
-                                            .shouldFailOnError(true);
+                                            .forks(0) //0 for debug, 1 for run
+                                            .shouldFailOnError(true)
+                                            .jvmArgsAppend("-Dlprof", "-XX:+UnlockCommercialFeatures");
         
         return new Runner(opts.include(className + ".*").build()).run();
     }

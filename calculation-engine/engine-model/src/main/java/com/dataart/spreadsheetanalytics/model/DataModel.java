@@ -17,6 +17,7 @@ package com.dataart.spreadsheetanalytics.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -26,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 
 public class DataModel extends DataSet implements IDataModel {
 
@@ -58,6 +60,12 @@ public class DataModel extends DataSet implements IDataModel {
         } else if (value.get() instanceof String) {
             c.setCellValue((String) value.get());
         }
+    }
+    
+    @Override
+    public Iterator<IDsRow> iterator() {
+        // TODO convert POI row to IDsRow
+        return null;
     }
     
     public boolean isFormulaCell(ICellAddress addr) {

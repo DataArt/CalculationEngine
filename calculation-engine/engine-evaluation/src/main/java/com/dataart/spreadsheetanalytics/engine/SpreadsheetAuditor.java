@@ -74,6 +74,9 @@ public class SpreadsheetAuditor implements IAuditor {
             graphLock.lock();
             log.debug("Building Graph for address: {}.", cell);
             
+            /* Clear POI cache to allow graph building to be full */
+            this.evaluator.poiEvaluator.clearAllCachedResultValues();
+            
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
@@ -115,10 +118,15 @@ public class SpreadsheetAuditor implements IAuditor {
             graphLock.lock();
             log.debug("Building Graph for DataModel: {}.", evaluator.model.name());
             
+            /* Clear POI cache to allow graph building to be full */
+            this.evaluator.poiEvaluator.clearAllCachedResultValues();
+            
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
+            /*TODO: check if second (and others) graph for the same formula is full (not empty)*/
+            /*if fail - possible solution is evaluator.evaluate() in for loop with evaluateCell(cell)*/
             evaluator.evaluate();
             
             graphBuilder.runPostProcessing(true);
