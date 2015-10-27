@@ -28,11 +28,9 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
@@ -48,7 +46,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     static String column = "A";
     static int from = 1;
     static int iterations = -1;
-    static Object expectedValue;
+    static Object expectedValue = "Column 1";
   
     static DataModel dataModel;
     static IEvaluator evaluator;
@@ -64,16 +62,13 @@ public abstract class ZParentTest extends BenchmarkTestParent {
               .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(Duration.ETERNAL))
               .setStatisticsEnabled(false);
 
-        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
-        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
-        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
+        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
         
         DataSetStorage dataSetStorage = new CacheBasedDataSetStorage(); 
         
         ExternalServices.INSTANCE.setDataSetStorage(dataSetStorage);
-        ExternalServices.INSTANCE.setDataModelStorage(new CacheBasedDataModelStorage());
         ExternalServices.INSTANCE.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
         
         dataSetStorage.saveDataSet(PoiFileConverter.toDataSet(new XSSFWorkbook(dataSet)));
@@ -82,11 +77,9 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     public static void after() throws Exception {
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
-        cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS);
+        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
     }
 
     @Test
