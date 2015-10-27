@@ -19,8 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.poi.common.execgraph.FormulaParseNAException;
+import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
-import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -96,13 +97,18 @@ public class SpreadsheetEvaluator implements IEvaluator {
         org.apache.poi.ss.usermodel.CellValue poiValue;
         
         try { poiValue = poiEvaluator.evaluate(c); }
-        catch (FormulaParseException e) { return handleNameParseException(); }
+        catch (FormulaParseNameException e) { return handleNameParseException(); }
+        catch (FormulaParseNAException e) { return handleNaParseException(); }
 
         return poiValue == null ? null : new CellValue(fromPoiValue(poiValue));
     }
 
     protected ICellValue handleNameParseException() {
         return new CellValue(ErrorEval.NAME_INVALID.getErrorString());
+    }
+
+    protected ICellValue handleNaParseException() {
+        return new CellValue(ErrorEval.NA.getErrorString());
     }
 
     protected static void loadCustomFunctions() throws ReflectiveOperationException {
