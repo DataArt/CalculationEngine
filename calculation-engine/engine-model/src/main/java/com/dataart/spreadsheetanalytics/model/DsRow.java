@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
@@ -27,6 +29,8 @@ public class DsRow implements IDsRow {
 
     protected final int index;
     protected List<IDsCell> cells;
+    
+    protected final Lock atomicOperation = new ReentrantLock();
     
     public DsRow(int rowIndex) {
         this.index = rowIndex;
@@ -43,10 +47,16 @@ public class DsRow implements IDsRow {
         return cellIndex < 0 || cellIndex >= cells().size() ? null : cells().get(cellIndex);
     }
     
-    public synchronized DsCell createCell() {
-        DsCell cell = new DsCell(cells.size() + 1);
-        cells.add(cell);
-        return cell;
+    public DsCell createCell() {
+        try {
+            atomicOperation.lock();
+            
+            DsCell cell = new DsCell(cells.size() + 1);
+            cells.add(cell);
+            return cell;
+        } finally {
+            atomicOperation.unlock();
+        }
     }
 
     @Override

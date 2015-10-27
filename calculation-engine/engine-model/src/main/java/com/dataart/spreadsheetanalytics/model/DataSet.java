@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
@@ -31,6 +33,8 @@ public class DataSet implements IDataSet {
     protected String name;
     
     protected List<IDsRow> rows;
+    
+    protected final Lock atomicOperation = new ReentrantLock();
 
     public DataSet(String name) {
         this.name = name;
@@ -48,10 +52,16 @@ public class DataSet implements IDataSet {
 
     @Override public List<IDsRow> rows() { return Collections.<IDsRow>unmodifiableList(this.rows); }
     
-    public synchronized DsRow createRow() {
-        DsRow row = new DsRow(rows.size() + 1);
-        rows.add(row);
-        return row;
+    public DsRow createRow() {
+        try {
+            atomicOperation.lock();
+            
+            DsRow row = new DsRow(rows.size() + 1);
+            rows.add(row);
+            return row;
+        } finally {
+            atomicOperation.unlock();
+        }
     }
 
     @Override public Iterator<IDsRow> iterator() {
