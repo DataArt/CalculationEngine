@@ -31,8 +31,6 @@ public class DataSet implements IDataSet {
     protected String name;
     
     protected List<IDsRow> rows;
-    
-    protected Iterator<IDsRow> iterator;
 
     public DataSet(String name) {
         this.name = name;
@@ -50,20 +48,15 @@ public class DataSet implements IDataSet {
 
     @Override public List<IDsRow> rows() { return Collections.<IDsRow>unmodifiableList(this.rows); }
     
-    public DsRow createRow() {
+    public synchronized DsRow createRow() {
         DsRow row = new DsRow(rows.size() + 1);
         rows.add(row);
-        this.iterator = rows.iterator();
         return row;
     }
 
     @Override public Iterator<IDsRow> iterator() {
-        this.iterator = rows.iterator();
-        return this; 
+        return Collections.<IDsRow>unmodifiableList(rows).iterator();
     }
-
-    @Override public boolean hasNext() { return this.iterator.hasNext(); }
-    @Override public IDsRow next() { return this.iterator.next(); }
 
     @Override
     public String toString() {
@@ -72,5 +65,4 @@ public class DataSet implements IDataSet {
         return toString.toString();
     }
 
-    
 }

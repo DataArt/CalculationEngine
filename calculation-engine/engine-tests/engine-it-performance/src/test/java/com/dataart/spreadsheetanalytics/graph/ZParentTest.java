@@ -26,7 +26,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
-public abstract class ParentTest extends BenchmarkTestParent {
+public abstract class ZParentTest extends BenchmarkTestParent {
 
     static String description;
     static String excelFile;

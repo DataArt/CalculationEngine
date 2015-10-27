@@ -15,7 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
  * 
  * Known subinterface: {@link IDataModel}.
  */
-public interface IDataSet extends Iterable<IDsRow>, Iterator<IDsRow> {
+public interface IDataSet extends Iterable<IDsRow> {
 
     IDataModelId dataModelId();
     

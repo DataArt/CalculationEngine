@@ -53,13 +53,4 @@ public abstract class AbstractLazyDataSet implements ILazyDataSet {
         if (!executed) { throw NOT_EXECUTED; }
         return this.dataSet.iterator();
     }
-    @Override public boolean hasNext() {
-        if (!executed) { throw NOT_EXECUTED; }
-        return this.dataSet.hasNext();
-    }
-    @Override public IDsRow next() {
-        if (!executed) { throw NOT_EXECUTED; }
-        return this.dataSet.next();
-    }
-
 }

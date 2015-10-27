@@ -2,7 +2,7 @@ package com.dataart.spreadsheetanalytics.graph;
 
 import org.junit.BeforeClass;
 
-public class COMPLEX_1times_Test extends ParentTest {
+public class COMPLEX_1times_Test extends ZParentTest {
 
     static String description;
     static int iterations = 1;
@@ -10,14 +10,14 @@ public class COMPLEX_1times_Test extends ParentTest {
     static Object expectedValue = new Double(528.0);
 
     static {
-        ParentTest.description = description;
-        ParentTest.excelFile = excelFile;
-        ParentTest.iterations = iterations;
-        ParentTest.expectedValue = expectedValue;
+        ZParentTest.description = description;
+        ZParentTest.excelFile = excelFile;
+        ZParentTest.iterations = iterations;
+        ZParentTest.expectedValue = expectedValue;
     }
 
     @BeforeClass
     public static void before() throws Exception {
-        ParentTest.before();
+        ZParentTest.before();
     }
 }
