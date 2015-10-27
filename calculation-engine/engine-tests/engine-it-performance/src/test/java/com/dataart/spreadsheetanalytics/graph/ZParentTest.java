@@ -55,7 +55,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     public void evaluate_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + iterations; i++) { 
             ICellValue value = state.evaluator.evaluate(state.addressAt(i));
-            assertThat(value.get()).isEqualTo(expectedValue);
+            assertThat(value.get()).isEqualTo(expectedValue); /* comment for better performance */
             bh.consume(value);
         }
     }
@@ -81,7 +81,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     public void buildGraph_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateAuditor state, Blackhole bh) {
         for (int i = from; i < from + iterations; i++) {
             IExecutionGraph graph = state.auditor.buildDynamicExecutionGraph(state.addressAt(i));
-            assertThat(graph.getRootVertex().value().get()).isEqualTo(expectedValue);
+            assertThat(graph.getRootVertex().value().get()).isEqualTo(expectedValue); /* comment for better performance */
             bh.consume(graph);
         }
     }

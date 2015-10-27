@@ -4,7 +4,6 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.cache.CacheManager;
@@ -36,7 +35,6 @@ import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
-import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -71,7 +69,6 @@ public abstract class ZParentTest extends BenchmarkTestParent {
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
-        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS, config.setTypes(DsLookupParameters.class, List.class));
         
         DataSetStorage dataSetStorage = new CacheBasedDataSetStorage(); 
         
@@ -102,8 +99,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     public void evaluate_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + iterations; i++) { 
             ICellValue value = state.evaluator.evaluate(state.addressAt(i));
-            System.out.println("Value at " + state.addressAt(i) + " is " + value);
-            assertThat(value.get()).isEqualTo(expectedValue);
+            assertThat(value.get()).isEqualTo(expectedValue); /* comment for better performance */
             bh.consume(value);
         }
     }
