@@ -4,7 +4,7 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import javax.cache.CacheManager;
@@ -13,6 +13,7 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 import javax.cache.expiry.Duration;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
@@ -23,18 +24,18 @@ import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.RunResult;
 
 import com.dataart.spreadsheetanalytics.BenchmarkTestParent;
-import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
-import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
-import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
@@ -42,11 +43,12 @@ public abstract class ZParentTest extends BenchmarkTestParent {
 
     static String description;
     static String excelFile;
+    public static String dataSet;
     static String columnA = "A";
     static String columnB = "B";
-    static int from = 2;
+    static int from = 1;
     static int iterations = -1;
-    static Map<ICellAddress, Double> expectedValues;
+    static Map<ICellAddress, Object> expectedValues;
   
     static DataModel dataModel;
     static IEvaluator evaluator;
@@ -62,35 +64,30 @@ public abstract class ZParentTest extends BenchmarkTestParent {
               .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(Duration.ETERNAL))
               .setStatisticsEnabled(false);
 
-        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
-        cacheManager.createCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
-        cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
+        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
+        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS, config.setTypes(DsLookupParameters.class, List.class));
         
-        DataModelStorage dataModelStorage = new CacheBasedDataModelStorage();
-        AttributeFunctionStorage attributeFunctionStorage = new CacheBasedAttributeFunctionStorage();
+        DataSetStorage dataSetStorage = new CacheBasedDataSetStorage();
+        ExternalServices.INSTANCE.setDataSetStorage(dataSetStorage);
+        ExternalServices.INSTANCE.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
         
-        ExternalServices.INSTANCE.setAttributeFunctionStorage(attributeFunctionStorage);
-        ExternalServices.INSTANCE.setDataModelStorage(dataModelStorage);
-        
-        dataModelStorage.addDataModel(dataModel);
-        attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
+        dataSetStorage.saveDataSet(PoiFileConverter.toDataSet(new XSSFWorkbook(dataSet)));
 
         expectedValues = new HashMap<>();
-
         for (int i = from; i < from + iterations; i++) {
-            ICellAddress address = A1Address.fromA1Address(columnB + i);
-            Double value = (Double) evaluator.evaluate(address).get();
-            expectedValues.put(address, value);
-            expectedValues.put(A1Address.fromA1Address(columnA + i), value);
+            Object val = evaluator.evaluate(A1Address.fromA1Address(columnB + i)).get();
+            expectedValues.put(A1Address.fromA1Address(columnA + i), val);
+            expectedValues.put(A1Address.fromA1Address(columnB + i), val);
         }
     }
     
     public static void after() throws Exception {
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
-        cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME);
+        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS);
     }
 
     @Test
@@ -100,7 +97,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     }
 
     @Benchmark
-    public void evaluate_ExcelDataModelFuncexec_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
+    public void evaluate_ExcelDataModelDsLookup_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + iterations; i++) { 
             ICellValue value = state.evaluator.evaluate(state.addressAtColumnA(i));
             assertThat(value.get()).isEqualTo(expectedValues.get(state.addressAtColumnA(i))); /* comment for better performance */
@@ -109,7 +106,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     }
     
     @Benchmark
-    public void evaluate_ExcelDataModelPlainFormula_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
+    public void evaluate_ExcelDataModelVLookup_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + iterations; i++) { 
             ICellValue value = state.evaluator.evaluate(state.addressAtColumnB(i));
             assertThat(value.get()).isEqualTo(expectedValues.get(state.addressAtColumnB(i))); /* comment for better performance */
@@ -118,7 +115,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     }
     
     @Test
-    public void evaluate_ExcelDataModelFuncexec_ValuesAreOk() {
+    public void evaluate_ExcelDataModelDsLookup_ValuesAreOk() {
 
         for (int i = from; i < from + iterations; i++) {
             //given
@@ -135,7 +132,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     }
     
     @Test
-    public void evaluate_ExcelDataModelPlainFormula_ValuesAreOk() {
+    public void evaluate_ExcelDataModelVLookup_ValuesAreOk() {
 
         for (int i = from; i < from + iterations; i++) {
             //given

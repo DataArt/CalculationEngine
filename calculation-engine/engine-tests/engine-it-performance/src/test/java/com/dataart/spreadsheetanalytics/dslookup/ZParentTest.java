@@ -75,10 +75,8 @@ public abstract class ZParentTest extends BenchmarkTestParent {
         dataSetStorage.saveDataSet(PoiFileConverter.toDataSet(new XSSFWorkbook(dataSet)));
 
         expectedValues = new HashMap<>();
-        for (int i = from; i < from + iterations; i++) {
-            System.out.println(evaluator.evaluate(A1Address.fromA1Address(columnA + i)).get());
+        for (int i = from; i < from + iterations; i++) 
             expectedValues.put(A1Address.fromA1Address(columnA + i), evaluator.evaluate(A1Address.fromA1Address(columnB + i)).get());
-        }
     }
     
     public static void after() throws Exception {
