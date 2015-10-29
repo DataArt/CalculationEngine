@@ -86,9 +86,10 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
         
         IDataSet dset = this.dataSetToNameCache.get(name);
         if (dset == null) { throw new IllegalStateException(String.format("No DataSet with name = %s is found in DataSet storage.", name)); }
-        
+
         dset = isLazyDataSet(dset) ? ((ILazyDataSet) dset).get(parameters) : dset;
-        optimisationsCaches.dataSetToLazyParameters.put(parameters, dset);
+        
+        if (Parameters.EMPTY != parameters) { optimisationsCaches.dataSetToLazyParameters.put(parameters, dset); }
         return dset;
     }
 
