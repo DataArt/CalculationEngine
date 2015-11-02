@@ -62,6 +62,7 @@ public class DemoUtil {
             System.out.println("Value: " + vertex.value());
             System.out.println("Source Object Id: " + vertex.sourceObjectId());
         }
+        System.out.println("Number of vertices: " + graph.getVertices().size());
     }
 
     public static void generateVisJsData(IExecutionGraph graph) {
