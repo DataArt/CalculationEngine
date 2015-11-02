@@ -37,6 +37,7 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.TYPE;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.ptgToString;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,26 +62,15 @@ import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
-import org.apache.poi.ss.formula.ptg.AddPtg;
 import org.apache.poi.ss.formula.ptg.AreaPtg;
-import org.apache.poi.ss.formula.ptg.ConcatPtg;
-import org.apache.poi.ss.formula.ptg.DividePtg;
-import org.apache.poi.ss.formula.ptg.EqualPtg;
-import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
-import org.apache.poi.ss.formula.ptg.LessThanPtg;
-import org.apache.poi.ss.formula.ptg.MultiplyPtg;
 import org.apache.poi.ss.formula.ptg.NamePtg;
 import org.apache.poi.ss.formula.ptg.NameXPxg;
-import org.apache.poi.ss.formula.ptg.NotEqualPtg;
 import org.apache.poi.ss.formula.ptg.OperationPtg;
 import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
-import org.apache.poi.ss.formula.ptg.PowerPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
-import org.apache.poi.ss.formula.ptg.SubtractPtg;
-import org.apache.poi.ss.formula.ptg.UnaryPlusPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -518,40 +508,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         boolean isNotInherFunction = "ISERROR".equals(vertex.name());
         boolean isError = isErrorValue(vertex.value());
         return !(isError || isNotInherFunction);
-    }
-
-    public static String ptgToString(Ptg ptg) {
-        Class<? extends Ptg> ptgCls = ptg.getClass();
-
-        if (ptgCls.isAssignableFrom(AddPtg.class)) {
-            return "+";
-        } else if (ptgCls.isAssignableFrom(SubtractPtg.class)) {
-            return "-";
-        } else if (ptgCls.isAssignableFrom(DividePtg.class)) {
-            return "/";
-        } else if (ptgCls.isAssignableFrom(MultiplyPtg.class)) {
-            return "*";
-        } else if (ptgCls.isAssignableFrom(EqualPtg.class)) {
-            return "=";
-        } else if (ptgCls.isAssignableFrom(GreaterThanPtg.class)) {
-            return ">";
-        } else if (ptgCls.isAssignableFrom(LessThanPtg.class)) {
-            return "<";
-        } else if (ptgCls.isAssignableFrom(NotEqualPtg.class)) {
-            return "<>";
-        } else if (ptgCls.isAssignableFrom(UnaryPlusPtg.class)) {
-            return "+";
-        } else if (ptgCls.isAssignableFrom(ConcatPtg.class)) {
-            return "&";
-        } else if (ptgCls.isAssignableFrom(PowerPtg.class)) {
-            return "^";
-        }
-
-        try {
-            return ptg.toFormulaString();
-        } catch (Exception e) {
-            return ptg.getClass().getSimpleName();
-        }
     }
 
     public static Type ptgToVertexType(Ptg ptg) {
