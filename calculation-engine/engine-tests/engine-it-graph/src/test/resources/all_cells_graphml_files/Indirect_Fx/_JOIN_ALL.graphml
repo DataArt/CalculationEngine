@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="C6_1.333_CELL_WITH_FORMULA">
+<data key="name">C6</data>
+<data key="value">1.333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INDIRECT(A2); Formula Values: INDIRECT(B2); Formula Ptg: B2 INDIRECT ; Ptgs: A2 INDIRECT  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="A2_B2_CELL_WITH_VALUE">
+<data key="name">A2</data>
+<data key="value">B2</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A2; Formula Values: B2; Formula Ptg: B2; Ptgs: A2 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="INDIRECT_1.333_FUNCTION">
+<data key="name">INDIRECT</data>
+<data key="value">1.333</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: INDIRECT(A2); Formula Values: INDIRECT(B2); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="C7_10.0_CELL_WITH_FORMULA">
+<data key="name">C7</data>
+<data key="value">10.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INDIRECT(VALUE); Formula Values: INDIRECT(Bolt); Formula Ptg: Bolt INDIRECT ; Ptgs: VALUE INDIRECT  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="VALUE_Bolt_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">Bolt</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: Bolt; Formula Ptg: Bolt; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="INDIRECT_10.0_FUNCTION">
+<data key="name">INDIRECT</data>
+<data key="value">10.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: INDIRECT(VALUE); Formula Values: INDIRECT(Bolt); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="C8_62.0_CELL_WITH_FORMULA">
+<data key="name">C8</data>
+<data key="value">62.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INDIRECT(VALUE &amp; A5); Formula Values: INDIRECT(B &amp; 5.0); Formula Ptg: B 5.0 &amp; INDIRECT ; Ptgs: VALUE A5 &amp; INDIRECT  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="VALUE_B_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">B</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: B; Formula Ptg: B; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="A5_5.0_CELL_WITH_VALUE">
+<data key="name">A5</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A5; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A5 Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="&amp;_B5_OPERATOR">
+<data key="name">&amp;</data>
+<data key="value">B5</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: VALUE &amp; A5; Formula Values: B &amp; 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<node id="INDIRECT_62.0_FUNCTION">
+<data key="name">INDIRECT</data>
+<data key="value">62.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: INDIRECT(VALUE &amp; A5); Formula Values: INDIRECT(B &amp; 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@781c0f55</data>
+</node>
+<edge source="A2_B2_CELL_WITH_VALUE" target="INDIRECT_1.333_FUNCTION"/>
+<edge source="INDIRECT_1.333_FUNCTION" target="C6_1.333_CELL_WITH_FORMULA"/>
+<edge source="VALUE_Bolt_CONSTANT_VALUE" target="INDIRECT_10.0_FUNCTION"/>
+<edge source="INDIRECT_10.0_FUNCTION" target="C7_10.0_CELL_WITH_FORMULA"/>
+<edge source="A5_5.0_CELL_WITH_VALUE" target="&amp;_B5_OPERATOR"/>
+<edge source="VALUE_B_CONSTANT_VALUE" target="&amp;_B5_OPERATOR"/>
+<edge source="&amp;_B5_OPERATOR" target="INDIRECT_62.0_FUNCTION"/>
+<edge source="INDIRECT_62.0_FUNCTION" target="C8_62.0_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

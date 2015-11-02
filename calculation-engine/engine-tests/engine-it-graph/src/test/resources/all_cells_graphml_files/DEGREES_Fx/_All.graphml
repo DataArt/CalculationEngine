@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="E6_180.0_CELL_WITH_FORMULA">
+<data key="name">E6</data>
+<data key="value">180.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: DEGREES(PI()); Formula Values: DEGREES(PI()); Formula Ptg:  PI  DEGREES ; Ptgs:  PI  DEGREES  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@773dab28</data>
+</node>
+<node id="PI_3.141592653589793_FUNCTION">
+<data key="name">PI</data>
+<data key="value">3.141592653589793</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: PI(); Formula Values: PI(); Formula Ptg: ; Ptgs:  Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@773dab28</data>
+</node>
+<node id="DEGREES_180.0_FUNCTION">
+<data key="name">DEGREES</data>
+<data key="value">180.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: DEGREES(PI()); Formula Values: DEGREES(PI()); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@773dab28</data>
+</node>
+<node id="E7_6875.493541569879_CELL_WITH_FORMULA">
+<data key="name">E7</data>
+<data key="value">6875.493541569879</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: DEGREES(B5); Formula Values: DEGREES(120.0); Formula Ptg: 120.0 DEGREES ; Ptgs: B5 DEGREES  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@773dab28</data>
+</node>
+<node id="B5_120.0_CELL_WITH_VALUE">
+<data key="name">B5</data>
+<data key="value">120.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B5; Formula Values: 120.0; Formula Ptg: 120.0; Ptgs: B5 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@773dab28</data>
+</node>
+<node id="DEGREES_6875.493541569879_FUNCTION">
+<data key="name">DEGREES</data>
+<data key="value">6875.493541569879</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: DEGREES(B5); Formula Values: DEGREES(120.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@773dab28</data>
+</node>
+<edge source="PI_3.141592653589793_FUNCTION" target="DEGREES_180.0_FUNCTION"/>
+<edge source="DEGREES_180.0_FUNCTION" target="E6_180.0_CELL_WITH_FORMULA"/>
+<edge source="B5_120.0_CELL_WITH_VALUE" target="DEGREES_6875.493541569879_FUNCTION"/>
+<edge source="DEGREES_6875.493541569879_FUNCTION" target="E7_6875.493541569879_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="A1_2.993222846126381_CELL_WITH_FORMULA">
+<data key="name">A1</data>
+<data key="value">2.993222846126381</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ACOSH(VALUE); Formula Values: ACOSH(10.0); Formula Ptg: 10.0 ACOSH ; Ptgs: VALUE ACOSH  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d0dbf29</data>
+</node>
+<node id="VALUE_10.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">10.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 10.0; Formula Ptg: 10.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d0dbf29</data>
+</node>
+<node id="ACOSH_2.993222846126381_FUNCTION">
+<data key="name">ACOSH</data>
+<data key="value">2.993222846126381</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ACOSH(VALUE); Formula Values: ACOSH(10.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d0dbf29</data>
+</node>
+<node id="E5_5.192925985263684_CELL_WITH_FORMULA">
+<data key="name">E5</data>
+<data key="value">5.192925985263684</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ACOSH(C2); Formula Values: ACOSH(90.0); Formula Ptg: 90.0 ACOSH ; Ptgs: C2 ACOSH  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d0dbf29</data>
+</node>
+<node id="C2_90.0_CELL_WITH_VALUE">
+<data key="name">C2</data>
+<data key="value">90.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C2; Formula Values: 90.0; Formula Ptg: 90.0; Ptgs: C2 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d0dbf29</data>
+</node>
+<node id="ACOSH_5.192925985263684_FUNCTION">
+<data key="name">ACOSH</data>
+<data key="value">5.192925985263684</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ACOSH(C2); Formula Values: ACOSH(90.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d0dbf29</data>
+</node>
+<edge source="VALUE_10.0_CONSTANT_VALUE" target="ACOSH_2.993222846126381_FUNCTION"/>
+<edge source="ACOSH_2.993222846126381_FUNCTION" target="A1_2.993222846126381_CELL_WITH_FORMULA"/>
+<edge source="C2_90.0_CELL_WITH_VALUE" target="ACOSH_5.192925985263684_FUNCTION"/>
+<edge source="ACOSH_5.192925985263684_FUNCTION" target="E5_5.192925985263684_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

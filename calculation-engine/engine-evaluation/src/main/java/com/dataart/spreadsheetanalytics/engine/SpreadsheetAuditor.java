@@ -90,6 +90,8 @@ public class SpreadsheetAuditor implements IAuditor {
                 graphBuilder.runPostProcessing(false);
                 return graphBuilder.get();
             }
+
+            if (cv != null && cv.get().equals(ErrorEval.VALUE_INVALID.getErrorString())) { return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
     
             if (cv != null && ErrorEval.NAME_INVALID.getErrorString().equals(cv.get())) {
                 return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
@@ -128,7 +130,7 @@ public class SpreadsheetAuditor implements IAuditor {
             /*TODO: check if second (and others) graph for the same formula is full (not empty)*/
             /*if fail - possible solution is evaluator.evaluate() in for loop with evaluateCell(cell)*/
             evaluator.evaluate();
-            
+
             graphBuilder.runPostProcessing(true);
             return graphBuilder.get();
             
