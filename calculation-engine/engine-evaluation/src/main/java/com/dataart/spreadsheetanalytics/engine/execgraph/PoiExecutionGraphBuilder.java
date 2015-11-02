@@ -74,6 +74,7 @@ import org.apache.poi.ss.formula.ptg.NameXPxg;
 import org.apache.poi.ss.formula.ptg.NotEqualPtg;
 import org.apache.poi.ss.formula.ptg.OperationPtg;
 import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
+import org.apache.poi.ss.formula.ptg.PowerPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
@@ -542,6 +543,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             return "+";
         } else if (ptgCls.isAssignableFrom(ConcatPtg.class)) {
             return "&";
+        } else if (ptgCls.isAssignableFrom(PowerPtg.class)) {
+            return "^";
         }
 
         try {
