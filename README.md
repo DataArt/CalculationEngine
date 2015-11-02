@@ -6,7 +6,7 @@ Calculation Engine is a library for Excel-like calculations with some additional
 It is based on Apache POI project (forked) with changes mostly in evaluation part of that library.
 
 ## Version
-Current version is: 0.6.
+Current version is: **0.6**.
 
 Released October 27, 2015.
 
@@ -34,6 +34,12 @@ Project uses maven as build tool. Project modules description:
 * engine-tests - contains all the tests in project. Inside of this module there are three more modules: _engine-tests/engine-it_ (integration tests), _engine-tests/engine-it-graph_ (integration tests for graphs - based on xml compare), _engine-tests/engine-unit_ (unit tests).
 
 ## How to build
+To download project run next command:
+```
+git clone --recursive https://github.com/DataArt/CalculationEngine.git
+```
+It will download git module with all submodules in **one** command.
+
 Once source code is downloaded, simply run next command:
 ```
 mvn install
@@ -48,8 +54,8 @@ Next output jar files should be included in application (dependencies are not sp
 * spreadsheetanalytics-evaluation-[version].jar
  
 Also the above jars required jars from Apache POI fork to be included as dependencies:
-* poi-fork-[version].jar (current version is: poi-fork-3.13-beta1.jar)
-* poi-ooxml-fork-[version].jar (current version is: poi-ooxml-fork-3.13-beta1.jar)
+* poi-fork-[version].jar (current version is: poi-fork-**3.13-beta1**.jar)
+* poi-ooxml-fork-[version].jar (current version is: poi-ooxml-fork-**3.13-beta1**.jar)
 
 To add Calculation Engine as dependency to project use:
 ```

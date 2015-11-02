@@ -10,14 +10,12 @@ public class QUERY_10set_1times_Test extends ZParentTest {
     static int dataSetSize = 10;
     static String excelFile = "src/test/resources/datamodel/query/QUERY_" + dataSetSize + "set_" + iterations + "times.xlsx";
     static String dataSet = "src/test/resources/dataset/ShuffledDataSet" + dataSetSize + ".xlsx";
-    static Object expectedValue = "Column 1";
 
     static {
         ZParentTest.description = description;
         ZParentTest.excelFile = excelFile;
         ZParentTest.dataSet = dataSet;
         ZParentTest.iterations = iterations;
-        ZParentTest.expectedValue = expectedValue;
     }
     
     @BeforeClass

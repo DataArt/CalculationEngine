@@ -59,6 +59,7 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorag
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
@@ -307,7 +308,7 @@ public class GraphTestUtil {
         cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
         cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
-        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
+        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
         
         DataModelStorage dataModelStorage = new CacheBasedDataModelStorage();
         DataSetStorage dataSetStorage = new CacheBasedDataSetStorage();
@@ -335,7 +336,7 @@ public class GraphTestUtil {
         cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_LAZY_PARAMETERS);
+        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
     }
     
     public static void main(String[] args) throws Exception {

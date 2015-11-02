@@ -33,7 +33,6 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
     
     public static final String DATA_SET_TO_ID_CACHE_NAME = "dataSetToIdCache";
     public static final String DATA_SET_TO_NAME_CACHE_NAME = "dataSetToNameCache";
-    public static final String DATA_SET_TO_LAZY_PARAMETERS = "dataSetToLazyParameters";
     
     protected Cache<IDataModelId, IDataSet> dataSetToIdCache = Caching.getCache(DATA_SET_TO_ID_CACHE_NAME, IDataModelId.class, IDataSet.class);
     protected Cache<String, IDataSet> dataSetToNameCache = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, String.class, IDataSet.class);
@@ -87,9 +86,10 @@ public class CacheBasedDataSetStorage implements DataSetStorage {
         
         IDataSet dset = this.dataSetToNameCache.get(name);
         if (dset == null) { throw new IllegalStateException(String.format("No DataSet with name = %s is found in DataSet storage.", name)); }
-        
+
         dset = isLazyDataSet(dset) ? ((ILazyDataSet) dset).get(parameters) : dset;
-        optimisationsCaches.dataSetToLazyParameters.put(parameters, dset);
+        
+        if (Parameters.EMPTY != parameters) { optimisationsCaches.dataSetToLazyParameters.put(parameters, dset); }
         return dset;
     }
 

@@ -71,4 +71,24 @@ public class A1Address implements ICellAddress, IA1Address {
     public String toString() {
         return String.format("%s[%s,%s]", address, row, column);
     }
+    @Override
+    public int hashCode() {
+        int prime = 31;
+        int result = 1;
+        result = prime * result + column;
+        result = prime * result + row;
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) { return true; }
+        if (obj == null) { return false; }
+        if (getClass() != obj.getClass()) { return false; }
+        A1Address other = (A1Address) obj;
+        if (column != other.column) { return false; }
+        if (row != other.row) { return false; }
+        return true;
+    }
+    
+    
 }
