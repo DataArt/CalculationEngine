@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D11">
-<node id="D11_#VALUE!_CELL_WITH_FORMULA">
-<data key="name">D11</data>
-<data key="value">#VALUE!</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISEVEN(D1); Formula Values: ISEVEN(qwerty); Formula Ptg: qwerty ISEVEN ; Ptgs: D1 ISEVEN  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@50b472aa</data>
-</node>
 <node id="D1_qwerty_CELL_WITH_VALUE">
 <data key="name">D1</data>
 <data key="value">qwerty</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: D1; Formula Values: qwerty; Formula Ptg: qwerty; Ptgs: D1 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@50b472aa</data>
+</node>
+<node id="D11_#VALUE!_CELL_WITH_FORMULA">
+<data key="name">D11</data>
+<data key="value">#VALUE!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISEVEN(D1); Formula Values: ISEVEN(qwerty); Formula Ptg: qwerty ISEVEN ; Ptgs: D1 ISEVEN  Index in Ptgs: 2 </data>
 </node>
 <node id="ISEVEN_#VALUE!_FUNCTION">
 <data key="name">ISEVEN</data>
 <data key="value">#VALUE!</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ISEVEN(D1); Formula Values: ISEVEN(qwerty); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@50b472aa</data>
 </node>
 <edge source="D1_qwerty_CELL_WITH_VALUE" target="ISEVEN_#VALUE!_FUNCTION"/>
 <edge source="ISEVEN_#VALUE!_FUNCTION" target="D11_#VALUE!_CELL_WITH_FORMULA"/>

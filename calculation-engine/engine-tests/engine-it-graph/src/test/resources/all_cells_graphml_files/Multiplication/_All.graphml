@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="All">
-<node id="A3_35.0_CELL_WITH_FORMULA">
-<data key="name">A3</data>
+<node id="*_35.0_OPERATOR">
+<data key="name">*</data>
 <data key="value">35.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: A1 * A2; Formula Values: 5.0 * 7.0; Formula Ptg: 5.0 7.0 *; Ptgs: A1 A2 * Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@39008c9f</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: A1 * A2; Formula Values: 5.0 * 7.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
 </node>
 <node id="A1_5.0_CELL_WITH_VALUE">
 <data key="name">A1</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A1; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@39008c9f</data>
 </node>
 <node id="A2_7.0_CELL_WITH_VALUE">
 <data key="name">A2</data>
 <data key="value">7.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A2; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: A2 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@39008c9f</data>
 </node>
-<node id="*_35.0_OPERATOR">
-<data key="name">*</data>
+<node id="A3_35.0_CELL_WITH_FORMULA">
+<data key="name">A3</data>
 <data key="value">35.0</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: A1 * A2; Formula Values: 5.0 * 7.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@39008c9f</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: A1 * A2; Formula Values: 5.0 * 7.0; Formula Ptg: 5.0 7.0 *; Ptgs: A1 A2 * Index in Ptgs: 2 </data>
 </node>
-<edge source="A2_7.0_CELL_WITH_VALUE" target="*_35.0_OPERATOR"/>
-<edge source="A1_5.0_CELL_WITH_VALUE" target="*_35.0_OPERATOR"/>
 <edge source="*_35.0_OPERATOR" target="A3_35.0_CELL_WITH_FORMULA"/>
+<edge source="A1_5.0_CELL_WITH_VALUE" target="*_35.0_OPERATOR"/>
+<edge source="A2_7.0_CELL_WITH_VALUE" target="*_35.0_OPERATOR"/>
 </graph>
 </graphml>

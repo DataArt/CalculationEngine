@@ -6,23 +6,20 @@
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: ISBLANK(VALUE); Formula Values: ISBLANK(#REF!); Formula Ptg: #REF! ISBLANK ; Ptgs: VALUE ISBLANK  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44a7bfbc</data>
-</node>
-<node id="VALUE_#REF!_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">#REF!</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #REF!; Formula Ptg: #REF!; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44a7bfbc</data>
 </node>
 <node id="ISBLANK_FALSE_FUNCTION">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ISBLANK(VALUE); Formula Values: ISBLANK(#REF!); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44a7bfbc</data>
 </node>
-<edge source="VALUE_#REF!_CONSTANT_VALUE" target="ISBLANK_FALSE_FUNCTION"/>
+<node id="VALUE_#REF!_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: #REF!; Formula Ptg: #REF!; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
 <edge source="ISBLANK_FALSE_FUNCTION" target="D6_FALSE_CELL_WITH_FORMULA"/>
+<edge source="VALUE_#REF!_CONSTANT_VALUE" target="ISBLANK_FALSE_FUNCTION"/>
 </graph>
 </graphml>

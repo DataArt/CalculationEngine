@@ -1,52 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_2">
-<node id="E6_8.0_CELL_WITH_FORMULA">
-<data key="name">E6</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: IF(D1&gt;5,D2,C3); Formula Values: IF(4.0 &gt; 5.0, 8.0); Formula Ptg: 8.0, 4.0 5.0 &gt; IF ; Ptgs: C3, D1 VALUE &gt; IF  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e2f3be5</data>
-</node>
-<node id="D1_4.0_CELL_WITH_VALUE">
-<data key="name">D1</data>
-<data key="value">4.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D1; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: D1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e2f3be5</data>
-</node>
-<node id="VALUE_5.0_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">5.0</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e2f3be5</data>
-</node>
 <node id="&gt;_FALSE_OPERATOR">
 <data key="name">&gt;</data>
 <data key="value">FALSE</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula String: D1 &gt; VALUE; Formula Values: 4.0 &gt; 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e2f3be5</data>
-</node>
-<node id="IF_8.0_IF">
-<data key="name">IF</data>
-<data key="value">8.0</data>
-<data key="type">IF</data>
-<data key="formula">Formula String: IF(D1&gt;5,D2,C3); Formula Values: IF(4.0 &gt; 5.0, 8.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e2f3be5</data>
 </node>
 <node id="C3_8.0_CELL_WITH_VALUE">
 <data key="name">C3</data>
 <data key="value">8.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: C3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: C3 Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e2f3be5</data>
 </node>
-<edge source="VALUE_5.0_CONSTANT_VALUE" target="&gt;_FALSE_OPERATOR"/>
-<edge source="D1_4.0_CELL_WITH_VALUE" target="&gt;_FALSE_OPERATOR"/>
-<edge source="C3_8.0_CELL_WITH_VALUE" target="IF_8.0_IF"/>
+<node id="D1_4.0_CELL_WITH_VALUE">
+<data key="name">D1</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D1; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: D1 Index in Ptgs: 0 </data>
+</node>
+<node id="E6_8.0_CELL_WITH_FORMULA">
+<data key="name">E6</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: IF(D1&gt;5,D2,C3); Formula Values: IF(4.0 &gt; 5.0, 8.0); Formula Ptg: 8.0, 4.0 5.0 &gt; IF ; Ptgs: C3, D1 VALUE &gt; IF  Index in Ptgs: 3 </data>
+</node>
+<node id="IF_8.0_IF">
+<data key="name">IF</data>
+<data key="value">8.0</data>
+<data key="type">IF</data>
+<data key="formula">Formula String: IF(D1&gt;5,D2,C3); Formula Values: IF(4.0 &gt; 5.0, 8.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+</node>
+<node id="VALUE_5.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">5.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
 <edge source="&gt;_FALSE_OPERATOR" target="IF_8.0_IF"/>
+<edge source="C3_8.0_CELL_WITH_VALUE" target="IF_8.0_IF"/>
+<edge source="D1_4.0_CELL_WITH_VALUE" target="&gt;_FALSE_OPERATOR"/>
 <edge source="IF_8.0_IF" target="E6_8.0_CELL_WITH_FORMULA"/>
+<edge source="VALUE_5.0_CONSTANT_VALUE" target="&gt;_FALSE_OPERATOR"/>
 </graph>
 </graphml>

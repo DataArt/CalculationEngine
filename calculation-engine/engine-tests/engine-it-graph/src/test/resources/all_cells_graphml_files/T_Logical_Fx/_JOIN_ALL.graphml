@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_ALL">
-<node id="D5_expected_CELL_WITH_FORMULA">
-<data key="name">D5</data>
-<data key="value">expected</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: T(D2); Formula Values: T(expected); Formula Ptg: expected T ; Ptgs: D2 T  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@177dcd77</data>
-</node>
 <node id="D2_expected_CELL_WITH_VALUE">
 <data key="name">D2</data>
 <data key="value">expected</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: D2; Formula Values: expected; Formula Ptg: expected; Ptgs: D2 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@177dcd77</data>
+</node>
+<node id="D5_expected_CELL_WITH_FORMULA">
+<data key="name">D5</data>
+<data key="value">expected</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: T(D2); Formula Values: T(expected); Formula Ptg: expected T ; Ptgs: D2 T  Index in Ptgs: 1 </data>
 </node>
 <node id="T_expected_FUNCTION">
 <data key="name">T</data>
 <data key="value">expected</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: T(D2); Formula Values: T(expected); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@177dcd77</data>
 </node>
 <edge source="D2_expected_CELL_WITH_VALUE" target="T_expected_FUNCTION"/>
 <edge source="T_expected_FUNCTION" target="D5_expected_CELL_WITH_FORMULA"/>

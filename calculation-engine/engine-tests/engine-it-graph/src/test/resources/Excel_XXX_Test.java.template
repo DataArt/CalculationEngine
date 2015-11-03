@@ -13,9 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.test.graph;
+package com.dataart.spreadsheetanalytics.test.graph.standard;
 
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_GRAPHML_DIR;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -41,6 +42,6 @@ public class Excel_XXX_Test extends SerializedGraphTest {
     
     @Test
     public void assert_ExcelFile_SerializedGraph() {
-        super.assert_ExcelFile_SerializedGraph(file, address);
+        super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
     }
 }

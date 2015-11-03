@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B6">
-<node id="B6_154.0_CELL_WITH_FORMULA">
-<data key="name">B6</data>
-<data key="value">154.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: 42184.0, 42029.0 DAYS360 ; Ptgs: A3, A2 DAYS360  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6a6afff2</data>
-</node>
 <node id="A2_42029.0_CELL_WITH_VALUE">
 <data key="name">A2</data>
 <data key="value">42029.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A2; Formula Values: 42029.0; Formula Ptg: 42029.0; Ptgs: A2 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6a6afff2</data>
 </node>
 <node id="A3_42184.0_CELL_WITH_VALUE">
 <data key="name">A3</data>
 <data key="value">42184.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A3; Formula Values: 42184.0; Formula Ptg: 42184.0; Ptgs: A3 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6a6afff2</data>
+</node>
+<node id="B6_154.0_CELL_WITH_FORMULA">
+<data key="name">B6</data>
+<data key="value">154.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: 42184.0, 42029.0 DAYS360 ; Ptgs: A3, A2 DAYS360  Index in Ptgs: 2 </data>
 </node>
 <node id="DAYS360_154.0_FUNCTION">
 <data key="name">DAYS360</data>
 <data key="value">154.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6a6afff2</data>
 </node>
-<edge source="A3_42184.0_CELL_WITH_VALUE" target="DAYS360_154.0_FUNCTION"/>
 <edge source="A2_42029.0_CELL_WITH_VALUE" target="DAYS360_154.0_FUNCTION"/>
+<edge source="A3_42184.0_CELL_WITH_VALUE" target="DAYS360_154.0_FUNCTION"/>
 <edge source="DAYS360_154.0_FUNCTION" target="B6_154.0_CELL_WITH_FORMULA"/>
 </graph>
 </graphml>

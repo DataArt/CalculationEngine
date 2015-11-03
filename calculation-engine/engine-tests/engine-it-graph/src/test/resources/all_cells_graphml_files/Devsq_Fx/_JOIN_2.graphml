@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_2">
-<node id="A8_48.0_CELL_WITH_FORMULA">
-<data key="name">A8</data>
-<data key="value">48.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: DEVSQ(A1:A7); Formula Values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0); Formula Ptg: 4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0 DEVSQ ; Ptgs: A1:A7 DEVSQ  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@e146f93</data>
-</node>
 <node id="A1:A7_[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]_RANGE">
 <data key="name">A1:A7</data>
 <data key="value">[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula String: A1:A7; Formula Values: [[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]; Formula Ptg: [[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]; Ptgs: A1:A7 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@e146f93</data>
+</node>
+<node id="A8_48.0_CELL_WITH_FORMULA">
+<data key="name">A8</data>
+<data key="value">48.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: DEVSQ(A1:A7); Formula Values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0); Formula Ptg: 4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0 DEVSQ ; Ptgs: A1:A7 DEVSQ  Index in Ptgs: 1 </data>
 </node>
 <node id="DEVSQ_48.0_FUNCTION">
 <data key="name">DEVSQ</data>
 <data key="value">48.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: DEVSQ(A1:A7); Formula Values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@e146f93</data>
 </node>
 <edge source="A1:A7_[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]_RANGE" target="DEVSQ_48.0_FUNCTION"/>
 <edge source="DEVSQ_48.0_FUNCTION" target="A8_48.0_CELL_WITH_FORMULA"/>

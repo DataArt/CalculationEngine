@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E5">
+<node id="=_FALSE_OPERATOR">
+<data key="name">=</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: F1 = E2; Formula Values: Don't speak 
+I know just what you're saying 
+So please stop explaining 
+Don't tell me cause it hurts 
+Don't speak 
+I know what you're thinking 
+I don't need your reasons 
+Don't tell me cause it hurts  = 7.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+</node>
+<node id="E2_7.0_CELL_WITH_VALUE">
+<data key="name">E2</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: E2; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: E2 Index in Ptgs: 1 </data>
+</node>
 <node id="E5_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _CELL_WITH_FORMULA">
 <data key="name">E5</data>
 <data key="value">Don't speak 
@@ -41,7 +60,6 @@ Don't speak
 I know what you're thinking 
 I don't need your reasons 
 Don't tell me cause it hurts  7.0 = IF ; Ptgs: F1, F1 E2 = IF  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51684e4a</data>
 </node>
 <node id="F1_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _CELL_WITH_VALUE">
 <data key="name">F1</data>
@@ -69,56 +87,6 @@ Don't speak
 I know what you're thinking 
 I don't need your reasons 
 Don't tell me cause it hurts ; Ptgs: F1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51684e4a</data>
-</node>
-<node id="E2_7.0_CELL_WITH_VALUE">
-<data key="name">E2</data>
-<data key="value">7.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: E2; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: E2 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51684e4a</data>
-</node>
-<node id="=_FALSE_OPERATOR">
-<data key="name">=</data>
-<data key="value">FALSE</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: F1 = E2; Formula Values: Don't speak 
-I know just what you're saying 
-So please stop explaining 
-Don't tell me cause it hurts 
-Don't speak 
-I know what you're thinking 
-I don't need your reasons 
-Don't tell me cause it hurts  = 7.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51684e4a</data>
-</node>
-<node id="IF_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _IF">
-<data key="name">IF</data>
-<data key="value">Don't speak 
-I know just what you're saying 
-So please stop explaining 
-Don't tell me cause it hurts 
-Don't speak 
-I know what you're thinking 
-I don't need your reasons 
-Don't tell me cause it hurts </data>
-<data key="type">IF</data>
-<data key="formula">Formula String: IF(F1=E2,D3,F1); Formula Values: IF(Don't speak 
-I know just what you're saying 
-So please stop explaining 
-Don't tell me cause it hurts 
-Don't speak 
-I know what you're thinking 
-I don't need your reasons 
-Don't tell me cause it hurts  = 7.0, Don't speak 
-I know just what you're saying 
-So please stop explaining 
-Don't tell me cause it hurts 
-Don't speak 
-I know what you're thinking 
-I don't need your reasons 
-Don't tell me cause it hurts ); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51684e4a</data>
 </node>
 <node id="F1_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _CELL_WITH_VALUE">
 <data key="name">F1</data>
@@ -146,12 +114,38 @@ Don't speak
 I know what you're thinking 
 I don't need your reasons 
 Don't tell me cause it hurts ; Ptgs: F1 Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@51684e4a</data>
 </node>
+<node id="IF_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _IF">
+<data key="name">IF</data>
+<data key="value">Don't speak 
+I know just what you're saying 
+So please stop explaining 
+Don't tell me cause it hurts 
+Don't speak 
+I know what you're thinking 
+I don't need your reasons 
+Don't tell me cause it hurts </data>
+<data key="type">IF</data>
+<data key="formula">Formula String: IF(F1=E2,D3,F1); Formula Values: IF(Don't speak 
+I know just what you're saying 
+So please stop explaining 
+Don't tell me cause it hurts 
+Don't speak 
+I know what you're thinking 
+I don't need your reasons 
+Don't tell me cause it hurts  = 7.0, Don't speak 
+I know just what you're saying 
+So please stop explaining 
+Don't tell me cause it hurts 
+Don't speak 
+I know what you're thinking 
+I don't need your reasons 
+Don't tell me cause it hurts ); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+</node>
+<edge source="=_FALSE_OPERATOR" target="IF_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _IF"/>
 <edge source="E2_7.0_CELL_WITH_VALUE" target="=_FALSE_OPERATOR"/>
 <edge source="F1_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _CELL_WITH_VALUE" target="=_FALSE_OPERATOR"/>
 <edge source="F1_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _CELL_WITH_VALUE" target="IF_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _IF"/>
-<edge source="=_FALSE_OPERATOR" target="IF_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _IF"/>
 <edge source="IF_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _IF" target="E5_Don't speak &#10;I know just what you're saying &#10;So please stop explaining &#10;Don't tell me cause it hurts &#10;Don't speak &#10;I know what you're thinking &#10;I don't need your reasons &#10;Don't tell me cause it hurts _CELL_WITH_FORMULA"/>
 </graph>
 </graphml>

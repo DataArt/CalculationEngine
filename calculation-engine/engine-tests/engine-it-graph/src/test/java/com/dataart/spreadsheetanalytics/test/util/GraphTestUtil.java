@@ -16,15 +16,12 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.test.util;
 
 import static javax.cache.expiry.Duration.ONE_HOUR;
-import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.LineNumberReader;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -40,8 +37,6 @@ import javax.cache.expiry.AccessedExpiryPolicy;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.ext.GraphMLExporter;
-import org.junit.Test;
-import org.reflections.Reflections;
 
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
@@ -68,7 +63,6 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
-import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class GraphTestUtil {
     
@@ -76,15 +70,15 @@ public class GraphTestUtil {
     public final static String STANDARD_GRAPHML_DIR = "src/test/resources/standard_graphml_files/";
     public final static String ALL_CELLS_GRAPHML_DIR = "src/test/resources/all_cells_graphml_files/";
     
-    final static String TEST_FILES = "com.dataart.spreadsheetanalytics.test.graph";
-    
-    final static String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
-    final static String TEST_CLASS_TEMPLATE = "src/test/resources/Excel_XXX_Test.java.template";
-    final static String TEST_CLASS_TEMPLATE_ALL = "src/test/resources/Excel_XXX_All_Test.java.template";
-    final static String TEST_CLASS_FILE = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/Excel_XXX_Test.java";
-    final static String TEST_CLASS_FILE_ALL = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standartwithconfig/Excel_XXX_Test.java";
+    static final String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
+    static final String TEST_CLASS_TEMPLATE = "src/test/resources/Excel_XXX_Test.java.template";
+    static final String TEST_CLASS_TEMPLATE_ALL = "src/test/resources/Excel_XXX_All_Test.java.template";
+    static final String TEST_CLASS_FILE = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standard/Excel_XXX_Test.java";
+    static final String TEST_CLASS_FILE_ALL = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standartwithconfig/Excel_XXX_Test.java";
 
-    final static Map<ExecutionGraphConfig, String> graphConfigToString = new HashMap<ExecutionGraphConfig, String>(){{
+    static final Map<ExecutionGraphConfig, String> graphConfigToString = new HashMap<ExecutionGraphConfig, String>() {
+        private static final long serialVersionUID = 1L;
+    {
         put(ExecutionGraphConfig.DEFAULT, "_All");
         put(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES, "_JOIN_ALL");
         put(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES, "_JOIN_10");
@@ -92,24 +86,9 @@ public class GraphTestUtil {
         put(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES, "_JOIN_5");
     }};
     
-    @Test
-    public void it_GraphPaths_NumbrOfTestFilesGreaterThenExcels() throws IOException {
-        //given
-        int lines = -1;        
-        try (LineNumberReader lnr = new LineNumberReader(new FileReader(new File(GRAPH_PATHS_FILE)))){ lines = lnr.getLineNumber() + 1; }
-        
-        //when
-        int tests = new Reflections(TEST_FILES).getSubTypesOf(SerializedGraphTest.class).size();
-        
-        //then
-        assertThat(lines).isGreaterThan(0);
-        assertThat(tests).isGreaterThan(lines);
-    }
-
     public static void generateGraphmlFilesetAllCellsAllConfigs(boolean all) throws Exception {
-        for (ExecutionGraphConfig config : graphConfigToString.keySet()) {
-            generateGraphmlFilesetAllCells(all, ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
-        }
+        for (ExecutionGraphConfig config : graphConfigToString.keySet()) 
+            { generateGraphmlFilesetAllCells(all, config); }
     }
 
     protected static void generateGraphmlFilesetAllCells(boolean all, ExecutionGraphConfig config) throws Exception {
@@ -155,11 +134,13 @@ public class GraphTestUtil {
                 System.out.println("GraphML file is written to [" + filename + "]");
 
                 String testFile = testTemplate.replace("[FILENAME]", line[0]).replace("XXX", line[0] + "_" + "All");
-                try (FileOutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line[0] + "_" + "All"))) {
+                try (OutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line[0] + "_" + "All"))) {
                     fos.write(testFile.getBytes());
                 }
+                
                 System.out.println("Java Test file is written to [" + TEST_CLASS_FILE_ALL.replace("XXX", line[0] + "_" + "All") + "]");
                 System.out.println();
+                
                 GraphTestUtil.destroyExternalServices();
             }
         }

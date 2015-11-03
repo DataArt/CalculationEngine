@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D8">
-<node id="D8_#N/A_CELL_WITH_FORMULA">
-<data key="name">D8</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: #N/A ISNA ; Ptgs: D6 ISNA  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6283d8b8</data>
-</node>
 <node id="D6_#N/A_CELL_WITH_VALUE">
 <data key="name">D6</data>
 <data key="value">#N/A</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: D6; Formula Values: #N/A; Formula Ptg: #N/A; Ptgs: D6 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6283d8b8</data>
+</node>
+<node id="D8_#N/A_CELL_WITH_FORMULA">
+<data key="name">D8</data>
+<data key="value">#N/A</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: #N/A ISNA ; Ptgs: D6 ISNA  Index in Ptgs: 1 </data>
 </node>
 <node id="ISNA_#N/A_FUNCTION">
 <data key="name">ISNA</data>
 <data key="value">#N/A</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6283d8b8</data>
 </node>
 <edge source="D6_#N/A_CELL_WITH_VALUE" target="ISNA_#N/A_FUNCTION"/>
 <edge source="ISNA_#N/A_FUNCTION" target="D8_#N/A_CELL_WITH_FORMULA"/>

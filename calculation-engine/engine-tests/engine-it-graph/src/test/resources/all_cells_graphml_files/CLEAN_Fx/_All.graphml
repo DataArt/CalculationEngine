@@ -6,46 +6,40 @@
 <data key="value">2.993222846126381</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: ACOSH(VALUE); Formula Values: ACOSH(10.0); Formula Ptg: 10.0 ACOSH ; Ptgs: VALUE ACOSH  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2575f671</data>
-</node>
-<node id="VALUE_10.0_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">10.0</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 10.0; Formula Ptg: 10.0; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2575f671</data>
 </node>
 <node id="ACOSH_2.993222846126381_FUNCTION">
 <data key="name">ACOSH</data>
 <data key="value">2.993222846126381</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ACOSH(VALUE); Formula Values: ACOSH(10.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2575f671</data>
-</node>
-<node id="B6_9_CELL_WITH_FORMULA">
-<data key="name">B6</data>
-<data key="value">9</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: CLEAN(B1); Formula Values: CLEAN(9.0); Formula Ptg: 9.0 CLEAN ; Ptgs: B1 CLEAN  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2575f671</data>
 </node>
 <node id="B1_9.0_CELL_WITH_VALUE">
 <data key="name">B1</data>
 <data key="value">9.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: B1; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: B1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2575f671</data>
+</node>
+<node id="B6_9_CELL_WITH_FORMULA">
+<data key="name">B6</data>
+<data key="value">9</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: CLEAN(B1); Formula Values: CLEAN(9.0); Formula Ptg: 9.0 CLEAN ; Ptgs: B1 CLEAN  Index in Ptgs: 1 </data>
 </node>
 <node id="CLEAN_9_FUNCTION">
 <data key="name">CLEAN</data>
 <data key="value">9</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: CLEAN(B1); Formula Values: CLEAN(9.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2575f671</data>
 </node>
-<edge source="VALUE_10.0_CONSTANT_VALUE" target="ACOSH_2.993222846126381_FUNCTION"/>
+<node id="VALUE_10.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">10.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 10.0; Formula Ptg: 10.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
 <edge source="ACOSH_2.993222846126381_FUNCTION" target="A1_2.993222846126381_CELL_WITH_FORMULA"/>
 <edge source="B1_9.0_CELL_WITH_VALUE" target="CLEAN_9_FUNCTION"/>
 <edge source="CLEAN_9_FUNCTION" target="B6_9_CELL_WITH_FORMULA"/>
+<edge source="VALUE_10.0_CONSTANT_VALUE" target="ACOSH_2.993222846126381_FUNCTION"/>
 </graph>
 </graphml>

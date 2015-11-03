@@ -1,44 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E8">
+<node id="DATE_42251.0_FUNCTION">
+<data key="name">DATE</data>
+<data key="value">42251.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: DATE(VALUE, VALUE, VALUE); Formula Values: DATE(4.0, 9.0, 2015.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+</node>
 <node id="E8_42251.0_CELL_WITH_FORMULA">
 <data key="name">E8</data>
 <data key="value">42251.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: DATE(VALUE, VALUE, VALUE); Formula Values: DATE(4.0, 9.0, 2015.0); Formula Ptg: 4.0, 9.0, 2015.0 DATE ; Ptgs: VALUE, VALUE, VALUE DATE  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6b8ca3c8</data>
 </node>
 <node id="VALUE_2015.0_CONSTANT_VALUE">
 <data key="name">VALUE</data>
 <data key="value">2015.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula String: VALUE; Formula Values: 2015.0; Formula Ptg: 2015.0; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6b8ca3c8</data>
 </node>
 <node id="VALUE_9.0_CONSTANT_VALUE">
 <data key="name">VALUE</data>
 <data key="value">9.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula String: VALUE; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6b8ca3c8</data>
 </node>
 <node id="VALUE_4.0_CONSTANT_VALUE">
 <data key="name">VALUE</data>
 <data key="value">4.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula String: VALUE; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: VALUE Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6b8ca3c8</data>
 </node>
-<node id="DATE_42251.0_FUNCTION">
-<data key="name">DATE</data>
-<data key="value">42251.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: DATE(VALUE, VALUE, VALUE); Formula Values: DATE(4.0, 9.0, 2015.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6b8ca3c8</data>
-</node>
+<edge source="DATE_42251.0_FUNCTION" target="E8_42251.0_CELL_WITH_FORMULA"/>
+<edge source="VALUE_2015.0_CONSTANT_VALUE" target="DATE_42251.0_FUNCTION"/>
 <edge source="VALUE_4.0_CONSTANT_VALUE" target="DATE_42251.0_FUNCTION"/>
 <edge source="VALUE_9.0_CONSTANT_VALUE" target="DATE_42251.0_FUNCTION"/>
-<edge source="VALUE_2015.0_CONSTANT_VALUE" target="DATE_42251.0_FUNCTION"/>
-<edge source="DATE_42251.0_FUNCTION" target="E8_42251.0_CELL_WITH_FORMULA"/>
 </graph>
 </graphml>

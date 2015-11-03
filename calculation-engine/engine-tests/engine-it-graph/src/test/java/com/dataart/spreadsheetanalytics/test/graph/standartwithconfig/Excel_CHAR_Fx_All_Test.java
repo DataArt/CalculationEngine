@@ -15,11 +15,11 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.test.graph.standartwithconfig;
 
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
@@ -59,47 +59,42 @@ public class Excel_CHAR_Fx_All_Test extends SerializedGraphTest {
     }
     
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_No_Join() {
         graph = auditor.buildDynamicExecutionGraph();
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_All() {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix1);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_2() {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix2);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_5() {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix3);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_10() {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix4);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
     }
 }

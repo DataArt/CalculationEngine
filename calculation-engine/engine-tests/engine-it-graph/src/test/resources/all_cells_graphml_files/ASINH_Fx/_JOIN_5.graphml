@@ -1,51 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_5">
-<node id="B2_-1.6472311463710965_CELL_WITH_FORMULA">
-<data key="name">B2</data>
-<data key="value">-1.6472311463710965</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(-2.5); Formula Ptg: -2.5 ASINH ; Ptgs: VALUE ASINH  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4681c175</data>
-</node>
-<node id="VALUE_-2.5_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">-2.5</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: -2.5; Formula Ptg: -2.5; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4681c175</data>
-</node>
 <node id="ASINH_-1.6472311463710965_FUNCTION">
 <data key="name">ASINH</data>
 <data key="value">-1.6472311463710965</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(-2.5); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4681c175</data>
-</node>
-<node id="B3_3.4023066454805946_CELL_WITH_FORMULA">
-<data key="name">B3</data>
-<data key="value">3.4023066454805946</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(15.0); Formula Ptg: 15.0 ASINH ; Ptgs: VALUE ASINH  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4681c175</data>
-</node>
-<node id="VALUE_15.0_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">15.0</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 15.0; Formula Ptg: 15.0; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4681c175</data>
 </node>
 <node id="ASINH_3.4023066454805946_FUNCTION">
 <data key="name">ASINH</data>
 <data key="value">3.4023066454805946</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(15.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4681c175</data>
 </node>
-<edge source="VALUE_-2.5_CONSTANT_VALUE" target="ASINH_-1.6472311463710965_FUNCTION"/>
+<node id="B2_-1.6472311463710965_CELL_WITH_FORMULA">
+<data key="name">B2</data>
+<data key="value">-1.6472311463710965</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(-2.5); Formula Ptg: -2.5 ASINH ; Ptgs: VALUE ASINH  Index in Ptgs: 1 </data>
+</node>
+<node id="B3_3.4023066454805946_CELL_WITH_FORMULA">
+<data key="name">B3</data>
+<data key="value">3.4023066454805946</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(15.0); Formula Ptg: 15.0 ASINH ; Ptgs: VALUE ASINH  Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_-2.5_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">-2.5</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: -2.5; Formula Ptg: -2.5; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
+<node id="VALUE_15.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">15.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 15.0; Formula Ptg: 15.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
 <edge source="ASINH_-1.6472311463710965_FUNCTION" target="B2_-1.6472311463710965_CELL_WITH_FORMULA"/>
-<edge source="VALUE_15.0_CONSTANT_VALUE" target="ASINH_3.4023066454805946_FUNCTION"/>
 <edge source="ASINH_3.4023066454805946_FUNCTION" target="B3_3.4023066454805946_CELL_WITH_FORMULA"/>
+<edge source="VALUE_-2.5_CONSTANT_VALUE" target="ASINH_-1.6472311463710965_FUNCTION"/>
+<edge source="VALUE_15.0_CONSTANT_VALUE" target="ASINH_3.4023066454805946_FUNCTION"/>
 </graph>
 </graphml>

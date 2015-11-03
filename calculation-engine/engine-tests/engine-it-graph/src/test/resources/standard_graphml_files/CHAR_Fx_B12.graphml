@@ -5,24 +5,21 @@
 <data key="name">B12</data>
 <data key="value">&#8;</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: CHAR(VALUE); Formula Values: CHAR(8); Formula Ptg: 8 CHAR ; Ptgs: VALUE CHAR  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1787bc24</data>
-</node>
-<node id="VALUE_8_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">8</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 8; Formula Ptg: 8; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1787bc24</data>
+<data key="formula">Formula String: CHAR(VALUE); Formula Values: CHAR(8.0); Formula Ptg: 8.0 CHAR ; Ptgs: VALUE CHAR  Index in Ptgs: 1 </data>
 </node>
 <node id="CHAR_&#8;_FUNCTION">
 <data key="name">CHAR</data>
 <data key="value">&#8;</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: CHAR(VALUE); Formula Values: CHAR(8); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1787bc24</data>
+<data key="formula">Formula String: CHAR(VALUE); Formula Values: CHAR(8.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
 </node>
-<edge source="VALUE_8_CONSTANT_VALUE" target="CHAR_&#8;_FUNCTION"/>
+<node id="VALUE_8.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">8.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
 <edge source="CHAR_&#8;_FUNCTION" target="B12_&#8;_CELL_WITH_FORMULA"/>
+<edge source="VALUE_8.0_CONSTANT_VALUE" target="CHAR_&#8;_FUNCTION"/>
 </graph>
 </graphml>

@@ -13,9 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.test.graph.funcexec;
+package com.dataart.spreadsheetanalytics.test.graph.standard;
 
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_GRAPHML_DIR;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -23,24 +24,24 @@ import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
-public class Excel_Addition_Funcexec_E3_Test extends SerializedGraphTest {
-
-    static String address = "E3";
-    static String file = "Addition_Funcexec";
+public class Excel_DEFINES_dollar_sign_D9_Test extends SerializedGraphTest {
+    
+    static String address = "D9";
+    static String file = "DEFINES_dollar_sign";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-
+    
     @BeforeClass
     public static void before() throws Exception {
-        SerializedGraphTest.before(path, address);
+        SerializedGraphTest.before(path, address);        
     }
 
     @AfterClass
     public static void after() throws Exception {
         SerializedGraphTest.after();
     }
-
+    
     @Test
     public void assert_ExcelFile_SerializedGraph() {
-        super.assert_ExcelFile_SerializedGraph(file, address);
+        super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
     }
 }

@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.test.graph.standartwithconfig;
 
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
 import org.junit.AfterClass;
@@ -62,7 +63,7 @@ public class Excel_Exact_Fx_All_Test extends SerializedGraphTest {
         graph = auditor.buildDynamicExecutionGraph();
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
     }
 
     @Test
@@ -70,7 +71,7 @@ public class Excel_Exact_Fx_All_Test extends SerializedGraphTest {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix1);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
     @Test
@@ -78,7 +79,7 @@ public class Excel_Exact_Fx_All_Test extends SerializedGraphTest {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix2);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
     }
 
     @Test
@@ -86,7 +87,7 @@ public class Excel_Exact_Fx_All_Test extends SerializedGraphTest {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix3);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
     @Test
@@ -94,6 +95,6 @@ public class Excel_Exact_Fx_All_Test extends SerializedGraphTest {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES);
         dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
         rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
-        super.assert_ExcelFile_SerializedGraph_All(graphml, suffix4);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
     }
 }

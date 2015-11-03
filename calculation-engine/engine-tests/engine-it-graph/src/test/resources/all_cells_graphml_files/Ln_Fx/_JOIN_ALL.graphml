@@ -6,62 +6,54 @@
 <data key="value">20.085536923187664</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: EXP(VALUE); Formula Values: EXP(3.0); Formula Ptg: 3.0 EXP ; Ptgs: VALUE EXP  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
-</node>
-<node id="VALUE_3.0_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">3.0</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
-</node>
-<node id="EXP_20.085536923187664_FUNCTION">
-<data key="name">EXP</data>
-<data key="value">20.085536923187664</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: EXP(VALUE); Formula Values: EXP(3.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
 </node>
 <node id="C3_3.0_CELL_WITH_FORMULA">
 <data key="name">C3</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: LN(EXP(VALUE)); Formula Values: LN(EXP(3.0)); Formula Ptg: 3.0 EXP  LN ; Ptgs: VALUE EXP  LN  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
-</node>
-<node id="LN_3.0_FUNCTION">
-<data key="name">LN</data>
-<data key="value">3.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: LN(EXP(VALUE)); Formula Values: LN(EXP(3.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
 </node>
 <node id="C4_3.000000153185454_CELL_WITH_FORMULA">
 <data key="name">C4</data>
 <data key="value">3.000000153185454</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: LN(VALUE); Formula Values: LN(20.08554); Formula Ptg: 20.08554 LN ; Ptgs: VALUE LN  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
 </node>
-<node id="VALUE_20.08554_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">20.08554</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 20.08554; Formula Ptg: 20.08554; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
+<node id="EXP_20.085536923187664_FUNCTION">
+<data key="name">EXP</data>
+<data key="value">20.085536923187664</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: EXP(VALUE); Formula Values: EXP(3.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+</node>
+<node id="LN_3.0_FUNCTION">
+<data key="name">LN</data>
+<data key="value">3.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: LN(EXP(VALUE)); Formula Values: LN(EXP(3.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
 </node>
 <node id="LN_3.000000153185454_FUNCTION">
 <data key="name">LN</data>
 <data key="value">3.000000153185454</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: LN(VALUE); Formula Values: LN(20.08554); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2608f139</data>
 </node>
-<edge source="VALUE_3.0_CONSTANT_VALUE" target="EXP_20.085536923187664_FUNCTION"/>
+<node id="VALUE_3.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
+<node id="VALUE_20.08554_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">20.08554</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 20.08554; Formula Ptg: 20.08554; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
+<edge source="B2_20.085536923187664_CELL_WITH_FORMULA" target="LN_3.0_FUNCTION"/>
 <edge source="EXP_20.085536923187664_FUNCTION" target="B2_20.085536923187664_CELL_WITH_FORMULA"/>
+<edge source="LN_3.000000153185454_FUNCTION" target="C4_3.000000153185454_CELL_WITH_FORMULA"/>
 <edge source="LN_3.0_FUNCTION" target="C3_3.0_CELL_WITH_FORMULA"/>
 <edge source="VALUE_20.08554_CONSTANT_VALUE" target="LN_3.000000153185454_FUNCTION"/>
-<edge source="LN_3.000000153185454_FUNCTION" target="C4_3.000000153185454_CELL_WITH_FORMULA"/>
-<edge source="B2_20.085536923187664_CELL_WITH_FORMULA" target="LN_3.0_FUNCTION"/>
+<edge source="VALUE_3.0_CONSTANT_VALUE" target="EXP_20.085536923187664_FUNCTION"/>
 </graph>
 </graphml>

@@ -6,23 +6,20 @@
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: ISLOGICAL(VALUE); Formula Values: ISLOGICAL(TRUE); Formula Ptg: TRUE ISLOGICAL ; Ptgs: VALUE ISLOGICAL  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4562e04d</data>
-</node>
-<node id="VALUE_TRUE_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">TRUE</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: TRUE; Formula Ptg: TRUE; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4562e04d</data>
 </node>
 <node id="ISLOGICAL_TRUE_FUNCTION">
 <data key="name">ISLOGICAL</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ISLOGICAL(VALUE); Formula Values: ISLOGICAL(TRUE); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4562e04d</data>
 </node>
-<edge source="VALUE_TRUE_CONSTANT_VALUE" target="ISLOGICAL_TRUE_FUNCTION"/>
+<node id="VALUE_TRUE_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">TRUE</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: TRUE; Formula Ptg: TRUE; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
 <edge source="ISLOGICAL_TRUE_FUNCTION" target="D8_TRUE_CELL_WITH_FORMULA"/>
+<edge source="VALUE_TRUE_CONSTANT_VALUE" target="ISLOGICAL_TRUE_FUNCTION"/>
 </graph>
 </graphml>

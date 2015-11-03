@@ -6,46 +6,40 @@
 <data key="value">2.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: EVEN(VALUE); Formula Values: EVEN(1.5); Formula Ptg: 1.5 EVEN ; Ptgs: VALUE EVEN  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6c3c2718</data>
-</node>
-<node id="VALUE_1.5_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">1.5</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 1.5; Formula Ptg: 1.5; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6c3c2718</data>
-</node>
-<node id="EVEN_2.0_FUNCTION">
-<data key="name">EVEN</data>
-<data key="value">2.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: EVEN(VALUE); Formula Values: EVEN(1.5); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6c3c2718</data>
 </node>
 <node id="B3_4.0_CELL_WITH_FORMULA">
 <data key="name">B3</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: EVEN(VALUE); Formula Values: EVEN(2.5); Formula Ptg: 2.5 EVEN ; Ptgs: VALUE EVEN  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6c3c2718</data>
 </node>
-<node id="VALUE_2.5_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">2.5</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 2.5; Formula Ptg: 2.5; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6c3c2718</data>
+<node id="EVEN_2.0_FUNCTION">
+<data key="name">EVEN</data>
+<data key="value">2.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: EVEN(VALUE); Formula Values: EVEN(1.5); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
 </node>
 <node id="EVEN_4.0_FUNCTION">
 <data key="name">EVEN</data>
 <data key="value">4.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: EVEN(VALUE); Formula Values: EVEN(2.5); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6c3c2718</data>
 </node>
-<edge source="VALUE_1.5_CONSTANT_VALUE" target="EVEN_2.0_FUNCTION"/>
+<node id="VALUE_1.5_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">1.5</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 1.5; Formula Ptg: 1.5; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
+<node id="VALUE_2.5_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">2.5</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 2.5; Formula Ptg: 2.5; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
 <edge source="EVEN_2.0_FUNCTION" target="B2_2.0_CELL_WITH_FORMULA"/>
-<edge source="VALUE_2.5_CONSTANT_VALUE" target="EVEN_4.0_FUNCTION"/>
 <edge source="EVEN_4.0_FUNCTION" target="B3_4.0_CELL_WITH_FORMULA"/>
+<edge source="VALUE_1.5_CONSTANT_VALUE" target="EVEN_2.0_FUNCTION"/>
+<edge source="VALUE_2.5_CONSTANT_VALUE" target="EVEN_4.0_FUNCTION"/>
 </graph>
 </graphml>

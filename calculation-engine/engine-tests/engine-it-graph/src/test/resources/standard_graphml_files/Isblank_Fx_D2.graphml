@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D2">
-<node id="D2_FALSE_CELL_WITH_FORMULA">
-<data key="name">D2</data>
-<data key="value">FALSE</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISBLANK(A6); Formula Values: ISBLANK(4.0); Formula Ptg: 4.0 ISBLANK ; Ptgs: A6 ISBLANK  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76707e36</data>
-</node>
 <node id="A6_4.0_CELL_WITH_VALUE">
 <data key="name">A6</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A6; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: A6 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76707e36</data>
+</node>
+<node id="D2_FALSE_CELL_WITH_FORMULA">
+<data key="name">D2</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ISBLANK(A6); Formula Values: ISBLANK(4.0); Formula Ptg: 4.0 ISBLANK ; Ptgs: A6 ISBLANK  Index in Ptgs: 1 </data>
 </node>
 <node id="ISBLANK_FALSE_FUNCTION">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: ISBLANK(A6); Formula Values: ISBLANK(4.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76707e36</data>
 </node>
 <edge source="A6_4.0_CELL_WITH_VALUE" target="ISBLANK_FALSE_FUNCTION"/>
 <edge source="ISBLANK_FALSE_FUNCTION" target="D2_FALSE_CELL_WITH_FORMULA"/>

@@ -17,6 +17,9 @@ package com.dataart.spreadsheetanalytics.test.util;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -28,10 +31,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.GraphMLExporter;
-import org.jgrapht.graph.DefaultEdge;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 
 /**
@@ -48,7 +51,7 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
     @Override
     public void export(Writer writer, Graph graph) throws SAXException, TransformerConfigurationException {
 
-        DirectedGraph<ExecutionGraphVertex, DefaultEdge> g = (DirectedGraph<ExecutionGraphVertex, DefaultEdge>) graph;
+        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> g = (DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge>) graph;
         
         // Prepare an XML file to receive the GraphML data
         PrintWriter out = new PrintWriter(writer);
@@ -84,8 +87,12 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
         attr.addAttribute("", "", "id", "CDATA", this.id);
         handler.startElement("", "", "graph", attr);
 
+        //sort vertices for xml file
+        List<ExecutionGraphVertex> sortedVertices = new ArrayList<>(g.vertexSet());
+        Collections.sort(sortedVertices, (a, b) -> a.name().compareTo(b.name()));
+        
         // Add all the vertices as <node> elements...
-        for (ExecutionGraphVertex v : g.vertexSet()) {
+        for (ExecutionGraphVertex v : sortedVertices) {
             // <node>
             String value = v.value() == null ? "" : v.value().toString(); 
             
@@ -121,19 +128,18 @@ public class GraphWithProperertiesMLExporter extends GraphMLExporter {
             handler.startElement("", "", "data", attr);
             handler.characters((v.formula() == null ? "null" : v.formula()).toString().toCharArray(), 0, (v.formula() == null ? "null" : v.formula()).toString().length()); // Content for <data>
             handler.endElement("", "", "data");
-            
-            // sourceObjectId
-            attr.clear();
-            attr.addAttribute("", "", "key", "CDATA", "sourceObjectId");
-            handler.startElement("", "", "data", attr);
-            handler.characters((v.sourceObjectId() == null ? "null" : v.sourceObjectId()).toString().toCharArray(), 0, (v.sourceObjectId() == null ? "null" : v.sourceObjectId()).toString().length()); // Content for <data>
-            handler.endElement("", "", "data");
-            
+
             handler.endElement("", "", "node");
         }
 
+        //sort edges for xml
+        List<ExecutionGraphEdge> sortedEdges = new ArrayList<>(g.edgeSet());
+        Collections.sort(sortedEdges, (a, b) -> 
+                                                new String(g.getEdgeSource(a).name() + "_" + g.getEdgeSource(a).value().toString() + "_" + g.getEdgeSource(a).type())
+                                     .compareTo(new String(g.getEdgeSource(b).name() + "_" + g.getEdgeSource(b).value().toString() + "_" + g.getEdgeSource(b).type())));
+
         // Add all the edges as <edge> elements...
-        for (DefaultEdge e : g.edgeSet()) {
+        for (ExecutionGraphEdge e : sortedEdges) {
             // <edge>
             
             String graphmlId_1 = g.getEdgeSource(e).name() + "_" + g.getEdgeSource(e).value().toString() + "_" + g.getEdgeSource(e).type();

@@ -80,9 +80,9 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     }
 
     @Override
-    public int compareTo(IExecutionGraphVertex arg0) {
-        if (arg0 instanceof ExecutionGraphVertex) {
-            ExecutionGraphVertex vertex = (ExecutionGraphVertex) arg0;
+    public int compareTo(IExecutionGraphVertex v) {
+        if (v instanceof ExecutionGraphVertex) {
+            ExecutionGraphVertex vertex = (ExecutionGraphVertex) v;
             if (!vertex.name().equals(this.name())) { return -1; }
             if (!vertex.value().get().equals(this.value().get())) { return -1; }
             if (!vertex.formula().formulaStr().equals(this.formula().formulaStr())) { return -1; }

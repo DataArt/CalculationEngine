@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B3">
-<node id="B3_19.0_CELL_WITH_FORMULA">
-<data key="name">B3</data>
-<data key="value">19.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: INT(A1); Formula Values: INT(19.5); Formula Ptg: 19.5 INT ; Ptgs: A1 INT  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@13b13b5d</data>
-</node>
 <node id="A1_19.5_CELL_WITH_VALUE">
 <data key="name">A1</data>
 <data key="value">19.5</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A1; Formula Values: 19.5; Formula Ptg: 19.5; Ptgs: A1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@13b13b5d</data>
+</node>
+<node id="B3_19.0_CELL_WITH_FORMULA">
+<data key="name">B3</data>
+<data key="value">19.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INT(A1); Formula Values: INT(19.5); Formula Ptg: 19.5 INT ; Ptgs: A1 INT  Index in Ptgs: 1 </data>
 </node>
 <node id="INT_19.0_FUNCTION">
 <data key="name">INT</data>
 <data key="value">19.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: INT(A1); Formula Values: INT(19.5); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@13b13b5d</data>
 </node>
 <edge source="A1_19.5_CELL_WITH_VALUE" target="INT_19.0_FUNCTION"/>
 <edge source="INT_19.0_FUNCTION" target="B3_19.0_CELL_WITH_FORMULA"/>

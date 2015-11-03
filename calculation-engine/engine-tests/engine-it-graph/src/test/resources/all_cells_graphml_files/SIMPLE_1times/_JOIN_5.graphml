@@ -1,92 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_5">
-<node id="A1_2.0_CELL_WITH_FORMULA">
-<data key="name">A1</data>
-<data key="value">2.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula Values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0; Formula Ptg: 1.0 2.0 * 5.0, 5.0, 5.0 SUM  3.0 / + 5.0 -; Ptgs: B1 C1 * D1:F1 SUM  G1 / + H1 - Index in Ptgs: 9 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
-<node id="B1_1.0_CELL_WITH_VALUE">
-<data key="name">B1</data>
-<data key="value">1.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B1; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: B1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
-<node id="C1_2.0_CELL_WITH_VALUE">
-<data key="name">C1</data>
-<data key="value">2.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C1; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: C1 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
 <node id="*_2.0_OPERATOR">
 <data key="name">*</data>
 <data key="value">2.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula String: B1 * C1; Formula Values: 1.0 * 2.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
-<node id="D1:F1_[[5.0, 5.0, 5.0]]_RANGE">
-<data key="name">D1:F1</data>
-<data key="value">[[5.0, 5.0, 5.0]]</data>
-<data key="type">RANGE</data>
-<data key="formula">Formula String: D1:F1; Formula Values: [[5.0, 5.0, 5.0]]; Formula Ptg: [[5.0, 5.0, 5.0]]; Ptgs: D1:F1 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
-<node id="SUM_15.0_FUNCTION">
-<data key="name">SUM</data>
-<data key="value">15.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: SUM(D1:F1); Formula Values: SUM(5.0, 5.0, 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
-<node id="G1_3.0_CELL_WITH_VALUE">
-<data key="name">G1</data>
-<data key="value">3.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: G1; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: G1 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
-<node id="/_5.0_OPERATOR">
-<data key="name">/</data>
-<data key="value">5.0</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: SUM(D1:F1) / G1; Formula Values: SUM(5.0, 5.0, 5.0) / 3.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
 </node>
 <node id="+_7.0_OPERATOR">
 <data key="name">+</data>
 <data key="value">7.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula String: B1 * C1 + SUM(D1:F1) / G1; Formula Values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 7 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
-</node>
-<node id="H1_5.0_CELL_WITH_VALUE">
-<data key="name">H1</data>
-<data key="value">5.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: H1; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: H1 Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
 </node>
 <node id="-_2.0_OPERATOR">
 <data key="name">-</data>
 <data key="value">2.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula String: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula Values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 9 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@18513c23</data>
 </node>
-<edge source="C1_2.0_CELL_WITH_VALUE" target="*_2.0_OPERATOR"/>
-<edge source="B1_1.0_CELL_WITH_VALUE" target="*_2.0_OPERATOR"/>
-<edge source="D1:F1_[[5.0, 5.0, 5.0]]_RANGE" target="SUM_15.0_FUNCTION"/>
-<edge source="G1_3.0_CELL_WITH_VALUE" target="/_5.0_OPERATOR"/>
-<edge source="SUM_15.0_FUNCTION" target="/_5.0_OPERATOR"/>
-<edge source="/_5.0_OPERATOR" target="+_7.0_OPERATOR"/>
+<node id="/_5.0_OPERATOR">
+<data key="name">/</data>
+<data key="value">5.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: SUM(D1:F1) / G1; Formula Values: SUM(5.0, 5.0, 5.0) / 3.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
+</node>
+<node id="A1_2.0_CELL_WITH_FORMULA">
+<data key="name">A1</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula Values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0; Formula Ptg: 1.0 2.0 * 5.0, 5.0, 5.0 SUM  3.0 / + 5.0 -; Ptgs: B1 C1 * D1:F1 SUM  G1 / + H1 - Index in Ptgs: 9 </data>
+</node>
+<node id="B1_1.0_CELL_WITH_VALUE">
+<data key="name">B1</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B1; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: B1 Index in Ptgs: 0 </data>
+</node>
+<node id="C1_2.0_CELL_WITH_VALUE">
+<data key="name">C1</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C1; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: C1 Index in Ptgs: 1 </data>
+</node>
+<node id="D1:F1_[[5.0, 5.0, 5.0]]_RANGE">
+<data key="name">D1:F1</data>
+<data key="value">[[5.0, 5.0, 5.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula String: D1:F1; Formula Values: [[5.0, 5.0, 5.0]]; Formula Ptg: [[5.0, 5.0, 5.0]]; Ptgs: D1:F1 Index in Ptgs: 3 </data>
+</node>
+<node id="G1_3.0_CELL_WITH_VALUE">
+<data key="name">G1</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: G1; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: G1 Index in Ptgs: 5 </data>
+</node>
+<node id="H1_5.0_CELL_WITH_VALUE">
+<data key="name">H1</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: H1; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: H1 Index in Ptgs: 8 </data>
+</node>
+<node id="SUM_15.0_FUNCTION">
+<data key="name">SUM</data>
+<data key="value">15.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: SUM(D1:F1); Formula Values: SUM(5.0, 5.0, 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 4 </data>
+</node>
 <edge source="*_2.0_OPERATOR" target="+_7.0_OPERATOR"/>
-<edge source="H1_5.0_CELL_WITH_VALUE" target="-_2.0_OPERATOR"/>
 <edge source="+_7.0_OPERATOR" target="-_2.0_OPERATOR"/>
 <edge source="-_2.0_OPERATOR" target="A1_2.0_CELL_WITH_FORMULA"/>
+<edge source="/_5.0_OPERATOR" target="+_7.0_OPERATOR"/>
+<edge source="B1_1.0_CELL_WITH_VALUE" target="*_2.0_OPERATOR"/>
+<edge source="C1_2.0_CELL_WITH_VALUE" target="*_2.0_OPERATOR"/>
+<edge source="D1:F1_[[5.0, 5.0, 5.0]]_RANGE" target="SUM_15.0_FUNCTION"/>
+<edge source="G1_3.0_CELL_WITH_VALUE" target="/_5.0_OPERATOR"/>
+<edge source="H1_5.0_CELL_WITH_VALUE" target="-_2.0_OPERATOR"/>
+<edge source="SUM_15.0_FUNCTION" target="/_5.0_OPERATOR"/>
 </graph>
 </graphml>

@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_10">
-<node id="D4_~CIRCULAR~REF~_CELL_WITH_FORMULA">
-<data key="name">D4</data>
-<data key="value">~CIRCULAR~REF~</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: INDEX(A1:D4,4,4); Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@493da830</data>
-</node>
-<node id="A1:D4_[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ~CIRCULAR~REF~]]_RANGE">
-<data key="name">A1:D4</data>
-<data key="value">[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ~CIRCULAR~REF~]]</data>
-<data key="type">RANGE</data>
-<data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@493da830</data>
-</node>
 <node id="4_4.0_CONSTANT_VALUE">
 <data key="name">4</data>
 <data key="value">4.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@493da830</data>
 </node>
 <node id="4_4.0_CONSTANT_VALUE">
 <data key="name">4</data>
 <data key="value">4.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@493da830</data>
+</node>
+<node id="A1:D4_[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ~CIRCULAR~REF~]]_RANGE">
+<data key="name">A1:D4</data>
+<data key="value">[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ~CIRCULAR~REF~]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 0 </data>
+</node>
+<node id="D4_~CIRCULAR~REF~_CELL_WITH_FORMULA">
+<data key="name">D4</data>
+<data key="value">~CIRCULAR~REF~</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INDEX(A1:D4,4,4); Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 0 </data>
 </node>
 <node id="INDEX_[[~CIRCULAR~REF~]]_FUNCTION">
 <data key="name">INDEX</data>
 <data key="value">[[~CIRCULAR~REF~]]</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@493da830</data>
 </node>
-<edge source="D4_~CIRCULAR~REF~_CELL_WITH_FORMULA" target="A1:D4_[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ~CIRCULAR~REF~]]_RANGE"/>
 <edge source="4_4.0_CONSTANT_VALUE" target="INDEX_[[~CIRCULAR~REF~]]_FUNCTION"/>
 <edge source="4_4.0_CONSTANT_VALUE" target="INDEX_[[~CIRCULAR~REF~]]_FUNCTION"/>
 <edge source="A1:D4_[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ~CIRCULAR~REF~]]_RANGE" target="INDEX_[[~CIRCULAR~REF~]]_FUNCTION"/>
+<edge source="D4_~CIRCULAR~REF~_CELL_WITH_FORMULA" target="A1:D4_[[Apples, Lemons, 7.0, 6.0], [Bananas, Pears, u, 5.0], [67.0, 6.0, u, hgdhgj], [9.0, 98.0, 98.0, ~CIRCULAR~REF~]]_RANGE"/>
 <edge source="D4_~CIRCULAR~REF~_CELL_WITH_FORMULA" target="INDEX_[[~CIRCULAR~REF~]]_FUNCTION"/>
 <edge source="INDEX_[[~CIRCULAR~REF~]]_FUNCTION" target="D4_~CIRCULAR~REF~_CELL_WITH_FORMULA"/>
 </graph>

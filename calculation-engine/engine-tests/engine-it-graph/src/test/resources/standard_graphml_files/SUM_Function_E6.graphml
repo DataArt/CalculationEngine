@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="E6_15.0_CELL_WITH_FORMULA">
-<data key="name">E6</data>
-<data key="value">15.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: SUM(A1:E1); Formula Values: SUM(1.0, 2.0, 3.0, 4.0, 5.0); Formula Ptg: 1.0, 2.0, 3.0, 4.0, 5.0 SUM ; Ptgs: A1:E1 SUM  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@53ca01a2</data>
-</node>
 <node id="A1:E1_[[1.0, 2.0, 3.0, 4.0, 5.0]]_RANGE">
 <data key="name">A1:E1</data>
 <data key="value">[[1.0, 2.0, 3.0, 4.0, 5.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula String: A1:E1; Formula Values: [[1.0, 2.0, 3.0, 4.0, 5.0]]; Formula Ptg: [[1.0, 2.0, 3.0, 4.0, 5.0]]; Ptgs: A1:E1 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@53ca01a2</data>
+</node>
+<node id="E6_15.0_CELL_WITH_FORMULA">
+<data key="name">E6</data>
+<data key="value">15.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: SUM(A1:E1); Formula Values: SUM(1.0, 2.0, 3.0, 4.0, 5.0); Formula Ptg: 1.0, 2.0, 3.0, 4.0, 5.0 SUM ; Ptgs: A1:E1 SUM  Index in Ptgs: 1 </data>
 </node>
 <node id="SUM_15.0_FUNCTION">
 <data key="name">SUM</data>
 <data key="value">15.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: SUM(A1:E1); Formula Values: SUM(1.0, 2.0, 3.0, 4.0, 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@53ca01a2</data>
 </node>
 <edge source="A1:E1_[[1.0, 2.0, 3.0, 4.0, 5.0]]_RANGE" target="SUM_15.0_FUNCTION"/>
 <edge source="SUM_15.0_FUNCTION" target="E6_15.0_CELL_WITH_FORMULA"/>

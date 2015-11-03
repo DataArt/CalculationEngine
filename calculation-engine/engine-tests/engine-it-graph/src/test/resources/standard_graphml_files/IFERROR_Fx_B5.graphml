@@ -1,52 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B5">
-<node id="B5_-2.0_CELL_WITH_FORMULA">
-<data key="name">B5</data>
+<node id="-_-2.0_OPERATOR">
+<data key="name">-</data>
 <data key="value">-2.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: IFERROR(B3, A3 - VALUE); Formula Values: IFERROR(7.0, 3.0 - 5.0); Formula Ptg: 7.0, 3.0 5.0 - IFERROR ; Ptgs: B3, A3 VALUE - IFERROR  Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44c03695</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: A3 - VALUE; Formula Values: 3.0 - 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
 </node>
 <node id="A3_3.0_CELL_WITH_VALUE">
 <data key="name">A3</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: A3; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: A3 Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44c03695</data>
-</node>
-<node id="VALUE_5.0_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">5.0</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: VALUE Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44c03695</data>
-</node>
-<node id="-_-2.0_OPERATOR">
-<data key="name">-</data>
-<data key="value">-2.0</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: A3 - VALUE; Formula Values: 3.0 - 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44c03695</data>
 </node>
 <node id="B3_7.0_CELL_WITH_VALUE">
 <data key="name">B3</data>
 <data key="value">7.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: B3; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: B3 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44c03695</data>
+</node>
+<node id="B5_-2.0_CELL_WITH_FORMULA">
+<data key="name">B5</data>
+<data key="value">-2.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: IFERROR(B3, A3 - VALUE); Formula Values: IFERROR(7.0, 3.0 - 5.0); Formula Ptg: 7.0, 3.0 5.0 - IFERROR ; Ptgs: B3, A3 VALUE - IFERROR  Index in Ptgs: 5 </data>
 </node>
 <node id="IFERROR_-2.0_FUNCTION">
 <data key="name">IFERROR</data>
 <data key="value">-2.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: IFERROR(B3, A3 - VALUE); Formula Values: IFERROR(7.0, 3.0 - 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@44c03695</data>
 </node>
-<edge source="VALUE_5.0_CONSTANT_VALUE" target="-_-2.0_OPERATOR"/>
+<node id="VALUE_5.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">5.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: VALUE Index in Ptgs: 2 </data>
+</node>
+<edge source="-_-2.0_OPERATOR" target="IFERROR_-2.0_FUNCTION"/>
 <edge source="A3_3.0_CELL_WITH_VALUE" target="-_-2.0_OPERATOR"/>
 <edge source="B3_7.0_CELL_WITH_VALUE" target="IFERROR_-2.0_FUNCTION"/>
-<edge source="-_-2.0_OPERATOR" target="IFERROR_-2.0_FUNCTION"/>
 <edge source="IFERROR_-2.0_FUNCTION" target="B5_-2.0_CELL_WITH_FORMULA"/>
+<edge source="VALUE_5.0_CONSTANT_VALUE" target="-_-2.0_OPERATOR"/>
 </graph>
 </graphml>

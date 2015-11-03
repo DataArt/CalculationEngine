@@ -1,605 +1,529 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_10">
-<node id="E2_5.25_CELL_WITH_FORMULA">
-<data key="name">E2</data>
-<data key="value">5.25</data>
+<node id="A10_DEFINE_CELL_WITH_FORMULA">
+<data key="name">A10</data>
+<data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A2:D2); Formula Values: AVERAGE(5.0, 3.0, 9.0, 4.0); Formula Ptg: 5.0, 3.0, 9.0, 4.0 AVERAGE ; Ptgs: A2:D2 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<data key="formula">Formula String: DEFINE(AVERAGE(A5:D5), VALUE, D5, C5, B5, A5, VALUE); Formula Values: DEFINE(AVERAGE(7.0, 8.0, 0.9, 9.0), #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4); Formula Ptg: 7.0, 8.0, 0.9, 9.0 AVERAGE , #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4 DEFINE ; Ptgs: A5:D5 AVERAGE , VALUE, D5, C5, B5, A5, VALUE DEFINE  Index in Ptgs: 8 </data>
+</node>
+<node id="A2_5.0_CELL_WITH_VALUE">
+<data key="name">A2</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A2; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A2 Index in Ptgs: 2 </data>
+</node>
+<node id="A2_5.0_CELL_WITH_VALUE">
+<data key="name">A2</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A2; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A2 Index in Ptgs: 2 </data>
 </node>
 <node id="A2:D2_[[5.0, 3.0, 9.0, 4.0]]_RANGE">
 <data key="name">A2:D2</data>
 <data key="value">[[5.0, 3.0, 9.0, 4.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula String: A2:D2; Formula Values: [[5.0, 3.0, 9.0, 4.0]]; Formula Ptg: [[5.0, 3.0, 9.0, 4.0]]; Ptgs: A2:D2 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
-<node id="AVERAGE_5.25_FUNCTION">
-<data key="name">AVERAGE</data>
-<data key="value">5.25</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: AVERAGE(A2:D2); Formula Values: AVERAGE(5.0, 3.0, 9.0, 4.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="A3_8.0_CELL_WITH_VALUE">
+<data key="name">A3</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: A3 Index in Ptgs: 2 </data>
 </node>
-<node id="E3_5.5_CELL_WITH_FORMULA">
-<data key="name">E3</data>
-<data key="value">5.5</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A3:D3); Formula Values: AVERAGE(8.0, 4.0, 8.0, 2.0); Formula Ptg: 8.0, 4.0, 8.0, 2.0 AVERAGE ; Ptgs: A3:D3 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="A3_8.0_CELL_WITH_VALUE">
+<data key="name">A3</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: A3 Index in Ptgs: 2 </data>
 </node>
 <node id="A3:D3_[[8.0, 4.0, 8.0, 2.0]]_RANGE">
 <data key="name">A3:D3</data>
 <data key="value">[[8.0, 4.0, 8.0, 2.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula String: A3:D3; Formula Values: [[8.0, 4.0, 8.0, 2.0]]; Formula Ptg: [[8.0, 4.0, 8.0, 2.0]]; Ptgs: A3:D3 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
-<node id="AVERAGE_5.5_FUNCTION">
-<data key="name">AVERAGE</data>
-<data key="value">5.5</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: AVERAGE(A3:D3); Formula Values: AVERAGE(8.0, 4.0, 8.0, 2.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="A4_1.0_CELL_WITH_VALUE">
+<data key="name">A4</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A4; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: A4 Index in Ptgs: 2 </data>
 </node>
-<node id="E4_3.5_CELL_WITH_FORMULA">
-<data key="name">E4</data>
-<data key="value">3.5</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A4:D4); Formula Values: AVERAGE(1.0, 8.0, 0.0, 5.0); Formula Ptg: 1.0, 8.0, 0.0, 5.0 AVERAGE ; Ptgs: A4:D4 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="A4_1.0_CELL_WITH_VALUE">
+<data key="name">A4</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A4; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: A4 Index in Ptgs: 2 </data>
 </node>
 <node id="A4:D4_[[1.0, 8.0, 0.0, 5.0]]_RANGE">
 <data key="name">A4:D4</data>
 <data key="value">[[1.0, 8.0, 0.0, 5.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula String: A4:D4; Formula Values: [[1.0, 8.0, 0.0, 5.0]]; Formula Ptg: [[1.0, 8.0, 0.0, 5.0]]; Ptgs: A4:D4 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
-<node id="AVERAGE_3.5_FUNCTION">
-<data key="name">AVERAGE</data>
-<data key="value">3.5</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: AVERAGE(A4:D4); Formula Values: AVERAGE(1.0, 8.0, 0.0, 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="A5_7.0_CELL_WITH_VALUE">
+<data key="name">A5</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A5; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: A5 Index in Ptgs: 2 </data>
 </node>
-<node id="E5_6.225_CELL_WITH_FORMULA">
-<data key="name">E5</data>
-<data key="value">6.225</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A5:D5); Formula Values: AVERAGE(7.0, 8.0, 0.9, 9.0); Formula Ptg: 7.0, 8.0, 0.9, 9.0 AVERAGE ; Ptgs: A5:D5 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="A5_7.0_CELL_WITH_VALUE">
+<data key="name">A5</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A5; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: A5 Index in Ptgs: 2 </data>
 </node>
 <node id="A5:D5_[[7.0, 8.0, 0.9, 9.0]]_RANGE">
 <data key="name">A5:D5</data>
 <data key="value">[[7.0, 8.0, 0.9, 9.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula String: A5:D5; Formula Values: [[7.0, 8.0, 0.9, 9.0]]; Formula Ptg: [[7.0, 8.0, 0.9, 9.0]]; Ptgs: A5:D5 Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="AVERAGE_6.225_FUNCTION">
-<data key="name">AVERAGE</data>
-<data key="value">6.225</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: AVERAGE(A5:D5); Formula Values: AVERAGE(7.0, 8.0, 0.9, 9.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="F6_5.25_CELL_WITH_FORMULA">
-<data key="name">F6</data>
-<data key="value">5.25</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: FUNCEXEC(D2, C2, B2, A2, VALUE); Formula Values: FUNCEXEC(4.0, 9.0, 3.0, 5.0, DEVDEF_1); Formula Ptg: 4.0, 9.0, 3.0, 5.0, DEVDEF_1 FUNCEXEC ; Ptgs: D2, C2, B2, A2, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_DEVDEF_1_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_1</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_1; Formula Ptg: DEVDEF_1; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A2_5.0_CELL_WITH_VALUE">
-<data key="name">A2</data>
-<data key="value">5.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A2; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A2 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="B2_3.0_CELL_WITH_VALUE">
-<data key="name">B2</data>
-<data key="value">3.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B2; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: B2 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="C2_9.0_CELL_WITH_VALUE">
-<data key="name">C2</data>
-<data key="value">9.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C2; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: C2 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="D2_4.0_CELL_WITH_VALUE">
-<data key="name">D2</data>
-<data key="value">4.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D2; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: D2 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="FUNCEXEC_5.25_FUNCTION">
-<data key="name">FUNCEXEC</data>
-<data key="value">5.25</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: FUNCEXEC(D2, C2, B2, A2, VALUE); Formula Values: FUNCEXEC(4.0, 9.0, 3.0, 5.0, DEVDEF_1); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
 <node id="A7_DEFINE_CELL_WITH_FORMULA">
 <data key="name">A7</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: DEFINE(AVERAGE(A2:D2), VALUE, D2, C2, B2, A2, VALUE); Formula Values: DEFINE(AVERAGE(5.0, 3.0, 9.0, 4.0), #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1); Formula Ptg: 5.0, 3.0, 9.0, 4.0 AVERAGE , #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1 DEFINE ; Ptgs: A2:D2 AVERAGE , VALUE, D2, C2, B2, A2, VALUE DEFINE  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_DEVDEF_1_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_1</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_1; Formula Ptg: DEVDEF_1; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A2_5.0_CELL_WITH_VALUE">
-<data key="name">A2</data>
-<data key="value">5.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A2; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A2 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="B2_3.0_CELL_WITH_VALUE">
-<data key="name">B2</data>
-<data key="value">3.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B2; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: B2 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="C2_9.0_CELL_WITH_VALUE">
-<data key="name">C2</data>
-<data key="value">9.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C2; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: C2 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="D2_4.0_CELL_WITH_VALUE">
-<data key="name">D2</data>
-<data key="value">4.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D2; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: D2 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_#_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">#</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="E2_5.25_CELL_WITH_FORMULA">
-<data key="name">E2</data>
-<data key="value">5.25</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A2:D2); Formula Values: AVERAGE(5.0, 3.0, 9.0, 4.0); Formula Ptg: 5.0, 3.0, 9.0, 4.0 AVERAGE ; Ptgs: A2:D2 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="DEFINE_DEFINE_FUNCTION">
-<data key="name">DEFINE</data>
-<data key="value">DEFINE</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: DEFINE(AVERAGE(A2:D2), VALUE, D2, C2, B2, A2, VALUE); Formula Values: DEFINE(AVERAGE(5.0, 3.0, 9.0, 4.0), #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1); Formula Ptg: ; Ptgs:  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="F7_5.5_CELL_WITH_FORMULA">
-<data key="name">F7</data>
-<data key="value">5.5</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: FUNCEXEC(D3, C3, B3, A3, VALUE); Formula Values: FUNCEXEC(2.0, 8.0, 4.0, 8.0, DEVDEF_2); Formula Ptg: 2.0, 8.0, 4.0, 8.0, DEVDEF_2 FUNCEXEC ; Ptgs: D3, C3, B3, A3, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_DEVDEF_2_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_2</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_2; Formula Ptg: DEVDEF_2; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A3_8.0_CELL_WITH_VALUE">
-<data key="name">A3</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: A3 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="B3_4.0_CELL_WITH_VALUE">
-<data key="name">B3</data>
-<data key="value">4.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B3; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: B3 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="C3_8.0_CELL_WITH_VALUE">
-<data key="name">C3</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: C3 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="D3_2.0_CELL_WITH_VALUE">
-<data key="name">D3</data>
-<data key="value">2.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D3; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: D3 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="FUNCEXEC_5.5_FUNCTION">
-<data key="name">FUNCEXEC</data>
-<data key="value">5.5</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: FUNCEXEC(D3, C3, B3, A3, VALUE); Formula Values: FUNCEXEC(2.0, 8.0, 4.0, 8.0, DEVDEF_2); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
 <node id="A8_DEFINE_CELL_WITH_FORMULA">
 <data key="name">A8</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: DEFINE(AVERAGE(A3:D3), VALUE, D3, C3, B3, A3, VALUE); Formula Values: DEFINE(AVERAGE(8.0, 4.0, 8.0, 2.0), #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2); Formula Ptg: 8.0, 4.0, 8.0, 2.0 AVERAGE , #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2 DEFINE ; Ptgs: A3:D3 AVERAGE , VALUE, D3, C3, B3, A3, VALUE DEFINE  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_DEVDEF_2_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_2</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_2; Formula Ptg: DEVDEF_2; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A3_8.0_CELL_WITH_VALUE">
-<data key="name">A3</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: A3 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="B3_4.0_CELL_WITH_VALUE">
-<data key="name">B3</data>
-<data key="value">4.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B3; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: B3 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="C3_8.0_CELL_WITH_VALUE">
-<data key="name">C3</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: C3 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="D3_2.0_CELL_WITH_VALUE">
-<data key="name">D3</data>
-<data key="value">2.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D3; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: D3 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_#_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">#</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="E3_5.5_CELL_WITH_FORMULA">
-<data key="name">E3</data>
-<data key="value">5.5</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A3:D3); Formula Values: AVERAGE(8.0, 4.0, 8.0, 2.0); Formula Ptg: 8.0, 4.0, 8.0, 2.0 AVERAGE ; Ptgs: A3:D3 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="DEFINE_DEFINE_FUNCTION">
-<data key="name">DEFINE</data>
-<data key="value">DEFINE</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: DEFINE(AVERAGE(A3:D3), VALUE, D3, C3, B3, A3, VALUE); Formula Values: DEFINE(AVERAGE(8.0, 4.0, 8.0, 2.0), #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2); Formula Ptg: ; Ptgs:  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="F8_3.5_CELL_WITH_FORMULA">
-<data key="name">F8</data>
-<data key="value">3.5</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: FUNCEXEC(D4, C4, B4, A4, VALUE); Formula Values: FUNCEXEC(5.0, 0.0, 8.0, 1.0, DEVDEF_3); Formula Ptg: 5.0, 0.0, 8.0, 1.0, DEVDEF_3 FUNCEXEC ; Ptgs: D4, C4, B4, A4, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_DEVDEF_3_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_3</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_3; Formula Ptg: DEVDEF_3; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A4_1.0_CELL_WITH_VALUE">
-<data key="name">A4</data>
-<data key="value">1.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A4; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: A4 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="B4_8.0_CELL_WITH_VALUE">
-<data key="name">B4</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B4; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: B4 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="C4_0.0_CELL_WITH_VALUE">
-<data key="name">C4</data>
-<data key="value">0.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C4; Formula Values: 0.0; Formula Ptg: 0.0; Ptgs: C4 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="D4_5.0_CELL_WITH_VALUE">
-<data key="name">D4</data>
-<data key="value">5.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D4; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: D4 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="FUNCEXEC_3.5_FUNCTION">
-<data key="name">FUNCEXEC</data>
-<data key="value">3.5</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: FUNCEXEC(D4, C4, B4, A4, VALUE); Formula Values: FUNCEXEC(5.0, 0.0, 8.0, 1.0, DEVDEF_3); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
 <node id="A9_DEFINE_CELL_WITH_FORMULA">
 <data key="name">A9</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: DEFINE(AVERAGE(A4:D4), VALUE, D4, C4, B4, A4, VALUE); Formula Values: DEFINE(AVERAGE(1.0, 8.0, 0.0, 5.0), #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3); Formula Ptg: 1.0, 8.0, 0.0, 5.0 AVERAGE , #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3 DEFINE ; Ptgs: A4:D4 AVERAGE , VALUE, D4, C4, B4, A4, VALUE DEFINE  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
-<node id="VALUE_DEVDEF_3_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_3</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_3; Formula Ptg: DEVDEF_3; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="AVERAGE_5.25_FUNCTION">
+<data key="name">AVERAGE</data>
+<data key="value">5.25</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: AVERAGE(A2:D2); Formula Values: AVERAGE(5.0, 3.0, 9.0, 4.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
 </node>
-<node id="A4_1.0_CELL_WITH_VALUE">
-<data key="name">A4</data>
-<data key="value">1.0</data>
+<node id="AVERAGE_5.5_FUNCTION">
+<data key="name">AVERAGE</data>
+<data key="value">5.5</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: AVERAGE(A3:D3); Formula Values: AVERAGE(8.0, 4.0, 8.0, 2.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+</node>
+<node id="AVERAGE_3.5_FUNCTION">
+<data key="name">AVERAGE</data>
+<data key="value">3.5</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: AVERAGE(A4:D4); Formula Values: AVERAGE(1.0, 8.0, 0.0, 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+</node>
+<node id="AVERAGE_6.225_FUNCTION">
+<data key="name">AVERAGE</data>
+<data key="value">6.225</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: AVERAGE(A5:D5); Formula Values: AVERAGE(7.0, 8.0, 0.9, 9.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+</node>
+<node id="B2_3.0_CELL_WITH_VALUE">
+<data key="name">B2</data>
+<data key="value">3.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A4; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: A4 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<data key="formula">Formula String: B2; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: B2 Index in Ptgs: 3 </data>
+</node>
+<node id="B2_3.0_CELL_WITH_VALUE">
+<data key="name">B2</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B2; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: B2 Index in Ptgs: 3 </data>
+</node>
+<node id="B3_4.0_CELL_WITH_VALUE">
+<data key="name">B3</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B3; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: B3 Index in Ptgs: 3 </data>
+</node>
+<node id="B3_4.0_CELL_WITH_VALUE">
+<data key="name">B3</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B3; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: B3 Index in Ptgs: 3 </data>
 </node>
 <node id="B4_8.0_CELL_WITH_VALUE">
 <data key="name">B4</data>
 <data key="value">8.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: B4; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: B4 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+</node>
+<node id="B4_8.0_CELL_WITH_VALUE">
+<data key="name">B4</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B4; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: B4 Index in Ptgs: 3 </data>
+</node>
+<node id="B5_8.0_CELL_WITH_VALUE">
+<data key="name">B5</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B5; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: B5 Index in Ptgs: 3 </data>
+</node>
+<node id="B5_8.0_CELL_WITH_VALUE">
+<data key="name">B5</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B5; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: B5 Index in Ptgs: 3 </data>
+</node>
+<node id="C2_9.0_CELL_WITH_VALUE">
+<data key="name">C2</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C2; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: C2 Index in Ptgs: 4 </data>
+</node>
+<node id="C2_9.0_CELL_WITH_VALUE">
+<data key="name">C2</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C2; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: C2 Index in Ptgs: 4 </data>
+</node>
+<node id="C3_8.0_CELL_WITH_VALUE">
+<data key="name">C3</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: C3 Index in Ptgs: 4 </data>
+</node>
+<node id="C3_8.0_CELL_WITH_VALUE">
+<data key="name">C3</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C3; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: C3 Index in Ptgs: 4 </data>
 </node>
 <node id="C4_0.0_CELL_WITH_VALUE">
 <data key="name">C4</data>
 <data key="value">0.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: C4; Formula Values: 0.0; Formula Ptg: 0.0; Ptgs: C4 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+</node>
+<node id="C4_0.0_CELL_WITH_VALUE">
+<data key="name">C4</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C4; Formula Values: 0.0; Formula Ptg: 0.0; Ptgs: C4 Index in Ptgs: 4 </data>
+</node>
+<node id="C5_0.9_CELL_WITH_VALUE">
+<data key="name">C5</data>
+<data key="value">0.9</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C5; Formula Values: 0.9; Formula Ptg: 0.9; Ptgs: C5 Index in Ptgs: 4 </data>
+</node>
+<node id="C5_0.9_CELL_WITH_VALUE">
+<data key="name">C5</data>
+<data key="value">0.9</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: C5; Formula Values: 0.9; Formula Ptg: 0.9; Ptgs: C5 Index in Ptgs: 4 </data>
+</node>
+<node id="D2_4.0_CELL_WITH_VALUE">
+<data key="name">D2</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D2; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: D2 Index in Ptgs: 5 </data>
+</node>
+<node id="D2_4.0_CELL_WITH_VALUE">
+<data key="name">D2</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D2; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: D2 Index in Ptgs: 5 </data>
+</node>
+<node id="D3_2.0_CELL_WITH_VALUE">
+<data key="name">D3</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D3; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: D3 Index in Ptgs: 5 </data>
+</node>
+<node id="D3_2.0_CELL_WITH_VALUE">
+<data key="name">D3</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D3; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: D3 Index in Ptgs: 5 </data>
 </node>
 <node id="D4_5.0_CELL_WITH_VALUE">
 <data key="name">D4</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula String: D4; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: D4 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
-<node id="VALUE_#_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">#</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="D4_5.0_CELL_WITH_VALUE">
+<data key="name">D4</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D4; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: D4 Index in Ptgs: 5 </data>
 </node>
-<node id="E4_3.5_CELL_WITH_FORMULA">
-<data key="name">E4</data>
-<data key="value">3.5</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A4:D4); Formula Values: AVERAGE(1.0, 8.0, 0.0, 5.0); Formula Ptg: 1.0, 8.0, 0.0, 5.0 AVERAGE ; Ptgs: A4:D4 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+<node id="D5_9.0_CELL_WITH_VALUE">
+<data key="name">D5</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D5; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: D5 Index in Ptgs: 5 </data>
+</node>
+<node id="D5_9.0_CELL_WITH_VALUE">
+<data key="name">D5</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: D5; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: D5 Index in Ptgs: 5 </data>
+</node>
+<node id="DEFINE_DEFINE_FUNCTION">
+<data key="name">DEFINE</data>
+<data key="value">DEFINE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: DEFINE(AVERAGE(A2:D2), VALUE, D2, C2, B2, A2, VALUE); Formula Values: DEFINE(AVERAGE(5.0, 3.0, 9.0, 4.0), #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1); Formula Ptg: ; Ptgs:  Index in Ptgs: 8 </data>
+</node>
+<node id="DEFINE_DEFINE_FUNCTION">
+<data key="name">DEFINE</data>
+<data key="value">DEFINE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: DEFINE(AVERAGE(A3:D3), VALUE, D3, C3, B3, A3, VALUE); Formula Values: DEFINE(AVERAGE(8.0, 4.0, 8.0, 2.0), #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2); Formula Ptg: ; Ptgs:  Index in Ptgs: 8 </data>
 </node>
 <node id="DEFINE_DEFINE_FUNCTION">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: DEFINE(AVERAGE(A4:D4), VALUE, D4, C4, B4, A4, VALUE); Formula Values: DEFINE(AVERAGE(1.0, 8.0, 0.0, 5.0), #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3); Formula Ptg: ; Ptgs:  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="F9_6.225_CELL_WITH_FORMULA">
-<data key="name">F9</data>
-<data key="value">6.225</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: FUNCEXEC(D5, C5, B5, A5, VALUE); Formula Values: FUNCEXEC(9.0, 0.9, 8.0, 7.0, DEVDEF_4); Formula Ptg: 9.0, 0.9, 8.0, 7.0, DEVDEF_4 FUNCEXEC ; Ptgs: D5, C5, B5, A5, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_DEVDEF_4_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_4</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_4; Formula Ptg: DEVDEF_4; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A5_7.0_CELL_WITH_VALUE">
-<data key="name">A5</data>
-<data key="value">7.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A5; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: A5 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="B5_8.0_CELL_WITH_VALUE">
-<data key="name">B5</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B5; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: B5 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="C5_0.9_CELL_WITH_VALUE">
-<data key="name">C5</data>
-<data key="value">0.9</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C5; Formula Values: 0.9; Formula Ptg: 0.9; Ptgs: C5 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="D5_9.0_CELL_WITH_VALUE">
-<data key="name">D5</data>
-<data key="value">9.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D5; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: D5 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="FUNCEXEC_6.225_FUNCTION">
-<data key="name">FUNCEXEC</data>
-<data key="value">6.225</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: FUNCEXEC(D5, C5, B5, A5, VALUE); Formula Values: FUNCEXEC(9.0, 0.9, 8.0, 7.0, DEVDEF_4); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A10_DEFINE_CELL_WITH_FORMULA">
-<data key="name">A10</data>
-<data key="value">DEFINE</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: DEFINE(AVERAGE(A5:D5), VALUE, D5, C5, B5, A5, VALUE); Formula Values: DEFINE(AVERAGE(7.0, 8.0, 0.9, 9.0), #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4); Formula Ptg: 7.0, 8.0, 0.9, 9.0 AVERAGE , #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4 DEFINE ; Ptgs: A5:D5 AVERAGE , VALUE, D5, C5, B5, A5, VALUE DEFINE  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_DEVDEF_4_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">DEVDEF_4</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_4; Formula Ptg: DEVDEF_4; Ptgs: VALUE Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="A5_7.0_CELL_WITH_VALUE">
-<data key="name">A5</data>
-<data key="value">7.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A5; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: A5 Index in Ptgs: 2 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="B5_8.0_CELL_WITH_VALUE">
-<data key="name">B5</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B5; Formula Values: 8.0; Formula Ptg: 8.0; Ptgs: B5 Index in Ptgs: 3 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="C5_0.9_CELL_WITH_VALUE">
-<data key="name">C5</data>
-<data key="value">0.9</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C5; Formula Values: 0.9; Formula Ptg: 0.9; Ptgs: C5 Index in Ptgs: 4 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="D5_9.0_CELL_WITH_VALUE">
-<data key="name">D5</data>
-<data key="value">9.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D5; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: D5 Index in Ptgs: 5 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="VALUE_#_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">#</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
-</node>
-<node id="E5_6.225_CELL_WITH_FORMULA">
-<data key="name">E5</data>
-<data key="value">6.225</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A5:D5); Formula Values: AVERAGE(7.0, 8.0, 0.9, 9.0); Formula Ptg: 7.0, 8.0, 0.9, 9.0 AVERAGE ; Ptgs: A5:D5 AVERAGE  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
 </node>
 <node id="DEFINE_DEFINE_FUNCTION">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: DEFINE(AVERAGE(A5:D5), VALUE, D5, C5, B5, A5, VALUE); Formula Values: DEFINE(AVERAGE(7.0, 8.0, 0.9, 9.0), #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4); Formula Ptg: ; Ptgs:  Index in Ptgs: 8 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4c4d27c8</data>
+</node>
+<node id="E2_5.25_CELL_WITH_FORMULA">
+<data key="name">E2</data>
+<data key="value">5.25</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A2:D2); Formula Values: AVERAGE(5.0, 3.0, 9.0, 4.0); Formula Ptg: 5.0, 3.0, 9.0, 4.0 AVERAGE ; Ptgs: A2:D2 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="E2_5.25_CELL_WITH_FORMULA">
+<data key="name">E2</data>
+<data key="value">5.25</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A2:D2); Formula Values: AVERAGE(5.0, 3.0, 9.0, 4.0); Formula Ptg: 5.0, 3.0, 9.0, 4.0 AVERAGE ; Ptgs: A2:D2 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="E3_5.5_CELL_WITH_FORMULA">
+<data key="name">E3</data>
+<data key="value">5.5</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A3:D3); Formula Values: AVERAGE(8.0, 4.0, 8.0, 2.0); Formula Ptg: 8.0, 4.0, 8.0, 2.0 AVERAGE ; Ptgs: A3:D3 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="E3_5.5_CELL_WITH_FORMULA">
+<data key="name">E3</data>
+<data key="value">5.5</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A3:D3); Formula Values: AVERAGE(8.0, 4.0, 8.0, 2.0); Formula Ptg: 8.0, 4.0, 8.0, 2.0 AVERAGE ; Ptgs: A3:D3 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="E4_3.5_CELL_WITH_FORMULA">
+<data key="name">E4</data>
+<data key="value">3.5</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A4:D4); Formula Values: AVERAGE(1.0, 8.0, 0.0, 5.0); Formula Ptg: 1.0, 8.0, 0.0, 5.0 AVERAGE ; Ptgs: A4:D4 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="E4_3.5_CELL_WITH_FORMULA">
+<data key="name">E4</data>
+<data key="value">3.5</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A4:D4); Formula Values: AVERAGE(1.0, 8.0, 0.0, 5.0); Formula Ptg: 1.0, 8.0, 0.0, 5.0 AVERAGE ; Ptgs: A4:D4 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="E5_6.225_CELL_WITH_FORMULA">
+<data key="name">E5</data>
+<data key="value">6.225</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A5:D5); Formula Values: AVERAGE(7.0, 8.0, 0.9, 9.0); Formula Ptg: 7.0, 8.0, 0.9, 9.0 AVERAGE ; Ptgs: A5:D5 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="E5_6.225_CELL_WITH_FORMULA">
+<data key="name">E5</data>
+<data key="value">6.225</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: AVERAGE(A5:D5); Formula Values: AVERAGE(7.0, 8.0, 0.9, 9.0); Formula Ptg: 7.0, 8.0, 0.9, 9.0 AVERAGE ; Ptgs: A5:D5 AVERAGE  Index in Ptgs: 1 </data>
+</node>
+<node id="F6_5.25_CELL_WITH_FORMULA">
+<data key="name">F6</data>
+<data key="value">5.25</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: FUNCEXEC(D2, C2, B2, A2, VALUE); Formula Values: FUNCEXEC(4.0, 9.0, 3.0, 5.0, DEVDEF_1); Formula Ptg: 4.0, 9.0, 3.0, 5.0, DEVDEF_1 FUNCEXEC ; Ptgs: D2, C2, B2, A2, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
+</node>
+<node id="F7_5.5_CELL_WITH_FORMULA">
+<data key="name">F7</data>
+<data key="value">5.5</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: FUNCEXEC(D3, C3, B3, A3, VALUE); Formula Values: FUNCEXEC(2.0, 8.0, 4.0, 8.0, DEVDEF_2); Formula Ptg: 2.0, 8.0, 4.0, 8.0, DEVDEF_2 FUNCEXEC ; Ptgs: D3, C3, B3, A3, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
+</node>
+<node id="F8_3.5_CELL_WITH_FORMULA">
+<data key="name">F8</data>
+<data key="value">3.5</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: FUNCEXEC(D4, C4, B4, A4, VALUE); Formula Values: FUNCEXEC(5.0, 0.0, 8.0, 1.0, DEVDEF_3); Formula Ptg: 5.0, 0.0, 8.0, 1.0, DEVDEF_3 FUNCEXEC ; Ptgs: D4, C4, B4, A4, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
+</node>
+<node id="F9_6.225_CELL_WITH_FORMULA">
+<data key="name">F9</data>
+<data key="value">6.225</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: FUNCEXEC(D5, C5, B5, A5, VALUE); Formula Values: FUNCEXEC(9.0, 0.9, 8.0, 7.0, DEVDEF_4); Formula Ptg: 9.0, 0.9, 8.0, 7.0, DEVDEF_4 FUNCEXEC ; Ptgs: D5, C5, B5, A5, VALUE FUNCEXEC  Index in Ptgs: 6 </data>
+</node>
+<node id="FUNCEXEC_5.25_FUNCTION">
+<data key="name">FUNCEXEC</data>
+<data key="value">5.25</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: FUNCEXEC(D2, C2, B2, A2, VALUE); Formula Values: FUNCEXEC(4.0, 9.0, 3.0, 5.0, DEVDEF_1); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
+</node>
+<node id="FUNCEXEC_5.5_FUNCTION">
+<data key="name">FUNCEXEC</data>
+<data key="value">5.5</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: FUNCEXEC(D3, C3, B3, A3, VALUE); Formula Values: FUNCEXEC(2.0, 8.0, 4.0, 8.0, DEVDEF_2); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
+</node>
+<node id="FUNCEXEC_3.5_FUNCTION">
+<data key="name">FUNCEXEC</data>
+<data key="value">3.5</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: FUNCEXEC(D4, C4, B4, A4, VALUE); Formula Values: FUNCEXEC(5.0, 0.0, 8.0, 1.0, DEVDEF_3); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
+</node>
+<node id="FUNCEXEC_6.225_FUNCTION">
+<data key="name">FUNCEXEC</data>
+<data key="value">6.225</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: FUNCEXEC(D5, C5, B5, A5, VALUE); Formula Values: FUNCEXEC(9.0, 0.9, 8.0, 7.0, DEVDEF_4); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
+</node>
+<node id="VALUE_DEVDEF_1_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_1</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_1; Formula Ptg: DEVDEF_1; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_DEVDEF_1_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_1</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_1; Formula Ptg: DEVDEF_1; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_#_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">#</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
+</node>
+<node id="VALUE_DEVDEF_2_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_2</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_2; Formula Ptg: DEVDEF_2; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_DEVDEF_2_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_2</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_2; Formula Ptg: DEVDEF_2; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_#_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">#</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
+</node>
+<node id="VALUE_DEVDEF_3_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_3</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_3; Formula Ptg: DEVDEF_3; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_DEVDEF_3_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_3</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_3; Formula Ptg: DEVDEF_3; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_#_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">#</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
+</node>
+<node id="VALUE_DEVDEF_4_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_4</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_4; Formula Ptg: DEVDEF_4; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_DEVDEF_4_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF_4</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: DEVDEF_4; Formula Ptg: DEVDEF_4; Ptgs: VALUE Index in Ptgs: 1 </data>
+</node>
+<node id="VALUE_#_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">#</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: #; Formula Ptg: #; Ptgs: VALUE Index in Ptgs: 6 </data>
 </node>
 <edge source="A2:D2_[[5.0, 3.0, 9.0, 4.0]]_RANGE" target="AVERAGE_5.25_FUNCTION"/>
-<edge source="AVERAGE_5.25_FUNCTION" target="E2_5.25_CELL_WITH_FORMULA"/>
-<edge source="A3:D3_[[8.0, 4.0, 8.0, 2.0]]_RANGE" target="AVERAGE_5.5_FUNCTION"/>
-<edge source="AVERAGE_5.5_FUNCTION" target="E3_5.5_CELL_WITH_FORMULA"/>
-<edge source="A4:D4_[[1.0, 8.0, 0.0, 5.0]]_RANGE" target="AVERAGE_3.5_FUNCTION"/>
-<edge source="AVERAGE_3.5_FUNCTION" target="E4_3.5_CELL_WITH_FORMULA"/>
-<edge source="A5:D5_[[7.0, 8.0, 0.9, 9.0]]_RANGE" target="AVERAGE_6.225_FUNCTION"/>
-<edge source="AVERAGE_6.225_FUNCTION" target="E5_6.225_CELL_WITH_FORMULA"/>
-<edge source="D2_4.0_CELL_WITH_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
-<edge source="C2_9.0_CELL_WITH_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
-<edge source="B2_3.0_CELL_WITH_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
 <edge source="A2_5.0_CELL_WITH_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
-<edge source="VALUE_DEVDEF_1_CONSTANT_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
-<edge source="FUNCEXEC_5.25_FUNCTION" target="F6_5.25_CELL_WITH_FORMULA"/>
-<edge source="E2_5.25_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="D2_4.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="C2_9.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="B2_3.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
 <edge source="A2_5.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_DEVDEF_1_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="DEFINE_DEFINE_FUNCTION" target="A7_DEFINE_CELL_WITH_FORMULA"/>
-<edge source="D3_2.0_CELL_WITH_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
-<edge source="C3_8.0_CELL_WITH_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
-<edge source="B3_4.0_CELL_WITH_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
+<edge source="A3:D3_[[8.0, 4.0, 8.0, 2.0]]_RANGE" target="AVERAGE_5.5_FUNCTION"/>
 <edge source="A3_8.0_CELL_WITH_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
-<edge source="VALUE_DEVDEF_2_CONSTANT_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
-<edge source="FUNCEXEC_5.5_FUNCTION" target="F7_5.5_CELL_WITH_FORMULA"/>
-<edge source="E3_5.5_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="D3_2.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="C3_8.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="B3_4.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
 <edge source="A3_8.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_DEVDEF_2_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="DEFINE_DEFINE_FUNCTION" target="A8_DEFINE_CELL_WITH_FORMULA"/>
-<edge source="D4_5.0_CELL_WITH_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
-<edge source="C4_0.0_CELL_WITH_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
-<edge source="B4_8.0_CELL_WITH_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
+<edge source="A4:D4_[[1.0, 8.0, 0.0, 5.0]]_RANGE" target="AVERAGE_3.5_FUNCTION"/>
 <edge source="A4_1.0_CELL_WITH_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
-<edge source="VALUE_DEVDEF_3_CONSTANT_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
-<edge source="FUNCEXEC_3.5_FUNCTION" target="F8_3.5_CELL_WITH_FORMULA"/>
-<edge source="E4_3.5_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="D4_5.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="C4_0.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="B4_8.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
 <edge source="A4_1.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_DEVDEF_3_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="DEFINE_DEFINE_FUNCTION" target="A9_DEFINE_CELL_WITH_FORMULA"/>
-<edge source="D5_9.0_CELL_WITH_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
-<edge source="C5_0.9_CELL_WITH_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
-<edge source="B5_8.0_CELL_WITH_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
+<edge source="A5:D5_[[7.0, 8.0, 0.9, 9.0]]_RANGE" target="AVERAGE_6.225_FUNCTION"/>
 <edge source="A5_7.0_CELL_WITH_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
-<edge source="VALUE_DEVDEF_4_CONSTANT_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
-<edge source="FUNCEXEC_6.225_FUNCTION" target="F9_6.225_CELL_WITH_FORMULA"/>
-<edge source="E5_6.225_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="D5_9.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="C5_0.9_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="B5_8.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
 <edge source="A5_7.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="VALUE_DEVDEF_4_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
-<edge source="DEFINE_DEFINE_FUNCTION" target="A10_DEFINE_CELL_WITH_FORMULA"/>
+<edge source="AVERAGE_3.5_FUNCTION" target="E4_3.5_CELL_WITH_FORMULA"/>
+<edge source="AVERAGE_3.5_FUNCTION" target="E4_3.5_CELL_WITH_FORMULA"/>
+<edge source="AVERAGE_5.25_FUNCTION" target="E2_5.25_CELL_WITH_FORMULA"/>
 <edge source="AVERAGE_5.25_FUNCTION" target="E2_5.25_CELL_WITH_FORMULA"/>
 <edge source="AVERAGE_5.5_FUNCTION" target="E3_5.5_CELL_WITH_FORMULA"/>
-<edge source="AVERAGE_3.5_FUNCTION" target="E4_3.5_CELL_WITH_FORMULA"/>
+<edge source="AVERAGE_5.5_FUNCTION" target="E3_5.5_CELL_WITH_FORMULA"/>
 <edge source="AVERAGE_6.225_FUNCTION" target="E5_6.225_CELL_WITH_FORMULA"/>
+<edge source="AVERAGE_6.225_FUNCTION" target="E5_6.225_CELL_WITH_FORMULA"/>
+<edge source="B2_3.0_CELL_WITH_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
+<edge source="B2_3.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="B3_4.0_CELL_WITH_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
+<edge source="B3_4.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="B4_8.0_CELL_WITH_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
+<edge source="B4_8.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="B5_8.0_CELL_WITH_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
+<edge source="B5_8.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="C2_9.0_CELL_WITH_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
+<edge source="C2_9.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="C3_8.0_CELL_WITH_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
+<edge source="C3_8.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="C4_0.0_CELL_WITH_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
+<edge source="C4_0.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="C5_0.9_CELL_WITH_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
+<edge source="C5_0.9_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="D2_4.0_CELL_WITH_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
+<edge source="D2_4.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="D3_2.0_CELL_WITH_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
+<edge source="D3_2.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="D4_5.0_CELL_WITH_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
+<edge source="D4_5.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="D5_9.0_CELL_WITH_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
+<edge source="D5_9.0_CELL_WITH_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="DEFINE_DEFINE_FUNCTION" target="A7_DEFINE_CELL_WITH_FORMULA"/>
+<edge source="DEFINE_DEFINE_FUNCTION" target="A8_DEFINE_CELL_WITH_FORMULA"/>
+<edge source="DEFINE_DEFINE_FUNCTION" target="A9_DEFINE_CELL_WITH_FORMULA"/>
+<edge source="DEFINE_DEFINE_FUNCTION" target="A10_DEFINE_CELL_WITH_FORMULA"/>
+<edge source="E2_5.25_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="E3_5.5_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="E4_3.5_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="E5_6.225_CELL_WITH_FORMULA" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="FUNCEXEC_3.5_FUNCTION" target="F8_3.5_CELL_WITH_FORMULA"/>
+<edge source="FUNCEXEC_5.25_FUNCTION" target="F6_5.25_CELL_WITH_FORMULA"/>
+<edge source="FUNCEXEC_5.5_FUNCTION" target="F7_5.5_CELL_WITH_FORMULA"/>
+<edge source="FUNCEXEC_6.225_FUNCTION" target="F9_6.225_CELL_WITH_FORMULA"/>
+<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="VALUE_#_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="VALUE_DEVDEF_1_CONSTANT_VALUE" target="FUNCEXEC_5.25_FUNCTION"/>
+<edge source="VALUE_DEVDEF_1_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="VALUE_DEVDEF_2_CONSTANT_VALUE" target="FUNCEXEC_5.5_FUNCTION"/>
+<edge source="VALUE_DEVDEF_2_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="VALUE_DEVDEF_3_CONSTANT_VALUE" target="FUNCEXEC_3.5_FUNCTION"/>
+<edge source="VALUE_DEVDEF_3_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
+<edge source="VALUE_DEVDEF_4_CONSTANT_VALUE" target="FUNCEXEC_6.225_FUNCTION"/>
+<edge source="VALUE_DEVDEF_4_CONSTANT_VALUE" target="DEFINE_DEFINE_FUNCTION"/>
 </graph>
 </graphml>

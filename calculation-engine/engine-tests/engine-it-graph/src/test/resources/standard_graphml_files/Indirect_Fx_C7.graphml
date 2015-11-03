@@ -6,23 +6,20 @@
 <data key="value">10.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula String: INDIRECT(VALUE); Formula Values: INDIRECT(Bolt); Formula Ptg: Bolt INDIRECT ; Ptgs: VALUE INDIRECT  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6f03482</data>
-</node>
-<node id="VALUE_Bolt_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">Bolt</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: Bolt; Formula Ptg: Bolt; Ptgs: VALUE Index in Ptgs: 0 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6f03482</data>
 </node>
 <node id="INDIRECT_10.0_FUNCTION">
 <data key="name">INDIRECT</data>
 <data key="value">10.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula String: INDIRECT(VALUE); Formula Values: INDIRECT(Bolt); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6f03482</data>
 </node>
-<edge source="VALUE_Bolt_CONSTANT_VALUE" target="INDIRECT_10.0_FUNCTION"/>
+<node id="VALUE_Bolt_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">Bolt</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: Bolt; Formula Ptg: Bolt; Ptgs: VALUE Index in Ptgs: 0 </data>
+</node>
 <edge source="INDIRECT_10.0_FUNCTION" target="C7_10.0_CELL_WITH_FORMULA"/>
+<edge source="VALUE_Bolt_CONSTANT_VALUE" target="INDIRECT_10.0_FUNCTION"/>
 </graph>
 </graphml>
