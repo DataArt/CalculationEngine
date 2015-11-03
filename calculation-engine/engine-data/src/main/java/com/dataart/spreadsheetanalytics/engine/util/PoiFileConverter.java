@@ -63,7 +63,7 @@ public class PoiFileConverter {
         return result;
     }
 
-    private static void populateCellValue(Cell cell, Object value) {
+    public static void populateCellValue(Cell cell, Object value) {
         if (value instanceof String) {
             cell.setCellValue((String) value);
         } else if (value instanceof Boolean) {

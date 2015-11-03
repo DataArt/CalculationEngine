@@ -84,7 +84,7 @@ public class DemoUtil {
                             .append("', label: '")
                             .append(vertex.name())
                             .append("\\n")
-                            .append(vertex.value() == null || vertex.value().toString().length() > 25 ? "..." : vertex.value().toString())
+                            .append(vertex.value() == null || vertex.value().toString().length() > 55 ? "..." : vertex.value().toString())
                             .append("', color: '")
                             .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
                             .append("', title: '")

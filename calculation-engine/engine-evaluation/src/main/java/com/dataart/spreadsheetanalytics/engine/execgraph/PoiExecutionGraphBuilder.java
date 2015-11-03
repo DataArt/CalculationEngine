@@ -552,9 +552,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected Set<IExecutionGraphVertex> getParents(IExecutionGraphVertex vertex) {
         Set<IExecutionGraphVertex> retvals = new HashSet<>();
-        for (ExecutionGraphEdge edge : dgraph.outgoingEdgesOf(vertex)) {
-            retvals.add(dgraph.getEdgeTarget(edge));
-        }
+        
+        for (ExecutionGraphEdge edge : dgraph.outgoingEdgesOf(vertex)) 
+            { retvals.add(dgraph.getEdgeTarget(edge)); }
         return retvals;
     }
 
@@ -607,10 +607,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected void reassignOutgoingEdges(IExecutionGraphVertex ivertex1, IExecutionGraphVertex ivertex2) {
-        Set<ExecutionGraphEdge> set = dgraph.outgoingEdgesOf(ivertex2);
-        for (ExecutionGraphEdge item : set) {
-            dgraph.addEdge(ivertex1, dgraph.getEdgeTarget(item));
-        }
+        for (ExecutionGraphEdge item : dgraph.outgoingEdgesOf(ivertex2)) 
+            { dgraph.addEdge(ivertex1, dgraph.getEdgeTarget(item)); }
     }
 
     protected List<IExecutionGraphVertex> removeLeafDublicates(String address, int num) {
