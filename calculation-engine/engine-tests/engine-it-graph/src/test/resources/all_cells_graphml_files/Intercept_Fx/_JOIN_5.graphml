@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_5">
+<node id="C7_0.04838709677419217_CELL_WITH_FORMULA">
+<data key="name">C7</data>
+<data key="value">0.04838709677419217</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: INTERCEPT(B2:B6, A2:A6); Formula Values: INTERCEPT(6.0, 5.0, 11.0, 7.0, 5.0, 2.0, 3.0, 9.0, 1.0, 8.0); Formula Ptg: 6.0, 5.0, 11.0, 7.0, 5.0, 2.0, 3.0, 9.0, 1.0, 8.0 INTERCEPT ; Ptgs: B2:B6, A2:A6 INTERCEPT  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@62cba181</data>
+</node>
+<node id="A2:A6_[[2.0], [3.0], [9.0], [1.0], [8.0]]_RANGE">
+<data key="name">A2:A6</data>
+<data key="value">[[2.0], [3.0], [9.0], [1.0], [8.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula String: A2:A6; Formula Values: [[2.0], [3.0], [9.0], [1.0], [8.0]]; Formula Ptg: [[2.0], [3.0], [9.0], [1.0], [8.0]]; Ptgs: A2:A6 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@62cba181</data>
+</node>
+<node id="B2:B6_[[6.0], [5.0], [11.0], [7.0], [5.0]]_RANGE">
+<data key="name">B2:B6</data>
+<data key="value">[[6.0], [5.0], [11.0], [7.0], [5.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula String: B2:B6; Formula Values: [[6.0], [5.0], [11.0], [7.0], [5.0]]; Formula Ptg: [[6.0], [5.0], [11.0], [7.0], [5.0]]; Ptgs: B2:B6 Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@62cba181</data>
+</node>
+<node id="INTERCEPT_0.04838709677419217_FUNCTION">
+<data key="name">INTERCEPT</data>
+<data key="value">0.04838709677419217</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: INTERCEPT(B2:B6, A2:A6); Formula Values: INTERCEPT(6.0, 5.0, 11.0, 7.0, 5.0, 2.0, 3.0, 9.0, 1.0, 8.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@62cba181</data>
+</node>
+<edge source="B2:B6_[[6.0], [5.0], [11.0], [7.0], [5.0]]_RANGE" target="INTERCEPT_0.04838709677419217_FUNCTION"/>
+<edge source="A2:A6_[[2.0], [3.0], [9.0], [1.0], [8.0]]_RANGE" target="INTERCEPT_0.04838709677419217_FUNCTION"/>
+<edge source="INTERCEPT_0.04838709677419217_FUNCTION" target="C7_0.04838709677419217_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

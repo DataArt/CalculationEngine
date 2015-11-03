@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="A1_2.0_CELL_WITH_FORMULA">
+<data key="name">A1</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(2.0, 3.7); Formula Ptg: 2.0, 3.7 FLOOR ; Ptgs: VALUE, VALUE FLOOR  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<node id="VALUE_3.7_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">3.7</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 3.7; Formula Ptg: 3.7; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<node id="VALUE_2.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: VALUE Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<node id="FLOOR_2.0_FUNCTION">
+<data key="name">FLOOR</data>
+<data key="value">2.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(2.0, 3.7); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<node id="B2_30.0_CELL_WITH_FORMULA">
+<data key="name">B2</data>
+<data key="value">30.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(3.0, 32.5678); Formula Ptg: 3.0, 32.5678 FLOOR ; Ptgs: VALUE, VALUE FLOOR  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<node id="VALUE_32.5678_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">32.5678</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 32.5678; Formula Ptg: 32.5678; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<node id="VALUE_3.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: VALUE Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<node id="FLOOR_30.0_FUNCTION">
+<data key="name">FLOOR</data>
+<data key="value">30.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: FLOOR(VALUE, VALUE); Formula Values: FLOOR(3.0, 32.5678); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@539a138b</data>
+</node>
+<edge source="VALUE_2.0_CONSTANT_VALUE" target="FLOOR_2.0_FUNCTION"/>
+<edge source="VALUE_3.7_CONSTANT_VALUE" target="FLOOR_2.0_FUNCTION"/>
+<edge source="FLOOR_2.0_FUNCTION" target="A1_2.0_CELL_WITH_FORMULA"/>
+<edge source="VALUE_3.0_CONSTANT_VALUE" target="FLOOR_30.0_FUNCTION"/>
+<edge source="VALUE_32.5678_CONSTANT_VALUE" target="FLOOR_30.0_FUNCTION"/>
+<edge source="FLOOR_30.0_FUNCTION" target="B2_30.0_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

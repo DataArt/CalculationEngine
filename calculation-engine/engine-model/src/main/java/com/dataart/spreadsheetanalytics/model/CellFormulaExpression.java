@@ -65,6 +65,7 @@ public class CellFormulaExpression implements ICellFormulaExpression {
      * Does copy of provided instance.
      */
     public static CellFormulaExpression copyOf(CellFormulaExpression formula) {
+        if (formula == null) { return null; }
         CellFormulaExpression copy = new CellFormulaExpression();
 
         copy.formulaStr = formula.formulaStr().intern();

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="B2_0.7853981633974483_CELL_WITH_FORMULA">
+<data key="name">B2</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ATAN2(VALUE, VALUE); Formula Values: ATAN2(1.0, 1.0); Formula Ptg: 1.0, 1.0 ATAN2 ; Ptgs: VALUE, VALUE ATAN2  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<node id="VALUE_1.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<node id="VALUE_1.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: VALUE Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<node id="ATAN2_0.7853981633974483_FUNCTION">
+<data key="name">ATAN2</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ATAN2(VALUE, VALUE); Formula Values: ATAN2(1.0, 1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<node id="B3_-2.356194490192345_CELL_WITH_FORMULA">
+<data key="name">B3</data>
+<data key="value">-2.356194490192345</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String: ATAN2(VALUE, VALUE); Formula Values: ATAN2(-1.0, -1.0); Formula Ptg: -1.0, -1.0 ATAN2 ; Ptgs: VALUE, VALUE ATAN2  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<node id="VALUE_-1.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">-1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: -1.0; Formula Ptg: -1.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<node id="VALUE_-1.0_CONSTANT_VALUE">
+<data key="name">VALUE</data>
+<data key="value">-1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula String: VALUE; Formula Values: -1.0; Formula Ptg: -1.0; Ptgs: VALUE Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<node id="ATAN2_-2.356194490192345_FUNCTION">
+<data key="name">ATAN2</data>
+<data key="value">-2.356194490192345</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula String: ATAN2(VALUE, VALUE); Formula Values: ATAN2(-1.0, -1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@70cf87c</data>
+</node>
+<edge source="VALUE_1.0_CONSTANT_VALUE" target="ATAN2_0.7853981633974483_FUNCTION"/>
+<edge source="VALUE_1.0_CONSTANT_VALUE" target="ATAN2_0.7853981633974483_FUNCTION"/>
+<edge source="ATAN2_0.7853981633974483_FUNCTION" target="B2_0.7853981633974483_CELL_WITH_FORMULA"/>
+<edge source="VALUE_-1.0_CONSTANT_VALUE" target="ATAN2_-2.356194490192345_FUNCTION"/>
+<edge source="VALUE_-1.0_CONSTANT_VALUE" target="ATAN2_-2.356194490192345_FUNCTION"/>
+<edge source="ATAN2_-2.356194490192345_FUNCTION" target="B3_-2.356194490192345_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>

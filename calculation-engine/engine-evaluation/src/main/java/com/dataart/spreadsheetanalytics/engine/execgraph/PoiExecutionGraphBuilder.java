@@ -72,7 +72,9 @@ import org.apache.poi.ss.formula.ptg.MultiplyPtg;
 import org.apache.poi.ss.formula.ptg.NamePtg;
 import org.apache.poi.ss.formula.ptg.NameXPxg;
 import org.apache.poi.ss.formula.ptg.NotEqualPtg;
+import org.apache.poi.ss.formula.ptg.OperationPtg;
 import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
+import org.apache.poi.ss.formula.ptg.PowerPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
@@ -246,12 +248,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
             // restore/add subgraphs to identical vertices
             Type type = (Type) vertex.property(TYPE).get();
+
             if (isCell(type)) {
                 String address = (String) vertex.property(NAME).get();
 
                 adressToCount.putIfAbsent(address, new AtomicInteger(0));
 
-                if (adressToCount.get(address).incrementAndGet() > 1) { //count > 1
+                if (adressToCount.get(address).incrementAndGet() > 1) { // count > 1
                     // need to link
                     Set<IExecutionGraphVertex> subgraphTops = new HashSet<>();
 
@@ -330,7 +333,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     formula = buildFormula(ivertex, graph);
                 }
                 vertex.formula = CellFormulaExpression.copyOf(formula);
-                vertex.value = ivertex.value;
+                vertex.value = (ivertex == null) ? vertex.value : ivertex.value;
                 return CellFormulaExpression.copyOf(formula);
             }
             case OPERATOR:
@@ -540,6 +543,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             return "+";
         } else if (ptgCls.isAssignableFrom(ConcatPtg.class)) {
             return "&";
+        } else if (ptgCls.isAssignableFrom(PowerPtg.class)) {
+            return "^";
         }
 
         try {
@@ -553,7 +558,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
         if (ptg instanceof AbstractFunctionPtg) { // functions: SUM, COUNT, COS, etc.
             return FUNCTION;
-        } else if (ptg instanceof ValueOperatorPtg) { // single operators: +, -, /, *, =
+        } else if (ptg instanceof ValueOperatorPtg || ptg instanceof OperationPtg) { // single operators: +, -, /, *, =
             return OPERATOR;
         } else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg || ptg instanceof NamePtg) {
             return CELL_WITH_VALUE;
@@ -607,9 +612,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected void processLeaves(Set<IExecutionGraphVertex> leaves, int allowedNum) {
         for (IExecutionGraphVertex leaf : leaves) {
+            if (!dgraph.containsVertex(leaf)) { continue; }
             Set<IExecutionGraphVertex> parents = getParents(leaf);
             Map<IExecutionGraphVertex, Integer> chosen = new HashMap<>();
             for (IExecutionGraphVertex parent : parents) {
+                if (isCyclicRef(parent, leaf)) { continue; }
                 IExecutionGraphVertex found = returnVertexDuplicate(chosen.keySet(), parent);
                 if (found == null) {
                     chosen.put(parent, allowedNum);
@@ -627,6 +634,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             processLeaves(chosen.keySet(), allowedNum);
         }
+    }
+
+    protected boolean isCyclicRef(IExecutionGraphVertex parent, IExecutionGraphVertex child) {
+        Set<IExecutionGraphVertex> grandParents = getParents(parent);
+        return grandParents.contains(child);
     }
 
     protected static IExecutionGraphVertex returnVertexDuplicate(Collection<IExecutionGraphVertex> set, IExecutionGraphVertex ivalue) {
@@ -652,6 +664,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             result.add(champion);
             while (it.hasNext()) {
                 IExecutionGraphVertex value = it.next();
+                if (!dgraph.containsVertex(value)) { continue; }
                 if (num == 0) {
                     reassignOutgoingEdges(champion, value);
                     dgraph.removeVertex(value);

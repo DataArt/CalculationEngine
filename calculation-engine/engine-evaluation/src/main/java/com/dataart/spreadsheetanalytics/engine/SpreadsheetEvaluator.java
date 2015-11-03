@@ -15,13 +15,19 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.poi.common.execgraph.FormulaParseNAException;
 import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
+import org.apache.poi.common.execgraph.IExecutionGraphVertex;
+import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
+import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -36,6 +42,8 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
@@ -70,7 +78,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Cell c = r.getCell(addr.column());
         if (c == null) { return null; }
 
-        return evaluateCell(c);
+        ICellValue value = null;
+        try { value = evaluateCell(c); }
+        catch (ValuesStackNotEmptyException e) {
+            value = new CellValue(ErrorEval.VALUE_INVALID.getErrorString());
+        }
+
+        return value;
     }
 
     @Override
@@ -83,7 +97,21 @@ public class SpreadsheetEvaluator implements IEvaluator {
 
             for (Cell cell : row) {
                 DsCell evaluatedCell = evaluatedRow.createCell();
-                ICellValue value = evaluateCell(cell);
+                ICellValue value = null;
+                try {
+                    value = evaluateCell(cell);
+                } catch (ValuesStackNotEmptyException e) {
+                    IExecutionGraphBuilder ibuilder = poiEvaluator._getWorkbookEvaluator().getExecutionGraphBuilder();
+                    if (ibuilder instanceof PoiExecutionGraphBuilder) {
+                        PoiExecutionGraphBuilder builder = (PoiExecutionGraphBuilder) ibuilder;
+                        Set<IExecutionGraphVertex> ivertices = builder.getVerticesFromCache(cell.getRowIndex(), cell.getColumnIndex());
+                        for (IExecutionGraphVertex ivertex : ivertices) {
+                            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+                            vertex.property(VALUE).set(ErrorEval.VALUE_INVALID.getErrorString());
+                        }
+                        value = new CellValue(ErrorEval.VALUE_INVALID.getErrorString());
+                    }
+                }
                 evaluatedCell.value((value == null) ? null : value.get());
                 // TODO: Use multithreading to calculate cells in parallel
             }
@@ -99,8 +127,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
         try { poiValue = poiEvaluator.evaluate(c); }
         catch (FormulaParseNameException e) { return handleNameParseException(); }
         catch (FormulaParseNAException e) { return handleNaParseException(); }
+        catch (IncorrectExternalReferenceException e) { return handleIncorrectExternalReferenceException(); }
 
         return poiValue == null ? null : new CellValue(fromPoiValue(poiValue));
+    }
+
+    protected ICellValue handleIncorrectExternalReferenceException() {
+        return new CellValue(ErrorEval.REF_INVALID.getErrorString());
     }
 
     protected ICellValue handleNameParseException() {

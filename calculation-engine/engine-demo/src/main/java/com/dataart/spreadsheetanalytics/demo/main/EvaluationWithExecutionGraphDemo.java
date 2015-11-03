@@ -29,6 +29,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -67,7 +68,7 @@ public class EvaluationWithExecutionGraphDemo {
         //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
         //build graph
-        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr, ExecutionGraphConfig.DEFAULT);
         
         //print graph
         DemoUtil.generateVisJsData(graph);

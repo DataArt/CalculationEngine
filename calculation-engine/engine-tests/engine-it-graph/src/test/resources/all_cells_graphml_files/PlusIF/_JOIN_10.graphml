@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="A1_6.0_CELL_WITH_FORMULA">
+<data key="name">A1</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula String:  + IF(A3&gt;A4,B3,B4); Formula Values:  + IF(3.0 &gt; 5.0, 6.0); Formula Ptg:  6.0, 3.0 5.0 &gt; IF  +; Ptgs:  B4, A3 A4 &gt; IF  + Index in Ptgs: 9 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4fad6218</data>
+</node>
+<node id="A3_3.0_CELL_WITH_VALUE">
+<data key="name">A3</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A3; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: A3 Index in Ptgs: 0 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4fad6218</data>
+</node>
+<node id="A4_5.0_CELL_WITH_VALUE">
+<data key="name">A4</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: A4; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A4 Index in Ptgs: 1 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4fad6218</data>
+</node>
+<node id="&gt;_FALSE_OPERATOR">
+<data key="name">&gt;</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String: A3 &gt; A4; Formula Values: 3.0 &gt; 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4fad6218</data>
+</node>
+<node id="IF_6.0_IF">
+<data key="name">IF</data>
+<data key="value">6.0</data>
+<data key="type">IF</data>
+<data key="formula">Formula String: IF(A3&gt;A4,B3,B4); Formula Values: IF(3.0 &gt; 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4fad6218</data>
+</node>
+<node id="B4_6.0_CELL_WITH_VALUE">
+<data key="name">B4</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula String: B4; Formula Values: 6.0; Formula Ptg: 6.0; Ptgs: B4 Index in Ptgs: 6 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4fad6218</data>
+</node>
+<node id="+_6.0_OPERATOR">
+<data key="name">+</data>
+<data key="value">6.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula String:  + IF(A3&gt;A4,B3,B4); Formula Values:  + IF(3.0 &gt; 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 9 </data>
+<data key="sourceObjectId">org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@4fad6218</data>
+</node>
+<edge source="A4_5.0_CELL_WITH_VALUE" target="&gt;_FALSE_OPERATOR"/>
+<edge source="A3_3.0_CELL_WITH_VALUE" target="&gt;_FALSE_OPERATOR"/>
+<edge source="B4_6.0_CELL_WITH_VALUE" target="IF_6.0_IF"/>
+<edge source="&gt;_FALSE_OPERATOR" target="IF_6.0_IF"/>
+<edge source="IF_6.0_IF" target="+_6.0_OPERATOR"/>
+<edge source="+_6.0_OPERATOR" target="A1_6.0_CELL_WITH_FORMULA"/>
+</graph>
+</graphml>
