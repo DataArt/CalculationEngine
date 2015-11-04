@@ -552,7 +552,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected Set<IExecutionGraphVertex> getParents(IExecutionGraphVertex vertex) {
         Set<IExecutionGraphVertex> retvals = new HashSet<>();
-        
         for (ExecutionGraphEdge edge : dgraph.outgoingEdgesOf(vertex)) 
             { retvals.add(dgraph.getEdgeTarget(edge)); }
         return retvals;
@@ -567,8 +566,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected void processLeaves(Set<IExecutionGraphVertex> leaves, int allowedNum) {
-        for (IExecutionGraphVertex leaf : leaves) {
-            if (!dgraph.containsVertex(leaf)) { continue; }
+        Iterator<IExecutionGraphVertex> it = leaves.iterator();
+        while (it.hasNext()) {
+            IExecutionGraphVertex leaf = it.next();
+            if (!dgraph.containsVertex(leaf)) {
+                it.remove();
+                continue;
+            }
             Set<IExecutionGraphVertex> parents = getParents(leaf);
             Map<IExecutionGraphVertex, Integer> chosen = new HashMap<>();
             for (IExecutionGraphVertex parent : parents) {
