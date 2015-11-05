@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="396d2dc7-65d8-484c-ada7-0e788a7dbf8e">
+<data key="name">A1</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0;</data>
+</node>
+<node id="5caf64ee-9360-4d8b-a887-44aca7332a44">
+<data key="name">B1</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B1; Formula values: 1.0;</data>
+</node>
+<node id="e95b2a21-b335-4aec-8adb-be3af9ef0359">
+<data key="name">C1</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C1; Formula values: 2.0;</data>
+</node>
+<node id="e6949aa9-bd7a-45f1-971c-bdb9189f158e">
+<data key="name">*</data>
+<data key="value">2.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: B1 * C1; Formula values: 1.0 * 2.0;</data>
+</node>
+<node id="1fc744da-7a8e-4094-858e-a5baaca8988c">
+<data key="name">D1:F1</data>
+<data key="value">[[5.0, 5.0, 5.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: D1:F1; Formula values: [[5.0, 5.0, 5.0]];</data>
+</node>
+<node id="854d5880-80d0-493f-9308-ada37352870b">
+<data key="name">SUM</data>
+<data key="value">15.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(D1:F1); Formula values: SUM(5.0, 5.0, 5.0);</data>
+</node>
+<node id="a5750557-c891-4c47-a6eb-17cd0afb2631">
+<data key="name">G1</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: G1; Formula values: 3.0;</data>
+</node>
+<node id="a60704b5-3837-4a09-93f8-7c0d59418bc8">
+<data key="name">/</data>
+<data key="value">5.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(D1:F1) / G1; Formula values: SUM(5.0, 5.0, 5.0) / 3.0;</data>
+</node>
+<node id="b1e7bdfd-8d4c-41be-81b0-722c9233c1df">
+<data key="name">+</data>
+<data key="value">7.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1; Formula values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0;</data>
+</node>
+<node id="3a7963ed-6fe6-40bf-8360-1219590f3273">
+<data key="name">H1</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: H1; Formula values: 5.0;</data>
+</node>
+<node id="79352cc4-765a-4eb6-8dae-39b4f3bb5bca">
+<data key="name">-</data>
+<data key="value">2.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0;</data>
+</node>
+<edge source="e95b2a21-b335-4aec-8adb-be3af9ef0359" target="e6949aa9-bd7a-45f1-971c-bdb9189f158e"/>
+<edge source="5caf64ee-9360-4d8b-a887-44aca7332a44" target="e6949aa9-bd7a-45f1-971c-bdb9189f158e"/>
+<edge source="1fc744da-7a8e-4094-858e-a5baaca8988c" target="854d5880-80d0-493f-9308-ada37352870b"/>
+<edge source="a5750557-c891-4c47-a6eb-17cd0afb2631" target="a60704b5-3837-4a09-93f8-7c0d59418bc8"/>
+<edge source="854d5880-80d0-493f-9308-ada37352870b" target="a60704b5-3837-4a09-93f8-7c0d59418bc8"/>
+<edge source="a60704b5-3837-4a09-93f8-7c0d59418bc8" target="b1e7bdfd-8d4c-41be-81b0-722c9233c1df"/>
+<edge source="e6949aa9-bd7a-45f1-971c-bdb9189f158e" target="b1e7bdfd-8d4c-41be-81b0-722c9233c1df"/>
+<edge source="3a7963ed-6fe6-40bf-8360-1219590f3273" target="79352cc4-765a-4eb6-8dae-39b4f3bb5bca"/>
+<edge source="b1e7bdfd-8d4c-41be-81b0-722c9233c1df" target="79352cc4-765a-4eb6-8dae-39b4f3bb5bca"/>
+<edge source="79352cc4-765a-4eb6-8dae-39b4f3bb5bca" target="396d2dc7-65d8-484c-ada7-0e788a7dbf8e"/>
+</graph>
+</graphml>

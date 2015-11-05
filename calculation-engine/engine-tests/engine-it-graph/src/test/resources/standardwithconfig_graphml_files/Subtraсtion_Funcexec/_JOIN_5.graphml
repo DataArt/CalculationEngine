@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_5">
+<node id="8d9f19e6-1621-433a-970b-dc1554b99185">
+<data key="name">D2</data>
+<data key="value">-290.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: A2 - B2 - C2; Formula values: 250.0 - 240.0 - 300.0;</data>
+</node>
+<node id="98e406a9-368a-46d8-bc79-85f8e7d207a8">
+<data key="name">A2</data>
+<data key="value">250.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 250.0;</data>
+</node>
+<node id="7b345390-39e1-42c7-9f20-3db8c6f6b5e7">
+<data key="name">B2</data>
+<data key="value">240.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 240.0;</data>
+</node>
+<node id="bcbce58e-6794-4533-b2d0-0815525ea6b1">
+<data key="name">-</data>
+<data key="value">10.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A2 - B2; Formula values: 250.0 - 240.0;</data>
+</node>
+<node id="ba1a46b3-c1ff-4b48-93e2-2c3e72c86d60">
+<data key="name">C2</data>
+<data key="value">300.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 300.0;</data>
+</node>
+<node id="89387b05-bd48-4036-acee-c070efa8e1be">
+<data key="name">-</data>
+<data key="value">-290.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A2 - B2 - C2; Formula values: 250.0 - 240.0 - 300.0;</data>
+</node>
+<node id="3adc121d-0306-4b11-bdd2-3d3a2b50e4fe">
+<data key="name">D3</data>
+<data key="value">DEFINE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: DEFINE(A2 - B2 - C2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(250.0 - 240.0 - 300.0, #, 300.0, 240.0, 250.0, DEVDEF);</data>
+</node>
+<node id="9a0c8fc2-393a-4384-838a-7367e3aa3579">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
+</node>
+<node id="3e3ede95-7ee2-4f76-862c-d74527d496a9">
+<data key="name">A2</data>
+<data key="value">250.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 250.0;</data>
+</node>
+<node id="b7a7450e-6d20-4c64-bfa8-4846e898d03e">
+<data key="name">B2</data>
+<data key="value">240.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 240.0;</data>
+</node>
+<node id="713b49b3-ebfb-4bfb-a194-fd68d544ffcf">
+<data key="name">C2</data>
+<data key="value">300.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 300.0;</data>
+</node>
+<node id="da3c068a-30fe-4eaf-ab86-610a024f5034">
+<data key="name">VALUE</data>
+<data key="value">#</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #;</data>
+</node>
+<node id="facb8b95-42b3-4628-b390-60584f0551a8">
+<data key="name">D2</data>
+<data key="value">-290.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: A2 - B2 - C2; Formula values: 250.0 - 240.0 - 300.0;</data>
+</node>
+<node id="1beb37c5-30f7-4656-a817-2d9afa84f203">
+<data key="name">DEFINE</data>
+<data key="value">DEFINE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DEFINE(A2 - B2 - C2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(250.0 - 240.0 - 300.0, #, 300.0, 240.0, 250.0, DEVDEF);</data>
+</node>
+<node id="a102a9df-127b-4d77-9286-c5ac6bbd92ec">
+<data key="name">E3</data>
+<data key="value">-290.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: FUNCEXEC(C2, B2, A2, VALUE); Formula values: FUNCEXEC(300.0, 240.0, 250.0, DEVDEF);</data>
+</node>
+<node id="5c96a39e-dfde-4972-9c3c-3394a17758e9">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
+</node>
+<node id="0a17fbe9-8d49-4a9f-8a46-1d805080ed3a">
+<data key="name">A2</data>
+<data key="value">250.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 250.0;</data>
+</node>
+<node id="2fb8098d-487d-4e69-9e2d-83881422d0a7">
+<data key="name">B2</data>
+<data key="value">240.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 240.0;</data>
+</node>
+<node id="6093907e-bb82-4567-b7e9-2d0abc4b4f3e">
+<data key="name">C2</data>
+<data key="value">300.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 300.0;</data>
+</node>
+<node id="c8e41365-ba49-4f1d-854e-f230ad8b6c7f">
+<data key="name">FUNCEXEC</data>
+<data key="value">-290.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: FUNCEXEC(C2, B2, A2, VALUE); Formula values: FUNCEXEC(300.0, 240.0, 250.0, DEVDEF);</data>
+</node>
+<edge source="7b345390-39e1-42c7-9f20-3db8c6f6b5e7" target="bcbce58e-6794-4533-b2d0-0815525ea6b1"/>
+<edge source="98e406a9-368a-46d8-bc79-85f8e7d207a8" target="bcbce58e-6794-4533-b2d0-0815525ea6b1"/>
+<edge source="ba1a46b3-c1ff-4b48-93e2-2c3e72c86d60" target="89387b05-bd48-4036-acee-c070efa8e1be"/>
+<edge source="bcbce58e-6794-4533-b2d0-0815525ea6b1" target="89387b05-bd48-4036-acee-c070efa8e1be"/>
+<edge source="89387b05-bd48-4036-acee-c070efa8e1be" target="8d9f19e6-1621-433a-970b-dc1554b99185"/>
+<edge source="facb8b95-42b3-4628-b390-60584f0551a8" target="1beb37c5-30f7-4656-a817-2d9afa84f203"/>
+<edge source="da3c068a-30fe-4eaf-ab86-610a024f5034" target="1beb37c5-30f7-4656-a817-2d9afa84f203"/>
+<edge source="713b49b3-ebfb-4bfb-a194-fd68d544ffcf" target="1beb37c5-30f7-4656-a817-2d9afa84f203"/>
+<edge source="b7a7450e-6d20-4c64-bfa8-4846e898d03e" target="1beb37c5-30f7-4656-a817-2d9afa84f203"/>
+<edge source="3e3ede95-7ee2-4f76-862c-d74527d496a9" target="1beb37c5-30f7-4656-a817-2d9afa84f203"/>
+<edge source="9a0c8fc2-393a-4384-838a-7367e3aa3579" target="1beb37c5-30f7-4656-a817-2d9afa84f203"/>
+<edge source="1beb37c5-30f7-4656-a817-2d9afa84f203" target="3adc121d-0306-4b11-bdd2-3d3a2b50e4fe"/>
+<edge source="6093907e-bb82-4567-b7e9-2d0abc4b4f3e" target="c8e41365-ba49-4f1d-854e-f230ad8b6c7f"/>
+<edge source="2fb8098d-487d-4e69-9e2d-83881422d0a7" target="c8e41365-ba49-4f1d-854e-f230ad8b6c7f"/>
+<edge source="0a17fbe9-8d49-4a9f-8a46-1d805080ed3a" target="c8e41365-ba49-4f1d-854e-f230ad8b6c7f"/>
+<edge source="5c96a39e-dfde-4972-9c3c-3394a17758e9" target="c8e41365-ba49-4f1d-854e-f230ad8b6c7f"/>
+<edge source="c8e41365-ba49-4f1d-854e-f230ad8b6c7f" target="a102a9df-127b-4d77-9286-c5ac6bbd92ec"/>
+<edge source="89387b05-bd48-4036-acee-c070efa8e1be" target="facb8b95-42b3-4628-b390-60584f0551a8"/>
+</graph>
+</graphml>

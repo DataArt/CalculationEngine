@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E12">
-<node id="*_41686.049999999996_OPERATOR">
-<data key="name">*</data>
-<data key="value">41686.049999999996</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: E5 * E4 / VALUE; Formula Values: 107.3 * 77.7 / 0.2; Formula Ptg: ; Ptgs:  Index in Ptgs: 5 </data>
-</node>
-<node id="/_388.5_OPERATOR">
-<data key="name">/</data>
-<data key="value">388.5</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: E4 / VALUE; Formula Values: 77.7 / 0.2; Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
-</node>
-<node id="E12_41686.049999999996_CELL_WITH_FORMULA">
+<node id="7511c3e7-8166-4b0d-b805-f08ab82187e0">
 <data key="name">E12</data>
 <data key="value">41686.049999999996</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: E5 * E4 / VALUE; Formula Values: 107.3 * 77.7 / 0.2; Formula Ptg: 107.3 77.7 0.2 / *; Ptgs: E5 E4 VALUE / * Index in Ptgs: 5 </data>
+<data key="formula">Formula string: E5 * E4 / VALUE; Formula values: 107.3 * 77.7 / 0.2;</data>
 </node>
-<node id="E4_77.7_CELL_WITH_VALUE">
-<data key="name">E4</data>
-<data key="value">77.7</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: E4; Formula Values: 77.7; Formula Ptg: 77.7; Ptgs: E4 Index in Ptgs: 1 </data>
-</node>
-<node id="E5_107.3_CELL_WITH_VALUE">
+<node id="9ba2e111-44e4-4b69-b51c-46f558c91143">
 <data key="name">E5</data>
 <data key="value">107.3</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: E5; Formula Values: 107.3; Formula Ptg: 107.3; Ptgs: E5 Index in Ptgs: 0 </data>
+<data key="formula">Formula string: E5; Formula values: 107.3;</data>
 </node>
-<node id="VALUE_0.2_CONSTANT_VALUE">
+<node id="5f5143f0-cce4-4508-836a-41e8caaa63bd">
+<data key="name">E4</data>
+<data key="value">77.7</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: E4; Formula values: 77.7;</data>
+</node>
+<node id="32636cb0-ef6a-41d0-bde3-c277fdee98a6">
 <data key="name">VALUE</data>
 <data key="value">0.2</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 0.2; Formula Ptg: 0.2; Ptgs: VALUE Index in Ptgs: 2 </data>
+<data key="formula">Formula string: VALUE; Formula values: 0.2;</data>
 </node>
-<edge source="*_41686.049999999996_OPERATOR" target="E12_41686.049999999996_CELL_WITH_FORMULA"/>
-<edge source="/_388.5_OPERATOR" target="*_41686.049999999996_OPERATOR"/>
-<edge source="E4_77.7_CELL_WITH_VALUE" target="/_388.5_OPERATOR"/>
-<edge source="E5_107.3_CELL_WITH_VALUE" target="*_41686.049999999996_OPERATOR"/>
-<edge source="VALUE_0.2_CONSTANT_VALUE" target="/_388.5_OPERATOR"/>
+<node id="f80db9c7-b40d-4046-888d-04a0423f54b6">
+<data key="name">/</data>
+<data key="value">388.5</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: E4 / VALUE; Formula values: 77.7 / 0.2;</data>
+</node>
+<node id="cd793a6c-14b3-4c3d-9748-816abaada8a4">
+<data key="name">*</data>
+<data key="value">41686.049999999996</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: E5 * E4 / VALUE; Formula values: 107.3 * 77.7 / 0.2;</data>
+</node>
+<edge source="32636cb0-ef6a-41d0-bde3-c277fdee98a6" target="f80db9c7-b40d-4046-888d-04a0423f54b6"/>
+<edge source="5f5143f0-cce4-4508-836a-41e8caaa63bd" target="f80db9c7-b40d-4046-888d-04a0423f54b6"/>
+<edge source="f80db9c7-b40d-4046-888d-04a0423f54b6" target="cd793a6c-14b3-4c3d-9748-816abaada8a4"/>
+<edge source="9ba2e111-44e4-4b69-b51c-46f558c91143" target="cd793a6c-14b3-4c3d-9748-816abaada8a4"/>
+<edge source="cd793a6c-14b3-4c3d-9748-816abaada8a4" target="7511c3e7-8166-4b0d-b805-f08ab82187e0"/>
 </graph>
 </graphml>

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D6">
-<node id="C3_989.0_CELL_WITH_VALUE">
-<data key="name">C3</data>
-<data key="value">989.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C3; Formula Values: 989.0; Formula Ptg: 989.0; Ptgs: C3 Index in Ptgs: 0 </data>
-</node>
-<node id="D6_FALSE_CELL_WITH_FORMULA">
+<node id="16f94d7a-214d-49aa-85f8-e7afc2760710">
 <data key="name">D6</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISERROR(C3); Formula Values: ISERROR(989.0); Formula Ptg: 989.0 ISERROR ; Ptgs: C3 ISERROR  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISERROR(C3); Formula values: ISERROR(989.0);</data>
 </node>
-<node id="ISERROR_FALSE_FUNCTION">
+<node id="b4de862c-926d-4ff8-a134-b246b1081db0">
+<data key="name">C3</data>
+<data key="value">989.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: 989.0;</data>
+</node>
+<node id="3b14024e-acfd-4265-aa51-6812523fafb5">
 <data key="name">ISERROR</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISERROR(C3); Formula Values: ISERROR(989.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISERROR(C3); Formula values: ISERROR(989.0);</data>
 </node>
-<edge source="C3_989.0_CELL_WITH_VALUE" target="ISERROR_FALSE_FUNCTION"/>
-<edge source="ISERROR_FALSE_FUNCTION" target="D6_FALSE_CELL_WITH_FORMULA"/>
+<edge source="b4de862c-926d-4ff8-a134-b246b1081db0" target="3b14024e-acfd-4265-aa51-6812523fafb5"/>
+<edge source="3b14024e-acfd-4265-aa51-6812523fafb5" target="16f94d7a-214d-49aa-85f8-e7afc2760710"/>
 </graph>
 </graphml>

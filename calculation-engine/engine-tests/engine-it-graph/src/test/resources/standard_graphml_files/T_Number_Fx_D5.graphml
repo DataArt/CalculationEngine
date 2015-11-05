@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D5">
-<node id="D3_52.0_CELL_WITH_VALUE">
-<data key="name">D3</data>
-<data key="value">52.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D3; Formula Values: 52.0; Formula Ptg: 52.0; Ptgs: D3 Index in Ptgs: 0 </data>
-</node>
-<node id="D5__CELL_WITH_FORMULA">
+<node id="037e5108-33bd-4d43-a953-bc9542d6dbd7">
 <data key="name">D5</data>
 <data key="value"/>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: T(D3); Formula Values: T(52.0); Formula Ptg: 52.0 T ; Ptgs: D3 T  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
 </node>
-<node id="T__FUNCTION">
+<node id="95bb9c33-1c8d-459f-b028-0abead468dd4">
+<data key="name">D3</data>
+<data key="value">52.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D3; Formula values: 52.0;</data>
+</node>
+<node id="6d0d503a-cff3-4101-b67a-b6180f035d45">
 <data key="name">T</data>
 <data key="value"/>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: T(D3); Formula Values: T(52.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
 </node>
-<edge source="D3_52.0_CELL_WITH_VALUE" target="T__FUNCTION"/>
-<edge source="T__FUNCTION" target="D5__CELL_WITH_FORMULA"/>
+<edge source="95bb9c33-1c8d-459f-b028-0abead468dd4" target="6d0d503a-cff3-4101-b67a-b6180f035d45"/>
+<edge source="6d0d503a-cff3-4101-b67a-b6180f035d45" target="037e5108-33bd-4d43-a953-bc9542d6dbd7"/>
 </graph>
 </graphml>

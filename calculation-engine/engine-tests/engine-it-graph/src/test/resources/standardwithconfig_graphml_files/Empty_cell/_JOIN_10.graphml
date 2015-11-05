@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="513607ac-fb31-4f6f-97f8-ba203c28d1b5">
+<data key="name">A1</data>
+<data key="value">12.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: VALUE; Formula values: 12.0;</data>
+</node>
+<node id="73b37c7c-65e2-4ba4-ba39-99f9c61f374e">
+<data key="name">VALUE</data>
+<data key="value">12.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 12.0;</data>
+</node>
+<node id="ccbe2a09-3dca-4d4e-9729-22b57f2d90e6">
+<data key="name">E5</data>
+<data key="value">115.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(E1:E4); Formula values: SUM(5.0, 7.0, 57.0, 46.0);</data>
+</node>
+<node id="459cf4ec-a5b0-45e5-a8c6-1e1913a63652">
+<data key="name">E1:E4</data>
+<data key="value">[[5.0], [7.0], [57.0], [46.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: E1:E4; Formula values: [[5.0], [7.0], [57.0], [46.0]];</data>
+</node>
+<node id="238e2635-f130-42af-8b67-0cbd07131fdd">
+<data key="name">SUM</data>
+<data key="value">115.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(E1:E4); Formula values: SUM(5.0, 7.0, 57.0, 46.0);</data>
+</node>
+<edge source="73b37c7c-65e2-4ba4-ba39-99f9c61f374e" target="513607ac-fb31-4f6f-97f8-ba203c28d1b5"/>
+<edge source="459cf4ec-a5b0-45e5-a8c6-1e1913a63652" target="238e2635-f130-42af-8b67-0cbd07131fdd"/>
+<edge source="238e2635-f130-42af-8b67-0cbd07131fdd" target="ccbe2a09-3dca-4d4e-9729-22b57f2d90e6"/>
+</graph>
+</graphml>

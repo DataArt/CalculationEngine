@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="38a3272f-3926-4c52-8175-066f881f6c07">
+<data key="name">C7</data>
+<data key="value">0.04838709677419217</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: INTERCEPT(B2:B6, A2:A6); Formula values: INTERCEPT(6.0, 5.0, 11.0, 7.0, 5.0, 2.0, 3.0, 9.0, 1.0, 8.0);</data>
+</node>
+<node id="ab80be5f-cd43-4a36-8298-35a01ace6993">
+<data key="name">A2:A6</data>
+<data key="value">[[2.0], [3.0], [9.0], [1.0], [8.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A2:A6; Formula values: [[2.0], [3.0], [9.0], [1.0], [8.0]];</data>
+</node>
+<node id="33f356de-66bd-4d7b-9a39-3ca18d1bacce">
+<data key="name">B2:B6</data>
+<data key="value">[[6.0], [5.0], [11.0], [7.0], [5.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: B2:B6; Formula values: [[6.0], [5.0], [11.0], [7.0], [5.0]];</data>
+</node>
+<node id="0e6d79ba-5155-41cb-8ae4-3246a4ac7935">
+<data key="name">INTERCEPT</data>
+<data key="value">0.04838709677419217</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INTERCEPT(B2:B6, A2:A6); Formula values: INTERCEPT(6.0, 5.0, 11.0, 7.0, 5.0, 2.0, 3.0, 9.0, 1.0, 8.0);</data>
+</node>
+<edge source="33f356de-66bd-4d7b-9a39-3ca18d1bacce" target="0e6d79ba-5155-41cb-8ae4-3246a4ac7935"/>
+<edge source="ab80be5f-cd43-4a36-8298-35a01ace6993" target="0e6d79ba-5155-41cb-8ae4-3246a4ac7935"/>
+<edge source="0e6d79ba-5155-41cb-8ae4-3246a4ac7935" target="38a3272f-3926-4c52-8175-066f881f6c07"/>
+</graph>
+</graphml>

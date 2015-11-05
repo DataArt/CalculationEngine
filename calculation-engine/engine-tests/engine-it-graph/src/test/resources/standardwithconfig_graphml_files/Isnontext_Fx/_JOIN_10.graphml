@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="c8d0919c-4119-47f6-9346-36662b4ca518">
+<data key="name">C5</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(A1); Formula values: ISNONTEXT(1.0);</data>
+</node>
+<node id="4e1bee4a-c684-4a0d-b6ed-fab971267783">
+<data key="name">A1</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 1.0;</data>
+</node>
+<node id="9080ddf1-1045-4d83-b9fa-74613a17d4cc">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(A1); Formula values: ISNONTEXT(1.0);</data>
+</node>
+<node id="7534ce1e-f1c4-4e4b-b311-4add0fe22042">
+<data key="name">C6</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(B1); Formula values: ISNONTEXT(some);</data>
+</node>
+<node id="c5dd8e53-f5bc-4678-a5b3-c458538ba32a">
+<data key="name">B1</data>
+<data key="value">some</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B1; Formula values: some;</data>
+</node>
+<node id="b033215a-5457-474f-8038-fa8758a91910">
+<data key="name">ISNONTEXT</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(B1); Formula values: ISNONTEXT(some);</data>
+</node>
+<node id="c7d5c839-ea7e-4827-959a-45db96165aef">
+<data key="name">C7</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(ISNONTEXT(A1)); Formula values: ISNONTEXT(ISNONTEXT(1.0));</data>
+</node>
+<node id="d298edbd-e30a-4bb9-9264-3a4b02bfe0b8">
+<data key="name">C5</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(A1); Formula values: ISNONTEXT(1.0);</data>
+</node>
+<node id="1be59508-d07c-46a7-8fd7-715da3d5e04f">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(ISNONTEXT(A1)); Formula values: ISNONTEXT(ISNONTEXT(1.0));</data>
+</node>
+<node id="c612de03-1973-45a8-9375-c0715ff18db5">
+<data key="name">C8</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(VALUE); Formula values: ISNONTEXT(67.0);</data>
+</node>
+<node id="55714913-4b7b-404b-8dac-b189b6247350">
+<data key="name">VALUE</data>
+<data key="value">67.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 67.0;</data>
+</node>
+<node id="1a077860-1b22-4700-8efb-c21bc0e8056f">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(VALUE); Formula values: ISNONTEXT(67.0);</data>
+</node>
+<edge source="4e1bee4a-c684-4a0d-b6ed-fab971267783" target="9080ddf1-1045-4d83-b9fa-74613a17d4cc"/>
+<edge source="9080ddf1-1045-4d83-b9fa-74613a17d4cc" target="c8d0919c-4119-47f6-9346-36662b4ca518"/>
+<edge source="c5dd8e53-f5bc-4678-a5b3-c458538ba32a" target="b033215a-5457-474f-8038-fa8758a91910"/>
+<edge source="b033215a-5457-474f-8038-fa8758a91910" target="7534ce1e-f1c4-4e4b-b311-4add0fe22042"/>
+<edge source="d298edbd-e30a-4bb9-9264-3a4b02bfe0b8" target="1be59508-d07c-46a7-8fd7-715da3d5e04f"/>
+<edge source="1be59508-d07c-46a7-8fd7-715da3d5e04f" target="c7d5c839-ea7e-4827-959a-45db96165aef"/>
+<edge source="55714913-4b7b-404b-8dac-b189b6247350" target="1a077860-1b22-4700-8efb-c21bc0e8056f"/>
+<edge source="1a077860-1b22-4700-8efb-c21bc0e8056f" target="c612de03-1973-45a8-9375-c0715ff18db5"/>
+<edge source="9080ddf1-1045-4d83-b9fa-74613a17d4cc" target="d298edbd-e30a-4bb9-9264-3a4b02bfe0b8"/>
+</graph>
+</graphml>

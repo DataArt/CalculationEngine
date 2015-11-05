@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="D5_9.0_CELL_WITH_VALUE">
-<data key="name">D5</data>
-<data key="value">9.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D5; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: D5 Index in Ptgs: 2 </data>
-</node>
-<node id="E6_#REF!_CELL_WITH_FORMULA">
+<node id="303237d5-7a64-4b89-8577-aa447d6644fd">
 <data key="name">E6</data>
 <data key="value">#REF!</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: SUM(D5, VALUE, VALUE); Formula Values: SUM(9.0, #REF!, #REF!); Formula Ptg: 9.0, #REF!, #REF! SUM ; Ptgs: D5, VALUE, VALUE SUM  Index in Ptgs: 3 </data>
+<data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
 </node>
-<node id="SUM_#REF!_FUNCTION">
+<node id="ca50ee1c-82e3-453c-ab85-4a7a391c4e9f">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="48f59d73-8e89-46f8-970e-d2fc331d5414">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="936ca219-a462-4904-ac1d-af7f4b5aa1a6">
+<data key="name">D5</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D5; Formula values: 9.0;</data>
+</node>
+<node id="a64ad3dd-12c1-4e2a-aa7d-89d1d29ac2e1">
 <data key="name">SUM</data>
 <data key="value">#REF!</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: SUM(D5, VALUE, VALUE); Formula Values: SUM(9.0, #REF!, #REF!); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
 </node>
-<node id="VALUE_#REF!_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">#REF!</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #REF!; Formula Ptg: #REF!; Ptgs: VALUE Index in Ptgs: 0 </data>
-</node>
-<node id="VALUE_#REF!_CONSTANT_VALUE">
-<data key="name">VALUE</data>
-<data key="value">#REF!</data>
-<data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #REF!; Formula Ptg: #REF!; Ptgs: VALUE Index in Ptgs: 1 </data>
-</node>
-<edge source="D5_9.0_CELL_WITH_VALUE" target="SUM_#REF!_FUNCTION"/>
-<edge source="SUM_#REF!_FUNCTION" target="E6_#REF!_CELL_WITH_FORMULA"/>
-<edge source="VALUE_#REF!_CONSTANT_VALUE" target="SUM_#REF!_FUNCTION"/>
-<edge source="VALUE_#REF!_CONSTANT_VALUE" target="SUM_#REF!_FUNCTION"/>
+<edge source="936ca219-a462-4904-ac1d-af7f4b5aa1a6" target="a64ad3dd-12c1-4e2a-aa7d-89d1d29ac2e1"/>
+<edge source="48f59d73-8e89-46f8-970e-d2fc331d5414" target="a64ad3dd-12c1-4e2a-aa7d-89d1d29ac2e1"/>
+<edge source="ca50ee1c-82e3-453c-ab85-4a7a391c4e9f" target="a64ad3dd-12c1-4e2a-aa7d-89d1d29ac2e1"/>
+<edge source="a64ad3dd-12c1-4e2a-aa7d-89d1d29ac2e1" target="303237d5-7a64-4b89-8577-aa447d6644fd"/>
 </graph>
 </graphml>

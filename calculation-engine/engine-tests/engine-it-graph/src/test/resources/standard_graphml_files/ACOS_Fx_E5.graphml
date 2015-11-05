@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E5">
-<node id="ACOS_1.359221367036801_FUNCTION">
-<data key="name">ACOS</data>
-<data key="value">1.359221367036801</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ACOS(C2); Formula Values: ACOS(0.21); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="C2_0.21_CELL_WITH_VALUE">
-<data key="name">C2</data>
-<data key="value">0.21</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C2; Formula Values: 0.21; Formula Ptg: 0.21; Ptgs: C2 Index in Ptgs: 0 </data>
-</node>
-<node id="E5_1.359221367036801_CELL_WITH_FORMULA">
+<node id="189d3ba8-a47f-4cfd-9e5f-a031203eaa67">
 <data key="name">E5</data>
 <data key="value">1.359221367036801</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ACOS(C2); Formula Values: ACOS(0.21); Formula Ptg: 0.21 ACOS ; Ptgs: C2 ACOS  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ACOS(C2); Formula values: ACOS(0.21);</data>
 </node>
-<edge source="ACOS_1.359221367036801_FUNCTION" target="E5_1.359221367036801_CELL_WITH_FORMULA"/>
-<edge source="C2_0.21_CELL_WITH_VALUE" target="ACOS_1.359221367036801_FUNCTION"/>
+<node id="f3476458-f1c2-443d-972e-0eeab5611f61">
+<data key="name">C2</data>
+<data key="value">0.21</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 0.21;</data>
+</node>
+<node id="b0dc20d5-baf2-4326-8fd5-db0a74689a50">
+<data key="name">ACOS</data>
+<data key="value">1.359221367036801</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ACOS(C2); Formula values: ACOS(0.21);</data>
+</node>
+<edge source="f3476458-f1c2-443d-972e-0eeab5611f61" target="b0dc20d5-baf2-4326-8fd5-db0a74689a50"/>
+<edge source="b0dc20d5-baf2-4326-8fd5-db0a74689a50" target="189d3ba8-a47f-4cfd-9e5f-a031203eaa67"/>
 </graph>
 </graphml>

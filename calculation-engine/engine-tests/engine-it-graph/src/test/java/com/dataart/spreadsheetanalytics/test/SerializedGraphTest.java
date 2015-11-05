@@ -15,19 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.test;
 
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.StrictAssertions.assertThat;
 
-import java.io.StringWriter;
-
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerConfigurationException;
-
-import org.hamcrest.MatcherAssert;
-import org.jgraph.graph.DefaultEdge;
-import org.jgrapht.DirectedGraph;
-import org.xml.sax.SAXException;
-import org.xmlunit.builder.Input;
-import org.xmlunit.matchers.CompareMatcher;
+import java.io.File;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
@@ -35,21 +25,19 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.test.util.ExecutionGraphAssert;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
-import com.dataart.spreadsheetanalytics.test.util.GraphWithProperertiesMLExporter;
+import com.dataart.spreadsheetanalytics.test.util.graphml.ExecutionGraphML;
+import com.dataart.spreadsheetanalytics.test.util.graphml.ExecutionGraphMLImporter;
 
 public abstract class SerializedGraphTest {
     
-    protected static IExecutionGraph graph;
-    protected static DirectedGraph<ExecutionGraphVertex, DefaultEdge> dgraph;
-    protected static ExecutionGraphVertex rootVertex;
+    protected IExecutionGraph graph;
 
-    public static void before(String path, String address) throws Exception {
+    public void before(String path, String address) throws Exception {
         
         final IDataModel model = new DataModel(path, path);
         
@@ -60,26 +48,22 @@ public abstract class SerializedGraphTest {
         
         //build
         graph = auditor.buildDynamicExecutionGraph(addr);
-        dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();        
     }
     
-    public static void after() throws Exception {
+    public void after() throws Exception {
         GraphTestUtil.destroyExternalServices();
     }
     
-    public void compare_ExcelFile_SerializedGraph(String dir, String file, String address) {
+    public void compare_ExcelFile_SerializedGraph(String dir, String file, String address) throws Exception {
         // given
-        Source expected = Input.fromFile(dir + file + "_" + address + ".graphml").build();
+        ExecutionGraphML expected = ExecutionGraphMLImporter._import(new File(dir + file + "_" + address + ".graphml"));
 
         // when
-        StringWriter sw = new StringWriter();
-        try { new GraphWithProperertiesMLExporter(address).export(sw, dgraph); }
-        catch (TransformerConfigurationException | SAXException e) { fail(e.getMessage()); }
-        Source actual = Input.fromString(sw.toString()).build();
-
+        IExecutionGraph actual = graph;
+        assertThat(actual).isNotNull();
+        
         // then
-        MatcherAssert.assertThat(actual, CompareMatcher.isSimilarTo(expected));
+        ExecutionGraphAssert.assertThat(actual).isEqualTo(expected);
     }
 
 }

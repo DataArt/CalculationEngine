@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D3">
-<node id="D3_FALSE_CELL_WITH_FORMULA">
+<node id="cb689e88-fccf-4ef8-883f-00dea0cdece5">
 <data key="name">D3</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISBLANK(VALUE); Formula Values: ISBLANK(6.0); Formula Ptg: 6.0 ISBLANK ; Ptgs: VALUE ISBLANK  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(6.0);</data>
 </node>
-<node id="ISBLANK_FALSE_FUNCTION">
-<data key="name">ISBLANK</data>
-<data key="value">FALSE</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISBLANK(VALUE); Formula Values: ISBLANK(6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="VALUE_6.0_CONSTANT_VALUE">
+<node id="d157c61a-d8fa-40fb-8db6-679812a11979">
 <data key="name">VALUE</data>
 <data key="value">6.0</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 6.0; Formula Ptg: 6.0; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="formula">Formula string: VALUE; Formula values: 6.0;</data>
 </node>
-<edge source="ISBLANK_FALSE_FUNCTION" target="D3_FALSE_CELL_WITH_FORMULA"/>
-<edge source="VALUE_6.0_CONSTANT_VALUE" target="ISBLANK_FALSE_FUNCTION"/>
+<node id="ca91b5c1-997a-4589-94d5-150f4d784d5e">
+<data key="name">ISBLANK</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(6.0);</data>
+</node>
+<edge source="d157c61a-d8fa-40fb-8db6-679812a11979" target="ca91b5c1-997a-4589-94d5-150f4d784d5e"/>
+<edge source="ca91b5c1-997a-4589-94d5-150f4d784d5e" target="cb689e88-fccf-4ef8-883f-00dea0cdece5"/>
 </graph>
 </graphml>

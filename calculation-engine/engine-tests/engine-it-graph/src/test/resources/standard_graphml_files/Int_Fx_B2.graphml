@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B2">
-<node id="B2_7.0_CELL_WITH_FORMULA">
+<node id="c67eedb6-e0b7-4fc3-a59c-6e9cc4c27a44">
 <data key="name">B2</data>
 <data key="value">7.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: INT(VALUE); Formula Values: INT(7.5); Formula Ptg: 7.5 INT ; Ptgs: VALUE INT  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: INT(VALUE); Formula values: INT(7.5);</data>
 </node>
-<node id="INT_7.0_FUNCTION">
-<data key="name">INT</data>
-<data key="value">7.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: INT(VALUE); Formula Values: INT(7.5); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="VALUE_7.5_CONSTANT_VALUE">
+<node id="2913cafa-0907-40a6-b313-62d6ca9c08a9">
 <data key="name">VALUE</data>
 <data key="value">7.5</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 7.5; Formula Ptg: 7.5; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="formula">Formula string: VALUE; Formula values: 7.5;</data>
 </node>
-<edge source="INT_7.0_FUNCTION" target="B2_7.0_CELL_WITH_FORMULA"/>
-<edge source="VALUE_7.5_CONSTANT_VALUE" target="INT_7.0_FUNCTION"/>
+<node id="2edba866-0a35-4af0-a0fb-48e5875a9a79">
+<data key="name">INT</data>
+<data key="value">7.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INT(VALUE); Formula values: INT(7.5);</data>
+</node>
+<edge source="2913cafa-0907-40a6-b313-62d6ca9c08a9" target="2edba866-0a35-4af0-a0fb-48e5875a9a79"/>
+<edge source="2edba866-0a35-4af0-a0fb-48e5875a9a79" target="c67eedb6-e0b7-4fc3-a59c-6e9cc4c27a44"/>
 </graph>
 </graphml>

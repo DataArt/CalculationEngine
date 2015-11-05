@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_2">
+<node id="5654faa8-5d16-4a28-bb91-46ac3d345d34">
+<data key="name">E6</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: IF(D1&gt;5,D2,C3); Formula values: IF(4.0 &gt; 5.0, 8.0);</data>
+</node>
+<node id="b8b0b6c8-acf7-4a88-8c2a-b7c45f27739b">
+<data key="name">D1</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D1; Formula values: 4.0;</data>
+</node>
+<node id="863549c5-30d3-45ff-828e-411c765d4f82">
+<data key="name">VALUE</data>
+<data key="value">5.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 5.0;</data>
+</node>
+<node id="5c4542b4-ef94-41e4-97dc-3d11f165fa13">
+<data key="name">&gt;</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D1 &gt; VALUE; Formula values: 4.0 &gt; 5.0;</data>
+</node>
+<node id="02aa86c3-752f-456b-80f9-3dcf57fce611">
+<data key="name">IF</data>
+<data key="value">8.0</data>
+<data key="type">IF</data>
+<data key="formula">Formula string: IF(D1&gt;5,D2,C3); Formula values: IF(4.0 &gt; 5.0, 8.0);</data>
+</node>
+<node id="fd4314dc-0c23-4569-b549-84b9562267a1">
+<data key="name">C3</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: 8.0;</data>
+</node>
+<edge source="863549c5-30d3-45ff-828e-411c765d4f82" target="5c4542b4-ef94-41e4-97dc-3d11f165fa13"/>
+<edge source="b8b0b6c8-acf7-4a88-8c2a-b7c45f27739b" target="5c4542b4-ef94-41e4-97dc-3d11f165fa13"/>
+<edge source="fd4314dc-0c23-4569-b549-84b9562267a1" target="02aa86c3-752f-456b-80f9-3dcf57fce611"/>
+<edge source="5c4542b4-ef94-41e4-97dc-3d11f165fa13" target="02aa86c3-752f-456b-80f9-3dcf57fce611"/>
+<edge source="02aa86c3-752f-456b-80f9-3dcf57fce611" target="5654faa8-5d16-4a28-bb91-46ac3d345d34"/>
+</graph>
+</graphml>

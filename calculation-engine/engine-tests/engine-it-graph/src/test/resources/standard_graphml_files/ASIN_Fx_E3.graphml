@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E3">
-<node id="A2_1.0_CELL_WITH_VALUE">
-<data key="name">A2</data>
-<data key="value">1.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A2; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: A2 Index in Ptgs: 0 </data>
-</node>
-<node id="ASIN_1.5707963267948966_FUNCTION">
-<data key="name">ASIN</data>
-<data key="value">1.5707963267948966</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ASIN(A2); Formula Values: ASIN(1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="E3_1.5707963267948966_CELL_WITH_FORMULA">
+<node id="63a81755-fc8b-4a11-92b4-1d69a5cc1034">
 <data key="name">E3</data>
 <data key="value">1.5707963267948966</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ASIN(A2); Formula Values: ASIN(1.0); Formula Ptg: 1.0 ASIN ; Ptgs: A2 ASIN  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ASIN(A2); Formula values: ASIN(1.0);</data>
 </node>
-<edge source="A2_1.0_CELL_WITH_VALUE" target="ASIN_1.5707963267948966_FUNCTION"/>
-<edge source="ASIN_1.5707963267948966_FUNCTION" target="E3_1.5707963267948966_CELL_WITH_FORMULA"/>
+<node id="30a82ef2-f954-4e61-9d77-385973f76b61">
+<data key="name">A2</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 1.0;</data>
+</node>
+<node id="6252cd1f-c813-4e90-9972-12d44db25837">
+<data key="name">ASIN</data>
+<data key="value">1.5707963267948966</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ASIN(A2); Formula values: ASIN(1.0);</data>
+</node>
+<edge source="30a82ef2-f954-4e61-9d77-385973f76b61" target="6252cd1f-c813-4e90-9972-12d44db25837"/>
+<edge source="6252cd1f-c813-4e90-9972-12d44db25837" target="63a81755-fc8b-4a11-92b4-1d69a5cc1034"/>
 </graph>
 </graphml>

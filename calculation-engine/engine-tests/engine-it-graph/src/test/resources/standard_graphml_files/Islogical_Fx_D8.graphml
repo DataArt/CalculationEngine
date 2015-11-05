@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D8">
-<node id="D8_TRUE_CELL_WITH_FORMULA">
+<node id="c8a193bf-d7e8-4cc0-9916-6713aa6cb389">
 <data key="name">D8</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISLOGICAL(VALUE); Formula Values: ISLOGICAL(TRUE); Formula Ptg: TRUE ISLOGICAL ; Ptgs: VALUE ISLOGICAL  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISLOGICAL(VALUE); Formula values: ISLOGICAL(TRUE);</data>
 </node>
-<node id="ISLOGICAL_TRUE_FUNCTION">
-<data key="name">ISLOGICAL</data>
-<data key="value">TRUE</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISLOGICAL(VALUE); Formula Values: ISLOGICAL(TRUE); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="VALUE_TRUE_CONSTANT_VALUE">
+<node id="466d5722-e543-4e40-86b7-6ee4439562ef">
 <data key="name">VALUE</data>
 <data key="value">TRUE</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: TRUE; Formula Ptg: TRUE; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="formula">Formula string: VALUE; Formula values: TRUE;</data>
 </node>
-<edge source="ISLOGICAL_TRUE_FUNCTION" target="D8_TRUE_CELL_WITH_FORMULA"/>
-<edge source="VALUE_TRUE_CONSTANT_VALUE" target="ISLOGICAL_TRUE_FUNCTION"/>
+<node id="d797e737-f390-420c-8721-4a66cd87ca81">
+<data key="name">ISLOGICAL</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISLOGICAL(VALUE); Formula values: ISLOGICAL(TRUE);</data>
+</node>
+<edge source="466d5722-e543-4e40-86b7-6ee4439562ef" target="d797e737-f390-420c-8721-4a66cd87ca81"/>
+<edge source="d797e737-f390-420c-8721-4a66cd87ca81" target="c8a193bf-d7e8-4cc0-9916-6713aa6cb389"/>
 </graph>
 </graphml>

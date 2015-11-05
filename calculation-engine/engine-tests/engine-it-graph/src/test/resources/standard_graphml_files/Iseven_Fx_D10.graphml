@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D10">
-<node id="C3_5.45_CELL_WITH_VALUE">
-<data key="name">C3</data>
-<data key="value">5.45</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C3; Formula Values: 5.45; Formula Ptg: 5.45; Ptgs: C3 Index in Ptgs: 1 </data>
-</node>
-<node id="D10_FALSE_CELL_WITH_FORMULA">
+<node id="6bd826b3-8d1c-4417-bf16-af302a0f1f39">
 <data key="name">D10</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISEVEN(C3); Formula Values: ISEVEN(5.45); Formula Ptg: 5.45 ISEVEN ; Ptgs: C3 ISEVEN  Index in Ptgs: 2 </data>
+<data key="formula">Formula string: ISEVEN(C3); Formula values: ISEVEN(5.45);</data>
 </node>
-<node id="ISEVEN_FALSE_FUNCTION">
+<node id="d65470ab-f0c4-4183-b8b2-06888d330eb5">
+<data key="name">C3</data>
+<data key="value">5.45</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: 5.45;</data>
+</node>
+<node id="49527ca9-bada-40f0-b2d1-2f554d10b6ec">
 <data key="name">ISEVEN</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISEVEN(C3); Formula Values: ISEVEN(5.45); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="formula">Formula string: ISEVEN(C3); Formula values: ISEVEN(5.45);</data>
 </node>
-<edge source="C3_5.45_CELL_WITH_VALUE" target="ISEVEN_FALSE_FUNCTION"/>
-<edge source="ISEVEN_FALSE_FUNCTION" target="D10_FALSE_CELL_WITH_FORMULA"/>
+<edge source="d65470ab-f0c4-4183-b8b2-06888d330eb5" target="49527ca9-bada-40f0-b2d1-2f554d10b6ec"/>
+<edge source="49527ca9-bada-40f0-b2d1-2f554d10b6ec" target="6bd826b3-8d1c-4417-bf16-af302a0f1f39"/>
 </graph>
 </graphml>

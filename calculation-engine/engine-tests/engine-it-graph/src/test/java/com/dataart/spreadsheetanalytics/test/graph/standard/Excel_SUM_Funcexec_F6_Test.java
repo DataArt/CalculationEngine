@@ -18,8 +18,8 @@ package com.dataart.spreadsheetanalytics.test.graph.standard;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_GRAPHML_DIR;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
@@ -30,18 +30,18 @@ public class Excel_SUM_Funcexec_F6_Test extends SerializedGraphTest {
     static String file = "SUM_Funcexec";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     
-    @BeforeClass
-    public static void before() throws Exception {
-        SerializedGraphTest.before(path, address);        
+    @Before
+    public void beforeTest() throws Exception {
+        super.before(path, address);        
     }
 
-    @AfterClass
-    public static void after() throws Exception {
-        SerializedGraphTest.after();
+    @After
+    public void afterTest() throws Exception {
+        super.after();
     }
     
     @Test
-    public void assert_ExcelFile_SerializedGraph() {
+    public void assert_ExcelFile_SerializedGraph() throws Exception {
         super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
     }
 }

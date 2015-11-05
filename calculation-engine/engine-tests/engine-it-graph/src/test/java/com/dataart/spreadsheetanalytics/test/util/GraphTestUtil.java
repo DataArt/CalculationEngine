@@ -46,6 +46,7 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
@@ -63,12 +64,13 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.test.util.graphml.ExecutionGraphMLExporter;
 
 public class GraphTestUtil {
     
     public final static String STANDARD_EXCELS_DIR = "src/test/resources/standard_excel_files/";
     public final static String STANDARD_GRAPHML_DIR = "src/test/resources/standard_graphml_files/";
-    public final static String ALL_CELLS_GRAPHML_DIR = "src/test/resources/all_cells_graphml_files/";
+    public final static String ALL_CELLS_GRAPHML_DIR = "src/test/resources/standardwithconfig_graphml_files/";
     
     static final String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
     static final String TEST_CLASS_TEMPLATE = "src/test/resources/Excel_XXX_Test.java.template";
@@ -128,7 +130,7 @@ public class GraphTestUtil {
                 file.mkdirs();
                 Writer fw = new FileWriter(filename);
 
-                GraphMLExporter exporter = new GraphWithProperertiesMLExporter(graphConfigToString.get(config).substring(1));
+                GraphMLExporter exporter = new ExecutionGraphMLExporter(graphConfigToString.get(config).substring(1));
                 exporter.export(fw, dgraph);
 
                 System.out.println("GraphML file is written to [" + filename + "]");
@@ -182,7 +184,7 @@ public class GraphTestUtil {
 
                 Writer fw = new FileWriter(filename);
 
-                GraphMLExporter exporter = new GraphWithProperertiesMLExporter(address);
+                GraphMLExporter exporter = new ExecutionGraphMLExporter(address);
                 exporter.export(fw, dgraph);
 
                 System.out.println("GraphML file is written to [" + filename + "]");
@@ -222,7 +224,7 @@ public class GraphTestUtil {
 
         Writer fw = new FileWriter(filename);
 
-        GraphMLExporter exporter = new GraphWithProperertiesMLExporter(address);
+        GraphMLExporter exporter = new ExecutionGraphMLExporter(address);
         exporter.export(fw, dgraph);
 
         System.out.println("GraphML file is written to [" + filename + "]");
@@ -252,7 +254,7 @@ public class GraphTestUtil {
 
         Writer fw = new FileWriter(filename);
 
-        GraphMLExporter exporter = new GraphWithProperertiesMLExporter(suffix.substring(1)+"_");
+        GraphMLExporter exporter = new ExecutionGraphMLExporter(suffix.substring(1)+"_");
         exporter.export(fw, dgraph);
 
         System.out.println("GraphML file is written to [" + filename + "]");
@@ -318,6 +320,14 @@ public class GraphTestUtil {
         cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
         cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
+    }
+    
+    public static String formulaToString(ICellFormulaExpression formula) {
+        if (formula == null) { return "null"; }
+        
+        return String.format("Formula string: %s; Formula values: %s;", 
+                              formula.formulaStr(),
+                              formula.formulaValues());
     }
     
     public static void main(String[] args) throws Exception {

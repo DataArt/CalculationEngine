@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E5">
-<node id="ACOSH_5.192925985263684_FUNCTION">
-<data key="name">ACOSH</data>
-<data key="value">5.192925985263684</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ACOSH(C2); Formula Values: ACOSH(90.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="C2_90.0_CELL_WITH_VALUE">
-<data key="name">C2</data>
-<data key="value">90.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C2; Formula Values: 90.0; Formula Ptg: 90.0; Ptgs: C2 Index in Ptgs: 0 </data>
-</node>
-<node id="E5_5.192925985263684_CELL_WITH_FORMULA">
+<node id="ccd7d991-73ba-4783-aaa3-4b1ba1e9f6d3">
 <data key="name">E5</data>
 <data key="value">5.192925985263684</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ACOSH(C2); Formula Values: ACOSH(90.0); Formula Ptg: 90.0 ACOSH ; Ptgs: C2 ACOSH  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ACOSH(C2); Formula values: ACOSH(90.0);</data>
 </node>
-<edge source="ACOSH_5.192925985263684_FUNCTION" target="E5_5.192925985263684_CELL_WITH_FORMULA"/>
-<edge source="C2_90.0_CELL_WITH_VALUE" target="ACOSH_5.192925985263684_FUNCTION"/>
+<node id="db4fc045-8bae-45db-8dcd-08040e2d373b">
+<data key="name">C2</data>
+<data key="value">90.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 90.0;</data>
+</node>
+<node id="a89cffc3-bd04-4623-a4d5-976f3d55c20c">
+<data key="name">ACOSH</data>
+<data key="value">5.192925985263684</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ACOSH(C2); Formula values: ACOSH(90.0);</data>
+</node>
+<edge source="db4fc045-8bae-45db-8dcd-08040e2d373b" target="a89cffc3-bd04-4623-a4d5-976f3d55c20c"/>
+<edge source="a89cffc3-bd04-4623-a4d5-976f3d55c20c" target="ccd7d991-73ba-4783-aaa3-4b1ba1e9f6d3"/>
 </graph>
 </graphml>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="c26f3dcb-0edf-481c-b618-2e49a92f4ef9">
+<data key="name">E5</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AND(C6, B3 + D1 - E1); Formula values: AND(, 6.0 + 0.4 - 5.0);</data>
+</node>
+<node id="94ff37cd-04a8-4427-bd14-25aa82f08135">
+<data key="name">B3</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B3; Formula values: 6.0;</data>
+</node>
+<node id="89656b44-7c70-46c7-b4aa-a7c79d23ba10">
+<data key="name">D1</data>
+<data key="value">0.4</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D1; Formula values: 0.4;</data>
+</node>
+<node id="68446020-66ea-4a9d-8cd1-31e2b0cdecca">
+<data key="name">+</data>
+<data key="value">6.4</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: B3 + D1; Formula values: 6.0 + 0.4;</data>
+</node>
+<node id="bb1b924a-dd81-49c3-b7bb-fa2873398a69">
+<data key="name">E1</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: E1; Formula values: 5.0;</data>
+</node>
+<node id="e15ed51b-ad35-4432-a293-4cd8ed5d4d0d">
+<data key="name">-</data>
+<data key="value">1.4000000000000004</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: B3 + D1 - E1; Formula values: 6.0 + 0.4 - 5.0;</data>
+</node>
+<node id="f409f9f1-18e7-4c02-a99d-f4119295d37f">
+<data key="name">C6</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: C6; Formula values: ;</data>
+</node>
+<node id="cd1c6b3c-69c3-4b96-b92d-33345a65d074">
+<data key="name">AND</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: AND(C6, B3 + D1 - E1); Formula values: AND(, 6.0 + 0.4 - 5.0);</data>
+</node>
+<node id="2a15b1dc-a92e-4e40-9b8e-6ad47da3a5de">
+<data key="name">E8</data>
+<data key="value"/>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: CONCATENATE(I7, H2, G2, F1); Formula values: CONCATENATE(, , , );</data>
+</node>
+<node id="27ddd9b6-6f9e-408a-bf1f-0296c5b12686">
+<data key="name">F1</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: F1; Formula values: ;</data>
+</node>
+<node id="a155fc6b-0685-4ccf-9f92-c24c5ccf5a83">
+<data key="name">G2</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: G2; Formula values: ;</data>
+</node>
+<node id="cd7def60-6a5a-4a57-864f-8efb663d507b">
+<data key="name">H2</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: H2; Formula values: ;</data>
+</node>
+<node id="71f1cd61-981e-43d7-96b3-270246c89a0d">
+<data key="name">I7</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: I7; Formula values: ;</data>
+</node>
+<node id="6afa73e8-6f0f-484a-bc3d-adf9d0842758">
+<data key="name">CONCATENATE</data>
+<data key="value"/>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: CONCATENATE(I7, H2, G2, F1); Formula values: CONCATENATE(, , , );</data>
+</node>
+<edge source="89656b44-7c70-46c7-b4aa-a7c79d23ba10" target="68446020-66ea-4a9d-8cd1-31e2b0cdecca"/>
+<edge source="94ff37cd-04a8-4427-bd14-25aa82f08135" target="68446020-66ea-4a9d-8cd1-31e2b0cdecca"/>
+<edge source="bb1b924a-dd81-49c3-b7bb-fa2873398a69" target="e15ed51b-ad35-4432-a293-4cd8ed5d4d0d"/>
+<edge source="68446020-66ea-4a9d-8cd1-31e2b0cdecca" target="e15ed51b-ad35-4432-a293-4cd8ed5d4d0d"/>
+<edge source="f409f9f1-18e7-4c02-a99d-f4119295d37f" target="cd1c6b3c-69c3-4b96-b92d-33345a65d074"/>
+<edge source="e15ed51b-ad35-4432-a293-4cd8ed5d4d0d" target="cd1c6b3c-69c3-4b96-b92d-33345a65d074"/>
+<edge source="cd1c6b3c-69c3-4b96-b92d-33345a65d074" target="c26f3dcb-0edf-481c-b618-2e49a92f4ef9"/>
+<edge source="71f1cd61-981e-43d7-96b3-270246c89a0d" target="6afa73e8-6f0f-484a-bc3d-adf9d0842758"/>
+<edge source="cd7def60-6a5a-4a57-864f-8efb663d507b" target="6afa73e8-6f0f-484a-bc3d-adf9d0842758"/>
+<edge source="a155fc6b-0685-4ccf-9f92-c24c5ccf5a83" target="6afa73e8-6f0f-484a-bc3d-adf9d0842758"/>
+<edge source="27ddd9b6-6f9e-408a-bf1f-0296c5b12686" target="6afa73e8-6f0f-484a-bc3d-adf9d0842758"/>
+<edge source="6afa73e8-6f0f-484a-bc3d-adf9d0842758" target="2a15b1dc-a92e-4e40-9b8e-6ad47da3a5de"/>
+</graph>
+</graphml>

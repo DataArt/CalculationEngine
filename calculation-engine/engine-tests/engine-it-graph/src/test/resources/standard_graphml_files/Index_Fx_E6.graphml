@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="A1:C4_[[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]_RANGE">
-<data key="name">A1:C4</data>
-<data key="value">[[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]</data>
-<data key="type">RANGE</data>
-<data key="formula">Formula String: A1:C4; Formula Values: [[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]; Formula Ptg: [[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]; Ptgs: A1:C4 Index in Ptgs: 0 </data>
-</node>
-<node id="E6_[[6.0]]_CELL_WITH_FORMULA">
+<node id="ac36b018-6763-4097-bfd2-0801e1b1af2c">
 <data key="name">E6</data>
 <data key="value">[[6.0]]</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: INDEX(VALUE, VALUE, A1:C4); Formula Values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0); Formula Ptg: 2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0 INDEX ; Ptgs: VALUE, VALUE, A1:C4 INDEX  Index in Ptgs: 3 </data>
+<data key="formula">Formula string: INDEX(VALUE, VALUE, A1:C4); Formula values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0);</data>
 </node>
-<node id="INDEX_[[6.0]]_FUNCTION">
-<data key="name">INDEX</data>
-<data key="value">[[6.0]]</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: INDEX(VALUE, VALUE, A1:C4); Formula Values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<node id="050672bf-b2f6-49fe-b597-0152e91302cf">
+<data key="name">A1:C4</data>
+<data key="value">[[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:C4; Formula values: [[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]];</data>
 </node>
-<node id="VALUE_3.0_CONSTANT_VALUE">
+<node id="82b2cd62-1f74-4542-80ce-08a9d3fa7254">
 <data key="name">VALUE</data>
 <data key="value">3.0</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: VALUE Index in Ptgs: 1 </data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
 </node>
-<node id="VALUE_2.0_CONSTANT_VALUE">
+<node id="45fee745-5df5-4f6b-99da-2bb4b62ff169">
 <data key="name">VALUE</data>
 <data key="value">2.0</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: VALUE Index in Ptgs: 2 </data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<edge source="A1:C4_[[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]_RANGE" target="INDEX_[[6.0]]_FUNCTION"/>
-<edge source="INDEX_[[6.0]]_FUNCTION" target="E6_[[6.0]]_CELL_WITH_FORMULA"/>
-<edge source="VALUE_2.0_CONSTANT_VALUE" target="INDEX_[[6.0]]_FUNCTION"/>
-<edge source="VALUE_3.0_CONSTANT_VALUE" target="INDEX_[[6.0]]_FUNCTION"/>
+<node id="5e4ad518-c866-4d6c-a8ef-355d0e837527">
+<data key="name">INDEX</data>
+<data key="value">[[6.0]]</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INDEX(VALUE, VALUE, A1:C4); Formula values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0);</data>
+</node>
+<edge source="45fee745-5df5-4f6b-99da-2bb4b62ff169" target="5e4ad518-c866-4d6c-a8ef-355d0e837527"/>
+<edge source="82b2cd62-1f74-4542-80ce-08a9d3fa7254" target="5e4ad518-c866-4d6c-a8ef-355d0e837527"/>
+<edge source="050672bf-b2f6-49fe-b597-0152e91302cf" target="5e4ad518-c866-4d6c-a8ef-355d0e837527"/>
+<edge source="5e4ad518-c866-4d6c-a8ef-355d0e837527" target="ac36b018-6763-4097-bfd2-0801e1b1af2c"/>
 </graph>
 </graphml>

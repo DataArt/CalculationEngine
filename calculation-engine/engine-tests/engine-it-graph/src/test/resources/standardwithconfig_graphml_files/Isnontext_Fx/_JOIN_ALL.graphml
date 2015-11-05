@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="badbe6f6-7239-40b3-a0ad-75b39340a233">
+<data key="name">A1</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 1.0;</data>
+</node>
+<node id="f69bb0f2-e7dd-4280-9858-7c887b3a35d9">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(A1); Formula values: ISNONTEXT(1.0);</data>
+</node>
+<node id="96a881e3-8d7d-4e4d-b442-180c5228bc92">
+<data key="name">C6</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(B1); Formula values: ISNONTEXT(some);</data>
+</node>
+<node id="d76c1877-6527-476e-aafd-7e434521d409">
+<data key="name">B1</data>
+<data key="value">some</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B1; Formula values: some;</data>
+</node>
+<node id="a9a985e0-79b9-405f-99f5-5da9f9101cd1">
+<data key="name">ISNONTEXT</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(B1); Formula values: ISNONTEXT(some);</data>
+</node>
+<node id="3b77dfdf-480a-4ee9-b44b-9d003a7e8322">
+<data key="name">C7</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(ISNONTEXT(A1)); Formula values: ISNONTEXT(ISNONTEXT(1.0));</data>
+</node>
+<node id="8940e7ab-ad32-4c0f-a063-b01d940da558">
+<data key="name">C5</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(A1); Formula values: ISNONTEXT(1.0);</data>
+</node>
+<node id="975e1ee9-0501-412c-8c72-23ddbd4caef8">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(ISNONTEXT(A1)); Formula values: ISNONTEXT(ISNONTEXT(1.0));</data>
+</node>
+<node id="e6ca4171-1ffa-4e73-b822-f32cca950a8b">
+<data key="name">C8</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNONTEXT(VALUE); Formula values: ISNONTEXT(67.0);</data>
+</node>
+<node id="f0fabfde-f93f-46a4-95a6-9df3cf6a423f">
+<data key="name">VALUE</data>
+<data key="value">67.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 67.0;</data>
+</node>
+<node id="9e5c6d3f-4214-447e-bef3-b0d3d33adef2">
+<data key="name">ISNONTEXT</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISNONTEXT(VALUE); Formula values: ISNONTEXT(67.0);</data>
+</node>
+<edge source="badbe6f6-7239-40b3-a0ad-75b39340a233" target="f69bb0f2-e7dd-4280-9858-7c887b3a35d9"/>
+<edge source="d76c1877-6527-476e-aafd-7e434521d409" target="a9a985e0-79b9-405f-99f5-5da9f9101cd1"/>
+<edge source="a9a985e0-79b9-405f-99f5-5da9f9101cd1" target="96a881e3-8d7d-4e4d-b442-180c5228bc92"/>
+<edge source="8940e7ab-ad32-4c0f-a063-b01d940da558" target="975e1ee9-0501-412c-8c72-23ddbd4caef8"/>
+<edge source="975e1ee9-0501-412c-8c72-23ddbd4caef8" target="3b77dfdf-480a-4ee9-b44b-9d003a7e8322"/>
+<edge source="f0fabfde-f93f-46a4-95a6-9df3cf6a423f" target="9e5c6d3f-4214-447e-bef3-b0d3d33adef2"/>
+<edge source="9e5c6d3f-4214-447e-bef3-b0d3d33adef2" target="e6ca4171-1ffa-4e73-b822-f32cca950a8b"/>
+<edge source="f69bb0f2-e7dd-4280-9858-7c887b3a35d9" target="8940e7ab-ad32-4c0f-a063-b01d940da558"/>
+</graph>
+</graphml>

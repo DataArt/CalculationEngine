@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="A8">
-<node id="A1:A7_[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]_RANGE">
-<data key="name">A1:A7</data>
-<data key="value">[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]</data>
-<data key="type">RANGE</data>
-<data key="formula">Formula String: A1:A7; Formula Values: [[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]; Formula Ptg: [[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]; Ptgs: A1:A7 Index in Ptgs: 0 </data>
-</node>
-<node id="A8_48.0_CELL_WITH_FORMULA">
+<node id="d6e0e2a2-c8cc-4d4d-858e-be98db85cf37">
 <data key="name">A8</data>
 <data key="value">48.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: DEVSQ(A1:A7); Formula Values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0); Formula Ptg: 4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0 DEVSQ ; Ptgs: A1:A7 DEVSQ  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: DEVSQ(A1:A7); Formula values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0);</data>
 </node>
-<node id="DEVSQ_48.0_FUNCTION">
+<node id="4192d42a-c439-4d1e-b01c-3fd4969fc4e1">
+<data key="name">A1:A7</data>
+<data key="value">[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:A7; Formula values: [[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]];</data>
+</node>
+<node id="f897d4e5-33a5-48b9-86d5-9eb8903c1791">
 <data key="name">DEVSQ</data>
 <data key="value">48.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: DEVSQ(A1:A7); Formula Values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: DEVSQ(A1:A7); Formula values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0);</data>
 </node>
-<edge source="A1:A7_[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]_RANGE" target="DEVSQ_48.0_FUNCTION"/>
-<edge source="DEVSQ_48.0_FUNCTION" target="A8_48.0_CELL_WITH_FORMULA"/>
+<edge source="4192d42a-c439-4d1e-b01c-3fd4969fc4e1" target="f897d4e5-33a5-48b9-86d5-9eb8903c1791"/>
+<edge source="f897d4e5-33a5-48b9-86d5-9eb8903c1791" target="d6e0e2a2-c8cc-4d4d-858e-be98db85cf37"/>
 </graph>
 </graphml>

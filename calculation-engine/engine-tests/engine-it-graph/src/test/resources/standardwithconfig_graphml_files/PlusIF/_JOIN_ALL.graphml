@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="5faa963c-382b-424b-a661-5563ef7352e3">
+<data key="name">A1</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
+</node>
+<node id="ccc7a567-b2c3-4916-af4f-d45ab6acd18d">
+<data key="name">A3</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A3; Formula values: 3.0;</data>
+</node>
+<node id="b726952d-1f96-454a-82d2-b8eabe9eec2b">
+<data key="name">A4</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A4; Formula values: 5.0;</data>
+</node>
+<node id="90e77ac7-6d56-4b64-a0a1-da3a642e1d48">
+<data key="name">&gt;</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A3 &gt; A4; Formula values: 3.0 &gt; 5.0;</data>
+</node>
+<node id="f70dbc0b-5568-42c2-9598-5abf7d91dfe9">
+<data key="name">IF</data>
+<data key="value">6.0</data>
+<data key="type">IF</data>
+<data key="formula">Formula string: IF(A3&gt;A4,B3,B4); Formula values: IF(3.0 &gt; 5.0, 6.0);</data>
+</node>
+<node id="e4420ccc-7ff9-47fe-a628-ea898082a72b">
+<data key="name">B4</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B4; Formula values: 6.0;</data>
+</node>
+<node id="951e75ba-7681-413a-ab64-06b7f4d0ac05">
+<data key="name">+</data>
+<data key="value">6.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
+</node>
+<edge source="b726952d-1f96-454a-82d2-b8eabe9eec2b" target="90e77ac7-6d56-4b64-a0a1-da3a642e1d48"/>
+<edge source="ccc7a567-b2c3-4916-af4f-d45ab6acd18d" target="90e77ac7-6d56-4b64-a0a1-da3a642e1d48"/>
+<edge source="e4420ccc-7ff9-47fe-a628-ea898082a72b" target="f70dbc0b-5568-42c2-9598-5abf7d91dfe9"/>
+<edge source="90e77ac7-6d56-4b64-a0a1-da3a642e1d48" target="f70dbc0b-5568-42c2-9598-5abf7d91dfe9"/>
+<edge source="f70dbc0b-5568-42c2-9598-5abf7d91dfe9" target="951e75ba-7681-413a-ab64-06b7f4d0ac05"/>
+<edge source="951e75ba-7681-413a-ab64-06b7f4d0ac05" target="5faa963c-382b-424b-a661-5563ef7352e3"/>
+</graph>
+</graphml>

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D8">
-<node id="D6_#N/A_CELL_WITH_VALUE">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D6; Formula Values: #N/A; Formula Ptg: #N/A; Ptgs: D6 Index in Ptgs: 0 </data>
-</node>
-<node id="D8_#N/A_CELL_WITH_FORMULA">
+<node id="d70c2833-f410-4a24-b7f8-55cc47c9aa79">
 <data key="name">D8</data>
 <data key="value">#N/A</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: #N/A ISNA ; Ptgs: D6 ISNA  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
 </node>
-<node id="ISNA_#N/A_FUNCTION">
+<node id="51c98e55-17ee-41d9-9bba-47227e585668">
+<data key="name">D6</data>
+<data key="value">#N/A</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+</node>
+<node id="d855445c-1d60-483d-86a7-0c0e48cc317f">
 <data key="name">ISNA</data>
 <data key="value">#N/A</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
 </node>
-<edge source="D6_#N/A_CELL_WITH_VALUE" target="ISNA_#N/A_FUNCTION"/>
-<edge source="ISNA_#N/A_FUNCTION" target="D8_#N/A_CELL_WITH_FORMULA"/>
+<edge source="51c98e55-17ee-41d9-9bba-47227e585668" target="d855445c-1d60-483d-86a7-0c0e48cc317f"/>
+<edge source="d855445c-1d60-483d-86a7-0c0e48cc317f" target="d70c2833-f410-4a24-b7f8-55cc47c9aa79"/>
 </graph>
 </graphml>

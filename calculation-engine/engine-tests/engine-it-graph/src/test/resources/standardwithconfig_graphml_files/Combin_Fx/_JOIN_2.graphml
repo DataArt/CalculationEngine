@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_2">
+<node id="ac98c039-ceed-46e7-9ba4-017381ed0ecd">
+<data key="name">E6</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: COMBIN(VALUE, VALUE); Formula values: COMBIN(1.0, 3.0);</data>
+</node>
+<node id="cc17273e-7c1d-4c30-9c2e-ae0f268b9f29">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="ed2d4609-77ca-440b-8812-5eecb318e1f1">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="2fa9fa41-438f-40b9-b7a7-7528b606e2ba">
+<data key="name">COMBIN</data>
+<data key="value">3.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: COMBIN(VALUE, VALUE); Formula values: COMBIN(1.0, 3.0);</data>
+</node>
+<edge source="ed2d4609-77ca-440b-8812-5eecb318e1f1" target="2fa9fa41-438f-40b9-b7a7-7528b606e2ba"/>
+<edge source="cc17273e-7c1d-4c30-9c2e-ae0f268b9f29" target="2fa9fa41-438f-40b9-b7a7-7528b606e2ba"/>
+<edge source="2fa9fa41-438f-40b9-b7a7-7528b606e2ba" target="ac98c039-ceed-46e7-9ba4-017381ed0ecd"/>
+</graph>
+</graphml>

@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D10">
-<node id="/_#DIV/0!_OPERATOR">
-<data key="name">/</data>
-<data key="value">#DIV/0!</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: B2 / B7; Formula Values: 6.0 / ; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-</node>
-<node id="B2_6.0_CELL_WITH_VALUE">
-<data key="name">B2</data>
-<data key="value">6.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B2; Formula Values: 6.0; Formula Ptg: 6.0; Ptgs: B2 Index in Ptgs: 0 </data>
-</node>
-<node id="B7__EMPTY_CELL">
-<data key="name">B7</data>
-<data key="value"/>
-<data key="type">EMPTY_CELL</data>
-<data key="formula">Formula String: B7; Formula Values: ; Formula Ptg: ; Ptgs: B7 Index in Ptgs: 1 </data>
-</node>
-<node id="D10_TRUE_CELL_WITH_FORMULA">
+<node id="da7d14d5-4ccb-4238-859e-261e5e7be4dc">
 <data key="name">D10</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISERROR(B2 / B7); Formula Values: ISERROR(6.0 / ); Formula Ptg: 6.0  / ISERROR ; Ptgs: B2 B7 / ISERROR  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISERROR(B2 / B7); Formula values: ISERROR(6.0 / );</data>
 </node>
-<node id="E1_#DIV/0!_CELL_WITH_FORMULA">
+<node id="2298d646-c642-40a5-b370-cf3f2561ec4d">
 <data key="name">E1</data>
 <data key="value">#DIV/0!</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: B2 / B7; Formula Values: 6.0 / ; Formula Ptg: 6.0  /; Ptgs: B2 B7 / Index in Ptgs: 2 </data>
+<data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
 </node>
-<node id="ISERROR_TRUE_FUNCTION">
+<node id="af6c36de-0fad-4cd6-bb28-fc4357cace79">
+<data key="name">B2</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 6.0;</data>
+</node>
+<node id="09b6d786-6ae3-4918-b17e-eed2d0af5f10">
+<data key="name">B7</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: B7; Formula values: ;</data>
+</node>
+<node id="3b4322a0-b701-43b8-a3db-b9b72a9b27a7">
+<data key="name">/</data>
+<data key="value">#DIV/0!</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
+</node>
+<node id="0740f5a9-a860-4776-8db6-91fd91f54781">
 <data key="name">ISERROR</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISERROR(B2 / B7); Formula Values: ISERROR(6.0 / ); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISERROR(B2 / B7); Formula values: ISERROR(6.0 / );</data>
 </node>
-<edge source="/_#DIV/0!_OPERATOR" target="E1_#DIV/0!_CELL_WITH_FORMULA"/>
-<edge source="B2_6.0_CELL_WITH_VALUE" target="/_#DIV/0!_OPERATOR"/>
-<edge source="B7__EMPTY_CELL" target="/_#DIV/0!_OPERATOR"/>
-<edge source="E1_#DIV/0!_CELL_WITH_FORMULA" target="ISERROR_TRUE_FUNCTION"/>
-<edge source="ISERROR_TRUE_FUNCTION" target="D10_TRUE_CELL_WITH_FORMULA"/>
+<edge source="09b6d786-6ae3-4918-b17e-eed2d0af5f10" target="3b4322a0-b701-43b8-a3db-b9b72a9b27a7"/>
+<edge source="af6c36de-0fad-4cd6-bb28-fc4357cace79" target="3b4322a0-b701-43b8-a3db-b9b72a9b27a7"/>
+<edge source="3b4322a0-b701-43b8-a3db-b9b72a9b27a7" target="2298d646-c642-40a5-b370-cf3f2561ec4d"/>
+<edge source="2298d646-c642-40a5-b370-cf3f2561ec4d" target="0740f5a9-a860-4776-8db6-91fd91f54781"/>
+<edge source="0740f5a9-a860-4776-8db6-91fd91f54781" target="da7d14d5-4ccb-4238-859e-261e5e7be4dc"/>
 </graph>
 </graphml>

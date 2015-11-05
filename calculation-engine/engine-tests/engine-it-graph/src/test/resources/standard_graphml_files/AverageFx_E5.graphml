@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E5">
-<node id="A1:E1_[[12.0, 2.0, 3.0, 4.0, 5.0]]_RANGE">
-<data key="name">A1:E1</data>
-<data key="value">[[12.0, 2.0, 3.0, 4.0, 5.0]]</data>
-<data key="type">RANGE</data>
-<data key="formula">Formula String: A1:E1; Formula Values: [[12.0, 2.0, 3.0, 4.0, 5.0]]; Formula Ptg: [[12.0, 2.0, 3.0, 4.0, 5.0]]; Ptgs: A1:E1 Index in Ptgs: 0 </data>
-</node>
-<node id="AVERAGE_5.2_FUNCTION">
-<data key="name">AVERAGE</data>
-<data key="value">5.2</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: AVERAGE(A1:E1); Formula Values: AVERAGE(12.0, 2.0, 3.0, 4.0, 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="E5_5.2_CELL_WITH_FORMULA">
+<node id="3ae85fab-381f-4430-9ccf-65420a700aaa">
 <data key="name">E5</data>
 <data key="value">5.2</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: AVERAGE(A1:E1); Formula Values: AVERAGE(12.0, 2.0, 3.0, 4.0, 5.0); Formula Ptg: 12.0, 2.0, 3.0, 4.0, 5.0 AVERAGE ; Ptgs: A1:E1 AVERAGE  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: AVERAGE(A1:E1); Formula values: AVERAGE(12.0, 2.0, 3.0, 4.0, 5.0);</data>
 </node>
-<edge source="A1:E1_[[12.0, 2.0, 3.0, 4.0, 5.0]]_RANGE" target="AVERAGE_5.2_FUNCTION"/>
-<edge source="AVERAGE_5.2_FUNCTION" target="E5_5.2_CELL_WITH_FORMULA"/>
+<node id="f9d3e623-cd4c-43bf-a1d7-784504c675a0">
+<data key="name">A1:E1</data>
+<data key="value">[[12.0, 2.0, 3.0, 4.0, 5.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:E1; Formula values: [[12.0, 2.0, 3.0, 4.0, 5.0]];</data>
+</node>
+<node id="b0220c5c-e6bc-46c6-8235-b53a43000c2f">
+<data key="name">AVERAGE</data>
+<data key="value">5.2</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: AVERAGE(A1:E1); Formula values: AVERAGE(12.0, 2.0, 3.0, 4.0, 5.0);</data>
+</node>
+<edge source="f9d3e623-cd4c-43bf-a1d7-784504c675a0" target="b0220c5c-e6bc-46c6-8235-b53a43000c2f"/>
+<edge source="b0220c5c-e6bc-46c6-8235-b53a43000c2f" target="3ae85fab-381f-4430-9ccf-65420a700aaa"/>
 </graph>
 </graphml>

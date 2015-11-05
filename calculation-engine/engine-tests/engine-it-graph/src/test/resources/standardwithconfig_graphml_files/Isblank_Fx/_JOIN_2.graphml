@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_2">
+<node id="e862a447-ad05-4e83-a5e7-ffc0c4a26770">
+<data key="name">D2</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
+</node>
+<node id="8390a866-1bbd-4405-84e0-eacdb2b6ce65">
+<data key="name">A6</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A6; Formula values: 4.0;</data>
+</node>
+<node id="cef177f0-4a68-4649-939a-ebad25f7ae3d">
+<data key="name">ISBLANK</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
+</node>
+<node id="a73ca50a-c900-4121-8e7f-f68bf8a8725d">
+<data key="name">D3</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(6.0);</data>
+</node>
+<node id="db7c91ad-e974-4c62-87e3-2821d311219d">
+<data key="name">VALUE</data>
+<data key="value">6.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 6.0;</data>
+</node>
+<node id="4a4efe13-e7fd-4de0-9c4f-f45daf1c6b2d">
+<data key="name">ISBLANK</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(6.0);</data>
+</node>
+<node id="a9ad05c7-a144-4547-a61b-a94ded746815">
+<data key="name">D5</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
+</node>
+<node id="ca19dbc3-1450-428b-844e-b338bb5edc51">
+<data key="name">D2</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
+</node>
+<node id="6d2d3108-2187-4780-9f33-41a871db5e33">
+<data key="name">ISBLANK</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
+</node>
+<node id="1cb27fe3-a252-4a71-aa8d-eaf79a377d5f">
+<data key="name">D6</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(#REF!);</data>
+</node>
+<node id="8495363c-a7a4-4896-91fb-6b70b05c9eb9">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="fbfc882d-abd4-4c0c-8482-d8dfec1aafe8">
+<data key="name">ISBLANK</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(#REF!);</data>
+</node>
+<node id="44db78d2-72ee-4662-abe2-c549c37385b1">
+<data key="name">D7</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISBLANK(C5); Formula values: ISBLANK(#NAME?);</data>
+</node>
+<node id="065cec43-699e-4494-8508-0eb17969981a">
+<data key="name">C5</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C5; Formula values: #NAME?;</data>
+</node>
+<node id="fffe0aac-e783-4037-a29a-448cc0cd5c42">
+<data key="name">ISBLANK</data>
+<data key="value">#NAME?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISBLANK(C5); Formula values: ISBLANK(#NAME?);</data>
+</node>
+<edge source="8390a866-1bbd-4405-84e0-eacdb2b6ce65" target="cef177f0-4a68-4649-939a-ebad25f7ae3d"/>
+<edge source="cef177f0-4a68-4649-939a-ebad25f7ae3d" target="e862a447-ad05-4e83-a5e7-ffc0c4a26770"/>
+<edge source="db7c91ad-e974-4c62-87e3-2821d311219d" target="4a4efe13-e7fd-4de0-9c4f-f45daf1c6b2d"/>
+<edge source="4a4efe13-e7fd-4de0-9c4f-f45daf1c6b2d" target="a73ca50a-c900-4121-8e7f-f68bf8a8725d"/>
+<edge source="ca19dbc3-1450-428b-844e-b338bb5edc51" target="6d2d3108-2187-4780-9f33-41a871db5e33"/>
+<edge source="6d2d3108-2187-4780-9f33-41a871db5e33" target="a9ad05c7-a144-4547-a61b-a94ded746815"/>
+<edge source="8495363c-a7a4-4896-91fb-6b70b05c9eb9" target="fbfc882d-abd4-4c0c-8482-d8dfec1aafe8"/>
+<edge source="fbfc882d-abd4-4c0c-8482-d8dfec1aafe8" target="1cb27fe3-a252-4a71-aa8d-eaf79a377d5f"/>
+<edge source="065cec43-699e-4494-8508-0eb17969981a" target="fffe0aac-e783-4037-a29a-448cc0cd5c42"/>
+<edge source="fffe0aac-e783-4037-a29a-448cc0cd5c42" target="44db78d2-72ee-4662-abe2-c549c37385b1"/>
+<edge source="cef177f0-4a68-4649-939a-ebad25f7ae3d" target="ca19dbc3-1450-428b-844e-b338bb5edc51"/>
+</graph>
+</graphml>

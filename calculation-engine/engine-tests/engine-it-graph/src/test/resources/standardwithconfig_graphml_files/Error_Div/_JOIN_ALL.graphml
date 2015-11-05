@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="5a95c4d7-1d6a-455d-a96f-777a0761807b">
+<data key="name">E6</data>
+<data key="value">#DIV/0!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: C5 / C4; Formula values: 67.0 / 0.0;</data>
+</node>
+<node id="e6c61325-de9c-49ce-88ee-eaf78016a5ee">
+<data key="name">C5</data>
+<data key="value">67.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C5; Formula values: 67.0;</data>
+</node>
+<node id="950d8e6c-7df7-49ef-ac02-e18ae2119799">
+<data key="name">C4</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C4; Formula values: 0.0;</data>
+</node>
+<node id="bdf9d734-2c72-4407-ab12-69069c655905">
+<data key="name">/</data>
+<data key="value">#DIV/0!</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: C5 / C4; Formula values: 67.0 / 0.0;</data>
+</node>
+<edge source="950d8e6c-7df7-49ef-ac02-e18ae2119799" target="bdf9d734-2c72-4407-ab12-69069c655905"/>
+<edge source="e6c61325-de9c-49ce-88ee-eaf78016a5ee" target="bdf9d734-2c72-4407-ab12-69069c655905"/>
+<edge source="bdf9d734-2c72-4407-ab12-69069c655905" target="5a95c4d7-1d6a-455d-a96f-777a0761807b"/>
+</graph>
+</graphml>

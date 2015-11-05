@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D9">
-<node id="D6_#N/A_CELL_WITH_VALUE">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D6; Formula Values: #N/A; Formula Ptg: #N/A; Ptgs: D6 Index in Ptgs: 0 </data>
-</node>
-<node id="D6_#N/A_CELL_WITH_VALUE">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D6; Formula Values: #N/A; Formula Ptg: #N/A; Ptgs: D6 Index in Ptgs: 0 </data>
-</node>
-<node id="D8_#N/A_CELL_WITH_FORMULA">
-<data key="name">D8</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: #N/A ISNA ; Ptgs: D6 ISNA  Index in Ptgs: 1 </data>
-</node>
-<node id="D9_#N/A_CELL_WITH_FORMULA">
+<node id="15d25bed-c3df-4aa9-a537-84a6b88f9548">
 <data key="name">D9</data>
 <data key="value">#N/A</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISNA(ISNA(D6)); Formula Values: ISNA(ISNA(#N/A)); Formula Ptg: #N/A ISNA  ISNA ; Ptgs: D6 ISNA  ISNA  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISNA(ISNA(D6)); Formula values: ISNA(ISNA(#N/A));</data>
 </node>
-<node id="ISNA_#N/A_FUNCTION">
+<node id="6ccced73-6c57-47a7-935f-987ef71913b5">
+<data key="name">D8</data>
+<data key="value">#N/A</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
+</node>
+<node id="417883e2-53cf-4373-ab73-f6046d39b5cc">
+<data key="name">D6</data>
+<data key="value">#N/A</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+</node>
+<node id="c467a48f-b20d-4225-9e4d-fbbac57f15b2">
 <data key="name">ISNA</data>
 <data key="value">#N/A</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
 </node>
-<node id="ISNA_#N/A_FUNCTION">
+<node id="8f14f599-4927-43c3-bb4b-d29dd058371f">
 <data key="name">ISNA</data>
 <data key="value">#N/A</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISNA(ISNA(D6)); Formula Values: ISNA(ISNA(#N/A)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISNA(ISNA(D6)); Formula values: ISNA(ISNA(#N/A));</data>
 </node>
-<node id="ISNA_#N/A_FUNCTION">
+<node id="71dbac44-95af-44ce-8e49-595740ca14ad">
+<data key="name">D6</data>
+<data key="value">#N/A</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+</node>
+<node id="5f778bd1-2be4-4ba0-8e04-00d45426289f">
 <data key="name">ISNA</data>
 <data key="value">#N/A</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
 </node>
-<edge source="D6_#N/A_CELL_WITH_VALUE" target="ISNA_#N/A_FUNCTION"/>
-<edge source="D6_#N/A_CELL_WITH_VALUE" target="ISNA_#N/A_FUNCTION"/>
-<edge source="D8_#N/A_CELL_WITH_FORMULA" target="ISNA_#N/A_FUNCTION"/>
-<edge source="ISNA_#N/A_FUNCTION" target="D8_#N/A_CELL_WITH_FORMULA"/>
-<edge source="ISNA_#N/A_FUNCTION" target="D8_#N/A_CELL_WITH_FORMULA"/>
-<edge source="ISNA_#N/A_FUNCTION" target="D9_#N/A_CELL_WITH_FORMULA"/>
+<edge source="417883e2-53cf-4373-ab73-f6046d39b5cc" target="c467a48f-b20d-4225-9e4d-fbbac57f15b2"/>
+<edge source="c467a48f-b20d-4225-9e4d-fbbac57f15b2" target="6ccced73-6c57-47a7-935f-987ef71913b5"/>
+<edge source="6ccced73-6c57-47a7-935f-987ef71913b5" target="8f14f599-4927-43c3-bb4b-d29dd058371f"/>
+<edge source="71dbac44-95af-44ce-8e49-595740ca14ad" target="5f778bd1-2be4-4ba0-8e04-00d45426289f"/>
+<edge source="5f778bd1-2be4-4ba0-8e04-00d45426289f" target="6ccced73-6c57-47a7-935f-987ef71913b5"/>
+<edge source="8f14f599-4927-43c3-bb4b-d29dd058371f" target="15d25bed-c3df-4aa9-a537-84a6b88f9548"/>
 </graph>
 </graphml>

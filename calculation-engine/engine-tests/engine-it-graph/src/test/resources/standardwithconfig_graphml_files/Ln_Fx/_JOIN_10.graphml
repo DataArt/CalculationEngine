@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="72a354a4-f699-4b9c-973a-5f75a12210e4">
+<data key="name">B2</data>
+<data key="value">20.085536923187664</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(3.0);</data>
+</node>
+<node id="79c1dd42-4b30-4d5a-9888-8f7eb0e9dd82">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="7830b0c1-8c13-425d-9bd9-1a28472b1c83">
+<data key="name">EXP</data>
+<data key="value">20.085536923187664</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(3.0);</data>
+</node>
+<node id="8968d874-c8ed-4eda-814c-96fef778ebec">
+<data key="name">C3</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: LN(EXP(VALUE)); Formula values: LN(EXP(3.0));</data>
+</node>
+<node id="74f911a4-058f-4b74-ab21-0974263c9f3c">
+<data key="name">B2</data>
+<data key="value">20.085536923187664</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(3.0);</data>
+</node>
+<node id="7c85f740-4a87-4d82-b487-54889b1003d3">
+<data key="name">LN</data>
+<data key="value">3.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: LN(EXP(VALUE)); Formula values: LN(EXP(3.0));</data>
+</node>
+<node id="13f5ba1c-4084-46d0-8868-8a7eb0a7862e">
+<data key="name">C4</data>
+<data key="value">3.000000153185454</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: LN(VALUE); Formula values: LN(20.08554);</data>
+</node>
+<node id="c1f3f8fe-4fed-44eb-b6a8-cc358f6c0573">
+<data key="name">VALUE</data>
+<data key="value">20.08554</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 20.08554;</data>
+</node>
+<node id="a3147846-e9f1-402e-a3ef-622f19100098">
+<data key="name">LN</data>
+<data key="value">3.000000153185454</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: LN(VALUE); Formula values: LN(20.08554);</data>
+</node>
+<edge source="79c1dd42-4b30-4d5a-9888-8f7eb0e9dd82" target="7830b0c1-8c13-425d-9bd9-1a28472b1c83"/>
+<edge source="7830b0c1-8c13-425d-9bd9-1a28472b1c83" target="72a354a4-f699-4b9c-973a-5f75a12210e4"/>
+<edge source="74f911a4-058f-4b74-ab21-0974263c9f3c" target="7c85f740-4a87-4d82-b487-54889b1003d3"/>
+<edge source="7c85f740-4a87-4d82-b487-54889b1003d3" target="8968d874-c8ed-4eda-814c-96fef778ebec"/>
+<edge source="c1f3f8fe-4fed-44eb-b6a8-cc358f6c0573" target="a3147846-e9f1-402e-a3ef-622f19100098"/>
+<edge source="a3147846-e9f1-402e-a3ef-622f19100098" target="13f5ba1c-4084-46d0-8868-8a7eb0a7862e"/>
+<edge source="7830b0c1-8c13-425d-9bd9-1a28472b1c83" target="74f911a4-058f-4b74-ab21-0974263c9f3c"/>
+</graph>
+</graphml>

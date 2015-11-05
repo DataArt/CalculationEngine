@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="04d8e83f-547c-4802-b81d-2e926e91b130">
+<data key="name">E6</data>
+<data key="value">15.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(A1:E1); Formula values: SUM(1.0, 2.0, 3.0, 4.0, 5.0);</data>
+</node>
+<node id="023a284f-a202-4c58-af46-9adcd0e71b92">
+<data key="name">A1:E1</data>
+<data key="value">[[1.0, 2.0, 3.0, 4.0, 5.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:E1; Formula values: [[1.0, 2.0, 3.0, 4.0, 5.0]];</data>
+</node>
+<node id="8d3a1457-3cbb-44db-9a71-04178b017b66">
+<data key="name">SUM</data>
+<data key="value">15.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(A1:E1); Formula values: SUM(1.0, 2.0, 3.0, 4.0, 5.0);</data>
+</node>
+<edge source="023a284f-a202-4c58-af46-9adcd0e71b92" target="8d3a1457-3cbb-44db-9a71-04178b017b66"/>
+<edge source="8d3a1457-3cbb-44db-9a71-04178b017b66" target="04d8e83f-547c-4802-b81d-2e926e91b130"/>
+</graph>
+</graphml>

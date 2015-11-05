@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D5">
-<node id="A6_4.0_CELL_WITH_VALUE">
-<data key="name">A6</data>
-<data key="value">4.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A6; Formula Values: 4.0; Formula Ptg: 4.0; Ptgs: A6 Index in Ptgs: 0 </data>
-</node>
-<node id="D2_FALSE_CELL_WITH_FORMULA">
-<data key="name">D2</data>
-<data key="value">FALSE</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISBLANK(A6); Formula Values: ISBLANK(4.0); Formula Ptg: 4.0 ISBLANK ; Ptgs: A6 ISBLANK  Index in Ptgs: 1 </data>
-</node>
-<node id="D5_FALSE_CELL_WITH_FORMULA">
+<node id="718a4dbc-e5f9-4f25-8544-033d594b90cb">
 <data key="name">D5</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISBLANK(ISBLANK(A6)); Formula Values: ISBLANK(ISBLANK(4.0)); Formula Ptg: 4.0 ISBLANK  ISBLANK ; Ptgs: A6 ISBLANK  ISBLANK  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
 </node>
-<node id="ISBLANK_FALSE_FUNCTION">
+<node id="780c9590-5690-432e-848a-4970983ad747">
+<data key="name">D2</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
+</node>
+<node id="aa04455c-3dd9-442a-88f6-c4d5550272a0">
+<data key="name">A6</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A6; Formula values: 4.0;</data>
+</node>
+<node id="24bfbc22-f738-40cf-adb1-5a066273ed22">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISBLANK(A6); Formula Values: ISBLANK(4.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
 </node>
-<node id="ISBLANK_FALSE_FUNCTION">
+<node id="726cd41d-2c5d-465e-92ae-cbc52de47acb">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISBLANK(ISBLANK(A6)); Formula Values: ISBLANK(ISBLANK(4.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
 </node>
-<edge source="A6_4.0_CELL_WITH_VALUE" target="ISBLANK_FALSE_FUNCTION"/>
-<edge source="D2_FALSE_CELL_WITH_FORMULA" target="ISBLANK_FALSE_FUNCTION"/>
-<edge source="ISBLANK_FALSE_FUNCTION" target="D2_FALSE_CELL_WITH_FORMULA"/>
-<edge source="ISBLANK_FALSE_FUNCTION" target="D5_FALSE_CELL_WITH_FORMULA"/>
+<edge source="aa04455c-3dd9-442a-88f6-c4d5550272a0" target="24bfbc22-f738-40cf-adb1-5a066273ed22"/>
+<edge source="24bfbc22-f738-40cf-adb1-5a066273ed22" target="780c9590-5690-432e-848a-4970983ad747"/>
+<edge source="780c9590-5690-432e-848a-4970983ad747" target="726cd41d-2c5d-465e-92ae-cbc52de47acb"/>
+<edge source="726cd41d-2c5d-465e-92ae-cbc52de47acb" target="718a4dbc-e5f9-4f25-8544-033d594b90cb"/>
 </graph>
 </graphml>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_2">
+<node id="3d0bcb86-537d-40cf-ae6a-b769224f64f2">
+<data key="name">E5</data>
+<data key="value">12.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: C1 + D1 + E1 + F1; Formula values: 3.0 + 4.0 + 5.0 + ;</data>
+</node>
+<node id="d80d1b4e-ed64-41f4-a753-255bff551396">
+<data key="name">C1</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C1; Formula values: 3.0;</data>
+</node>
+<node id="b924a950-6202-484a-968d-3710878a8ba5">
+<data key="name">D1</data>
+<data key="value">4.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D1; Formula values: 4.0;</data>
+</node>
+<node id="c7255750-5b47-4923-85ab-a71bca8eedd7">
+<data key="name">+</data>
+<data key="value">7.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: C1 + D1; Formula values: 3.0 + 4.0;</data>
+</node>
+<node id="49370e85-29bb-42e8-ace9-a76e473acf4d">
+<data key="name">E1</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: E1; Formula values: 5.0;</data>
+</node>
+<node id="273fe923-6c4a-4648-b9a9-367752cf40b2">
+<data key="name">+</data>
+<data key="value">12.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: C1 + D1 + E1; Formula values: 3.0 + 4.0 + 5.0;</data>
+</node>
+<node id="166bbb89-9352-4ed9-a208-90e7322eccab">
+<data key="name">F1</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: F1; Formula values: ;</data>
+</node>
+<node id="25daa308-4d55-4f7e-a73c-c4b39e09d941">
+<data key="name">+</data>
+<data key="value">12.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: C1 + D1 + E1 + F1; Formula values: 3.0 + 4.0 + 5.0 + ;</data>
+</node>
+<edge source="b924a950-6202-484a-968d-3710878a8ba5" target="c7255750-5b47-4923-85ab-a71bca8eedd7"/>
+<edge source="d80d1b4e-ed64-41f4-a753-255bff551396" target="c7255750-5b47-4923-85ab-a71bca8eedd7"/>
+<edge source="49370e85-29bb-42e8-ace9-a76e473acf4d" target="273fe923-6c4a-4648-b9a9-367752cf40b2"/>
+<edge source="c7255750-5b47-4923-85ab-a71bca8eedd7" target="273fe923-6c4a-4648-b9a9-367752cf40b2"/>
+<edge source="166bbb89-9352-4ed9-a208-90e7322eccab" target="25daa308-4d55-4f7e-a73c-c4b39e09d941"/>
+<edge source="273fe923-6c4a-4648-b9a9-367752cf40b2" target="25daa308-4d55-4f7e-a73c-c4b39e09d941"/>
+<edge source="25daa308-4d55-4f7e-a73c-c4b39e09d941" target="3d0bcb86-537d-40cf-ae6a-b769224f64f2"/>
+</graph>
+</graphml>

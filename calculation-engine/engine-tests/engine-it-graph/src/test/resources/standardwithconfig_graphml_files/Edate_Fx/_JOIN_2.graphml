@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_2">
+<node id="3fed389e-b5f0-4fc9-92a1-fba8542293ae">
+<data key="name">B3</data>
+<data key="value">40589.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EDATE(VALUE, A1); Formula values: EDATE(1.0, 40558.0);</data>
+</node>
+<node id="6144dcb2-2177-4d1b-bf9d-0d3059751965">
+<data key="name">A1</data>
+<data key="value">40558.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 40558.0;</data>
+</node>
+<node id="547ec5aa-7fbf-4957-9f6c-39912c4ce7d0">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="79881c2c-3607-4fd8-bf4a-10a5c6e5ccf2">
+<data key="name">EDATE</data>
+<data key="value">40589.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: EDATE(VALUE, A1); Formula values: EDATE(1.0, 40558.0);</data>
+</node>
+<node id="066ffddb-3dca-403f-aa97-7185787ef588">
+<data key="name">C5</data>
+<data key="value">40558.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EDATE(VALUE, EDATE(VALUE, A1)); Formula values: EDATE(-1.0, EDATE(1.0, 40558.0));</data>
+</node>
+<node id="2782b628-590b-4b1a-9109-09b81109ad93">
+<data key="name">B3</data>
+<data key="value">40589.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EDATE(VALUE, A1); Formula values: EDATE(1.0, 40558.0);</data>
+</node>
+<node id="744413e0-decf-4e09-affd-be596370f919">
+<data key="name">VALUE</data>
+<data key="value">-1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: -1.0;</data>
+</node>
+<node id="95e61d5d-6009-47a1-bf02-8507fa38ec66">
+<data key="name">EDATE</data>
+<data key="value">40558.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: EDATE(VALUE, EDATE(VALUE, A1)); Formula values: EDATE(-1.0, EDATE(1.0, 40558.0));</data>
+</node>
+<edge source="547ec5aa-7fbf-4957-9f6c-39912c4ce7d0" target="79881c2c-3607-4fd8-bf4a-10a5c6e5ccf2"/>
+<edge source="6144dcb2-2177-4d1b-bf9d-0d3059751965" target="79881c2c-3607-4fd8-bf4a-10a5c6e5ccf2"/>
+<edge source="79881c2c-3607-4fd8-bf4a-10a5c6e5ccf2" target="3fed389e-b5f0-4fc9-92a1-fba8542293ae"/>
+<edge source="744413e0-decf-4e09-affd-be596370f919" target="95e61d5d-6009-47a1-bf02-8507fa38ec66"/>
+<edge source="2782b628-590b-4b1a-9109-09b81109ad93" target="95e61d5d-6009-47a1-bf02-8507fa38ec66"/>
+<edge source="95e61d5d-6009-47a1-bf02-8507fa38ec66" target="066ffddb-3dca-403f-aa97-7185787ef588"/>
+<edge source="79881c2c-3607-4fd8-bf4a-10a5c6e5ccf2" target="2782b628-590b-4b1a-9109-09b81109ad93"/>
+</graph>
+</graphml>

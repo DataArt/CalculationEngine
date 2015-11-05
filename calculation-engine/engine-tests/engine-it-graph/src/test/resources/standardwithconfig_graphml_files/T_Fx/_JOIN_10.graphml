@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="e6d6921a-6cbe-4534-919e-9974b03d30e3">
+<data key="name">D2</data>
+<data key="value">expected</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: IF(A2=C1,B4,B1); Formula values: IF(Sun = is, expected);</data>
+</node>
+<node id="040b5171-99ba-47ba-8d1f-ab0fed3c4ea6">
+<data key="name">A2</data>
+<data key="value">Sun</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: Sun;</data>
+</node>
+<node id="1848fafd-7e91-4192-8a6c-24eca3fed797">
+<data key="name">C1</data>
+<data key="value">is</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C1; Formula values: is;</data>
+</node>
+<node id="5fbc8154-f052-4594-b919-c2f95d2374bd">
+<data key="name">=</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A2 = C1; Formula values: Sun = is;</data>
+</node>
+<node id="6f7f9d62-b99d-4274-8ecb-ba0e2fac0162">
+<data key="name">IF</data>
+<data key="value">expected</data>
+<data key="type">IF</data>
+<data key="formula">Formula string: IF(A2=C1,B4,B1); Formula values: IF(Sun = is, expected);</data>
+</node>
+<node id="90aa7c79-6637-400c-b5f5-0b46d2b74b7d">
+<data key="name">B1</data>
+<data key="value">expected</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B1; Formula values: expected;</data>
+</node>
+<node id="41d0d3ce-e5b4-4762-99e9-084498f978b6">
+<data key="name">D5</data>
+<data key="value">why not?</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: T(C3); Formula values: T(why not?);</data>
+</node>
+<node id="ea2b2d99-22a3-433e-93a6-2515dc89c45a">
+<data key="name">C3</data>
+<data key="value">why not?</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: why not?;</data>
+</node>
+<node id="3d6932e6-d220-4c64-93da-868005bc3ab9">
+<data key="name">T</data>
+<data key="value">why not?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: T(C3); Formula values: T(why not?);</data>
+</node>
+<node id="2d97b9e4-480e-4ff5-9230-d9462269c1d5">
+<data key="name">D6</data>
+<data key="value"/>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
+</node>
+<node id="6ffc024c-a108-4c01-9e0d-9384652352e1">
+<data key="name">D3</data>
+<data key="value">52.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D3; Formula values: 52.0;</data>
+</node>
+<node id="a22c2cb8-c8ba-48ee-b37c-2f7bf261dc0b">
+<data key="name">T</data>
+<data key="value"/>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
+</node>
+<edge source="1848fafd-7e91-4192-8a6c-24eca3fed797" target="5fbc8154-f052-4594-b919-c2f95d2374bd"/>
+<edge source="040b5171-99ba-47ba-8d1f-ab0fed3c4ea6" target="5fbc8154-f052-4594-b919-c2f95d2374bd"/>
+<edge source="90aa7c79-6637-400c-b5f5-0b46d2b74b7d" target="6f7f9d62-b99d-4274-8ecb-ba0e2fac0162"/>
+<edge source="5fbc8154-f052-4594-b919-c2f95d2374bd" target="6f7f9d62-b99d-4274-8ecb-ba0e2fac0162"/>
+<edge source="6f7f9d62-b99d-4274-8ecb-ba0e2fac0162" target="e6d6921a-6cbe-4534-919e-9974b03d30e3"/>
+<edge source="ea2b2d99-22a3-433e-93a6-2515dc89c45a" target="3d6932e6-d220-4c64-93da-868005bc3ab9"/>
+<edge source="3d6932e6-d220-4c64-93da-868005bc3ab9" target="41d0d3ce-e5b4-4762-99e9-084498f978b6"/>
+<edge source="6ffc024c-a108-4c01-9e0d-9384652352e1" target="a22c2cb8-c8ba-48ee-b37c-2f7bf261dc0b"/>
+<edge source="a22c2cb8-c8ba-48ee-b37c-2f7bf261dc0b" target="2d97b9e4-480e-4ff5-9230-d9462269c1d5"/>
+</graph>
+</graphml>

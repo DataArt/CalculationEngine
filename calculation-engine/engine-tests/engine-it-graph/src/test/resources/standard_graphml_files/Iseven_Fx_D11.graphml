@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D11">
-<node id="D1_qwerty_CELL_WITH_VALUE">
-<data key="name">D1</data>
-<data key="value">qwerty</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: D1; Formula Values: qwerty; Formula Ptg: qwerty; Ptgs: D1 Index in Ptgs: 1 </data>
-</node>
-<node id="D11_#VALUE!_CELL_WITH_FORMULA">
+<node id="e689834d-1b54-4e39-bc6e-25bf7fd956bc">
 <data key="name">D11</data>
 <data key="value">#VALUE!</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISEVEN(D1); Formula Values: ISEVEN(qwerty); Formula Ptg: qwerty ISEVEN ; Ptgs: D1 ISEVEN  Index in Ptgs: 2 </data>
+<data key="formula">Formula string: ISEVEN(D1); Formula values: ISEVEN(qwerty);</data>
 </node>
-<node id="ISEVEN_#VALUE!_FUNCTION">
+<node id="a38d5217-c45c-4f2f-89b9-0f14febf4322">
+<data key="name">D1</data>
+<data key="value">qwerty</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D1; Formula values: qwerty;</data>
+</node>
+<node id="4df79326-262d-44ca-8a49-3ee55af1ffcb">
 <data key="name">ISEVEN</data>
 <data key="value">#VALUE!</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISEVEN(D1); Formula Values: ISEVEN(qwerty); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="formula">Formula string: ISEVEN(D1); Formula values: ISEVEN(qwerty);</data>
 </node>
-<edge source="D1_qwerty_CELL_WITH_VALUE" target="ISEVEN_#VALUE!_FUNCTION"/>
-<edge source="ISEVEN_#VALUE!_FUNCTION" target="D11_#VALUE!_CELL_WITH_FORMULA"/>
+<edge source="a38d5217-c45c-4f2f-89b9-0f14febf4322" target="4df79326-262d-44ca-8a49-3ee55af1ffcb"/>
+<edge source="4df79326-262d-44ca-8a49-3ee55af1ffcb" target="e689834d-1b54-4e39-bc6e-25bf7fd956bc"/>
 </graph>
 </graphml>

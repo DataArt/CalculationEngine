@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="C4">
-<node id="A2_#DIV/0!_CELL_WITH_VALUE">
-<data key="name">A2</data>
-<data key="value">#DIV/0!</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A2; Formula Values: #DIV/0!; Formula Ptg: #DIV/0!; Ptgs: A2 Index in Ptgs: 0 </data>
-</node>
-<node id="C4_2.0_CELL_WITH_FORMULA">
+<node id="111322fc-c331-41c9-b8f1-c671a2ae0146">
 <data key="name">C4</data>
 <data key="value">2.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ERROR.TYPE(A2); Formula Values: ERROR.TYPE(#DIV/0!); Formula Ptg: #DIV/0! ERROR.TYPE ; Ptgs: A2 ERROR.TYPE  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ERROR.TYPE(A2); Formula values: ERROR.TYPE(#DIV/0!);</data>
 </node>
-<node id="ERROR.TYPE_2.0_FUNCTION">
+<node id="cbd33bab-275e-40e0-9fb8-dca090e26e85">
+<data key="name">A2</data>
+<data key="value">#DIV/0!</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: #DIV/0!;</data>
+</node>
+<node id="bd247d77-2454-4a18-83dd-bbd999bdfbc4">
 <data key="name">ERROR.TYPE</data>
 <data key="value">2.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ERROR.TYPE(A2); Formula Values: ERROR.TYPE(#DIV/0!); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ERROR.TYPE(A2); Formula values: ERROR.TYPE(#DIV/0!);</data>
 </node>
-<edge source="A2_#DIV/0!_CELL_WITH_VALUE" target="ERROR.TYPE_2.0_FUNCTION"/>
-<edge source="ERROR.TYPE_2.0_FUNCTION" target="C4_2.0_CELL_WITH_FORMULA"/>
+<edge source="cbd33bab-275e-40e0-9fb8-dca090e26e85" target="bd247d77-2454-4a18-83dd-bbd999bdfbc4"/>
+<edge source="bd247d77-2454-4a18-83dd-bbd999bdfbc4" target="111322fc-c331-41c9-b8f1-c671a2ae0146"/>
 </graph>
 </graphml>

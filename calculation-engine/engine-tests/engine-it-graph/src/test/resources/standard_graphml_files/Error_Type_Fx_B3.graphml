@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B3">
-<node id="B3_7.0_CELL_WITH_FORMULA">
+<node id="601e9b39-6391-421e-8f35-a85169bc57c7">
 <data key="name">B3</data>
 <data key="value">7.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ERROR.TYPE(VALUE); Formula Values: ERROR.TYPE(#N/A); Formula Ptg: #N/A ERROR.TYPE ; Ptgs: VALUE ERROR.TYPE  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ERROR.TYPE(VALUE); Formula values: ERROR.TYPE(#N/A);</data>
 </node>
-<node id="ERROR.TYPE_7.0_FUNCTION">
-<data key="name">ERROR.TYPE</data>
-<data key="value">7.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ERROR.TYPE(VALUE); Formula Values: ERROR.TYPE(#N/A); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="VALUE_#N/A_CONSTANT_VALUE">
+<node id="32f1f081-11b6-44b3-aeff-180266c7bd67">
 <data key="name">VALUE</data>
 <data key="value">#N/A</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #N/A; Formula Ptg: #N/A; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="formula">Formula string: VALUE; Formula values: #N/A;</data>
 </node>
-<edge source="ERROR.TYPE_7.0_FUNCTION" target="B3_7.0_CELL_WITH_FORMULA"/>
-<edge source="VALUE_#N/A_CONSTANT_VALUE" target="ERROR.TYPE_7.0_FUNCTION"/>
+<node id="2e2cc401-9e09-42f7-85ae-774ea1b38253">
+<data key="name">ERROR.TYPE</data>
+<data key="value">7.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ERROR.TYPE(VALUE); Formula values: ERROR.TYPE(#N/A);</data>
+</node>
+<edge source="32f1f081-11b6-44b3-aeff-180266c7bd67" target="2e2cc401-9e09-42f7-85ae-774ea1b38253"/>
+<edge source="2e2cc401-9e09-42f7-85ae-774ea1b38253" target="601e9b39-6391-421e-8f35-a85169bc57c7"/>
 </graph>
 </graphml>

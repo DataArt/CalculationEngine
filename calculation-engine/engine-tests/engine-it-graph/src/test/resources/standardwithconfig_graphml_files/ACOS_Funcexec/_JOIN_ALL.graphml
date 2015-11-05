@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="ff85ef93-9aa3-48e6-990b-47fae8837216">
+<data key="name">A4</data>
+<data key="value">1.5707963267948966</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ACOS(A2); Formula values: ACOS(0.0);</data>
+</node>
+<node id="09676df2-b799-4dfa-9c69-d43ba5f8f45b">
+<data key="name">A2</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 0.0;</data>
+</node>
+<node id="d99b55a1-5f51-4b1f-abed-0d960a347458">
+<data key="name">ACOS</data>
+<data key="value">1.5707963267948966</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ACOS(A2); Formula values: ACOS(0.0);</data>
+</node>
+<node id="eb6dcc4e-db4c-4248-a170-c274053c1a1e">
+<data key="name">B2</data>
+<data key="value">0.5</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 0.5;</data>
+</node>
+<node id="7cb38351-9ed3-4db3-a336-3661f25ffec3">
+<data key="name">ACOS</data>
+<data key="value">1.0471975511965979</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ACOS(B2); Formula values: ACOS(0.5);</data>
+</node>
+<node id="d4c793e0-f709-4daa-b1b2-06f540b3621c">
+<data key="name">B5</data>
+<data key="value">DEFINE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: DEFINE(ACOS(A2), VALUE, A2, VALUE); Formula values: DEFINE(ACOS(0.0), #, 0.0, DEVDEF);</data>
+</node>
+<node id="b28f51f2-d19b-4347-980d-7f81b5e561c3">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
+</node>
+<node id="041c54d9-d2c0-4ced-8ae0-f7b6bf150bef">
+<data key="name">VALUE</data>
+<data key="value">#</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #;</data>
+</node>
+<node id="6c82929a-d787-4a37-81fb-6590ee8abc14">
+<data key="name">DEFINE</data>
+<data key="value">DEFINE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DEFINE(ACOS(A2), VALUE, A2, VALUE); Formula values: DEFINE(ACOS(0.0), #, 0.0, DEVDEF);</data>
+</node>
+<node id="17f4a0bb-9859-4099-a488-91b5387131b7">
+<data key="name">C5</data>
+<data key="value">1.5707963267948966</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: FUNCEXEC(A2, VALUE); Formula values: FUNCEXEC(0.0, DEVDEF);</data>
+</node>
+<node id="c471b917-429a-497f-bdc3-76a99d74fa2b">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
+</node>
+<node id="a072217d-87a4-4bf0-b991-e53cea604719">
+<data key="name">FUNCEXEC</data>
+<data key="value">1.5707963267948966</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: FUNCEXEC(A2, VALUE); Formula values: FUNCEXEC(0.0, DEVDEF);</data>
+</node>
+<node id="1325355a-a361-4d0d-8a02-4dd4fa5bdd0c">
+<data key="name">B6</data>
+<data key="value">DEFINE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: DEFINE(ACOS(B2), VALUE, B2, VALUE); Formula values: DEFINE(ACOS(0.5), #, 0.5, DEVDEF);</data>
+</node>
+<node id="476ca23d-e234-48ea-976b-9526d25aceae">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
+</node>
+<node id="7895cf67-0ec1-4c30-9fca-d67dbd38491d">
+<data key="name">VALUE</data>
+<data key="value">#</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #;</data>
+</node>
+<node id="3127e8ee-c44f-4734-9873-9311acc8fb60">
+<data key="name">B4</data>
+<data key="value">1.0471975511965979</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ACOS(B2); Formula values: ACOS(0.5);</data>
+</node>
+<node id="663970d4-9c2f-4797-b46d-eb6258fa3955">
+<data key="name">DEFINE</data>
+<data key="value">DEFINE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DEFINE(ACOS(B2), VALUE, B2, VALUE); Formula values: DEFINE(ACOS(0.5), #, 0.5, DEVDEF);</data>
+</node>
+<node id="8e8b0bbd-064e-4193-b201-3460ab5665e1">
+<data key="name">C6</data>
+<data key="value">1.0471975511965979</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: FUNCEXEC(B2, VALUE); Formula values: FUNCEXEC(0.5, DEVDEF);</data>
+</node>
+<node id="b65f8abd-5196-4840-a664-d0ae8715c278">
+<data key="name">VALUE</data>
+<data key="value">DEVDEF</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
+</node>
+<node id="26695512-0e9f-4eeb-b6d5-d8e33b2a2134">
+<data key="name">FUNCEXEC</data>
+<data key="value">1.0471975511965979</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: FUNCEXEC(B2, VALUE); Formula values: FUNCEXEC(0.5, DEVDEF);</data>
+</node>
+<edge source="09676df2-b799-4dfa-9c69-d43ba5f8f45b" target="d99b55a1-5f51-4b1f-abed-0d960a347458"/>
+<edge source="d99b55a1-5f51-4b1f-abed-0d960a347458" target="ff85ef93-9aa3-48e6-990b-47fae8837216"/>
+<edge source="eb6dcc4e-db4c-4248-a170-c274053c1a1e" target="7cb38351-9ed3-4db3-a336-3661f25ffec3"/>
+<edge source="041c54d9-d2c0-4ced-8ae0-f7b6bf150bef" target="6c82929a-d787-4a37-81fb-6590ee8abc14"/>
+<edge source="b28f51f2-d19b-4347-980d-7f81b5e561c3" target="6c82929a-d787-4a37-81fb-6590ee8abc14"/>
+<edge source="6c82929a-d787-4a37-81fb-6590ee8abc14" target="d4c793e0-f709-4daa-b1b2-06f540b3621c"/>
+<edge source="c471b917-429a-497f-bdc3-76a99d74fa2b" target="a072217d-87a4-4bf0-b991-e53cea604719"/>
+<edge source="a072217d-87a4-4bf0-b991-e53cea604719" target="17f4a0bb-9859-4099-a488-91b5387131b7"/>
+<edge source="3127e8ee-c44f-4734-9873-9311acc8fb60" target="663970d4-9c2f-4797-b46d-eb6258fa3955"/>
+<edge source="7895cf67-0ec1-4c30-9fca-d67dbd38491d" target="663970d4-9c2f-4797-b46d-eb6258fa3955"/>
+<edge source="476ca23d-e234-48ea-976b-9526d25aceae" target="663970d4-9c2f-4797-b46d-eb6258fa3955"/>
+<edge source="663970d4-9c2f-4797-b46d-eb6258fa3955" target="1325355a-a361-4d0d-8a02-4dd4fa5bdd0c"/>
+<edge source="b65f8abd-5196-4840-a664-d0ae8715c278" target="26695512-0e9f-4eeb-b6d5-d8e33b2a2134"/>
+<edge source="26695512-0e9f-4eeb-b6d5-d8e33b2a2134" target="8e8b0bbd-064e-4193-b201-3460ab5665e1"/>
+<edge source="7cb38351-9ed3-4db3-a336-3661f25ffec3" target="3127e8ee-c44f-4734-9873-9311acc8fb60"/>
+<edge source="eb6dcc4e-db4c-4248-a170-c274053c1a1e" target="663970d4-9c2f-4797-b46d-eb6258fa3955"/>
+<edge source="eb6dcc4e-db4c-4248-a170-c274053c1a1e" target="26695512-0e9f-4eeb-b6d5-d8e33b2a2134"/>
+<edge source="09676df2-b799-4dfa-9c69-d43ba5f8f45b" target="a072217d-87a4-4bf0-b991-e53cea604719"/>
+<edge source="09676df2-b799-4dfa-9c69-d43ba5f8f45b" target="6c82929a-d787-4a37-81fb-6590ee8abc14"/>
+<edge source="ff85ef93-9aa3-48e6-990b-47fae8837216" target="6c82929a-d787-4a37-81fb-6590ee8abc14"/>
+</graph>
+</graphml>

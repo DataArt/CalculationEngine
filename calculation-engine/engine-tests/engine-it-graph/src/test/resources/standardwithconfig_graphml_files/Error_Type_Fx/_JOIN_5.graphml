@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_5">
+<node id="4d9575bc-a86d-4119-9e93-4273695d0994">
+<data key="name">B3</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ERROR.TYPE(VALUE); Formula values: ERROR.TYPE(#N/A);</data>
+</node>
+<node id="a4a12a49-241c-4d70-9cbe-c5ce78a54765">
+<data key="name">VALUE</data>
+<data key="value">#N/A</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #N/A;</data>
+</node>
+<node id="a7559d02-5642-40e3-bbdf-26797812d24a">
+<data key="name">ERROR.TYPE</data>
+<data key="value">7.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ERROR.TYPE(VALUE); Formula values: ERROR.TYPE(#N/A);</data>
+</node>
+<node id="6293c6e0-90e6-48a4-a391-957bad55531e">
+<data key="name">C4</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ERROR.TYPE(A2); Formula values: ERROR.TYPE(#DIV/0!);</data>
+</node>
+<node id="0988f21e-98c8-402f-a76a-b3db6be588ce">
+<data key="name">A2</data>
+<data key="value">#DIV/0!</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: #DIV/0!;</data>
+</node>
+<node id="814e7255-ea6c-4f16-88a3-1cea32f48ec5">
+<data key="name">ERROR.TYPE</data>
+<data key="value">2.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ERROR.TYPE(A2); Formula values: ERROR.TYPE(#DIV/0!);</data>
+</node>
+<edge source="a4a12a49-241c-4d70-9cbe-c5ce78a54765" target="a7559d02-5642-40e3-bbdf-26797812d24a"/>
+<edge source="a7559d02-5642-40e3-bbdf-26797812d24a" target="4d9575bc-a86d-4119-9e93-4273695d0994"/>
+<edge source="0988f21e-98c8-402f-a76a-b3db6be588ce" target="814e7255-ea6c-4f16-88a3-1cea32f48ec5"/>
+<edge source="814e7255-ea6c-4f16-88a3-1cea32f48ec5" target="6293c6e0-90e6-48a4-a391-957bad55531e"/>
+</graph>
+</graphml>

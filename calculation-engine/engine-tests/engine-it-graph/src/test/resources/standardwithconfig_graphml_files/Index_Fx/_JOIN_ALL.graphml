@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="c070deba-5e76-4144-87d9-da433f1aa3bb">
+<data key="name">E6</data>
+<data key="value">[[6.0]]</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: INDEX(VALUE, VALUE, A1:C4); Formula values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0);</data>
+</node>
+<node id="90393297-44fb-4b10-b474-8f6bdffce74e">
+<data key="name">A1:C4</data>
+<data key="value">[[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:C4; Formula values: [[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]];</data>
+</node>
+<node id="f4ce26bc-9542-470e-b59a-140fcdde3197">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="3d47023d-6af5-4a60-b85b-377eb69eccd5">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="f9ada9cd-5afc-4914-9bc6-1fe113bc7df7">
+<data key="name">INDEX</data>
+<data key="value">[[6.0]]</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INDEX(VALUE, VALUE, A1:C4); Formula values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0);</data>
+</node>
+<edge source="3d47023d-6af5-4a60-b85b-377eb69eccd5" target="f9ada9cd-5afc-4914-9bc6-1fe113bc7df7"/>
+<edge source="f4ce26bc-9542-470e-b59a-140fcdde3197" target="f9ada9cd-5afc-4914-9bc6-1fe113bc7df7"/>
+<edge source="90393297-44fb-4b10-b474-8f6bdffce74e" target="f9ada9cd-5afc-4914-9bc6-1fe113bc7df7"/>
+<edge source="f9ada9cd-5afc-4914-9bc6-1fe113bc7df7" target="c070deba-5e76-4144-87d9-da433f1aa3bb"/>
+</graph>
+</graphml>

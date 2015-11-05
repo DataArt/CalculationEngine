@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="febf4d84-41da-46ea-b540-c645f5a8b096">
+<data key="name">B8</data>
+<data key="value">1.0204081632653061</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVEDEV(A1:A7); Formula values: AVEDEV(4.0, 5.0, 6.0, 7.0, 5.0, 4.0, 3.0);</data>
+</node>
+<node id="33c0bcbf-84fa-44b2-b1d4-6cd0ff92934d">
+<data key="name">A1:A7</data>
+<data key="value">[[4.0], [5.0], [6.0], [7.0], [5.0], [4.0], [3.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:A7; Formula values: [[4.0], [5.0], [6.0], [7.0], [5.0], [4.0], [3.0]];</data>
+</node>
+<node id="1b2751db-ae28-4db4-9e76-780b109b6885">
+<data key="name">AVEDEV</data>
+<data key="value">1.0204081632653061</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: AVEDEV(A1:A7); Formula values: AVEDEV(4.0, 5.0, 6.0, 7.0, 5.0, 4.0, 3.0);</data>
+</node>
+<node id="38ce7925-d52d-4f3a-a746-e947a5104751">
+<data key="name">C8</data>
+<data key="value">219.88888888888889</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVEDEV(B1:C3); Formula values: AVEDEV(67.0, 873.0, 76.0, 52.0, 254.0, 80.0);</data>
+</node>
+<node id="31c5f343-20af-41b2-a01e-075416e45edd">
+<data key="name">B1:C3</data>
+<data key="value">[[67.0, 873.0], [76.0, 52.0], [254.0, 80.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: B1:C3; Formula values: [[67.0, 873.0], [76.0, 52.0], [254.0, 80.0]];</data>
+</node>
+<node id="f0c85a3d-a632-470a-a9b0-3bce25fc314a">
+<data key="name">AVEDEV</data>
+<data key="value">219.88888888888889</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: AVEDEV(B1:C3); Formula values: AVEDEV(67.0, 873.0, 76.0, 52.0, 254.0, 80.0);</data>
+</node>
+<node id="42c883d2-71da-4a4a-8a23-456509a532eb">
+<data key="name">C9</data>
+<data key="value">109.43424036281179</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVEDEV(AVEDEV(B1:C3), AVEDEV(A1:A7)); Formula values: AVEDEV(AVEDEV(67.0, 873.0, 76.0, 52.0, 254.0, 80.0), AVEDEV(4.0, 5.0, 6.0, 7.0, 5.0, 4.0, 3.0));</data>
+</node>
+<node id="046ff625-7f94-4cf5-b26e-e1845554341e">
+<data key="name">B8</data>
+<data key="value">1.0204081632653061</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVEDEV(A1:A7); Formula values: AVEDEV(4.0, 5.0, 6.0, 7.0, 5.0, 4.0, 3.0);</data>
+</node>
+<node id="baa884ce-b700-48f5-8c33-0c58df479d71">
+<data key="name">C8</data>
+<data key="value">219.88888888888889</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVEDEV(B1:C3); Formula values: AVEDEV(67.0, 873.0, 76.0, 52.0, 254.0, 80.0);</data>
+</node>
+<node id="12f37396-a00c-4458-b681-c7b92a4d637e">
+<data key="name">AVEDEV</data>
+<data key="value">109.43424036281179</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: AVEDEV(AVEDEV(B1:C3), AVEDEV(A1:A7)); Formula values: AVEDEV(AVEDEV(67.0, 873.0, 76.0, 52.0, 254.0, 80.0), AVEDEV(4.0, 5.0, 6.0, 7.0, 5.0, 4.0, 3.0));</data>
+</node>
+<edge source="33c0bcbf-84fa-44b2-b1d4-6cd0ff92934d" target="1b2751db-ae28-4db4-9e76-780b109b6885"/>
+<edge source="1b2751db-ae28-4db4-9e76-780b109b6885" target="febf4d84-41da-46ea-b540-c645f5a8b096"/>
+<edge source="31c5f343-20af-41b2-a01e-075416e45edd" target="f0c85a3d-a632-470a-a9b0-3bce25fc314a"/>
+<edge source="f0c85a3d-a632-470a-a9b0-3bce25fc314a" target="38ce7925-d52d-4f3a-a746-e947a5104751"/>
+<edge source="baa884ce-b700-48f5-8c33-0c58df479d71" target="12f37396-a00c-4458-b681-c7b92a4d637e"/>
+<edge source="046ff625-7f94-4cf5-b26e-e1845554341e" target="12f37396-a00c-4458-b681-c7b92a4d637e"/>
+<edge source="12f37396-a00c-4458-b681-c7b92a4d637e" target="42c883d2-71da-4a4a-8a23-456509a532eb"/>
+<edge source="1b2751db-ae28-4db4-9e76-780b109b6885" target="046ff625-7f94-4cf5-b26e-e1845554341e"/>
+<edge source="f0c85a3d-a632-470a-a9b0-3bce25fc314a" target="baa884ce-b700-48f5-8c33-0c58df479d71"/>
+</graph>
+</graphml>

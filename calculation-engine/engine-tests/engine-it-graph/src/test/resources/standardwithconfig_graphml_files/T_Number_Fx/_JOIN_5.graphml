@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_5">
+<node id="822a6b4c-3e4f-4ca8-80c1-52f4257f985c">
+<data key="name">D2</data>
+<data key="value">expected</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: IF(A2=C1,B4,B1); Formula values: IF(Sun = is, expected);</data>
+</node>
+<node id="9bd12ce0-8b1a-4364-8cd0-576a5ced36a1">
+<data key="name">A2</data>
+<data key="value">Sun</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: Sun;</data>
+</node>
+<node id="0d37964c-d156-4a19-95ea-960171244bee">
+<data key="name">C1</data>
+<data key="value">is</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C1; Formula values: is;</data>
+</node>
+<node id="4399f2bb-4a44-4750-a93b-518260f14198">
+<data key="name">=</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A2 = C1; Formula values: Sun = is;</data>
+</node>
+<node id="429d621e-5858-4476-9cc6-221310507760">
+<data key="name">IF</data>
+<data key="value">expected</data>
+<data key="type">IF</data>
+<data key="formula">Formula string: IF(A2=C1,B4,B1); Formula values: IF(Sun = is, expected);</data>
+</node>
+<node id="e4e1b3c9-6bac-4ec7-a5fe-0aeb6c7034e2">
+<data key="name">B1</data>
+<data key="value">expected</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B1; Formula values: expected;</data>
+</node>
+<node id="e97bb8df-6b53-4022-9767-858cb983e1b8">
+<data key="name">D5</data>
+<data key="value"/>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
+</node>
+<node id="e6b45f1a-243d-43eb-b856-fb9499fb233a">
+<data key="name">D3</data>
+<data key="value">52.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D3; Formula values: 52.0;</data>
+</node>
+<node id="2c117ecc-30b7-4f11-aa8b-e3a4f170f417">
+<data key="name">T</data>
+<data key="value"/>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
+</node>
+<edge source="0d37964c-d156-4a19-95ea-960171244bee" target="4399f2bb-4a44-4750-a93b-518260f14198"/>
+<edge source="9bd12ce0-8b1a-4364-8cd0-576a5ced36a1" target="4399f2bb-4a44-4750-a93b-518260f14198"/>
+<edge source="e4e1b3c9-6bac-4ec7-a5fe-0aeb6c7034e2" target="429d621e-5858-4476-9cc6-221310507760"/>
+<edge source="4399f2bb-4a44-4750-a93b-518260f14198" target="429d621e-5858-4476-9cc6-221310507760"/>
+<edge source="429d621e-5858-4476-9cc6-221310507760" target="822a6b4c-3e4f-4ca8-80c1-52f4257f985c"/>
+<edge source="e6b45f1a-243d-43eb-b856-fb9499fb233a" target="2c117ecc-30b7-4f11-aa8b-e3a4f170f417"/>
+<edge source="2c117ecc-30b7-4f11-aa8b-e3a4f170f417" target="e97bb8df-6b53-4022-9767-858cb983e1b8"/>
+</graph>
+</graphml>

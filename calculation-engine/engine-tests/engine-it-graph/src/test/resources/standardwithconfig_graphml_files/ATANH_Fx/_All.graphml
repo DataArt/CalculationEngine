@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="fdaacb99-4034-40ee-b5f0-085ddc8d3acc">
+<data key="name">B2</data>
+<data key="value">1.0000000120108175</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATANH(VALUE); Formula values: ATANH(0.761594161);</data>
+</node>
+<node id="ddbe1141-978c-4119-adbd-09a756745a43">
+<data key="name">VALUE</data>
+<data key="value">0.761594161</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 0.761594161;</data>
+</node>
+<node id="421c22f7-6ed4-435e-8de8-e6801cf36634">
+<data key="name">ATANH</data>
+<data key="value">1.0000000120108175</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ATANH(VALUE); Formula values: ATANH(0.761594161);</data>
+</node>
+<node id="fe27fcfd-e91b-40c0-95d0-8ca37205b63e">
+<data key="name">C2</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: VALUE - VALUE * VALUE * VALUE / VALUE; Formula values: 18.0 - 4.0 * 2.0 * 2.0 / 2.0;</data>
+</node>
+<node id="35fe6105-d1c7-41d7-b724-aa29fe5039d8">
+<data key="name">VALUE</data>
+<data key="value">18.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 18.0;</data>
+</node>
+<node id="34196571-c59d-48bc-9358-63502ee8806a">
+<data key="name">VALUE</data>
+<data key="value">4.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 4.0;</data>
+</node>
+<node id="aa43c8cf-5efa-4450-ba2e-2f3203afca30">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="b2006a18-1521-4fbf-983e-00ae56d8e1fc">
+<data key="name">*</data>
+<data key="value">8.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE * VALUE; Formula values: 4.0 * 2.0;</data>
+</node>
+<node id="87826b85-a006-477b-8517-f1c9b421e3a2">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="63d8d93f-db3f-4b3f-b715-52d089ea6e7e">
+<data key="name">*</data>
+<data key="value">16.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE * VALUE * VALUE; Formula values: 4.0 * 2.0 * 2.0;</data>
+</node>
+<node id="b3bbfb2f-f5ea-4085-ac24-69c5a1eab8a3">
+<data key="name">-</data>
+<data key="value">2.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE - VALUE * VALUE * VALUE; Formula values: 18.0 - 4.0 * 2.0 * 2.0;</data>
+</node>
+<node id="d036ab1d-768f-42c3-b724-f4161c76875c">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="16f805be-8792-40ca-8313-f7942280b092">
+<data key="name">/</data>
+<data key="value">1.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE - VALUE * VALUE * VALUE / VALUE; Formula values: 18.0 - 4.0 * 2.0 * 2.0 / 2.0;</data>
+</node>
+<node id="b12f50d1-b88b-4072-afe9-e990773e088e">
+<data key="name">B3</data>
+<data key="value">-0.10033534773107562</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATANH(VALUE); Formula values: ATANH(-0.1);</data>
+</node>
+<node id="829838b0-2f54-4f16-98d5-64f3bf981728">
+<data key="name">VALUE</data>
+<data key="value">-0.1</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: -0.1;</data>
+</node>
+<node id="21579551-8d52-4fc1-970b-2faf4c0cc647">
+<data key="name">ATANH</data>
+<data key="value">-0.10033534773107562</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ATANH(VALUE); Formula values: ATANH(-0.1);</data>
+</node>
+<node id="2b5668b5-b452-41b8-98dd-d694eda9b22b">
+<data key="name">B4</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATAN(VALUE - VALUE * VALUE * VALUE / VALUE); Formula values: ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0);</data>
+</node>
+<node id="ce5c1715-6604-47b1-bcab-baec70b2f321">
+<data key="name">C2</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: VALUE - VALUE * VALUE * VALUE / VALUE; Formula values: 18.0 - 4.0 * 2.0 * 2.0 / 2.0;</data>
+</node>
+<node id="60ea4e29-a64c-4d4c-8051-35ace33fa4fa">
+<data key="name">ATAN</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ATAN(VALUE - VALUE * VALUE * VALUE / VALUE); Formula values: ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0);</data>
+</node>
+<node id="5cc1ba5e-307d-42a5-8270-c829343d8aaa">
+<data key="name">B5</data>
+<data key="value">1.059306170823243</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATANH(ATAN(VALUE - VALUE * VALUE * VALUE / VALUE)); Formula values: ATANH(ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0));</data>
+</node>
+<node id="00d9d1d0-df6d-4609-bcc7-a78dbb6cd686">
+<data key="name">B4</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATAN(VALUE - VALUE * VALUE * VALUE / VALUE); Formula values: ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0);</data>
+</node>
+<node id="172cfd0d-344e-4732-9a5d-a67cf6bcf6a7">
+<data key="name">ATANH</data>
+<data key="value">1.059306170823243</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ATANH(ATAN(VALUE - VALUE * VALUE * VALUE / VALUE)); Formula values: ATANH(ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0));</data>
+</node>
+<node id="6c7f534f-71d4-4bd8-a7bb-141712c67047">
+<data key="name">D5</data>
+<data key="value">1.059306170823243</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATANH(ATAN(VALUE - VALUE * VALUE * VALUE / VALUE)); Formula values: ATANH(ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0));</data>
+</node>
+<node id="e326b8e6-d69d-4cf0-947c-8dc01bf0b4d4">
+<data key="name">B4</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATAN(VALUE - VALUE * VALUE * VALUE / VALUE); Formula values: ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0);</data>
+</node>
+<node id="d737cbcd-d6cb-4b0f-b72c-40a466fc820e">
+<data key="name">ATANH</data>
+<data key="value">1.059306170823243</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ATANH(ATAN(VALUE - VALUE * VALUE * VALUE / VALUE)); Formula values: ATANH(ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0));</data>
+</node>
+<edge source="ddbe1141-978c-4119-adbd-09a756745a43" target="421c22f7-6ed4-435e-8de8-e6801cf36634"/>
+<edge source="421c22f7-6ed4-435e-8de8-e6801cf36634" target="fdaacb99-4034-40ee-b5f0-085ddc8d3acc"/>
+<edge source="aa43c8cf-5efa-4450-ba2e-2f3203afca30" target="b2006a18-1521-4fbf-983e-00ae56d8e1fc"/>
+<edge source="34196571-c59d-48bc-9358-63502ee8806a" target="b2006a18-1521-4fbf-983e-00ae56d8e1fc"/>
+<edge source="87826b85-a006-477b-8517-f1c9b421e3a2" target="63d8d93f-db3f-4b3f-b715-52d089ea6e7e"/>
+<edge source="b2006a18-1521-4fbf-983e-00ae56d8e1fc" target="63d8d93f-db3f-4b3f-b715-52d089ea6e7e"/>
+<edge source="63d8d93f-db3f-4b3f-b715-52d089ea6e7e" target="b3bbfb2f-f5ea-4085-ac24-69c5a1eab8a3"/>
+<edge source="35fe6105-d1c7-41d7-b724-aa29fe5039d8" target="b3bbfb2f-f5ea-4085-ac24-69c5a1eab8a3"/>
+<edge source="d036ab1d-768f-42c3-b724-f4161c76875c" target="16f805be-8792-40ca-8313-f7942280b092"/>
+<edge source="b3bbfb2f-f5ea-4085-ac24-69c5a1eab8a3" target="16f805be-8792-40ca-8313-f7942280b092"/>
+<edge source="16f805be-8792-40ca-8313-f7942280b092" target="fe27fcfd-e91b-40c0-95d0-8ca37205b63e"/>
+<edge source="829838b0-2f54-4f16-98d5-64f3bf981728" target="21579551-8d52-4fc1-970b-2faf4c0cc647"/>
+<edge source="21579551-8d52-4fc1-970b-2faf4c0cc647" target="b12f50d1-b88b-4072-afe9-e990773e088e"/>
+<edge source="ce5c1715-6604-47b1-bcab-baec70b2f321" target="60ea4e29-a64c-4d4c-8051-35ace33fa4fa"/>
+<edge source="60ea4e29-a64c-4d4c-8051-35ace33fa4fa" target="2b5668b5-b452-41b8-98dd-d694eda9b22b"/>
+<edge source="00d9d1d0-df6d-4609-bcc7-a78dbb6cd686" target="172cfd0d-344e-4732-9a5d-a67cf6bcf6a7"/>
+<edge source="172cfd0d-344e-4732-9a5d-a67cf6bcf6a7" target="5cc1ba5e-307d-42a5-8270-c829343d8aaa"/>
+<edge source="e326b8e6-d69d-4cf0-947c-8dc01bf0b4d4" target="d737cbcd-d6cb-4b0f-b72c-40a466fc820e"/>
+<edge source="d737cbcd-d6cb-4b0f-b72c-40a466fc820e" target="6c7f534f-71d4-4bd8-a7bb-141712c67047"/>
+<edge source="16f805be-8792-40ca-8313-f7942280b092" target="ce5c1715-6604-47b1-bcab-baec70b2f321"/>
+<edge source="60ea4e29-a64c-4d4c-8051-35ace33fa4fa" target="00d9d1d0-df6d-4609-bcc7-a78dbb6cd686"/>
+<edge source="60ea4e29-a64c-4d4c-8051-35ace33fa4fa" target="e326b8e6-d69d-4cf0-947c-8dc01bf0b4d4"/>
+</graph>
+</graphml>

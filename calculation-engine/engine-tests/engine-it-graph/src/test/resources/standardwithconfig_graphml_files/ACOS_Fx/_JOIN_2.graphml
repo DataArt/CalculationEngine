@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_2">
+<node id="d6133d20-d003-40ee-9075-2f417cbebdeb">
+<data key="name">E5</data>
+<data key="value">1.359221367036801</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ACOS(C2); Formula values: ACOS(0.21);</data>
+</node>
+<node id="88963f8f-cbd2-4d53-b177-2b0c7a4ed58c">
+<data key="name">C2</data>
+<data key="value">0.21</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 0.21;</data>
+</node>
+<node id="aab8ff4c-cd47-4b74-992c-acd6a1b7f81d">
+<data key="name">ACOS</data>
+<data key="value">1.359221367036801</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ACOS(C2); Formula values: ACOS(0.21);</data>
+</node>
+<edge source="88963f8f-cbd2-4d53-b177-2b0c7a4ed58c" target="aab8ff4c-cd47-4b74-992c-acd6a1b7f81d"/>
+<edge source="aab8ff4c-cd47-4b74-992c-acd6a1b7f81d" target="d6133d20-d003-40ee-9075-2f417cbebdeb"/>
+</graph>
+</graphml>

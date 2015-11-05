@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="2d2d88e7-7d56-45e4-ad4d-dbb16e6acf7b">
+<data key="name">B5</data>
+<data key="value">24.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: DAYS360(A2, A1); Formula values: DAYS360(42029.0, 42005.0);</data>
+</node>
+<node id="e85d2757-f1dd-493e-b189-4ee41441b66e">
+<data key="name">A1</data>
+<data key="value">42005.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 42005.0;</data>
+</node>
+<node id="0b0d0b36-3523-40c7-b04f-37ef045c4f08">
+<data key="name">DAYS360</data>
+<data key="value">24.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DAYS360(A2, A1); Formula values: DAYS360(42029.0, 42005.0);</data>
+</node>
+<node id="7528918f-96b8-4b9a-a87e-5e36bad1e7a5">
+<data key="name">B6</data>
+<data key="value">154.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: DAYS360(A3, A2); Formula values: DAYS360(42184.0, 42029.0);</data>
+</node>
+<node id="325378d6-1ad1-4c2d-bad3-151e79a3b388">
+<data key="name">A2</data>
+<data key="value">42029.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 42029.0;</data>
+</node>
+<node id="9b791ef7-581e-4410-8ba2-9f4633bfac4d">
+<data key="name">A3</data>
+<data key="value">42184.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A3; Formula values: 42184.0;</data>
+</node>
+<node id="96145108-6aae-4996-b510-bce7e4f5ab93">
+<data key="name">DAYS360</data>
+<data key="value">154.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DAYS360(A3, A2); Formula values: DAYS360(42184.0, 42029.0);</data>
+</node>
+<node id="c8e2344b-3a79-4af2-9b78-bf83d83fdc6f">
+<data key="name">B7</data>
+<data key="value">160.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: DAYS360(A4, A3); Formula values: DAYS360(42347.0, 42184.0);</data>
+</node>
+<node id="9c7685e4-b16b-4db0-9ec2-1b3cf81ad243">
+<data key="name">DAYS360</data>
+<data key="value">160.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DAYS360(A4, A3); Formula values: DAYS360(42347.0, 42184.0);</data>
+</node>
+<node id="0f276212-753d-4a8a-a908-d16095c855aa">
+<data key="name">B8</data>
+<data key="value">-160.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: DAYS360(A3, A4); Formula values: DAYS360(42184.0, 42347.0);</data>
+</node>
+<node id="6882be29-27ad-4ca7-81d6-d46aa11fd171">
+<data key="name">A4</data>
+<data key="value">42347.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A4; Formula values: 42347.0;</data>
+</node>
+<node id="a22aa7e3-80f1-430d-8a07-9560457f1e6a">
+<data key="name">DAYS360</data>
+<data key="value">-160.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DAYS360(A3, A4); Formula values: DAYS360(42184.0, 42347.0);</data>
+</node>
+<edge source="e85d2757-f1dd-493e-b189-4ee41441b66e" target="0b0d0b36-3523-40c7-b04f-37ef045c4f08"/>
+<edge source="0b0d0b36-3523-40c7-b04f-37ef045c4f08" target="2d2d88e7-7d56-45e4-ad4d-dbb16e6acf7b"/>
+<edge source="9b791ef7-581e-4410-8ba2-9f4633bfac4d" target="96145108-6aae-4996-b510-bce7e4f5ab93"/>
+<edge source="325378d6-1ad1-4c2d-bad3-151e79a3b388" target="96145108-6aae-4996-b510-bce7e4f5ab93"/>
+<edge source="96145108-6aae-4996-b510-bce7e4f5ab93" target="7528918f-96b8-4b9a-a87e-5e36bad1e7a5"/>
+<edge source="9c7685e4-b16b-4db0-9ec2-1b3cf81ad243" target="c8e2344b-3a79-4af2-9b78-bf83d83fdc6f"/>
+<edge source="6882be29-27ad-4ca7-81d6-d46aa11fd171" target="a22aa7e3-80f1-430d-8a07-9560457f1e6a"/>
+<edge source="a22aa7e3-80f1-430d-8a07-9560457f1e6a" target="0f276212-753d-4a8a-a908-d16095c855aa"/>
+<edge source="325378d6-1ad1-4c2d-bad3-151e79a3b388" target="0b0d0b36-3523-40c7-b04f-37ef045c4f08"/>
+<edge source="9b791ef7-581e-4410-8ba2-9f4633bfac4d" target="a22aa7e3-80f1-430d-8a07-9560457f1e6a"/>
+<edge source="9b791ef7-581e-4410-8ba2-9f4633bfac4d" target="9c7685e4-b16b-4db0-9ec2-1b3cf81ad243"/>
+<edge source="6882be29-27ad-4ca7-81d6-d46aa11fd171" target="9c7685e4-b16b-4db0-9ec2-1b3cf81ad243"/>
+</graph>
+</graphml>

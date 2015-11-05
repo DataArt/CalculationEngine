@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_2">
+<node id="528caac0-1159-416d-b957-44a5a1aae190">
+<data key="name">B2</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: INT(VALUE); Formula values: INT(7.5);</data>
+</node>
+<node id="1193d2d2-8cda-42eb-87d4-eb4a4a630257">
+<data key="name">VALUE</data>
+<data key="value">7.5</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 7.5;</data>
+</node>
+<node id="32b95912-643e-4034-b564-9e439d8fe1cd">
+<data key="name">INT</data>
+<data key="value">7.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INT(VALUE); Formula values: INT(7.5);</data>
+</node>
+<node id="f5f6d82d-abbb-42bf-a186-b7e638382541">
+<data key="name">B3</data>
+<data key="value">19.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: INT(A1); Formula values: INT(19.5);</data>
+</node>
+<node id="db282ba8-55af-4064-ab03-0e5c4c9e0a24">
+<data key="name">A1</data>
+<data key="value">19.5</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 19.5;</data>
+</node>
+<node id="859a4344-4fa9-425a-861e-885ddb9c3ffc">
+<data key="name">INT</data>
+<data key="value">19.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INT(A1); Formula values: INT(19.5);</data>
+</node>
+<edge source="1193d2d2-8cda-42eb-87d4-eb4a4a630257" target="32b95912-643e-4034-b564-9e439d8fe1cd"/>
+<edge source="32b95912-643e-4034-b564-9e439d8fe1cd" target="528caac0-1159-416d-b957-44a5a1aae190"/>
+<edge source="db282ba8-55af-4064-ab03-0e5c4c9e0a24" target="859a4344-4fa9-425a-861e-885ddb9c3ffc"/>
+<edge source="859a4344-4fa9-425a-861e-885ddb9c3ffc" target="f5f6d82d-abbb-42bf-a186-b7e638382541"/>
+</graph>
+</graphml>

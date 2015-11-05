@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="8022d3c0-4792-4edd-9edb-d53448444cdc">
+<data key="name">A1</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: FLOOR(VALUE, VALUE); Formula values: FLOOR(2.0, 3.7);</data>
+</node>
+<node id="2523e120-241b-467b-a9fe-fbad96dc195c">
+<data key="name">VALUE</data>
+<data key="value">3.7</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.7;</data>
+</node>
+<node id="98e87bb8-b582-4543-91c4-caa33c8db849">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="46703bc9-d90d-4449-bd52-1f9d4acb80dd">
+<data key="name">FLOOR</data>
+<data key="value">2.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: FLOOR(VALUE, VALUE); Formula values: FLOOR(2.0, 3.7);</data>
+</node>
+<node id="397305aa-d75e-487f-9d62-0b64f13cc54e">
+<data key="name">B2</data>
+<data key="value">30.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: FLOOR(VALUE, VALUE); Formula values: FLOOR(3.0, 32.5678);</data>
+</node>
+<node id="620c1f55-8b45-4b90-92d9-3e34a2123041">
+<data key="name">VALUE</data>
+<data key="value">32.5678</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 32.5678;</data>
+</node>
+<node id="fd88d5b1-8d29-42ee-8875-d60c7197cf7e">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="2a4d40fa-4b83-4fc8-a841-cb390cdbd5ac">
+<data key="name">FLOOR</data>
+<data key="value">30.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: FLOOR(VALUE, VALUE); Formula values: FLOOR(3.0, 32.5678);</data>
+</node>
+<edge source="98e87bb8-b582-4543-91c4-caa33c8db849" target="46703bc9-d90d-4449-bd52-1f9d4acb80dd"/>
+<edge source="2523e120-241b-467b-a9fe-fbad96dc195c" target="46703bc9-d90d-4449-bd52-1f9d4acb80dd"/>
+<edge source="46703bc9-d90d-4449-bd52-1f9d4acb80dd" target="8022d3c0-4792-4edd-9edb-d53448444cdc"/>
+<edge source="fd88d5b1-8d29-42ee-8875-d60c7197cf7e" target="2a4d40fa-4b83-4fc8-a841-cb390cdbd5ac"/>
+<edge source="620c1f55-8b45-4b90-92d9-3e34a2123041" target="2a4d40fa-4b83-4fc8-a841-cb390cdbd5ac"/>
+<edge source="2a4d40fa-4b83-4fc8-a841-cb390cdbd5ac" target="397305aa-d75e-487f-9d62-0b64f13cc54e"/>
+</graph>
+</graphml>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="a4957026-f4cf-47e3-b419-1dd7087f870b">
+<data key="name">E6</data>
+<data key="value">#REF!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
+</node>
+<node id="c849d7bd-8659-41c4-874d-e87514e58b15">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="5b526082-de84-4fe0-82ed-e33e3a923244">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="11107a78-4236-45a9-bf29-22c6e7719f96">
+<data key="name">D5</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D5; Formula values: 9.0;</data>
+</node>
+<node id="9544c51d-3aab-4b26-9e96-c8e581294cbf">
+<data key="name">SUM</data>
+<data key="value">#REF!</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
+</node>
+<edge source="11107a78-4236-45a9-bf29-22c6e7719f96" target="9544c51d-3aab-4b26-9e96-c8e581294cbf"/>
+<edge source="5b526082-de84-4fe0-82ed-e33e3a923244" target="9544c51d-3aab-4b26-9e96-c8e581294cbf"/>
+<edge source="c849d7bd-8659-41c4-874d-e87514e58b15" target="9544c51d-3aab-4b26-9e96-c8e581294cbf"/>
+<edge source="9544c51d-3aab-4b26-9e96-c8e581294cbf" target="a4957026-f4cf-47e3-b419-1dd7087f870b"/>
+</graph>
+</graphml>

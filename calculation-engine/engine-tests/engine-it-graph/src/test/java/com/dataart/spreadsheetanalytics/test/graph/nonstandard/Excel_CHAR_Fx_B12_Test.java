@@ -18,8 +18,8 @@ package com.dataart.spreadsheetanalytics.test.graph.nonstandard;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_GRAPHML_DIR;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -31,19 +31,19 @@ public class Excel_CHAR_Fx_B12_Test extends SerializedGraphTest {
     static String file = "CHAR_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     
-    @BeforeClass
-    public static void before() throws Exception {
-        SerializedGraphTest.before(path, address);        
+    @Before
+    public void before() throws Exception {
+        super.before(path, address);        
     }
 
-    @AfterClass
-    public static void after() throws Exception {
-        SerializedGraphTest.after();
+    @After
+    public void after() throws Exception {
+        super.after();
     }
     
     @Test
     @Ignore
-    public void assert_ExcelFile_SerializedGraph() {
+    public void assert_ExcelFile_SerializedGraph() throws Exception {
         super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
     }
 }

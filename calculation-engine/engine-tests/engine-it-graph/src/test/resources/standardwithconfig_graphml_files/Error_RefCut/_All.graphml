@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="bcb6a503-eb04-4121-b012-6adca0fa0101">
+<data key="name">E6</data>
+<data key="value">#REF!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
+</node>
+<node id="5ca4ee59-7431-47a9-8f4b-e39b967802c1">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="519715f8-4427-4529-b308-b4daaec7e33c">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="527f3dc2-7063-46f7-b8b1-80bc7d1b2092">
+<data key="name">D5</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D5; Formula values: 9.0;</data>
+</node>
+<node id="18acdb66-82c7-48b9-a403-2ed5e8803fb5">
+<data key="name">SUM</data>
+<data key="value">#REF!</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
+</node>
+<edge source="527f3dc2-7063-46f7-b8b1-80bc7d1b2092" target="18acdb66-82c7-48b9-a403-2ed5e8803fb5"/>
+<edge source="519715f8-4427-4529-b308-b4daaec7e33c" target="18acdb66-82c7-48b9-a403-2ed5e8803fb5"/>
+<edge source="5ca4ee59-7431-47a9-8f4b-e39b967802c1" target="18acdb66-82c7-48b9-a403-2ed5e8803fb5"/>
+<edge source="18acdb66-82c7-48b9-a403-2ed5e8803fb5" target="bcb6a503-eb04-4121-b012-6adca0fa0101"/>
+</graph>
+</graphml>

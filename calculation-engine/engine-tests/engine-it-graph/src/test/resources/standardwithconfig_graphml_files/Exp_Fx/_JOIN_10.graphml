@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="04b17c91-b59a-496b-8064-c7cf19807049">
+<data key="name">A1</data>
+<data key="value">2.718281828459045</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(1.0);</data>
+</node>
+<node id="d94dec41-dc29-46ab-bb83-329385186b5a">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="b5e69796-5383-4c9c-868a-035092810d3c">
+<data key="name">EXP</data>
+<data key="value">2.718281828459045</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(1.0);</data>
+</node>
+<node id="52631462-c5b9-4692-bcde-7abc00943eb6">
+<data key="name">B1</data>
+<data key="value">15.154262241479259</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EXP(EXP(VALUE)); Formula values: EXP(EXP(1.0));</data>
+</node>
+<node id="8c48e00a-a9e9-44f0-90fb-1d34c4ce7ce0">
+<data key="name">A1</data>
+<data key="value">2.718281828459045</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(1.0);</data>
+</node>
+<node id="f26331b3-51b5-4559-ac6e-ea81c82f2f83">
+<data key="name">EXP</data>
+<data key="value">15.154262241479259</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: EXP(EXP(VALUE)); Formula values: EXP(EXP(1.0));</data>
+</node>
+<node id="b3b9db63-155e-4ea3-87bb-4a0de8921bbc">
+<data key="name">A2</data>
+<data key="value">7.3890560989306495</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(2.0);</data>
+</node>
+<node id="74d14616-87db-4b68-b12a-793584eb56bf">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="06b33268-3047-46a3-8f4f-e0c0d80a3e12">
+<data key="name">EXP</data>
+<data key="value">7.3890560989306495</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: EXP(VALUE); Formula values: EXP(2.0);</data>
+</node>
+<edge source="d94dec41-dc29-46ab-bb83-329385186b5a" target="b5e69796-5383-4c9c-868a-035092810d3c"/>
+<edge source="b5e69796-5383-4c9c-868a-035092810d3c" target="04b17c91-b59a-496b-8064-c7cf19807049"/>
+<edge source="8c48e00a-a9e9-44f0-90fb-1d34c4ce7ce0" target="f26331b3-51b5-4559-ac6e-ea81c82f2f83"/>
+<edge source="f26331b3-51b5-4559-ac6e-ea81c82f2f83" target="52631462-c5b9-4692-bcde-7abc00943eb6"/>
+<edge source="74d14616-87db-4b68-b12a-793584eb56bf" target="06b33268-3047-46a3-8f4f-e0c0d80a3e12"/>
+<edge source="06b33268-3047-46a3-8f4f-e0c0d80a3e12" target="b3b9db63-155e-4ea3-87bb-4a0de8921bbc"/>
+<edge source="b5e69796-5383-4c9c-868a-035092810d3c" target="8c48e00a-a9e9-44f0-90fb-1d34c4ce7ce0"/>
+</graph>
+</graphml>

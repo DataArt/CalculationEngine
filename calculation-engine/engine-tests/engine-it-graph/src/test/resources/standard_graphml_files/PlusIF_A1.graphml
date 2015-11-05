@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="A1">
-<node id="+_6.0_OPERATOR">
-<data key="name">+</data>
-<data key="value">6.0</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String:  + IF(A3&gt;A4,B3,B4); Formula Values:  + IF(3.0 &gt; 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 9 </data>
-</node>
-<node id="&gt;_FALSE_OPERATOR">
-<data key="name">&gt;</data>
-<data key="value">FALSE</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: A3 &gt; A4; Formula Values: 3.0 &gt; 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-</node>
-<node id="A1_6.0_CELL_WITH_FORMULA">
+<node id="3636e57c-62a2-4846-a9d2-1b79ecab4b49">
 <data key="name">A1</data>
 <data key="value">6.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String:  + IF(A3&gt;A4,B3,B4); Formula Values:  + IF(3.0 &gt; 5.0, 6.0); Formula Ptg:  6.0, 3.0 5.0 &gt; IF  +; Ptgs:  B4, A3 A4 &gt; IF  + Index in Ptgs: 9 </data>
+<data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
 </node>
-<node id="A3_3.0_CELL_WITH_VALUE">
+<node id="5a8efa30-c6fa-430f-9135-9a0e4b1a179e">
 <data key="name">A3</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A3; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: A3 Index in Ptgs: 0 </data>
+<data key="formula">Formula string: A3; Formula values: 3.0;</data>
 </node>
-<node id="A4_5.0_CELL_WITH_VALUE">
+<node id="5b7667d2-e385-44c8-9894-e445fdb172ab">
 <data key="name">A4</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A4; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A4 Index in Ptgs: 1 </data>
+<data key="formula">Formula string: A4; Formula values: 5.0;</data>
 </node>
-<node id="B4_6.0_CELL_WITH_VALUE">
-<data key="name">B4</data>
-<data key="value">6.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B4; Formula Values: 6.0; Formula Ptg: 6.0; Ptgs: B4 Index in Ptgs: 6 </data>
+<node id="ba069c4a-aa2d-489d-9898-e74d766a0584">
+<data key="name">&gt;</data>
+<data key="value">FALSE</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A3 &gt; A4; Formula values: 3.0 &gt; 5.0;</data>
 </node>
-<node id="IF_6.0_IF">
+<node id="c56196cc-7ca2-41a8-ab70-090df47fe10f">
 <data key="name">IF</data>
 <data key="value">6.0</data>
 <data key="type">IF</data>
-<data key="formula">Formula String: IF(A3&gt;A4,B3,B4); Formula Values: IF(3.0 &gt; 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 </data>
+<data key="formula">Formula string: IF(A3&gt;A4,B3,B4); Formula values: IF(3.0 &gt; 5.0, 6.0);</data>
 </node>
-<edge source="+_6.0_OPERATOR" target="A1_6.0_CELL_WITH_FORMULA"/>
-<edge source="&gt;_FALSE_OPERATOR" target="IF_6.0_IF"/>
-<edge source="A3_3.0_CELL_WITH_VALUE" target="&gt;_FALSE_OPERATOR"/>
-<edge source="A4_5.0_CELL_WITH_VALUE" target="&gt;_FALSE_OPERATOR"/>
-<edge source="B4_6.0_CELL_WITH_VALUE" target="IF_6.0_IF"/>
-<edge source="IF_6.0_IF" target="+_6.0_OPERATOR"/>
+<node id="ee3ff230-a4a9-47d4-9ac9-be1139237912">
+<data key="name">B4</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B4; Formula values: 6.0;</data>
+</node>
+<node id="72d3d88e-6b12-47e6-8257-91be2b7aadab">
+<data key="name">+</data>
+<data key="value">6.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
+</node>
+<edge source="5b7667d2-e385-44c8-9894-e445fdb172ab" target="ba069c4a-aa2d-489d-9898-e74d766a0584"/>
+<edge source="5a8efa30-c6fa-430f-9135-9a0e4b1a179e" target="ba069c4a-aa2d-489d-9898-e74d766a0584"/>
+<edge source="ee3ff230-a4a9-47d4-9ac9-be1139237912" target="c56196cc-7ca2-41a8-ab70-090df47fe10f"/>
+<edge source="ba069c4a-aa2d-489d-9898-e74d766a0584" target="c56196cc-7ca2-41a8-ab70-090df47fe10f"/>
+<edge source="c56196cc-7ca2-41a8-ab70-090df47fe10f" target="72d3d88e-6b12-47e6-8257-91be2b7aadab"/>
+<edge source="72d3d88e-6b12-47e6-8257-91be2b7aadab" target="3636e57c-62a2-4846-a9d2-1b79ecab4b49"/>
 </graph>
 </graphml>

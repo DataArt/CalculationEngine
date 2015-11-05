@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="9fda3c82-21d7-41c7-bd6c-c1f87f4037d1">
+<data key="name">C6</data>
+<data key="value">1.333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: INDIRECT(A2); Formula values: INDIRECT(B2);</data>
+</node>
+<node id="b198b522-c457-48be-a3de-f2e2746e1f68">
+<data key="name">A2</data>
+<data key="value">B2</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: B2;</data>
+</node>
+<node id="3b8684b0-0b5c-44e8-b413-ecc26b5f44f0">
+<data key="name">INDIRECT</data>
+<data key="value">1.333</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INDIRECT(A2); Formula values: INDIRECT(B2);</data>
+</node>
+<node id="a53c81b2-8dc1-4c35-83a2-bb215452c14e">
+<data key="name">C7</data>
+<data key="value">10.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: INDIRECT(VALUE); Formula values: INDIRECT(Bolt);</data>
+</node>
+<node id="a55f3624-38da-4f4f-82b0-f465a94b9494">
+<data key="name">VALUE</data>
+<data key="value">Bolt</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: Bolt;</data>
+</node>
+<node id="0eada205-b8b0-4495-b0e6-b40ebeb804f4">
+<data key="name">INDIRECT</data>
+<data key="value">10.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INDIRECT(VALUE); Formula values: INDIRECT(Bolt);</data>
+</node>
+<node id="b9c089ae-482e-4f3e-81a7-125180c49619">
+<data key="name">C8</data>
+<data key="value">62.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: INDIRECT(VALUE &amp; A5); Formula values: INDIRECT(B &amp; 5.0);</data>
+</node>
+<node id="239795ff-1aa7-423a-8d7a-df10609bb526">
+<data key="name">VALUE</data>
+<data key="value">B</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: B;</data>
+</node>
+<node id="9fbc65ef-4771-4ed8-8f2c-5c1f4537f1fa">
+<data key="name">A5</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A5; Formula values: 5.0;</data>
+</node>
+<node id="f35260c1-bef0-450f-9847-f27909bef30f">
+<data key="name">&amp;</data>
+<data key="value">B5</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE &amp; A5; Formula values: B &amp; 5.0;</data>
+</node>
+<node id="b6bba5be-c12a-438b-aecb-f6708a89fcc6">
+<data key="name">INDIRECT</data>
+<data key="value">62.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INDIRECT(VALUE &amp; A5); Formula values: INDIRECT(B &amp; 5.0);</data>
+</node>
+<edge source="b198b522-c457-48be-a3de-f2e2746e1f68" target="3b8684b0-0b5c-44e8-b413-ecc26b5f44f0"/>
+<edge source="3b8684b0-0b5c-44e8-b413-ecc26b5f44f0" target="9fda3c82-21d7-41c7-bd6c-c1f87f4037d1"/>
+<edge source="a55f3624-38da-4f4f-82b0-f465a94b9494" target="0eada205-b8b0-4495-b0e6-b40ebeb804f4"/>
+<edge source="0eada205-b8b0-4495-b0e6-b40ebeb804f4" target="a53c81b2-8dc1-4c35-83a2-bb215452c14e"/>
+<edge source="9fbc65ef-4771-4ed8-8f2c-5c1f4537f1fa" target="f35260c1-bef0-450f-9847-f27909bef30f"/>
+<edge source="239795ff-1aa7-423a-8d7a-df10609bb526" target="f35260c1-bef0-450f-9847-f27909bef30f"/>
+<edge source="f35260c1-bef0-450f-9847-f27909bef30f" target="b6bba5be-c12a-438b-aecb-f6708a89fcc6"/>
+<edge source="b6bba5be-c12a-438b-aecb-f6708a89fcc6" target="b9c089ae-482e-4f3e-81a7-125180c49619"/>
+</graph>
+</graphml>

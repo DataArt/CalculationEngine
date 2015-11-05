@@ -18,17 +18,15 @@ package com.dataart.spreadsheetanalytics.test.graph.standartwithconfig;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
@@ -43,58 +41,48 @@ public class Excel_MedianFx_All_Test extends SerializedGraphTest {
     static String suffix2 = "JOIN_2";
     static String suffix3 = "JOIN_5";
     static String suffix4 = "JOIN_10";
-    static IAuditor auditor = null;
     
+    IAuditor auditor = null;
     
-    @BeforeClass
-    public static void before() throws Exception {
+    @Before
+    public void beforeTest() throws Exception {
         final IDataModel model = new DataModel(path, path);
         GraphTestUtil.initExternalServices((DataModel) model);
         auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
     }
 
-    @AfterClass
-    public static void after() throws Exception {
-        SerializedGraphTest.after();
+    @After
+    public void afterTest() throws Exception {
+        super.after();
     }
     
     @Test
-    public void assert_ExcelFile_SerializedGraph_No_Join() {
+    public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
         graph = auditor.buildDynamicExecutionGraph();
-        dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
     }
 
     @Test
-    public void assert_ExcelFile_SerializedGraph_Join_All() {
+    public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
-        dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
     @Test
-    public void assert_ExcelFile_SerializedGraph_Join_2() {
+    public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
-        dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
     }
 
     @Test
-    public void assert_ExcelFile_SerializedGraph_Join_5() {
+    public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES);
-        dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
     @Test
-    public void assert_ExcelFile_SerializedGraph_Join_10() {
+    public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES);
-        dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
-        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
     }
 }

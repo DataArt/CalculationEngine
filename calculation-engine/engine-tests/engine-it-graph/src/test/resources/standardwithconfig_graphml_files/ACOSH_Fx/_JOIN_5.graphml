@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_5">
+<node id="d6bf5363-8377-4632-b8e7-5df52d3327cd">
+<data key="name">A1</data>
+<data key="value">2.993222846126381</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ACOSH(VALUE); Formula values: ACOSH(10.0);</data>
+</node>
+<node id="985213c4-4479-4c22-a526-90103adfbb7e">
+<data key="name">VALUE</data>
+<data key="value">10.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 10.0;</data>
+</node>
+<node id="c9b8fedf-7bc6-419c-8540-ebdb29a9d5a3">
+<data key="name">ACOSH</data>
+<data key="value">2.993222846126381</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ACOSH(VALUE); Formula values: ACOSH(10.0);</data>
+</node>
+<node id="67580a35-2bb6-4966-be89-b05abc3293ee">
+<data key="name">E5</data>
+<data key="value">5.192925985263684</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ACOSH(C2); Formula values: ACOSH(90.0);</data>
+</node>
+<node id="937c3d99-b3c3-49dd-a9aa-a43b4d656009">
+<data key="name">C2</data>
+<data key="value">90.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 90.0;</data>
+</node>
+<node id="fc90706b-ab18-459d-b7cc-77939b053a22">
+<data key="name">ACOSH</data>
+<data key="value">5.192925985263684</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ACOSH(C2); Formula values: ACOSH(90.0);</data>
+</node>
+<edge source="985213c4-4479-4c22-a526-90103adfbb7e" target="c9b8fedf-7bc6-419c-8540-ebdb29a9d5a3"/>
+<edge source="c9b8fedf-7bc6-419c-8540-ebdb29a9d5a3" target="d6bf5363-8377-4632-b8e7-5df52d3327cd"/>
+<edge source="937c3d99-b3c3-49dd-a9aa-a43b4d656009" target="fc90706b-ab18-459d-b7cc-77939b053a22"/>
+<edge source="fc90706b-ab18-459d-b7cc-77939b053a22" target="67580a35-2bb6-4966-be89-b05abc3293ee"/>
+</graph>
+</graphml>

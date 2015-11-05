@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D5">
-<node id="A1_Why _CELL_WITH_VALUE">
-<data key="name">A1</data>
-<data key="value">Why </data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A1; Formula Values: Why ; Formula Ptg: Why ; Ptgs: A1 Index in Ptgs: 0 </data>
-</node>
-<node id="B1_do _CELL_WITH_VALUE">
-<data key="name">B1</data>
-<data key="value">do </data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B1; Formula Values: do ; Formula Ptg: do ; Ptgs: B1 Index in Ptgs: 1 </data>
-</node>
-<node id="B2_think _CELL_WITH_VALUE">
-<data key="name">B2</data>
-<data key="value">think </data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: B2; Formula Values: think ; Formula Ptg: think ; Ptgs: B2 Index in Ptgs: 3 </data>
-</node>
-<node id="C1_you _CELL_WITH_VALUE">
-<data key="name">C1</data>
-<data key="value">you </data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C1; Formula Values: you ; Formula Ptg: you ; Ptgs: C1 Index in Ptgs: 2 </data>
-</node>
-<node id="C2_so_CELL_WITH_VALUE">
-<data key="name">C2</data>
-<data key="value">so</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C2; Formula Values: so; Formula Ptg: so; Ptgs: C2 Index in Ptgs: 4 </data>
-</node>
-<node id="C3_?_CELL_WITH_VALUE">
-<data key="name">C3</data>
-<data key="value">?</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: C3; Formula Values: ?; Formula Ptg: ?; Ptgs: C3 Index in Ptgs: 5 </data>
-</node>
-<node id="CONCATENATE_Why do you think so?_FUNCTION">
-<data key="name">CONCATENATE</data>
-<data key="value">Why do you think so?</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula Values: CONCATENATE(?, so, think , you , do , Why ); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 </data>
-</node>
-<node id="D5_Why do you think so?_CELL_WITH_FORMULA">
+<node id="1298ae42-ee36-4aae-8e6e-f5da65217788">
 <data key="name">D5</data>
 <data key="value">Why do you think so?</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula Values: CONCATENATE(?, so, think , you , do , Why ); Formula Ptg: ?, so, think , you , do , Why  CONCATENATE ; Ptgs: C3, C2, B2, C1, B1, A1 CONCATENATE  Index in Ptgs: 6 </data>
+<data key="formula">Formula string: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula values: CONCATENATE(?, so, think , you , do , Why );</data>
 </node>
-<edge source="A1_Why _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
-<edge source="B1_do _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
-<edge source="B2_think _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
-<edge source="C1_you _CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
-<edge source="C2_so_CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
-<edge source="C3_?_CELL_WITH_VALUE" target="CONCATENATE_Why do you think so?_FUNCTION"/>
-<edge source="CONCATENATE_Why do you think so?_FUNCTION" target="D5_Why do you think so?_CELL_WITH_FORMULA"/>
+<node id="2e4daece-dac1-43f1-8dff-c8d5a7cc9dc6">
+<data key="name">A1</data>
+<data key="value">Why </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: Why ;</data>
+</node>
+<node id="a4853cc4-887f-44fc-9748-84f8568117b6">
+<data key="name">B1</data>
+<data key="value">do </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B1; Formula values: do ;</data>
+</node>
+<node id="633483c9-461c-4045-ac36-72541f6b7f9b">
+<data key="name">C1</data>
+<data key="value">you </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C1; Formula values: you ;</data>
+</node>
+<node id="db2598d8-741b-4e36-a941-f30396922c00">
+<data key="name">B2</data>
+<data key="value">think </data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: think ;</data>
+</node>
+<node id="b8747e7e-8119-46f4-829f-98f53b88c4e6">
+<data key="name">C2</data>
+<data key="value">so</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: so;</data>
+</node>
+<node id="16735f67-e786-4f88-84e0-ad193d4e115a">
+<data key="name">C3</data>
+<data key="value">?</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: ?;</data>
+</node>
+<node id="4ac6cf7d-8bda-4331-bc27-2980281b6419">
+<data key="name">CONCATENATE</data>
+<data key="value">Why do you think so?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula values: CONCATENATE(?, so, think , you , do , Why );</data>
+</node>
+<edge source="16735f67-e786-4f88-84e0-ad193d4e115a" target="4ac6cf7d-8bda-4331-bc27-2980281b6419"/>
+<edge source="b8747e7e-8119-46f4-829f-98f53b88c4e6" target="4ac6cf7d-8bda-4331-bc27-2980281b6419"/>
+<edge source="db2598d8-741b-4e36-a941-f30396922c00" target="4ac6cf7d-8bda-4331-bc27-2980281b6419"/>
+<edge source="633483c9-461c-4045-ac36-72541f6b7f9b" target="4ac6cf7d-8bda-4331-bc27-2980281b6419"/>
+<edge source="a4853cc4-887f-44fc-9748-84f8568117b6" target="4ac6cf7d-8bda-4331-bc27-2980281b6419"/>
+<edge source="2e4daece-dac1-43f1-8dff-c8d5a7cc9dc6" target="4ac6cf7d-8bda-4331-bc27-2980281b6419"/>
+<edge source="4ac6cf7d-8bda-4331-bc27-2980281b6419" target="1298ae42-ee36-4aae-8e6e-f5da65217788"/>
 </graph>
 </graphml>

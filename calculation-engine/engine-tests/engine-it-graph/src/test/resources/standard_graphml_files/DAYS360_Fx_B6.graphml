@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B6">
-<node id="A2_42029.0_CELL_WITH_VALUE">
-<data key="name">A2</data>
-<data key="value">42029.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A2; Formula Values: 42029.0; Formula Ptg: 42029.0; Ptgs: A2 Index in Ptgs: 0 </data>
-</node>
-<node id="A3_42184.0_CELL_WITH_VALUE">
-<data key="name">A3</data>
-<data key="value">42184.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A3; Formula Values: 42184.0; Formula Ptg: 42184.0; Ptgs: A3 Index in Ptgs: 1 </data>
-</node>
-<node id="B6_154.0_CELL_WITH_FORMULA">
+<node id="426564a4-defd-42fd-9665-238c58b9a670">
 <data key="name">B6</data>
 <data key="value">154.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: 42184.0, 42029.0 DAYS360 ; Ptgs: A3, A2 DAYS360  Index in Ptgs: 2 </data>
+<data key="formula">Formula string: DAYS360(A3, A2); Formula values: DAYS360(42184.0, 42029.0);</data>
 </node>
-<node id="DAYS360_154.0_FUNCTION">
+<node id="ebf81969-d7a5-4895-bb03-a60767838a71">
+<data key="name">A2</data>
+<data key="value">42029.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 42029.0;</data>
+</node>
+<node id="bdc56967-f069-4988-ab11-fe49df6dbd44">
+<data key="name">A3</data>
+<data key="value">42184.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A3; Formula values: 42184.0;</data>
+</node>
+<node id="1b833e72-503e-43e7-8b4d-d4dc853cbda3">
 <data key="name">DAYS360</data>
 <data key="value">154.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
+<data key="formula">Formula string: DAYS360(A3, A2); Formula values: DAYS360(42184.0, 42029.0);</data>
 </node>
-<edge source="A2_42029.0_CELL_WITH_VALUE" target="DAYS360_154.0_FUNCTION"/>
-<edge source="A3_42184.0_CELL_WITH_VALUE" target="DAYS360_154.0_FUNCTION"/>
-<edge source="DAYS360_154.0_FUNCTION" target="B6_154.0_CELL_WITH_FORMULA"/>
+<edge source="bdc56967-f069-4988-ab11-fe49df6dbd44" target="1b833e72-503e-43e7-8b4d-d4dc853cbda3"/>
+<edge source="ebf81969-d7a5-4895-bb03-a60767838a71" target="1b833e72-503e-43e7-8b4d-d4dc853cbda3"/>
+<edge source="1b833e72-503e-43e7-8b4d-d4dc853cbda3" target="426564a4-defd-42fd-9665-238c58b9a670"/>
 </graph>
 </graphml>

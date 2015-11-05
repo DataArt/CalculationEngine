@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D6">
-<node id="D6_FALSE_CELL_WITH_FORMULA">
+<node id="6aedd02a-30ca-48ca-9a99-3efb25883d58">
 <data key="name">D6</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISBLANK(VALUE); Formula Values: ISBLANK(#REF!); Formula Ptg: #REF! ISBLANK ; Ptgs: VALUE ISBLANK  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(#REF!);</data>
 </node>
-<node id="ISBLANK_FALSE_FUNCTION">
-<data key="name">ISBLANK</data>
-<data key="value">FALSE</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISBLANK(VALUE); Formula Values: ISBLANK(#REF!); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="VALUE_#REF!_CONSTANT_VALUE">
+<node id="a25b7541-0d86-497c-9838-1c26c7a2ed5f">
 <data key="name">VALUE</data>
 <data key="value">#REF!</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: #REF!; Formula Ptg: #REF!; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
 </node>
-<edge source="ISBLANK_FALSE_FUNCTION" target="D6_FALSE_CELL_WITH_FORMULA"/>
-<edge source="VALUE_#REF!_CONSTANT_VALUE" target="ISBLANK_FALSE_FUNCTION"/>
+<node id="e579ed64-328d-48bb-94bb-a5443140dde5">
+<data key="name">ISBLANK</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(#REF!);</data>
+</node>
+<edge source="a25b7541-0d86-497c-9838-1c26c7a2ed5f" target="e579ed64-328d-48bb-94bb-a5443140dde5"/>
+<edge source="e579ed64-328d-48bb-94bb-a5443140dde5" target="6aedd02a-30ca-48ca-9a99-3efb25883d58"/>
 </graph>
 </graphml>

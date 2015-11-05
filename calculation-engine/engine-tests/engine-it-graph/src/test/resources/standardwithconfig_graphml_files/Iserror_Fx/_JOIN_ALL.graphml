@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_ALL">
+<node id="ed3b0395-b83d-483a-a3b3-fa702f4dd64d">
+<data key="name">D3</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D3; Formula values: #NAME?;</data>
+</node>
+<node id="af63029d-b3a9-4792-905a-1dc95ea07c62">
+<data key="name">B2</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 6.0;</data>
+</node>
+<node id="dfdc4296-830c-4202-8997-c48c997a41bb">
+<data key="name">B7</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: B7; Formula values: ;</data>
+</node>
+<node id="40bffd2a-7379-4bae-a2a3-5aaf4f184e66">
+<data key="name">/</data>
+<data key="value">#DIV/0!</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
+</node>
+<node id="398b97f3-7a7a-47c3-8c15-59c905460283">
+<data key="name">D2</data>
+<data key="value">#REF!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(B2, VALUE); Formula values: SUM(6.0, #REF!);</data>
+</node>
+<node id="bafeb911-44f8-4786-9b80-1b619ead6edc">
+<data key="name">VALUE</data>
+<data key="value">#REF!</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
+</node>
+<node id="f85f62d0-526b-4698-a478-79d6ce7beb1d">
+<data key="name">SUM</data>
+<data key="value">#REF!</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(B2, VALUE); Formula values: SUM(6.0, #REF!);</data>
+</node>
+<node id="7011b199-bcd7-4661-b261-c8080f4d6ab7">
+<data key="name">E3</data>
+<data key="value">[[5.0, 67.0, 7.0], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , ], [, , ], [, , , TRUE], [, , ]]</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: A1:D11; Formula values: [[5.0, 67.0, 7.0], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , ], [, , ], [, , , TRUE], [, , ]];</data>
+</node>
+<node id="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621">
+<data key="name">A1:D11</data>
+<data key="value">[[5.0, 67.0, 7.0], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , ], [, , ], [, , , TRUE], [, , ]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:D11; Formula values: [[5.0, 67.0, 7.0], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , ], [, , ], [, , , TRUE], [, , ]];</data>
+</node>
+<node id="c7f5cadb-f0b6-4686-857d-9849bc513972">
+<data key="name">D6</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISERROR(C3); Formula values: ISERROR(989.0);</data>
+</node>
+<node id="8e3308b8-2c87-4d08-b74d-c7fd0ce21e0c">
+<data key="name">C3</data>
+<data key="value">989.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: 989.0;</data>
+</node>
+<node id="a025af06-4956-4485-855f-4bf217545204">
+<data key="name">ISERROR</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISERROR(C3); Formula values: ISERROR(989.0);</data>
+</node>
+<node id="f10a4677-481e-4ed5-b98a-454f68df88d8">
+<data key="name">D7</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISERROR(SUM(B2, VALUE)); Formula values: ISERROR(SUM(6.0, #REF!));</data>
+</node>
+<node id="ba53c47b-02ee-4a15-b12b-4c0d35c34952">
+<data key="name">ISERROR</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISERROR(SUM(B2, VALUE)); Formula values: ISERROR(SUM(6.0, #REF!));</data>
+</node>
+<node id="ccb726d2-07cb-4908-af08-39d46b25f68c">
+<data key="name">D8</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISERROR(D3); Formula values: ISERROR(#NAME?);</data>
+</node>
+<node id="d36245fa-62b4-42ab-bfdf-928c4a0a4361">
+<data key="name">D9</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISERROR(SUM(D3, C2, C1)); Formula values: ISERROR(SUM(#NAME?, 5.0, 7.0));</data>
+</node>
+<node id="642cabcb-b639-4c71-9b3c-7b10fadabd12">
+<data key="name">D1</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(D3, C2, C1); Formula values: SUM(#NAME?, 5.0, 7.0);</data>
+</node>
+<node id="683ea8e3-0e98-4de7-b2ab-bfbd90a21641">
+<data key="name">C2</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 5.0;</data>
+</node>
+<node id="94e512c4-8a12-4f7b-b9cd-0c3eba4ae5de">
+<data key="name">D10</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISERROR(B2 / B7); Formula values: ISERROR(6.0 / );</data>
+</node>
+<node id="bf679323-e7bd-4d4d-87eb-3c3d802d2db1">
+<data key="name">E1</data>
+<data key="value">#DIV/0!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
+</node>
+<node id="2cf54723-2c61-4664-b75e-36b8fab3b2cc">
+<data key="name">ISERROR</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISERROR(B2 / B7); Formula values: ISERROR(6.0 / );</data>
+</node>
+<node id="60a7c096-6cdf-4d37-8ba9-c783860169f1">
+<data key="name">D11</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISERROR(E2); Formula values: ISERROR(#NAME?);</data>
+</node>
+<node id="0cd740d2-76f0-4535-88d0-da58aebea4f3">
+<data key="name">E2</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: E2; Formula values: #NAME?;</data>
+</node>
+<node id="c54ed59a-7589-4c91-bc5c-8ad3206c4745">
+<data key="name">ISERROR</data>
+<data key="value">#NAME?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISERROR(E2); Formula values: ISERROR(#NAME?);</data>
+</node>
+<node id="8785d9b9-87e7-4bd6-9511-b51a0d5686c6">
+<data key="name">ISERROR</data>
+<data key="value">#NAME?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISERROR(D3); Formula values: ISERROR(#NAME?);</data>
+</node>
+<node id="4eeae90e-a54e-4f14-b933-964ea2109d34">
+<data key="name">C1</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C1; Formula values: 7.0;</data>
+</node>
+<node id="0884c80c-3946-4f66-bcc6-8098690bb506">
+<data key="name">SUM</data>
+<data key="value">#NAME?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(D3, C2, C1); Formula values: SUM(#NAME?, 5.0, 7.0);</data>
+</node>
+<node id="415a2b95-cb4f-4998-96df-060e26aa3602">
+<data key="name">ISERROR</data>
+<data key="value">#NAME?</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISERROR(SUM(D3, C2, C1)); Formula values: ISERROR(SUM(#NAME?, 5.0, 7.0));</data>
+</node>
+<node id="02ab72e7-a258-4db0-a02e-43ea5aa06768">
+<data key="name">D12</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISERROR(A1:D11); Formula values: ISERROR(5.0, 67.0, 7.0, 2.0, 6.0, 5.0, #REF!, 6.0, 7.0, 989.0, 5.0, 8.0, 52.0, , 7.0, 91.0, 7.0, , , , , FALSE, , , , TRUE, , , , , , , , , , TRUE, , , );</data>
+</node>
+<node id="a0866c12-8142-488e-a15c-82d6c5e5a87a">
+<data key="name">ISERROR</data>
+<data key="value">TRUE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISERROR(A1:D11); Formula values: ISERROR(5.0, 67.0, 7.0, 2.0, 6.0, 5.0, #REF!, 6.0, 7.0, 989.0, 5.0, 8.0, 52.0, , 7.0, 91.0, 7.0, , , , , FALSE, , , , TRUE, , , , , , , , , , TRUE, , , );</data>
+</node>
+<edge source="dfdc4296-830c-4202-8997-c48c997a41bb" target="40bffd2a-7379-4bae-a2a3-5aaf4f184e66"/>
+<edge source="af63029d-b3a9-4792-905a-1dc95ea07c62" target="40bffd2a-7379-4bae-a2a3-5aaf4f184e66"/>
+<edge source="bafeb911-44f8-4786-9b80-1b619ead6edc" target="f85f62d0-526b-4698-a478-79d6ce7beb1d"/>
+<edge source="f85f62d0-526b-4698-a478-79d6ce7beb1d" target="398b97f3-7a7a-47c3-8c15-59c905460283"/>
+<edge source="af63029d-b3a9-4792-905a-1dc95ea07c62" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="398b97f3-7a7a-47c3-8c15-59c905460283" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="ed3b0395-b83d-483a-a3b3-fa702f4dd64d" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="8e3308b8-2c87-4d08-b74d-c7fd0ce21e0c" target="a025af06-4956-4485-855f-4bf217545204"/>
+<edge source="a025af06-4956-4485-855f-4bf217545204" target="c7f5cadb-f0b6-4686-857d-9849bc513972"/>
+<edge source="c7f5cadb-f0b6-4686-857d-9849bc513972" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="dfdc4296-830c-4202-8997-c48c997a41bb" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="ba53c47b-02ee-4a15-b12b-4c0d35c34952" target="f10a4677-481e-4ed5-b98a-454f68df88d8"/>
+<edge source="f10a4677-481e-4ed5-b98a-454f68df88d8" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="ccb726d2-07cb-4908-af08-39d46b25f68c" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="d36245fa-62b4-42ab-bfdf-928c4a0a4361" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="bf679323-e7bd-4d4d-87eb-3c3d802d2db1" target="2cf54723-2c61-4664-b75e-36b8fab3b2cc"/>
+<edge source="2cf54723-2c61-4664-b75e-36b8fab3b2cc" target="94e512c4-8a12-4f7b-b9cd-0c3eba4ae5de"/>
+<edge source="94e512c4-8a12-4f7b-b9cd-0c3eba4ae5de" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="0cd740d2-76f0-4535-88d0-da58aebea4f3" target="c54ed59a-7589-4c91-bc5c-8ad3206c4745"/>
+<edge source="c54ed59a-7589-4c91-bc5c-8ad3206c4745" target="60a7c096-6cdf-4d37-8ba9-c783860169f1"/>
+<edge source="60a7c096-6cdf-4d37-8ba9-c783860169f1" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621" target="7011b199-bcd7-4661-b261-c8080f4d6ab7"/>
+<edge source="8785d9b9-87e7-4bd6-9511-b51a0d5686c6" target="ccb726d2-07cb-4908-af08-39d46b25f68c"/>
+<edge source="4eeae90e-a54e-4f14-b933-964ea2109d34" target="0884c80c-3946-4f66-bcc6-8098690bb506"/>
+<edge source="0884c80c-3946-4f66-bcc6-8098690bb506" target="642cabcb-b639-4c71-9b3c-7b10fadabd12"/>
+<edge source="415a2b95-cb4f-4998-96df-060e26aa3602" target="d36245fa-62b4-42ab-bfdf-928c4a0a4361"/>
+<edge source="a0866c12-8142-488e-a15c-82d6c5e5a87a" target="02ab72e7-a258-4db0-a02e-43ea5aa06768"/>
+<edge source="40bffd2a-7379-4bae-a2a3-5aaf4f184e66" target="bf679323-e7bd-4d4d-87eb-3c3d802d2db1"/>
+<edge source="642cabcb-b639-4c71-9b3c-7b10fadabd12" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="642cabcb-b639-4c71-9b3c-7b10fadabd12" target="415a2b95-cb4f-4998-96df-060e26aa3602"/>
+<edge source="4eeae90e-a54e-4f14-b933-964ea2109d34" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="398b97f3-7a7a-47c3-8c15-59c905460283" target="ba53c47b-02ee-4a15-b12b-4c0d35c34952"/>
+<edge source="7011b199-bcd7-4661-b261-c8080f4d6ab7" target="a0866c12-8142-488e-a15c-82d6c5e5a87a"/>
+<edge source="683ea8e3-0e98-4de7-b2ab-bfbd90a21641" target="f9ddac7b-e60f-4c5e-8529-d5b95e3c0621"/>
+<edge source="683ea8e3-0e98-4de7-b2ab-bfbd90a21641" target="0884c80c-3946-4f66-bcc6-8098690bb506"/>
+<edge source="ed3b0395-b83d-483a-a3b3-fa702f4dd64d" target="0884c80c-3946-4f66-bcc6-8098690bb506"/>
+<edge source="ed3b0395-b83d-483a-a3b3-fa702f4dd64d" target="8785d9b9-87e7-4bd6-9511-b51a0d5686c6"/>
+<edge source="af63029d-b3a9-4792-905a-1dc95ea07c62" target="f85f62d0-526b-4698-a478-79d6ce7beb1d"/>
+</graph>
+</graphml>

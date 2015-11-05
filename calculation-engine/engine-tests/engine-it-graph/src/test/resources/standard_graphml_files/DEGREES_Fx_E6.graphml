@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="DEGREES_180.0_FUNCTION">
-<data key="name">DEGREES</data>
-<data key="value">180.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: DEGREES(PI()); Formula Values: DEGREES(PI()); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="E6_180.0_CELL_WITH_FORMULA">
+<node id="7085ea7e-ca0f-43ac-b40a-87a1cb82cfa7">
 <data key="name">E6</data>
 <data key="value">180.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: DEGREES(PI()); Formula Values: DEGREES(PI()); Formula Ptg:  PI  DEGREES ; Ptgs:  PI  DEGREES  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: DEGREES(PI()); Formula values: DEGREES(PI());</data>
 </node>
-<node id="PI_3.141592653589793_FUNCTION">
+<node id="3daf39c8-dd6b-438f-8aaa-4ae448e079fe">
 <data key="name">PI</data>
 <data key="value">3.141592653589793</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: PI(); Formula Values: PI(); Formula Ptg: ; Ptgs:  Index in Ptgs: 0 </data>
+<data key="formula">Formula string: PI(); Formula values: PI();</data>
 </node>
-<edge source="DEGREES_180.0_FUNCTION" target="E6_180.0_CELL_WITH_FORMULA"/>
-<edge source="PI_3.141592653589793_FUNCTION" target="DEGREES_180.0_FUNCTION"/>
+<node id="8436ae53-945c-4d4e-bb17-4ac67d853957">
+<data key="name">DEGREES</data>
+<data key="value">180.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: DEGREES(PI()); Formula values: DEGREES(PI());</data>
+</node>
+<edge source="3daf39c8-dd6b-438f-8aaa-4ae448e079fe" target="8436ae53-945c-4d4e-bb17-4ac67d853957"/>
+<edge source="8436ae53-945c-4d4e-bb17-4ac67d853957" target="7085ea7e-ca0f-43ac-b40a-87a1cb82cfa7"/>
 </graph>
 </graphml>

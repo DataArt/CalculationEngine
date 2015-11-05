@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D9">
-<node id="A2_FALSE_CELL_WITH_VALUE">
-<data key="name">A2</data>
-<data key="value">FALSE</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A2; Formula Values: FALSE; Formula Ptg: FALSE; Ptgs: A2 Index in Ptgs: 0 </data>
-</node>
-<node id="C6_TRUE_CELL_WITH_FORMULA">
-<data key="name">C6</data>
-<data key="value">TRUE</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISLOGICAL(A2); Formula Values: ISLOGICAL(FALSE); Formula Ptg: FALSE ISLOGICAL ; Ptgs: A2 ISLOGICAL  Index in Ptgs: 1 </data>
-</node>
-<node id="D9_TRUE_CELL_WITH_FORMULA">
+<node id="25166ce3-87bd-4bd4-8d68-c6fe30781a60">
 <data key="name">D9</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ISLOGICAL(ISLOGICAL(A2)); Formula Values: ISLOGICAL(ISLOGICAL(FALSE)); Formula Ptg: FALSE ISLOGICAL  ISLOGICAL ; Ptgs: A2 ISLOGICAL  ISLOGICAL  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISLOGICAL(ISLOGICAL(A2)); Formula values: ISLOGICAL(ISLOGICAL(FALSE));</data>
 </node>
-<node id="ISLOGICAL_TRUE_FUNCTION">
+<node id="76f6a6bc-1ea2-4a53-9410-d6a75547325d">
+<data key="name">C6</data>
+<data key="value">TRUE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISLOGICAL(A2); Formula values: ISLOGICAL(FALSE);</data>
+</node>
+<node id="934d07e8-a3b2-434b-a0f4-bb7348b06496">
+<data key="name">A2</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: FALSE;</data>
+</node>
+<node id="198bb751-a447-4706-9afc-7f17b39257ce">
 <data key="name">ISLOGICAL</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISLOGICAL(A2); Formula Values: ISLOGICAL(FALSE); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISLOGICAL(A2); Formula values: ISLOGICAL(FALSE);</data>
 </node>
-<node id="ISLOGICAL_TRUE_FUNCTION">
+<node id="629ec69b-a4e0-4a9c-a7c8-9296ac190ae0">
 <data key="name">ISLOGICAL</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula String: ISLOGICAL(ISLOGICAL(A2)); Formula Values: ISLOGICAL(ISLOGICAL(FALSE)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ISLOGICAL(ISLOGICAL(A2)); Formula values: ISLOGICAL(ISLOGICAL(FALSE));</data>
 </node>
-<edge source="A2_FALSE_CELL_WITH_VALUE" target="ISLOGICAL_TRUE_FUNCTION"/>
-<edge source="C6_TRUE_CELL_WITH_FORMULA" target="ISLOGICAL_TRUE_FUNCTION"/>
-<edge source="ISLOGICAL_TRUE_FUNCTION" target="C6_TRUE_CELL_WITH_FORMULA"/>
-<edge source="ISLOGICAL_TRUE_FUNCTION" target="D9_TRUE_CELL_WITH_FORMULA"/>
+<edge source="934d07e8-a3b2-434b-a0f4-bb7348b06496" target="198bb751-a447-4706-9afc-7f17b39257ce"/>
+<edge source="198bb751-a447-4706-9afc-7f17b39257ce" target="76f6a6bc-1ea2-4a53-9410-d6a75547325d"/>
+<edge source="76f6a6bc-1ea2-4a53-9410-d6a75547325d" target="629ec69b-a4e0-4a9c-a7c8-9296ac190ae0"/>
+<edge source="629ec69b-a4e0-4a9c-a7c8-9296ac190ae0" target="25166ce3-87bd-4bd4-8d68-c6fe30781a60"/>
 </graph>
 </graphml>

@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,10 +42,14 @@ public class ExecutionGraph implements IExecutionGraph {
 
     @Override
     public IExecutionGraphVertex getRootVertex() {
+        List<IExecutionGraphVertex> possible = new LinkedList<>();
         for (org.apache.poi.common.execgraph.IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
-            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { return (ExecutionGraphVertex) ivertex; }
+            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { possible.add((ExecutionGraphVertex) ivertex); }
         }
-        throw new IllegalStateException("No graph root found");
+        if (possible.isEmpty()) { throw new IllegalStateException("No graph root found"); }
+        if (possible.size() > 1) { throw new IllegalStateException(String.format("Many graph roots found (%s)", possible.size())); }
+        
+        return possible.get(0);
     }
 
     @Override

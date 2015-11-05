@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B2">
-<node id="ASINH_-1.6472311463710965_FUNCTION">
-<data key="name">ASINH</data>
-<data key="value">-1.6472311463710965</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(-2.5); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 </data>
-</node>
-<node id="B2_-1.6472311463710965_CELL_WITH_FORMULA">
+<node id="81a3a318-43fa-40bb-8277-52a6c2b1c3b6">
 <data key="name">B2</data>
 <data key="value">-1.6472311463710965</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: ASINH(VALUE); Formula Values: ASINH(-2.5); Formula Ptg: -2.5 ASINH ; Ptgs: VALUE ASINH  Index in Ptgs: 1 </data>
+<data key="formula">Formula string: ASINH(VALUE); Formula values: ASINH(-2.5);</data>
 </node>
-<node id="VALUE_-2.5_CONSTANT_VALUE">
+<node id="854de288-8d52-4724-a005-7d4fe5fafab9">
 <data key="name">VALUE</data>
 <data key="value">-2.5</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula String: VALUE; Formula Values: -2.5; Formula Ptg: -2.5; Ptgs: VALUE Index in Ptgs: 0 </data>
+<data key="formula">Formula string: VALUE; Formula values: -2.5;</data>
 </node>
-<edge source="ASINH_-1.6472311463710965_FUNCTION" target="B2_-1.6472311463710965_CELL_WITH_FORMULA"/>
-<edge source="VALUE_-2.5_CONSTANT_VALUE" target="ASINH_-1.6472311463710965_FUNCTION"/>
+<node id="4439615e-75ff-42b2-95fb-e5329556c26b">
+<data key="name">ASINH</data>
+<data key="value">-1.6472311463710965</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ASINH(VALUE); Formula values: ASINH(-2.5);</data>
+</node>
+<edge source="854de288-8d52-4724-a005-7d4fe5fafab9" target="4439615e-75ff-42b2-95fb-e5329556c26b"/>
+<edge source="4439615e-75ff-42b2-95fb-e5329556c26b" target="81a3a318-43fa-40bb-8277-52a6c2b1c3b6"/>
 </graph>
 </graphml>

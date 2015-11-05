@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B3">
-<node id="/_4.0_OPERATOR">
-<data key="name">/</data>
-<data key="value">4.0</data>
-<data key="type">OPERATOR</data>
-<data key="formula">Formula String: A1 / A2; Formula Values: 100.0 / 25.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 </data>
-</node>
-<node id="A1_100.0_CELL_WITH_VALUE">
-<data key="name">A1</data>
-<data key="value">100.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A1; Formula Values: 100.0; Formula Ptg: 100.0; Ptgs: A1 Index in Ptgs: 0 </data>
-</node>
-<node id="A2_25.0_CELL_WITH_VALUE">
-<data key="name">A2</data>
-<data key="value">25.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula String: A2; Formula Values: 25.0; Formula Ptg: 25.0; Ptgs: A2 Index in Ptgs: 1 </data>
-</node>
-<node id="B3_4.0_CELL_WITH_FORMULA">
+<node id="38ad9627-ed59-4bf5-86e3-6fead5dcc146">
 <data key="name">B3</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula String: A1 / A2; Formula Values: 100.0 / 25.0; Formula Ptg: 100.0 25.0 /; Ptgs: A1 A2 / Index in Ptgs: 2 </data>
+<data key="formula">Formula string: A1 / A2; Formula values: 100.0 / 25.0;</data>
 </node>
-<edge source="/_4.0_OPERATOR" target="B3_4.0_CELL_WITH_FORMULA"/>
-<edge source="A1_100.0_CELL_WITH_VALUE" target="/_4.0_OPERATOR"/>
-<edge source="A2_25.0_CELL_WITH_VALUE" target="/_4.0_OPERATOR"/>
+<node id="be9bc0f2-ea1a-46e9-b0cb-8339dae307cf">
+<data key="name">A1</data>
+<data key="value">100.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 100.0;</data>
+</node>
+<node id="c0daa80e-33ed-47ee-9fe7-0a65c24290f0">
+<data key="name">A2</data>
+<data key="value">25.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 25.0;</data>
+</node>
+<node id="b7c312b0-fb5f-43a4-b038-322ae3ee143e">
+<data key="name">/</data>
+<data key="value">4.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A1 / A2; Formula values: 100.0 / 25.0;</data>
+</node>
+<edge source="c0daa80e-33ed-47ee-9fe7-0a65c24290f0" target="b7c312b0-fb5f-43a4-b038-322ae3ee143e"/>
+<edge source="be9bc0f2-ea1a-46e9-b0cb-8339dae307cf" target="b7c312b0-fb5f-43a4-b038-322ae3ee143e"/>
+<edge source="b7c312b0-fb5f-43a4-b038-322ae3ee143e" target="38ad9627-ed59-4bf5-86e3-6fead5dcc146"/>
 </graph>
 </graphml>

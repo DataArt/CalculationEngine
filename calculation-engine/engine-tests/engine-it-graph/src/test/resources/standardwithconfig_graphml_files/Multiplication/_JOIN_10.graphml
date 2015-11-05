@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10">
+<node id="2ec74056-a58a-4808-8ba4-902dd06ca008">
+<data key="name">A3</data>
+<data key="value">35.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: A1 * A2; Formula values: 5.0 * 7.0;</data>
+</node>
+<node id="4fe271e8-c59e-4ba9-b95c-630834288588">
+<data key="name">A1</data>
+<data key="value">5.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 5.0;</data>
+</node>
+<node id="13db8053-dc63-43e6-a4e3-68e38e6a0e40">
+<data key="name">A2</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 7.0;</data>
+</node>
+<node id="60289ae2-6d0d-416c-84c1-12ed26c5ccba">
+<data key="name">*</data>
+<data key="value">35.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: A1 * A2; Formula values: 5.0 * 7.0;</data>
+</node>
+<edge source="13db8053-dc63-43e6-a4e3-68e38e6a0e40" target="60289ae2-6d0d-416c-84c1-12ed26c5ccba"/>
+<edge source="4fe271e8-c59e-4ba9-b95c-630834288588" target="60289ae2-6d0d-416c-84c1-12ed26c5ccba"/>
+<edge source="60289ae2-6d0d-416c-84c1-12ed26c5ccba" target="2ec74056-a58a-4808-8ba4-902dd06ca008"/>
+</graph>
+</graphml>

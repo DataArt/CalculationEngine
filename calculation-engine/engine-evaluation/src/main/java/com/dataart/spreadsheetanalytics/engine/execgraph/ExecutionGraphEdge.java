@@ -20,5 +20,6 @@ import org.jgrapht.graph.DefaultEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 
 public class ExecutionGraphEdge extends DefaultEdge implements IExecutionGraphEdge {
+    private static final long serialVersionUID = -1921539278513666672L;
 
 }

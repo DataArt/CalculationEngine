@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_5">
+<node id="0452a5b6-e908-4c2d-9083-a4b570cebc9c">
+<data key="name">E5</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: COLUMNS(C2:I3); Formula values: COLUMNS(7.0, 65.0, 7.0, 6.0, 4.0, 7.0, 65.0, 8.0, 367.0, 57.0, 4.0, 6.0, 8.0, 367.0);</data>
+</node>
+<node id="1c4ba8ce-f57b-4d97-a46b-1e287cb4fcfa">
+<data key="name">C2:I3</data>
+<data key="value">[[7.0, 65.0, 7.0, 6.0, 4.0, 7.0, 65.0], [8.0, 367.0, 57.0, 4.0, 6.0, 8.0, 367.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: C2:I3; Formula values: [[7.0, 65.0, 7.0, 6.0, 4.0, 7.0, 65.0], [8.0, 367.0, 57.0, 4.0, 6.0, 8.0, 367.0]];</data>
+</node>
+<node id="a0d78f3d-d81f-4a03-8e18-45c80db1f11c">
+<data key="name">COLUMNS</data>
+<data key="value">7.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: COLUMNS(C2:I3); Formula values: COLUMNS(7.0, 65.0, 7.0, 6.0, 4.0, 7.0, 65.0, 8.0, 367.0, 57.0, 4.0, 6.0, 8.0, 367.0);</data>
+</node>
+<edge source="1c4ba8ce-f57b-4d97-a46b-1e287cb4fcfa" target="a0d78f3d-d81f-4a03-8e18-45c80db1f11c"/>
+<edge source="a0d78f3d-d81f-4a03-8e18-45c80db1f11c" target="0452a5b6-e908-4c2d-9083-a4b570cebc9c"/>
+</graph>
+</graphml>

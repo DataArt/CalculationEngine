@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="1a9a30d4-42ef-4b6c-881e-e485eb3d6a64">
+<data key="name">B2</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATAN2(VALUE, VALUE); Formula values: ATAN2(1.0, 1.0);</data>
+</node>
+<node id="5830c056-9f03-4ccf-adab-e3e8155a9d9c">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="40b37765-dc1b-4d71-8530-c61e0622a805">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="8b9382fa-1c2c-43ba-881b-bd31fbba4439">
+<data key="name">ATAN2</data>
+<data key="value">0.7853981633974483</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ATAN2(VALUE, VALUE); Formula values: ATAN2(1.0, 1.0);</data>
+</node>
+<node id="de2d555e-2e7f-4d33-a6d6-47bcbf3407ba">
+<data key="name">B3</data>
+<data key="value">-2.356194490192345</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ATAN2(VALUE, VALUE); Formula values: ATAN2(-1.0, -1.0);</data>
+</node>
+<node id="90278a3a-65db-4cc0-a051-0412dec9b230">
+<data key="name">VALUE</data>
+<data key="value">-1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: -1.0;</data>
+</node>
+<node id="2edc0ab7-fbba-403a-a34f-57bda6ee4d70">
+<data key="name">VALUE</data>
+<data key="value">-1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: -1.0;</data>
+</node>
+<node id="28c00956-0bd9-4dd8-aec3-a69da3e5a12b">
+<data key="name">ATAN2</data>
+<data key="value">-2.356194490192345</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ATAN2(VALUE, VALUE); Formula values: ATAN2(-1.0, -1.0);</data>
+</node>
+<edge source="40b37765-dc1b-4d71-8530-c61e0622a805" target="8b9382fa-1c2c-43ba-881b-bd31fbba4439"/>
+<edge source="5830c056-9f03-4ccf-adab-e3e8155a9d9c" target="8b9382fa-1c2c-43ba-881b-bd31fbba4439"/>
+<edge source="8b9382fa-1c2c-43ba-881b-bd31fbba4439" target="1a9a30d4-42ef-4b6c-881e-e485eb3d6a64"/>
+<edge source="2edc0ab7-fbba-403a-a34f-57bda6ee4d70" target="28c00956-0bd9-4dd8-aec3-a69da3e5a12b"/>
+<edge source="90278a3a-65db-4cc0-a051-0412dec9b230" target="28c00956-0bd9-4dd8-aec3-a69da3e5a12b"/>
+<edge source="28c00956-0bd9-4dd8-aec3-a69da3e5a12b" target="de2d555e-2e7f-4d33-a6d6-47bcbf3407ba"/>
+</graph>
+</graphml>

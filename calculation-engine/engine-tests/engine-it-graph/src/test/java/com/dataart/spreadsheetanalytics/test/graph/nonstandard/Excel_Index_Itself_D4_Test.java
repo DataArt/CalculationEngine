@@ -26,8 +26,6 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
@@ -46,10 +44,9 @@ public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         graph = auditor.buildDynamicExecutionGraph(addr);
-        dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
         //when
-        rootVertex = (ExecutionGraphVertex) graph.getRootVertex();
+        graph.getRootVertex();
 
         //then
         //Exception
