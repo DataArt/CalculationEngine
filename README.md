@@ -5,6 +5,9 @@ Calculation Engine is a library for Excel-like calculations with some additional
 
 It is based on Apache POI project (forked) with changes mostly in evaluation part of that library.
 
+## Documentation
+Can be found on [wiki page](https://github.com/DataArt/CalculationEngine/wiki)
+
 ## Version
 Current version is: **0.6**.
 
@@ -14,7 +17,7 @@ Provided features:
 * Cell evaluation (formula calculation)
 * Workbook evaluation (workbook with formulas to workbook with data)
 * Calculation graph building (feature attached to evaluation process)
-* Custom functions: DEFINE, FUNCEXEC, DSLOOKUP, QUERY (see custom function documentation for details)
+* Custom functions: DEFINE, FUNCEXEC, DSLOOKUP, QUERY (see [custom function documentation for details](https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description))
 * .xlsx only support
 * Import from .xlsx and export to .xlsx (data only)
 
@@ -28,7 +31,7 @@ Project uses maven as build tool. Project modules description:
 * engine-data - contains all _data-related_ objects and objects to work with '_data_. _Data_ means external information - everything that can be stored somewhere (database, network, filesystem) - excel files, data sources, caches for data sets, etc. Since Calculation Engine does not require any particular data storage - it only provides APIs to implement them.
 * engine-data-cache-impl - contains basic Cache implementations for engine-data module. Since library need some storage to save information to - it needs to be provided with implementation of JCache standard - EHCache (http://www.ehcache.org) is used here.
 * engine-functions - contains all the custom functions and classes to load\use them in application.
-* engine-evaluation - contains two major entities: _Evaluator_ and _Auditor_. _Evaluator_ is used to evaluate cells (calculate formulas). _Auditor_ is used to get audit information (execution graph, static graph). This module contains interfaces, realizationû and some internal classes for Evaluator and Auditor.
+* engine-evaluation - contains two major entities: _Evaluator_ and _Auditor_. _Evaluator_ is used to evaluate cells (calculate formulas). _Auditor_ is used to get audit information (execution graph, static graph). This module contains interfaces, realizationÃ» and some internal classes for Evaluator and Auditor.
 * engine-demo - contains only _demo_ classes to see how Calculation Engine can (and should) be used from outside applications.
 * engine-root - maven root module to build 'engine-only' modules: _engine-model_, _engine-data_, _engine-functions_, _engine-valuation_. Since Apache POI fork should be build rarely and it takes some time - this new module to 'build fast' was introduced. 
 * engine-tests - contains all the tests in project. Inside of this module there are three more modules: _engine-tests/engine-it_ (integration tests), _engine-tests/engine-it-graph_ (integration tests for graphs - based on xml compare), _engine-tests/engine-unit_ (unit tests).
