@@ -53,7 +53,8 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 
         switch (pname) {
             case FORMULA_STRING: {
-                ((CellFormulaExpression) parent.formula).formulaStr((String) pvalue);
+                String flaStr = ((String) pvalue).replace("$", "");
+                ((CellFormulaExpression) parent.formula).formulaStr(flaStr);
                 break;
             }
             case INDEX_IN_FORMULA: {

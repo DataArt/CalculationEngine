@@ -17,11 +17,11 @@ public class ExecutionGraphConfig {
     /*
      * The number of duplicates is less or equal to 5
      */
-    public static final ExecutionGraphConfig LIMIT_TO_5_DUPLICATES_VERTICES = new ExecutionGraphConfig(true, 5);
+    public static final ExecutionGraphConfig LIMIT_TO_5_DUPLICATE_VERTICES = new ExecutionGraphConfig(true, 5);
     /*
      * The number of duplicates is less or equal to 10
      */
-    public static final ExecutionGraphConfig LIMIT_TO_10_DUPLICATES_VERTICES = new ExecutionGraphConfig(true, 10);
+    public static final ExecutionGraphConfig LIMIT_TO_10_DUPLICATE_VERTICES = new ExecutionGraphConfig(true, 10);
 
     protected final boolean joinVertices;
     protected final Integer duplicatesNumberThreshold;

@@ -76,13 +76,13 @@ public class Excel_AND_Fx_All_Test extends SerializedGraphTest {
 
     @Test
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES);
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
     @Test
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES);
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
     }
 }
