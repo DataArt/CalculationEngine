@@ -73,6 +73,7 @@ public class GraphTestUtil {
     public final static String ALL_CELLS_GRAPHML_DIR = "src/test/resources/standardwithconfig_graphml_files/";
     
     static final String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
+    static final String GRAPH_PATHS_FILE_ALL = STANDARD_EXCELS_DIR + "_config_graph_paths.lst";
     static final String TEST_CLASS_TEMPLATE = "src/test/resources/Excel_XXX_Test.java.template";
     static final String TEST_CLASS_TEMPLATE_ALL = "src/test/resources/Excel_XXX_All_Test.java.template";
     static final String TEST_CLASS_FILE = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standard/Excel_XXX_Test.java";
@@ -103,14 +104,14 @@ public class GraphTestUtil {
             testTemplate = new String(b);
         }
 
-        try (Scanner sc = new Scanner(Paths.get(GRAPH_PATHS_FILE))) {
+        try (Scanner sc = new Scanner(Paths.get(GRAPH_PATHS_FILE_ALL))) {
 
-            System.out.println("For each line in file [" + GRAPH_PATHS_FILE + "]\n");
+            System.out.println("For each line in file [" + GRAPH_PATHS_FILE_ALL + "]\n");
             while (sc.hasNext()) {
-                String[] line = sc.next().split("\\$");
+                String line = sc.next();
 
-                String path = STANDARD_EXCELS_DIR + line[0] + ".xlsx";
-                String filename = ALL_CELLS_GRAPHML_DIR + line[0] + "/" + graphConfigToString.get(config) + ".graphml";
+                String path = STANDARD_EXCELS_DIR + line + ".xlsx";
+                String filename = ALL_CELLS_GRAPHML_DIR + line + "/" + graphConfigToString.get(config) + ".graphml";
 
                 if (!all && Files.exists(Paths.get(filename))) {
                     continue;
@@ -126,7 +127,7 @@ public class GraphTestUtil {
 
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(config));
 
-                File file = new File(ALL_CELLS_GRAPHML_DIR + line[0] + "/");
+                File file = new File(ALL_CELLS_GRAPHML_DIR + line + "/");
                 file.mkdirs();
                 Writer fw = new FileWriter(filename);
 
@@ -136,12 +137,12 @@ public class GraphTestUtil {
                 System.out.println("GraphML file is written to [" + filename + "]");
                 System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
 
-                String testFile = testTemplate.replace("[FILENAME]", line[0]).replace("XXX", line[0] + "_" + "All");
-                try (OutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line[0] + "_" + "All"))) {
+                String testFile = testTemplate.replace("[FILENAME]", line).replace("XXX", line + "_" + "All");
+                try (OutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line + "_" + "All"))) {
                     fos.write(testFile.getBytes());
                 }
                 
-                System.out.println("Java Test file is written to [" + TEST_CLASS_FILE_ALL.replace("XXX", line[0] + "_" + "All") + "]");
+                System.out.println("Java Test file is written to [" + TEST_CLASS_FILE_ALL.replace("XXX", line + "_" + "All") + "]");
                 System.out.println();
                 
                 GraphTestUtil.destroyExternalServices();
