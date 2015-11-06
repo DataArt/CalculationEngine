@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -50,6 +51,10 @@ import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
@@ -78,6 +83,12 @@ public class GraphTestUtil {
     static final String TEST_CLASS_TEMPLATE_ALL = "src/test/resources/Excel_XXX_All_Test.java.template";
     static final String TEST_CLASS_FILE = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standard/Excel_XXX_Test.java";
     static final String TEST_CLASS_FILE_ALL = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standartwithconfig/Excel_XXX_Test.java";
+    
+    static final String VISUALIZER_DIR = "src/test/resources/graph_visualizer/";
+    static final String VISUALIZER_DATA_TEMPLATE_JS_FILE = "data_XXX.js";
+    static final String VISUALIZER_GRAPH_TEMPLATE_HTML_FILE = "graph_XXX.html";
+    static final String VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES = "src/test/resources/standardwithconfig_data_js_files/";
+    static final String VISUALIZER_STANDARD_DATA_JS_FILES = "src/test/resources/standard_data_js_files/";
 
     static final Map<ExecutionGraphConfig, String> graphConfigToString = new HashMap<ExecutionGraphConfig, String>() {
         private static final long serialVersionUID = 1L;
@@ -88,7 +99,29 @@ public class GraphTestUtil {
         put(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES, "_JOIN_2");
         put(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES, "_JOIN_5");
     }};
-    
+
+    public static void main(String[] args) throws Exception {
+        boolean oneFile = args.length > 0 && !args[0].equals("all");
+        if (oneFile) {
+            if (args.length > 1) {
+                if (args[1].equals("alljoins")) {
+                    generateGraphmlFileAllJoinModes(args[0]);
+                } else {
+                    generateGraphmlFile(args[0], args[1]);
+                }
+            } else {
+                generateGraphmlFile(args[0]);
+            }
+        } else {
+            boolean all = args.length > 0 && args[0].equals("all");
+            if (args.length > 1 && "alljoins".equals(args[1])) {
+                generateGraphmlFilesetAllCellsAllConfigs(all);
+            } else {
+                generateGraphmlFileset(all);
+            }
+        }
+    }
+
     public static void generateGraphmlFilesetAllCellsAllConfigs(boolean all) throws Exception {
         for (ExecutionGraphConfig config : graphConfigToString.keySet()) 
             { generateGraphmlFilesetAllCells(all, config); }
@@ -125,7 +158,8 @@ public class GraphTestUtil {
 
                 final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
 
-                final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(config));
+                final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(config);
+                final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
                 File file = new File(ALL_CELLS_GRAPHML_DIR + line + "/");
                 file.mkdirs();
@@ -136,6 +170,9 @@ public class GraphTestUtil {
 
                 System.out.println("GraphML file is written to [" + filename + "]");
                 System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
+                
+                generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, line[0], graphConfigToString.get(config));
+                System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + line[0] + "_" + graphConfigToString.get(config) + "].");
 
                 String testFile = testTemplate.replace("[FILENAME]", line).replace("XXX", line + "_" + "All");
                 try (OutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line + "_" + "All"))) {
@@ -181,8 +218,9 @@ public class GraphTestUtil {
                 
                 final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
                 final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
-                
-                final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
+
+                final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+                final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
                 Writer fw = new FileWriter(filename);
 
@@ -191,6 +229,9 @@ public class GraphTestUtil {
 
                 System.out.println("GraphML file is written to [" + filename + "]");
                 System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
+                
+                generateVisualizer(graph, VISUALIZER_STANDARD_DATA_JS_FILES, line[0], address);
+                System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARD_DATA_JS_FILES + line[0] + address + "].");
                 
                 String testFile = testTemplate.replace("[CELL_ADDRESS]", address).replace("[FILENAME]", line[0]).replace("XXX", line[0] + "_" + address);
                 try (FileOutputStream fos = new FileOutputStream(TEST_CLASS_FILE.replace("XXX", line[0] + "_" + address))) {
@@ -205,9 +246,7 @@ public class GraphTestUtil {
     }
     
     public static void generateGraphmlFile(String excelFile, String excelAddress) throws Exception {
-        System.out.println("Begin. One file.");
-
-        System.out.println("For file [" + excelFile + "] and address [" + excelAddress + "]\n");
+        System.out.println("Begin. One file.\nFor file [" + excelFile + "] and address [" + excelAddress + "]\n");
 
         String path = STANDARD_EXCELS_DIR + excelFile + ".xlsx";
         String address = excelAddress;
@@ -218,27 +257,30 @@ public class GraphTestUtil {
         
         final IDataModel model = new DataModel(filename, path);
         
-        GraphTestUtil.initExternalServices((DataModel) model);
+        initExternalServices((DataModel) model);
         
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         
-        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(addr));
+        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
         Writer fw = new FileWriter(filename);
 
         GraphMLExporter exporter = new ExecutionGraphMLExporter(address);
         exporter.export(fw, dgraph);
 
-        System.out.println("GraphML file is written to [" + filename + "]");
+        System.out.println("GraphML file is written to [" + filename + "]\n\nEnd. One file.");
         System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
-        System.out.println("\nEnd. One file.");
+        
+        generateVisualizer(graph, VISUALIZER_STANDARD_DATA_JS_FILES, excelFile, address);
+        System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARD_DATA_JS_FILES + excelFile + address + "]\n\nEnd. One file.");
+
+        destroyExternalServices();
     }
 
     public static void generateGraphmlFile(String excelFile, ExecutionGraphConfig config) throws Exception {
-        System.out.println("Begin. One file. All cells");
-
-        System.out.println("For file [" + excelFile + "] \n");
+        System.out.println("Begin. One file. All cells.\nFor file [" + excelFile + "] \n");
 
         String suffix = graphConfigToString.get(config);
 
@@ -249,11 +291,12 @@ public class GraphTestUtil {
 
         final IDataModel model = new DataModel(filename, path);
 
-        GraphTestUtil.initExternalServices((DataModel) model);
+        initExternalServices((DataModel) model);
 
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
 
-        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) auditor.buildDynamicExecutionGraph(config));
+        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(config);
+        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
         Writer fw = new FileWriter(filename);
 
@@ -262,7 +305,9 @@ public class GraphTestUtil {
 
         System.out.println("GraphML file is written to [" + filename + "]");
         System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
-        System.out.println("\nEnd. One file.");
+        
+        generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, excelFile, suffix);
+        System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + excelFile + suffix + "]\n\nEnd. One file.");
 
         destroyExternalServices();
     }
@@ -337,25 +382,78 @@ public class GraphTestUtil {
                               formula.formulaValues());
     }
     
-    public static void main(String[] args) throws Exception {
-        boolean oneFile = args.length > 0 && !args[0].equals("all");
-        if (oneFile) {
-            if (args.length > 1) {
-                if (args[1].equals("alljoins")) {
-                    generateGraphmlFileAllJoinModes(args[0]);
-                } else {
-                    generateGraphmlFile(args[0], args[1]);
-                }
-            } else {
-                generateGraphmlFile(args[0]);
+    public static void generateVisualizer(IExecutionGraph graph, String dir, String file, String address) {
+        try {
+            final String fileSuffix = file + "_" + address;
+            final String dataGraphJs = dir + VISUALIZER_DATA_TEMPLATE_JS_FILE.replace("XXX", fileSuffix);
+            final String dataGraphHtml = dir + VISUALIZER_GRAPH_TEMPLATE_HTML_FILE.replace("XXX", fileSuffix);
+
+            final String VERTICES_PLACEHOLDER = "<%vertices_placeholder%>";
+            final String EDGES_PLACEHOLDER = "<%edges_placeholder%>";
+            
+            StringBuilder verticesJson = new StringBuilder();
+            StringBuilder edgesJson = new StringBuilder();
+            
+            for (IExecutionGraphVertex vertex : graph.getVertices()) {
+                /* {id: a, label: b, ...}, */
+
+                verticesJson.append("{id: '")
+                            .append(vertex.id())
+                            .append("', label: '")
+                            .append(vertex.name())
+                            .append("\\n")
+                            .append(vertex.value() == null || vertex.value().toString().length() > 55 ? "..." : vertex.value().toString())
+                            .append("', color: '")
+                            .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
+                            .append("', title: '")
+                                .append("Name: ")
+                                .append(vertex.name())
+                                .append("<br>")
+                                .append("Value: ")
+                                .append(vertex.value())
+                                .append("<br>")
+                                .append("Type: ")
+                                .append(vertex.type())
+                                .append("<br>")
+                                .append("Id: ")
+                                .append(vertex.id())
+                                .append("<br>")
+                                .append("Formula Expression: ")
+                                .append(vertex.formula())
+                                .append("<br>")
+                                .append("Source Object Id: ")
+                                .append(vertex.sourceObjectId())
+                            .append("'},\n");
             }
-        } else {
-            boolean all = args.length > 0 && args[0].equals("all");
-            if (args.length > 1 && "alljoins".equals(args[1])) {
-                generateGraphmlFilesetAllCellsAllConfigs(all);
-            } else {
-                generateGraphmlFileset(all);
+            verticesJson.setLength(verticesJson.length() > 0 ? verticesJson.length() - 2 : 0);
+
+            for (IExecutionGraphEdge edge : graph.getEdges()) {
+                /* {from: id_a, to: id_b}, */
+                
+                IExecutionGraphVertex from = graph.getEdgeSource(edge);
+                IExecutionGraphVertex to = graph.getEdgeTarget(edge);
+                
+                edgesJson.append("{from: '")
+                         .append(from.id())
+                         .append("', to: '")
+                         .append(to.id())
+                         .append("'},\n");
             }
+
+            edgesJson.setLength(edgesJson.length() > 0 ? edgesJson.length() - 2 : 0);
+
+            String contentJs = new String(Files.readAllBytes(Paths.get(VISUALIZER_DIR + VISUALIZER_DATA_TEMPLATE_JS_FILE)), StandardCharsets.UTF_8);
+            contentJs = contentJs.replace(VERTICES_PLACEHOLDER, verticesJson.toString())
+                             .replace(EDGES_PLACEHOLDER, edgesJson.toString());
+            
+            String contentHtml = new String(Files.readAllBytes(Paths.get(VISUALIZER_DIR + VISUALIZER_GRAPH_TEMPLATE_HTML_FILE)), StandardCharsets.UTF_8);
+            contentHtml = contentHtml.replace("XXX", VISUALIZER_DATA_TEMPLATE_JS_FILE.replace("XXX", fileSuffix));
+            
+            Files.write(Paths.get(dataGraphJs), contentJs.getBytes(StandardCharsets.UTF_8));
+            Files.write(Paths.get(dataGraphHtml), contentHtml.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+    
 }
