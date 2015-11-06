@@ -39,7 +39,6 @@ import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.Prop
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.ptgToString;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
@@ -117,7 +116,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     @Override
     public IExecutionGraphVertex createVertex(String address) {
         // create new vertex object
-        ExecutionGraphVertex v = new ExecutionGraphVertex(address);
+        ExecutionGraphVertex v = new ExecutionGraphVertex(address.replace("$", ""));
 
         // add vertex to actual graph
         dgraph.addVertex(v);
@@ -560,7 +559,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected void removeAllDuplicates() {
         Set<IExecutionGraphVertex> leaves = new HashSet<>();
         for (String address : addressToVertices.keySet()) {
-            leaves.addAll(removeLeafDublicates(address, config.getDuplicatesNumberThreshold()));
+            leaves.add(removeLeafDublicates(address, config.getDuplicatesNumberThreshold()));
         }
         processLeaves(leaves, config.getDuplicatesNumberThreshold());
     }
@@ -574,25 +573,32 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 continue;
             }
             Set<IExecutionGraphVertex> parents = getParents(leaf);
-            Map<IExecutionGraphVertex, Integer> chosen = new HashMap<>();
+            Map<IExecutionGraphVertex, List<IExecutionGraphVertex>> chosen = new HashMap<>();
             for (IExecutionGraphVertex parent : parents) {
                 if (isCyclicRef(parent, leaf)) { continue; }
                 IExecutionGraphVertex found = returnVertexDuplicate(chosen.keySet(), parent);
                 if (found == null) {
-                    chosen.put(parent, allowedNum);
+                    chosen.put(parent, new LinkedList<IExecutionGraphVertex>());
                 } else {
-                    int cellAllowedNum = chosen.get(found).intValue();
-                    if (cellAllowedNum == 0) {
-                        reassignOutgoingEdges(found, parent);
-                        dgraph.removeVertex(parent);
-                    } else {
-                        cellAllowedNum--;
-                        chosen.put(found, cellAllowedNum);
-                        chosen.put(parent, cellAllowedNum);
-                    }
+                    List<IExecutionGraphVertex> duplicates = chosen.get(found);
+                    duplicates.add(parent);
+                    chosen.put(found, duplicates);
                 }
             }
+            reduceDuplicates(chosen, allowedNum);
             processLeaves(chosen.keySet(), allowedNum);
+        }
+    }
+
+    protected void reduceDuplicates(Map<IExecutionGraphVertex, List<IExecutionGraphVertex>> verticesMap, int allowedNum) {
+        for (Entry<IExecutionGraphVertex, List<IExecutionGraphVertex>> entry : verticesMap.entrySet()) {
+            List<IExecutionGraphVertex> values = entry.getValue();
+            if (values.size() > allowedNum) {
+                for (IExecutionGraphVertex vertex : values) {
+                    reassignOutgoingEdges(entry.getKey(), vertex);
+                    dgraph.removeVertex(vertex);
+                }
+            }
         }
     }
 
@@ -615,22 +621,19 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             { dgraph.addEdge(ivertex1, dgraph.getEdgeTarget(item)); }
     }
 
-    protected List<IExecutionGraphVertex> removeLeafDublicates(String address, int num) {
+    protected IExecutionGraphVertex removeLeafDublicates(String address, int num) {
         Set<IExecutionGraphVertex> vertices = getVerticesFromCache(address);
-        List<IExecutionGraphVertex> result = new ArrayList<>(num);
-        if (!vertices.isEmpty()) {
+        IExecutionGraphVertex result = null;
+        if (vertices.size() >= num) {
             Iterator<IExecutionGraphVertex> it = vertices.iterator();
-            IExecutionGraphVertex champion = it.next();
-            result.add(champion);
+            result = it.next();
             while (it.hasNext()) {
                 IExecutionGraphVertex value = it.next();
-                if (!dgraph.containsVertex(value)) { continue; }
-                if (num == 0) {
-                    reassignOutgoingEdges(champion, value);
+                if (dgraph.containsVertex(value)) {
+                    reassignOutgoingEdges(result, value);
                     dgraph.removeVertex(value);
                 } else {
-                    num--;
-                    result.add(value);
+                    it.remove();
                 }
             }
         }
