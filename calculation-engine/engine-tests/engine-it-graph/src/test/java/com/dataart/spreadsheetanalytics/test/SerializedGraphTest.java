@@ -18,6 +18,9 @@ package com.dataart.spreadsheetanalytics.test;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
@@ -36,6 +39,11 @@ import com.dataart.spreadsheetanalytics.test.util.graphml.ExecutionGraphMLImport
 public abstract class SerializedGraphTest {
     
     protected IExecutionGraph graph;
+    private static final String VISUALIZER_ACTUAL_DIR = "src/../target/graph-visualizer/";
+    static {
+        try { Files.createDirectory(Paths.get(VISUALIZER_ACTUAL_DIR)); }
+        catch (IOException e) { e.printStackTrace(); }
+    }
 
     public void before(String path, String address) throws Exception {
         
@@ -55,6 +63,9 @@ public abstract class SerializedGraphTest {
     }
     
     public void compare_ExcelFile_SerializedGraph(String dir, String file, String address) throws Exception {
+        // save graph to visual file - debug information
+        GraphTestUtil.generateVisualizer(graph, VISUALIZER_ACTUAL_DIR, file, address);
+        
         // given
         ExecutionGraphML expected = ExecutionGraphMLImporter._import(new File(dir + file + "_" + address + ".graphml"));
 

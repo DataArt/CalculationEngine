@@ -25,21 +25,21 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_Ln_Fx_C4_Test extends SerializedGraphTest {
-    
+
     static String address = "C4";
     static String file = "Ln_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    
+
     @Before
     public void beforeTest() throws Exception {
-        super.before(path, address);        
+        super.before(path, address);
     }
 
     @After
     public void afterTest() throws Exception {
         super.after();
     }
-    
+
     @Test
     public void assert_ExcelFile_SerializedGraph() throws Exception {
         super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
