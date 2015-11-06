@@ -83,9 +83,9 @@ public class GraphTestUtil {
     {
         put(ExecutionGraphConfig.DEFAULT, "_All");
         put(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES, "_JOIN_ALL");
-        put(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATES_VERTICES, "_JOIN_10");
+        put(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES, "_JOIN_10");
         put(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES, "_JOIN_2");
-        put(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATES_VERTICES, "_JOIN_5");
+        put(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES, "_JOIN_5");
     }};
     
     public static void generateGraphmlFilesetAllCellsAllConfigs(boolean all) throws Exception {
@@ -134,6 +134,7 @@ public class GraphTestUtil {
                 exporter.export(fw, dgraph);
 
                 System.out.println("GraphML file is written to [" + filename + "]");
+                System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
 
                 String testFile = testTemplate.replace("[FILENAME]", line[0]).replace("XXX", line[0] + "_" + "All");
                 try (OutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line[0] + "_" + "All"))) {
@@ -188,6 +189,7 @@ public class GraphTestUtil {
                 exporter.export(fw, dgraph);
 
                 System.out.println("GraphML file is written to [" + filename + "]");
+                System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
                 
                 String testFile = testTemplate.replace("[CELL_ADDRESS]", address).replace("[FILENAME]", line[0]).replace("XXX", line[0] + "_" + address);
                 try (FileOutputStream fos = new FileOutputStream(TEST_CLASS_FILE.replace("XXX", line[0] + "_" + address))) {
@@ -228,7 +230,7 @@ public class GraphTestUtil {
         exporter.export(fw, dgraph);
 
         System.out.println("GraphML file is written to [" + filename + "]");
-
+        System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
         System.out.println("\nEnd. One file.");
     }
 
@@ -240,7 +242,7 @@ public class GraphTestUtil {
         String suffix = graphConfigToString.get(config);
 
         String path = STANDARD_EXCELS_DIR + excelFile + ".xlsx";
-        String filename = STANDARD_GRAPHML_DIR + excelFile + suffix + "_.graphml";
+        String filename = ALL_CELLS_GRAPHML_DIR + excelFile + "/" + graphConfigToString.get(config) + ".graphml";
 
         System.out.println("Excel file [" + path + "], All cells");
 
@@ -258,7 +260,7 @@ public class GraphTestUtil {
         exporter.export(fw, dgraph);
 
         System.out.println("GraphML file is written to [" + filename + "]");
-
+        System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
         System.out.println("\nEnd. One file.");
 
         destroyExternalServices();
@@ -270,6 +272,10 @@ public class GraphTestUtil {
 
     public static void generateGraphmlFileAllJoinModes(String excelFile) throws Exception {
         generateGraphmlFile(excelFile, ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.DEFAULT);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
+        generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
     }
 
     public static void initExternalServices(DataModel model) throws Exception {
