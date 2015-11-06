@@ -13,13 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.test.graph.standard;
+package com.dataart.spreadsheetanalytics.test.graph.nonstandard;
 
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_GRAPHML_DIR;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
@@ -41,6 +42,7 @@ public class Excel_Iserror_Fx_D12_Test extends SerializedGraphTest {
     }
     
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph() throws Exception {
         super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
     }
