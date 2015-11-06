@@ -1,0 +1,29 @@
+var nodes = new vis.DataSet([
+                             /* {id: a, label: b, ...}, */
+{id: '7c68a664-55fd-4607-a867-b6c8ab52a2c6', label: 'C1\n2.0', color: '#31b0d5', title: 'Name: C1<br>Value: 2.0<br>Type: CELL_WITH_VALUE<br>Id: 7c68a664-55fd-4607-a867-b6c8ab52a2c6<br>Formula Expression: Formula String: C1; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: C1 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: 'd0ca9b43-be7b-4b76-9dc1-c295d1f7f861', label: 'SUM\n15.0', color: '#f0ad4e', title: 'Name: SUM<br>Value: 15.0<br>Type: FUNCTION<br>Id: d0ca9b43-be7b-4b76-9dc1-c295d1f7f861<br>Formula Expression: Formula String: SUM(D1:F1); Formula Values: SUM(5.0, 5.0, 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 4 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: 'f6da56fd-d4a3-4ea2-bce8-03d182248f35', label: '-\n2.0', color: '#f0ad4e', title: 'Name: -<br>Value: 2.0<br>Type: OPERATOR<br>Id: f6da56fd-d4a3-4ea2-bce8-03d182248f35<br>Formula Expression: Formula String: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula Values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 9 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: '8fe84d61-37fe-4403-bb79-79f23e3147a1', label: 'D1:F1\n[[5.0, 5.0, 5.0]]', color: '#31b0d5', title: 'Name: D1:F1<br>Value: [[5.0, 5.0, 5.0]]<br>Type: RANGE<br>Id: 8fe84d61-37fe-4403-bb79-79f23e3147a1<br>Formula Expression: Formula String: D1:F1; Formula Values: [[5.0, 5.0, 5.0]]; Formula Ptg: [[5.0, 5.0, 5.0]]; Ptgs: D1:F1 Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: 'e093d036-fec6-4f0d-9593-4a0dc70d8854', label: '+\n7.0', color: '#f0ad4e', title: 'Name: +<br>Value: 7.0<br>Type: OPERATOR<br>Id: e093d036-fec6-4f0d-9593-4a0dc70d8854<br>Formula Expression: Formula String: B1 * C1 + SUM(D1:F1) / G1; Formula Values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 7 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: 'd977cbad-b2cf-4afc-8225-f0b1c839f21d', label: '*\n2.0', color: '#f0ad4e', title: 'Name: *<br>Value: 2.0<br>Type: OPERATOR<br>Id: d977cbad-b2cf-4afc-8225-f0b1c839f21d<br>Formula Expression: Formula String: B1 * C1; Formula Values: 1.0 * 2.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: 'bff7b471-c8d3-4fd3-9e53-c74b8b3e45b9', label: 'B1\n1.0', color: '#31b0d5', title: 'Name: B1<br>Value: 1.0<br>Type: CELL_WITH_VALUE<br>Id: bff7b471-c8d3-4fd3-9e53-c74b8b3e45b9<br>Formula Expression: Formula String: B1; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: B1 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: '1633d041-2ddd-48fc-970c-8de63526acfb', label: 'H1\n5.0', color: '#31b0d5', title: 'Name: H1<br>Value: 5.0<br>Type: CELL_WITH_VALUE<br>Id: 1633d041-2ddd-48fc-970c-8de63526acfb<br>Formula Expression: Formula String: H1; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: H1 Index in Ptgs: 8 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: '37f10ecb-89b1-4547-aa63-89d78e31ee1e', label: 'A1\n2.0', color: '#31b0d5', title: 'Name: A1<br>Value: 2.0<br>Type: CELL_WITH_FORMULA<br>Id: 37f10ecb-89b1-4547-aa63-89d78e31ee1e<br>Formula Expression: Formula String: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula Values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0; Formula Ptg: 1.0 2.0 * 5.0, 5.0, 5.0 SUM  3.0 / + 5.0 -; Ptgs: B1 C1 * D1:F1 SUM  G1 / + H1 - Index in Ptgs: 9 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: 'b1a80452-3223-4c82-add8-ad1a1b0823a0', label: 'G1\n3.0', color: '#31b0d5', title: 'Name: G1<br>Value: 3.0<br>Type: CELL_WITH_VALUE<br>Id: b1a80452-3223-4c82-add8-ad1a1b0823a0<br>Formula Expression: Formula String: G1; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: G1 Index in Ptgs: 5 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'},
+{id: '1e4dfe9c-6399-44f8-8ce0-4106cf685364', label: '/\n5.0', color: '#f0ad4e', title: 'Name: /<br>Value: 5.0<br>Type: OPERATOR<br>Id: 1e4dfe9c-6399-44f8-8ce0-4106cf685364<br>Formula Expression: Formula String: SUM(D1:F1) / G1; Formula Values: SUM(5.0, 5.0, 5.0) / 3.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 6 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@60990e5c'}
+                            ]);
+
+
+var edges = new vis.DataSet([
+                             /* {from: id_a, to: id_b}, */
+{from: 'd0ca9b43-be7b-4b76-9dc1-c295d1f7f861', to: '1e4dfe9c-6399-44f8-8ce0-4106cf685364'},
+{from: 'e093d036-fec6-4f0d-9593-4a0dc70d8854', to: 'f6da56fd-d4a3-4ea2-bce8-03d182248f35'},
+{from: 'bff7b471-c8d3-4fd3-9e53-c74b8b3e45b9', to: 'd977cbad-b2cf-4afc-8225-f0b1c839f21d'},
+{from: '1e4dfe9c-6399-44f8-8ce0-4106cf685364', to: 'e093d036-fec6-4f0d-9593-4a0dc70d8854'},
+{from: '1633d041-2ddd-48fc-970c-8de63526acfb', to: 'f6da56fd-d4a3-4ea2-bce8-03d182248f35'},
+{from: '7c68a664-55fd-4607-a867-b6c8ab52a2c6', to: 'd977cbad-b2cf-4afc-8225-f0b1c839f21d'},
+{from: '8fe84d61-37fe-4403-bb79-79f23e3147a1', to: 'd0ca9b43-be7b-4b76-9dc1-c295d1f7f861'},
+{from: 'b1a80452-3223-4c82-add8-ad1a1b0823a0', to: '1e4dfe9c-6399-44f8-8ce0-4106cf685364'},
+{from: 'f6da56fd-d4a3-4ea2-bce8-03d182248f35', to: '37f10ecb-89b1-4547-aa63-89d78e31ee1e'},
+{from: 'd977cbad-b2cf-4afc-8225-f0b1c839f21d', to: 'e093d036-fec6-4f0d-9593-4a0dc70d8854'}
+                            ]);
