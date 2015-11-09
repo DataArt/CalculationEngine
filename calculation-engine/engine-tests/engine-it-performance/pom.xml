@@ -40,16 +40,107 @@ limitations under the License.
           <target>1.8</target>
         </configuration>
       </plugin>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>all</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19</version>
+            <configuration>
+              <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>dslookup</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19</version>
+            <configuration>
+              <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
+              <includes>
+                <include>**/dslookup/shuffled/*_Test.java</include>
+                <include>**/dslookup/sorted/*_Test.java</include>
+                <include>**/dslookup/vlookup/*_Test.java</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>funcexec</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19</version>
+            <configuration>
+              <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
+              <includes>
+                <include>**/funcexec/*_Test.java</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>query</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19</version>
+            <configuration>
+              <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
+              <includes>
+                <include>**/query/*_Test.java</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>graph</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19</version>
+            <configuration>
+              <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
+              <includes>
+                <include>**/graph/*_Test.java</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
