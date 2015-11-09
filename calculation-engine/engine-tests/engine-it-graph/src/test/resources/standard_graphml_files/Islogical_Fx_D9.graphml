@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D9">
-<node id="25166ce3-87bd-4bd4-8d68-c6fe30781a60">
+<node id="5f97d99a-06b3-4d89-923f-45202b03e482">
 <data key="name">D9</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISLOGICAL(ISLOGICAL(A2)); Formula values: ISLOGICAL(ISLOGICAL(FALSE));</data>
 </node>
-<node id="76f6a6bc-1ea2-4a53-9410-d6a75547325d">
+<node id="a4fbddbd-0d3a-4720-ba45-d5794189dd7a">
 <data key="name">C6</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISLOGICAL(A2); Formula values: ISLOGICAL(FALSE);</data>
 </node>
-<node id="934d07e8-a3b2-434b-a0f4-bb7348b06496">
+<node id="530495e7-3185-489b-aa69-3e108cd945d6">
 <data key="name">A2</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A2; Formula values: FALSE;</data>
 </node>
-<node id="198bb751-a447-4706-9afc-7f17b39257ce">
+<node id="d565726c-a1d0-4bf3-aad7-fc03214af37e">
 <data key="name">ISLOGICAL</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISLOGICAL(A2); Formula values: ISLOGICAL(FALSE);</data>
 </node>
-<node id="629ec69b-a4e0-4a9c-a7c8-9296ac190ae0">
+<node id="daca5b3e-5c18-48fb-a7ee-4db708892f7b">
 <data key="name">ISLOGICAL</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISLOGICAL(ISLOGICAL(A2)); Formula values: ISLOGICAL(ISLOGICAL(FALSE));</data>
 </node>
-<edge source="934d07e8-a3b2-434b-a0f4-bb7348b06496" target="198bb751-a447-4706-9afc-7f17b39257ce"/>
-<edge source="198bb751-a447-4706-9afc-7f17b39257ce" target="76f6a6bc-1ea2-4a53-9410-d6a75547325d"/>
-<edge source="76f6a6bc-1ea2-4a53-9410-d6a75547325d" target="629ec69b-a4e0-4a9c-a7c8-9296ac190ae0"/>
-<edge source="629ec69b-a4e0-4a9c-a7c8-9296ac190ae0" target="25166ce3-87bd-4bd4-8d68-c6fe30781a60"/>
+<edge source="530495e7-3185-489b-aa69-3e108cd945d6" target="d565726c-a1d0-4bf3-aad7-fc03214af37e"/>
+<edge source="d565726c-a1d0-4bf3-aad7-fc03214af37e" target="a4fbddbd-0d3a-4720-ba45-d5794189dd7a"/>
+<edge source="a4fbddbd-0d3a-4720-ba45-d5794189dd7a" target="daca5b3e-5c18-48fb-a7ee-4db708892f7b"/>
+<edge source="daca5b3e-5c18-48fb-a7ee-4db708892f7b" target="5f97d99a-06b3-4d89-923f-45202b03e482"/>
 </graph>
 </graphml>

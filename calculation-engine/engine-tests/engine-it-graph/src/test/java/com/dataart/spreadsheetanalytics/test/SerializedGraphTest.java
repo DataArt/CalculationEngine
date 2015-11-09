@@ -41,7 +41,7 @@ public abstract class SerializedGraphTest {
     protected IExecutionGraph graph;
     private static final String VISUALIZER_ACTUAL_DIR = "src/../target/graph-visualizer/";
     static {
-        try { Files.createDirectory(Paths.get(VISUALIZER_ACTUAL_DIR)); }
+        try { Files.createDirectories(Paths.get(VISUALIZER_ACTUAL_DIR)); }
         catch (IOException e) { e.printStackTrace(); }
     }
 
@@ -64,7 +64,7 @@ public abstract class SerializedGraphTest {
     
     public void compare_ExcelFile_SerializedGraph(String dir, String file, String address) throws Exception {
         // save graph to visual file - debug information
-        GraphTestUtil.generateVisualizer(graph, VISUALIZER_ACTUAL_DIR, file, address);
+        GraphTestUtil.generateVisualizer(graph, VISUALIZER_ACTUAL_DIR, file.replace("\\", ""), address);
         
         // given
         ExecutionGraphML expected = ExecutionGraphMLImporter._import(new File(dir + file + "_" + address + ".graphml"));
