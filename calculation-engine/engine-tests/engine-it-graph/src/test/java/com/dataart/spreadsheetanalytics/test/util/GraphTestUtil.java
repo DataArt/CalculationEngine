@@ -171,8 +171,8 @@ public class GraphTestUtil {
                 System.out.println("GraphML file is written to [" + filename + "]");
                 System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
                 
-                generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, line[0], graphConfigToString.get(config));
-                System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + line[0] + "_" + graphConfigToString.get(config) + "].");
+                generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, line, graphConfigToString.get(config));
+                System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + line + "_" + graphConfigToString.get(config) + "].");
 
                 String testFile = testTemplate.replace("[FILENAME]", line).replace("XXX", line + "_" + "All");
                 try (OutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line + "_" + "All"))) {
