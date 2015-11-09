@@ -591,14 +591,24 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected void reduceDuplicates(Map<IExecutionGraphVertex, List<IExecutionGraphVertex>> verticesMap, int allowedNum) {
+        Set<ExecutionGraphVertex> childrenToRemove = new HashSet<>();
         for (Entry<IExecutionGraphVertex, List<IExecutionGraphVertex>> entry : verticesMap.entrySet()) {
             List<IExecutionGraphVertex> values = entry.getValue();
             if (values.size() > allowedNum) {
                 for (IExecutionGraphVertex vertex : values) {
                     reassignOutgoingEdges(entry.getKey(), vertex);
+                    for (ExecutionGraphEdge edge : dgraph.incomingEdgesOf(vertex)) {
+                        ExecutionGraphVertex child = (ExecutionGraphVertex) dgraph.getEdgeSource(edge);
+                        if ("VALUE".equals(child.name())) {
+                            childrenToRemove.add(child);
+                        }
+                    }
                     dgraph.removeVertex(vertex);
                 }
             }
+        }
+        for (ExecutionGraphVertex child : childrenToRemove) {
+            dgraph.removeVertex(child);
         }
     }
 
