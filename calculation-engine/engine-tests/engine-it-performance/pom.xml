@@ -73,12 +73,6 @@ limitations under the License.
             <version>2.19</version>
             <configuration>
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
               <includes>
                 <include>**/dslookup/shuffled/*_Test.java</include>
                 <include>**/dslookup/sorted/*_Test.java</include>
@@ -100,12 +94,6 @@ limitations under the License.
             <version>2.19</version>
             <configuration>
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
               <includes>
                 <include>**/funcexec/*_Test.java</include>
               </includes>
@@ -125,12 +113,6 @@ limitations under the License.
             <version>2.19</version>
             <configuration>
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
               <includes>
                 <include>**/query/*_Test.java</include>
               </includes>
@@ -150,12 +132,6 @@ limitations under the License.
             <version>2.19</version>
             <configuration>
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
               <includes>
                 <include>**/graph/*_Test.java</include>
               </includes>
