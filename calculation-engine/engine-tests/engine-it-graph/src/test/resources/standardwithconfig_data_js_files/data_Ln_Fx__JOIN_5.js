@@ -1,0 +1,24 @@
+var nodes = new vis.DataSet([
+                             /* {id: a, label: b, ...}, */
+{id: '7513e315-32a5-4d5a-b425-a287afe08245', label: 'C4\n3.000000153185454', color: '#31b0d5', title: 'Name: C4<br>Value: 3.000000153185454<br>Type: CELL_WITH_FORMULA<br>Id: 7513e315-32a5-4d5a-b425-a287afe08245<br>Formula Expression: Formula String: LN(VALUE); Formula Values: LN(20.08554); Formula Ptg: 20.08554 LN ; Ptgs: VALUE LN  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: 'cb48034c-00e9-457c-b460-800830dec562', label: 'LN\n3.0', color: '#f0ad4e', title: 'Name: LN<br>Value: 3.0<br>Type: FUNCTION<br>Id: cb48034c-00e9-457c-b460-800830dec562<br>Formula Expression: Formula String: LN(EXP(VALUE)); Formula Values: LN(EXP(3.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: 'ab2ba208-3587-4db1-8f86-74035576f5ea', label: 'B2\n20.085536923187664', color: '#31b0d5', title: 'Name: B2<br>Value: 20.085536923187664<br>Type: CELL_WITH_FORMULA<br>Id: ab2ba208-3587-4db1-8f86-74035576f5ea<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(3.0); Formula Ptg: 3.0 EXP ; Ptgs: VALUE EXP  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: 'f5a80d17-8d1d-49b0-937b-766dec3cb108', label: 'C3\n3.0', color: '#31b0d5', title: 'Name: C3<br>Value: 3.0<br>Type: CELL_WITH_FORMULA<br>Id: f5a80d17-8d1d-49b0-937b-766dec3cb108<br>Formula Expression: Formula String: LN(EXP(VALUE)); Formula Values: LN(EXP(3.0)); Formula Ptg: 3.0 EXP  LN ; Ptgs: VALUE EXP  LN  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: '807a1554-5e82-4197-8e2d-6c232db98f89', label: 'EXP\n20.085536923187664', color: '#f0ad4e', title: 'Name: EXP<br>Value: 20.085536923187664<br>Type: FUNCTION<br>Id: 807a1554-5e82-4197-8e2d-6c232db98f89<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(3.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: '556a0a8f-067f-4117-8744-3b60b73fcb66', label: 'VALUE\n20.08554', color: '#31b0d5', title: 'Name: VALUE<br>Value: 20.08554<br>Type: CONSTANT_VALUE<br>Id: 556a0a8f-067f-4117-8744-3b60b73fcb66<br>Formula Expression: Formula String: VALUE; Formula Values: 20.08554; Formula Ptg: 20.08554; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: 'a019ad9b-edfc-4290-82f2-676101991681', label: 'VALUE\n3.0', color: '#31b0d5', title: 'Name: VALUE<br>Value: 3.0<br>Type: CONSTANT_VALUE<br>Id: a019ad9b-edfc-4290-82f2-676101991681<br>Formula Expression: Formula String: VALUE; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: 'bff3003f-eca8-4d93-9761-b08674c7b2de', label: 'B2\n20.085536923187664', color: '#31b0d5', title: 'Name: B2<br>Value: 20.085536923187664<br>Type: CELL_WITH_FORMULA<br>Id: bff3003f-eca8-4d93-9761-b08674c7b2de<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(3.0); Formula Ptg: 3.0 EXP ; Ptgs: VALUE EXP  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'},
+{id: 'f37763d5-9575-4475-b420-f3ce0c67aae6', label: 'LN\n3.000000153185454', color: '#f0ad4e', title: 'Name: LN<br>Value: 3.000000153185454<br>Type: FUNCTION<br>Id: f37763d5-9575-4475-b420-f3ce0c67aae6<br>Formula Expression: Formula String: LN(VALUE); Formula Values: LN(20.08554); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2489ee11'}
+                            ]);
+
+
+var edges = new vis.DataSet([
+                             /* {from: id_a, to: id_b}, */
+{from: '807a1554-5e82-4197-8e2d-6c232db98f89', to: 'ab2ba208-3587-4db1-8f86-74035576f5ea'},
+{from: 'bff3003f-eca8-4d93-9761-b08674c7b2de', to: 'cb48034c-00e9-457c-b460-800830dec562'},
+{from: '807a1554-5e82-4197-8e2d-6c232db98f89', to: 'bff3003f-eca8-4d93-9761-b08674c7b2de'},
+{from: '556a0a8f-067f-4117-8744-3b60b73fcb66', to: 'f37763d5-9575-4475-b420-f3ce0c67aae6'},
+{from: 'f37763d5-9575-4475-b420-f3ce0c67aae6', to: '7513e315-32a5-4d5a-b425-a287afe08245'},
+{from: 'a019ad9b-edfc-4290-82f2-676101991681', to: '807a1554-5e82-4197-8e2d-6c232db98f89'},
+{from: 'cb48034c-00e9-457c-b460-800830dec562', to: 'f5a80d17-8d1d-49b0-937b-766dec3cb108'}
+                            ]);

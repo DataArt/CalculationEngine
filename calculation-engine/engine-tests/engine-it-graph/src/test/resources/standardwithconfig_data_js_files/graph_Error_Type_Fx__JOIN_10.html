@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  <title>Calculation Graph</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.7.0/vis.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.7.0/vis.min.css">
+  <script src="data_Error_Type_Fx__JOIN_10.js"></script>
+
+</head>
+<body>
+
+  <div id="graph"></div>
+  
+  <script type="text/javascript">
+  
+    // create a network
+    var container = document.getElementById('graph');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = {
+      		height: '900px',
+      		nodes: {
+      			shape: 'box'	
+      			},
+      		edges: {
+      			arrows: {to: {scaleFactor: 1}},
+      			smooth: {
+      				enabled: true,
+      				type: 'curvedCW',
+      				roundness: 0.1
+      				}
+      			},
+      		layout: {
+                hierarchical: {
+                	enabled: false,
+                    direction: 'LR',
+                    sortMethod: 'directed'
+                }
+            },
+            physics: {
+            	enabled: true,
+            	solver: 'forceAtlas2Based'
+            	},
+            interaction: {dragNodes: true}
+      		};
+    var network = new vis.Network(container, data, options);
+    
+    network.on("stabilizationIterationsDone", function (params) {
+    	this.setOptions({physics:{enabled: false}});
+      });
+  </script>
+
+</body>
+</html>

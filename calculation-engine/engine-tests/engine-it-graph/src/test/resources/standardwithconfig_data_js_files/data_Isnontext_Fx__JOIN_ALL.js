@@ -1,0 +1,27 @@
+var nodes = new vis.DataSet([
+                             /* {id: a, label: b, ...}, */
+{id: '8d6a081f-4f99-40bb-8a1c-3cdf370eaa24', label: 'ISNONTEXT\nTRUE', color: '#f0ad4e', title: 'Name: ISNONTEXT<br>Value: TRUE<br>Type: FUNCTION<br>Id: 8d6a081f-4f99-40bb-8a1c-3cdf370eaa24<br>Formula Expression: Formula String: ISNONTEXT(VALUE); Formula Values: ISNONTEXT(67.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: '637deb7a-80bf-4ca3-8cc0-9b087ce32864', label: 'C6\nFALSE', color: '#31b0d5', title: 'Name: C6<br>Value: FALSE<br>Type: CELL_WITH_FORMULA<br>Id: 637deb7a-80bf-4ca3-8cc0-9b087ce32864<br>Formula Expression: Formula String: ISNONTEXT(B1); Formula Values: ISNONTEXT(some); Formula Ptg: some ISNONTEXT ; Ptgs: B1 ISNONTEXT  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: '1842e6fd-4c07-4ebe-b87a-1057324c7a43', label: 'A1\n1.0', color: '#31b0d5', title: 'Name: A1<br>Value: 1.0<br>Type: CELL_WITH_VALUE<br>Id: 1842e6fd-4c07-4ebe-b87a-1057324c7a43<br>Formula Expression: Formula String: A1; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: A1 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: '318cb045-22bf-454d-ab15-c7426684e62c', label: 'ISNONTEXT\nTRUE', color: '#f0ad4e', title: 'Name: ISNONTEXT<br>Value: TRUE<br>Type: FUNCTION<br>Id: 318cb045-22bf-454d-ab15-c7426684e62c<br>Formula Expression: Formula String: ISNONTEXT(A1); Formula Values: ISNONTEXT(1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: '16528263-f63b-4770-9191-01642f33ce6b', label: 'ISNONTEXT\nFALSE', color: '#f0ad4e', title: 'Name: ISNONTEXT<br>Value: FALSE<br>Type: FUNCTION<br>Id: 16528263-f63b-4770-9191-01642f33ce6b<br>Formula Expression: Formula String: ISNONTEXT(B1); Formula Values: ISNONTEXT(some); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: '3d34a2f0-3343-45aa-918f-e8ebfa593621', label: 'VALUE\n67.0', color: '#31b0d5', title: 'Name: VALUE<br>Value: 67.0<br>Type: CONSTANT_VALUE<br>Id: 3d34a2f0-3343-45aa-918f-e8ebfa593621<br>Formula Expression: Formula String: VALUE; Formula Values: 67.0; Formula Ptg: 67.0; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: 'c3552ca4-5642-471b-a830-d434ff1b9929', label: 'ISNONTEXT\nTRUE', color: '#f0ad4e', title: 'Name: ISNONTEXT<br>Value: TRUE<br>Type: FUNCTION<br>Id: c3552ca4-5642-471b-a830-d434ff1b9929<br>Formula Expression: Formula String: ISNONTEXT(ISNONTEXT(A1)); Formula Values: ISNONTEXT(ISNONTEXT(1.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: 'b80e1c0c-02a4-407d-a2cf-73fce80eb6d8', label: 'C5\nTRUE', color: '#31b0d5', title: 'Name: C5<br>Value: TRUE<br>Type: CELL_WITH_FORMULA<br>Id: b80e1c0c-02a4-407d-a2cf-73fce80eb6d8<br>Formula Expression: Formula String: ISNONTEXT(A1); Formula Values: ISNONTEXT(1.0); Formula Ptg: 1.0 ISNONTEXT ; Ptgs: A1 ISNONTEXT  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: '1192dfad-84b1-4401-a93a-f07e175f2d53', label: 'C7\nTRUE', color: '#31b0d5', title: 'Name: C7<br>Value: TRUE<br>Type: CELL_WITH_FORMULA<br>Id: 1192dfad-84b1-4401-a93a-f07e175f2d53<br>Formula Expression: Formula String: ISNONTEXT(ISNONTEXT(A1)); Formula Values: ISNONTEXT(ISNONTEXT(1.0)); Formula Ptg: 1.0 ISNONTEXT  ISNONTEXT ; Ptgs: A1 ISNONTEXT  ISNONTEXT  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: 'd6cd4515-5b9e-49ff-aede-86b4e131c345', label: 'B1\nsome', color: '#31b0d5', title: 'Name: B1<br>Value: some<br>Type: CELL_WITH_VALUE<br>Id: d6cd4515-5b9e-49ff-aede-86b4e131c345<br>Formula Expression: Formula String: B1; Formula Values: some; Formula Ptg: some; Ptgs: B1 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'},
+{id: '659f2010-e959-474d-90dc-519c1720bd4b', label: 'C8\nTRUE', color: '#31b0d5', title: 'Name: C8<br>Value: TRUE<br>Type: CELL_WITH_FORMULA<br>Id: 659f2010-e959-474d-90dc-519c1720bd4b<br>Formula Expression: Formula String: ISNONTEXT(VALUE); Formula Values: ISNONTEXT(67.0); Formula Ptg: 67.0 ISNONTEXT ; Ptgs: VALUE ISNONTEXT  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@7159a5cd'}
+                            ]);
+
+
+var edges = new vis.DataSet([
+                             /* {from: id_a, to: id_b}, */
+{from: '3d34a2f0-3343-45aa-918f-e8ebfa593621', to: '8d6a081f-4f99-40bb-8a1c-3cdf370eaa24'},
+{from: 'd6cd4515-5b9e-49ff-aede-86b4e131c345', to: '16528263-f63b-4770-9191-01642f33ce6b'},
+{from: 'c3552ca4-5642-471b-a830-d434ff1b9929', to: '1192dfad-84b1-4401-a93a-f07e175f2d53'},
+{from: 'b80e1c0c-02a4-407d-a2cf-73fce80eb6d8', to: 'c3552ca4-5642-471b-a830-d434ff1b9929'},
+{from: '1842e6fd-4c07-4ebe-b87a-1057324c7a43', to: '318cb045-22bf-454d-ab15-c7426684e62c'},
+{from: '318cb045-22bf-454d-ab15-c7426684e62c', to: 'b80e1c0c-02a4-407d-a2cf-73fce80eb6d8'},
+{from: '16528263-f63b-4770-9191-01642f33ce6b', to: '637deb7a-80bf-4ca3-8cc0-9b087ce32864'},
+{from: '8d6a081f-4f99-40bb-8a1c-3cdf370eaa24', to: '659f2010-e959-474d-90dc-519c1720bd4b'}
+                            ]);

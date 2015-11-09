@@ -1,0 +1,27 @@
+var nodes = new vis.DataSet([
+                             /* {id: a, label: b, ...}, */
+{id: 'c591378f-dcb7-49ee-ad41-1144a8ac8641', label: 'INDIRECT\n1.333', color: '#f0ad4e', title: 'Name: INDIRECT<br>Value: 1.333<br>Type: FUNCTION<br>Id: c591378f-dcb7-49ee-ad41-1144a8ac8641<br>Formula Expression: Formula String: INDIRECT(A2); Formula Values: INDIRECT(B2); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: '5761ed9c-5fe5-445d-9f1e-7da96abe6381', label: 'C8\n62.0', color: '#31b0d5', title: 'Name: C8<br>Value: 62.0<br>Type: CELL_WITH_FORMULA<br>Id: 5761ed9c-5fe5-445d-9f1e-7da96abe6381<br>Formula Expression: Formula String: INDIRECT(VALUE & A5); Formula Values: INDIRECT(B & 5.0); Formula Ptg: B 5.0 & INDIRECT ; Ptgs: VALUE A5 & INDIRECT  Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: 'bcfe9cd2-6b70-41cb-878a-23b9c0ac2e21', label: 'C7\n10.0', color: '#31b0d5', title: 'Name: C7<br>Value: 10.0<br>Type: CELL_WITH_FORMULA<br>Id: bcfe9cd2-6b70-41cb-878a-23b9c0ac2e21<br>Formula Expression: Formula String: INDIRECT(VALUE); Formula Values: INDIRECT(Bolt); Formula Ptg: Bolt INDIRECT ; Ptgs: VALUE INDIRECT  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: 'c41771a9-a640-4430-a18e-a0647b8b81ad', label: 'VALUE\nB', color: '#31b0d5', title: 'Name: VALUE<br>Value: B<br>Type: CONSTANT_VALUE<br>Id: c41771a9-a640-4430-a18e-a0647b8b81ad<br>Formula Expression: Formula String: VALUE; Formula Values: B; Formula Ptg: B; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: '21645a8c-248c-47aa-9a7d-b1c29ae976f0', label: 'A5\n5.0', color: '#31b0d5', title: 'Name: A5<br>Value: 5.0<br>Type: CELL_WITH_VALUE<br>Id: 21645a8c-248c-47aa-9a7d-b1c29ae976f0<br>Formula Expression: Formula String: A5; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A5 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: 'd070e7cf-2d08-4281-a668-89a61d2aa2a3', label: 'A2\nB2', color: '#31b0d5', title: 'Name: A2<br>Value: B2<br>Type: CELL_WITH_VALUE<br>Id: d070e7cf-2d08-4281-a668-89a61d2aa2a3<br>Formula Expression: Formula String: A2; Formula Values: B2; Formula Ptg: B2; Ptgs: A2 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: '0e5282d7-f5a9-4a89-a26a-bad0828fc2cc', label: 'VALUE\nBolt', color: '#31b0d5', title: 'Name: VALUE<br>Value: Bolt<br>Type: CONSTANT_VALUE<br>Id: 0e5282d7-f5a9-4a89-a26a-bad0828fc2cc<br>Formula Expression: Formula String: VALUE; Formula Values: Bolt; Formula Ptg: Bolt; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: 'b145eb91-487c-49cf-afb8-1bed6ca8c4e8', label: 'INDIRECT\n10.0', color: '#f0ad4e', title: 'Name: INDIRECT<br>Value: 10.0<br>Type: FUNCTION<br>Id: b145eb91-487c-49cf-afb8-1bed6ca8c4e8<br>Formula Expression: Formula String: INDIRECT(VALUE); Formula Values: INDIRECT(Bolt); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: '291cf85a-e481-43f4-a89b-eba8417f897c', label: 'C6\n1.333', color: '#31b0d5', title: 'Name: C6<br>Value: 1.333<br>Type: CELL_WITH_FORMULA<br>Id: 291cf85a-e481-43f4-a89b-eba8417f897c<br>Formula Expression: Formula String: INDIRECT(A2); Formula Values: INDIRECT(B2); Formula Ptg: B2 INDIRECT ; Ptgs: A2 INDIRECT  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: 'ee6263da-7e91-492e-8eb5-d3ef6d64dcb2', label: '&\nB5', color: '#f0ad4e', title: 'Name: &<br>Value: B5<br>Type: OPERATOR<br>Id: ee6263da-7e91-492e-8eb5-d3ef6d64dcb2<br>Formula Expression: Formula String: VALUE & A5; Formula Values: B & 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'},
+{id: '2c10277c-a7a6-44e6-b32f-2b211b42275d', label: 'INDIRECT\n62.0', color: '#f0ad4e', title: 'Name: INDIRECT<br>Value: 62.0<br>Type: FUNCTION<br>Id: 2c10277c-a7a6-44e6-b32f-2b211b42275d<br>Formula Expression: Formula String: INDIRECT(VALUE & A5); Formula Values: INDIRECT(B & 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@2d94279f'}
+                            ]);
+
+
+var edges = new vis.DataSet([
+                             /* {from: id_a, to: id_b}, */
+{from: '21645a8c-248c-47aa-9a7d-b1c29ae976f0', to: 'ee6263da-7e91-492e-8eb5-d3ef6d64dcb2'},
+{from: 'ee6263da-7e91-492e-8eb5-d3ef6d64dcb2', to: '2c10277c-a7a6-44e6-b32f-2b211b42275d'},
+{from: 'd070e7cf-2d08-4281-a668-89a61d2aa2a3', to: 'c591378f-dcb7-49ee-ad41-1144a8ac8641'},
+{from: 'c591378f-dcb7-49ee-ad41-1144a8ac8641', to: '291cf85a-e481-43f4-a89b-eba8417f897c'},
+{from: '2c10277c-a7a6-44e6-b32f-2b211b42275d', to: '5761ed9c-5fe5-445d-9f1e-7da96abe6381'},
+{from: 'c41771a9-a640-4430-a18e-a0647b8b81ad', to: 'ee6263da-7e91-492e-8eb5-d3ef6d64dcb2'},
+{from: 'b145eb91-487c-49cf-afb8-1bed6ca8c4e8', to: 'bcfe9cd2-6b70-41cb-878a-23b9c0ac2e21'},
+{from: '0e5282d7-f5a9-4a89-a26a-bad0828fc2cc', to: 'b145eb91-487c-49cf-afb8-1bed6ca8c4e8'}
+                            ]);

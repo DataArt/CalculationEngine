@@ -1,0 +1,34 @@
+var nodes = new vis.DataSet([
+                             /* {id: a, label: b, ...}, */
+{id: 'af797bdc-ded2-4c80-b978-fd32b8c2cdcb', label: '-\n1.4000000000000004', color: '#f0ad4e', title: 'Name: -<br>Value: 1.4000000000000004<br>Type: OPERATOR<br>Id: af797bdc-ded2-4c80-b978-fd32b8c2cdcb<br>Formula Expression: Formula String: B3 + D1 - E1; Formula Values: 6.0 + 0.4 - 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 4 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: 'f0a8d5fe-7aa4-46fe-8484-9ea2c26d4ef0', label: 'E8\n', color: '#31b0d5', title: 'Name: E8<br>Value: <br>Type: CELL_WITH_FORMULA<br>Id: f0a8d5fe-7aa4-46fe-8484-9ea2c26d4ef0<br>Formula Expression: Formula String: CONCATENATE(I7, H2, G2, F1); Formula Values: CONCATENATE(, , , ); Formula Ptg: , , ,  CONCATENATE ; Ptgs: I7, H2, G2, F1 CONCATENATE  Index in Ptgs: 4 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: 'e7e3d613-16aa-44e1-807b-484f3b180088', label: 'E5\nTRUE', color: '#31b0d5', title: 'Name: E5<br>Value: TRUE<br>Type: CELL_WITH_FORMULA<br>Id: e7e3d613-16aa-44e1-807b-484f3b180088<br>Formula Expression: Formula String: AND(C6, B3 + D1 - E1); Formula Values: AND(, 6.0 + 0.4 - 5.0); Formula Ptg: , 6.0 0.4 + 5.0 - AND ; Ptgs: C6, B3 D1 + E1 - AND  Index in Ptgs: 6 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: 'a1fd088d-0424-4514-b84f-d02436df9a33', label: '+\n6.4', color: '#f0ad4e', title: 'Name: +<br>Value: 6.4<br>Type: OPERATOR<br>Id: a1fd088d-0424-4514-b84f-d02436df9a33<br>Formula Expression: Formula String: B3 + D1; Formula Values: 6.0 + 0.4; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: 'cebaf967-61ed-473f-a3b0-9ac7dee679ef', label: 'C6\n', color: '#31b0d5', title: 'Name: C6<br>Value: <br>Type: EMPTY_CELL<br>Id: cebaf967-61ed-473f-a3b0-9ac7dee679ef<br>Formula Expression: Formula String: C6; Formula Values: ; Formula Ptg: ; Ptgs: C6 Index in Ptgs: 5 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '538c54c6-b94e-4aed-8f8b-2edf5c7ed656', label: 'F1\n', color: '#31b0d5', title: 'Name: F1<br>Value: <br>Type: EMPTY_CELL<br>Id: 538c54c6-b94e-4aed-8f8b-2edf5c7ed656<br>Formula Expression: Formula String: F1; Formula Values: ; Formula Ptg: ; Ptgs: F1 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '60b7e2d4-eefa-41de-848a-3bc01a652b79', label: 'CONCATENATE\n', color: '#f0ad4e', title: 'Name: CONCATENATE<br>Value: <br>Type: FUNCTION<br>Id: 60b7e2d4-eefa-41de-848a-3bc01a652b79<br>Formula Expression: Formula String: CONCATENATE(I7, H2, G2, F1); Formula Values: CONCATENATE(, , , ); Formula Ptg: ; Ptgs:  Index in Ptgs: 4 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '1e535c73-fa92-435d-8d56-9792a26ee6b1', label: 'B3\n6.0', color: '#31b0d5', title: 'Name: B3<br>Value: 6.0<br>Type: CELL_WITH_VALUE<br>Id: 1e535c73-fa92-435d-8d56-9792a26ee6b1<br>Formula Expression: Formula String: B3; Formula Values: 6.0; Formula Ptg: 6.0; Ptgs: B3 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '233f4f98-61fd-4664-9582-662c20ad123a', label: 'E1\n5.0', color: '#31b0d5', title: 'Name: E1<br>Value: 5.0<br>Type: CELL_WITH_VALUE<br>Id: 233f4f98-61fd-4664-9582-662c20ad123a<br>Formula Expression: Formula String: E1; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: E1 Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '9fd0d52b-525f-41e2-ae22-70348776b245', label: 'D1\n0.4', color: '#31b0d5', title: 'Name: D1<br>Value: 0.4<br>Type: CELL_WITH_VALUE<br>Id: 9fd0d52b-525f-41e2-ae22-70348776b245<br>Formula Expression: Formula String: D1; Formula Values: 0.4; Formula Ptg: 0.4; Ptgs: D1 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '1dba71ab-57d6-43c7-8c95-3883637f8f68', label: 'H2\n', color: '#31b0d5', title: 'Name: H2<br>Value: <br>Type: EMPTY_CELL<br>Id: 1dba71ab-57d6-43c7-8c95-3883637f8f68<br>Formula Expression: Formula String: H2; Formula Values: ; Formula Ptg: ; Ptgs: H2 Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '54c07ebe-2b66-4f21-9559-d668ea7b6efe', label: 'AND\nTRUE', color: '#f0ad4e', title: 'Name: AND<br>Value: TRUE<br>Type: FUNCTION<br>Id: 54c07ebe-2b66-4f21-9559-d668ea7b6efe<br>Formula Expression: Formula String: AND(C6, B3 + D1 - E1); Formula Values: AND(, 6.0 + 0.4 - 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 6 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: 'abcb1fda-d846-4cc6-970b-ab968ee4c1c3', label: 'I7\n', color: '#31b0d5', title: 'Name: I7<br>Value: <br>Type: EMPTY_CELL<br>Id: abcb1fda-d846-4cc6-970b-ab968ee4c1c3<br>Formula Expression: Formula String: I7; Formula Values: ; Formula Ptg: ; Ptgs: I7 Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'},
+{id: '82bb87e0-fdae-4b58-8e40-6ffd6177fc93', label: 'G2\n', color: '#31b0d5', title: 'Name: G2<br>Value: <br>Type: EMPTY_CELL<br>Id: 82bb87e0-fdae-4b58-8e40-6ffd6177fc93<br>Formula Expression: Formula String: G2; Formula Values: ; Formula Ptg: ; Ptgs: G2 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@76ed7573'}
+                            ]);
+
+
+var edges = new vis.DataSet([
+                             /* {from: id_a, to: id_b}, */
+{from: 'abcb1fda-d846-4cc6-970b-ab968ee4c1c3', to: '60b7e2d4-eefa-41de-848a-3bc01a652b79'},
+{from: '233f4f98-61fd-4664-9582-662c20ad123a', to: 'af797bdc-ded2-4c80-b978-fd32b8c2cdcb'},
+{from: '9fd0d52b-525f-41e2-ae22-70348776b245', to: 'a1fd088d-0424-4514-b84f-d02436df9a33'},
+{from: '1e535c73-fa92-435d-8d56-9792a26ee6b1', to: 'a1fd088d-0424-4514-b84f-d02436df9a33'},
+{from: '54c07ebe-2b66-4f21-9559-d668ea7b6efe', to: 'e7e3d613-16aa-44e1-807b-484f3b180088'},
+{from: '82bb87e0-fdae-4b58-8e40-6ffd6177fc93', to: '60b7e2d4-eefa-41de-848a-3bc01a652b79'},
+{from: '538c54c6-b94e-4aed-8f8b-2edf5c7ed656', to: '60b7e2d4-eefa-41de-848a-3bc01a652b79'},
+{from: '1dba71ab-57d6-43c7-8c95-3883637f8f68', to: '60b7e2d4-eefa-41de-848a-3bc01a652b79'},
+{from: 'a1fd088d-0424-4514-b84f-d02436df9a33', to: 'af797bdc-ded2-4c80-b978-fd32b8c2cdcb'},
+{from: 'af797bdc-ded2-4c80-b978-fd32b8c2cdcb', to: '54c07ebe-2b66-4f21-9559-d668ea7b6efe'},
+{from: 'cebaf967-61ed-473f-a3b0-9ac7dee679ef', to: '54c07ebe-2b66-4f21-9559-d668ea7b6efe'},
+{from: '60b7e2d4-eefa-41de-848a-3bc01a652b79', to: 'f0a8d5fe-7aa4-46fe-8484-9ea2c26d4ef0'}
+                            ]);
