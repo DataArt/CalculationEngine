@@ -305,6 +305,12 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         switch (vertex.type) {
 
             case CELL_WITH_VALUE: {
+                if (dgraph.incomingEdgesOf(vertex).size() == 1) {
+                    vertex.type = Type.CELL_WITH_REFERENCE;
+                }
+                if (dgraph.incomingEdgesOf(vertex).size() > 1) {
+                    vertex.type = CELL_WITH_FORMULA;
+                }
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(vertex.value().toString());

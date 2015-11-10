@@ -76,9 +76,12 @@ public class GraphTestUtil {
     public final static String STANDARD_EXCELS_DIR = "src/test/resources/standard_excel_files/";
     public final static String STANDARD_GRAPHML_DIR = "src/test/resources/standard_graphml_files/";
     public final static String ALL_CELLS_GRAPHML_DIR = "src/test/resources/standardwithconfig_graphml_files/";
+    public final static String ADVANCED_CONF_TESTS_DIR = "src/test/resources/standardwithconfig_advanced_graphml_files/";
+    public final static String ADVANCED_CONF_TESTS_EXCEL_DIR = "src/test/resources/standardwithconfig_excel_files/";
     
     static final String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
     static final String GRAPH_PATHS_FILE_ALL = STANDARD_EXCELS_DIR + "_config_graph_paths.lst";
+    static final String ADV_GRAPH_PATHS_FILE_ALL = STANDARD_EXCELS_DIR + "advanced_config_files.lst";
     static final String TEST_CLASS_TEMPLATE = "src/test/resources/Excel_XXX_Test.java.template";
     static final String TEST_CLASS_TEMPLATE_ALL = "src/test/resources/Excel_XXX_All_Test.java.template";
     static final String TEST_CLASS_FILE = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standard/Excel_XXX_Test.java";
@@ -102,6 +105,9 @@ public class GraphTestUtil {
 
     public static void main(String[] args) throws Exception {
         boolean oneFile = args.length > 0 && !args[0].equals("all");
+        if (args.length == 1 && "advanced".equals(args[0])) {
+            generateGraphmlFilesAdvJoin();
+        }
         if (oneFile) {
             if (args.length > 1) {
                 if (args[1].equals("alljoins")) {
@@ -109,7 +115,7 @@ public class GraphTestUtil {
                 } else {
                     generateGraphmlFile(args[0], args[1]);
                 }
-            } else {
+            } else if (!"advanced".equals(args[0])) {
                 generateGraphmlFile(args[0]);
             }
         } else {
@@ -322,6 +328,52 @@ public class GraphTestUtil {
         generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         generateGraphmlFile(excelFile, ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
+    }
+    
+    public static void generateGraphmlFilesAdvJoin() throws Exception {
+        System.out.println("Begin. Fileset.");
+        for (ExecutionGraphConfig config : graphConfigToString.keySet()) {
+        try (Scanner sc = new Scanner(Paths.get(ADV_GRAPH_PATHS_FILE_ALL))) {
+
+            System.out.println("For each line in file [" + ADV_GRAPH_PATHS_FILE_ALL + "]\n");
+            while (sc.hasNext()) {
+                String line = sc.next();
+
+                String path = ADVANCED_CONF_TESTS_EXCEL_DIR + line + ".xlsx";
+                String filename = ADVANCED_CONF_TESTS_DIR + line + "/" + graphConfigToString.get(config) + ".graphml";
+
+                System.out.println("Excel file [" + path + "], address [" + "All" + "]");
+
+                final IDataModel model = new DataModel(filename, path);
+
+                GraphTestUtil.initExternalServices((DataModel) model);
+
+                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
+
+                final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(config);
+                final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
+
+                File file = new File(ADVANCED_CONF_TESTS_DIR + line + "/");
+                file.mkdirs();
+                Writer fw = new FileWriter(filename);
+
+                GraphMLExporter exporter = new ExecutionGraphMLExporter(graphConfigToString.get(config).substring(1));
+                exporter.export(fw, dgraph);
+
+                System.out.println("GraphML file is written to [" + filename + "]");
+                System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
+                
+                //generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, line, graphConfigToString.get(config));
+                System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + line + "_" + graphConfigToString.get(config) + "].");
+               
+                System.out.println("Java Test file is written to [" + TEST_CLASS_FILE_ALL.replace("XXX", line + "_" + "All") + "]");
+                System.out.println();
+                
+                GraphTestUtil.destroyExternalServices();
+            }
+        }
+        }
+        System.out.println("\nEnd. Fileset."); 
     }
 
     public static void initExternalServices(DataModel model) throws Exception {

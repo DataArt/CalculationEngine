@@ -1,0 +1,72 @@
+package com.dataart.spreadsheetanalytics.test.graph.nonstandard;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
+import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
+import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
+
+public class Excel_With_Config_Case_3 extends SerializedGraphTest {
+    
+    static final String ADVANCED_CONF_TESTS_DIR = "src/test/resources/standardwithconfig_advanced_graphml_files/";
+    static String file = "case_3";
+    static String path = "src/test/resources/standardwithconfig_excel_files/"+ file + ".xlsx";
+    static String suffix = "All";
+    static String suffix1 = "JOIN_ALL";
+    static String suffix2 = "JOIN_2";
+    static String suffix3 = "JOIN_5";
+    static String suffix4 = "JOIN_10";
+    static String graphml = file + "\\";
+    
+    IAuditor auditor = null;
+
+    @Before
+    public void beforeTest() throws Exception {
+        final IDataModel model = new DataModel(path, path);
+        GraphTestUtil.initExternalServices((DataModel) model);
+        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
+    }
+
+    @After
+    public void afterTest() throws Exception {
+        super.after();
+    }
+    
+    @Test
+    public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
+        graph = auditor.buildDynamicExecutionGraph();
+        super.compare_ExcelFile_SerializedGraph(ADVANCED_CONF_TESTS_DIR, graphml, suffix);
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ADVANCED_CONF_TESTS_DIR, graphml, suffix1);
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ADVANCED_CONF_TESTS_DIR, graphml, suffix2);        
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ADVANCED_CONF_TESTS_DIR, graphml, suffix3);        
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ADVANCED_CONF_TESTS_DIR, graphml, suffix4);        
+    }
+    
+}

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D7">
-<node id="aeba8edb-122d-4dcd-bd28-a943d368bc28">
+<node id="706dc654-a26c-4637-9f32-9594699f054c">
 <data key="name">D7</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISNA(C5); Formula values: ISNA(5.0);</data>
 </node>
-<node id="cdfc3a41-d1b4-4ca1-9113-0bdd56131805">
+<node id="fbc0aad9-800d-4595-86d6-934bff859cd5">
 <data key="name">C5</data>
 <data key="value">5.0</data>
-<data key="type">CELL_WITH_VALUE</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: C5; Formula values: 5.0;</data>
 </node>
-<node id="1544a529-2ad1-4954-b333-72dcd6a2fed0">
+<node id="2bc8ee32-c6d0-4412-ac4c-a54e90d1daeb">
 <data key="name">A5</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A5; Formula values: null;</data>
 </node>
-<node id="0ce4fe46-6831-4842-a340-81efdfbcb611">
+<node id="acff5ad4-1010-4fd4-8c2d-094c0725f896">
 <data key="name">ISNA</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISNA(C5); Formula values: ISNA(5.0);</data>
 </node>
-<edge source="1544a529-2ad1-4954-b333-72dcd6a2fed0" target="cdfc3a41-d1b4-4ca1-9113-0bdd56131805"/>
-<edge source="cdfc3a41-d1b4-4ca1-9113-0bdd56131805" target="0ce4fe46-6831-4842-a340-81efdfbcb611"/>
-<edge source="0ce4fe46-6831-4842-a340-81efdfbcb611" target="aeba8edb-122d-4dcd-bd28-a943d368bc28"/>
+<edge source="2bc8ee32-c6d0-4412-ac4c-a54e90d1daeb" target="fbc0aad9-800d-4595-86d6-934bff859cd5"/>
+<edge source="fbc0aad9-800d-4595-86d6-934bff859cd5" target="acff5ad4-1010-4fd4-8c2d-094c0725f896"/>
+<edge source="acff5ad4-1010-4fd4-8c2d-094c0725f896" target="706dc654-a26c-4637-9f32-9594699f054c"/>
 </graph>
 </graphml>
