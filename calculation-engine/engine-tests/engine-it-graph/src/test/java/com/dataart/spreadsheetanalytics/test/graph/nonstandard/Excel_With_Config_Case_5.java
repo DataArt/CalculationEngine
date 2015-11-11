@@ -15,9 +15,9 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
-public class Excel_With_Config_Case_3 extends SerializedGraphTest {
+public class Excel_With_Config_Case_5 extends SerializedGraphTest {
 
-    static String file = "case_3";
+    static String file = "case_5";
     static String path = "src/test/resources/standardwithconfig_excel_files/"+ file + ".xlsx";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
@@ -69,5 +69,5 @@ public class Excel_With_Config_Case_3 extends SerializedGraphTest {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ADVANCED_CONF_TESTS_DIR, graphml, suffix4);        
     }
-    
+
 }

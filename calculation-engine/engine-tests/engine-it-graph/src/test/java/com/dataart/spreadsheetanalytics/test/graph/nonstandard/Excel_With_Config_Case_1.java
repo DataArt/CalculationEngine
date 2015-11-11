@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ADVANCED_CONF_TESTS_DIR;
+
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
@@ -14,8 +16,7 @@ import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 public class Excel_With_Config_Case_1 extends SerializedGraphTest {
-    
-    static final String ADVANCED_CONF_TESTS_DIR = "src/test/resources/standardwithconfig_advanced_graphml_files/";
+
     static String file = "case_1";
     static String path = "src/test/resources/standardwithconfig_excel_files/"+ file + ".xlsx";
     static String suffix = "All";
