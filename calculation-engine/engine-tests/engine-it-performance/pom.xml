@@ -77,6 +77,7 @@ limitations under the License.
                 <include>**/dslookup/shuffled/*_Test.java</include>
                 <include>**/dslookup/sorted/*_Test.java</include>
                 <include>**/dslookup/vlookup/*_Test.java</include>
+                <include>**/baseline/*_Test.java</include>                
               </includes>
             </configuration>
           </plugin>
@@ -96,6 +97,7 @@ limitations under the License.
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
               <includes>
                 <include>**/funcexec/*_Test.java</include>
+                <include>**/baseline/*_Test.java</include>                
               </includes>
             </configuration>
           </plugin>
@@ -112,9 +114,10 @@ limitations under the License.
             <artifactId>maven-surefire-plugin</artifactId>
             <version>2.19</version>
             <configuration>
-              <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
+              <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder -Xms4096m</argLine>
               <includes>
                 <include>**/query/*_Test.java</include>
+                <include>**/baseline/*_Test.java</include>
               </includes>
             </configuration>
           </plugin>
@@ -134,6 +137,7 @@ limitations under the License.
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
               <includes>
                 <include>**/graph/*_Test.java</include>
+                <include>**/baseline/*_Test.java</include>                
               </includes>
             </configuration>
           </plugin>

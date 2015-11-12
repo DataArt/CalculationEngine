@@ -17,13 +17,14 @@ public class BenchmarkTestParent {
                                             .mode(Mode.SampleTime)
                                             .timeUnit(TimeUnit.MILLISECONDS)
                                             .warmupTime(TimeValue.seconds(1))
-                                            .warmupIterations(3)
+                                            .warmupIterations(8)
                                             .measurementTime(TimeValue.seconds(1))
-                                            .measurementIterations(6)
+                                            .measurementIterations(5)
                                             .timeout(TimeValue.seconds(30))
-                                            .threads(3)
+                                            .threads(2)
                                             .forks(0) //0 for debug, 1 for run
                                             .shouldFailOnError(true)
+                                            .shouldDoGC(true) //because of graph
                                             .addProfiler(profilers.FlightRecordingProfiler.class);
         
         return new Runner(opts.include(className + ".*").build()).run();
