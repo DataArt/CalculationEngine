@@ -85,7 +85,11 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
             ExecutionGraphVertex vertex = (ExecutionGraphVertex) v;
             if (!vertex.name().equals(this.name())) { return -1; }
             if (!vertex.value().get().equals(this.value().get())) { return -1; }
-            if (!vertex.formula().formulaStr().equals(this.formula().formulaStr())) { return -1; }
+            if (vertex.formula().formulaStr() == null) {
+                if (this.formula().formulaStr() != null) { return -1; }
+            } else {
+                if (!vertex.formula().formulaStr().equals(this.formula().formulaStr())) { return -1; }
+            }
             return 1;
         }
         return -1;

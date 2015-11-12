@@ -305,6 +305,12 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         switch (vertex.type) {
 
             case CELL_WITH_VALUE: {
+                if (dgraph.incomingEdgesOf(vertex).size() == 1) {
+                    vertex.type = Type.CELL_WITH_REFERENCE;
+                }
+                if (dgraph.incomingEdgesOf(vertex).size() > 1) {
+                    vertex.type = CELL_WITH_FORMULA;
+                }
                 CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(vertex.value().toString());
@@ -592,14 +598,16 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected void reduceDuplicates(Map<IExecutionGraphVertex, List<IExecutionGraphVertex>> verticesMap, int allowedNum) {
         Set<ExecutionGraphVertex> childrenToRemove = new HashSet<>();
-        for (Entry<IExecutionGraphVertex, List<IExecutionGraphVertex>> entry : verticesMap.entrySet()) {
+        Iterator<Entry<IExecutionGraphVertex, List<IExecutionGraphVertex>>> enterator = verticesMap.entrySet().iterator();
+        while (enterator.hasNext()) {
+            Entry<IExecutionGraphVertex, List<IExecutionGraphVertex>> entry = enterator.next();
             List<IExecutionGraphVertex> values = entry.getValue();
             if (values.size() > allowedNum) {
                 for (IExecutionGraphVertex vertex : values) {
                     reassignOutgoingEdges(entry.getKey(), vertex);
                     for (ExecutionGraphEdge edge : dgraph.incomingEdgesOf(vertex)) {
                         ExecutionGraphVertex child = (ExecutionGraphVertex) dgraph.getEdgeSource(edge);
-                        if ("VALUE".equals(child.name())) {
+                        if (Type.CONSTANT_VALUE.equals(child.type())) {
                             childrenToRemove.add(child);
                         }
                     }
@@ -639,7 +647,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             result = it.next();
             while (it.hasNext()) {
                 IExecutionGraphVertex value = it.next();
-                if (dgraph.containsVertex(value)) {
+                if (dgraph.containsVertex(value) && dgraph.containsVertex(result)) {
                     reassignOutgoingEdges(result, value);
                     dgraph.removeVertex(value);
                 } else {

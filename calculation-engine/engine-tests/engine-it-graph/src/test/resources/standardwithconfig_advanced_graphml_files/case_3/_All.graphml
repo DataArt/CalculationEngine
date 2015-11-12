@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="All">
+<node id="92bfcbf5-c81f-49b7-8921-17d4266b1e31">
+<data key="name">E13</data>
+<data key="value">1840.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D13 / VALUE * Tax; Formula values: 8000.0 / 100.0 * 23.0;</data>
+</node>
+<node id="98b16180-5553-4a04-8b05-627fc140860c">
+<data key="name">D13</data>
+<data key="value">8000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D13; Formula values: 8000.0;</data>
+</node>
+<node id="5dcba831-9366-4752-8581-61c162b5d6f4">
+<data key="name">VALUE</data>
+<data key="value">100.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 100.0;</data>
+</node>
+<node id="4a57a8b7-517c-4eae-91e1-45e25b0b74db">
+<data key="name">/</data>
+<data key="value">80.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D13 / VALUE; Formula values: 8000.0 / 100.0;</data>
+</node>
+<node id="8ef2646d-503f-4fc7-8943-03b31160d18f">
+<data key="name">Tax</data>
+<data key="value">23.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Tax; Formula values: 23.0;</data>
+</node>
+<node id="cdbd32f4-d28c-4f90-90e9-e01848d2ba2b">
+<data key="name">*</data>
+<data key="value">1840.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D13 / VALUE * Tax; Formula values: 8000.0 / 100.0 * 23.0;</data>
+</node>
+<node id="d674acdd-9f92-4b85-8a94-71aa84ac587c">
+<data key="name">F13</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: Hazard_Coef * C13 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="f7b49691-6870-4387-84c5-d92b1f0d3261">
+<data key="name">Hazard_Coef</data>
+<data key="value">250.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Hazard_Coef; Formula values: 250.0;</data>
+</node>
+<node id="e34a9c56-3dcb-46e8-af34-da14ff46845e">
+<data key="name">C13</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C13; Formula values: 1.0;</data>
+</node>
+<node id="02d84e46-d791-4df3-bdb3-869637113f42">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="befb734a-427d-4b28-8048-5f9df651b4f8">
+<data key="name">-</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: C13 - VALUE; Formula values: 1.0 - 1.0;</data>
+</node>
+<node id="35bfe454-88a7-462c-ac73-e646113bce01">
+<data key="name">*</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C13 - VALUE; Formula values: 250.0 * 1.0 - 1.0;</data>
+</node>
+<node id="75e9749a-0cc2-4d6a-9c57-2180ee0900db">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="796585b4-dea5-4db0-9818-097eba453e3a">
+<data key="name">*</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C13 - VALUE * VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0;</data>
+</node>
+<node id="257c6d89-46be-496a-b36b-c51983d55c59">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="c1e9cfb8-f888-4087-8a0a-1f726397c023">
+<data key="name">/</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C13 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="bc82bbf2-a1d2-4049-bb66-49d9881562ad">
+<data key="name">I13</data>
+<data key="value">10000.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
+</node>
+<node id="391de927-8f89-4dce-9043-b72b59b9ec8b">
+<data key="name">D13</data>
+<data key="value">8000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D13; Formula values: 8000.0;</data>
+</node>
+<node id="73f7c5f9-b8f8-40df-9449-7d8988e00b3b">
+<data key="name">F13</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: Hazard_Coef * C13 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="c95e30f9-7a8b-4952-9adc-82f896016526">
+<data key="name">G13</data>
+<data key="value">0.2</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: G13; Formula values: 0.2;</data>
+</node>
+<node id="2c5d09aa-3619-4e14-a64c-2781056fad17">
+<data key="name">D13</data>
+<data key="value">8000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D13; Formula values: 8000.0;</data>
+</node>
+<node id="3445d142-c5ec-41ca-bdf0-8841a77efc5a">
+<data key="name">*</data>
+<data key="value">1600.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: G13 * D13; Formula values: 0.2 * 8000.0;</data>
+</node>
+<node id="f353d0bf-ce04-421e-b4aa-b0e0132d20ed">
+<data key="name">H13</data>
+<data key="value">0.05</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: H13; Formula values: 0.05;</data>
+</node>
+<node id="d9bc7bca-9ea6-4d6f-bffd-9b30aa5bdc33">
+<data key="name">D13</data>
+<data key="value">8000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D13; Formula values: 8000.0;</data>
+</node>
+<node id="d9480533-4f0f-4441-bbc1-898ee25a2940">
+<data key="name">*</data>
+<data key="value">400.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: H13 * D13; Formula values: 0.05 * 8000.0;</data>
+</node>
+<node id="76699d48-4ae5-4fe6-8bc1-67867f844910">
+<data key="name">SUM</data>
+<data key="value">10000.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
+</node>
+<node id="1842f93c-5ab2-4689-81ee-38519d96d707">
+<data key="name">J13</data>
+<data key="value">1890.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D13 / VALUE * Tax + Social_Tribute; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="bebcb9e0-cea4-49c7-b420-dfb54085a713">
+<data key="name">E13</data>
+<data key="value">1840.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D13 / VALUE * Tax; Formula values: 8000.0 / 100.0 * 23.0;</data>
+</node>
+<node id="30c73d6a-d9ed-4d13-a1a3-7eb2de7bf8d5">
+<data key="name">Social_Tribute</data>
+<data key="value">50.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Social_Tribute; Formula values: 50.0;</data>
+</node>
+<node id="0030ac9c-00d4-4718-9a97-1d08a4f3c2fa">
+<data key="name">+</data>
+<data key="value">1890.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D13 / VALUE * Tax + Social_Tribute; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="35a92537-5fbe-463e-a825-402758e9ee54">
+<data key="name">K13</data>
+<data key="value">8110.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13) - D13 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) - 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="80bbbc13-7dfb-4ac6-b26e-51ee59af9dc9">
+<data key="name">I13</data>
+<data key="value">10000.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
+</node>
+<node id="d37a5783-bfe9-420f-89c3-a7bc08c9aefe">
+<data key="name">J13</data>
+<data key="value">1890.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D13 / VALUE * Tax + Social_Tribute; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="2218f53b-2046-4a0d-8e1d-f46e93004151">
+<data key="name">-</data>
+<data key="value">8110.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13) - D13 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) - 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="f502c062-479c-4467-8c18-c9a47d367d22">
+<data key="name">L13</data>
+<data key="value">11890.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13) + D13 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) + 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="1f156336-6f55-4a05-93b3-53c7825c1267">
+<data key="name">I13</data>
+<data key="value">10000.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
+</node>
+<node id="4e18f2ec-9ba6-4b30-a656-d83130d41439">
+<data key="name">J13</data>
+<data key="value">1890.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D13 / VALUE * Tax + Social_Tribute; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="d9572f0e-de34-4018-852b-e92445e9bfdb">
+<data key="name">+</data>
+<data key="value">11890.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, Hazard_Coef * C13 - VALUE * VALUE / VALUE, D13) + D13 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) + 8000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="90ac97cb-fdf7-455e-8990-8ccacc8833ef">
+<data key="name">E14</data>
+<data key="value">1380.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D14 / VALUE * Tax; Formula values: 6000.0 / 100.0 * 23.0;</data>
+</node>
+<node id="2734a91b-985f-4e32-a222-787907df9d39">
+<data key="name">D14</data>
+<data key="value">6000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D14; Formula values: 6000.0;</data>
+</node>
+<node id="7f280f62-f843-40a5-a60a-0363332ce636">
+<data key="name">VALUE</data>
+<data key="value">100.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 100.0;</data>
+</node>
+<node id="69c4d750-d066-445a-85cb-15eae9c2bab0">
+<data key="name">/</data>
+<data key="value">60.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D14 / VALUE; Formula values: 6000.0 / 100.0;</data>
+</node>
+<node id="c06951b4-af17-4601-bacc-00c350d97b66">
+<data key="name">Tax</data>
+<data key="value">23.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Tax; Formula values: 23.0;</data>
+</node>
+<node id="85a674bf-e9ec-4ee6-bc83-7b3cae9df8c2">
+<data key="name">*</data>
+<data key="value">1380.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D14 / VALUE * Tax; Formula values: 6000.0 / 100.0 * 23.0;</data>
+</node>
+<node id="03a7dce9-40e5-4a3a-afa5-069e6c72bb7f">
+<data key="name">F14</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: Hazard_Coef * C14 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="9987ee76-d780-4d5a-baea-3cbd4e50ba31">
+<data key="name">Hazard_Coef</data>
+<data key="value">250.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Hazard_Coef; Formula values: 250.0;</data>
+</node>
+<node id="4e1da815-ab48-4064-87b6-0bf7b083b7ea">
+<data key="name">C14</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C14; Formula values: 1.0;</data>
+</node>
+<node id="a76db2b9-7249-449b-bcab-49f6e665a440">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="b242e127-d188-4b69-8a54-ece7ac220089">
+<data key="name">-</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: C14 - VALUE; Formula values: 1.0 - 1.0;</data>
+</node>
+<node id="68e623fa-c40e-4443-bc54-8be08bb8cb9f">
+<data key="name">*</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C14 - VALUE; Formula values: 250.0 * 1.0 - 1.0;</data>
+</node>
+<node id="f09af66e-effe-4efd-80a2-39b5737c039b">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="0e292e0f-b93a-4c34-9ec8-7144460de71e">
+<data key="name">*</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C14 - VALUE * VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0;</data>
+</node>
+<node id="7d132ec0-21e4-499c-9a77-31ef6121130d">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="dc279998-6b4b-4b4d-8de3-a21393fa202e">
+<data key="name">/</data>
+<data key="value">0.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C14 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="fe10fc65-5cd9-4a9f-94d9-a3ebfe92175c">
+<data key="name">I14</data>
+<data key="value">7680.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
+</node>
+<node id="7bee868b-37fa-4c29-86fe-6a1d0118b6e2">
+<data key="name">D14</data>
+<data key="value">6000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D14; Formula values: 6000.0;</data>
+</node>
+<node id="ba62b7e0-a952-4e1d-931f-4afffe52cb7d">
+<data key="name">F14</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: Hazard_Coef * C14 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="112b76f9-8ae7-461f-8731-c5df0fd36409">
+<data key="name">G14</data>
+<data key="value">0.25</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: G14; Formula values: 0.25;</data>
+</node>
+<node id="5026273b-5e87-4ce9-90d0-52f78dac2fb2">
+<data key="name">D14</data>
+<data key="value">6000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D14; Formula values: 6000.0;</data>
+</node>
+<node id="1306a27c-6a53-4e03-b55c-64f28a07b08c">
+<data key="name">*</data>
+<data key="value">1500.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: G14 * D14; Formula values: 0.25 * 6000.0;</data>
+</node>
+<node id="3914dea2-61fb-43dd-a266-b38bd661bc0a">
+<data key="name">H14</data>
+<data key="value">0.03</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: H14; Formula values: 0.03;</data>
+</node>
+<node id="383345f5-48dc-4af2-bc41-5ba524b1b7fc">
+<data key="name">D14</data>
+<data key="value">6000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D14; Formula values: 6000.0;</data>
+</node>
+<node id="bbc32b15-bc13-48f5-8172-883794d2bf04">
+<data key="name">*</data>
+<data key="value">180.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: H14 * D14; Formula values: 0.03 * 6000.0;</data>
+</node>
+<node id="5b3616b6-83f5-44be-85cd-1aabc63be3e1">
+<data key="name">SUM</data>
+<data key="value">7680.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
+</node>
+<node id="ba656b15-bd81-489c-97bb-710fff31e1de">
+<data key="name">J14</data>
+<data key="value">1430.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D14 / VALUE * Tax + Social_Tribute; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="36ef3730-95cc-4fc8-bef7-8769607e9447">
+<data key="name">E14</data>
+<data key="value">1380.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D14 / VALUE * Tax; Formula values: 6000.0 / 100.0 * 23.0;</data>
+</node>
+<node id="55e948f3-e60c-482d-a2d0-129434af65e2">
+<data key="name">Social_Tribute</data>
+<data key="value">50.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Social_Tribute; Formula values: 50.0;</data>
+</node>
+<node id="22d74897-faba-4931-ab63-55a6f25c6c68">
+<data key="name">+</data>
+<data key="value">1430.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D14 / VALUE * Tax + Social_Tribute; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="86371331-a204-4b18-ab2f-e1ea646e37c6">
+<data key="name">K14</data>
+<data key="value">6250.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14) - D14 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) - 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="ad565b57-b606-4649-a555-4a6969b386b9">
+<data key="name">I14</data>
+<data key="value">7680.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
+</node>
+<node id="8dd9563e-7047-4845-8402-06ff49973502">
+<data key="name">J14</data>
+<data key="value">1430.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D14 / VALUE * Tax + Social_Tribute; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="bf0812b8-6b6a-45fd-9cdf-4cd7503dfa2e">
+<data key="name">-</data>
+<data key="value">6250.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14) - D14 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) - 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="7c5d2fe6-da9f-4999-88cf-726eda9e6fa1">
+<data key="name">L14</data>
+<data key="value">9110.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14) + D14 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) + 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="874b2bbb-ead4-4c9a-a3e1-1727c07b5d60">
+<data key="name">I14</data>
+<data key="value">7680.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
+</node>
+<node id="c4e8f1e3-076f-4377-94bf-ab5b965b387e">
+<data key="name">J14</data>
+<data key="value">1430.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D14 / VALUE * Tax + Social_Tribute; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="a049c98d-fa4a-47e9-996b-10ce02610055">
+<data key="name">+</data>
+<data key="value">9110.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, Hazard_Coef * C14 - VALUE * VALUE / VALUE, D14) + D14 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) + 6000.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="01077148-c092-4d4d-949b-de29731097f8">
+<data key="name">E15</data>
+<data key="value">1035.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D15 / VALUE * Tax; Formula values: 4500.0 / 100.0 * 23.0;</data>
+</node>
+<node id="e0fd7ee5-6ffb-45d3-9dba-1143422e4925">
+<data key="name">D15</data>
+<data key="value">4500.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D15; Formula values: 4500.0;</data>
+</node>
+<node id="c2728375-5aee-4752-9dfb-48c570b50401">
+<data key="name">VALUE</data>
+<data key="value">100.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 100.0;</data>
+</node>
+<node id="cb3b7585-8639-4855-bd67-ce6a682a38db">
+<data key="name">/</data>
+<data key="value">45.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D15 / VALUE; Formula values: 4500.0 / 100.0;</data>
+</node>
+<node id="43dadeec-b078-4617-9a4a-38227495dcaa">
+<data key="name">Tax</data>
+<data key="value">23.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Tax; Formula values: 23.0;</data>
+</node>
+<node id="23e1204e-c451-41b7-8fd4-341cdf97342a">
+<data key="name">*</data>
+<data key="value">1035.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D15 / VALUE * Tax; Formula values: 4500.0 / 100.0 * 23.0;</data>
+</node>
+<node id="c2758d2f-f43c-4f67-a284-b6423f273056">
+<data key="name">F15</data>
+<data key="value">333.3333333333333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: Hazard_Coef * C15 - VALUE * VALUE / VALUE; Formula values: 250.0 * 3.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="bed0bd22-0d68-4a8e-b4cd-a3dde50ab57b">
+<data key="name">Hazard_Coef</data>
+<data key="value">250.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Hazard_Coef; Formula values: 250.0;</data>
+</node>
+<node id="4cf24c1d-c1a4-4d8d-895b-87e92529b08d">
+<data key="name">C15</data>
+<data key="value">3.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C15; Formula values: 3.0;</data>
+</node>
+<node id="c18ea171-c35d-45e5-952b-87923c07b050">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="5b7a1a94-bde2-4735-898d-e5b3187986cb">
+<data key="name">-</data>
+<data key="value">2.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: C15 - VALUE; Formula values: 3.0 - 1.0;</data>
+</node>
+<node id="0990a008-fb5c-4e9b-99d3-4553074a75ef">
+<data key="name">*</data>
+<data key="value">500.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C15 - VALUE; Formula values: 250.0 * 3.0 - 1.0;</data>
+</node>
+<node id="fb3d8904-cddb-4cb8-bf82-b9068d6b7625">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="e2c402c3-75f9-46f6-b7a3-0bb2f5f22f3d">
+<data key="name">*</data>
+<data key="value">1000.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C15 - VALUE * VALUE; Formula values: 250.0 * 3.0 - 1.0 * 2.0;</data>
+</node>
+<node id="f5e9ca1f-b4d6-41fc-aaf7-b8e67ab8ed56">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="f8b04ff7-3393-42f2-9445-7e49ed6c46ad">
+<data key="name">/</data>
+<data key="value">333.3333333333333</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: Hazard_Coef * C15 - VALUE * VALUE / VALUE; Formula values: 250.0 * 3.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="247d557a-627a-44ea-9bd2-2900bbed868c">
+<data key="name">I15</data>
+<data key="value">6273.333333333333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
+</node>
+<node id="cd13f6e2-f685-42e8-8f83-9e4387d0ab90">
+<data key="name">D15</data>
+<data key="value">4500.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D15; Formula values: 4500.0;</data>
+</node>
+<node id="e3ce7512-5617-4195-a311-dc483deb0ba7">
+<data key="name">F15</data>
+<data key="value">333.3333333333333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: Hazard_Coef * C15 - VALUE * VALUE / VALUE; Formula values: 250.0 * 3.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
+<node id="3974adee-a321-44f6-aa50-2180e6237686">
+<data key="name">G15</data>
+<data key="value">0.25</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: G15; Formula values: 0.25;</data>
+</node>
+<node id="253f81e3-c26f-4837-b07b-591638079d61">
+<data key="name">D15</data>
+<data key="value">4500.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D15; Formula values: 4500.0;</data>
+</node>
+<node id="678010bc-abd7-4611-9328-f42436b6e765">
+<data key="name">*</data>
+<data key="value">1125.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: G15 * D15; Formula values: 0.25 * 4500.0;</data>
+</node>
+<node id="02997c22-b779-46a1-9c20-c6e0503ded67">
+<data key="name">H15</data>
+<data key="value">0.07</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: H15; Formula values: 0.07;</data>
+</node>
+<node id="db046e66-c3e1-46ef-91d3-c8ac9eae692d">
+<data key="name">D15</data>
+<data key="value">4500.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D15; Formula values: 4500.0;</data>
+</node>
+<node id="ef660d3f-19d5-470e-a1f9-9c3bb540cb13">
+<data key="name">*</data>
+<data key="value">315.00000000000006</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: H15 * D15; Formula values: 0.07 * 4500.0;</data>
+</node>
+<node id="d6265c95-8f01-4d1c-ae48-e84147ecd8f6">
+<data key="name">SUM</data>
+<data key="value">6273.333333333333</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
+</node>
+<node id="95847f74-4521-4d0a-a58c-4ef501cef316">
+<data key="name">J15</data>
+<data key="value">1085.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D15 / VALUE * Tax + Social_Tribute; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="81093646-0166-442e-ad01-b78216bf087c">
+<data key="name">E15</data>
+<data key="value">1035.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D15 / VALUE * Tax; Formula values: 4500.0 / 100.0 * 23.0;</data>
+</node>
+<node id="2ed66973-66ab-42cd-88a7-dd7cc5f59280">
+<data key="name">Social_Tribute</data>
+<data key="value">50.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Social_Tribute; Formula values: 50.0;</data>
+</node>
+<node id="5df8e1ab-47d6-4845-b73b-5772e17df5a7">
+<data key="name">+</data>
+<data key="value">1085.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: D15 / VALUE * Tax + Social_Tribute; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="22a8af67-1574-4a19-b901-28c886c01623">
+<data key="name">K15</data>
+<data key="value">5188.333333333333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15) - D15 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) - 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="8112c7ac-5d9e-41e4-8cf7-89fdd0aa7cda">
+<data key="name">I15</data>
+<data key="value">6273.333333333333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
+</node>
+<node id="a1ac4f0d-5853-4e1a-8ee8-5a892e92acd2">
+<data key="name">J15</data>
+<data key="value">1085.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D15 / VALUE * Tax + Social_Tribute; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="9dea3d98-3d52-4f9c-9e3f-5c5ddb19ee0c">
+<data key="name">-</data>
+<data key="value">5188.333333333333</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15) - D15 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) - 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="3de55da5-a1a8-4393-8b66-55904b326b8c">
+<data key="name">L15</data>
+<data key="value">7358.333333333333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15) + D15 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) + 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="13270c36-d665-4ad4-9de6-0db32aed9d80">
+<data key="name">I15</data>
+<data key="value">6273.333333333333</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
+</node>
+<node id="50171c19-83b5-4978-87f8-a9886d7423b3">
+<data key="name">J15</data>
+<data key="value">1085.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D15 / VALUE * Tax + Social_Tribute; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="9565793e-b855-4f62-ad00-444ac355228d">
+<data key="name">+</data>
+<data key="value">7358.333333333333</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, Hazard_Coef * C15 - VALUE * VALUE / VALUE, D15) + D15 / VALUE * Tax + Social_Tribute; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) + 4500.0 / 100.0 * 23.0 + 50.0;</data>
+</node>
+<node id="50768b7d-253e-4866-9d9d-d27aeb1c8f5e">
+<data key="name">C17</data>
+<data key="value">28358.333333333332</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(L13:L15); Formula values: SUM(11890.0, 9110.0, 7358.333333333333);</data>
+</node>
+<node id="1d21248b-6ef4-4fee-b9e7-11ceaab16cd4">
+<data key="name">L13:L15</data>
+<data key="value">[[11890.0], [9110.0], [7358.333333333333]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: L13:L15; Formula values: [[11890.0], [9110.0], [7358.333333333333]];</data>
+</node>
+<node id="2e668f69-1969-4147-b697-e704d43df4f9">
+<data key="name">SUM</data>
+<data key="value">28358.333333333332</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(L13:L15); Formula values: SUM(11890.0, 9110.0, 7358.333333333333);</data>
+</node>
+<node id="514c7f8b-4151-4ebc-bf44-9845e65dd025">
+<data key="name">C18</data>
+<data key="value">4255.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(E13:E15); Formula values: SUM(1840.0, 1380.0, 1035.0);</data>
+</node>
+<node id="653c4627-c1db-42af-8c97-b9ed39bd50e5">
+<data key="name">E13:E15</data>
+<data key="value">[[1840.0], [1380.0], [1035.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: E13:E15; Formula values: [[1840.0], [1380.0], [1035.0]];</data>
+</node>
+<node id="73c10042-7319-428c-8f5c-1fc181fe4e65">
+<data key="name">SUM</data>
+<data key="value">4255.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(E13:E15); Formula values: SUM(1840.0, 1380.0, 1035.0);</data>
+</node>
+<node id="572266e8-012c-4b36-85da-bd267a6314a8">
+<data key="name">C19</data>
+<data key="value">6516.11111111111</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(K13:K15) / ROWS(K13:K15); Formula values: SUM(8110.0, 6250.0, 5188.333333333333) / ROWS(8110.0, 6250.0, 5188.333333333333);</data>
+</node>
+<node id="582b26f5-3100-4570-bd1d-bfe489157b97">
+<data key="name">K13:K15</data>
+<data key="value">[[8110.0], [6250.0], [5188.333333333333]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: K13:K15; Formula values: [[8110.0], [6250.0], [5188.333333333333]];</data>
+</node>
+<node id="878d5ae5-96be-40c6-8f75-0cedc820cd2b">
+<data key="name">SUM</data>
+<data key="value">19548.333333333332</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(K13:K15); Formula values: SUM(8110.0, 6250.0, 5188.333333333333);</data>
+</node>
+<node id="8fadb1a2-79e4-43d2-a4bf-3de38d7896e6">
+<data key="name">K13:K15</data>
+<data key="value">[[8110.0], [6250.0], [5188.333333333333]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: K13:K15; Formula values: [[8110.0], [6250.0], [5188.333333333333]];</data>
+</node>
+<node id="fe492349-c8ee-4ab2-8fd0-6d2e80205101">
+<data key="name">ROWS</data>
+<data key="value">3.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ROWS(K13:K15); Formula values: ROWS(8110.0, 6250.0, 5188.333333333333);</data>
+</node>
+<node id="fc35b233-18fb-479e-9273-f040e1cf4d40">
+<data key="name">/</data>
+<data key="value">6516.11111111111</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(K13:K15) / ROWS(K13:K15); Formula values: SUM(8110.0, 6250.0, 5188.333333333333) / ROWS(8110.0, 6250.0, 5188.333333333333);</data>
+</node>
+<edge source="5dcba831-9366-4752-8581-61c162b5d6f4" target="4a57a8b7-517c-4eae-91e1-45e25b0b74db"/>
+<edge source="98b16180-5553-4a04-8b05-627fc140860c" target="4a57a8b7-517c-4eae-91e1-45e25b0b74db"/>
+<edge source="8ef2646d-503f-4fc7-8943-03b31160d18f" target="cdbd32f4-d28c-4f90-90e9-e01848d2ba2b"/>
+<edge source="4a57a8b7-517c-4eae-91e1-45e25b0b74db" target="cdbd32f4-d28c-4f90-90e9-e01848d2ba2b"/>
+<edge source="cdbd32f4-d28c-4f90-90e9-e01848d2ba2b" target="92bfcbf5-c81f-49b7-8921-17d4266b1e31"/>
+<edge source="02d84e46-d791-4df3-bdb3-869637113f42" target="befb734a-427d-4b28-8048-5f9df651b4f8"/>
+<edge source="e34a9c56-3dcb-46e8-af34-da14ff46845e" target="befb734a-427d-4b28-8048-5f9df651b4f8"/>
+<edge source="befb734a-427d-4b28-8048-5f9df651b4f8" target="35bfe454-88a7-462c-ac73-e646113bce01"/>
+<edge source="f7b49691-6870-4387-84c5-d92b1f0d3261" target="35bfe454-88a7-462c-ac73-e646113bce01"/>
+<edge source="75e9749a-0cc2-4d6a-9c57-2180ee0900db" target="796585b4-dea5-4db0-9818-097eba453e3a"/>
+<edge source="35bfe454-88a7-462c-ac73-e646113bce01" target="796585b4-dea5-4db0-9818-097eba453e3a"/>
+<edge source="257c6d89-46be-496a-b36b-c51983d55c59" target="c1e9cfb8-f888-4087-8a0a-1f726397c023"/>
+<edge source="796585b4-dea5-4db0-9818-097eba453e3a" target="c1e9cfb8-f888-4087-8a0a-1f726397c023"/>
+<edge source="c1e9cfb8-f888-4087-8a0a-1f726397c023" target="d674acdd-9f92-4b85-8a94-71aa84ac587c"/>
+<edge source="2c5d09aa-3619-4e14-a64c-2781056fad17" target="3445d142-c5ec-41ca-bdf0-8841a77efc5a"/>
+<edge source="c95e30f9-7a8b-4952-9adc-82f896016526" target="3445d142-c5ec-41ca-bdf0-8841a77efc5a"/>
+<edge source="d9bc7bca-9ea6-4d6f-bffd-9b30aa5bdc33" target="d9480533-4f0f-4441-bbc1-898ee25a2940"/>
+<edge source="f353d0bf-ce04-421e-b4aa-b0e0132d20ed" target="d9480533-4f0f-4441-bbc1-898ee25a2940"/>
+<edge source="d9480533-4f0f-4441-bbc1-898ee25a2940" target="76699d48-4ae5-4fe6-8bc1-67867f844910"/>
+<edge source="3445d142-c5ec-41ca-bdf0-8841a77efc5a" target="76699d48-4ae5-4fe6-8bc1-67867f844910"/>
+<edge source="73f7c5f9-b8f8-40df-9449-7d8988e00b3b" target="76699d48-4ae5-4fe6-8bc1-67867f844910"/>
+<edge source="391de927-8f89-4dce-9043-b72b59b9ec8b" target="76699d48-4ae5-4fe6-8bc1-67867f844910"/>
+<edge source="76699d48-4ae5-4fe6-8bc1-67867f844910" target="bc82bbf2-a1d2-4049-bb66-49d9881562ad"/>
+<edge source="30c73d6a-d9ed-4d13-a1a3-7eb2de7bf8d5" target="0030ac9c-00d4-4718-9a97-1d08a4f3c2fa"/>
+<edge source="bebcb9e0-cea4-49c7-b420-dfb54085a713" target="0030ac9c-00d4-4718-9a97-1d08a4f3c2fa"/>
+<edge source="0030ac9c-00d4-4718-9a97-1d08a4f3c2fa" target="1842f93c-5ab2-4689-81ee-38519d96d707"/>
+<edge source="d37a5783-bfe9-420f-89c3-a7bc08c9aefe" target="2218f53b-2046-4a0d-8e1d-f46e93004151"/>
+<edge source="80bbbc13-7dfb-4ac6-b26e-51ee59af9dc9" target="2218f53b-2046-4a0d-8e1d-f46e93004151"/>
+<edge source="2218f53b-2046-4a0d-8e1d-f46e93004151" target="35a92537-5fbe-463e-a825-402758e9ee54"/>
+<edge source="4e18f2ec-9ba6-4b30-a656-d83130d41439" target="d9572f0e-de34-4018-852b-e92445e9bfdb"/>
+<edge source="1f156336-6f55-4a05-93b3-53c7825c1267" target="d9572f0e-de34-4018-852b-e92445e9bfdb"/>
+<edge source="d9572f0e-de34-4018-852b-e92445e9bfdb" target="f502c062-479c-4467-8c18-c9a47d367d22"/>
+<edge source="7f280f62-f843-40a5-a60a-0363332ce636" target="69c4d750-d066-445a-85cb-15eae9c2bab0"/>
+<edge source="2734a91b-985f-4e32-a222-787907df9d39" target="69c4d750-d066-445a-85cb-15eae9c2bab0"/>
+<edge source="c06951b4-af17-4601-bacc-00c350d97b66" target="85a674bf-e9ec-4ee6-bc83-7b3cae9df8c2"/>
+<edge source="69c4d750-d066-445a-85cb-15eae9c2bab0" target="85a674bf-e9ec-4ee6-bc83-7b3cae9df8c2"/>
+<edge source="85a674bf-e9ec-4ee6-bc83-7b3cae9df8c2" target="90ac97cb-fdf7-455e-8990-8ccacc8833ef"/>
+<edge source="a76db2b9-7249-449b-bcab-49f6e665a440" target="b242e127-d188-4b69-8a54-ece7ac220089"/>
+<edge source="4e1da815-ab48-4064-87b6-0bf7b083b7ea" target="b242e127-d188-4b69-8a54-ece7ac220089"/>
+<edge source="b242e127-d188-4b69-8a54-ece7ac220089" target="68e623fa-c40e-4443-bc54-8be08bb8cb9f"/>
+<edge source="9987ee76-d780-4d5a-baea-3cbd4e50ba31" target="68e623fa-c40e-4443-bc54-8be08bb8cb9f"/>
+<edge source="f09af66e-effe-4efd-80a2-39b5737c039b" target="0e292e0f-b93a-4c34-9ec8-7144460de71e"/>
+<edge source="68e623fa-c40e-4443-bc54-8be08bb8cb9f" target="0e292e0f-b93a-4c34-9ec8-7144460de71e"/>
+<edge source="7d132ec0-21e4-499c-9a77-31ef6121130d" target="dc279998-6b4b-4b4d-8de3-a21393fa202e"/>
+<edge source="0e292e0f-b93a-4c34-9ec8-7144460de71e" target="dc279998-6b4b-4b4d-8de3-a21393fa202e"/>
+<edge source="dc279998-6b4b-4b4d-8de3-a21393fa202e" target="03a7dce9-40e5-4a3a-afa5-069e6c72bb7f"/>
+<edge source="5026273b-5e87-4ce9-90d0-52f78dac2fb2" target="1306a27c-6a53-4e03-b55c-64f28a07b08c"/>
+<edge source="112b76f9-8ae7-461f-8731-c5df0fd36409" target="1306a27c-6a53-4e03-b55c-64f28a07b08c"/>
+<edge source="383345f5-48dc-4af2-bc41-5ba524b1b7fc" target="bbc32b15-bc13-48f5-8172-883794d2bf04"/>
+<edge source="3914dea2-61fb-43dd-a266-b38bd661bc0a" target="bbc32b15-bc13-48f5-8172-883794d2bf04"/>
+<edge source="bbc32b15-bc13-48f5-8172-883794d2bf04" target="5b3616b6-83f5-44be-85cd-1aabc63be3e1"/>
+<edge source="1306a27c-6a53-4e03-b55c-64f28a07b08c" target="5b3616b6-83f5-44be-85cd-1aabc63be3e1"/>
+<edge source="ba62b7e0-a952-4e1d-931f-4afffe52cb7d" target="5b3616b6-83f5-44be-85cd-1aabc63be3e1"/>
+<edge source="7bee868b-37fa-4c29-86fe-6a1d0118b6e2" target="5b3616b6-83f5-44be-85cd-1aabc63be3e1"/>
+<edge source="5b3616b6-83f5-44be-85cd-1aabc63be3e1" target="fe10fc65-5cd9-4a9f-94d9-a3ebfe92175c"/>
+<edge source="55e948f3-e60c-482d-a2d0-129434af65e2" target="22d74897-faba-4931-ab63-55a6f25c6c68"/>
+<edge source="36ef3730-95cc-4fc8-bef7-8769607e9447" target="22d74897-faba-4931-ab63-55a6f25c6c68"/>
+<edge source="22d74897-faba-4931-ab63-55a6f25c6c68" target="ba656b15-bd81-489c-97bb-710fff31e1de"/>
+<edge source="8dd9563e-7047-4845-8402-06ff49973502" target="bf0812b8-6b6a-45fd-9cdf-4cd7503dfa2e"/>
+<edge source="ad565b57-b606-4649-a555-4a6969b386b9" target="bf0812b8-6b6a-45fd-9cdf-4cd7503dfa2e"/>
+<edge source="bf0812b8-6b6a-45fd-9cdf-4cd7503dfa2e" target="86371331-a204-4b18-ab2f-e1ea646e37c6"/>
+<edge source="c4e8f1e3-076f-4377-94bf-ab5b965b387e" target="a049c98d-fa4a-47e9-996b-10ce02610055"/>
+<edge source="874b2bbb-ead4-4c9a-a3e1-1727c07b5d60" target="a049c98d-fa4a-47e9-996b-10ce02610055"/>
+<edge source="a049c98d-fa4a-47e9-996b-10ce02610055" target="7c5d2fe6-da9f-4999-88cf-726eda9e6fa1"/>
+<edge source="c2728375-5aee-4752-9dfb-48c570b50401" target="cb3b7585-8639-4855-bd67-ce6a682a38db"/>
+<edge source="e0fd7ee5-6ffb-45d3-9dba-1143422e4925" target="cb3b7585-8639-4855-bd67-ce6a682a38db"/>
+<edge source="43dadeec-b078-4617-9a4a-38227495dcaa" target="23e1204e-c451-41b7-8fd4-341cdf97342a"/>
+<edge source="cb3b7585-8639-4855-bd67-ce6a682a38db" target="23e1204e-c451-41b7-8fd4-341cdf97342a"/>
+<edge source="23e1204e-c451-41b7-8fd4-341cdf97342a" target="01077148-c092-4d4d-949b-de29731097f8"/>
+<edge source="c18ea171-c35d-45e5-952b-87923c07b050" target="5b7a1a94-bde2-4735-898d-e5b3187986cb"/>
+<edge source="4cf24c1d-c1a4-4d8d-895b-87e92529b08d" target="5b7a1a94-bde2-4735-898d-e5b3187986cb"/>
+<edge source="5b7a1a94-bde2-4735-898d-e5b3187986cb" target="0990a008-fb5c-4e9b-99d3-4553074a75ef"/>
+<edge source="bed0bd22-0d68-4a8e-b4cd-a3dde50ab57b" target="0990a008-fb5c-4e9b-99d3-4553074a75ef"/>
+<edge source="fb3d8904-cddb-4cb8-bf82-b9068d6b7625" target="e2c402c3-75f9-46f6-b7a3-0bb2f5f22f3d"/>
+<edge source="0990a008-fb5c-4e9b-99d3-4553074a75ef" target="e2c402c3-75f9-46f6-b7a3-0bb2f5f22f3d"/>
+<edge source="f5e9ca1f-b4d6-41fc-aaf7-b8e67ab8ed56" target="f8b04ff7-3393-42f2-9445-7e49ed6c46ad"/>
+<edge source="e2c402c3-75f9-46f6-b7a3-0bb2f5f22f3d" target="f8b04ff7-3393-42f2-9445-7e49ed6c46ad"/>
+<edge source="f8b04ff7-3393-42f2-9445-7e49ed6c46ad" target="c2758d2f-f43c-4f67-a284-b6423f273056"/>
+<edge source="253f81e3-c26f-4837-b07b-591638079d61" target="678010bc-abd7-4611-9328-f42436b6e765"/>
+<edge source="3974adee-a321-44f6-aa50-2180e6237686" target="678010bc-abd7-4611-9328-f42436b6e765"/>
+<edge source="db046e66-c3e1-46ef-91d3-c8ac9eae692d" target="ef660d3f-19d5-470e-a1f9-9c3bb540cb13"/>
+<edge source="02997c22-b779-46a1-9c20-c6e0503ded67" target="ef660d3f-19d5-470e-a1f9-9c3bb540cb13"/>
+<edge source="ef660d3f-19d5-470e-a1f9-9c3bb540cb13" target="d6265c95-8f01-4d1c-ae48-e84147ecd8f6"/>
+<edge source="678010bc-abd7-4611-9328-f42436b6e765" target="d6265c95-8f01-4d1c-ae48-e84147ecd8f6"/>
+<edge source="e3ce7512-5617-4195-a311-dc483deb0ba7" target="d6265c95-8f01-4d1c-ae48-e84147ecd8f6"/>
+<edge source="cd13f6e2-f685-42e8-8f83-9e4387d0ab90" target="d6265c95-8f01-4d1c-ae48-e84147ecd8f6"/>
+<edge source="d6265c95-8f01-4d1c-ae48-e84147ecd8f6" target="247d557a-627a-44ea-9bd2-2900bbed868c"/>
+<edge source="2ed66973-66ab-42cd-88a7-dd7cc5f59280" target="5df8e1ab-47d6-4845-b73b-5772e17df5a7"/>
+<edge source="81093646-0166-442e-ad01-b78216bf087c" target="5df8e1ab-47d6-4845-b73b-5772e17df5a7"/>
+<edge source="5df8e1ab-47d6-4845-b73b-5772e17df5a7" target="95847f74-4521-4d0a-a58c-4ef501cef316"/>
+<edge source="a1ac4f0d-5853-4e1a-8ee8-5a892e92acd2" target="9dea3d98-3d52-4f9c-9e3f-5c5ddb19ee0c"/>
+<edge source="8112c7ac-5d9e-41e4-8cf7-89fdd0aa7cda" target="9dea3d98-3d52-4f9c-9e3f-5c5ddb19ee0c"/>
+<edge source="9dea3d98-3d52-4f9c-9e3f-5c5ddb19ee0c" target="22a8af67-1574-4a19-b901-28c886c01623"/>
+<edge source="50171c19-83b5-4978-87f8-a9886d7423b3" target="9565793e-b855-4f62-ad00-444ac355228d"/>
+<edge source="13270c36-d665-4ad4-9de6-0db32aed9d80" target="9565793e-b855-4f62-ad00-444ac355228d"/>
+<edge source="9565793e-b855-4f62-ad00-444ac355228d" target="3de55da5-a1a8-4393-8b66-55904b326b8c"/>
+<edge source="f502c062-479c-4467-8c18-c9a47d367d22" target="1d21248b-6ef4-4fee-b9e7-11ceaab16cd4"/>
+<edge source="7c5d2fe6-da9f-4999-88cf-726eda9e6fa1" target="1d21248b-6ef4-4fee-b9e7-11ceaab16cd4"/>
+<edge source="3de55da5-a1a8-4393-8b66-55904b326b8c" target="1d21248b-6ef4-4fee-b9e7-11ceaab16cd4"/>
+<edge source="1d21248b-6ef4-4fee-b9e7-11ceaab16cd4" target="2e668f69-1969-4147-b697-e704d43df4f9"/>
+<edge source="2e668f69-1969-4147-b697-e704d43df4f9" target="50768b7d-253e-4866-9d9d-d27aeb1c8f5e"/>
+<edge source="92bfcbf5-c81f-49b7-8921-17d4266b1e31" target="653c4627-c1db-42af-8c97-b9ed39bd50e5"/>
+<edge source="90ac97cb-fdf7-455e-8990-8ccacc8833ef" target="653c4627-c1db-42af-8c97-b9ed39bd50e5"/>
+<edge source="81093646-0166-442e-ad01-b78216bf087c" target="653c4627-c1db-42af-8c97-b9ed39bd50e5"/>
+<edge source="653c4627-c1db-42af-8c97-b9ed39bd50e5" target="73c10042-7319-428c-8f5c-1fc181fe4e65"/>
+<edge source="73c10042-7319-428c-8f5c-1fc181fe4e65" target="514c7f8b-4151-4ebc-bf44-9845e65dd025"/>
+<edge source="35a92537-5fbe-463e-a825-402758e9ee54" target="582b26f5-3100-4570-bd1d-bfe489157b97"/>
+<edge source="86371331-a204-4b18-ab2f-e1ea646e37c6" target="582b26f5-3100-4570-bd1d-bfe489157b97"/>
+<edge source="22a8af67-1574-4a19-b901-28c886c01623" target="582b26f5-3100-4570-bd1d-bfe489157b97"/>
+<edge source="582b26f5-3100-4570-bd1d-bfe489157b97" target="878d5ae5-96be-40c6-8f75-0cedc820cd2b"/>
+<edge source="35a92537-5fbe-463e-a825-402758e9ee54" target="8fadb1a2-79e4-43d2-a4bf-3de38d7896e6"/>
+<edge source="86371331-a204-4b18-ab2f-e1ea646e37c6" target="8fadb1a2-79e4-43d2-a4bf-3de38d7896e6"/>
+<edge source="22a8af67-1574-4a19-b901-28c886c01623" target="8fadb1a2-79e4-43d2-a4bf-3de38d7896e6"/>
+<edge source="8fadb1a2-79e4-43d2-a4bf-3de38d7896e6" target="fe492349-c8ee-4ab2-8fd0-6d2e80205101"/>
+<edge source="fe492349-c8ee-4ab2-8fd0-6d2e80205101" target="fc35b233-18fb-479e-9273-f040e1cf4d40"/>
+<edge source="878d5ae5-96be-40c6-8f75-0cedc820cd2b" target="fc35b233-18fb-479e-9273-f040e1cf4d40"/>
+<edge source="fc35b233-18fb-479e-9273-f040e1cf4d40" target="572266e8-012c-4b36-85da-bd267a6314a8"/>
+<edge source="c1e9cfb8-f888-4087-8a0a-1f726397c023" target="73f7c5f9-b8f8-40df-9449-7d8988e00b3b"/>
+<edge source="cdbd32f4-d28c-4f90-90e9-e01848d2ba2b" target="bebcb9e0-cea4-49c7-b420-dfb54085a713"/>
+<edge source="76699d48-4ae5-4fe6-8bc1-67867f844910" target="80bbbc13-7dfb-4ac6-b26e-51ee59af9dc9"/>
+<edge source="76699d48-4ae5-4fe6-8bc1-67867f844910" target="1f156336-6f55-4a05-93b3-53c7825c1267"/>
+<edge source="0030ac9c-00d4-4718-9a97-1d08a4f3c2fa" target="d37a5783-bfe9-420f-89c3-a7bc08c9aefe"/>
+<edge source="0030ac9c-00d4-4718-9a97-1d08a4f3c2fa" target="4e18f2ec-9ba6-4b30-a656-d83130d41439"/>
+<edge source="dc279998-6b4b-4b4d-8de3-a21393fa202e" target="ba62b7e0-a952-4e1d-931f-4afffe52cb7d"/>
+<edge source="85a674bf-e9ec-4ee6-bc83-7b3cae9df8c2" target="36ef3730-95cc-4fc8-bef7-8769607e9447"/>
+<edge source="5b3616b6-83f5-44be-85cd-1aabc63be3e1" target="874b2bbb-ead4-4c9a-a3e1-1727c07b5d60"/>
+<edge source="5b3616b6-83f5-44be-85cd-1aabc63be3e1" target="ad565b57-b606-4649-a555-4a6969b386b9"/>
+<edge source="22d74897-faba-4931-ab63-55a6f25c6c68" target="c4e8f1e3-076f-4377-94bf-ab5b965b387e"/>
+<edge source="22d74897-faba-4931-ab63-55a6f25c6c68" target="8dd9563e-7047-4845-8402-06ff49973502"/>
+<edge source="f8b04ff7-3393-42f2-9445-7e49ed6c46ad" target="e3ce7512-5617-4195-a311-dc483deb0ba7"/>
+<edge source="23e1204e-c451-41b7-8fd4-341cdf97342a" target="81093646-0166-442e-ad01-b78216bf087c"/>
+<edge source="d6265c95-8f01-4d1c-ae48-e84147ecd8f6" target="13270c36-d665-4ad4-9de6-0db32aed9d80"/>
+<edge source="d6265c95-8f01-4d1c-ae48-e84147ecd8f6" target="8112c7ac-5d9e-41e4-8cf7-89fdd0aa7cda"/>
+<edge source="5df8e1ab-47d6-4845-b73b-5772e17df5a7" target="50171c19-83b5-4978-87f8-a9886d7423b3"/>
+<edge source="5df8e1ab-47d6-4845-b73b-5772e17df5a7" target="a1ac4f0d-5853-4e1a-8ee8-5a892e92acd2"/>
+</graph>
+</graphml>
