@@ -20,6 +20,7 @@ import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.RunResult;
 
@@ -127,6 +128,8 @@ public abstract class ZParentTest extends BenchmarkTestParent {
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
+            before();
+            
             this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
             
@@ -134,6 +137,9 @@ public abstract class ZParentTest extends BenchmarkTestParent {
             for (int i = from; i < from + iterations; i++) 
                 this.addressMap.put(i, A1Address.fromA1Address(columnA + i));
         }
+        
+        @TearDown
+        public void destroy() throws Exception { after(); }
         
         ICellAddress addressAt(int i) { return addressMap.get(i); }
     }

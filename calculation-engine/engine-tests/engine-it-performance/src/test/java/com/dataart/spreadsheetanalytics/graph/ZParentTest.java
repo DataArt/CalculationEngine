@@ -112,6 +112,8 @@ public abstract class ZParentTest extends BenchmarkTestParent {
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
+            before();
+            
             this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
             
