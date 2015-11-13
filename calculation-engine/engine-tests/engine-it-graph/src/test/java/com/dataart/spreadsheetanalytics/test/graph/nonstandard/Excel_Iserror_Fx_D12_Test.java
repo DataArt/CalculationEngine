@@ -18,12 +18,31 @@ package com.dataart.spreadsheetanalytics.test.graph.nonstandard;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_GRAPHML_DIR;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
+import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
+import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
+import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
+
+import junit.framework.Assert;
 
 public class Excel_Iserror_Fx_D12_Test extends SerializedGraphTest {
 
@@ -42,8 +61,8 @@ public class Excel_Iserror_Fx_D12_Test extends SerializedGraphTest {
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph() throws Exception {
         super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
     }
+    
 }
