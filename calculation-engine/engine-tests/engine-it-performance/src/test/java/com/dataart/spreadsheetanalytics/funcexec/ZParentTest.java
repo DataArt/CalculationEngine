@@ -51,8 +51,12 @@ public abstract class ZParentTest extends BenchmarkTestParent {
   
     static DataModel dataModel;
     static IEvaluator evaluator;
+    
+    static volatile boolean inited = false;
 
-    public static void before() throws Exception {
+    public static void beforeTests() throws Exception {
+        if (inited) { return; }
+        
         dataModel = new DataModel(excelFile, excelFile);
         evaluator = new SpreadsheetEvaluator(dataModel);
         
@@ -84,14 +88,20 @@ public abstract class ZParentTest extends BenchmarkTestParent {
             expectedValues.put(address, value);
             expectedValues.put(A1Address.fromA1Address(columnA + i), value);
         }
+        
+        inited = true;
     }
     
-    public static void after() throws Exception {
+    public static void afterTests() throws Exception {
+        if (!inited) { return; }
+        
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
         cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_ID_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataModelStorage.DATA_MODEL_TO_NAME_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
+        
+        inited = false;
     }
 
     @Test
@@ -161,7 +171,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            before();
+            beforeTests();
             
             this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
@@ -175,7 +185,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
         }
         
         @TearDown
-        public void destroy() throws Exception { after(); }
+        public void destroy() throws Exception { afterTests(); }
         
         ICellAddress addressAtColumnA(int i) { return addressMapA.get(i); }
         ICellAddress addressAtColumnB(int i) { return addressMapB.get(i); }

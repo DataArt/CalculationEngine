@@ -18,7 +18,7 @@ public class SIMPLE_1times_Test extends ZParentTest {
     
     @BeforeClass
     public static void before() throws Exception {
-        ZParentTest.before();
+        ZParentTest.beforeTests();
     }
 
 }

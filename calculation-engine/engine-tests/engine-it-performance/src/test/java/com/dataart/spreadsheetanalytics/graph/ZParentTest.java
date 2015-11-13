@@ -39,7 +39,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
     static IEvaluator evaluator;
     static IAuditor auditor;
 
-    public static void before() throws Exception {
+    public static void beforeTests() throws Exception {
         dataModel = new DataModel(excelFile, excelFile);
         evaluator = new SpreadsheetEvaluator(dataModel);
         auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
@@ -112,7 +112,7 @@ public abstract class ZParentTest extends BenchmarkTestParent {
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            before();
+            beforeTests();
             
             this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);

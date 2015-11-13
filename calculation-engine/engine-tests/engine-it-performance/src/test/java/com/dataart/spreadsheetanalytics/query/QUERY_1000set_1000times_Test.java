@@ -1,7 +1,7 @@
 package com.dataart.spreadsheetanalytics.query;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 
 public class QUERY_1000set_1000times_Test extends ZParentTest {
 
@@ -18,14 +18,14 @@ public class QUERY_1000set_1000times_Test extends ZParentTest {
         ZParentTest.iterations = iterations;
     }
     
-    @BeforeClass
-    public static void before() throws Exception {
-        ZParentTest.before();
+    @Before
+    public void before() throws Exception {
+        ZParentTest.beforeTests();
     }
 
-    @AfterClass
-    public static void after() throws Exception {
-        ZParentTest.after();
+    @After
+    public void after() throws Exception {
+        ZParentTest.afterTests();
     }
 
 }

@@ -17,12 +17,12 @@ public class FUNCEXEC_vs_PLAIN_1times_Test extends ZParentTest {
 
     @BeforeClass
     public static void before() throws Exception {
-        ZParentTest.before();
+        ZParentTest.beforeTests();
     }
 
     @AfterClass
     public static void after() throws Exception {
-        ZParentTest.after();
+        ZParentTest.afterTests();
     }
 
 }

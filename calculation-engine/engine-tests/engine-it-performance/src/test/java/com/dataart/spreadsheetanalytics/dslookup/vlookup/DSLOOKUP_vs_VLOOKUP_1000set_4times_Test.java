@@ -20,12 +20,12 @@ public class DSLOOKUP_vs_VLOOKUP_1000set_4times_Test extends ZParentTest {
 
     @BeforeClass
     public static void before() throws Exception {
-        ZParentTest.before();
+        ZParentTest.beforeTests();
     }
 
     @AfterClass
     public static void after() throws Exception {
-        ZParentTest.after();
+        ZParentTest.afterTests();
     }
 
 }
