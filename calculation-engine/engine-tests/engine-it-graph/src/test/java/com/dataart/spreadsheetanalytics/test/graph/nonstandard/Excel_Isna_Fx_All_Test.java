@@ -70,7 +70,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.DEFAULT);
         Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 25, graph.getVertices().size());
+        Assert.assertEquals(res.toString(), 23, graph.getVertices().size());
     }
 
     @Test
@@ -91,14 +91,14 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
         Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 25, graph.getVertices().size());
+        Assert.assertEquals(res.toString(), 23, graph.getVertices().size());
     }
 
     @Test
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 25, graph.getVertices().size());
+        Assert.assertEquals(res.toString(), 23, graph.getVertices().size());
     }
     
     protected Map<String, Integer> getVerticesDistr() {
