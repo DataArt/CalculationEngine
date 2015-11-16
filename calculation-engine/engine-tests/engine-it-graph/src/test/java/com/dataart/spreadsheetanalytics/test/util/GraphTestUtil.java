@@ -81,7 +81,7 @@ public class GraphTestUtil {
 
     static final String GRAPH_PATHS_FILE = STANDARD_EXCELS_DIR + "_graph_paths.lst";
     static final String GRAPH_PATHS_FILE_ALL = STANDARD_EXCELS_DIR + "_config_graph_paths.lst";
-    static final String ADV_GRAPH_PATHS_FILE_ALL = STANDARD_EXCELS_DIR + "advanced_config_files.lst";
+    static final String ADV_GRAPH_PATHS_FILE_ALL = STANDARD_EXCELS_DIR + "_advanced_config_files.lst";
     static final String TEST_CLASS_TEMPLATE = "src/test/resources/Excel_XXX_Test.java.template";
     static final String TEST_CLASS_TEMPLATE_ALL = "src/test/resources/Excel_XXX_All_Test.java.template";
     static final String TEST_CLASS_FILE = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standard/Excel_XXX_Test.java";
