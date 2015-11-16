@@ -17,7 +17,6 @@ package com.dataart.spreadsheetanalytics.functions.poi.data;
 
 import static java.util.Arrays.asList;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
-import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.valueToValueEval;
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;
@@ -37,8 +36,6 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
-import com.dataart.spreadsheetanalytics.api.model.IDsCell;
-import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
@@ -104,7 +101,7 @@ public class QueryFunction implements CustomFunction {
 
             return toTableEval(dset);
         } catch (Exception e) {
-            log.error("No LazyDataSet with name {} is found to execute QUERY in.", execDataSet);
+            log.error("No [Lazy]DataSet with name {} is found to execute QUERY in.", execDataSet);
             return ErrorEval.NA;
         }
     }
@@ -112,13 +109,13 @@ public class QueryFunction implements CustomFunction {
     private static TableEval toTableEval(IDataSet dset) {
         TableEval table = new TableEval(0, 0, dset.length() - 1, dset.width() - 1);
         
-        List<List<ValueEval>> rows = new ArrayList<>(dset.length());
+        List<List<Object>> rows = new ArrayList<>(dset.length());
         
-        for (IDsRow row : dset) {
-            List<ValueEval> cells = new ArrayList<>(dset.width());
-            for (IDsCell cell : row) { cells.add(valueToValueEval(cell.value())); }
+        dset.rows().forEach(r -> {
+            List<Object> cells = new ArrayList<>(dset.width());
+            r.cells().forEach(v -> cells.add(v.value()));
             rows.add(cells);
-        }
+        });
         
         table.setValues(rows);
         return table;

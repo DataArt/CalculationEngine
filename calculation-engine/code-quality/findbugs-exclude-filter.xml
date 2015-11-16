@@ -10,5 +10,15 @@
   <Match>
     <Class name="com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex" />
   </Match>
+  
+  <!-- poifs are ment to be overrided, so it is not final, but public -->
+  <Match>
+    <Class name="com.dataart.spreadsheetanalytics.functions.poi.Functions" />
+  </Match>
+  
+    <!-- ALL_ATTRIBUTE_FUNCTIONS are public and ment to be overrrided -->
+  <Match>
+    <Class name="com.dataart.spreadsheetanalytics.engine.AttributeFunctionsScanner" />
+  </Match>
 
 </FindBugsFilter>
