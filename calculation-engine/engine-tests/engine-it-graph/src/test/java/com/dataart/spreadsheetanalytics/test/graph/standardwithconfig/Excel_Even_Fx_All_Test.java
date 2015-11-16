@@ -35,7 +35,7 @@ public class Excel_Even_Fx_All_Test extends SerializedGraphTest {
     
     static String file = "Even_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    static String graphml = file + "\\";
+    static String graphml = file + "/";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
     static String suffix2 = "JOIN_2";

@@ -18,6 +18,9 @@ package com.dataart.spreadsheetanalytics.test.graph.nonstandard;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -25,12 +28,16 @@ import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
+
+import junit.framework.Assert;
 
 public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     
@@ -55,41 +62,57 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
 
     @After
     public void afterTest() throws Exception {
-        super.after();
+        auditor = null;
+        GraphTestUtil.destroyExternalServices();
     }
     
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph();
-        super.compare_ExcelFile_SerializedGraph(GRAPHML_DIR, graphml, suffix);
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.DEFAULT);
+        Map<String, Integer> res = getVerticesDistr();
+        Assert.assertEquals(res.toString(), 25, graph.getVertices().size());
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
-        super.compare_ExcelFile_SerializedGraph(GRAPHML_DIR, graphml, suffix1);
+        Map<String, Integer> res = getVerticesDistr();
+        Assert.assertEquals(res.toString(), 17, graph.getVertices().size());
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
-        super.compare_ExcelFile_SerializedGraph(GRAPHML_DIR, graphml, suffix2);
+        Map<String, Integer> res = getVerticesDistr();
+        Assert.assertEquals(res.toString(), 17, graph.getVertices().size());
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
-        super.compare_ExcelFile_SerializedGraph(GRAPHML_DIR, graphml, suffix3);
+        Map<String, Integer> res = getVerticesDistr();
+        Assert.assertEquals(res.toString(), 25, graph.getVertices().size());
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
-        super.compare_ExcelFile_SerializedGraph(GRAPHML_DIR, graphml, suffix4);
+        Map<String, Integer> res = getVerticesDistr();
+        Assert.assertEquals(res.toString(), 25, graph.getVertices().size());
+    }
+    
+    protected Map<String, Integer> getVerticesDistr() {
+        Map<String, Integer> result = new HashMap<>();
+        for (IExecutionGraphVertex ivertex : graph.getVertices()) {
+            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+            String name = vertex.name();
+            if (result.containsKey(name)) {
+                Integer number = result.get(name);
+                result.put(name, number + 1);
+            } else {
+                result.put(name, 1);
+            }
+        }
+        return result;
     }
 }
