@@ -65,12 +65,14 @@ public class Excel_Iserror_Fx_All_Test extends SerializedGraphTest {
     }
 
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);

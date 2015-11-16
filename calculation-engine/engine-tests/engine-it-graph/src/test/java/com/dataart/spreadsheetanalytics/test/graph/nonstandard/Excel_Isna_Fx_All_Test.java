@@ -67,6 +67,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     }
     
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.DEFAULT);
         Map<String, Integer> res = getVerticesDistr();
@@ -74,6 +75,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     }
 
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
         Map<String, Integer> res = getVerticesDistr();
@@ -81,6 +83,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     }
 
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         Map<String, Integer> res = getVerticesDistr();
@@ -88,6 +91,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     }
 
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
         Map<String, Integer> res = getVerticesDistr();
@@ -95,6 +99,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     }
 
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         Map<String, Integer> res = getVerticesDistr();
