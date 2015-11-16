@@ -101,7 +101,7 @@ public class QueryFunction implements CustomFunction {
 
             return toTableEval(dset);
         } catch (Exception e) {
-            log.error("No LazyDataSet with name {} is found to execute QUERY in.", execDataSet);
+            log.error("No [Lazy]DataSet with name {} is found to execute QUERY in.", execDataSet);
             return ErrorEval.NA;
         }
     }

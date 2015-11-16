@@ -17,7 +17,6 @@ package com.dataart.spreadsheetanalytics.engine;
 
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -36,11 +35,9 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 public class AttributeFunctionsScanner {
     private static final Logger log = LoggerFactory.getLogger(AttributeFunctionsScanner.class);
     
-    public static final Map<String, Class<? extends AttributeFunctionMeta>> ALL_ATTRIBUTE_FUNCTIONS;
+    public static final Map<String, Class<? extends AttributeFunctionMeta>> ALL_ATTRIBUTE_FUNCTIONS = new LinkedHashMap<>();;
     static {
-        Map<String, Class<? extends AttributeFunctionMeta>> map = new LinkedHashMap<>();
-        map.put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
-        ALL_ATTRIBUTE_FUNCTIONS = Collections.unmodifiableMap(map);
+        ALL_ATTRIBUTE_FUNCTIONS.put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
     }
     
     /**

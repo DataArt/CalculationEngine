@@ -47,34 +47,13 @@ public class Functions {
      * Cache for custom functions (classes).
      */
     protected static final Map<String, Class<? extends CustomFunction>> fs;
-    static {
-        fs = load(PACKAGE_FUNCTIONS);
-    }
+    static { fs = load(PACKAGE_FUNCTIONS); }
 
     /**
      * POI's cache for custom functions: static instance of {@link UDFFinder}
      */
-    protected static final UDFFinder poifs;
-    static {
-        List<String> names = new ArrayList<>(Functions.get().size());
-        List<CustomFunction> funcs = new ArrayList<>(Functions.get().size());
-
-        for (Entry<String, Class<? extends CustomFunction>> en : fs.entrySet()) {
-
-            try {
-                names.add(en.getKey());
-                funcs.add(en.getValue().newInstance());
-            } catch (Exception e) {
-                log.error(String.format("Cannot create instance of CustomFunction %s", en.getKey()), e);
-            }
-        }
-
-        poifs = names.isEmpty()
-              ? null
-              : new AggregatingUDFFinder(new DefaultUDFFinder(
-                      names.toArray(new String[names.size()]),
-                      funcs.toArray(new CustomFunction[funcs.size()])));
-    }
+    protected static UDFFinder poifs;
+    static { poifs = loadPoi(fs); }
     
     /**
      * Does scan and load for custom functions.
@@ -98,6 +77,31 @@ public class Functions {
         }
 
         return map;
+    }
+
+    /**
+     * Does create a new instance of {@link UDFFinder} based on Set of CustomFunction provided.
+     * If you extend {@link Functions} class and replace/add {@link #fs} please also replace/add {@link #poifs}.
+     * UDFFinder instance is needed for some CustomFunction to do evaluation in POI.
+     */
+    protected static UDFFinder loadPoi(Map<String, Class<? extends CustomFunction>> fs) {
+        List<String> names = new ArrayList<>(fs.size());
+        List<CustomFunction> funcs = new ArrayList<>(fs.size());
+
+        for (Entry<String, Class<? extends CustomFunction>> en : fs.entrySet()) {
+
+            try {
+                names.add(en.getKey());
+                funcs.add(en.getValue().newInstance());
+            } catch (Exception e) {
+                log.error(String.format("Cannot create instance of CustomFunction %s", en.getKey()), e);
+            }
+        }
+
+        return names.isEmpty() ? null
+                               : new AggregatingUDFFinder(new DefaultUDFFinder(
+                                       names.toArray(new String[names.size()]),
+                                       funcs.toArray(new CustomFunction[funcs.size()])));
     }
 
     /**
