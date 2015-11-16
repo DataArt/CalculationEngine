@@ -1,28 +1,84 @@
 package com.dataart.spreadsheetanalytics.funcexec;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import static org.assertj.core.api.StrictAssertions.assertThat;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.infra.Blackhole;
+
+import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
+import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class FUNCEXEC_vs_PLAIN_1000times_Test extends ZParentTest {
 
-    static String description;
-    static int iterations = 1000;
-    static String excelFile = "src/test/resources/datamodel/funcexec/FUNCEXEC_vs_PLAIN_" + iterations + "times.xlsx";
+    @State(Scope.Benchmark)
+    public static class BenchmarkStateEvaluator {
+        int iterations = 1000;
+        String excelFile = "src/test/resources/datamodel/funcexec/FUNCEXEC_vs_PLAIN_" + iterations + "times.xlsx";
 
-    static {
-        ZParentTest.description = description;
-        ZParentTest.excelFile = excelFile;
-        ZParentTest.iterations = iterations;
+        Map<ICellAddress, Double> expectedValues;
+
+        DataModel dataModel;
+        IEvaluator evaluator;
+        Map<Integer, ICellAddress> addressMapA;
+        Map<Integer, ICellAddress> addressMapB;
+
+        @Setup(Level.Trial)
+        public void initialize() throws Exception {
+            this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
+            this.evaluator = new SpreadsheetEvaluator(dataModel);
+
+            external.getDataModelStorage().addDataModel(this.dataModel);
+            external.getAttributeFunctionStorage().updateDefineFunctions(new HashSet<>(external.getDataModelStorage().getDataModels().values()));
+
+            this.expectedValues = new HashMap<>();
+
+            for (int i = from; i < from + iterations; i++) {
+                ICellAddress address = A1Address.fromA1Address(columnB + i);
+                Double value = (Double) evaluator.evaluate(address).get();
+                this.expectedValues.put(address, value);
+                this.expectedValues.put(A1Address.fromA1Address(columnA + i), value);
+            }
+
+            this.addressMapA = new HashMap<>();
+            this.addressMapB = new HashMap<>();
+            for (int i = from; i < from + iterations; i++) {
+                this.addressMapA.put(i, A1Address.fromA1Address(columnA + i));
+                this.addressMapB.put(i, A1Address.fromA1Address(columnB + i));
+            }
+        }
+
+        ICellAddress addressAtColumnA(int i) { return addressMapA.get(i); }
+        ICellAddress addressAtColumnB(int i) { return addressMapB.get(i); }
     }
 
-    @BeforeClass
-    public static void before() throws Exception {
-        ZParentTest.beforeTests();
+    @Benchmark
+    public void evaluate_ExcelDataModelFuncexec_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
+        for (int i = from; i < from + state.iterations; i++) {
+            ICellValue value = state.evaluator.evaluate(state.addressAtColumnA(i));
+            assertThat(value.get()).isEqualTo(state.expectedValues.get(state.addressAtColumnA(i))); /* comment for better performance */
+            bh.consume(value);
+        }
     }
 
-    @AfterClass
-    public static void after() throws Exception {
-        ZParentTest.afterTests();
+    @Benchmark
+    public void evaluate_ExcelDataModelPlainFormula_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
+        for (int i = from; i < from + state.iterations; i++) {
+            ICellValue value = state.evaluator.evaluate(state.addressAtColumnB(i));
+            assertThat(value.get()).isEqualTo(state.expectedValues.get(state.addressAtColumnB(i))); /* comment for better performance */
+            bh.consume(value);
+        }
     }
 
 }
