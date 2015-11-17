@@ -64,7 +64,7 @@ public abstract class SerializedGraphTest {
     
     public void compare_ExcelFile_SerializedGraph(String dir, String file, String address) throws Exception {
         // save graph to visual file - debug information
-        GraphTestUtil.generateVisualizer(graph, VISUALIZER_ACTUAL_DIR, file.replace("\\", ""), address);
+        GraphTestUtil.generateVisualizer(graph, VISUALIZER_ACTUAL_DIR, file.replace("\\", "").replace("/", ""), address);
         
         // given
         ExecutionGraphML expected = ExecutionGraphMLImporter._import(new File(dir + file + "_" + address + ".graphml"));
