@@ -85,7 +85,7 @@ public class GraphTestUtil {
     static final String TEST_CLASS_TEMPLATE = "src/test/resources/Excel_XXX_Test.java.template";
     static final String TEST_CLASS_TEMPLATE_ALL = "src/test/resources/Excel_XXX_All_Test.java.template";
     static final String TEST_CLASS_FILE = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standard/Excel_XXX_Test.java";
-    static final String TEST_CLASS_FILE_ALL = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standartwithconfig/Excel_XXX_Test.java";
+    static final String TEST_CLASS_FILE_ALL = "src/test/java/com/dataart/spreadsheetanalytics/test/graph/standardwithconfig/Excel_XXX_Test.java";
 
     static final String VISUALIZER_DIR = "src/test/resources/graph_visualizer/";
     static final String VISUALIZER_DATA_TEMPLATE_JS_FILE = "data_XXX.js";
@@ -181,6 +181,7 @@ public class GraphTestUtil {
                 System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + line + "_" + graphConfigToString.get(config) + "].");
 
                 String testFile = testTemplate.replace("[FILENAME]", line).replace("XXX", line + "_" + "All");
+                
                 try (OutputStream fos = new FileOutputStream(TEST_CLASS_FILE_ALL.replace("XXX", line + "_" + "All"))) {
                     fos.write(testFile.getBytes());
                 }

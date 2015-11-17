@@ -61,6 +61,7 @@ public class Excel_Iserror_Fx_D12_Test extends SerializedGraphTest {
     }
 
     @Test
+    @Ignore
     public void assert_ExcelFile_SerializedGraph() throws Exception {
         super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);
     }

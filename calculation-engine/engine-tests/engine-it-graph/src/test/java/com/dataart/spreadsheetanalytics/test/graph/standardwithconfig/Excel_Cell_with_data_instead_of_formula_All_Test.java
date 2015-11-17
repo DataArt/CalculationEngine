@@ -35,7 +35,7 @@ public class Excel_Cell_with_data_instead_of_formula_All_Test extends Serialized
     
     static String file = "Cell_with_data_instead_of_formula";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    static String graphml = file + "\\";
+    static String graphml = file + "/";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
     static String suffix2 = "JOIN_2";

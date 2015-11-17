@@ -35,7 +35,7 @@ public class Excel_Query_of_data_from_another_sheet_All_Test extends SerializedG
     
     static String file = "Query_of_data_from_another_sheet";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    static String graphml = file + "\\";
+    static String graphml = file + "/";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
     static String suffix2 = "JOIN_2";

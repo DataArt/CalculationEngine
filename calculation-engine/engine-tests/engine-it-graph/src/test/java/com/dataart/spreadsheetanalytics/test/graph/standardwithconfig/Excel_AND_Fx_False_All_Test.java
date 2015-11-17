@@ -35,7 +35,7 @@ public class Excel_AND_Fx_False_All_Test extends SerializedGraphTest {
     
     static String file = "AND_Fx_False";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    static String graphml = file + "\\";
+    static String graphml = file + "/";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
     static String suffix2 = "JOIN_2";

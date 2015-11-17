@@ -35,7 +35,7 @@ public class Excel_Error_Name_All_Test extends SerializedGraphTest {
     
     static String file = "Error_Name";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    static String graphml = file + "\\";
+    static String graphml = file + "/";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
     static String suffix2 = "JOIN_2";
