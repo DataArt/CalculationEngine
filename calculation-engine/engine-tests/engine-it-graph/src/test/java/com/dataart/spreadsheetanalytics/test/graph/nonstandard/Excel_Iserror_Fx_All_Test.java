@@ -57,36 +57,31 @@ public class Excel_Iserror_Fx_All_Test extends SerializedGraphTest {
         super.after();
     }
     
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
         graph = auditor.buildDynamicExecutionGraph();
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
     }
 
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
     }
 
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
