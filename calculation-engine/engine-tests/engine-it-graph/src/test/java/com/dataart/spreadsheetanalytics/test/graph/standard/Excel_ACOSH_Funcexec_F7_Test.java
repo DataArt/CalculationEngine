@@ -27,7 +27,7 @@ import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 public class Excel_ACOSH_Funcexec_F7_Test extends SerializedGraphTest {
 
     static String address = "F7";
-    static String file = "ACOSH_Funcexec";
+    static String file = "ACOSH_FUNCEXEC";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
 
     @Before
