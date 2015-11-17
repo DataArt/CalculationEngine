@@ -44,7 +44,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     final static String GRAPHML_DIR = "src/test/resources/nonstandard_graphml_files/";
     static String file = "Isna_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    static String graphml = file + "\\";
+    static String graphml = file + "/";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
     static String suffix2 = "JOIN_2";
