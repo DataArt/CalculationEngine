@@ -7,11 +7,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
+import com.dataart.spreadsheetanalytics.engine.AttributeFunctionsScanner;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
@@ -19,6 +21,8 @@ import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.other.project.functions.ModeldefineFunction;
+
 
 public class ExtendFunctionsDemo {
 
@@ -30,9 +34,9 @@ public class ExtendFunctionsDemo {
         //prepare DataModel to work with
         final DataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
 
-        MoodysFunctions.init();
-        
         DemoUtil.initCaches(model);
+        
+        OtherFunctions.init();
 
         //create Evaluator
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
@@ -63,11 +67,16 @@ public class ExtendFunctionsDemo {
     }
 }
 
-class MoodysFunctions extends Functions {
-    public static final String MOODYS_PACKAGE_FUNCTIONS = "com.moodys.project.functions";
+class OtherFunctions extends Functions {
+    public static final String OTHER_PACKAGE_FUNCTIONS = "com.other.project.functions";
 
     public static void init() { //or non static init()
-        fs.putAll(load(MOODYS_PACKAGE_FUNCTIONS));
-        poifs = loadPoi(fs);
+        Functions.add(Functions.load(OTHER_PACKAGE_FUNCTIONS));
+        
+        ExternalServices external = ExternalServices.INSTANCE;
+        external.getDataModelStorage().getDataModels().values().forEach(dm -> {
+            AttributeFunctionsScanner.scan(dm, ModeldefineFunction.map).get(ModeldefineFunction.KEYWORD).values()
+                                     .forEach(dfm -> external.getAttributeFunctionStorage().addDefineFunction(dfm));
+        });
     }
 }

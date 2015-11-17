@@ -19,7 +19,6 @@ import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.poi.ss.formula.FormulaParseException;
@@ -34,11 +33,6 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 
 public class AttributeFunctionsScanner {
     private static final Logger log = LoggerFactory.getLogger(AttributeFunctionsScanner.class);
-    
-    public static final Map<String, Class<? extends AttributeFunctionMeta>> ALL_ATTRIBUTE_FUNCTIONS = new LinkedHashMap<>();;
-    static {
-        ALL_ATTRIBUTE_FUNCTIONS.put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
-    }
     
     /**
      * Does full scan given {@link IDataModel} for Model-Attribute functions (like DEFINE or QUERYDEFINE) to ({@link AttributeFunctionMeta}).

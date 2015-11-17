@@ -33,7 +33,7 @@ import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 public class Excel_ACOSH_Funcexec_All_Test extends SerializedGraphTest {
     
-    static String file = "ACOSH_Funcexec";
+    static String file = "ACOSH_FUNCEXEC";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     static String graphml = file + "/";
     static String suffix = "All";
