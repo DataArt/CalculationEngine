@@ -44,7 +44,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     final static String GRAPHML_DIR = "src/test/resources/nonstandard_graphml_files/";
     static String file = "Isna_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    static String graphml = file + "\\";
+    static String graphml = file + "/";
     static String suffix = "All";
     static String suffix1 = "JOIN_ALL";
     static String suffix2 = "JOIN_2";
@@ -67,57 +67,33 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     }
     
     @Test
-    @Ignore
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.DEFAULT);
-        Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 23, graph.getVertices().size());
+        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.DEFAULT);               
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
     }
 
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
-        Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 17, graph.getVertices().size());
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
-        Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 17, graph.getVertices().size());
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
     }
 
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
-        Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 23, graph.getVertices().size());
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
-    @Test
-    @Ignore
+    @Test    
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
         graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
-        Map<String, Integer> res = getVerticesDistr();
-        Assert.assertEquals(res.toString(), 23, graph.getVertices().size());
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
     }
-    
-    protected Map<String, Integer> getVerticesDistr() {
-        Map<String, Integer> result = new HashMap<>();
-        for (IExecutionGraphVertex ivertex : graph.getVertices()) {
-            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-            String name = vertex.name();
-            if (result.containsKey(name)) {
-                Integer number = result.get(name);
-                result.put(name, number + 1);
-            } else {
-                result.put(name, 1);
-            }
-        }
-        return result;
-    }
+
 }
