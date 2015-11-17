@@ -114,4 +114,14 @@ public class Functions {
      */
     public static UDFFinder getUdfFinder() { return poifs; }
     
+    /**
+     * The best way to add more custom functions. Does everything: adds functions, creates new UDFFinder.
+     * Use this if common case. Use spesific {@link #fs}.putAll() and {@link #poifs} = {@link #loadPoi(Map)} 
+     * if more flexibility is needed.
+     */
+    public static void add(Map<String, Class<? extends CustomFunction>> moreCustomFunctions) {
+        fs.putAll(moreCustomFunctions);
+        poifs = loadPoi(fs);
+    }
+    
 }
