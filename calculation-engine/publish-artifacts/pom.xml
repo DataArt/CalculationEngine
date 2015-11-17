@@ -18,24 +18,16 @@ limitations under the License.
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dataart</groupId>
-  <artifactId>spreadsheetanalytics-engine-root</artifactId>
+  <artifactId>spreadsheetanalytics-publish-artifacts</artifactId>
   <version>0.7.dev-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>spreadsheetanalytics-engine-root</name>
+  <name>spreadsheetanalytics-publish-artifacts</name>
   <url>https://github.com/DataArt/CalculationEngine</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <modules>
-    <module>../code-quality</module>
-    <module>../engine-model</module>
-    <module>../engine-data</module>
-	<module>../engine-data-cache-impl</module>
-    <module>../engine-functions</module>
-    <module>../engine-evaluation</module>
+    <module>../poi-fork-parent</module>
+    <module>../engine-root</module>
   </modules>
 
 </project>
