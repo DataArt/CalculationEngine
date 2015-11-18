@@ -9,9 +9,8 @@ It is based on Apache POI project (forked) with changes mostly in evaluation par
 Can be found on [wiki page](https://github.com/DataArt/CalculationEngine/wiki)
 
 ## Version
-Current version is: **0.6**.
-
-Released October 27, 2015.
+Current development version is: **0.7.dev-SNAPSHOT**.  
+Current stable version is: **0.6** (Released October 27, 2015).
 
 Provided features:
 * Cell evaluation (formula calculation)
@@ -57,8 +56,10 @@ Next output jar files should be included in application (dependencies are not sp
 * spreadsheetanalytics-evaluation-[version].jar
  
 Also the above jars required jars from Apache POI fork to be included as dependencies:
-* poi-fork-[version].jar (current version is: poi-fork-**3.13-beta1**.jar)
-* poi-ooxml-fork-[version].jar (current version is: poi-ooxml-fork-**3.13-beta1**.jar)
+* poi-fork-[version].jar
+* poi-ooxml-fork-[version].jar    
+Current development version: **3.13-beta1-SNAPSHOT**.  
+Current stable version: **3.13-beta1**.
 
 To add Calculation Engine as dependency to project use:
 ```

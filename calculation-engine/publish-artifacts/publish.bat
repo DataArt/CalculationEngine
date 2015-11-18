@@ -1,1 +1,1 @@
-mvn deploy -DaltDeploymentRepository=dataart-nexus::default::%0
+mvn deploy -DaltDeploymentRepository=%0::default::%1
