@@ -9,7 +9,8 @@ It is based on Apache POI project (forked) with changes mostly in evaluation par
 Can be found on [wiki page](https://github.com/DataArt/CalculationEngine/wiki)
 
 ## Version
-Current version is: **0.6**.
+Current development version is: **0.7.dev-SNAPSHOT**.
+Current stable version is: **0.6**.
 
 Released October 27, 2015.
 
