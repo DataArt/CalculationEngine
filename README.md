@@ -56,8 +56,10 @@ Next output jar files should be included in application (dependencies are not sp
 * spreadsheetanalytics-evaluation-[version].jar
  
 Also the above jars required jars from Apache POI fork to be included as dependencies:
-* poi-fork-[version].jar (current version is: poi-fork-**3.13-beta1**.jar)
-* poi-ooxml-fork-[version].jar (current version is: poi-ooxml-fork-**3.13-beta1**.jar)
+* poi-fork-[version].jar
+* poi-ooxml-fork-[version].jar    
+Current development version: **3.13-beta1-SNAPSHOT**.
+Current stable version: **3.13-beta1**.
 
 To add Calculation Engine as dependency to project use:
 ```
