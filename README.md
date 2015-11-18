@@ -10,9 +10,7 @@ Can be found on [wiki page](https://github.com/DataArt/CalculationEngine/wiki)
 
 ## Version
 Current development version is: **0.7.dev-SNAPSHOT**.  
-Current stable version is: **0.6**.
-
-Released October 27, 2015.
+Current stable version is: **0.6** (Released October 27, 2015).
 
 Provided features:
 * Cell evaluation (formula calculation)
