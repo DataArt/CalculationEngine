@@ -142,21 +142,5 @@ public class Monthly_Data_Query_Test {
                 .isEqualTo(expectedValues.get(expectedColumn + i));
         }
     }
-    
-    @Test
-    public void compare_DsLookupParametersCache_SecondCallIsFasterThanFirst() {
-        //given
-        A1Address A9 = A1Address.fromA1Address("A9");
-        A1Address A10 = A1Address.fromA1Address("A10");
 
-        long timeS = System.nanoTime(); evaluator.evaluate(A9); long timeE = System.nanoTime();
-        long timeA9 = timeE - timeS;
-
-        //when
-        timeS = System.nanoTime(); evaluator.evaluate(A10); timeE = System.nanoTime();
-        long timeA10 = timeE - timeS;
-        
-        //then
-        assertThat(timeA10).isLessThan(timeA9);
-    }
 }
