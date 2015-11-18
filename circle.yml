@@ -7,20 +7,28 @@ machine:
   java:
     version: oraclejdk8
 
-#checkout Apache POI
+#Checkout Apache POI
 checkout:
   post:
     - git submodule sync
     - git submodule update --init
 
+#Just build Apahe POI and engine-root
 dependencies:
   pre:
-    - mvn clean 
+    - mvn clean
   override:
     - mvn install -DskipTests
+
+#Run tests (no performance tests)
 test:
   override:
-    - cd engine-tests; mvn clean install;
+    - cd engine-tests
+    - mvn clean install
+  post:
+    - cd ../
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;	
 #  post:
 #    - cd engine-tests/engine-it-performance/; mvn clean install -P all;:
 #        background: true
