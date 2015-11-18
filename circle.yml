@@ -1,0 +1,23 @@
+#Path
+general:
+  build_dir: calculation-engine
+  
+#Java 8
+machine:
+  java:
+    version: oraclejdk8
+
+#checkout Apache POI
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+	
+test:
+  pre:
+    - mvn clean
+  override:
+    - mvn install
+  post:
+    - cd engine-tests/engine-it-performance/; mvn clean install -P all;:
+        background: true
