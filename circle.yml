@@ -14,11 +14,13 @@ checkout:
     - git submodule update --init
 
 dependencies:
+  pre:
+    - mvn clean 
   override:
-    - mvn clean
+    - mvn install -DskipTests
 test:
   override:
-    - mvn install
+    - cd engine-tests; mvn clean install;
   post:
     - cd engine-tests/engine-it-performance/; mvn clean install -P all;:
         background: true
