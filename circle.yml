@@ -23,10 +23,9 @@ dependencies:
 #Run tests (no performance tests)
 test:
   override:
-    - cd engine-tests
-    - mvn clean install
+    - mvn clean install:
+        pwd: engine-tests
   post:
-    - cd ../
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;	
 #  post:
