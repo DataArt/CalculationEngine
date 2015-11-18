@@ -1,7 +1,7 @@
 #Path
 general:
   build_dir: calculation-engine
-  
+
 #Java 8
 machine:
   java:
@@ -12,7 +12,7 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init
-	
+
 test:
   pre:
     - mvn clean
