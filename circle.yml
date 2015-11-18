@@ -21,6 +21,6 @@ dependencies:
 test:
   override:
     - cd engine-tests; mvn clean install;
-  post:
-    - cd engine-tests/engine-it-performance/; mvn clean install -P all;:
-        background: true
+#  post:
+#    - cd engine-tests/engine-it-performance/; mvn clean install -P all;:
+#        background: true
