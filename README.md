@@ -9,7 +9,7 @@ It is based on Apache POI project (forked) with changes mostly in evaluation par
 Can be found on [wiki page](https://github.com/DataArt/CalculationEngine/wiki)
 
 ## Version
-Current development version is: **0.7.dev-SNAPSHOT**.  
+Current development version is: **0.7.dev-SNAPSHOT**. Build: [![Circle CI](https://circleci.com/gh/DataArt/CalculationEngine.svg?style=svg)](https://circleci.com/gh/DataArt/CalculationEngine)  
 Current stable version is: **0.6** (Released October 27, 2015).
 
 Provided features:
