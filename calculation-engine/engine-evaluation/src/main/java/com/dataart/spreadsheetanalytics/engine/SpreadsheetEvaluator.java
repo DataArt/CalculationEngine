@@ -91,11 +91,12 @@ public class SpreadsheetEvaluator implements IEvaluator {
     public IDataSet evaluate() {
         DataSet dataSet = new DataSet(model.name());
         Sheet sheet = model.poiModel.getSheetAt(0); // TODO handle sheet number specification
-        for (Row row : sheet) {
+        for (int j = 0 ; j <= sheet.getLastRowNum() ; j++) {
+            Row row = sheet.getRow(j);
             DsRow evaluatedRow = dataSet.createRow();
             if (row == null) { continue; }
 
-            for (int i = 0 ; i < row.getLastCellNum() ; i++) {
+            for (int i = 0 ; i <= row.getLastCellNum() ; i++) {
                 Cell cell = row.getCell(i);
                 DsCell evaluatedCell = evaluatedRow.createCell();
                 ICellValue value = null;
