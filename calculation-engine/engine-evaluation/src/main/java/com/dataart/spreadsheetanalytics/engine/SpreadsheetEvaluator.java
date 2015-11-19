@@ -95,7 +95,8 @@ public class SpreadsheetEvaluator implements IEvaluator {
             DsRow evaluatedRow = dataSet.createRow();
             if (row == null) { continue; }
 
-            for (Cell cell : row) {
+            for (int i = 0 ; i < row.getLastCellNum() ; i++) {
+                Cell cell = row.getCell(i);
                 DsCell evaluatedCell = evaluatedRow.createCell();
                 ICellValue value = null;
                 try {

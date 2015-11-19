@@ -19,6 +19,7 @@ import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.cellVal
 
 import java.io.IOException;
 
+import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -70,6 +71,8 @@ public class PoiFileConverter {
             cell.setCellValue(((Boolean) value).booleanValue());
         } else if (value instanceof Double) {
             cell.setCellValue(((Double) value).doubleValue());
+        } else if (value instanceof ErrorEval) {
+            cell.setCellValue(((ErrorEval) value).getErrorString());
         }
     }
 }
