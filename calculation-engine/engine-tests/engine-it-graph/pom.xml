@@ -19,7 +19,7 @@ limitations under the License.
 
   <groupId>com.dataart</groupId>
   <artifactId>spreadsheetanalytics-tests-it-graph</artifactId>
-  <version>0.7.dev</version>
+  <version>0.7.dev-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>spreadsheetanalytics-tests-it-graph</name>
@@ -53,6 +53,16 @@ limitations under the License.
           <target>1.8</target>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19</version>
+        <configuration>
+          <argLine>-Xmx2048m</argLine>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -60,7 +70,7 @@ limitations under the License.
     <dependency>
       <groupId>com.dataart</groupId>
       <artifactId>spreadsheetanalytics-evaluation</artifactId>
-      <version>0.7.dev</version>
+      <version>0.7.dev-SNAPSHOT</version>
     </dependency>
 
     <dependency>
