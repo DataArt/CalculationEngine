@@ -10,8 +10,7 @@ Can be found on [wiki page](https://github.com/DataArt/CalculationEngine/wiki)
 
 ## Version
 Current stable version is: **0.6** (Released October 27, 2015).  
-Current development version is: **0.7.dev-SNAPSHOT**.  
-Build: [![Circle CI](https://circleci.com/gh/DataArt/CalculationEngine.svg?style=svg)](https://circleci.com/gh/DataArt/CalculationEngine) Dependencies: [![Version Eye](https://www.versioneye.com/user/projects/564db90af2a76e0035000057/badge.svg)](https://www.versioneye.com/user/projects/564db90af2a76e0035000057/badge.svg)
+Current development version is: **0.7.dev-SNAPSHOT**.  Build status: [![Circle CI](https://circleci.com/gh/DataArt/CalculationEngine.svg?style=svg)](https://circleci.com/gh/DataArt/CalculationEngine)  
 
 Provided features:
 * Cell evaluation (formula calculation)
