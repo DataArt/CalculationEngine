@@ -28,23 +28,21 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 
 public class ExecutionGraph implements IExecutionGraph {
 
-    protected DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph;
+    protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph;
 
-    public static ExecutionGraph wrap(DirectedGraph<org.apache.poi.common.execgraph.IExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
+    public static ExecutionGraph wrap(DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
         ExecutionGraph egraph = new ExecutionGraph();
         egraph.dgraph = dgraph;
         return egraph;
     }
 
-    public static DirectedGraph unwrap(ExecutionGraph egraph) {
-        return egraph.dgraph;
-    }
+    public static DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> unwrap(ExecutionGraph egraph) { return egraph.dgraph; }
 
     @Override
     public IExecutionGraphVertex getRootVertex() {
         List<IExecutionGraphVertex> possible = new LinkedList<>();
-        for (org.apache.poi.common.execgraph.IExecutionGraphVertex ivertex : dgraph.vertexSet()) {
-            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { possible.add((ExecutionGraphVertex) ivertex); }
+        for (ExecutionGraphVertex ivertex : dgraph.vertexSet()) {
+            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { possible.add(ivertex); }
         }
         if (possible.isEmpty()) { throw new IllegalStateException("No graph root found"); }
         if (possible.size() > 1) { throw new IllegalStateException(String.format("Many graph roots found (%s)", possible.size())); }
@@ -55,7 +53,7 @@ public class ExecutionGraph implements IExecutionGraph {
     @Override
     public Set<IExecutionGraphVertex> getVertices() {
         return dgraph.vertexSet().stream()
-                                 .map(s -> (ExecutionGraphVertex) s)
+                                 .map(s -> s)
                                  .collect(Collectors.<IExecutionGraphVertex>toSet());
     }
 
@@ -67,12 +65,12 @@ public class ExecutionGraph implements IExecutionGraph {
 
     @Override
     public IExecutionGraphVertex getEdgeSource(IExecutionGraphEdge edge) {
-        return (ExecutionGraphVertex) dgraph.getEdgeSource((ExecutionGraphEdge) edge);
+        return dgraph.getEdgeSource((ExecutionGraphEdge) edge);
     }
 
     @Override
     public IExecutionGraphVertex getEdgeTarget(IExecutionGraphEdge edge) {
-        return (ExecutionGraphVertex) dgraph.getEdgeTarget((ExecutionGraphEdge) edge);
+        return dgraph.getEdgeTarget((ExecutionGraphEdge) edge);
     }
 
 }

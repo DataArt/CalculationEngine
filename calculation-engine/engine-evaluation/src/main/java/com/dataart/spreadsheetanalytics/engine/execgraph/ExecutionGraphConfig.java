@@ -2,25 +2,19 @@ package com.dataart.spreadsheetanalytics.engine.execgraph;
 
 public class ExecutionGraphConfig {
 
-    /*
-     * No joining of duplicate graph nodes
-     */
+    /** No joining of duplicate graph nodes */
     public static final ExecutionGraphConfig DEFAULT = new ExecutionGraphConfig(false, null);
-    /*
-     * Join all duplicate graph nodes
-     */
+    
+    /** Join all duplicate graph nodes */
     public static final ExecutionGraphConfig JOIN_ALL_DUPLICATE_VERTICES = new ExecutionGraphConfig(true, 0);
-    /*
-     * The number of duplicates is less or equal to 2
-     */
+    
+    /** The number of duplicates is less or equal to 2 */
     public static final ExecutionGraphConfig LIMIT_TO_2_DUPLICATE_VERTICES = new ExecutionGraphConfig(true, 2);
-    /*
-     * The number of duplicates is less or equal to 5
-     */
+    
+    /** The number of duplicates is less or equal to 5 */
     public static final ExecutionGraphConfig LIMIT_TO_5_DUPLICATE_VERTICES = new ExecutionGraphConfig(true, 5);
-    /*
-     * The number of duplicates is less or equal to 10
-     */
+    
+    /** The number of duplicates is less or equal to 10 */
     public static final ExecutionGraphConfig LIMIT_TO_10_DUPLICATE_VERTICES = new ExecutionGraphConfig(true, 10);
 
     protected final boolean joinVertices;
@@ -34,6 +28,11 @@ public class ExecutionGraphConfig {
     public int getDuplicatesNumberThreshold() {
         if (joinVertices && duplicatesNumberThreshold != null) { return duplicatesNumberThreshold.intValue(); }
         else { return -1; }
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("joinVertices=%s duplicatesNumberThreshold=%s", joinVertices, duplicatesNumberThreshold);
     }
 
 }

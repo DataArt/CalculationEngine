@@ -33,43 +33,65 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.engine.execgraph.PoiDependencyGraphBuilder;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 
 /**
- * TODO
+ * SpreadsheetAuditor is a direct implementation of {@link IAuditor}.
+ * It allows to trace all execution steps while {@link IDataModel} is being evaluated.
+ * The output is execution graph.
+ * 
+ * This class requires an instanse of {@link SpreadsheetEvaluator} to work, since it does not do actual calculation.
+ * This class is thread safe, but it's <i>buildXXX</i> methods use Lock, because of POI's Evaluator nature (stateful).
  */
 public class SpreadsheetAuditor implements IAuditor {
     private static final Logger log = LoggerFactory.getLogger(SpreadsheetAuditor.class);
 
     protected final SpreadsheetEvaluator evaluator;
     protected final Lock graphLock = new ReentrantLock();
+    protected final Lock staticGraphLock = new ReentrantLock();
 
     public SpreadsheetAuditor(SpreadsheetEvaluator evaluator) {
         this.evaluator = evaluator;
     }
 
     @Override
-    public IExecutionGraph buildStaticExecutionGraph(ICellAddress cell) {
-        //TODO: implement
-        return null;
+    public IExecutionGraph buildDependencyGraph(ICellAddress cell) {
+        try {
+            graphLock.lock();
+            log.debug("Building Dependency Graph for address: {}.", cell);
+            
+            return PoiDependencyGraphBuilder.buildDependencyGraph(evaluator.model, cell);
+        } finally {
+            graphLock.unlock();
+            log.debug("Building Dependency Graph for address: {} is finished.", cell);
+        }
     }
 
     @Override
-    public IExecutionGraph buildStaticExecutionGraph() {
-        //TODO: implement
-        return null;
-    }
-
-    @Override
-    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell) {
-        return buildDynamicExecutionGraph(cell, ExecutionGraphConfig.DEFAULT);
+    public IExecutionGraph buildDependencyGraph() {
+        try {
+            graphLock.lock();
+            log.debug("Building Dependency Graph for DataModel: {}.", evaluator.model);
+            
+            return PoiDependencyGraphBuilder.buildDependencyGraph(evaluator.model);
+        } finally {
+            graphLock.unlock();
+            log.debug("Building Dependency Graph for DataModel: {} is finished.", evaluator.model);
+        }
     }
     
     @Override
-    public IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell, ExecutionGraphConfig config) {
+    public IExecutionGraph buildExecutionGraph(ICellAddress cell) {
+        return buildExecutionGraph(cell, ExecutionGraphConfig.DEFAULT);
+    }
+    
+    @Override
+    public IExecutionGraph buildExecutionGraph(ICellAddress cell, ExecutionGraphConfig config) {
         try {
             graphLock.lock();
             log.debug("Building Graph for address: {}.", cell);
@@ -97,7 +119,7 @@ public class SpreadsheetAuditor implements IAuditor {
                 return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
             }
     
-            IExecutionGraph nonFormulaResult = buildGraphForEdgeCases(graphBuilder.get(), cv, cell);
+            IExecutionGraph nonFormulaResult = buildDynamicExecutionGraphForEdgeCases(graphBuilder.get(), cv, cell);
             if (nonFormulaResult != null) { return nonFormulaResult; }
     
             graphBuilder.runPostProcessing(false);
@@ -110,15 +132,15 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     @Override
-    public IExecutionGraph buildDynamicExecutionGraph() {
-        return buildDynamicExecutionGraph(ExecutionGraphConfig.DEFAULT);
+    public IExecutionGraph buildExecutionGraph() {
+        return buildExecutionGraph(ExecutionGraphConfig.DEFAULT);
     }
 
     @Override
-    public IExecutionGraph buildDynamicExecutionGraph(ExecutionGraphConfig config) {
+    public IExecutionGraph buildExecutionGraph(ExecutionGraphConfig config) {
         try {
             graphLock.lock();
-            log.debug("Building Graph for DataModel: {}.", evaluator.model.name());
+            log.debug("Building Graph for DataModel: {} with Config: {}.", evaluator.model, config);
             
             /* Clear POI cache to allow graph building to be full */
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
@@ -136,11 +158,11 @@ public class SpreadsheetAuditor implements IAuditor {
             
         } finally {
             graphLock.unlock();
-            log.debug("Building Graph for DataModel: {} is finished.", evaluator.model.name());
+            log.debug("Building Graph for DataModel: {} with Config: {} is finished.", evaluator.model, config);
         }
     }
 
-    protected IExecutionGraph buildGraphForEdgeCases(ExecutionGraph executionGraph, ICellValue evalCell, ICellAddress cell) {
+    protected IExecutionGraph buildDynamicExecutionGraphForEdgeCases(ExecutionGraph executionGraph, ICellValue evalCell, ICellAddress cell) {
         if (evalCell == null) { return getSingleNodeGraph(cell); }
 
         if (!evaluator.model.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(executionGraph, evalCell, cell); }

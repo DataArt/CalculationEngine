@@ -58,31 +58,31 @@ public class Excel_XXX_Test extends SerializedGraphTest {
     
     @Test
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph();
+        graph = auditor.buildExecutionGraph();
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
     }
 
     @Test
     public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
     @Test
     public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
     }
 
     @Test
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
     @Test
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
-        graph = auditor.buildDynamicExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
     }
 }

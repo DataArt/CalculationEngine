@@ -23,16 +23,16 @@ public interface IAuditor {
 
     IEvaluator getEvaluator();
 
-    IExecutionGraph buildStaticExecutionGraph();
+    IExecutionGraph buildDependencyGraph();
 
-    IExecutionGraph buildStaticExecutionGraph(ICellAddress cell);
+    IExecutionGraph buildDependencyGraph(ICellAddress cell);
 
-    IExecutionGraph buildDynamicExecutionGraph();
+    IExecutionGraph buildExecutionGraph();
 
-    IExecutionGraph buildDynamicExecutionGraph(ExecutionGraphConfig config);
+    IExecutionGraph buildExecutionGraph(ExecutionGraphConfig config);
 
-    IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell);
+    IExecutionGraph buildExecutionGraph(ICellAddress cell);
 
-    IExecutionGraph buildDynamicExecutionGraph(ICellAddress cell, ExecutionGraphConfig config);
+    IExecutionGraph buildExecutionGraph(ICellAddress cell, ExecutionGraphConfig config);
 
 }

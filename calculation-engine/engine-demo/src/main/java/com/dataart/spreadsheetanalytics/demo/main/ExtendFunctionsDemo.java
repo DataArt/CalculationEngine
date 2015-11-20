@@ -53,7 +53,7 @@ public class ExtendFunctionsDemo {
         //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
         //build graph
-        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr, ExecutionGraphConfig.DEFAULT);
+        final IExecutionGraph graph = auditor.buildExecutionGraph(addr, ExecutionGraphConfig.DEFAULT);
 
         //print graph
         DemoUtil.generateVisJsData(graph);
