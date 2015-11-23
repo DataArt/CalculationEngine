@@ -41,6 +41,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     
     protected Object id;
     protected String name;
+    protected String alias;
     protected ICellValue value;
     protected ICellFormulaExpression formula;
     protected Type type;
@@ -68,6 +69,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
 
     @Override public Object id() { return id; }
     @Override public String name() { return name; }
+    @Override public String alias() { return alias; }
     @Override public ICellFormulaExpression formula() { return formula; }
     @Override public ICellValue value() { return value; }
     @Override public Type type() { return type; }

@@ -45,6 +45,11 @@ public interface IExecutionGraphVertex extends Comparable<IExecutionGraphVertex>
     String name();
 
     /**
+     * For named cells we also store the customer specified name
+     */
+    String alias();
+
+    /**
      * Container for vertex formula. It may not be empty, on every level of execution graph
      * there should be some kind of a expression to evaluate.
      * E.g. formula can be: 1, A1, A1+A2, A1+1, IF(A1=A2,A3,A4), etc.

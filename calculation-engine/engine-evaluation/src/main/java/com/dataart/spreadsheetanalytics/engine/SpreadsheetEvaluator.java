@@ -84,6 +84,8 @@ public class SpreadsheetEvaluator implements IEvaluator {
             value = new CellValue(ErrorEval.VALUE_INVALID.getErrorString());
         }
 
+        poiEvaluator._getWorkbookEvaluator().addNamesForNamedCells();
+
         return value;
     }
 
@@ -117,6 +119,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
                 evaluatedCell.value((value == null) ? null : value.get());
                 // TODO: Use multithreading to calculate cells in parallel
             }
+            poiEvaluator._getWorkbookEvaluator().addNamesForNamedCells();
         }
         return dataSet;
     }

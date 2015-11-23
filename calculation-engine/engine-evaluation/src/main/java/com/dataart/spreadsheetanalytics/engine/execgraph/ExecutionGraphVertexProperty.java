@@ -111,6 +111,10 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 parent.name = (String) pvalue;
                 break;
             }
+            case ALIAS: {
+                parent.alias = (String) pvalue;
+                break;
+            }
             default: {
                     throw new IllegalArgumentException(String.format("Property %s is not supported by %s.", pname, parent.getClass().getSimpleName()));
                 }
