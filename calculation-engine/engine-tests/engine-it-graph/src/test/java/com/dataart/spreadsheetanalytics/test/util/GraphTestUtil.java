@@ -164,7 +164,7 @@ public class GraphTestUtil {
 
                 final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
 
-                final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(config);
+                final IExecutionGraph graph = auditor.buildExecutionGraph(config);
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
                 File file = new File(ALL_CELLS_GRAPHML_DIR + line + "/");
@@ -226,7 +226,7 @@ public class GraphTestUtil {
                 final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
                 final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
 
-                final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+                final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
                 Writer fw = new FileWriter(filename);
@@ -269,7 +269,7 @@ public class GraphTestUtil {
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         
-        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(addr);
+        final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
         Writer fw = new FileWriter(filename);
@@ -302,7 +302,7 @@ public class GraphTestUtil {
 
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
 
-        final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(config);
+        final IExecutionGraph graph = auditor.buildExecutionGraph(config);
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
         Writer fw = new FileWriter(filename);
@@ -351,7 +351,7 @@ public class GraphTestUtil {
 
                     final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
 
-                    final IExecutionGraph graph = auditor.buildDynamicExecutionGraph(config);
+                    final IExecutionGraph graph = auditor.buildExecutionGraph(config);
                     final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
                     File file = new File(ADVANCED_CONF_TESTS_DIR + line + "/");

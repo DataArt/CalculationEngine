@@ -72,7 +72,7 @@ public class SIMPLE_1times_Test extends ZParentTest {
     @Benchmark
     public void buildGraph_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateAuditor state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            IExecutionGraph graph = state.auditor.buildDynamicExecutionGraph(state.addressAt(i));
+            IExecutionGraph graph = state.auditor.buildExecutionGraph(state.addressAt(i));
             assertThat(graph.getRootVertex().value().get()).isEqualTo(state.expectedValue); /* comment for better performance */
             bh.consume(graph);
         }
