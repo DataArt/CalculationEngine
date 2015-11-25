@@ -111,7 +111,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
                 try { value = evaluateCell(cell); }
                 catch (ValuesStackNotEmptyException e) { value = handleExceptionForGraphBuilder(poiEvaluator, cell); }
                 evaluatedCell.value(value);
-                // TODO: Use multithreading to calculate cells in parallel
             }
         }
         return dataSet;

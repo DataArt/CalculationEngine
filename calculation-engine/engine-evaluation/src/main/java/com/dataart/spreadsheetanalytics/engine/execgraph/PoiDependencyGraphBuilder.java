@@ -16,31 +16,45 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine.execgraph;
 
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.ptgToString;
+import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.FormulaParser;
 import org.apache.poi.ss.formula.FormulaParsingWorkbook;
 import org.apache.poi.ss.formula.FormulaType;
+import org.apache.poi.ss.formula.ptg.AreaPtg;
 import org.apache.poi.ss.formula.ptg.OperandPtg;
 import org.apache.poi.ss.formula.ptg.OperationPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
+import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
+import com.dataart.spreadsheetanalytics.model.DataModelId;
 import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class PoiDependencyGraphBuilder {
-    
+
+    private static final Logger log = LoggerFactory.getLogger(PoiDependencyGraphBuilder.class);
+
     public static final String VERTEX_VALUE = "N/A"; 
     
     protected final FormulaParsingWorkbook poiFormulaBook;
@@ -72,7 +86,7 @@ public class PoiDependencyGraphBuilder {
         ExecutionGraphVertex v = new ExecutionGraphVertex(A1Address.fromRowColumn(c.getRowIndex(), c.getColumnIndex()).address());
         db.state.addVertex(v);
         
-        if (Cell.CELL_TYPE_FORMULA == c.getCellType()) { db.collect(v, c.getCellFormula()); }
+        if (CELL_TYPE_FORMULA == c.getCellType()) { db.collect(v, c.getCellFormula()); }
         
         return ExecutionGraph.wrap(db.state);
     }
@@ -94,7 +108,7 @@ public class PoiDependencyGraphBuilder {
                 Cell c = this.poiBook.getSheetAt(0).getRow(address.row()).getCell(address.column());
 
                 //recursive call to formula cells
-                if (Cell.CELL_TYPE_FORMULA == c.getCellType()) { this.collect(v, c.getCellFormula()); }
+                if (CELL_TYPE_FORMULA == c.getCellType()) { this.collect(v, c.getCellFormula()); }
 
             } else if (ptg instanceof OperationPtg) { //operator (function)
                 for (ExecutionGraphVertex s : ptgBag) 
@@ -106,4 +120,133 @@ public class PoiDependencyGraphBuilder {
 
         this.state.addEdge(ptgBag.poll(), parent);
     }
+
+    public static List<Workbook> getDatasetForFunctionName(XSSFWorkbook workbook, String functionName) {
+        return functionToWorkbook(workbook, functionName);
+    }
+
+    protected static List<Workbook> functionToWorkbook(XSSFWorkbook workbook, String functionName) {
+        List<Workbook> result = new LinkedList<>();
+
+        for (Iterator sheeterator = workbook.iterator(); sheeterator.hasNext();) {
+            Sheet sh = (Sheet) sheeterator.next();
+            for (Iterator rowterator = sh.iterator(); rowterator.hasNext();) {
+                Row ro = (Row) rowterator.next();
+
+                for (Iterator celterator = ro.iterator(); celterator.hasNext();) {
+                    Cell ce = (Cell) celterator.next();
+                    if (ce == null || CELL_TYPE_FORMULA != ce.getCellType()) {
+                        continue;
+                    }
+
+                    try {
+                        String formula = ce.getCellFormula();
+                        if (!isFunctionInFormula(formula, functionName)) {
+                            continue;
+                        }
+
+                        ICellAddress addr = new CellAddress(new DataModelId("TODO"), A1Address.fromRowColumn(ce.getRowIndex(), ce.getColumnIndex()));
+                        result.add(cellToWorkbook(workbook, addr));
+
+                    } catch (FormulaParseException e) {
+                        log.debug("Warning while parsing custom excel formula. It is OK.", e);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    protected static boolean isFunctionInFormula(String formula, String function) {
+        String filteredFormula = formula.replace("_xlfn.", "");
+        String formulaWithoutFunction = filteredFormula.replace(function, "");
+        return filteredFormula.startsWith(function) && formulaWithoutFunction.charAt(0) == '(';
+    }
+
+    protected static Workbook cellToWorkbook(XSSFWorkbook workbook, ICellAddress address) {
+        Sheet sheet = workbook.getSheetAt(0);
+        FormulaParsingWorkbook parsingWorkbook = XSSFEvaluationWorkbook.create(workbook);
+        List<ICellAddress> cells = handleCell(address, sheet, parsingWorkbook);
+        Workbook result = new XSSFWorkbook();
+        Sheet addonSheet = result.createSheet("Sheet1");
+        for (ICellAddress addr : cells) {
+            populateCell(addonSheet, sheet, addr);
+        }
+        return result;
+    }
+
+    protected static List<ICellAddress> handleCell(ICellAddress cellAddress, Sheet sheet, FormulaParsingWorkbook parsingWorkbook) {
+        List<ICellAddress> result = new LinkedList<>();
+        Row row = sheet.getRow(cellAddress.row());
+        Cell cell = row.getCell(cellAddress.column());
+        if (cell.getCellType() == CELL_TYPE_FORMULA) {
+            Ptg[] ptgs = FormulaParser.parse(cell.getCellFormula(), parsingWorkbook, FormulaType.CELL,
+                    0 /* TODO: Sheet number = 0 */);
+            for (Ptg ptg : ptgs) {
+                if (ptg instanceof RefPtg) {
+                    RefPtg refPtg = (RefPtg) ptg;
+                    A1Address address = A1Address.fromRowColumn(refPtg.getRow(), refPtg.getColumn());
+                    ICellAddress newAddress = new CellAddress(new DataModelId("TODO"), address);
+                    result.addAll(handleCell(newAddress, sheet, parsingWorkbook));
+                } else if (ptg instanceof AreaPtg) {
+                    AreaPtg areaPtg = (AreaPtg) ptg;
+                    int minRowNum = areaPtg.getFirstRow();
+                    int maxRowNum = areaPtg.getLastRow();
+                    int minCellNum = areaPtg.getFirstColumn();
+                    int maxCellNum = areaPtg.getLastColumn();
+                    for (int rowNum = minRowNum; rowNum <= maxRowNum; rowNum++) {
+                        for (int cellNum = minCellNum; cellNum <= maxCellNum; cellNum++) {
+                            A1Address address = A1Address.fromRowColumn(rowNum, cellNum);
+                            ICellAddress newAddress = new CellAddress(new DataModelId("TODO"), address);
+                            result.addAll(handleCell(newAddress, sheet, parsingWorkbook));
+                        }
+                    }
+                }
+                result.add(cellAddress);
+            }
+        } else {
+            result.add(cellAddress);
+        }
+        return result;
+    }
+
+    protected static void populateCell(Sheet newsheet, Sheet oldsheet, ICellAddress address) {
+        int rowIndex = address.row();
+        int cellIndex = address.column();
+        Row row = null;
+        if (newsheet.getRow(rowIndex) == null) {
+            row = newsheet.createRow(rowIndex);
+        } else {
+            row = newsheet.getRow(rowIndex);
+        }
+        Cell cell = row.createCell(cellIndex);
+        Cell newcell = oldsheet.getRow(address.row()).getCell(address.column());
+        switch (newcell.getCellType()) {
+        case Cell.CELL_TYPE_STRING: {
+            cell.setCellValue(newcell.getStringCellValue());
+            break;
+        }
+        case Cell.CELL_TYPE_NUMERIC: {
+            cell.setCellValue(newcell.getNumericCellValue());
+            break;
+        }
+        case Cell.CELL_TYPE_ERROR: {
+            cell.setCellValue(newcell.getErrorCellValue());
+            break;
+        }
+        case Cell.CELL_TYPE_BOOLEAN: {
+            cell.setCellValue(newcell.getBooleanCellValue());
+            break;
+        }
+        case CELL_TYPE_FORMULA: {
+            cell.setCellValue(newcell.getCellFormula());
+            break;
+        }
+        default:
+            cell.setCellValue("");
+            break;
+        }
+
+    }
+
 }

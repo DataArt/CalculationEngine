@@ -57,6 +57,7 @@ public class DemoUtil {
             System.out.println("---------------------------------");
             System.out.println("Vertex Id: " + vertex.id());
             System.out.println("Name: " + vertex.name());
+            System.out.println("Alias: " + vertex.alias());
             System.out.println("Type: " + vertex.type());
             System.out.println("Formula Expression: " + vertex.formula());
             System.out.println("Value: " + vertex.value());
@@ -90,6 +91,9 @@ public class DemoUtil {
                             .append("', title: '")
                                 .append("Name: ")
                                 .append(vertex.name())
+                                .append("<br>")
+                                .append("Alias: ")
+                                .append(vertex.alias())
                                 .append("<br>")
                                 .append("Value: ")
                                 .append(vertex.value())
