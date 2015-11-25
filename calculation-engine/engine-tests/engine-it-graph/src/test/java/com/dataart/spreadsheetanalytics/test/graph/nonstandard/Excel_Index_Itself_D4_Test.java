@@ -28,7 +28,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
@@ -40,8 +40,8 @@ public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
     @Test(expected = IllegalStateException.class)
     public void assert_ExcelFile_SerializedGraph() throws IOException {
         //given
-        final IDataModel model = new DataModel(file, path);
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));
+        final IDataModel model = new PoiDataModel(file, path);
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         graph = auditor.buildExecutionGraph(addr);
 

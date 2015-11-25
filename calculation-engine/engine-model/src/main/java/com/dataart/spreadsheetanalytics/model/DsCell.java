@@ -15,19 +15,20 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 
 public class DsCell implements IDsCell {
 
     protected final int index;
-    protected Object value;
+    protected ICellValue value;
 
     public DsCell(int cellIndex) {
         this.index = cellIndex;
     }
 
-    @Override public Object value() { return this.value; }
-    public void value(Object value) { this.value = value; }
+    @Override public ICellValue value() { return this.value; }
+    public void value(ICellValue value) { this.value = value; }
 
     @Override public int index() { return this.index; }
 

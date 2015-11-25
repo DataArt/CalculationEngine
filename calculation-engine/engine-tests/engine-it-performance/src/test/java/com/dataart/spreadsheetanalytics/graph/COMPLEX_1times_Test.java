@@ -20,7 +20,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class COMPLEX_1times_Test extends ZParentTest {
 
@@ -30,13 +30,13 @@ public class COMPLEX_1times_Test extends ZParentTest {
         String excelFile = "src/test/resources/datamodel/graph/COMPLEX_" + iterations + "times.xlsx";
         Object expectedValue = new Double(528.0);
 
-        DataModel dataModel;
+        PoiDataModel dataModel;
         IEvaluator evaluator;
         Map<Integer, ICellAddress> addressMap;
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
             this.addressMap = new HashMap<>();
@@ -73,7 +73,7 @@ public class COMPLEX_1times_Test extends ZParentTest {
     public void buildGraph_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateAuditor state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
             IExecutionGraph graph = state.auditor.buildExecutionGraph(state.addressAt(i));
-            assertThat(graph.getRootVertex().value().get()).isEqualTo(state.expectedValue); /* comment for better performance */
+            assertThat(graph.getRootVertex().value()).isEqualTo(state.expectedValue); /* comment for better performance */
             bh.consume(graph);
         }
     }

@@ -113,7 +113,7 @@ public class QueryFunction implements CustomFunction {
         
         dset.rows().forEach(r -> {
             List<Object> cells = new ArrayList<>(dset.width());
-            r.cells().forEach(v -> cells.add(v.value()));
+            r.cells().forEach(v -> cells.add(v.value().get()));
             rows.add(cells);
         });
         

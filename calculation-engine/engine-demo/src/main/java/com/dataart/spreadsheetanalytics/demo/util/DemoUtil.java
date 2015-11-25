@@ -46,7 +46,7 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsRow;
 
@@ -134,7 +134,7 @@ public class DemoUtil {
         }
     }
 
-    public static void initCaches(DataModel model) throws IOException, InterruptedException {
+    public static void initCaches(PoiDataModel model) throws IOException, InterruptedException {
         
         //prepare caches to be used as storages
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();

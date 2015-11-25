@@ -15,7 +15,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Baseline_A1_is_B1_plus_C1_Test extends BenchmarkTestParent {
 
@@ -33,13 +33,13 @@ public class Baseline_A1_is_B1_plus_C1_Test extends BenchmarkTestParent {
         String column = "A";
         int iterations = 1;
 
-        DataModel dataModel;
+        PoiDataModel dataModel;
         IEvaluator evaluator;
         ICellAddress address = A1Address.fromA1Address(column + iterations);
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
         }
     }

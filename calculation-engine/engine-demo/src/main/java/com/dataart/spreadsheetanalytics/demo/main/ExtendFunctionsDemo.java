@@ -20,7 +20,7 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.other.project.functions.ModeldefineFunction;
 
 
@@ -32,7 +32,7 @@ public class ExtendFunctionsDemo {
         final List<String> cellsToEvaluate = new ArrayList<>(Arrays.asList("A2"));
 
         //prepare DataModel to work with
-        final DataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
+        final PoiDataModel model = new PoiDataModel(Paths.get(excel).getFileName().toString(), excel);
 
         DemoUtil.initCaches(model);
         

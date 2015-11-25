@@ -16,21 +16,22 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine;
 
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
+import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
+import static org.apache.poi.ss.formula.eval.ErrorEval.REF_INVALID;
+import static org.apache.poi.ss.formula.eval.ErrorEval.VALUE_INVALID;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.apache.poi.common.execgraph.FormulaParseNAException;
 import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
-import org.apache.poi.common.execgraph.IExecutionGraphVertex;
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
 import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
-import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -48,17 +49,17 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilde
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
-import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 /**
  * SpreadsheetEvaluator is a direct implementation of {@link IEvaluator} interface.
  * It allows to do spreadsheets evaluation. It's 2 major methods are {@link #evaluate()} and {@link #evaluate(ICellAddress)}.
  * They do evaluation of one cell, or whole spreadsheet cell, by cell (algorithm can be changed in future).
  * 
- * This version of Evaluator requires a {@link DataModel} to evaluate. DataModel provides access to POI's workbook object, 
+ * This version of Evaluator requires a {@link PoiDataModel} to evaluate. DataModel provides access to POI's workbook object, 
  * so instance of {@link XSSFFormulaEvaluator} can do actual evaluation.
  * 
  * {@link IExecutionGraphBuilder} can be attached to this class to trace all evaluation steps. This is usually done via
@@ -67,7 +68,7 @@ import com.dataart.spreadsheetanalytics.model.DsRow;
 public class SpreadsheetEvaluator implements IEvaluator {
     private static final Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);
 
-    protected final DataModel model;
+    protected final PoiDataModel model;
     protected final XSSFFormulaEvaluator poiEvaluator;
     
     static {
@@ -75,7 +76,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         catch (Exception e) { log.error("Custom functions loading was unsuccessful. This may cause Evaluator to not work with custom functions.", e); }
     }
         
-    public SpreadsheetEvaluator(DataModel model) {
+    public SpreadsheetEvaluator(PoiDataModel model) {
         this.model = model;
         this.poiEvaluator = this.model.poiModel.getCreationHelper().createFormulaEvaluator();
     }
@@ -90,13 +91,8 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Cell c = r.getCell(addr.column());
         if (c == null) { return null; }
 
-        ICellValue value = null;
-        try { value = evaluateCell(c); }
-        catch (ValuesStackNotEmptyException e) {
-            value = new CellValue(ErrorEval.VALUE_INVALID.getErrorString());
-        }
-
-        return value;
+        try { return evaluateCell(c); }
+        catch (ValuesStackNotEmptyException e) { return new CellValue(VALUE_INVALID.getErrorString()); }
     }
 
     @Override
@@ -112,21 +108,9 @@ public class SpreadsheetEvaluator implements IEvaluator {
                 Cell cell = row.getCell(i);
                 DsCell evaluatedCell = evaluatedRow.createCell();
                 ICellValue value = null;
-                try {
-                    value = evaluateCell(cell);
-                } catch (ValuesStackNotEmptyException e) {
-                    IExecutionGraphBuilder ibuilder = poiEvaluator._getWorkbookEvaluator().getExecutionGraphBuilder();
-                    if (ibuilder instanceof PoiExecutionGraphBuilder) {
-                        PoiExecutionGraphBuilder builder = (PoiExecutionGraphBuilder) ibuilder;
-                        Set<IExecutionGraphVertex> ivertices = builder.getVerticesFromCache(cell.getRowIndex(), cell.getColumnIndex());
-                        for (IExecutionGraphVertex ivertex : ivertices) {
-                            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-                            vertex.property(VALUE).set(ErrorEval.VALUE_INVALID.getErrorString());
-                        }
-                        value = new CellValue(ErrorEval.VALUE_INVALID.getErrorString());
-                    }
-                }
-                evaluatedCell.value((value == null) ? null : value.get());
+                try { value = evaluateCell(cell); }
+                catch (ValuesStackNotEmptyException e) { value = handleExceptionForGraphBuilder(poiEvaluator, cell); }
+                evaluatedCell.value(value);
                 // TODO: Use multithreading to calculate cells in parallel
             }
         }
@@ -143,19 +127,19 @@ public class SpreadsheetEvaluator implements IEvaluator {
         catch (FormulaParseNAException e) { return handleNaParseException(); }
         catch (IncorrectExternalReferenceException e) { return handleIncorrectExternalReferenceException(); }
 
-        return poiValue == null ? null : new CellValue(fromPoiValue(poiValue));
+        return PoiExecutionGraphBuilder.resolveCellValue(poiValue);
     }
 
-    protected ICellValue handleIncorrectExternalReferenceException() {
-        return new CellValue(ErrorEval.REF_INVALID.getErrorString());
+    protected static ICellValue handleIncorrectExternalReferenceException() {
+        return new CellValue(REF_INVALID.getErrorString());
     }
 
-    protected ICellValue handleNameParseException() {
-        return new CellValue(ErrorEval.NAME_INVALID.getErrorString());
+    protected static ICellValue handleNameParseException() {
+        return new CellValue(NAME_INVALID.getErrorString());
     }
 
-    protected ICellValue handleNaParseException() {
-        return new CellValue(ErrorEval.NA.getErrorString());
+    protected static ICellValue handleNaParseException() {
+        return new CellValue(NA.getErrorString());
     }
 
     protected static void loadCustomFunctions() throws ReflectiveOperationException {
@@ -166,20 +150,16 @@ public class SpreadsheetEvaluator implements IEvaluator {
         for (Entry<String, Class<? extends CustomFunction>> en : map.entrySet())
             { WorkbookEvaluator.registerFunction(en.getKey(), en.getValue().newInstance()); }
     }
-
-    protected Object fromPoiValue(org.apache.poi.ss.usermodel.CellValue poiValue) {
-        switch (poiValue.getCellType()) {
-            case Cell.CELL_TYPE_STRING: { return poiValue.getStringValue(); }
-            case Cell.CELL_TYPE_NUMERIC: { return Double.valueOf(poiValue.getNumberValue()); }
-            case Cell.CELL_TYPE_BOOLEAN: { return Boolean.valueOf(poiValue.getBooleanValue()); }
-            case Cell.CELL_TYPE_ERROR: { return ErrorEval.valueOf(poiValue.getErrorValue()); /* TODO we do not have special classes for error values yet */ }
-            case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
-            case Cell.CELL_TYPE_BLANK: default: { return ""; }
+    
+    protected static CellValue handleExceptionForGraphBuilder(XSSFFormulaEvaluator poiEvaluator, Cell cell) {
+        IExecutionGraphBuilder builder = poiEvaluator._getWorkbookEvaluator().getExecutionGraphBuilder();
+        if (builder instanceof PoiExecutionGraphBuilder) {
+            ((PoiExecutionGraphBuilder) builder).getVerticesFromCache(cell.getRowIndex(), cell.getColumnIndex())
+                                                .forEach(v -> ((ExecutionGraphVertex) v).property(VALUE).set(VALUE_INVALID.getErrorString()));
         }
+        return new CellValue(VALUE_INVALID.getErrorString());
     }
 
-    void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) {
-        this.poiEvaluator.setExecutionGraphBuilder(graphBuilder);
-    }
+    void setExecutionGraphBuilder(IExecutionGraphBuilder graphBuilder) { this.poiEvaluator.setExecutionGraphBuilder(graphBuilder); }
 
 }

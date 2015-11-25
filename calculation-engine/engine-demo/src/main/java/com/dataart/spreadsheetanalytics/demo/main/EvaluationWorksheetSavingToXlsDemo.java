@@ -14,7 +14,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class EvaluationWorksheetSavingToXlsDemo {
 
@@ -26,7 +26,7 @@ public class EvaluationWorksheetSavingToXlsDemo {
         
         final String excel = args[0];
         final String outputFile = args[1];
-        final DataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
+        final PoiDataModel model = new PoiDataModel(Paths.get(excel).getFileName().toString(), excel);
 
         DemoUtil.initCaches(model);
         

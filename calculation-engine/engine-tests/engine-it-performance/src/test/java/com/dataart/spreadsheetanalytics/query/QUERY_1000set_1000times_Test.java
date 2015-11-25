@@ -16,10 +16,10 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class QUERY_1000set_1000times_Test extends ZParentTest {
 
@@ -30,15 +30,15 @@ public class QUERY_1000set_1000times_Test extends ZParentTest {
         String excelFile = "src/test/resources/datamodel/query/QUERY_" + dataSetSize + "set_" + iterations + "times.xlsx";
         String dataSet = "src/test/resources/dataset/ShuffledDataSet" + dataSetSize + ".xlsx";
         
-        DataModel dataModel;
+        PoiDataModel dataModel;
         IEvaluator evaluator;
         Map<Integer, ICellAddress> addressMap;
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            external.getDataSetStorage().saveDataSet(PoiFileConverter.toDataSet(new XSSFWorkbook(dataSet)));
+            external.getDataSetStorage().saveDataSet(ExcelFileConverters.toDataSet(new XSSFWorkbook(dataSet)));
 
-            this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
             this.addressMap = new HashMap<>();

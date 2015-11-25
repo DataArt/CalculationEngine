@@ -17,10 +17,10 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.dslookup.ZParentTest;
+import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class DSLOOKUP_10set_10times_Test extends ZParentTest {
 
@@ -34,16 +34,16 @@ public class DSLOOKUP_10set_10times_Test extends ZParentTest {
 
         Map<ICellAddress, Object> expectedValues;
 
-        DataModel dataModel;
+        PoiDataModel dataModel;
         IEvaluator evaluator;
         Map<Integer, ICellAddress> addressMap;
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
-            external.getDataSetStorage().saveDataSet(PoiFileConverter.toDataSet(new XSSFWorkbook(dataSet)));
+            external.getDataSetStorage().saveDataSet(ExcelFileConverters.toDataSet(new XSSFWorkbook(dataSet)));
 
             this.expectedValues = new HashMap<>();
             for (int i = from; i < from + iterations; i++)

@@ -48,7 +48,7 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 @FunctionMeta(value = "FUNCEXEC")
 public class FuncexecFunction implements CustomFunction {
@@ -110,7 +110,7 @@ public class FuncexecFunction implements CustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
 
-        DataModel dmWithDefine = (DataModel) external.getDataModelStorage().getDataModel(meta.dataModelId());
+        PoiDataModel dmWithDefine = (PoiDataModel) external.getDataModelStorage().getDataModel(meta.dataModelId());
         ForkedEvaluator forkedEvaluator = XSSFForkedEvaluator.create(dmWithDefine.poiModel, IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUdfFinder());
 
         Sheet s = dmWithDefine.poiModel.getSheetAt(0);

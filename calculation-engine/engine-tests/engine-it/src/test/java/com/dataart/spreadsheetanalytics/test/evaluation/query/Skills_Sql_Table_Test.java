@@ -61,9 +61,11 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Skills_Sql_Table_Test {
 
@@ -75,11 +77,11 @@ public class Skills_Sql_Table_Test {
     static int expectedRowEnd = 13;
     
     static SpreadsheetEvaluator evaluator;
-    static DataModel dataModel;
+    static PoiDataModel dataModel;
     
     @BeforeClass
     public static void before() throws Exception {
-        dataModel = new DataModel("Skills_Sql_Table_Test", pathDataModel);
+        dataModel = new PoiDataModel("Skills_Sql_Table_Test", pathDataModel);
         
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
@@ -269,12 +271,19 @@ class TempSqlDataSource implements DataSource {
         
         DsRow row = ds.createRow();
         for (int i = 1; i <= rsmd.getColumnCount(); i++)
-            row.createCell().value(rsmd.getColumnLabel(i));
+            row.createCell().value(new CellValue(rsmd.getColumnLabel(i)));
         
         while (rs.next()) {
             row = ds.createRow();
-            for (int i = 1; i <= rsmd.getColumnCount(); i++)
-                row.createCell().value(rs.getObject(i));
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                Object o = rs.getObject(i);
+                DsCell cell = row.createCell();
+                if (o == null || o instanceof String) { cell.value(new CellValue((String) o)); } 
+                else if (o instanceof Double) { cell.value(new CellValue((Double) o)); } 
+                else if (o instanceof Boolean) { cell.value(new CellValue((Boolean) o)); }
+                else { throw new IllegalArgumentException(String.format("Type %s is not supported by CellValue class.", o.getClass())); }
+                
+            }
         }
         
         return ds;

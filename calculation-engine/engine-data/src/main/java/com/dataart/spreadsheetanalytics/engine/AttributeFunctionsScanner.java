@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class AttributeFunctionsScanner {
     private static final Logger log = LoggerFactory.getLogger(AttributeFunctionsScanner.class);
@@ -41,7 +41,7 @@ public class AttributeFunctionsScanner {
     //                                                  keyword     name    instance
     public static <T extends AttributeFunctionMeta> Map<String, Map<String, T>> scan(IDataModel dataModel, Map<String, Class<T>> attrFunctions) {
         
-        DataModel dm = (DataModel) dataModel;
+        PoiDataModel dm = (PoiDataModel) dataModel;
         
         Map<String, Map<String, T>> map = new HashMap<>();
         attrFunctions.forEach((k, v) -> map.put(k, new HashMap<>()));

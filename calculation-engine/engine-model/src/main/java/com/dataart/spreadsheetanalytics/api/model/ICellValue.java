@@ -26,10 +26,11 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
  * Basic implementation: {@link CellValue}.
  */
 public interface ICellValue {
-    
-    /**
-     * Returns the underlying value.
-     */
+
+    /** The content. Can be a value (Double, String, Boolean), empty (null), formula (String) */
     Object get();
+
+    /** Type of this cell. One of: String (for text nd formulas), Double (for numbers), Boolean (for logical), Object (for null) */
+    Class<? extends Object> type();
 
 }

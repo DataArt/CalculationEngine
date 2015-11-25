@@ -26,7 +26,6 @@ import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
-import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 
@@ -41,7 +40,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     
     protected Object id;
     protected String name;
-    protected ICellValue value;
+    protected Object value;
     protected ICellFormulaExpression formula;
     protected Type type;
     protected Object sourceObjectId;
@@ -69,7 +68,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     @Override public Object id() { return id; }
     @Override public String name() { return name; }
     @Override public ICellFormulaExpression formula() { return formula; }
-    @Override public ICellValue value() { return value; }
+    @Override public Object value() { return value; }
     @Override public Type type() { return type; }
     @Override public Object sourceObjectId() { return sourceObjectId; }
 
@@ -84,7 +83,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
         if (v instanceof ExecutionGraphVertex) {
             ExecutionGraphVertex vertex = (ExecutionGraphVertex) v;
             if (!vertex.name().equals(this.name())) { return -1; }
-            if (!vertex.value().get().equals(this.value().get())) { return -1; }
+            if (!vertex.value().equals(this.value())) { return -1; }
             if (vertex.formula().formulaStr() == null) {
                 if (this.formula().formulaStr() != null) { return -1; }
             } else {

@@ -15,17 +15,17 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildGraphForNonFormulaCell;
-import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleNodeGraphForParseException;
-import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.getSingleNodeGraph;
+import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleVertexGraphForCellWithValue;
+import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleVertexGraphForEmptyCell;
+import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleVertexGraphForParseException;
+import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
+import static org.apache.poi.ss.formula.eval.ErrorEval.VALUE_INVALID;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
-import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
 import org.apache.poi.ss.formula.FormulaParseException;
-import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -103,28 +103,26 @@ public class SpreadsheetAuditor implements IAuditor {
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
-            ICellValue cv;
-            
-            try { cv = evaluator.evaluate(cell); }
-            catch (ValuesStackNotEmptyException e) {
-                return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
-            catch (FormulaParseException | IncorrectExternalReferenceException e) {
+            try {
+                ICellValue cv = evaluator.evaluate(cell);
+                
+                if (cv == null || cv.get() == null) { return buildSingleVertexGraphForEmptyCell(cell); }
+
+                if (!evaluator.model.isFormulaCell(cell)) { return buildSingleVertexGraphForCellWithValue(cv, cell); }
+
                 graphBuilder.runPostProcessing(false);
+                ExecutionGraph g = graphBuilder.get();
+                
+                if (g.getVertices().isEmpty() || g.getVertices().size() == 1) {
+                    if (VALUE_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, VALUE_INVALID, null); }
+                    if (NAME_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, NAME_INVALID, null); }
+                }
+                
+                return g;
+            } catch (FormulaParseException | IncorrectExternalReferenceException e) {
+                log.warn("Caught exception while building graph, but graph should be ok.", e);
                 return graphBuilder.get();
             }
-
-            if (cv != null && cv.get().equals(ErrorEval.VALUE_INVALID.getErrorString())) { return buildSingleNodeGraphForParseException(cell, ErrorEval.VALUE_INVALID, null); }
-    
-            if (cv != null && ErrorEval.NAME_INVALID.getErrorString().equals(cv.get())) {
-                return buildSingleNodeGraphForParseException(cell, ErrorEval.NAME_INVALID, null);
-            }
-    
-            IExecutionGraph nonFormulaResult = buildDynamicExecutionGraphForEdgeCases(graphBuilder.get(), cv, cell);
-            if (nonFormulaResult != null) { return nonFormulaResult; }
-    
-            graphBuilder.runPostProcessing(false);
-            return graphBuilder.get();
-            
         } finally {
             graphLock.unlock();
             log.debug("Building Graph for address: {} is finished.", cell);
@@ -149,8 +147,6 @@ public class SpreadsheetAuditor implements IAuditor {
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
-            /*TODO: check if second (and others) graph for the same formula is full (not empty)*/
-            /*if fail - possible solution is evaluator.evaluate() in for loop with evaluateCell(cell)*/
             evaluator.evaluate();
 
             graphBuilder.runPostProcessing(true);
@@ -161,15 +157,7 @@ public class SpreadsheetAuditor implements IAuditor {
             log.debug("Building Graph for DataModel: {} with Config: {} is finished.", evaluator.model, config);
         }
     }
-
-    protected IExecutionGraph buildDynamicExecutionGraphForEdgeCases(ExecutionGraph executionGraph, ICellValue evalCell, ICellAddress cell) {
-        if (evalCell == null) { return getSingleNodeGraph(cell); }
-
-        if (!evaluator.model.isFormulaCell(cell)) { return buildGraphForNonFormulaCell(executionGraph, evalCell, cell); }
-        
-        return null;
-    }
-
+    
     @Override
     public IEvaluator getEvaluator() { return evaluator; }
 }

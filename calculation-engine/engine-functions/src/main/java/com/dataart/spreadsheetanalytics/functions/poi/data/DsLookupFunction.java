@@ -40,6 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
@@ -123,11 +124,11 @@ public class DsLookupFunction implements CustomFunction {
         Map<Integer, Object> indexToValue = new HashMap<>();
 
         for (IDsCell cell : titleRow) {
-            Object value = cell.value();
+            ICellValue value = cell.value();
             
-            if (pairs.containsKey(value)) { indexToValue.put(cell.index(), pairs.get(value)); }
+            if (pairs.containsKey(value.get())) { indexToValue.put(cell.index(), pairs.get(value.get())); }
 
-            if (value.equals(columnName)) { columnIndex = cell.index(); }
+            if (columnName.equals(value.get())) { columnIndex = cell.index(); }
         }
         
         if (columnIndex < 0) {
@@ -168,14 +169,14 @@ public class DsLookupFunction implements CustomFunction {
                     allFieldsPresent--;
                     Object extValue = coerceValueTo(whereColumn.getValue());
                     /* Such a strange conversion because of Number types - everything is Double in POI */
-                    Object intValue = coerceValueTo(valueToValueEval(cell.value()));
+                    Object intValue = coerceValueTo(valueToValueEval(cell.value().get()));
 
                     if (!intValue.equals(extValue)) { allFieldsMatch = false; break; }
                 }
             }
             
             if (allFieldsPresent == 0 && allFieldsMatch) {
-                found.add(valueToValueEval(row.cells().get(columnIndex - 1).value()));
+                found.add(valueToValueEval(row.cells().get(columnIndex - 1).value().get()));
                 break; // collecting only the first matching record according to product owner requirements
             }
         }

@@ -37,7 +37,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class PoiDependencyGraphBuilder {
     
@@ -47,18 +47,18 @@ public class PoiDependencyGraphBuilder {
     protected final Workbook poiBook;
     protected final DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> state;
     
-    protected PoiDependencyGraphBuilder(DataModel model) {
+    protected PoiDependencyGraphBuilder(PoiDataModel model) {
         this.poiBook = model.poiModel;
         this.poiFormulaBook = XSSFEvaluationWorkbook.create(model.poiModel);
         this.state = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
     }
     
-    public static IExecutionGraph buildDependencyGraph(DataModel dataModel) {
+    public static IExecutionGraph buildDependencyGraph(PoiDataModel dataModel) {
         
         return null;
     }
     
-    public static IExecutionGraph buildDependencyGraph(DataModel dataModel, ICellAddress cell) {
+    public static IExecutionGraph buildDependencyGraph(PoiDataModel dataModel, ICellAddress cell) {
         if (dataModel == null || dataModel.poiModel == null) { throw new IllegalArgumentException("DataModel and PoiModel are required to build dependency graph"); }
         
         Sheet s = dataModel.poiModel.getSheetAt(0); //TODO: works for only one sheet workbooks
@@ -79,20 +79,20 @@ public class PoiDependencyGraphBuilder {
 
     protected void collect(ExecutionGraphVertex parent, String formula) {
         Ptg[] ptgs = FormulaParser.parse(formula, this.poiFormulaBook, FormulaType.CELL, 0 /*TODO: Sheet number = 0*/);
-        
+
         Deque<ExecutionGraphVertex> ptgBag = new ArrayDeque<>();
         for (Ptg ptg : ptgs) {
             String name = ptgToString(ptg);
-            
+
             ExecutionGraphVertex v = new ExecutionGraphVertex(name);
             this.state.addVertex(v);
-            
+
             if (ptg instanceof OperandPtg) { //operand (cell)
                 ptgBag.push(v);
-                
+
                 A1Address address = A1Address.fromA1Address(name);
                 Cell c = this.poiBook.getSheetAt(0).getRow(address.row()).getCell(address.column());
-                
+
                 //recursive call to formula cells
                 if (Cell.CELL_TYPE_FORMULA == c.getCellType()) { this.collect(v, c.getCellFormula()); }
 
@@ -103,7 +103,7 @@ public class PoiDependencyGraphBuilder {
                 ptgBag.push(v);
             }
         }
-        
+
         this.state.addEdge(ptgBag.poll(), parent);
     }
 }

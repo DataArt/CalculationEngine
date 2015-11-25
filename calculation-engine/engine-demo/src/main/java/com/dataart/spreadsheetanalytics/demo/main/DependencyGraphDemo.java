@@ -26,7 +26,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class DependencyGraphDemo {
     
@@ -42,7 +42,7 @@ public class DependencyGraphDemo {
         final String graphCell = args[1];
 
         //prepare DataModel to work with
-        final DataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
+        final PoiDataModel model = new PoiDataModel(Paths.get(excel).getFileName().toString(), excel);
                 
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(graphCell));
 

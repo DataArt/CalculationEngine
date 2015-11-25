@@ -15,16 +15,24 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 /**
  * Representation of typical spreadsheet.
  * Can contain formulas and values.
  * Can be evaluated using Evaluator.
  * 
- * Basic implementation: {@link DataModel}.
+ * Basic implementation: {@link PoiDataModel}.
  */
-public interface IDataModel extends IDataSet {
+public interface IDataModel extends Iterable<IDmRow> {
+
+    IDataModelId dataModelId();
+    
+    String name();
+    
+    void name(String name);
+
+    int length();
     
     /**
      * Does replacement of cell with particular address with provided value.
@@ -33,5 +41,9 @@ public interface IDataModel extends IDataSet {
      * @param value New value to replace the old one 
      */
     void replaceCellValue(ICellAddress address, ICellValue value);
+    
+    void setRow(int row, IDmRow r);
+
+    IDmRow getRow(int row);
 
 }

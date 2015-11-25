@@ -15,8 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
-import org.apache.poi.ss.formula.eval.RefEval;
-
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 
 /**
@@ -24,22 +22,27 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
  * It is a simple wrapper for {@link Object} (represents the value).
  */
 public class CellValue implements ICellValue {
+    
+    public static final ICellValue BLANK = new CellValue(null, Object.class);  
 
     protected final Object value;
+    protected final Class<? extends Object> type;
 
-    public CellValue(Object value) { 
-        if (value instanceof RefEval) {
-            throw new IllegalArgumentException("Value of CellValue must not be a POI object.");
-        }
-        this.value = value; 
+    protected CellValue(Object value, Class<? extends Object> type) {
+        this.value = value;
+        this.type = type;
     }
+    
+    public CellValue(Double value) { this(value, Double.class); }
+    public CellValue(Boolean value) { this(value, Boolean.class); }
+    public CellValue(String value) { this(value, String.class); }
 
-    @Override
-    public Object get() { return value; }
+    @Override public Object get() { return value; }
+    @Override public Class<? extends Object> type() { return this.type; }
 
     @Override
     public String toString() {
-        return value == null ? "null" : value.toString();
+        return value == null ? "null" : value.toString() + ":" + type.getSimpleName();
     }
 
 }

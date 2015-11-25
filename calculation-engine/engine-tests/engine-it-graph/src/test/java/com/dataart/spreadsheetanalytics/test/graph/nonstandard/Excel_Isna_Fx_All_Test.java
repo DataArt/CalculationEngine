@@ -18,26 +18,18 @@ package com.dataart.spreadsheetanalytics.test.graph.nonstandard;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
-
-import junit.framework.Assert;
 
 public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     
@@ -55,9 +47,9 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     
     @Before
     public void beforeTest() throws Exception {
-        final IDataModel model = new DataModel(path, path);
-        GraphTestUtil.initExternalServices((DataModel) model);
-        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
+        final IDataModel model = new PoiDataModel(path, path);
+        GraphTestUtil.initExternalServices((PoiDataModel) model);
+        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));        
     }
 
     @After

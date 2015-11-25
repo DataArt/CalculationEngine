@@ -55,7 +55,7 @@ public interface IExecutionGraphVertex extends Comparable<IExecutionGraphVertex>
      * Container for vertex value. Value can be in different types,
      * but it is always some end-value which can be treated as result.
      */
-    ICellValue value();
+    Object value();
 
     /**
      * Type of vertex, see {@link Type} for details

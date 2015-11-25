@@ -19,6 +19,6 @@ public interface IDsCell {
     
     int index();
     
-    Object value();
+    ICellValue value();
 
 }

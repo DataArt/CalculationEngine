@@ -16,71 +16,82 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.model;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.formula.EvaluationWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IDsRow;
+import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
+import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
-public class DataModel extends DataSet implements IDataModel {
+public class DataModel implements IDataModel {
 
-    public final XSSFWorkbook poiModel;
+    protected IDataModelId dataModelId;
+    protected String name;
 
-    public DataModel(String name, String path) throws IOException {
-        super(name);
-        this.poiModel = new XSSFWorkbook(path);
-        this.dataModelId = new DataModelId(this.poiModel.toString());
+    /** Workbook (table) representation: Row index, Column index, Data {@link IDmCell} */
+    protected final Map<Integer, IDmRow> table;
+    
+    /** Lock on all write operations */
+    protected final Lock writeLock = new ReentrantLock(true); 
+
+    public DataModel(String name) throws IOException {
+        this(name, new HashMap<>());
+    }
+    
+    public DataModel(String name, Map<Integer, IDmRow> tableImpl) throws IOException {
+        this.name = name;
+        this.dataModelId = new DataModelId(UUID.randomUUID().toString());
+        this.table = tableImpl;
     }
 
-    public DataModel(String name, InputStream in) throws IOException {
-        super(name);
-        this.poiModel = new XSSFWorkbook(in);
-        this.dataModelId = new DataModelId(this.poiModel.toString());
-    }
+    @Override public IDataModelId dataModelId() { return this.dataModelId; }
+    @Override public String name() { return this.name; }
+    @Override public void name(String name) { this.name = name; }
+    @Override public int length() { return this.table.size(); }
 
+    @Override public IDmRow getRow(int row) { return this.table.get(Integer.valueOf(row)); }
+    @Override public Iterator<IDmRow> iterator() { return this.table.values().iterator(); }
+    
     @Override
     public void replaceCellValue(ICellAddress address, ICellValue value) {
-        Sheet s = poiModel.getSheetAt(0/*TODO: add sheet information here*/);
-        Row r = s.getRow(address.row());
-        if (r == null) { r = s.createRow(address.row()); }
-        Cell c = r.getCell(address.column());
-        if (c == null) { c = r.createCell(address.column()); }
+        if (address == null ) { throw new IllegalArgumentException("ICellAddress cannot be null."); }
 
-        if (value.get() instanceof Number) {
-            c.setCellValue((double) value.get());
-        } else if (value.get() instanceof Boolean) {
-            c.setCellValue((boolean) value.get());
-        } else if (value.get() instanceof String) {
-            c.setCellValue((String) value.get());
+        try {
+            writeLock.lock();
+            IDmRow row = this.table.get(Integer.valueOf(address.row()));
+            if (row == null) { throw new IllegalArgumentException(String.format("Row %s does not exist. Please create a row first.", address.row())); }
+            
+            IDmCell cell = row.getCell(Integer.valueOf(address.column()));
+            if (cell == null) { throw new IllegalArgumentException(String.format("Cell %s does not exist. Please create a cell first.", address.column())); }
+            
+            ((DmCell) cell).content(value);
         }
+        finally { writeLock.unlock(); }
     }
-    
-    @Override
-    public Iterator<IDsRow> iterator() {
-        // TODO convert POI row to IDsRow
-        return null;
-    }
-    
-    public boolean isFormulaCell(ICellAddress addr) {
-        Sheet s = poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
-        Row r = s.getRow(addr.row());
-        if (r == null) { return false; }
-        Cell c = r.getCell(addr.column());
-        if (c == null) { return false; }
 
-        return Cell.CELL_TYPE_FORMULA == c.getCellType();
-    }
-    
     @Override
-    public String toString() {
-        return name();
+    public void setRow(int row, IDmRow r) {
+        try {
+            writeLock.lock();
+            this.table.put(Integer.valueOf(row), r);
+        }
+        finally { writeLock.unlock(); }
     }
-        
+
+    public EvaluationWorkbook toWorkbook() {
+        return new WorkbookDataModel(this);
+    }
+
+    @Override
+    public String toString() { return name(); }
+
 }

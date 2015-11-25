@@ -24,7 +24,6 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
-import com.dataart.spreadsheetanalytics.model.CellValue;
 
 /**
  * Class represent ony property of {@link IExecutionGraphVertex}.
@@ -100,7 +99,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 break;
             }
             case VALUE: {
-                parent.value = new CellValue(ExecutionGraphBuilderUtils.coerceValueTo(pvalue));
+                parent.value = ExecutionGraphBuilderUtils.coerceValueTo(pvalue);
                 break;
             }
             case VERTEX_ID: {

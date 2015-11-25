@@ -22,9 +22,21 @@ import org.junit.Test;
 public class CellValueTest {
 
     @Test
-    public void get_AnyObject_TheSameIsReturned() {
+    public void get_Double_TheSameIsReturned() {
         //given
-        Object expected = new Object();
+        Double expected = new Double(1.0);
+
+        //when
+        CellValue cv = new CellValue(expected);
+
+        //then
+        assertThat(cv.get()).isEqualTo(expected);
+    }
+    
+    @Test
+    public void get_Boolean_TheSameIsReturned() {
+        //given
+        Boolean expected = Boolean.FALSE;
 
         //when
         CellValue cv = new CellValue(expected);
@@ -34,7 +46,7 @@ public class CellValueTest {
     }
 
     @Test
-    public void get_AnyString_StringIsReturned() {
+    public void get_String_TheSameIsReturned() {
         //given
         String expected = "expected";
 
@@ -49,7 +61,7 @@ public class CellValueTest {
     public void get_Null_NullIsReturned() {
 
         //when
-        CellValue cv = new CellValue(null);
+        CellValue cv = new CellValue((String) null);
 
         //then
         assertThat(cv.get()).isEqualTo(null);

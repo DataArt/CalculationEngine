@@ -18,7 +18,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class FUNCEXEC_vs_PLAIN_1000times_Test extends ZParentTest {
 
@@ -29,14 +29,14 @@ public class FUNCEXEC_vs_PLAIN_1000times_Test extends ZParentTest {
 
         Map<ICellAddress, Double> expectedValues;
 
-        DataModel dataModel;
+        PoiDataModel dataModel;
         IEvaluator evaluator;
         Map<Integer, ICellAddress> addressMapA;
         Map<Integer, ICellAddress> addressMapB;
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            this.dataModel = new DataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
             external.getDataModelStorage().addDataModel(this.dataModel);

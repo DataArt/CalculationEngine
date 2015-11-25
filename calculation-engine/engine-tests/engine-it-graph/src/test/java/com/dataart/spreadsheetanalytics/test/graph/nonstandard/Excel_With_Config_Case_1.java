@@ -11,7 +11,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
@@ -30,9 +30,9 @@ public class Excel_With_Config_Case_1 extends SerializedGraphTest {
 
     @Before
     public void beforeTest() throws Exception {
-        final IDataModel model = new DataModel(path, path);
-        GraphTestUtil.initExternalServices((DataModel) model);
-        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
+        final IDataModel model = new PoiDataModel(path, path);
+        GraphTestUtil.initExternalServices((PoiDataModel) model);
+        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));        
     }
 
     @After

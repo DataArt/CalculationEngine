@@ -49,10 +49,10 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
+import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Monthly_Data_Query_Test {
 
@@ -65,11 +65,11 @@ public class Monthly_Data_Query_Test {
     static int expectedRowEnd = 16;
     
     static SpreadsheetEvaluator evaluator;
-    static DataModel dataModel;
+    static PoiDataModel dataModel;
     
     @BeforeClass
     public static void before() throws Exception {
-        dataModel = new DataModel("Monthly_Data_Query_Test", pathDataModel);
+        dataModel = new PoiDataModel("Monthly_Data_Query_Test", pathDataModel);
         
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
@@ -100,7 +100,7 @@ public class Monthly_Data_Query_Test {
         external.setAttributeFunctionStorage(attributeFunctionStorage);
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
-        final IDataSet dataSet = PoiFileConverter.toDataSet(new DataModel("Monthly_Data_Query", pathDataSet).poiModel);
+        final IDataSet dataSet = ExcelFileConverters.toDataSet(new PoiDataModel("Monthly_Data_Query", pathDataSet).poiModel);
         dataSetStorage.saveDataSet(dataSet);
 
         expectedValues = new HashMap<>();

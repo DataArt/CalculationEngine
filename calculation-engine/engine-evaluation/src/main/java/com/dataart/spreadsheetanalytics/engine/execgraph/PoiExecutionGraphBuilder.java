@@ -72,12 +72,12 @@ import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
+import org.apache.poi.ss.usermodel.Cell;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
@@ -434,16 +434,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
-        Object cellValue = ((CellValue) rangeVertex.value()).get();
-        if (cellValue instanceof Area2DValues) {
+        Object cellValue = rangeVertex.value();
+        if (!(cellValue instanceof Area2DValues)) { return; }
+        
+        for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
+            if (addressToVertices.get(adress) == null) { continue; }
             
-            for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
-                if (addressToVertices.get(adress) == null) { continue; }
-                
-                for (IExecutionGraphVertex cellVertex : addressToVertices.get(adress)) {
-                    connect(cellVertex, rangeVertex);
-                }
-            }
+            addressToVertices.get(adress).forEach(cellVertex -> connect(cellVertex, rangeVertex));
         }
     }
 
@@ -512,10 +509,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return inline;
     }
 
-    protected static boolean isErrorValue(ICellValue val) {
-        if (val == null) { return false; }
-        if (val.get() instanceof ErrorEval) { return true; }
-        else { return false; }
+    protected static boolean isErrorValue(Object val) {
+        return val instanceof ErrorEval;
     }
 
     protected static boolean inheritsErrorValue(IExecutionGraphVertex ivertex) {
@@ -670,7 +665,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
     }
     
-    public static ExecutionGraph buildSingleNodeGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
+    public static ExecutionGraph buildSingleVertexGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
         vertex.property(TYPE).set(CELL_WITH_FORMULA);
@@ -689,32 +684,43 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return ExecutionGraph.wrap(emptyGraph);
     }
     
-    public static IExecutionGraph buildGraphForNonFormulaCell(ExecutionGraph executionGraph, ICellValue cell, ICellAddress address) {
+    public static ExecutionGraph buildSingleVertexGraphForCellWithValue(ICellValue cell, ICellAddress address) {
         
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex("VALUE");
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
         vertex.property(VALUE).set(cell.get());
         vertex.property(TYPE).set(CELL_WITH_VALUE);
         vertex.property(FORMULA_STRING).set(address.a1Address().address());
-        vertex.property(FORMULA_VALUES).set(cell.toString());
+        vertex.property(FORMULA_VALUES).set(cell.get().toString());
         vertex.property(FORMULA_PTG_STRING).set("");
         vertex.property(PTG_STRING).set("");
         vertex.property(SOURCE_OBJECT_ID).set(address.dataModelId());
 
-        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = ExecutionGraph.unwrap(executionGraph);
-        dgraph.addVertex(vertex);
-        return ExecutionGraph.wrap(dgraph);
-    }
-    
-    public static ExecutionGraph getSingleNodeGraph(ICellAddress address) {
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-        vertex.property(TYPE).set(EMPTY_CELL);
         emptyGraph.addVertex(vertex);
-
         return ExecutionGraph.wrap(emptyGraph);
     }
+    
+    public static ExecutionGraph buildSingleVertexGraphForEmptyCell(ICellAddress address) {
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.property(TYPE).set(EMPTY_CELL);
 
-    public void setExecutionGraphConfig(ExecutionGraphConfig config) {
-        this.config = config;
+        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        emptyGraph.addVertex(vertex);
+        return ExecutionGraph.wrap(emptyGraph);
     }
+    
+    public static ICellValue resolveCellValue(org.apache.poi.ss.usermodel.CellValue poiValue) {
+        if (poiValue == null) { return CellValue.BLANK; }
+        
+        switch (poiValue.getCellType()) {
+            case Cell.CELL_TYPE_STRING: { return new CellValue(poiValue.getStringValue()); }
+            case Cell.CELL_TYPE_NUMERIC: { return new CellValue(Double.valueOf(poiValue.getNumberValue())); }
+            case Cell.CELL_TYPE_BOOLEAN: { return new CellValue(Boolean.valueOf(poiValue.getBooleanValue())); }
+            case Cell.CELL_TYPE_ERROR: { return new CellValue(ErrorEval.valueOf(poiValue.getErrorValue()).getErrorString()); }
+            case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
+            case Cell.CELL_TYPE_BLANK: default: { return CellValue.BLANK; }
+        }
+    }
+
+    public void setExecutionGraphConfig(ExecutionGraphConfig config) { this.config = config; }
 }

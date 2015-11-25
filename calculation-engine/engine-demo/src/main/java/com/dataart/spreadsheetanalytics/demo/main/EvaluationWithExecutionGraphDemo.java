@@ -32,7 +32,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class EvaluationWithExecutionGraphDemo {
     
@@ -49,7 +49,7 @@ public class EvaluationWithExecutionGraphDemo {
         cellsToEvaluate.remove(0);
 
         //prepare DataModel to work with
-        final DataModel model = new DataModel(Paths.get(excel).getFileName().toString(), excel);
+        final PoiDataModel model = new PoiDataModel(Paths.get(excel).getFileName().toString(), excel);
         
         DemoUtil.initCaches(model);
         

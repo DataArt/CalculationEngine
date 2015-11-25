@@ -53,7 +53,7 @@ import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLooku
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Funcexec_Test {
 
@@ -65,11 +65,11 @@ public class Funcexec_Test {
     static int expectedRowEnd = 29;
 
     static IEvaluator evaluator;
-    static DataModel dataModel;
+    static PoiDataModel dataModel;
 
     @BeforeClass
     public static void before() throws Exception {
-        dataModel = new DataModel("Funcexec_Test", pathDataModel);
+        dataModel = new PoiDataModel("Funcexec_Test", pathDataModel);
 
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 

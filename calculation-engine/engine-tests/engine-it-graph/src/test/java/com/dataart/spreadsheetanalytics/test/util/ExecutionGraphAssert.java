@@ -36,10 +36,11 @@ public class ExecutionGraphAssert extends AbstractAssert {
         StrictAssertions.assertThat(_actual.getVertices().size()).overridingErrorMessage("Number of Vertices expected: <[%s]>, but was in actual: <[%s]>", _expected.getVerticesML().size(), _actual.getVertices().size())
                                                                  .isEqualTo(_expected.getVerticesML().size());
         
-        for (IExecutionGraphVertex av : _actual.getVertices()) {
-            String name = (av.name() == null)?av.name():av.name();            
-            List<ExecutionGraphVertexML> ev_set = _expected.verticesIndexName.get(name);
-            StrictAssertions.assertThat(ev_set.size()).overridingErrorMessage("Vertex is present in actual graph, but not present in expected: <[%s:%s:%s]>", name, av.type(), av.value())
+        for (IExecutionGraphVertex av : _actual.getVertices()) {            
+            List<ExecutionGraphVertexML> ev_set = _expected.verticesIndexName.get(av.name());
+            StrictAssertions.assertThat(ev_set).overridingErrorMessage("Vertex is present in actual graph, but not present in expected: <[%s:%s:%s]>", av.name(), av.type(), av.value())
+                                               .isNotNull();
+            StrictAssertions.assertThat(ev_set.size()).overridingErrorMessage("Vertex is present in actual graph, but not present in expected: <[%s:%s:%s]>", av.name(), av.type(), av.value())
                                                       .isNotEqualTo(0);
 
             boolean ok = false;
@@ -50,7 +51,7 @@ public class ExecutionGraphAssert extends AbstractAssert {
                 } catch (Exception | ComparisonFailure e) { }
             }
             
-            StrictAssertions.assertThat(ok).overridingErrorMessage("Vertex is present in actual graph, but not present in expected:%n<[%s;%s;%s;%s]>", name, av.type(), av.value(), av.formula())
+            StrictAssertions.assertThat(ok).overridingErrorMessage("Vertex is present in actual graph, but not present in expected:%n<[%s;%s;%s;%s]>", av.name(), av.type(), av.value(), av.formula())
                                            .isTrue();
         }
 
