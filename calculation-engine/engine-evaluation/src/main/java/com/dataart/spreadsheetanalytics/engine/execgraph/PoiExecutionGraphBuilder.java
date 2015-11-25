@@ -97,6 +97,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
+    protected Map<String, String> refsToNames = new HashMap<>();
 
     static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
     
@@ -302,6 +303,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (config.getDuplicatesNumberThreshold() != -1) {
             removeAllDuplicates();
         }
+        addNamesToAliases();
     }
 
     protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> graph) {
@@ -664,7 +666,20 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static boolean isCompareOperand(String name) {
         return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
     }
-    
+
+    protected void addNamesToAliases() {
+        for (Entry<String, String> entry : refsToNames.entrySet()) {
+            String[] tokens = entry.getValue().split("!");
+            String addr = tokens[tokens.length - 1].replace("$", "");
+            if (getVerticesFromCache(addr) != null) {
+                for (IExecutionGraphVertex ivrt : getVerticesFromCache(addr)) {
+                    ExecutionGraphVertex vrt = (ExecutionGraphVertex) ivrt;
+                    vrt.alias = entry.getKey();
+                }
+            }
+        }
+    }
+
     public static ExecutionGraph buildSingleVertexGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
@@ -720,6 +735,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
             case Cell.CELL_TYPE_BLANK: default: { return CellValue.BLANK; }
         }
+    }
+
+    public void setRefsToNames(Map<String, String> refsToNames) {
+        this.refsToNames = refsToNames;
     }
 
     public void setExecutionGraphConfig(ExecutionGraphConfig config) { this.config = config; }

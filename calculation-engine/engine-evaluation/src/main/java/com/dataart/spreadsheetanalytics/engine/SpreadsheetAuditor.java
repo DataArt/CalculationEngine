@@ -21,11 +21,15 @@ import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGrap
 import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.VALUE_INVALID;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
 import org.apache.poi.ss.formula.FormulaParseException;
+import org.apache.poi.ss.usermodel.Name;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,6 +104,7 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
+            graphBuilder.setRefsToNames(getWorkbookNames(evaluator.model.poiModel));
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
@@ -144,6 +149,7 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
+            graphBuilder.setRefsToNames(getWorkbookNames(evaluator.model.poiModel));
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
@@ -160,4 +166,13 @@ public class SpreadsheetAuditor implements IAuditor {
     
     @Override
     public IEvaluator getEvaluator() { return evaluator; }
+
+    protected Map<String, String> getWorkbookNames(Workbook workbook) {
+        Map<String, String> result = new HashMap<>(workbook.getNumberOfNames());
+        for (int i = 0 ; i < workbook.getNumberOfNames() ; i++) {
+            Name name = workbook.getNameAt(i);
+            result.put(name.getRefersToFormula(), name.getNameName());
+        }
+        return result;
+    }
 }
