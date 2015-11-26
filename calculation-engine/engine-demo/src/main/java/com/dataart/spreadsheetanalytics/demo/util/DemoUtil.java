@@ -43,12 +43,14 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
+import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
-import com.dataart.spreadsheetanalytics.engine.util.PoiFileConverter;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class DemoUtil {
     
@@ -174,7 +176,7 @@ public class DemoUtil {
         
         //if this model is a dataset also - put it to cache
         try {
-            final IDataSet dataSet = PoiFileConverter.toDataSet(model.poiModel);
+            final IDataSet dataSet = ExcelFileConverters.toDataSet(model.poiModel);
             dataSetStorage.saveDataSet(dataSet);                       
         } catch (Exception e) {
             System.out.println("This workbook is not a dataset itself.");
@@ -285,12 +287,19 @@ public class DemoUtil {
             
             DsRow row = ds.createRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
-                row.createCell().value(rsmd.getColumnLabel(i));
+                row.createCell().value(new CellValue(rsmd.getColumnLabel(i)));
             
             while (rs.next()) {
                 row = ds.createRow();
-                for (int i = 1; i <= rsmd.getColumnCount(); i++)
-                    row.createCell().value(rs.getObject(i));
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    Object o = rs.getObject(i);
+                    DsCell cell = row.createCell();
+                    
+                    if (o == null) { cell.value(CellValue.BLANK); }
+                    else if (o instanceof String) { cell.value(new CellValue((String) o)); }
+                    else if (o instanceof Double) { cell.value(new CellValue((Double) o)); }
+                    else if (o instanceof Boolean) { cell.value(new CellValue((Boolean) o)); }
+                }
             }
             
             return ds;
