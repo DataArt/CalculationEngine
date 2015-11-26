@@ -171,7 +171,7 @@ public class SpreadsheetAuditor implements IAuditor {
         Map<String, String> result = new HashMap<>(workbook.getNumberOfNames());
         for (int i = 0 ; i < workbook.getNumberOfNames() ; i++) {
             Name name = workbook.getNameAt(i);
-            result.put(name.getRefersToFormula(), name.getNameName());
+            result.put(name.getNameName(), name.getRefersToFormula());
         }
         return result;
     }
