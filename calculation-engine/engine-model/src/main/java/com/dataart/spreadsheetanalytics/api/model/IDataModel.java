@@ -15,35 +15,51 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 
 /**
  * Representation of typical spreadsheet.
  * Can contain formulas and values.
  * Can be evaluated using Evaluator.
  * 
- * Basic implementation: {@link PoiDataModel}.
+ * Basic implementation: {@link DataModel}.
  */
 public interface IDataModel extends Iterable<IDmRow> {
 
+    /** The Id of this model. Should be unique in DataModel storage. */
     IDataModelId dataModelId();
     
+    /** Name of this model. Not required to be unique, but highly recommended. */
     String name();
     
+    /** Name of this DataModel can always be changed. */
     void name(String name);
 
+    /** Number of rows in this DataModel. */
     int length();
     
-    /**
-     * Does replacement of cell with particular address with provided value.
-     * 
-     * @param address Address to replace value at
-     * @param value New value to replace the old one 
-     */
-    void replaceCellValue(ICellAddress address, ICellValue value);
-    
-    void setRow(int row, IDmRow r);
+    /** Returns the Row at given position. Null if does not exist. */
+    IDmRow getRow(int rowIdx);
 
-    IDmRow getRow(int row);
+    /** Returns the Row at given position (row argument of Address). Null if does not exist. */
+    IDmRow getRow(ICellAddress address);
+
+    /** Sets a Rows at given address. Replaces old if exists. Null rows are accepted. */
+    void setRow(int rowIdx, IDmRow row);
+        
+    /** Sets a Rows at given address (row argument of address). Replaces old if exists. Null rows are accepted. */
+    void setRow(ICellAddress address, IDmRow row);
+    
+    /** Returns the Cell at given position. Null if does not exist. */
+    IDmCell getCell(int rowIdx, int cellIdx);
+
+    /** Returns the Cell at given position. Null if does not exist. */
+    IDmCell getCell(ICellAddress address);
+
+    /** Sets the Cell at given position. Creates a new Row if Row does not exist. */
+    void setCell(int rowIdx, int cellIdx, IDmCell cell);
+    
+    /** Sets the Cell at given position. Creates a new Row if Row does not exist. */
+    void setCell(ICellAddress address, IDmCell cell);
 
 }

@@ -40,6 +40,15 @@ public class CellValue implements ICellValue {
     @Override public Object get() { return value; }
     @Override public Class<? extends Object> type() { return this.type; }
 
+    public static ICellValue from(Object o) {
+        if (o == null) { return BLANK; }
+        else if (o instanceof String) { return new CellValue(o, String.class); }
+        else if (o instanceof Double) { return new CellValue(o, Double.class); }
+        else if (o instanceof Boolean) { return new CellValue(o, Boolean.class); }
+
+        throw new IllegalArgumentException(String.format("The object %s of class %s is not supported as type for CellValue", o, o.getClass().getSimpleName()));
+    }
+
     @Override
     public String toString() {
         return value == null ? "null" : value.toString() + ":" + type.getSimpleName();

@@ -101,6 +101,7 @@ public class SpreadsheetAuditor implements IAuditor {
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
             graphBuilder.setExecutionGraphConfig(config);
+            
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
             try {
@@ -160,4 +161,5 @@ public class SpreadsheetAuditor implements IAuditor {
     
     @Override
     public IEvaluator getEvaluator() { return evaluator; }
+
 }

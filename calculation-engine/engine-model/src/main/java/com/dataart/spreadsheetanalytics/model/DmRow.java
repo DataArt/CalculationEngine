@@ -18,9 +18,11 @@ package com.dataart.spreadsheetanalytics.model;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
@@ -29,25 +31,42 @@ public class DmRow implements IDmRow {
     /** Row implementation: cell number to {@link IDmCell} */
     protected final Map<Integer, IDmCell> table;
     
-    protected final Lock writeLock = new ReentrantLock(true);
+    protected final Optional<Lock> writeLock;
     
     public DmRow() {
-        this(new HashMap<>());
+        this(new HashMap<>(), true);
     }
     
-    public DmRow(Map<Integer, IDmCell> tableImpl) {
+    public DmRow(Map<Integer, IDmCell> tableImpl, boolean doWriteLock) {
         this.table = tableImpl;
+        this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
 
     @Override public int width() { return this.table.size(); }
     @Override public Iterator<IDmCell> iterator() { return this.table.values().iterator(); }
-    @Override public IDmCell getCell(int column) { return this.table.get(Integer.valueOf(column)); }
+    
+    @Override
+    public IDmCell getCell(int column) {
+        return this.table.get(Integer.valueOf(column));
+    }
 
+    @Override
+    public IDmCell getCell(ICellAddress address) {
+        return address == null ? null : this.getCell(address.column());
+    }
+    
     @Override
     public void setCell(int column, IDmCell cell) {
         try {
-            writeLock.lock();
+            if (writeLock.isPresent()) { writeLock.get().lock(); }
             this.table.put(Integer.valueOf(column), cell);
-        } finally { writeLock.unlock(); }
+        }
+        finally { if (writeLock.isPresent()) { writeLock.get().unlock(); } }
     }
+    
+    @Override
+    public void setCell(ICellAddress address, IDmCell cell) {
+        if (address != null) { this.setCell(address.column(), cell); }        
+    }
+
 }

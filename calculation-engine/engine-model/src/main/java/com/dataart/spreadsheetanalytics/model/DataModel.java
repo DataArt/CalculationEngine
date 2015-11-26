@@ -15,10 +15,10 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -26,7 +26,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.poi.ss.formula.EvaluationWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
@@ -40,17 +39,20 @@ public class DataModel implements IDataModel {
     /** Workbook (table) representation: Row index, Column index, Data {@link IDmCell} */
     protected final Map<Integer, IDmRow> table;
     
-    /** Lock on all write operations */
-    protected final Lock writeLock = new ReentrantLock(true); 
+    /** Lock on all row write operations */
+    protected final Optional<Lock> writeLock;
+    protected final Optional<Lock> cellWriteLock;
 
-    public DataModel(String name) throws IOException {
-        this(name, new HashMap<>());
+    public DataModel(String name) {
+        this(name, new HashMap<>(), true);
     }
     
-    public DataModel(String name, Map<Integer, IDmRow> tableImpl) throws IOException {
-        this.name = name;
+    public DataModel(String name, Map<Integer, IDmRow> tableImpl, boolean doWriteLock) {
         this.dataModelId = new DataModelId(UUID.randomUUID().toString());
+        this.name = name;
         this.table = tableImpl;
+        this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
+        this.cellWriteLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
 
     @Override public IDataModelId dataModelId() { return this.dataModelId; }
@@ -58,33 +60,66 @@ public class DataModel implements IDataModel {
     @Override public void name(String name) { this.name = name; }
     @Override public int length() { return this.table.size(); }
 
-    @Override public IDmRow getRow(int row) { return this.table.get(Integer.valueOf(row)); }
     @Override public Iterator<IDmRow> iterator() { return this.table.values().iterator(); }
-    
-    @Override
-    public void replaceCellValue(ICellAddress address, ICellValue value) {
-        if (address == null ) { throw new IllegalArgumentException("ICellAddress cannot be null."); }
 
-        try {
-            writeLock.lock();
-            IDmRow row = this.table.get(Integer.valueOf(address.row()));
-            if (row == null) { throw new IllegalArgumentException(String.format("Row %s does not exist. Please create a row first.", address.row())); }
-            
-            IDmCell cell = row.getCell(Integer.valueOf(address.column()));
-            if (cell == null) { throw new IllegalArgumentException(String.format("Cell %s does not exist. Please create a cell first.", address.column())); }
-            
-            ((DmCell) cell).content(value);
-        }
-        finally { writeLock.unlock(); }
+    @Override
+    public IDmRow getRow(int rowIdx) {
+        return this.table.get(Integer.valueOf(rowIdx));
     }
 
     @Override
-    public void setRow(int row, IDmRow r) {
+    public IDmRow getRow(ICellAddress address) {
+        return address == null ? null : this.getRow(address.row());
+    }
+
+    @Override
+    public void setRow(int rowIdx, IDmRow row) {
+        if (rowIdx < 0) { return; }
+        
         try {
-            writeLock.lock();
-            this.table.put(Integer.valueOf(row), r);
+            if (writeLock.isPresent()) { writeLock.get().lock(); }
+            this.table.put(Integer.valueOf(rowIdx), row);
         }
-        finally { writeLock.unlock(); }
+        finally { if (writeLock.isPresent()) { writeLock.get().unlock(); } }
+    }
+    
+    @Override
+    public void setRow(ICellAddress address, IDmRow row) {
+        if (address != null ) { this.setRow(address.row(), row); }
+    }
+
+    @Override
+    public IDmCell getCell(int rowIdx, int cellIdx) {
+        IDmRow r = this.getRow(rowIdx);
+        return r == null ? null : r.getCell(cellIdx);
+    }
+    
+    @Override
+    public IDmCell getCell(ICellAddress address) {
+        return address == null ? null : this.getCell(address.row(), address.column());
+    }
+
+    @Override
+    public void setCell(int rowIdx, int cellIdx, IDmCell cell) {
+        if (rowIdx < 0 || cellIdx < 0) { return; }
+        
+        try {
+            if (cellWriteLock.isPresent()) { cellWriteLock.get().lock(); }
+            
+            IDmRow r = this.getRow(rowIdx);
+            if (r == null) { 
+                r = new DmRow(); 
+                this.setRow(rowIdx, r); 
+            }
+            
+            r.setCell(cellIdx, cell);
+        }
+        finally { if (cellWriteLock.isPresent()) { cellWriteLock.get().unlock(); } }
+    }
+    
+    @Override
+    public void setCell(ICellAddress address, IDmCell cell) {
+        if (address != null ) { this.setCell(address.row(), address.column(), cell); }
     }
 
     public EvaluationWorkbook toWorkbook() {

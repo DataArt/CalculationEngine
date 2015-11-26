@@ -17,10 +17,19 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 public interface IDmRow extends Iterable<IDmCell> {
 
-    void setCell(int column, IDmCell cell);
+    /** Returns a cell at given column. */
+    IDmCell getCell(int cellIdx);
 
-    IDmCell getCell(int column);
+    /** Returns a cell at given address.column. */
+    IDmCell getCell(ICellAddress address);
 
+    /** Sets the cell at given column. */
+    void setCell(int cellIdx, IDmCell cell);
+
+    /** Sets the cell at given address.column. */
+    void setCell(ICellAddress address, IDmCell cell);
+
+    /** Number of cells is a row. */
     int width();
 
 }

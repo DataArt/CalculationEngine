@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import static java.util.Arrays.copyOf;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
@@ -27,9 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
 
-import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaError;
@@ -93,18 +92,17 @@ public final class ExcelFileConverters {
     /* TODO: throw exception of formula is found or add flag 'ignore formulas' */
     public static IDataSet toDataSet(final Workbook workbook) throws IOException {
         Sheet sheet = workbook.getSheetAt(0); //TODO: this works only for single sheet documents
-        
-        DataSet result = new DataSet(sheet.getSheetName());
+        DataSet dataSet = new DataSet(sheet.getSheetName());
         
         for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
-            DsRow dsRow = result.createRow(); 
+            DsRow dsRow = dataSet.createRow(); 
             Row row = sheet.getRow(i);
             for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
                 DsCell cell = dsRow.createCell();
                 cell.value(resolveCellValue(row.getCell(j)));
             }
         }
-        return result;
+        return dataSet;
     }
 
     public static OutputStream toXlsxFile(final IDataModel dataModel) throws IOException {
@@ -176,7 +174,7 @@ public final class ExcelFileConverters {
     public static Workbook clearContent(final Workbook book) throws IOException {
         ByteArrayOutputStream originalOut = new ByteArrayOutputStream();
         book.write(originalOut);
-        InputStream originalIn = new ByteArrayInputStream(Arrays.copyOf(originalOut.toByteArray(), originalOut.size()));
+        InputStream originalIn = new ByteArrayInputStream(copyOf(originalOut.toByteArray(), originalOut.size()));
 
         Workbook w = new XSSFWorkbook(originalIn);
         Sheet s = w.getSheetAt(0); //TODO: only one sheet is supported
@@ -196,23 +194,23 @@ public final class ExcelFileConverters {
         return w;
     }
 
-    public static void populateCellValue(final Cell cell, final Object value) {
-        if (value instanceof String) { cell.setCellValue((String) value); }
-        else if (value instanceof Boolean) { cell.setCellValue(((Boolean) value).booleanValue()); }
-        else if (value instanceof Double) { cell.setCellValue(((Double) value).doubleValue()); } 
-        else if (value instanceof ErrorEval) { cell.setCellValue(((ErrorEval) value).getErrorString()); }
+    public static void populateCellValue(final Cell cell, final ICellValue value) {
+        if (String.class == value.type()) { cell.setCellValue((String) value.get()); }
+        else if (Boolean.class == value.type()) { cell.setCellValue(((Boolean) value.get())); }
+        else if (Double.class == value.type()) { cell.setCellValue(((Double) value.get())); } 
+        else { throw new IllegalArgumentException(String.format("Type of value %s is not supported: %s", value, value.getClass().getSimpleName())); }
     }
 
     public static ICellValue resolveCellValue(Cell c) {
         if (c == null) { return CellValue.BLANK; }
         
         switch (c.getCellType()) {
-            case CELL_TYPE_NUMERIC: { return new CellValue(c.getNumericCellValue()); }
-            case CELL_TYPE_STRING: { return new CellValue(c.getStringCellValue()); }
-            case CELL_TYPE_BOOLEAN: { return new CellValue(c.getBooleanCellValue()); }
-            case CELL_TYPE_ERROR: { return new CellValue(FormulaError.forInt(c.getErrorCellValue()).getString()); }
+            case CELL_TYPE_NUMERIC: { return CellValue.from(c.getNumericCellValue()); }
+            case CELL_TYPE_STRING: { return CellValue.from(c.getStringCellValue()); }
+            case CELL_TYPE_BOOLEAN: { return CellValue.from(c.getBooleanCellValue()); }
+            case CELL_TYPE_ERROR: { return CellValue.from(FormulaError.forInt(c.getErrorCellValue()).getString()); }
             case CELL_TYPE_BLANK: { return CellValue.BLANK; }
-            case CELL_TYPE_FORMULA: { return new CellValue(String.format("%s%s", FORMULA_PREFIX, c.getCellFormula())); }
+            case CELL_TYPE_FORMULA: { return CellValue.from(String.format("%s%s", FORMULA_PREFIX, c.getCellFormula())); }
             default: { throw new IllegalArgumentException(String.format("Type %s is not supported.", c.getCellType())); }
         }
     }

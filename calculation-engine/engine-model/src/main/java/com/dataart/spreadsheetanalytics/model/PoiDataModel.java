@@ -25,9 +25,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
 public class PoiDataModel implements IDataModel {
@@ -48,23 +48,23 @@ public class PoiDataModel implements IDataModel {
         this.poiModel = new XSSFWorkbook(in);
         this.dataModelId = new DataModelId(this.poiModel.toString());
     }
-
-    @Override
-    public void replaceCellValue(ICellAddress address, ICellValue value) {
-        Sheet s = poiModel.getSheetAt(0/*TODO: add sheet information here*/);
-        Row r = s.getRow(address.row());
-        if (r == null) { r = s.createRow(address.row()); }
-        Cell c = r.getCell(address.column());
-        if (c == null) { c = r.createCell(address.column()); }
-
-        if (value.get() instanceof Number) {
-            c.setCellValue((double) value.get());
-        } else if (value.get() instanceof Boolean) {
-            c.setCellValue((boolean) value.get());
-        } else if (value.get() instanceof String) {
-            c.setCellValue((String) value.get());
-        }
-    }
+//
+//    @Override
+//    public void replaceCellValue(ICellAddress address, ICellValue value) {
+//        Sheet s = poiModel.getSheetAt(0/*TODO: add sheet information here*/);
+//        Row r = s.getRow(address.row());
+//        if (r == null) { r = s.createRow(address.row()); }
+//        Cell c = r.getCell(address.column());
+//        if (c == null) { c = r.createCell(address.column()); }
+//
+//        if (value.get() instanceof Number) {
+//            c.setCellValue((double) value.get());
+//        } else if (value.get() instanceof Boolean) {
+//            c.setCellValue((boolean) value.get());
+//        } else if (value.get() instanceof String) {
+//            c.setCellValue((String) value.get());
+//        }
+//    }
     
     public boolean isFormulaCell(ICellAddress addr) {
         Sheet s = poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
@@ -93,15 +93,51 @@ public class PoiDataModel implements IDataModel {
     @Override public int length() { return this.poiModel.getSheetAt(0).getLastRowNum(); }
 
     @Override
+    public IDmRow getRow(int row) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IDmRow getRow(ICellAddress address) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
     public void setRow(int row, IDmRow r) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public IDmRow getRow(int row) {
+    public void setRow(ICellAddress address, IDmRow row) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public IDmCell getCell(int rowIdx, int cellIdx) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public IDmCell getCell(ICellAddress address) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setCell(int rowIdx, int cellIdx, IDmCell cell) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setCell(ICellAddress address, IDmCell cell) {
+        // TODO Auto-generated method stub
+        
     }
         
 }
