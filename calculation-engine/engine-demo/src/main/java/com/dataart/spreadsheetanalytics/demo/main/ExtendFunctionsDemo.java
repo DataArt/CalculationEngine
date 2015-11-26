@@ -23,7 +23,6 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.other.project.functions.ModeldefineFunction;
 
-
 public class ExtendFunctionsDemo {
 
     public static void main(String[] args) throws Exception {
