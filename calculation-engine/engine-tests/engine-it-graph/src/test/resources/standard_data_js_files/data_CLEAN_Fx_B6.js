@@ -1,13 +1,13 @@
 var nodes = new vis.DataSet([
                              /* {id: a, label: b, ...}, */
-{id: '30089d2c-8fc6-4691-98f1-cbcd651ac5b6', label: 'B6\n9', color: '#31b0d5', title: 'Name: B6<br>Value: 9<br>Type: CELL_WITH_FORMULA<br>Id: 30089d2c-8fc6-4691-98f1-cbcd651ac5b6<br>Formula Expression: Formula String: CLEAN(B1); Formula Values: CLEAN(9.0); Formula Ptg: 9.0 CLEAN ; Ptgs: B1 CLEAN  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6cc558c6'},
-{id: '78dcb501-6402-485f-9295-e8edcc1af832', label: 'CLEAN\n9', color: '#f0ad4e', title: 'Name: CLEAN<br>Value: 9<br>Type: FUNCTION<br>Id: 78dcb501-6402-485f-9295-e8edcc1af832<br>Formula Expression: Formula String: CLEAN(B1); Formula Values: CLEAN(9.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6cc558c6'},
-{id: '314b21ce-ca3e-4d2e-ab93-f0277abcd419', label: 'B1\n9.0', color: '#31b0d5', title: 'Name: B1<br>Value: 9.0<br>Type: CELL_WITH_VALUE<br>Id: 314b21ce-ca3e-4d2e-ab93-f0277abcd419<br>Formula Expression: Formula String: B1; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: B1 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6cc558c6'}
+{id: 'aa82c2c7-95b5-40d4-b486-b165401c0924', label: 'CLEAN\n9', color: '#f0ad4e', title: 'Name: CLEAN<br>Alias: null<br>Value: 9<br>Type: FUNCTION<br>Id: aa82c2c7-95b5-40d4-b486-b165401c0924<br>Formula Expression: Formula String: CLEAN(B1); Formula Values: CLEAN(9.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@26ceffa8'},
+{id: 'f109c6e3-8ec2-4b36-b430-0813eb248a1d', label: 'B6\n9', color: '#31b0d5', title: 'Name: B6<br>Alias: null<br>Value: 9<br>Type: CELL_WITH_FORMULA<br>Id: f109c6e3-8ec2-4b36-b430-0813eb248a1d<br>Formula Expression: Formula String: CLEAN(B1); Formula Values: CLEAN(9.0); Formula Ptg: 9.0 CLEAN ; Ptgs: B1 CLEAN  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@26ceffa8'},
+{id: 'e847f8d0-fcb1-4afc-af52-fb32914a7159', label: 'B1\n9.0', color: '#31b0d5', title: 'Name: B1<br>Alias: null<br>Value: 9.0<br>Type: CELL_WITH_VALUE<br>Id: e847f8d0-fcb1-4afc-af52-fb32914a7159<br>Formula Expression: Formula String: B1; Formula Values: 9.0; Formula Ptg: 9.0; Ptgs: B1 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@26ceffa8'}
                             ]);
 
 
 var edges = new vis.DataSet([
                              /* {from: id_a, to: id_b}, */
-{from: '78dcb501-6402-485f-9295-e8edcc1af832', to: '30089d2c-8fc6-4691-98f1-cbcd651ac5b6'},
-{from: '314b21ce-ca3e-4d2e-ab93-f0277abcd419', to: '78dcb501-6402-485f-9295-e8edcc1af832'}
+{from: 'e847f8d0-fcb1-4afc-af52-fb32914a7159', to: 'aa82c2c7-95b5-40d4-b486-b165401c0924'},
+{from: 'aa82c2c7-95b5-40d4-b486-b165401c0924', to: 'f109c6e3-8ec2-4b36-b430-0813eb248a1d'}
                             ]);
