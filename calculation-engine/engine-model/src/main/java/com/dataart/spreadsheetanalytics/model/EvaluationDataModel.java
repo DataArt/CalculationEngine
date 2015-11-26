@@ -9,11 +9,11 @@ import org.apache.poi.ss.formula.ptg.NameXPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.udf.UDFFinder;
 
-public class WorkbookDataModel implements EvaluationWorkbook, EvaluationSheet {
+class EvaluationDataModel implements EvaluationWorkbook, EvaluationSheet {
 
     protected final DataModel dataModel;
 
-    public WorkbookDataModel(final DataModel dataModel) {
+    public EvaluationDataModel(final DataModel dataModel) {
         this.dataModel = dataModel;
     }
 

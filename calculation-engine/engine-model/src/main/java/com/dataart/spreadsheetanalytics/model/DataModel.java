@@ -123,7 +123,7 @@ public class DataModel implements IDataModel {
     }
 
     public EvaluationWorkbook toWorkbook() {
-        return new WorkbookDataModel(this);
+        return new EvaluationDataModel(this);
     }
 
     @Override

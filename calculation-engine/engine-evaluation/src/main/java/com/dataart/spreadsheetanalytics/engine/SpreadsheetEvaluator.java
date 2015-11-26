@@ -25,13 +25,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils;
 import org.apache.poi.common.execgraph.FormulaParseNAException;
 import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
 import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
+import org.apache.poi.ss.formula.IStabilityClassifier;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
+import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -43,13 +46,16 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
+import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
 import com.dataart.spreadsheetanalytics.model.PoiDataModel;
@@ -68,8 +74,9 @@ import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 public class SpreadsheetEvaluator implements IEvaluator {
     private static final Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);
 
-    protected final PoiDataModel model;
-    protected final XSSFFormulaEvaluator poiEvaluator;
+    protected final IDataModel model;
+    protected final XSSFFormulaEvaluator poiEvaluator; //TODO: to remove
+    protected final WorkbookEvaluator bookEvaluator;
     
     static {
         try { loadCustomFunctions(); }
@@ -78,12 +85,25 @@ public class SpreadsheetEvaluator implements IEvaluator {
         
     public SpreadsheetEvaluator(PoiDataModel model) {
         this.model = model;
-        this.poiEvaluator = this.model.poiModel.getCreationHelper().createFormulaEvaluator();
+        this.poiEvaluator = ((PoiDataModel) this.model).poiModel.getCreationHelper().createFormulaEvaluator();
+        this.bookEvaluator = null;
+    }
+    
+    public SpreadsheetEvaluator(DataModel model) {
+        this.model = model;
+        //Converters.toWorkbook.getCreationHelper().createFormulaEvaluator() - not fast?
+        this.poiEvaluator = null;
+        this.bookEvaluator = new WorkbookEvaluator(model.toWorkbook(), IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUdfFinder());
     }
 
+    public ICellValue evaluateFork(ICellAddress addr) {
+        ValueEval val = this.bookEvaluator.evaluate(((DmCell)this.model.getCell(addr)).toEvaluationCell());
+        return PoiExecutionGraphBuilder.resolveCellValue(ExecutionGraphBuilderUtils.coerceValueEvalToCellValue(val));
+    }
+    
     @Override
     public ICellValue evaluate(ICellAddress addr) {
-        Sheet s = model.poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
+        Sheet s = ((PoiDataModel) this.model).poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
         
         Row r = s.getRow(addr.row());
         if (r == null) { return null; }
@@ -98,7 +118,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     @Override
     public IDataSet evaluate() {
         DataSet dataSet = new DataSet(model.name());
-        Sheet sheet = model.poiModel.getSheetAt(0); // TODO handle sheet number specification
+        Sheet sheet = ((PoiDataModel) this.model).poiModel.getSheetAt(0); // TODO handle sheet number specification
         for (int j = 0 ; j <= sheet.getLastRowNum() ; j++) {
             Row row = sheet.getRow(j);
             DsRow evaluatedRow = dataSet.createRow();

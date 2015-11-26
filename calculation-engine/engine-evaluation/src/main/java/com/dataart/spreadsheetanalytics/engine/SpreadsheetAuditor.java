@@ -43,6 +43,7 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiDependencyGraphBuilder;
 import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
+import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 /**
  * SpreadsheetAuditor is a direct implementation of {@link IAuditor}.
@@ -69,7 +70,7 @@ public class SpreadsheetAuditor implements IAuditor {
             graphLock.lock();
             log.debug("Building Dependency Graph for address: {}.", cell);
             
-            return PoiDependencyGraphBuilder.buildDependencyGraph(evaluator.model, cell);
+            return PoiDependencyGraphBuilder.buildDependencyGraph((PoiDataModel) evaluator.model, cell);
         } finally {
             graphLock.unlock();
             log.debug("Building Dependency Graph for address: {} is finished.", cell);
@@ -82,7 +83,7 @@ public class SpreadsheetAuditor implements IAuditor {
             graphLock.lock();
             log.debug("Building Dependency Graph for DataModel: {}.", evaluator.model);
             
-            return PoiDependencyGraphBuilder.buildDependencyGraph(evaluator.model);
+            return PoiDependencyGraphBuilder.buildDependencyGraph((PoiDataModel) evaluator.model);
         } finally {
             graphLock.unlock();
             log.debug("Building Dependency Graph for DataModel: {} is finished.", evaluator.model);
@@ -104,7 +105,7 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
-            graphBuilder.setRefsToNames(getWorkbookNames(evaluator.model.poiModel));
+            graphBuilder.setRefsToNames(getWorkbookNames(((PoiDataModel) evaluator.model).poiModel));
             graphBuilder.setExecutionGraphConfig(config);
             
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
@@ -114,7 +115,7 @@ public class SpreadsheetAuditor implements IAuditor {
                 
                 if (cv == null || cv.get() == null) { return buildSingleVertexGraphForEmptyCell(cell); }
 
-                if (!evaluator.model.isFormulaCell(cell)) { return buildSingleVertexGraphForCellWithValue(cv, cell); }
+                if (!((PoiDataModel)evaluator.model).isFormulaCell(cell)) { return buildSingleVertexGraphForCellWithValue(cv, cell); }
 
                 graphBuilder.runPostProcessing(false);
                 ExecutionGraph g = graphBuilder.get();
@@ -150,7 +151,7 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
-            graphBuilder.setRefsToNames(getWorkbookNames(evaluator.model.poiModel));
+            graphBuilder.setRefsToNames(getWorkbookNames(((PoiDataModel) evaluator.model).poiModel));
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
