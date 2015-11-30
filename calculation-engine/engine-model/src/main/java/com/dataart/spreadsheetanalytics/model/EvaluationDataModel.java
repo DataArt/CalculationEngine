@@ -8,6 +8,10 @@ import org.apache.poi.ss.formula.ptg.NamePtg;
 import org.apache.poi.ss.formula.ptg.NameXPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.udf.UDFFinder;
+import org.apache.poi.ss.usermodel.Cell;
+
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
+import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
 class EvaluationDataModel implements EvaluationWorkbook, EvaluationSheet {
 
@@ -19,32 +23,32 @@ class EvaluationDataModel implements EvaluationWorkbook, EvaluationSheet {
 
     @Override
     public EvaluationCell getCell(int rowIndex, int columnIndex) {
-        // TODO Auto-generated method stub
-        return null;
+        IDmRow row = dataModel.getRow(rowIndex);
+        IDmCell cell = row.getCell(columnIndex);
+        return ((DmCell) cell).toEvaluationCell(dataModel);
     }
 
     @Override
     public String getSheetName(int sheetIndex) {
-        // TODO Auto-generated method stub
-        return null;
+        return dataModel.name;
     }
 
     @Override
     public int getSheetIndex(EvaluationSheet sheet) {
         // TODO Auto-generated method stub
-        return 0;
+        return -1;
     }
 
     @Override
     public int getSheetIndex(String sheetName) {
-        // TODO Auto-generated method stub
-        return 0;
+        if (dataModel.name.equals(sheetName)) { return 0; }
+        else { return -1; }
     }
 
     @Override
     public EvaluationSheet getSheet(int sheetIndex) {
-        // TODO Auto-generated method stub
-        return null;
+        if (sheetIndex == 0) { return this; } 
+        else { return null; /* throw exception here*/ }
     }
 
     @Override
@@ -98,6 +102,10 @@ class EvaluationDataModel implements EvaluationWorkbook, EvaluationSheet {
     @Override
     public Ptg[] getFormulaTokens(EvaluationCell cell) {
         // TODO Auto-generated method stub
+        if (cell.getCellType() != Cell.CELL_TYPE_FORMULA) {
+            throw new IllegalArgumentException("The cell does not contain formula");
+        }
+        String formulaString = cell.getStringCellValue();
         return new Ptg[1];
     }
 
