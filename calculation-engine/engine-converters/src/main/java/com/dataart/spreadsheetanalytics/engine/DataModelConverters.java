@@ -19,6 +19,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,6 +30,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
+import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DmCell;
@@ -108,8 +112,26 @@ final class DataModelConverters {
      * Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided.
      */
     static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
-        /*TODO*/
-        throw new NotImplementedException("You cannot convert from IDataModel to Workbook yet.");
-    }    
+        Workbook result = new XSSFWorkbook();
+        Sheet sheet = result.createSheet(dataModel.name());
+        for (int rowId = 0 ; rowId < dataModel.length(); rowId++) {
+            IDmRow dmRow = dataModel.getRow(rowId);
+            Row row = sheet.createRow(rowId);
+            for (int cellId = 0 ; cellId < dataModel.length(); cellId++) {
+                IDmCell dmCell = dmRow.getCell(cellId);
+                Cell cell = row.createCell(cellId);
+                populateCellWithCellValue(cell, dmCell.content().get());
+            }
+        }
+        return result;
+    }
+
+    static void populateCellWithCellValue(Cell cell, Object value) {
+        if (value instanceof Boolean) { cell.setCellValue((Boolean) value); }
+        else if (value instanceof Double) { cell.setCellValue((Double) value); }
+        else if (value instanceof String) { cell.setCellValue((String) value); }
+        else if (value instanceof Calendar) { cell.setCellValue((Calendar) value); }
+        else if (value instanceof Date) { cell.setCellValue((Date) value); }
+    }
     
 }

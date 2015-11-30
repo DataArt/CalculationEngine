@@ -42,7 +42,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 
-final class ConverterUtils {
+    public final class ConverterUtils {
     
     public static final String FORMULA_PREFIX = "=";
     private static final String POI_FUNCTION_PREFIX = "_xlfn.";
@@ -149,4 +149,5 @@ final class ConverterUtils {
         String filteredFormula = formula.replace(POI_FUNCTION_PREFIX, "");
         return filteredFormula.startsWith(function) && filteredFormula.replace(function, "").startsWith("(");
     }
+ 
 }
