@@ -103,26 +103,27 @@ final class DataModelConverters {
      * Convertes plain {@link IDataModel} to plain new {@link XSSFWorkbook}.
      */
     static Workbook toWorkbook(final IDataModel dataModel) throws IOException {
-        /*TODO*/
-        return toWorkbook(dataModel, null);
+        return toWorkbook(dataModel, new XSSFWorkbook());
     }
     
     /**
      * Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided.
      */
     static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
-        Workbook result = new XSSFWorkbook();
-        Sheet sheet = result.createSheet(dataModel.name());
+        Sheet sheet = formatting.getSheet(dataModel.name());
+        if ( sheet == null ) { sheet = formatting.createSheet(dataModel.name()); }
         for (int rowId = 0 ; rowId < dataModel.length(); rowId++) {
             IDmRow dmRow = dataModel.getRow(rowId);
-            Row row = sheet.createRow(rowId);
+            Row row = sheet.getRow(rowId);
+            if ( row == null ) { row = sheet.createRow(rowId); }
             for (int cellId = 0 ; cellId < dmRow.width(); cellId++) {
                 IDmCell dmCell = dmRow.getCell(cellId);
-                Cell cell = row.createCell(cellId);
+                Cell cell = row.getCell(cellId);
+                if ( cell == null ) { cell = row.createCell(cellId); }
                 populateCellWithCellValue(cell, dmCell.content().get());
             }
         }
-        return result;
+        return formatting;
     }
 
     static void populateCellWithCellValue(Cell cell, Object value) {
