@@ -16,11 +16,6 @@
     <Class name="com.dataart.spreadsheetanalytics.functions.poi.Functions" />
   </Match>
   
-  <!-- ALL_ATTRIBUTE_FUNCTIONS are public and ment to be overrrided -->
-  <Match>
-    <Class name="com.dataart.spreadsheetanalytics.engine.AttributeFunctionsScanner" />
-  </Match>
-  
   <!-- Optional.isPresent works stable for Lock -->
   <Match>
     <Class name="com.dataart.spreadsheetanalytics.model.DataModel" />
@@ -33,10 +28,16 @@
 
   <!-- Saving output to ByteStream-->
   <Match>
-    <Class name="com.dataart.spreadsheetanalytics.engine.ExcelFileConverters">
+    <Class name="com.dataart.spreadsheetanalytics.engine.DataModelConverters">
       <Method name="toXlsxFile"></Method>
     </Class>
   </Match>  
-  
+
+  <!-- Saving output to ByteStream-->
+  <Match>
+    <Class name="com.dataart.spreadsheetanalytics.engine.DataSetConverters">
+      <Method name="toXlsxFile"></Method>
+    </Class>
+  </Match>  
 
 </FindBugsFilter>

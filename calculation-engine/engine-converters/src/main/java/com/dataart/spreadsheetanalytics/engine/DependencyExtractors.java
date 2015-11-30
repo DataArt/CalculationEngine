@@ -15,7 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import static com.dataart.spreadsheetanalytics.engine.ExcelFileConverters.resolveCellValue;
 import static com.dataart.spreadsheetanalytics.model.A1Address.fromRowColumn;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -32,6 +31,7 @@ import java.util.List;
 
 import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.FormulaParsingWorkbook;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.formula.ptg.AreaPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
@@ -47,20 +47,21 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
-import com.dataart.spreadsheetanalytics.model.DmCell;
 
-public final class DependencyExtractors {
+final class DependencyExtractors {
     private static final Logger log = LoggerFactory.getLogger(DependencyExtractors.class);
-    
-    private static final String POI_FUNCTION_PREFIX = "_xlfn.";
     
     private DependencyExtractors() {}
 
-    public static IDataModel toDataModel(final InputStream book, final ICellAddress address) throws IOException {
+    static IDataModel toDataModel(final IDataModel book, final ICellAddress address) throws IOException {
+        throw new NotImplementedException("This method not yet implemented.");
+    }
+    
+    static IDataModel toDataModel(final InputStream book, final ICellAddress address) throws IOException {
         return toDataModel(new XSSFWorkbook(book), address);
     }
     
-    public static IDataModel toDataModel(final Workbook book, final ICellAddress address) throws IOException {
+    static IDataModel toDataModel(final Workbook book, final ICellAddress address) throws IOException {
         if (book == null || address == null) { return null; }
         if (address instanceof A1RangeAddress) { throw new IllegalArgumentException("A1RangeAddress is not supported, only one cell can be converted to DataModel."); }
         
@@ -73,11 +74,15 @@ public final class DependencyExtractors {
         return createDataModelFromCell(s, create((XSSFWorkbook) book), fromRowColumn(c.getRowIndex(), c.getColumnIndex()));
     }
     
-    public static List<IDataModel> toDataModels(final InputStream book, final String function) throws IOException {
+    static List<IDataModel> toDataModels(final IDataModel book, final String function) throws IOException {
+        throw new NotImplementedException("This method not yet implemented.");
+    }
+    
+    static List<IDataModel> toDataModels(final InputStream book, final String function) throws IOException {
         return toDataModels(new XSSFWorkbook(book), function);
     }
     
-    public static List<IDataModel> toDataModels(final Workbook book, final String function) {
+    static List<IDataModel> toDataModels(final Workbook book, final String function) {
         if (book == null || function == null) { return emptyList(); }
         List<IDataModel> list = new LinkedList<>();
 
@@ -89,7 +94,7 @@ public final class DependencyExtractors {
                 if (c == null || CELL_TYPE_FORMULA != c.getCellType()) { continue; }
 
                 try {
-                    if (isFunctionInFormula(c.getCellFormula(), function))
+                    if (ConverterUtils.isFunctionInFormula(c.getCellFormula(), function))
                         { list.add(createDataModelFromCell(s, parsingBook, fromRowColumn(c.getRowIndex(), c.getColumnIndex()))); } }
                 catch (FormulaParseException e) { log.warn("Warning while parsing excel formula. Probably this is OK.", e); }
             }
@@ -98,18 +103,13 @@ public final class DependencyExtractors {
         return list;
     }
 
-    private static boolean isFunctionInFormula(String formula, String function) {
-        String filteredFormula = formula.replace(POI_FUNCTION_PREFIX, "");
-        return filteredFormula.startsWith(function) && filteredFormula.replace(function, "").startsWith("(");
-    }
-
-    private static IDataModel createDataModelFromCell(Sheet sheet, FormulaParsingWorkbook workbook, ICellAddress address) {
+    static IDataModel createDataModelFromCell(Sheet sheet, FormulaParsingWorkbook workbook, ICellAddress address) {
         IDataModel dm = new DataModel(randomUUID().toString());
-        resolveCellDependencies(address, sheet, workbook).forEach(cell -> copyCell(cell, sheet, dm));
+        resolveCellDependencies(address, sheet, workbook).forEach(cell -> ConverterUtils.copyCell(cell, sheet, dm));
         return dm;
     }
 
-    public static List<ICellAddress> resolveCellDependencies(ICellAddress cellAddress, Sheet sheet, FormulaParsingWorkbook workbook) {
+    static List<ICellAddress> resolveCellDependencies(ICellAddress cellAddress, Sheet sheet, FormulaParsingWorkbook workbook) {
         Row row = sheet.getRow(cellAddress.row());
         if (row == null) { return emptyList(); }
         Cell cell = row.getCell(cellAddress.column());
@@ -142,18 +142,4 @@ public final class DependencyExtractors {
         return dependencies;
     }
 
-    private static void copyCell(ICellAddress address, Sheet from, IDataModel to) {
-        if (from == null) { return; }
-        Row fromRow = from.getRow(address.row());
-        if (fromRow == null) { return; }
-        Cell fromCell = fromRow.getCell(address.column());
-        if (fromCell == null) { return; }
-        
-        DmCell toCell = new DmCell();
-        toCell.address(address);
-        toCell.alias("TODO"); /*TODO*/
-        toCell.content(resolveCellValue(fromCell));
-        
-        to.setCell(address, toCell);
-    }
 }

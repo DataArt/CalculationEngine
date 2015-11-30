@@ -16,7 +16,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
+import com.dataart.spreadsheetanalytics.engine.DataModelConverters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.PoiDataModel;
@@ -36,7 +36,7 @@ public class QUERY_10set_1000times_Test extends ZParentTest {
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            external.getDataSetStorage().saveDataSet(ExcelFileConverters.toDataSet(new XSSFWorkbook(dataSet)));
+            external.getDataSetStorage().saveDataSet(DataModelConverters.toDataSet(new XSSFWorkbook(dataSet)));
 
             this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);

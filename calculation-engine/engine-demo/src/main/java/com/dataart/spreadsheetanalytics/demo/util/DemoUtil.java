@@ -43,7 +43,7 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
-import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
+import com.dataart.spreadsheetanalytics.engine.DataModelConverters;
 import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.model.CellValue;
@@ -176,7 +176,7 @@ public class DemoUtil {
         
         //if this model is a dataset also - put it to cache
         try {
-            final IDataSet dataSet = ExcelFileConverters.toDataSet(model.poiModel);
+            final IDataSet dataSet = DataModelConverters.toDataSet(model.poiModel);
             dataSetStorage.saveDataSet(dataSet);                       
         } catch (Exception e) {
             System.out.println("This workbook is not a dataset itself.");

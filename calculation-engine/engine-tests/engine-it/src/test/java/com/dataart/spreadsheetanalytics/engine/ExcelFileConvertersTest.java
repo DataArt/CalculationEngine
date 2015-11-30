@@ -26,7 +26,7 @@ public class ExcelFileConvertersTest {
         InputStream excelIn = new FileInputStream(excel);
                 
         //when
-        IDataModel dm = ExcelFileConverters.toDataModel(excelIn);
+        IDataModel dm = DataModelConverters.toDataModel(excelIn);
         
         //then
         assertThat(excelIn).isNotNull();
@@ -39,7 +39,7 @@ public class ExcelFileConvertersTest {
         Workbook excelW = new XSSFWorkbook(excel);
         
         //when
-        IDataModel dm = ExcelFileConverters.toDataModel(excelW);
+        IDataModel dm = DataModelConverters.toDataModel(excelW);
         
         //then
         assertThat(excelW).isNotNull();

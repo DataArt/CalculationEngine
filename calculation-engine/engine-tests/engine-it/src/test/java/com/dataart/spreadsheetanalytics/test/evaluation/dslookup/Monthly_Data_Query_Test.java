@@ -46,10 +46,10 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorag
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
-import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.PoiDataModel;
@@ -100,7 +100,7 @@ public class Monthly_Data_Query_Test {
         external.setAttributeFunctionStorage(attributeFunctionStorage);
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
-        final IDataSet dataSet = ExcelFileConverters.toDataSet(new PoiDataModel("Monthly_Data_Query", pathDataSet).poiModel);
+        final IDataSet dataSet = Converters.toDataSet(new PoiDataModel("Monthly_Data_Query", pathDataSet).poiModel);
         dataSetStorage.saveDataSet(dataSet);
 
         expectedValues = new HashMap<>();

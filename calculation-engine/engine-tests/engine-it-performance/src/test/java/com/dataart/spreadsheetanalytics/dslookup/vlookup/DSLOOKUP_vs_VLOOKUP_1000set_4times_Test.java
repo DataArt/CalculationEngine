@@ -16,7 +16,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
+import com.dataart.spreadsheetanalytics.engine.DataModelConverters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.PoiDataModel;
@@ -42,7 +42,7 @@ public class DSLOOKUP_vs_VLOOKUP_1000set_4times_Test extends ZParentTest {
             this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
-            external.getDataSetStorage().saveDataSet(ExcelFileConverters.toDataSet(new XSSFWorkbook(dataSet)));
+            external.getDataSetStorage().saveDataSet(DataModelConverters.toDataSet(new XSSFWorkbook(dataSet)));
 
             this.expectedValues = new HashMap<>();
             for (int i = from; i < from + iterations; i++) {

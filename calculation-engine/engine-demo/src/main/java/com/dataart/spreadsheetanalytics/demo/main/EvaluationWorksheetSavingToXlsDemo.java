@@ -10,7 +10,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
-import com.dataart.spreadsheetanalytics.engine.ExcelFileConverters;
+import com.dataart.spreadsheetanalytics.engine.DataModelConverters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
@@ -34,7 +34,7 @@ public class EvaluationWorksheetSavingToXlsDemo {
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
 
         try (FileOutputStream fileOut = new FileOutputStream(outputFile); 
-             Workbook output = ExcelFileConverters.toWorkbook(evaluator.evaluate());)
+             Workbook output = DataModelConverters.toWorkbook(evaluator.evaluate());)
         {
             output.write(fileOut);
             fileOut.flush();            
