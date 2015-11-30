@@ -22,7 +22,6 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -105,7 +104,7 @@ final class DataModelConverters {
      */
     static Workbook toWorkbook(final IDataModel dataModel) throws IOException {
         /*TODO*/
-        throw new NotImplementedException("You cannot convert from IDataModel to Workbook yet.");
+        return toWorkbook(dataModel, null);
     }
     
     /**
@@ -117,7 +116,7 @@ final class DataModelConverters {
         for (int rowId = 0 ; rowId < dataModel.length(); rowId++) {
             IDmRow dmRow = dataModel.getRow(rowId);
             Row row = sheet.createRow(rowId);
-            for (int cellId = 0 ; cellId < dataModel.length(); cellId++) {
+            for (int cellId = 0 ; cellId < dmRow.width(); cellId++) {
                 IDmCell dmCell = dmRow.getCell(cellId);
                 Cell cell = row.createCell(cellId);
                 populateCellWithCellValue(cell, dmCell.content().get());

@@ -105,7 +105,6 @@ class EvaluationDataModel implements EvaluationWorkbook, EvaluationSheet {
         if (cell.getCellType() != Cell.CELL_TYPE_FORMULA) {
             throw new IllegalArgumentException("The cell does not contain formula");
         }
-        String formulaString = cell.getStringCellValue();
         return new Ptg[1];
     }
 
