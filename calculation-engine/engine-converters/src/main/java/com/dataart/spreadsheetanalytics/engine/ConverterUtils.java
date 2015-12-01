@@ -54,7 +54,7 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 
 final class ConverterUtils {
-
+    
     public static final String FORMULA_PREFIX = "=";
     public static final Set<String> ERRORS = unmodifiableSet(new HashSet<>(asList(
                                                   NULL.getString(),
@@ -175,10 +175,10 @@ final class ConverterUtils {
 
         if (c.type() == Boolean.class) { return CELL_TYPE_BOOLEAN; }
         if (c.type() == Double.class) { return CELL_TYPE_NUMERIC; }
-        
+
         if (c.type() == String.class) {
             String val = (String) c.get();
-            
+
             if (val.startsWith(FORMULA_PREFIX)) { return CELL_TYPE_FORMULA; }
             if (ERRORS.contains(val)) { return CELL_TYPE_ERROR; }
             return CELL_TYPE_STRING;
@@ -186,15 +186,15 @@ final class ConverterUtils {
 
         throw new IllegalArgumentException(String.format("Type %s is not supported.", c.get().getClass().getSimpleName()));
     }
-    
-    /**
-     * Creates an instance of new {@link XSSFWorkbook}.
-     */
+
+    /** Creates an instance of new {@link XSSFWorkbook}. */
     public static Workbook newWorkbook() {
         return new XSSFWorkbook();
     }
 
+    /** Creates an instance of new {@link XSSFWorkbook} from {@link InputStream}. */
     public static Workbook newWorkbook(InputStream original) throws IOException {
         return new XSSFWorkbook(original);
     }
+
 }
