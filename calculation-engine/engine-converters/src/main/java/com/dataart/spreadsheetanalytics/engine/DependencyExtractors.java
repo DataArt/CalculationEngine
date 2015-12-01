@@ -75,7 +75,7 @@ final class DependencyExtractors {
     }
     
     static List<IDataModel> toDataModels(final IDataModel book, final String function) throws IOException {
-        throw new NotImplementedException("This method not yet implemented.");
+        return toDataModels(DataModelConverters.toWorkbook(book), function);
     }
     
     static List<IDataModel> toDataModels(final InputStream book, final String function) throws IOException {

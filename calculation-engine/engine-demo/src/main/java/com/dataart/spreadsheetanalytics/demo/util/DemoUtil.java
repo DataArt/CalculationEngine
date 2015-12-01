@@ -176,7 +176,7 @@ public class DemoUtil {
         
         //if this model is a dataset also - put it to cache
         try {
-            final IDataSet dataSet = DataModelConverters.toDataSet(model.poiModel);
+            final IDataSet dataSet = PoiWorkbookConverters.toDataSet(model.poiModel);
             dataSetStorage.saveDataSet(dataSet);                       
         } catch (Exception e) {
             System.out.println("This workbook is not a dataset itself.");

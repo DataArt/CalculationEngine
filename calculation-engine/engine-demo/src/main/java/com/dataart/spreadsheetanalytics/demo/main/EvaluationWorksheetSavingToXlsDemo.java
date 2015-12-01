@@ -34,7 +34,7 @@ public class EvaluationWorksheetSavingToXlsDemo {
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
 
         try (FileOutputStream fileOut = new FileOutputStream(outputFile); 
-             Workbook output = DataModelConverters.toWorkbook(evaluator.evaluate());)
+             Workbook output = PoiWorkbookConverters.toWorkbook(evaluator.evaluate());)
         {
             output.write(fileOut);
             fileOut.flush();            

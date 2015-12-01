@@ -99,7 +99,7 @@ final class DataModelConverters {
     /**
      * Convertes plain {@link IDataModel} to plain new {@link XSSFWorkbook}.
      */
-    static Workbook toWorkbook(final IDataModel dataModel) throws IOException {
+    static Workbook toWorkbook(final IDataModel dataModel) {
         /*TODO*/
         throw new NotImplementedException("You cannot convert from IDataModel to Workbook yet.");
     }
@@ -107,7 +107,7 @@ final class DataModelConverters {
     /**
      * Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided.
      */
-    static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
+    static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) {
         /*TODO*/
         throw new NotImplementedException("You cannot convert from IDataModel to Workbook yet.");
     }    

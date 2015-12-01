@@ -43,7 +43,7 @@ public class DmRow implements IDmRow {
     }
 
     @Override public int width() { return this.table.size(); }
-    @Override public Iterator<IDmCell> iterator() { return this.table.values().iterator(); }
+    @Override public Iterator<IDmCell> iterator() { return this.table.values().iterator(); } //TODO
     
     @Override
     public IDmCell getCell(int column) {

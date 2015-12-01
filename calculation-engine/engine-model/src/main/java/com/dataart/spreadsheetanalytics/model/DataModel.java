@@ -23,8 +23,6 @@ import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.poi.ss.formula.EvaluationWorkbook;
-
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
@@ -60,7 +58,7 @@ public class DataModel implements IDataModel {
     @Override public void name(String name) { this.name = name; }
     @Override public int length() { return this.table.size(); }
 
-    @Override public Iterator<IDmRow> iterator() { return this.table.values().iterator(); }
+    @Override public Iterator<IDmRow> iterator() { return this.table.values().iterator(); } //TODO
 
     @Override
     public IDmRow getRow(int rowIdx) {
@@ -120,10 +118,6 @@ public class DataModel implements IDataModel {
     @Override
     public void setCell(ICellAddress address, IDmCell cell) {
         if (address != null ) { this.setCell(address.row(), address.column(), cell); }
-    }
-
-    public EvaluationWorkbook toWorkbook() {
-        return new EvaluationDataModel(this);
     }
 
     @Override

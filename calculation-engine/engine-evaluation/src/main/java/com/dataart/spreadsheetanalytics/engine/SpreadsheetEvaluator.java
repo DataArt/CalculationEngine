@@ -15,7 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import static com.dataart.spreadsheetanalytics.functions.poi.Functions.getUdfFinder;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.REF_INVALID;
@@ -25,16 +27,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils;
 import org.apache.poi.common.execgraph.FormulaParseNAException;
 import org.apache.poi.common.execgraph.FormulaParseNameException;
 import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
 import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
 import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
-import org.apache.poi.ss.formula.IStabilityClassifier;
+import org.apache.poi.ss.formula.EvaluationCell;
+import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
-import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -55,7 +56,6 @@ import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
 import com.dataart.spreadsheetanalytics.model.PoiDataModel;
@@ -76,6 +76,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
 
     protected final IDataModel model;
     protected final XSSFFormulaEvaluator poiEvaluator; //TODO: to remove
+    protected final EvaluationWorkbook evaluationWorkbook;
     protected final WorkbookEvaluator bookEvaluator;
     
     static {
@@ -86,19 +87,20 @@ public class SpreadsheetEvaluator implements IEvaluator {
     public SpreadsheetEvaluator(PoiDataModel model) {
         this.model = model;
         this.poiEvaluator = ((PoiDataModel) this.model).poiModel.getCreationHelper().createFormulaEvaluator();
+        this.evaluationWorkbook = null;
         this.bookEvaluator = null;
     }
     
     public SpreadsheetEvaluator(DataModel model) {
         this.model = model;
-        //Converters.toWorkbook.getCreationHelper().createFormulaEvaluator() - not fast?
-        this.poiEvaluator = null;
-        this.bookEvaluator = new WorkbookEvaluator(model.toWorkbook(), IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUdfFinder());
+        this.poiEvaluator = null; //to remove
+        this.evaluationWorkbook = PoiWorkbookConverters.toEvaluationWorkbook(DataModelConverters.toWorkbook(this.model));
+        this.bookEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, getUdfFinder());        
     }
 
     public ICellValue evaluateFork(ICellAddress addr) {
-        ValueEval val = this.bookEvaluator.evaluate(((DmCell)this.model.getCell(addr)).toEvaluationCell());
-        return PoiExecutionGraphBuilder.resolveCellValue(ExecutionGraphBuilderUtils.coerceValueEvalToCellValue(val));
+        EvaluationCell cell = PoiWorkbookConverters.getEvaluationCell(this.evaluationWorkbook, addr);
+        return PoiExecutionGraphBuilder.resolveValueEval(bookEvaluator.evaluate(cell));
     }
     
     @Override
