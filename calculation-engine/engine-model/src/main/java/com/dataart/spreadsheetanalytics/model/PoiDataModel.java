@@ -48,24 +48,7 @@ public class PoiDataModel implements IDataModel {
         this.poiModel = new XSSFWorkbook(in);
         this.dataModelId = new DataModelId(this.poiModel.toString());
     }
-//
-//    @Override
-//    public void replaceCellValue(ICellAddress address, ICellValue value) {
-//        Sheet s = poiModel.getSheetAt(0/*TODO: add sheet information here*/);
-//        Row r = s.getRow(address.row());
-//        if (r == null) { r = s.createRow(address.row()); }
-//        Cell c = r.getCell(address.column());
-//        if (c == null) { c = r.createCell(address.column()); }
-//
-//        if (value.get() instanceof Number) {
-//            c.setCellValue((double) value.get());
-//        } else if (value.get() instanceof Boolean) {
-//            c.setCellValue((boolean) value.get());
-//        } else if (value.get() instanceof String) {
-//            c.setCellValue((String) value.get());
-//        }
-//    }
-    
+
     public boolean isFormulaCell(ICellAddress addr) {
         Sheet s = poiModel.getSheetAt(0 /* TODO: sheet number 1 */ );
         Row r = s.getRow(addr.row());
@@ -138,6 +121,18 @@ public class PoiDataModel implements IDataModel {
     public void setCell(ICellAddress address, IDmCell cell) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public int getFirstRowIndex() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getLastRowIndex() {
+        // TODO Auto-generated method stub
+        return 0;
     }
         
 }

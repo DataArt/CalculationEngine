@@ -58,7 +58,7 @@ final class DependencyExtractors {
     }
     
     static IDataModel toDataModel(final InputStream book, final ICellAddress address) throws IOException {
-        return toDataModel(new XSSFWorkbook(book), address);
+        return toDataModel(ConverterUtils.newWorkbook(book), address);
     }
     
     static IDataModel toDataModel(final Workbook book, final ICellAddress address) throws IOException {
@@ -79,7 +79,7 @@ final class DependencyExtractors {
     }
     
     static List<IDataModel> toDataModels(final InputStream book, final String function) throws IOException {
-        return toDataModels(new XSSFWorkbook(book), function);
+        return toDataModels(ConverterUtils.newWorkbook(book), function);
     }
     
     static List<IDataModel> toDataModels(final Workbook book, final String function) {

@@ -123,4 +123,16 @@ public class DataModel implements IDataModel {
     @Override
     public String toString() { return name(); }
 
+    @Override
+    public int getFirstRowIndex() {
+        // TODO Auto-generated method stub
+        return 2;
+    }
+
+    @Override
+    public int getLastRowIndex() {
+        // TODO Auto-generated method stub
+        return 63;
+    }
+
 }

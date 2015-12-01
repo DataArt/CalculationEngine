@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -28,6 +27,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
+import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DmCell;
@@ -42,7 +43,7 @@ final class DataModelConverters {
      * @see DataModelConverters#toDataModel(Workbook)
      */
     static IDataModel toDataModel(final InputStream workbook) throws IOException {
-        return toDataModel(new XSSFWorkbook(workbook));
+        return toDataModel(ConverterUtils.newWorkbook(workbook));
     }
     
     /**
@@ -92,24 +93,40 @@ final class DataModelConverters {
      */
     static OutputStream toXlsxFile(final IDataModel dataModel, final InputStream formatting) throws IOException {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        toWorkbook(dataModel, new XSSFWorkbook(formatting)).write(xlsx);
+        toWorkbook(dataModel, ConverterUtils.newWorkbook(formatting)).write(xlsx);
         return xlsx;
     }
     
     /**
      * Convertes plain {@link IDataModel} to plain new {@link XSSFWorkbook}.
      */
-    static Workbook toWorkbook(final IDataModel dataModel) {
-        /*TODO*/
-        throw new NotImplementedException("You cannot convert from IDataModel to Workbook yet.");
+    static Workbook toWorkbook(final IDataModel dataModel) throws IOException {
+        return toWorkbook(dataModel, (Workbook) null);
     }
     
     /**
      * Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided.
      */
-    static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) {
-        /*TODO*/
-        throw new NotImplementedException("You cannot convert from IDataModel to Workbook yet.");
-    }    
+    static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
+        Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
+        
+        Sheet sheet = result.getSheet(dataModel.name());
+        if (sheet == null) { sheet = result.createSheet(dataModel.name()); }
+        
+        for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx < dataModel.getLastRowIndex(); rowIdx++) {
+            IDmRow dmRow = dataModel.getRow(rowIdx);
+            Row row = sheet.getRow(rowIdx);
+            if (row == null) { row = sheet.createRow(rowIdx); }
+            
+            for (int cellIdx = dmRow.getFirstColumnIndex(); cellIdx < dmRow.getLastColumnIndex(); cellIdx++) {
+                IDmCell dmCell = dmRow.getCell(cellIdx);
+                Cell cell = row.getCell(cellIdx);
+                if (cell == null) { cell = row.createCell(cellIdx); }
+                
+                ConverterUtils.populateCellValue(cell, dmCell.content());
+            }
+        }
+        return result;
+    }
     
 }

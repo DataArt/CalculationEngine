@@ -38,6 +38,12 @@ public interface IDataModel extends Iterable<IDmRow> {
     /** Number of rows in this DataModel. */
     int length();
     
+    /** Number of first row in this sheet. */
+    int getFirstRowIndex();
+    
+    /** Number of last row in this sheet. */
+    int getLastRowIndex();
+    
     /** Returns the Row at given position. Null if does not exist. */
     IDmRow getRow(int rowIdx);
 

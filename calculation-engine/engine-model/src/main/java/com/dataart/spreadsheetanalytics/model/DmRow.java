@@ -69,4 +69,16 @@ public class DmRow implements IDmRow {
         if (address != null) { this.setCell(address.column(), cell); }        
     }
 
+    @Override
+    public int getFirstColumnIndex() {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+
+    @Override
+    public int getLastColumnIndex() {
+        // TODO Auto-generated method stub
+        return 9;
+    }
+
 }

@@ -23,6 +23,7 @@ import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.REF_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.VALUE_INVALID;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -91,10 +92,10 @@ public class SpreadsheetEvaluator implements IEvaluator {
         this.bookEvaluator = null;
     }
     
-    public SpreadsheetEvaluator(DataModel model) {
+    public SpreadsheetEvaluator(DataModel model) throws IOException {
         this.model = model;
         this.poiEvaluator = null; //to remove
-        this.evaluationWorkbook = PoiWorkbookConverters.toEvaluationWorkbook(DataModelConverters.toWorkbook(this.model));
+        this.evaluationWorkbook = PoiWorkbookConverters.toEvaluationWorkbook(Converters.toWorkbook(this.model));
         this.bookEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, getUdfFinder());        
     }
 

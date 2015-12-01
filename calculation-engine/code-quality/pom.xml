@@ -31,6 +31,7 @@ limitations under the License.
     <checkstyle.header.file>../../LICENSE.txt</checkstyle.header.file>
     <findbugs.exclude.filter.file>../code-quality/findbugs-exclude-filter.xml</findbugs.exclude.filter.file>
     <pmd.rule.set>../code-quality/pmd_rule_set.xml</pmd.rule.set>
+    <checkstyle-exclude-filter>**\/PoiWorkbookConverters.java</checkstyle-exclude-filter>
   </properties>
 
   <build>
@@ -86,6 +87,7 @@ limitations under the License.
               <consoleOutput>true</consoleOutput>
               <failsOnError>true</failsOnError>
               <linkXRef>false</linkXRef>
+              <excludes>${checkstyle-exclude-filter}</excludes>
             </configuration>
             <goals>
               <goal>check</goal>

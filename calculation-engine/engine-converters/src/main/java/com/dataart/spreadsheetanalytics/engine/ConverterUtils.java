@@ -70,16 +70,16 @@ final class ConverterUtils {
     private ConverterUtils() {}
 
     /**
-     * {@link #clearContent(Workbook)} with new {@link XSSFWorkbook}.
+     * {@link #clearContent(Workbook)} with new {@link ConverterUtils#newWorkbook(InputStream)}.
      */
     static OutputStream clearContent(InputStream workbook) throws IOException {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        clearContent(new XSSFWorkbook(workbook)).write(xlsx);
+        clearContent(ConverterUtils.newWorkbook(workbook)).write(xlsx);
         return xlsx;
     }
     
     /**
-     * Gets an instance of a Workbook ({@link XSSFWorkbook}, creates copy of original file, 
+     * Gets an instance of a Workbook ({@link ConverterUtils#newWorkbook(InputStream)}, creates copy of original file, 
      * clears all the cell values, but preserves formatting.
      */
     static Workbook clearContent(final Workbook book) throws IOException {
@@ -87,7 +87,7 @@ final class ConverterUtils {
         book.write(originalOut);
         InputStream originalIn = new ByteArrayInputStream(copyOf(originalOut.toByteArray(), originalOut.size()));
 
-        Workbook w = new XSSFWorkbook(originalIn);
+        Workbook w = ConverterUtils.newWorkbook(originalIn);
         Sheet s = w.getSheetAt(0); //TODO: only one sheet is supported
         
         for (int i = s.getFirstRowNum(); i <= s.getLastRowNum(); i++) {
@@ -185,5 +185,16 @@ final class ConverterUtils {
         }
 
         throw new IllegalArgumentException(String.format("Type %s is not supported.", c.get().getClass().getSimpleName()));
+    }
+    
+    /**
+     * Creates an instance of new {@link XSSFWorkbook}.
+     */
+    public static Workbook newWorkbook() {
+        return new XSSFWorkbook();
+    }
+
+    public static Workbook newWorkbook(InputStream original) throws IOException {
+        return new XSSFWorkbook(original);
     }
 }
