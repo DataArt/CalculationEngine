@@ -110,20 +110,23 @@ final class DataModelConverters {
     static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
         Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
         
-        Sheet sheet = result.getSheet(dataModel.name());
-        if (sheet == null) { sheet = result.createSheet(dataModel.name()); }
+        Sheet wbSheet = result.getSheet(dataModel.name());
+        if (wbSheet == null) { wbSheet = result.createSheet(dataModel.name()); }
         
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx < dataModel.getLastRowIndex(); rowIdx++) {
             IDmRow dmRow = dataModel.getRow(rowIdx);
-            Row row = sheet.getRow(rowIdx);
-            if (row == null) { row = sheet.createRow(rowIdx); }
+            if (dmRow == null) { continue; }
+            Row wbRow = wbSheet.getRow(rowIdx);
+            if (wbRow == null) { wbRow = wbSheet.createRow(rowIdx); }
             
             for (int cellIdx = dmRow.getFirstColumnIndex(); cellIdx < dmRow.getLastColumnIndex(); cellIdx++) {
                 IDmCell dmCell = dmRow.getCell(cellIdx);
-                Cell cell = row.getCell(cellIdx);
-                if (cell == null) { cell = row.createCell(cellIdx); }
+                if (dmCell == null) { continue; }
                 
-                ConverterUtils.populateCellValue(cell, dmCell.content());
+                Cell wbCell = wbRow.getCell(cellIdx);
+                if (wbCell == null) { wbCell = wbRow.createCell(cellIdx); }
+                
+                ConverterUtils.populateCellValue(wbCell, dmCell.content());
             }
         }
         return result;

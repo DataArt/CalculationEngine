@@ -71,14 +71,12 @@ public class DmRow implements IDmRow {
 
     @Override
     public int getFirstColumnIndex() {
-        // TODO Auto-generated method stub
-        return 1;
+        return this.table.keySet().stream().min(Integer::compare).orElse(Integer.valueOf(-1));
     }
 
     @Override
     public int getLastColumnIndex() {
-        // TODO Auto-generated method stub
-        return 9;
+        return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
     }
 
 }

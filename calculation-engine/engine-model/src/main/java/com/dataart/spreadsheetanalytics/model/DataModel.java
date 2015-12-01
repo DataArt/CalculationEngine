@@ -125,14 +125,12 @@ public class DataModel implements IDataModel {
 
     @Override
     public int getFirstRowIndex() {
-        // TODO Auto-generated method stub
-        return 2;
+        return this.table.keySet().stream().min(Integer::compare).orElse(Integer.valueOf(-1));
     }
 
     @Override
     public int getLastRowIndex() {
-        // TODO Auto-generated method stub
-        return 63;
+        return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
     }
 
 }

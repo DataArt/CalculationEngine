@@ -111,7 +111,8 @@ final class ConverterUtils {
     static void populateCellValue(final Cell cell, final ICellValue value) {
         if (cell == null) { return; }
         
-        if (String.class == value.type()) { cell.setCellValue((String) value.get()); }
+        if (value == CellValue.BLANK) { cell.setCellType(CELL_TYPE_BLANK); }
+        else if (String.class == value.type()) { cell.setCellValue((String) value.get()); }
         else if (Boolean.class == value.type()) { cell.setCellValue(((Boolean) value.get())); }
         else if (Double.class == value.type()) { cell.setCellValue(((Double) value.get())); } 
         else { throw new IllegalArgumentException(String.format("Type of value %s is not supported: %s", value, value.getClass().getSimpleName())); }
