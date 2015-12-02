@@ -42,7 +42,7 @@ public class DSLOOKUP_vs_VLOOKUP_10set_4times_Test extends ZParentTest {
             this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
             this.evaluator = new SpreadsheetEvaluator(dataModel);
             
-            external.getDataSetStorage().saveDataSet(DataModelConverters.toDataSet(new XSSFWorkbook(dataSet)));
+            external.getDataSetStorage().saveDataSet(PoiWorkbookConverters.toDataSet(new XSSFWorkbook(dataSet)));
             
             this.expectedValues = new HashMap<>();
             for (int i = from; i < from + iterations; i++) {

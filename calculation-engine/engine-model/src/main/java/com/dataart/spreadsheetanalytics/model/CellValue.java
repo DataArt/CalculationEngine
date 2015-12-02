@@ -23,8 +23,8 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
  */
 public class CellValue implements ICellValue {
     
-    public static final ICellValue BLANK = new CellValue(null, Object.class);  
-
+    public static final ICellValue BLANK = new CellValue(null, Object.class);
+    
     protected final Object value;
     protected final Class<? extends Object> type;
 
@@ -40,6 +40,10 @@ public class CellValue implements ICellValue {
     @Override public Object get() { return value; }
     @Override public Class<? extends Object> type() { return this.type; }
 
+    /**
+     * Creates new instance of {@link CellValue} with given argument.
+     * Supported types: null, String, Double, Boolean.
+     */
     public static ICellValue from(Object o) {
         if (o == null) { return BLANK; }
         else if (o instanceof String) { return new CellValue(o, String.class); }

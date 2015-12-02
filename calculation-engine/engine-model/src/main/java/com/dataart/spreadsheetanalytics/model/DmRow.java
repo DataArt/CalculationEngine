@@ -47,10 +47,6 @@ public class DmRow implements IDmRow {
 
     @Override public int width() { return this.table.size(); }
 
-    @Override public int firstCellIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMin(); }
-
-    @Override public int lastCellIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMax(); }
-
     @Override public Iterator<IDmCell> iterator() {
         List<IDmCell> cells = table.entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry::getKey))
@@ -81,6 +77,16 @@ public class DmRow implements IDmRow {
     @Override
     public void setCell(ICellAddress address, IDmCell cell) {
         if (address != null) { this.setCell(address.column(), cell); }        
+    }
+
+    @Override
+    public int getFirstColumnIndex() {
+        return this.table.keySet().stream().min(Integer::compare).orElse(Integer.valueOf(-1));
+    }
+
+    @Override
+    public int getLastColumnIndex() {
+        return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
     }
 
 }

@@ -39,9 +39,5 @@ public class DmCell implements IDmCell {
     
     @Override public String alias() { return this.alias; }
     public void alias(String alias) { this.alias = alias; }
-    
-    public EvaluationDmCell toEvaluationCell(DataModel dataModel) {
-        EvaluationDataModel evaluationDataModel = new EvaluationDataModel(dataModel);
-        return new EvaluationDmCell(this, evaluationDataModel);
-    }
+
 }

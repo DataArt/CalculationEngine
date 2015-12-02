@@ -46,6 +46,19 @@ public class ExcelFileConvertersTest {
         toDataModel_DataModel_DataModelWithAllCellsCorrect(dm);
     }
     
+    @Test
+    public void toWorkbook_DataModel_DataModelFieldsMatchWorkbookFields() throws IOException {
+        // given
+        IDataModel dm = DataModelConverters.toDataModel(new XSSFWorkbook(excel));
+
+        // when
+        Workbook w = DataModelConverters.toWorkbook(dm);
+
+        // then
+        assertThat(w).isNotNull();
+        toDataModel_DataModel_DataModelWithAllCellsCorrect(DataModelConverters.toDataModel(w));
+    }
+
     private static void toDataModel_DataModel_DataModelWithAllCellsCorrect(IDataModel dm) {
         //given
         String[] a = {"A", "B", "C", "D", "E", "F"};

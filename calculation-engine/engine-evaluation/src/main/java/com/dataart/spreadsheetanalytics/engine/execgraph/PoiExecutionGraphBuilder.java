@@ -28,6 +28,7 @@ import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
+import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueEvalToCellValue;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.ptgToString;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
@@ -728,18 +729,20 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (poiValue == null) { return CellValue.BLANK; }
         
         switch (poiValue.getCellType()) {
-            case Cell.CELL_TYPE_STRING: { return new CellValue(poiValue.getStringValue()); }
-            case Cell.CELL_TYPE_NUMERIC: { return new CellValue(Double.valueOf(poiValue.getNumberValue())); }
-            case Cell.CELL_TYPE_BOOLEAN: { return new CellValue(Boolean.valueOf(poiValue.getBooleanValue())); }
-            case Cell.CELL_TYPE_ERROR: { return new CellValue(ErrorEval.valueOf(poiValue.getErrorValue()).getErrorString()); }
+            case Cell.CELL_TYPE_STRING: { return CellValue.from(poiValue.getStringValue()); }
+            case Cell.CELL_TYPE_NUMERIC: { return CellValue.from(Double.valueOf(poiValue.getNumberValue())); }
+            case Cell.CELL_TYPE_BOOLEAN: { return CellValue.from(Boolean.valueOf(poiValue.getBooleanValue())); }
+            case Cell.CELL_TYPE_ERROR: { return CellValue.from(ErrorEval.valueOf(poiValue.getErrorValue()).getErrorString()); }
             case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
             case Cell.CELL_TYPE_BLANK: default: { return CellValue.BLANK; }
         }
     }
-
-    public void setRefsToNames(Map<String, String> refsToNames) {
-        this.refsToNames = refsToNames;
+    
+    public static ICellValue resolveValueEval(ValueEval valueEval) {
+        return resolveCellValue(coerceValueEvalToCellValue(valueEval));
     }
 
+    public void setRefsToNames(Map<String, String> refsToNames) { this.refsToNames = refsToNames; }
     public void setExecutionGraphConfig(ExecutionGraphConfig config) { this.config = config; }
+
 }

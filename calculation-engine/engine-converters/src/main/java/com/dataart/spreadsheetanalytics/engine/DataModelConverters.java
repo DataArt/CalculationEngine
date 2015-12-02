@@ -19,8 +19,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Calendar;
-import java.util.Date;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -45,7 +43,7 @@ final class DataModelConverters {
      * @see DataModelConverters#toDataModel(Workbook)
      */
     static IDataModel toDataModel(final InputStream workbook) throws IOException {
-        return toDataModel(new XSSFWorkbook(workbook));
+        return toDataModel(ConverterUtils.newWorkbook(workbook));
     }
     
     /**
@@ -95,7 +93,7 @@ final class DataModelConverters {
      */
     static OutputStream toXlsxFile(final IDataModel dataModel, final InputStream formatting) throws IOException {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        toWorkbook(dataModel, new XSSFWorkbook(formatting)).write(xlsx);
+        toWorkbook(dataModel, ConverterUtils.newWorkbook(formatting)).write(xlsx);
         return xlsx;
     }
     
@@ -103,35 +101,35 @@ final class DataModelConverters {
      * Convertes plain {@link IDataModel} to plain new {@link XSSFWorkbook}.
      */
     static Workbook toWorkbook(final IDataModel dataModel) throws IOException {
-        return toWorkbook(dataModel, new XSSFWorkbook());
+        return toWorkbook(dataModel, (Workbook) null);
     }
     
     /**
      * Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided.
      */
     static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
-        Sheet sheet = formatting.getSheet(dataModel.name());
-        if ( sheet == null ) { sheet = formatting.createSheet(dataModel.name()); }
-        for (int rowId = 0 ; rowId < dataModel.length(); rowId++) {
-            IDmRow dmRow = dataModel.getRow(rowId);
-            Row row = sheet.getRow(rowId);
-            if ( row == null ) { row = sheet.createRow(rowId); }
-            for (int cellId = 0 ; cellId < dmRow.width(); cellId++) {
-                IDmCell dmCell = dmRow.getCell(cellId);
-                Cell cell = row.getCell(cellId);
-                if ( cell == null ) { cell = row.createCell(cellId); }
-                populateCellWithCellValue(cell, dmCell.content().get());
+        Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
+        
+        Sheet wbSheet = result.getSheet(dataModel.name());
+        if (wbSheet == null) { wbSheet = result.createSheet(dataModel.name()); }
+        
+        for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx < dataModel.getLastRowIndex(); rowIdx++) {
+            IDmRow dmRow = dataModel.getRow(rowIdx);
+            if (dmRow == null) { continue; }
+            Row wbRow = wbSheet.getRow(rowIdx);
+            if (wbRow == null) { wbRow = wbSheet.createRow(rowIdx); }
+            
+            for (int cellIdx = dmRow.getFirstColumnIndex(); cellIdx < dmRow.getLastColumnIndex(); cellIdx++) {
+                IDmCell dmCell = dmRow.getCell(cellIdx);
+                if (dmCell == null) { continue; }
+                
+                Cell wbCell = wbRow.getCell(cellIdx);
+                if (wbCell == null) { wbCell = wbRow.createCell(cellIdx); }
+                
+                ConverterUtils.populateCellValue(wbCell, dmCell.content());
             }
         }
-        return formatting;
+        return result;
     }
 
-    static void populateCellWithCellValue(Cell cell, Object value) {
-        if (value instanceof Boolean) { cell.setCellValue((Boolean) value); }
-        else if (value instanceof Double) { cell.setCellValue((Double) value); }
-        else if (value instanceof String) { cell.setCellValue((String) value); }
-        else if (value instanceof Calendar) { cell.setCellValue((Calendar) value); }
-        else if (value instanceof Date) { cell.setCellValue((Date) value); }
-    }
-    
 }

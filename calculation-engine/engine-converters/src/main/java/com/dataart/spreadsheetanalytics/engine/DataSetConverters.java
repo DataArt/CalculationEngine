@@ -24,7 +24,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
@@ -38,7 +37,7 @@ final class DataSetConverters {
     private DataSetConverters() {}
     
     static IDataSet toDataSet(final InputStream workbook) throws IOException {
-        return toDataSet(new XSSFWorkbook(workbook));
+        return toDataSet(ConverterUtils.newWorkbook(workbook));
     }
     
     /* TODO: throw exception of formula is found or add flag 'ignore formulas' */
@@ -65,7 +64,7 @@ final class DataSetConverters {
     
     static OutputStream toXlsxFile(final IDataSet dataSet, final InputStream formatting) throws IOException {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        toWorkbook(dataSet, new XSSFWorkbook(formatting)).write(xlsx);
+        toWorkbook(dataSet, ConverterUtils.newWorkbook(formatting)).write(xlsx);
         return xlsx;
     }
         
@@ -74,7 +73,7 @@ final class DataSetConverters {
     }
     
     static Workbook toWorkbook(final IDataSet dataSet, final Workbook formatting) throws IOException {
-        Workbook result = formatting == null ? new XSSFWorkbook() : ConverterUtils.clearContent(formatting);
+        Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
         
         Sheet sheet = result.createSheet(dataSet.name());
         for (IDsRow row : dataSet) {

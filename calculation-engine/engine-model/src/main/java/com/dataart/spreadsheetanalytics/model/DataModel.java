@@ -26,7 +26,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
-import org.apache.poi.ss.formula.EvaluationWorkbook;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
@@ -61,10 +60,6 @@ public class DataModel implements IDataModel {
     @Override public String name() { return this.name; }
     @Override public void name(String name) { this.name = name; }
     @Override public int length() { return this.table.size(); }
-
-    @Override public int firstRowIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMin(); }
-
-    @Override public int lastRowIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMax(); }
 
     @Override public Iterator<IDmRow> iterator() {
         List<IDmRow> rows = table.entrySet().stream()
@@ -134,11 +129,17 @@ public class DataModel implements IDataModel {
         if (address != null ) { this.setCell(address.row(), address.column(), cell); }
     }
 
-    public EvaluationWorkbook toWorkbook() {
-        return new EvaluationDataModel(this);
+    @Override
+    public String toString() { return name(); }
+
+    @Override
+    public int getFirstRowIndex() {
+        return this.table.keySet().stream().min(Integer::compare).orElse(Integer.valueOf(-1));
     }
 
     @Override
-    public String toString() { return name(); }
+    public int getLastRowIndex() {
+        return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
+    }
 
 }

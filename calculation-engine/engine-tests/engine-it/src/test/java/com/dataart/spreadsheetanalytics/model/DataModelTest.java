@@ -33,8 +33,8 @@ public class DataModelTest {
         int expectedFirstRowIndex = 0;
         int expectedLastRowIndex = 6;
         
-        assertThat(dm.firstRowIndex()).isEqualTo(expectedFirstRowIndex);
-        assertThat(dm.lastRowIndex()).isEqualTo(expectedLastRowIndex);
+        assertThat(dm.getFirstRowIndex()).isEqualTo(expectedFirstRowIndex);
+        assertThat(dm.getLastRowIndex()).isEqualTo(expectedLastRowIndex);
         
         excelIn.close();
     }

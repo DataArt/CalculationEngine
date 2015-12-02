@@ -31,11 +31,11 @@ public interface IDmRow extends Iterable<IDmCell> {
 
     /** Number of cells is a row. */
     int width();
+    
+    /** Number of first column in this row. */
+    int getFirstColumnIndex();
 
-    /** Returns the index of first cell in the row */
-    int firstCellIndex();
-
-    /** Returns the index of last cell in the row */
-    int lastCellIndex();
+    /** Number of last column in this row. */
+    int getLastColumnIndex();
 
 }
