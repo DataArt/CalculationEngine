@@ -113,13 +113,13 @@ final class DataModelConverters {
         Sheet wbSheet = result.getSheet(dataModel.name());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.name()); }
         
-        for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx < dataModel.getLastRowIndex(); rowIdx++) {
+        for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {
             IDmRow dmRow = dataModel.getRow(rowIdx);
             if (dmRow == null) { continue; }
             Row wbRow = wbSheet.getRow(rowIdx);
             if (wbRow == null) { wbRow = wbSheet.createRow(rowIdx); }
             
-            for (int cellIdx = dmRow.getFirstColumnIndex(); cellIdx < dmRow.getLastColumnIndex(); cellIdx++) {
+            for (int cellIdx = dmRow.getFirstColumnIndex(); cellIdx <= dmRow.getLastColumnIndex(); cellIdx++) {
                 IDmCell dmCell = dmRow.getCell(cellIdx);
                 if (dmCell == null) { continue; }
                 
