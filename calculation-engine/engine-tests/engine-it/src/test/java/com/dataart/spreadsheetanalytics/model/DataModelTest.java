@@ -48,13 +48,14 @@ public class DataModelTest {
         //when
         IDataModel dm = Converters.toDataModel(excelIn);
  
-        String[] expectedValues = {"1.0", "true", "-1.0E-4", "Text 1", "#REF!", "=ISNUMBER(A1)", 
+        String[] expectedValues = {"1.0", "true",  "-1.0E-4", "Text 1", "#REF!",   "=ISNUMBER(A1)", 
                                    "2.0", "false", "-2.0E-4", "Text 2", "#VALUE!", "=SUBSTITUTE(D2,\"2\",\"00\")", 
-                                   "3.0", "true", "-3.0E-4", "Text 3", "#N/A", "=ISLOGICAL(B3)",
+                                   "3.0", "true",  "-3.0E-4", "Text 3", "#N/A",    "=ISLOGICAL(B3)",
                                    "4.0", "false", "-4.0E-4", "Text 4", "#DIV/0!", "=IF(C4>C5,D4,D5)",
-                                   "5.0", "true", "-5.0E-4", "Text 5", "#NULL!", "=SUM(A1:A7)",
-                                   "6.0", "false", "-6.0E-4", "Text 6", "#NAME?", "=ISERROR(E1:E6)",
-                                   "7.0", "true", "-7.0E-4", "Text 7", "#NUM!", "=IF(INDEX(B1:B7,3),1+1,C7) * C1"};
+                                   "5.0", "true",  "-5.0E-4", "Text 5", "#NULL!",  "=SUM(A1:A7)",
+                                   "6.0", "false", "-6.0E-4", "Text 6", "#NAME?",  "=ISERROR(E1:E6)",
+                                   "7.0", "true",  "-7.0E-4", "Text 7", "#NUM!",   "=IF(INDEX(B1:B7,3),1+1,C7) * C1"
+        };
         
         String[] actualValues = new String[42];
         
