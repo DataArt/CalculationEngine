@@ -27,6 +27,7 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 import javax.cache.expiry.Duration;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,7 +53,6 @@ import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLooku
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Monthly_Data_Query_Test {
 
@@ -65,11 +65,11 @@ public class Monthly_Data_Query_Test {
     static int expectedRowEnd = 16;
     
     static SpreadsheetEvaluator evaluator;
-    static PoiDataModel dataModel;
+    static IDataModel dataModel;
     
     @BeforeClass
     public static void before() throws Exception {
-        dataModel = new PoiDataModel("Monthly_Data_Query_Test", pathDataModel);
+        dataModel = Converters.toDataModel(new XSSFWorkbook(pathDataModel));
         
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
@@ -100,7 +100,7 @@ public class Monthly_Data_Query_Test {
         external.setAttributeFunctionStorage(attributeFunctionStorage);
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
-        final IDataSet dataSet = Converters.toDataSet(new PoiDataModel("Monthly_Data_Query", pathDataSet).poiModel);
+        final IDataSet dataSet = Converters.toDataSet(new XSSFWorkbook(pathDataModel));
         dataSetStorage.saveDataSet(dataSet);
 
         expectedValues = new HashMap<>();

@@ -41,7 +41,6 @@ import org.apache.poi.ss.formula.EvaluationCell;
 import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.atp.AnalysisToolPak;
-import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,15 +61,14 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 /**
  * SpreadsheetEvaluator is a direct implementation of {@link IEvaluator} interface.
  * It allows to do spreadsheets evaluation. It's 2 major methods are {@link #evaluate()} and {@link #evaluate(ICellAddress)}.
  * They do evaluation of one cell, or whole spreadsheet cell, by cell (algorithm can be changed in future).
  * 
- * This version of Evaluator requires a {@link PoiDataModel} to evaluate. DataModel provides access to POI's workbook object, 
- * so instance of {@link XSSFFormulaEvaluator} can do actual evaluation.
+ * This version of Evaluator requires an {@link IDataModel} to evaluate. DataModel provides access to POI's proxy workbook object, 
+ * so instance of {@link WorkbookEvaluator} can do actual evaluation.
  * 
  * {@link IExecutionGraphBuilder} can be attached to this class to trace all evaluation steps. This is usually done via
  * {@link IAuditor}.

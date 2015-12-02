@@ -34,6 +34,7 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 import javax.cache.expiry.Duration;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,6 +55,7 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorag
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
@@ -65,7 +67,6 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Skills_Sql_Table_Test {
 
@@ -77,11 +78,11 @@ public class Skills_Sql_Table_Test {
     static int expectedRowEnd = 13;
     
     static SpreadsheetEvaluator evaluator;
-    static PoiDataModel dataModel;
+    static IDataModel dataModel;
     
     @BeforeClass
     public static void before() throws Exception {
-        dataModel = new PoiDataModel("Skills_Sql_Table_Test", pathDataModel);
+        dataModel = Converters.toDataModel(new XSSFWorkbook(pathDataModel));
         
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 

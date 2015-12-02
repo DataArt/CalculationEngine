@@ -18,6 +18,7 @@ package com.dataart.spreadsheetanalytics.functions.poi.data;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -37,6 +38,7 @@ import org.apache.poi.ss.formula.eval.forked.ForkedEvaluator;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFForkedEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +46,12 @@ import org.slf4j.LoggerFactory;
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 @FunctionMeta(value = "FUNCEXEC")
 public class FuncexecFunction implements CustomFunction {
@@ -110,10 +113,18 @@ public class FuncexecFunction implements CustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
 
-        PoiDataModel dmWithDefine = (PoiDataModel) external.getDataModelStorage().getDataModel(meta.dataModelId());
-        ForkedEvaluator forkedEvaluator = XSSFForkedEvaluator.create(dmWithDefine.poiModel, IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUdfFinder());
+        IDataModel dmWithDefine = external.getDataModelStorage().getDataModel(meta.dataModelId());
+        
+        Workbook wb;
+        try { wb = Converters.toWorkbook(dmWithDefine); } 
+        catch (IOException e) {
+            log.warn("Cannot convert IDataModel to Workbook, but Workbook is needed for evaluation.", e);
+            return ErrorEval.REF_INVALID;
+        }
+        
+        ForkedEvaluator forkedEvaluator = XSSFForkedEvaluator.create(wb, IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUdfFinder());
 
-        Sheet s = dmWithDefine.poiModel.getSheetAt(0);
+        Sheet s = wb.getSheetAt(0);
         String firstSheetName = s.getSheetName(); /*TODO: one sheet support only*/
         for (int i = 0; i < inputAddresses.size(); i++) {
             

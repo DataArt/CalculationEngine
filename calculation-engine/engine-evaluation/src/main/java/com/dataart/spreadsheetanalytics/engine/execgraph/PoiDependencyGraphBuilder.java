@@ -18,6 +18,7 @@ package com.dataart.spreadsheetanalytics.engine.execgraph;
 import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.ptgToString;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -32,13 +33,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class PoiDependencyGraphBuilder {
 
@@ -47,29 +50,34 @@ public class PoiDependencyGraphBuilder {
     protected final FormulaParsingWorkbook poiFormulaBook;
     protected final Workbook poiBook;
     protected final DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> state;
-    
-    protected PoiDependencyGraphBuilder(PoiDataModel model) {
-        this.poiBook = model.poiModel;
-        this.poiFormulaBook = XSSFEvaluationWorkbook.create(model.poiModel);
-        this.state = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+
+    protected PoiDependencyGraphBuilder(IDataModel model) {
+        try {
+            this.poiBook = Converters.toWorkbook(model);
+            this.poiFormulaBook = XSSFEvaluationWorkbook.create((XSSFWorkbook) this.poiBook);
+            this.state = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e); //TODO: remove Workbook, build graph on IDataModel
+        }
     }
     
-    public static IExecutionGraph buildDependencyGraph(PoiDataModel dataModel) {
+    public static IExecutionGraph buildDependencyGraph(IDataModel dataModel) {
         
         return null;
     }
     
-    public static IExecutionGraph buildDependencyGraph(PoiDataModel dataModel, ICellAddress cell) {
-        if (dataModel == null || dataModel.poiModel == null) { throw new IllegalArgumentException("DataModel and PoiModel are required to build dependency graph"); }
+    public static IExecutionGraph buildDependencyGraph(IDataModel dataModel, ICellAddress cell) {
+        if (dataModel == null) { throw new IllegalArgumentException("DataModel and PoiModel are required to build dependency graph"); }
         
-        Sheet s = dataModel.poiModel.getSheetAt(0); //TODO: works for only one sheet workbooks
+        PoiDependencyGraphBuilder db = new PoiDependencyGraphBuilder(dataModel);
+        
+        Sheet s = db.poiBook.getSheetAt(0); //TODO: works for only one sheet workbooks
         if (s == null) { return null; }
         Row r = s.getRow(cell.row());
         if (r == null) { return null; }
         Cell c = r.getCell(cell.column());
         if (c == null) { return null; }
         
-        PoiDependencyGraphBuilder db = new PoiDependencyGraphBuilder(dataModel);
         ExecutionGraphVertex v = new ExecutionGraphVertex(A1Address.fromRowColumn(c.getRowIndex(), c.getColumnIndex()).address());
         db.state.addVertex(v);
         

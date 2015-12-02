@@ -26,8 +26,11 @@ import static org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook.create;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.formula.FormulaParsingWorkbook;
@@ -45,6 +48,8 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
+import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
@@ -141,5 +146,51 @@ final class DependencyExtractors {
         
         return dependencies;
     }
+    
+    /**
+     * Does full scan given {@link IDataModel} for Model-Attribute functions (like DEFINE or QUERYDEFINE) to ({@link AttributeFunctionMeta}).
+     * 3 iterators are used inside to go through all the cells and find 'function' keyword.
+     */
+    //                                                  keyword     name    instance
+    public static <T extends AttributeFunctionMeta> Map<String, Map<String, T>> scanForAttributeFunctionMeta(IDataModel dm, Map<String, Class<T>> attrFunctions) {
+        
+        Map<String, Map<String, T>> map = new HashMap<>();
+        attrFunctions.forEach((k, v) -> map.put(k, new HashMap<>()));
+
+        for (Iterator<IDmRow> rows = dm.iterator(); rows.hasNext();) {
+            IDmRow ro = rows.next();
+            
+            for (Iterator<IDmCell> cells = ro.iterator(); cells.hasNext();) {
+                IDmCell ce = cells.next();
+                if (ce == null || CELL_TYPE_FORMULA != ConverterUtils.resolveCellType(ce.content())) { continue; }
+                
+                try {
+                    String formula = (String) ce.content().get();
+
+                    String keyword = attrFunctions.keySet()
+                                                  .stream()
+                                                  .filter(key -> formula.startsWith(key))
+                                                  .findFirst()
+                                                  .orElse(null);
+                    if (keyword == null) { continue; }
+
+                    T meta = createAttributeFunctionMeta(attrFunctions.get(keyword), formula, dm);
+                    map.get(keyword).put(meta.name(), meta);
+                }
+                catch (Exception e) { log.debug("Warning while parsing custom excel formula. It is OK.", e); }
+            }
+        }
+        
+        return map;
+    }
+
+    static <T extends AttributeFunctionMeta> T createAttributeFunctionMeta(Class<T> metaClass, String formula, IDataModel model) throws Exception {
+        T meta = (T) metaClass.newInstance().parse(formula);
+        meta.dataModelId(model.dataModelId());
+        if (meta.name() == null) { meta.name(model.name()); }
+
+        return meta;
+    }
+
 
 }

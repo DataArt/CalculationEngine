@@ -55,18 +55,14 @@ public class CacheBasedAttributeFunctionStorage implements AttributeFunctionStor
     public void updateDefineFunctions(Set<IDataModel> dataModels) {
         this.defineFunctionsCache.clear();
         
-        Map<String, DefineFunctionMeta> map = collectAttributeFunctions(dataModels, DefineFunctionMeta.KEYWORD, DefineFunctionMeta.ATTRIBUTE_FUNCTION);
+        Map<String, DefineFunctionMeta> map = new HashMap<>();
+        dataModels.forEach((v) -> map.putAll(DependencyExtractors.scanForAttributeFunctionMeta(v, DefineFunctionMeta.ATTRIBUTE_FUNCTION).get(DefineFunctionMeta.KEYWORD)));
+        
         this.defineFunctionsCache.putAll(map);
         
         log.info("DEFINE function cache was updated. Current cache: {}", map);
     }
     
-    protected static <T extends AttributeFunctionMeta> Map<String, T> collectAttributeFunctions(Set<IDataModel> dataModels, String keyword, Map<String, Class<T>> attrFunc) {
-        Map<String, T> map = new HashMap<>();
-        dataModels.forEach((v) -> map.putAll(AttributeFunctionsScanner.scan(v, attrFunc).get(keyword)));
-        return map;
-    }
-
     public void setDefineFunctionsCache(Cache<String, DefineFunctionMeta> defineFunctionsCache) { this.defineFunctionsCache = defineFunctionsCache; }    
     
 }

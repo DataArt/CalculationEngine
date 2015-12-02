@@ -28,6 +28,7 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 import javax.cache.expiry.Duration;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,12 +49,12 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorag
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Funcexec_Test {
 
@@ -65,11 +66,11 @@ public class Funcexec_Test {
     static int expectedRowEnd = 29;
 
     static IEvaluator evaluator;
-    static PoiDataModel dataModel;
+    static IDataModel dataModel;
 
     @BeforeClass
     public static void before() throws Exception {
-        dataModel = new PoiDataModel("Funcexec_Test", pathDataModel);
+        dataModel = Converters.toDataModel(new XSSFWorkbook(pathDataModel));
 
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
