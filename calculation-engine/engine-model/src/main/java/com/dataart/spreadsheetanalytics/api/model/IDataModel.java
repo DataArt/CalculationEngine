@@ -37,7 +37,13 @@ public interface IDataModel extends Iterable<IDmRow> {
 
     /** Number of rows in this DataModel. */
     int length();
-    
+
+    /** Returns the index of first row in the DataModel */
+    int firstRowIndex();
+
+    /** Returns the index of last row in the DataModel */
+    int lastRowIndex();
+
     /** Returns the Row at given position. Null if does not exist. */
     IDmRow getRow(int rowIdx);
 

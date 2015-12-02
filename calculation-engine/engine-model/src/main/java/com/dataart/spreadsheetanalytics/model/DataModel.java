@@ -15,16 +15,18 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 import org.apache.poi.ss.formula.EvaluationWorkbook;
-
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
@@ -60,7 +62,17 @@ public class DataModel implements IDataModel {
     @Override public void name(String name) { this.name = name; }
     @Override public int length() { return this.table.size(); }
 
-    @Override public Iterator<IDmRow> iterator() { return this.table.values().iterator(); }
+    @Override public int firstRowIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMin(); }
+
+    @Override public int lastRowIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMax(); }
+
+    @Override public Iterator<IDmRow> iterator() {
+        List<IDmRow> rows = table.entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+        return rows.iterator();
+    }
 
     @Override
     public IDmRow getRow(int rowIdx) {

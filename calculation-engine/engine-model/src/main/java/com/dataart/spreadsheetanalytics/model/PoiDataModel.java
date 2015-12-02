@@ -139,5 +139,15 @@ public class PoiDataModel implements IDataModel {
         // TODO Auto-generated method stub
         
     }
-        
+
+    @Override
+    public int firstRowIndex() {
+        return poiModel.getSheetAt(0).getFirstRowNum();
+    }
+
+    @Override
+    public int lastRowIndex() {
+        return poiModel.getSheetAt(0).getLastRowNum();
+    }
+
 }

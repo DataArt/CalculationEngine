@@ -32,4 +32,10 @@ public interface IDmRow extends Iterable<IDmCell> {
     /** Number of cells is a row. */
     int width();
 
+    /** Returns the index of first cell in the row */
+    int firstCellIndex();
+
+    /** Returns the index of last cell in the row */
+    int lastCellIndex();
+
 }

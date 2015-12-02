@@ -15,12 +15,15 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
@@ -43,7 +46,18 @@ public class DmRow implements IDmRow {
     }
 
     @Override public int width() { return this.table.size(); }
-    @Override public Iterator<IDmCell> iterator() { return this.table.values().iterator(); }
+
+    @Override public int firstCellIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMin(); }
+
+    @Override public int lastCellIndex() { return table.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMax(); }
+
+    @Override public Iterator<IDmCell> iterator() {
+        List<IDmCell> cells = table.entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+        return cells.iterator();
+    }
     
     @Override
     public IDmCell getCell(int column) {
