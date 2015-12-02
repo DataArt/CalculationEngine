@@ -24,10 +24,9 @@ public class DataModelTest {
 
     @Test
     public void test_firstRowIndex_lastRowIndex() throws IOException {
-        //given
+        
         InputStream excelIn = new FileInputStream(excel);
                 
-        //when
         IDataModel dm = Converters.toDataModel(excelIn);
         
         int expectedFirstRowIndex = 0;
@@ -42,10 +41,9 @@ public class DataModelTest {
     
     @Test
     public void test_Iterator() throws IOException {
-        //given
+        
         InputStream excelIn = new FileInputStream(excel);
                 
-        //when
         IDataModel dm = Converters.toDataModel(excelIn);
  
         String[] expectedValues = {"1.0", "true",  "-1.0E-4", "Text 1", "#REF!",   "=ISNUMBER(A1)", 
