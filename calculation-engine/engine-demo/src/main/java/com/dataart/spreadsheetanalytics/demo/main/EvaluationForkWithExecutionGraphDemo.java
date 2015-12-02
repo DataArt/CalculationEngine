@@ -23,14 +23,8 @@ import java.util.Map;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
@@ -59,7 +53,8 @@ public class EvaluationForkWithExecutionGraphDemo {
         for (String cell : cellsToEvaluate) {
             values.put(cell, evaluator.evaluateFork(A1Address.fromA1Address(cell)));
         }
-        
+
+        /*
         //last cell
         final ICellAddress addr = A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1));
 
@@ -71,7 +66,7 @@ public class EvaluationForkWithExecutionGraphDemo {
         //print graph
         DemoUtil.generateVisJsData(graph);
         DemoUtil.plainprint(graph);
-
+         */
         //pring values\
         System.out.println("\n\n***********");
         for (String cell : values.keySet()) {

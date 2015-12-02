@@ -42,6 +42,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaError;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -111,11 +112,18 @@ final class ConverterUtils {
     static void populateCellValue(final Cell cell, final ICellValue value) {
         if (cell == null) { return; }
         
-        if (value == CellValue.BLANK) { cell.setCellType(CELL_TYPE_BLANK); }
-        else if (String.class == value.type()) { cell.setCellValue((String) value.get()); }
-        else if (Boolean.class == value.type()) { cell.setCellValue(((Boolean) value.get())); }
-        else if (Double.class == value.type()) { cell.setCellValue(((Double) value.get())); } 
-        else { throw new IllegalArgumentException(String.format("Type of value %s is not supported: %s", value, value.getClass().getSimpleName())); }
+        int cellType = resolveCellType(value);
+        cell.setCellType(cellType);
+        switch (cellType) {
+            case CELL_TYPE_BLANK: { break; }
+            case CELL_TYPE_BOOLEAN: { cell.setCellValue((Boolean) value.get()); break; }
+            case CELL_TYPE_NUMERIC: { cell.setCellValue((Double) value.get()); break; }
+            case CELL_TYPE_FORMULA: { cell.setCellFormula(((String) value.get()).substring(1)); break; }
+            case CELL_TYPE_ERROR: { cell.setCellErrorValue(FormulaError.forString((String) value.get()).getCode()); break; }
+            case CELL_TYPE_STRING: { cell.setCellValue((String) value.get()); break; }
+            
+            default: { throw new IllegalArgumentException(String.format("Type of value %s is not supported: %s", value, value.getClass().getSimpleName())); }
+        }
     }
     
     /**

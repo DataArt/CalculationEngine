@@ -72,6 +72,7 @@ final class DataSetConverters {
         return toWorkbook(dataSet, (Workbook) null);
     }
     
+    //TODO: rewrite to use common code with IDataModel
     static Workbook toWorkbook(final IDataSet dataSet, final Workbook formatting) throws IOException {
         Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
         
