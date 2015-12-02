@@ -18,8 +18,8 @@ package com.dataart.spreadsheetanalytics.model;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
@@ -59,14 +59,14 @@ public class DataModel implements IDataModel {
     @Override public IDataModelId dataModelId() { return this.dataModelId; }
     @Override public String name() { return this.name; }
     @Override public void name(String name) { this.name = name; }
-    @Override public int length() { return this.table.size(); }
 
     @Override public Iterator<IDmRow> iterator() {
-        List<IDmRow> rows = table.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
-        return rows.iterator();
+        return this.table.entrySet()
+                         .stream()
+                         .sorted(Comparator.comparing(Entry::getKey))
+                         .map(Entry::getValue)
+                         .collect(Collectors.<IDmRow>toList())
+                         .listIterator();
     }
 
     @Override
@@ -128,9 +128,8 @@ public class DataModel implements IDataModel {
     public void setCell(ICellAddress address, IDmCell cell) {
         if (address != null ) { this.setCell(address.row(), address.column(), cell); }
     }
-
-    @Override
-    public String toString() { return name(); }
+    
+    @Override public int length() { return this.table.size(); }
 
     @Override
     public int getFirstRowIndex() {
@@ -141,5 +140,8 @@ public class DataModel implements IDataModel {
     public int getLastRowIndex() {
         return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
     }
+
+    @Override
+    public String toString() { return name(); }
 
 }

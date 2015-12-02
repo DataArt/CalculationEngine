@@ -18,8 +18,8 @@ package com.dataart.spreadsheetanalytics.model;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -45,14 +45,13 @@ public class DmRow implements IDmRow {
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
 
-    @Override public int width() { return this.table.size(); }
-
     @Override public Iterator<IDmCell> iterator() {
-        List<IDmCell> cells = table.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
-        return cells.iterator();
+        return this.table.entrySet()
+                         .stream()
+                         .sorted(Comparator.comparing(Entry::getKey))
+                         .map(Entry::getValue)
+                         .collect(Collectors.<IDmCell>toList())
+                         .listIterator();
     }
     
     @Override
@@ -79,6 +78,8 @@ public class DmRow implements IDmRow {
         if (address != null) { this.setCell(address.column(), cell); }        
     }
 
+    @Override public int width() { return this.table.size(); }
+    
     @Override
     public int getFirstColumnIndex() {
         return this.table.keySet().stream().min(Integer::compare).orElse(Integer.valueOf(-1));
