@@ -1,26 +1,27 @@
 package com.dataart.spreadsheetanalytics.demo.main;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
-import com.dataart.spreadsheetanalytics.engine.AttributeFunctionsScanner;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.other.project.functions.ModeldefineFunction;
 
 public class ExtendFunctionsDemo {
@@ -31,9 +32,9 @@ public class ExtendFunctionsDemo {
         final List<String> cellsToEvaluate = new ArrayList<>(Arrays.asList("A2"));
 
         //prepare DataModel to work with
-        final PoiDataModel model = new PoiDataModel(Paths.get(excel).getFileName().toString(), excel);
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(excel));
 
-        DemoUtil.initCaches(model);
+        DemoUtil.initCaches(model, excel);
         
         OtherFunctions.init();
 
@@ -74,6 +75,7 @@ class OtherFunctions extends Functions {
         
         ExternalServices external = ExternalServices.INSTANCE;
         external.getDataModelStorage().getDataModels().values().forEach(dm -> {
+            //TODO: provide acces to DependencyExtractors
             AttributeFunctionsScanner.scan(dm, ModeldefineFunction.map).get(ModeldefineFunction.KEYWORD).values()
                                      .forEach(dfm -> external.getAttributeFunctionStorage().addDefineFunction(dfm));
         });
