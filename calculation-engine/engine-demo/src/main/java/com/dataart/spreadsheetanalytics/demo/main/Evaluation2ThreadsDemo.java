@@ -22,11 +22,17 @@ import java.util.List;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.DataSet;
+import com.dataart.spreadsheetanalytics.model.EvaluationContext;
+
 
 public class Evaluation2ThreadsDemo {
     
@@ -46,26 +52,38 @@ public class Evaluation2ThreadsDemo {
         final IDataModel model = Converters.toDataModel(new XSSFWorkbook(excel));
         
         DemoUtil.initCaches(model, excel);
+        new SpreadsheetEvaluator(model); //TODO: static init?
             
         System.out.println("1");
         new Thread(() -> {
             try{
-                final IEvaluator evaluator1 = new SpreadsheetEvaluator(model, "HELLO");
+                final IEvaluator evaluator1 = new SpreadsheetEvaluator(model);
                 for (String cell : cellsToEvaluate) {
-                    System.out.println("[1] Result of " + cell + " is: " + evaluator1.evaluate(A1Address.fromA1Address(cell)));
-                }  
+                    IEvaluationContext ctx = new EvaluationContext();
+                    ctx.set("Validation", new DataSet("Validation"));
+                    IEvaluationResult<ICellValue> val = evaluator1.evaluate(A1Address.fromA1Address(cell), ctx);
+                    System.out.println("[1] Result of " + cell + " is: " + val.getResult());
+                    DataSet vds = (DataSet) val.getContext().get("Validation");
+                    System.out.println(vds);
+                }
             }catch (Exception e) {
                 e.printStackTrace();
             }
         }).start();
         
         System.out.println("2");
+        
         new Thread(() -> {
             try {
-                final IEvaluator evaluator2 = new SpreadsheetEvaluator(model, "WORLD");
+                final IEvaluator evaluator2 = new SpreadsheetEvaluator(model);
                 for (String cell : cellsToEvaluate) {
-                    System.out.println("[2] Result of " + cell + " is: " + evaluator2.evaluate(A1Address.fromA1Address(cell)));
-                }  
+                    IEvaluationContext ctx = new EvaluationContext();
+                    ctx.set("Validation", new DataSet("Validation"));
+                    IEvaluationResult<ICellValue> val = evaluator2.evaluate(A1Address.fromA1Address(cell), ctx);
+                    System.out.println("[2] Result of " + cell + " is: " + val.getResult());
+                    DataSet vds = (DataSet) val.getContext().get("Validation");
+                    System.out.println(vds);
+                }
             }catch (Exception e) {
                 e.printStackTrace();
             }

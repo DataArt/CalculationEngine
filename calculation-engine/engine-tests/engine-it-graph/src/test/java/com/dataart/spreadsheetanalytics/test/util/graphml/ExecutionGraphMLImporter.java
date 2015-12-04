@@ -21,7 +21,7 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
+import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

@@ -34,16 +34,6 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
  */
 public interface CustomFunction extends FreeRefFunction {
     
-    ThreadLocal<String> context = new ThreadLocal<>();
-
-    static String getContext() {
-        return context.get();
-    }
-
-    static void setContext(String ctx) {
-        context.set(ctx);
-    }
-
     static List<ValueEval> prepareQueryArgs(List<ValueEval> queryArgs) throws EvaluationException {
         List<ValueEval> args = new LinkedList<>();
         

@@ -16,7 +16,7 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.functions.poi.data;
 
 import static java.util.Arrays.asList;
-import static org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils.coerceValueTo;
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.coerceValueTo;
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.util.ArrayList;

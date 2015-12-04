@@ -17,8 +17,8 @@ package com.dataart.spreadsheetanalytics.engine.graph;
 
 import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.ptgToVertexType;
 
-import org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils;
-import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
+import org.apache.poi.common.fork.ExecutionGraphBuilderUtils;
+import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
