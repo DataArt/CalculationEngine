@@ -46,27 +46,29 @@ public class Evaluation2ThreadsDemo {
         final IDataModel model = Converters.toDataModel(new XSSFWorkbook(excel));
         
         DemoUtil.initCaches(model, excel);
-        
-        //create Evaluator
-        final IEvaluator evaluator1 = new SpreadsheetEvaluator(model);
-        final IEvaluator evaluator2 = new SpreadsheetEvaluator(model);
-                
+            
         System.out.println("1");
         new Thread(() -> {
-            ThreadLocal<String> etl1 = new ThreadLocal();
-            etl1.set("HELLO");
-            for (String cell : cellsToEvaluate) {
-                System.out.println("[1] Result of " + cell + " is: " + evaluator1.evaluate(A1Address.fromA1Address(cell)));
-            }  
+            try{
+                final IEvaluator evaluator1 = new SpreadsheetEvaluator(model, "HELLO");
+                for (String cell : cellsToEvaluate) {
+                    System.out.println("[1] Result of " + cell + " is: " + evaluator1.evaluate(A1Address.fromA1Address(cell)));
+                }  
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }).start();
         
         System.out.println("2");
         new Thread(() -> {
-            ThreadLocal<String> etl1 = new ThreadLocal();
-            etl1.set("WORLD");
-            for (String cell : cellsToEvaluate) {
-                System.out.println("[2] Result of " + cell + " is: " + evaluator2.evaluate(A1Address.fromA1Address(cell)));
-            }  
+            try {
+                final IEvaluator evaluator2 = new SpreadsheetEvaluator(model, "WORLD");
+                for (String cell : cellsToEvaluate) {
+                    System.out.println("[2] Result of " + cell + " is: " + evaluator2.evaluate(A1Address.fromA1Address(cell)));
+                }  
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }).start();
         
     }

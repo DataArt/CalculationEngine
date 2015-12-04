@@ -91,6 +91,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
         this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, getUdfFinder());        
     }
     
+    public SpreadsheetEvaluator(IDataModel model, String context) throws IOException {
+        this.model = model;
+        this.evaluationWorkbook = toEvaluationWorkbook(toWorkbook(this.model));
+        this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, getUdfFinder());
+        CustomFunction.setContext(context);
+    }
+    
     @Override
     public ICellValue evaluate(ICellAddress addr) {
         EvaluationCell cell = getEvaluationCell(this.evaluationWorkbook, addr);

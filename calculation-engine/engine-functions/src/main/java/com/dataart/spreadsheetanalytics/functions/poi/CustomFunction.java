@@ -33,6 +33,16 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
  * Since some of the functions require data access, it might use access to {@link ExternalServices}.
  */
 public interface CustomFunction extends FreeRefFunction {
+    
+    static final ThreadLocal<String> context = new ThreadLocal<>();
+
+    static String getContext() {
+        return context.get();
+    }
+
+    static void setContext(String ctx) {
+        context.set(ctx);
+    }
 
     static List<ValueEval> prepareQueryArgs(List<ValueEval> queryArgs) throws EvaluationException {
         List<ValueEval> args = new LinkedList<>();
