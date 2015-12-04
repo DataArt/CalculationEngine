@@ -15,24 +15,26 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.demo.main;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class EvaluationWithExecutionGraphDemo {
     
@@ -49,9 +51,9 @@ public class EvaluationWithExecutionGraphDemo {
         cellsToEvaluate.remove(0);
 
         //prepare DataModel to work with
-        final PoiDataModel model = new PoiDataModel(Paths.get(excel).getFileName().toString(), excel);
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(excel));
         
-        DemoUtil.initCaches(model);
+        DemoUtil.initCaches(model, excel);
         
         //create Evaluator
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);

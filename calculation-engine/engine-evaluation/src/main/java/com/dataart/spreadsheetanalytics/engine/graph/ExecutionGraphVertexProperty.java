@@ -13,9 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.engine.execgraph;
+package com.dataart.spreadsheetanalytics.engine.graph;
 
-import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.ptgToVertexType;
+import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.ptgToVertexType;
 
 import org.apache.poi.common.execgraph.ExecutionGraphBuilderUtils;
 import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;

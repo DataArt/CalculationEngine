@@ -20,6 +20,8 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 import javax.cache.expiry.Duration;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
@@ -50,7 +52,6 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class DemoUtil {
     
@@ -140,7 +141,7 @@ public class DemoUtil {
         }
     }
 
-    public static void initCaches(PoiDataModel model) throws IOException, InterruptedException {
+    public static void initCaches(IDataModel model, String excel) throws IOException, InterruptedException {
         
         //prepare caches to be used as storages
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
@@ -176,7 +177,7 @@ public class DemoUtil {
         
         //if this model is a dataset also - put it to cache
         try {
-            final IDataSet dataSet = Converters.toDataSet(model.poiModel);
+            final IDataSet dataSet = Converters.toDataSet(new XSSFWorkbook(excel));
             dataSetStorage.saveDataSet(dataSet);                       
         } catch (Exception e) {
             System.out.println("This workbook is not a dataset itself.");

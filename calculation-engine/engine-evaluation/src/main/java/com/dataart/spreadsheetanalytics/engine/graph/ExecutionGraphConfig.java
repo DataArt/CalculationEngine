@@ -1,4 +1,4 @@
-package com.dataart.spreadsheetanalytics.engine.execgraph;
+package com.dataart.spreadsheetanalytics.engine.graph;
 
 public class ExecutionGraphConfig {
 

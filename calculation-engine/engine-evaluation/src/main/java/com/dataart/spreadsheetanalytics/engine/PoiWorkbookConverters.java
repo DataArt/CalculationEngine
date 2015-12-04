@@ -53,6 +53,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 
@@ -131,7 +132,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
     @Override public int getSheetIndex(String s) { return 0; }
     @Override public EvaluationSheet getSheet(int i) { return this.sheet; }
     @Override public ExternalSheet getExternalSheet(int i) { throw new UnsupportedOperationException("Only one sheet per Workbook is supported."); }
-    @Override public ExternalSheet getExternalSheet(String firstSheetName, String lastSheetName, int externalWorkbookNumber) { throw new UnsupportedOperationException(); }
+    @Override public ExternalSheet getExternalSheet(String firstSheetName, String lastSheetName, int externalWorkbookNumber) { return null; }
     @Override public int convertFromExternSheetIndex(int i) { return 0; }
     @Override public ExternalName getExternalName(int i, int i1) { throw new UnsupportedOperationException("external names are not supported"); }
     @Override public ExternalName getExternalName(String s, String s1, int i) { throw new UnsupportedOperationException("external names are not supported"); }
@@ -156,8 +157,8 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
         throw new UnsupportedOperationException(evaluationCell.toString());
     }
 
-    @Override public UDFFinder getUDFFinder() { return null; }
-    @Override public String getFormulaString(EvaluationCell cell) { return null; }
+    @Override public UDFFinder getUDFFinder() { return Functions.getUdfFinder(); }
+    @Override public String getFormulaString(EvaluationCell cell) { return null; } //TODO: for graph
 }
 
 class PoiProxyCell implements EvaluationCell {

@@ -17,18 +17,18 @@ package com.dataart.spreadsheetanalytics.demo.main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
 
-public class EvaluationForkWithExecutionGraphDemo {
+public class Evaluation2ThreadsDemo {
     
     public static void main(String[] args) throws Exception {
 
@@ -43,35 +43,31 @@ public class EvaluationForkWithExecutionGraphDemo {
         cellsToEvaluate.remove(0);
 
         //prepare DataModel to work with
-        final DataModel model = (DataModel) Converters.toDataModel(new XSSFWorkbook(excel));
-
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(excel));
+        
+        DemoUtil.initCaches(model, excel);
+        
         //create Evaluator
-        final SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(model);
+        final IEvaluator evaluator1 = new SpreadsheetEvaluator(model);
+        final IEvaluator evaluator2 = new SpreadsheetEvaluator(model);
+                
+        System.out.println("1");
+        new Thread(() -> {
+            ThreadLocal<String> etl1 = new ThreadLocal();
+            etl1.set("HELLO");
+            for (String cell : cellsToEvaluate) {
+                System.out.println("[1] Result of " + cell + " is: " + evaluator1.evaluate(A1Address.fromA1Address(cell)));
+            }  
+        }).start();
         
-        //evaluate and save to map to print later
-        Map<String, Object> values = new LinkedHashMap<>();
-        for (String cell : cellsToEvaluate) {
-            values.put(cell, evaluator.evaluateFork(A1Address.fromA1Address(cell)));
-        }
-
-        /*
-        //last cell
-        final ICellAddress addr = A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1));
-
-        //create Auditor
-        final IAuditor auditor = new SpreadsheetAuditor(evaluator);
-        //build graph
-        final IExecutionGraph graph = auditor.buildExecutionGraph(addr, ExecutionGraphConfig.DEFAULT);
-        
-        //print graph
-        DemoUtil.generateVisJsData(graph);
-        DemoUtil.plainprint(graph);
-         */
-        //pring values\
-        System.out.println("\n\n***********");
-        for (String cell : values.keySet()) {
-            System.out.println("Result of " + cell + " is: " + values.get(cell));
-        }
+        System.out.println("2");
+        new Thread(() -> {
+            ThreadLocal<String> etl1 = new ThreadLocal();
+            etl1.set("WORLD");
+            for (String cell : cellsToEvaluate) {
+                System.out.println("[2] Result of " + cell + " is: " + evaluator2.evaluate(A1Address.fromA1Address(cell)));
+            }  
+        }).start();
         
     }
     

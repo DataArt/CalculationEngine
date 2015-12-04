@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 
 /**
  * Represents a vertex (node) in execution graph (static or dynamic).

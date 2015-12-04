@@ -17,7 +17,7 @@ package com.dataart.spreadsheetanalytics.api.engine;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 
 public interface IAuditor {
 

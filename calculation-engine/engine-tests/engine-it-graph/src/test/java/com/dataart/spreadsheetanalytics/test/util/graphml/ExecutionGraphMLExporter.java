@@ -31,8 +31,8 @@ import org.jgrapht.ext.GraphMLExporter;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphEdge;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphEdge;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 /**

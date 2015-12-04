@@ -15,9 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleVertexGraphForCellWithValue;
-import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleVertexGraphForEmptyCell;
-import static com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder.buildSingleVertexGraphForParseException;
+import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.buildSingleVertexGraphForCellWithValue;
+import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.buildSingleVertexGraphForEmptyCell;
+import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.buildSingleVertexGraphForParseException;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.VALUE_INVALID;
 
@@ -40,10 +40,10 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
-import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
-import com.dataart.spreadsheetanalytics.engine.execgraph.PoiDependencyGraphBuilder;
-import com.dataart.spreadsheetanalytics.engine.execgraph.PoiExecutionGraphBuilder;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.engine.graph.PoiDependencyGraphBuilder;
+import com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder;
 
 /**
  * SpreadsheetAuditor is a direct implementation of {@link IAuditor}.
