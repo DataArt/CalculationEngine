@@ -16,6 +16,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
+import com.dataart.spreadsheetanalytics.engine.DependencyExtractors;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
@@ -76,8 +77,9 @@ class OtherFunctions extends Functions {
         ExternalServices external = ExternalServices.INSTANCE;
         external.getDataModelStorage().getDataModels().values().forEach(dm -> {
             //TODO: provide acces to DependencyExtractors
-            AttributeFunctionsScanner.scan(dm, ModeldefineFunction.map).get(ModeldefineFunction.KEYWORD).values()
-                                     .forEach(dfm -> external.getAttributeFunctionStorage().addDefineFunction(dfm));
+            DependencyExtractors.scanForAttributeFunctionMeta(dm, ModeldefineFunction.map)
+                                .get(ModeldefineFunction.KEYWORD).values()
+                                .forEach(dfm -> external.getAttributeFunctionStorage().addDefineFunction(dfm));
         });
     }
 }

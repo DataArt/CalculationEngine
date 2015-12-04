@@ -34,7 +34,7 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
  */
 public interface CustomFunction extends FreeRefFunction {
     
-    static final ThreadLocal<String> context = new ThreadLocal<>();
+    ThreadLocal<String> context = new ThreadLocal<>();
 
     static String getContext() {
         return context.get();

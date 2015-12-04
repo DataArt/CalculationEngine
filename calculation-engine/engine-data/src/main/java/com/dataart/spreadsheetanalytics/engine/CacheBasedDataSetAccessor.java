@@ -21,15 +21,15 @@ import javax.cache.Caching;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 
-public class CacheBasedDataSetStorage implements DataSetStorage {
-    private static final Logger log = LoggerFactory.getLogger(CacheBasedDataSetStorage.class);
+public class CacheBasedDataSetAccessor implements DataSetAccessor {
+    private static final Logger log = LoggerFactory.getLogger(CacheBasedDataSetAccessor.class);
     
     public static final String DATA_SET_TO_ID_CACHE_NAME = "dataSetToIdCache";
     public static final String DATA_SET_TO_NAME_CACHE_NAME = "dataSetToNameCache";
