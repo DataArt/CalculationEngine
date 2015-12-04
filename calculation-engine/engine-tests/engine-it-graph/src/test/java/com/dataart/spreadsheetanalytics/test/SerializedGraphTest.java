@@ -22,15 +22,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.dataart.spreadsheetanalytics.test.util.ExecutionGraphAssert;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 import com.dataart.spreadsheetanalytics.test.util.graphml.ExecutionGraphML;
@@ -47,11 +49,11 @@ public abstract class SerializedGraphTest {
 
     public void before(String path, String address) throws Exception {
         
-        final IDataModel model = new PoiDataModel(path, path);
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
         
-        GraphTestUtil.initExternalServices((PoiDataModel) model);
+        GraphTestUtil.initExternalServices(model);
         
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));        
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         
         //build

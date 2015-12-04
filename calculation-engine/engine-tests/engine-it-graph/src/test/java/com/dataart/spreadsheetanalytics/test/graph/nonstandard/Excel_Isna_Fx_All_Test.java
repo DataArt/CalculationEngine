@@ -18,21 +18,22 @@ package com.dataart.spreadsheetanalytics.test.graph.nonstandard;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
-    
+
     final static String GRAPHML_DIR = "src/test/resources/nonstandard_graphml_files/";
     static String file = "Isna_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
@@ -42,14 +43,14 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     static String suffix2 = "JOIN_2";
     static String suffix3 = "JOIN_5";
     static String suffix4 = "JOIN_10";
-    
+
     IAuditor auditor = null;
-    
+
     @Before
     public void beforeTest() throws Exception {
-        final IDataModel model = new PoiDataModel(path, path);
-        GraphTestUtil.initExternalServices((PoiDataModel) model);
-        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));        
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
+        GraphTestUtil.initExternalServices(model);
+        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
     }
 
     @After
@@ -57,32 +58,32 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
         auditor = null;
         GraphTestUtil.destroyExternalServices();
     }
-    
+
     @Test
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
-        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.DEFAULT);               
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.DEFAULT);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
     }
 
-    @Test    
+    @Test
     public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
         graph = auditor.buildExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
     }
 
-    @Test    
+    @Test
     public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
         graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
     }
 
-    @Test    
+    @Test
     public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
         graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
     }
 
-    @Test    
+    @Test
     public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
         graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
         super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);

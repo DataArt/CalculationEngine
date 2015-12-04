@@ -25,11 +25,11 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_Error_RefSHEET_E6_Test extends SerializedGraphTest {
-    
+
     static String address = "E6";
     static String file = "Error_RefSHEET";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    
+
     @Before
     public void beforeTest() throws Exception {
         super.before(path, address);
@@ -39,7 +39,7 @@ public class Excel_Error_RefSHEET_E6_Test extends SerializedGraphTest {
     public void afterTest() throws Exception {
         super.after();
     }
-    
+
     @Test
     public void assert_ExcelFile_SerializedGraph() throws Exception {
         super.compare_ExcelFile_SerializedGraph(STANDARD_GRAPHML_DIR, file, address);

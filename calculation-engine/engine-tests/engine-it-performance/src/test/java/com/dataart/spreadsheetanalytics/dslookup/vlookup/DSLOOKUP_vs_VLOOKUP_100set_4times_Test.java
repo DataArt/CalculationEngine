@@ -16,10 +16,10 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.engine.DataModelConverters;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class DSLOOKUP_vs_VLOOKUP_100set_4times_Test extends ZParentTest {
 
@@ -32,17 +32,17 @@ public class DSLOOKUP_vs_VLOOKUP_100set_4times_Test extends ZParentTest {
 
         Map<ICellAddress, Object> expectedValues;
 
-        PoiDataModel dataModel;
+        IDataModel dataModel;
         IEvaluator evaluator;
         Map<Integer, ICellAddress> addressMapA;
         Map<Integer, ICellAddress> addressMapB;
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
-            external.getDataSetStorage().saveDataSet(PoiWorkbookConverters.toDataSet(new XSSFWorkbook(dataSet)));
+            external.getDataSetStorage().saveDataSet(Converters.toDataSet(new XSSFWorkbook(dataSet)));
 
             this.expectedValues = new HashMap<>();
             for (int i = from; i < from + iterations; i++) {

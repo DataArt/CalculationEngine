@@ -36,6 +36,7 @@ import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.ext.GraphMLExporter;
 
@@ -60,6 +61,7 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorag
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
@@ -68,7 +70,6 @@ import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 import com.dataart.spreadsheetanalytics.test.util.graphml.ExecutionGraphMLExporter;
 
 public class GraphTestUtil {
@@ -161,11 +162,11 @@ public class GraphTestUtil {
 
                 System.out.println("Excel file [" + path + "], address [" + "All" + "]");
 
-                final IDataModel model = new PoiDataModel(filename, path);
+                final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
 
-                GraphTestUtil.initExternalServices((PoiDataModel) model);
+                initExternalServices(model);
 
-                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));
+                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
 
                 final IExecutionGraph graph = auditor.buildExecutionGraph(config);
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
@@ -222,11 +223,11 @@ public class GraphTestUtil {
 
                 System.out.println("Excel file [" + path + "], address [" + address + "]");
 
-                final IDataModel model = new PoiDataModel(filename, path);
+                final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
                 
-                GraphTestUtil.initExternalServices((PoiDataModel) model);
+                initExternalServices(model);
                 
-                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));
+                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
                 final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
 
                 final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
@@ -265,11 +266,11 @@ public class GraphTestUtil {
         System.out.println("Excel file [" + path + "], address [" + address + "]");
 
         
-        final IDataModel model = new PoiDataModel(filename, path);
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
         
-        initExternalServices((PoiDataModel) model);
+        initExternalServices(model);
         
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
         
         final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
@@ -299,11 +300,11 @@ public class GraphTestUtil {
 
         System.out.println("Excel file [" + path + "], All cells");
 
-        final IDataModel model = new PoiDataModel(filename, path);
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
 
-        initExternalServices((PoiDataModel) model);
+        initExternalServices(model);
 
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));
+        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
 
         final IExecutionGraph graph = auditor.buildExecutionGraph(config);
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
@@ -348,11 +349,11 @@ public class GraphTestUtil {
 
                     System.out.println("Excel file [" + path + "], address [" + "All" + "]");
 
-                    final IDataModel model = new PoiDataModel(filename, path);
+                    final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
 
-                    GraphTestUtil.initExternalServices((PoiDataModel) model);
+                    initExternalServices(model);
 
-                    final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));
+                    final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
 
                     final IExecutionGraph graph = auditor.buildExecutionGraph(config);
                     final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
@@ -383,7 +384,7 @@ public class GraphTestUtil {
         System.out.println("\nEnd. Fileset.");
     }
 
-    public static void initExternalServices(PoiDataModel model) throws Exception {
+    public static void initExternalServices(IDataModel model) throws Exception {
         final ExternalServices external = ExternalServices.INSTANCE;
         
         //prepare caches to be used as storages

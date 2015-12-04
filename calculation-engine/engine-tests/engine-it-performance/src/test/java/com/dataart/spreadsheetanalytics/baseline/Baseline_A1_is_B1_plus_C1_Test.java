@@ -2,6 +2,7 @@ package com.dataart.spreadsheetanalytics.baseline;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Scope;
@@ -13,9 +14,10 @@ import com.dataart.spreadsheetanalytics.BenchmarkTestParent;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class Baseline_A1_is_B1_plus_C1_Test extends BenchmarkTestParent {
 
@@ -33,13 +35,13 @@ public class Baseline_A1_is_B1_plus_C1_Test extends BenchmarkTestParent {
         String column = "A";
         int iterations = 1;
 
-        PoiDataModel dataModel;
+        IDataModel dataModel;
         IEvaluator evaluator;
         ICellAddress address = A1Address.fromA1Address(column + iterations);
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
             this.evaluator = new SpreadsheetEvaluator(dataModel);
         }
     }

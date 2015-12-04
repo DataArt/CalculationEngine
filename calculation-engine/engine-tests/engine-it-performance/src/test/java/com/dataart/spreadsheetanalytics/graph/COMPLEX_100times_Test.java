@@ -5,6 +5,7 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Scope;
@@ -16,11 +17,12 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class COMPLEX_100times_Test extends ZParentTest {
 
@@ -30,13 +32,13 @@ public class COMPLEX_100times_Test extends ZParentTest {
         String excelFile = "src/test/resources/datamodel/graph/COMPLEX_" + iterations + "times.xlsx";
         Object expectedValue = new Double(528.0);
 
-        PoiDataModel dataModel;
+        IDataModel dataModel;
         IEvaluator evaluator;
         Map<Integer, ICellAddress> addressMap;
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            this.dataModel = new PoiDataModel(excelFile + "_Benchmark", excelFile);
+            this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
             this.addressMap = new HashMap<>();

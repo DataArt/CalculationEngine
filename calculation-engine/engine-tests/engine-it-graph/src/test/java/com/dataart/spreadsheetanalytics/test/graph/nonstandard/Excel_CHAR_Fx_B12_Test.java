@@ -26,21 +26,21 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
 public class Excel_CHAR_Fx_B12_Test extends SerializedGraphTest {
-    
+
     static String address = "B12";
     static String file = "CHAR_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
-    
+
     @Before
     public void before() throws Exception {
-        super.before(path, address);        
+        super.before(path, address);
     }
 
     @After
     public void after() throws Exception {
         super.after();
     }
-    
+
     @Test
     @Ignore
     public void assert_ExcelFile_SerializedGraph() throws Exception {

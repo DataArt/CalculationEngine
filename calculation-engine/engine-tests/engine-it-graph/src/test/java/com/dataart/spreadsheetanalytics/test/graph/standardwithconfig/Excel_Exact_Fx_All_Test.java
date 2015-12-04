@@ -18,6 +18,7 @@ package com.dataart.spreadsheetanalytics.test.graph.standardwithconfig;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
 import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,12 +28,12 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.execgraph.ExecutionGraphConfig;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 public class Excel_Exact_Fx_All_Test extends SerializedGraphTest {
-    
+
     static String file = "Exact_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     static String graphml = file + "/";
@@ -41,21 +42,21 @@ public class Excel_Exact_Fx_All_Test extends SerializedGraphTest {
     static String suffix2 = "JOIN_2";
     static String suffix3 = "JOIN_5";
     static String suffix4 = "JOIN_10";
-    
+
     IAuditor auditor = null;
-    
+
     @Before
     public void beforeTest() throws Exception {
-        final IDataModel model = new PoiDataModel(path, path);
-        GraphTestUtil.initExternalServices((PoiDataModel) model);
-        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((PoiDataModel) model));        
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
+        GraphTestUtil.initExternalServices(model);
+        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
     }
 
     @After
     public void afterTest() throws Exception {
         super.after();
     }
-    
+
     @Test
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
         graph = auditor.buildExecutionGraph();
