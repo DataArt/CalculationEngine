@@ -19,6 +19,8 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 
 /**
@@ -36,7 +38,13 @@ public interface IEvaluator {
      * Does evaluation of one provided cell.
      * Result cannot be null, but since it is a wrapper the underlying value can be of any type.
      */
-    ICellValue evaluate(ICellAddress addr);
+    IEvaluationResult<ICellValue> evaluate(ICellAddress addr);
+    
+    /**
+     * Does evaluation of one provided cell.
+     * Result cannot be null, but since it is a wrapper the underlying value can be of any type.
+     */
+    IEvaluationResult<ICellValue> evaluate(ICellAddress addr, IEvaluationContext evaluationContext);
 
     /**
      * Does evaluation for every not-empty cell in {@link IDataModel}.
@@ -45,6 +53,14 @@ public interface IEvaluator {
      * 
      * Returns {@link IDataSet} where no formulas, but values in the cells.
      */
-    IDataSet evaluate();
+    IEvaluationResult<IDataSet> evaluate();
 
+    /**
+     * Does evaluation for every not-empty cell in {@link IDataModel}.
+     * Simple realisation is done {@link #evaluate(ICellAddress)} for every cell in for loop.
+     * Some other implementation can use complex logic to evaluate in parallel, etc.
+     * 
+     * Returns {@link IDataSet} where no formulas, but values in the cells.
+     */
+    IEvaluationResult<IDataSet> evaluate(IEvaluationContext evaluationContext);
 }

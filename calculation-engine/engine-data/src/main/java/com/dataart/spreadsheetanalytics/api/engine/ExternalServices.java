@@ -24,18 +24,18 @@ import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 public enum ExternalServices {
     INSTANCE;
 
-    protected DataSetStorage dataSetStorage;
-    protected DataModelStorage dataModelStorage;
+    protected DataSetAccessor dataSetStorage;
+    protected DataModelAccessor dataModelStorage;
     protected DataSourceHub dataSourceHub;
     protected AttributeFunctionStorage attributeFunctionStorage;
     
     protected DataSetOptimisationsCache dataSetOptimisationsCache;
 
-    public DataSetStorage getDataSetStorage() { return dataSetStorage; }
-    public void setDataSetStorage(DataSetStorage dataSetStorage) { this.dataSetStorage = dataSetStorage; }
+    public DataSetAccessor getDataSetStorage() { return dataSetStorage; }
+    public void setDataSetStorage(DataSetAccessor dataSetStorage) { this.dataSetStorage = dataSetStorage; }
 
-    public DataModelStorage getDataModelStorage() { return dataModelStorage; }
-    public void setDataModelStorage(DataModelStorage dataModelStorage) { this.dataModelStorage = dataModelStorage; }
+    public DataModelAccessor getDataModelStorage() { return dataModelStorage; }
+    public void setDataModelStorage(DataModelAccessor dataModelStorage) { this.dataModelStorage = dataModelStorage; }
 
     public DataSourceHub getDataSourceHub() { return dataSourceHub; }
     public void setDataSourceHub(DataSourceHub dataSourceHub) { this.dataSourceHub = dataSourceHub; }

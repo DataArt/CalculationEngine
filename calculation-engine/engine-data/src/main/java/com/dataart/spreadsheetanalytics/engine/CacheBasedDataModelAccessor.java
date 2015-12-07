@@ -26,12 +26,12 @@ import javax.cache.Caching;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.DataModelStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
-public class CacheBasedDataModelStorage implements DataModelStorage {
-    private static final Logger log = LoggerFactory.getLogger(CacheBasedDataModelStorage.class);
+public class CacheBasedDataModelAccessor implements DataModelAccessor {
+    private static final Logger log = LoggerFactory.getLogger(CacheBasedDataModelAccessor.class);
     
     public static final String DATA_MODEL_TO_ID_CACHE_NAME = "dataModelToIdCache";
     public static final String DATA_MODEL_TO_NAME_CACHE_NAME = "dataModelToNameCache";

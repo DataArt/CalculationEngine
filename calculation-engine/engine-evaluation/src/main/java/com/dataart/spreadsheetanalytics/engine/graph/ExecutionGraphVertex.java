@@ -15,15 +15,15 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.NAME;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
+import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.NAME;
+import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty;
-import org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName;
+import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
+import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
@@ -34,7 +34,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
  * Simple class with list of properties inside.
  */
 public class ExecutionGraphVertex /* POI Vertex interface (internal) */ 
-                                  extends org.apache.poi.common.execgraph.IExecutionGraphVertex
+                                  extends org.apache.poi.common.fork.IExecutionGraphVertex
                                   /* Public API interface */
                                   implements IExecutionGraphVertex {
     

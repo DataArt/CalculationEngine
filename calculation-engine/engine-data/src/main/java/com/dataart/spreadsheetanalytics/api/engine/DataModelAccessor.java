@@ -20,7 +20,7 @@ import java.util.Map;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
-public interface DataModelStorage {
+public interface DataModelAccessor {
 
     void addDataModel(IDataModel dataModel);
     

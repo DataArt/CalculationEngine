@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
+import org.apache.poi.common.fork.IncorrectExternalReferenceException;
 import org.apache.poi.ss.formula.FormulaParseException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -39,6 +39,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
@@ -113,7 +114,8 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
             try {
-                ICellValue cv = evaluator.evaluate(cell);
+                IEvaluationResult<ICellValue> res = evaluator.evaluate(cell);
+                ICellValue cv = res.getResult();
                 
                 if (cv == null || cv.get() == null) { return buildSingleVertexGraphForEmptyCell(cell); }
 

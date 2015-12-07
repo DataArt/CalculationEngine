@@ -53,7 +53,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
-final class DependencyExtractors {
+public final class DependencyExtractors {
     private static final Logger log = LoggerFactory.getLogger(DependencyExtractors.class);
     
     private DependencyExtractors() {}

@@ -33,14 +33,14 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.engine.DataSetStorage;
+import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -71,12 +71,12 @@ public class Validate_Function_Test {
               .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(Duration.ETERNAL))
               .setStatisticsEnabled(false);
 
-        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
-        cacheManager.createCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
         
         final ExternalServices external = ExternalServices.INSTANCE;
 
-        DataSetStorage dataSetStorage = new CacheBasedDataSetStorage();
+        DataSetAccessor dataSetStorage = new CacheBasedDataSetAccessor();
         
         external.setDataSetStorage(dataSetStorage);
 
@@ -103,15 +103,15 @@ public class Validate_Function_Test {
     public static void after() throws Exception {
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
-        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_ID_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataSetStorage.DATA_SET_TO_NAME_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME);
     }
 
     @Test
     public void compare_QueryFormula_ExpectedValueFromMap() throws Exception {
         //given
         // Map with expected values: expectedValues
-        DataSetStorage dsStorage = ExternalServices.INSTANCE.getDataSetStorage();
+        DataSetAccessor dsStorage = ExternalServices.INSTANCE.getDataSetStorage();
 
         //when
         List<ICellValue> vals = new ArrayList<>(expectedRowEnd);

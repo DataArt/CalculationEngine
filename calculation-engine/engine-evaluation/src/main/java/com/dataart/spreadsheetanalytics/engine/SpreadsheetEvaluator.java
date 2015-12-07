@@ -20,7 +20,7 @@ import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.getE
 import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.toEvaluationWorkbook;
 import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.resolveValueEval;
 import static com.dataart.spreadsheetanalytics.functions.poi.Functions.getUdfFinder;
-import static org.apache.poi.common.execgraph.IExecutionGraphVertexProperty.PropertyName.VALUE;
+import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
@@ -32,11 +32,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.poi.common.execgraph.FormulaParseNAException;
-import org.apache.poi.common.execgraph.FormulaParseNameException;
-import org.apache.poi.common.execgraph.IExecutionGraphBuilder;
-import org.apache.poi.common.execgraph.IncorrectExternalReferenceException;
-import org.apache.poi.common.execgraph.ValuesStackNotEmptyException;
+import org.apache.poi.common.fork.FormulaParseNAException;
+import org.apache.poi.common.fork.FormulaParseNameException;
+import org.apache.poi.common.fork.IExecutionGraphBuilder;
+import org.apache.poi.common.fork.IncorrectExternalReferenceException;
+import org.apache.poi.common.fork.ValuesStackNotEmptyException;
 import org.apache.poi.ss.formula.EvaluationCell;
 import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
@@ -52,6 +52,8 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
@@ -61,6 +63,7 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.dataart.spreadsheetanalytics.model.DsCell;
 import com.dataart.spreadsheetanalytics.model.DsRow;
+import com.dataart.spreadsheetanalytics.model.EvaluationContext;
 
 /**
  * SpreadsheetEvaluator is a direct implementation of {@link IEvaluator} interface.
@@ -91,24 +94,27 @@ public class SpreadsheetEvaluator implements IEvaluator {
         this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, getUdfFinder());        
     }
     
-    public SpreadsheetEvaluator(IDataModel model, String context) throws IOException {
-        this.model = model;
-        this.evaluationWorkbook = toEvaluationWorkbook(toWorkbook(this.model));
-        this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, getUdfFinder());
-        CustomFunction.setContext(context);
+    @Override
+    public IEvaluationResult<ICellValue> evaluate(ICellAddress addr) {
+        return this.evaluate(addr, new EvaluationContext());
     }
     
     @Override
-    public ICellValue evaluate(ICellAddress addr) {
+    public IEvaluationResult<ICellValue> evaluate(ICellAddress addr, IEvaluationContext evaluationContext) {
         EvaluationCell cell = getEvaluationCell(this.evaluationWorkbook, addr);
         if (cell == null) { return null; }
         
-        try { return evaluateCell(cell); }
-        catch (ValuesStackNotEmptyException e) { return CellValue.from(VALUE_INVALID.getErrorString()); }        
+        try { return new EvaluationResult<ICellValue>(evaluationContext, evaluateCell(cell, (EvaluationContext) evaluationContext)); }
+        catch (ValuesStackNotEmptyException e) { return new EvaluationResult<ICellValue>(evaluationContext, CellValue.from(VALUE_INVALID.getErrorString())); }
     }
 
     @Override
-    public IDataSet evaluate() {
+    public IEvaluationResult<IDataSet> evaluate() {
+        return this.evaluate(new EvaluationContext());
+    }
+    
+    @Override
+    public IEvaluationResult<IDataSet> evaluate(IEvaluationContext evaluationContext) {
         DataSet dataSet = new DataSet(model.name());
 
         for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
@@ -122,18 +128,18 @@ public class SpreadsheetEvaluator implements IEvaluator {
                 if (cell == null) { continue; }
 
                 ICellAddress addr = A1Address.fromRowColumn(i, j);
-                try { evaluatedCell.value(evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr))); }
+                try { evaluatedCell.value(evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext)); }
                 catch (ValuesStackNotEmptyException e) { evaluatedCell.value(handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr)); }
             }
         }
 
-        return dataSet;
+        return new EvaluationResult<>(evaluationContext, dataSet);
     }
 
-    protected ICellValue evaluateCell(EvaluationCell c) {
+    protected ICellValue evaluateCell(EvaluationCell c, EvaluationContext evaluationContext) {
         if (c == null) { return null; }
         
-        try { return resolveValueEval(this.poiEvaluator.evaluate(c)); }
+        try { return resolveValueEval(this.poiEvaluator.evaluate(c, evaluationContext)); }
         catch (FormulaParseNameException e) { return handleNameParseException(); }
         catch (FormulaParseNAException e) { return handleNaParseException(); }
         catch (IncorrectExternalReferenceException e) { return handleIncorrectExternalReferenceException(); }

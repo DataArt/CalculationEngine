@@ -15,18 +15,19 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.demo.main;
 
-import java.nio.file.Paths;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.PoiDataModel;
 
 public class DependencyGraphDemo {
     
@@ -42,7 +43,7 @@ public class DependencyGraphDemo {
         final String graphCell = args[1];
 
         //prepare DataModel to work with
-        final PoiDataModel model = new PoiDataModel(Paths.get(excel).getFileName().toString(), excel);
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(excel));
                 
         final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(graphCell));
 
