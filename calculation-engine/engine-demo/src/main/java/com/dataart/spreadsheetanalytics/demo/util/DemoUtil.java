@@ -33,6 +33,8 @@ import com.dataart.spreadsheetanalytics.api.engine.datasource.SqlDataSource;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IDsCell;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
@@ -50,8 +52,6 @@ import com.dataart.spreadsheetanalytics.engine.dataset.SqlDataSet;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DsCell;
-import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class DemoUtil {
     
@@ -286,15 +286,15 @@ public class DemoUtil {
             ResultSet rs = st.getResultSet();
             ResultSetMetaData rsmd = rs.getMetaData();
             
-            DsRow row = ds.createRow();
+            IDsRow row = ds.addRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
-                row.createCell().value(new CellValue(rsmd.getColumnLabel(i)));
+                row.addCell().value(new CellValue(rsmd.getColumnLabel(i)));
             
             while (rs.next()) {
-                row = ds.createRow();
+                row = ds.addRow();
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     Object o = rs.getObject(i);
-                    DsCell cell = row.createCell();
+                    IDsCell cell = row.addCell();
                     
                     if (o == null) { cell.value(CellValue.BLANK); }
                     else if (o instanceof String) { cell.value(new CellValue((String) o)); }

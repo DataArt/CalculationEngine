@@ -24,14 +24,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.functions.poi.data.ValidateFunction;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.EvaluationContext;
 
 
 public class Evaluation2ThreadsDemo {
@@ -59,11 +58,9 @@ public class Evaluation2ThreadsDemo {
             try{
                 final IEvaluator evaluator1 = new SpreadsheetEvaluator(model);
                 for (String cell : cellsToEvaluate) {
-                    IEvaluationContext ctx = new EvaluationContext();
-                    ctx.set("Validation", new DataSet("Validation"));
-                    IEvaluationResult<ICellValue> val = evaluator1.evaluate(A1Address.fromA1Address(cell), ctx);
+                    IEvaluationResult<ICellValue> val = evaluator1.evaluate(A1Address.fromA1Address(cell));
                     System.out.println("[1] Result of " + cell + " is: " + val.getResult());
-                    DataSet vds = (DataSet) val.getContext().get("Validation");
+                    DataSet vds = (DataSet) val.getContext().get(ValidateFunction.DATASET_NAME);
                     System.out.println(vds);
                 }
             }catch (Exception e) {
@@ -77,11 +74,9 @@ public class Evaluation2ThreadsDemo {
             try {
                 final IEvaluator evaluator2 = new SpreadsheetEvaluator(model);
                 for (String cell : cellsToEvaluate) {
-                    IEvaluationContext ctx = new EvaluationContext();
-                    ctx.set("Validation", new DataSet("Validation"));
-                    IEvaluationResult<ICellValue> val = evaluator2.evaluate(A1Address.fromA1Address(cell), ctx);
+                    IEvaluationResult<ICellValue> val = evaluator2.evaluate(A1Address.fromA1Address(cell));
                     System.out.println("[2] Result of " + cell + " is: " + val.getResult());
-                    DataSet vds = (DataSet) val.getContext().get("Validation");
+                    DataSet vds = (DataSet) val.getContext().get(ValidateFunction.DATASET_NAME);
                     System.out.println(vds);
                 }
             }catch (Exception e) {
