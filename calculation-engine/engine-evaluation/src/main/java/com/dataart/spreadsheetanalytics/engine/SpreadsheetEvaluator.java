@@ -140,7 +140,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected ICellValue evaluateCell(EvaluationCell c, EvaluationContext evaluationContext) {
         if (c == null) { return null; }
         
-        try { return PoiValueConverters.resolveValueEval(this.poiEvaluator.evaluate(c, evaluationContext)); }
+        try { return ConverterUtils.resolveValueEval(this.poiEvaluator.evaluate(c, evaluationContext)); }
         catch (FormulaParseNameException e) { return handleNameParseException(); }
         catch (FormulaParseNAException e) { return handleNaParseException(); }
         catch (IncorrectExternalReferenceException e) { return handleIncorrectExternalReferenceException(); }

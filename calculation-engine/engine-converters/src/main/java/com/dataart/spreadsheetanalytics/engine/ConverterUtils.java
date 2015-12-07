@@ -18,6 +18,7 @@ package com.dataart.spreadsheetanalytics.engine;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOf;
 import static java.util.Collections.unmodifiableSet;
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.coerceValueEvalToCellValue;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
@@ -41,6 +42,8 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.poi.ss.formula.eval.ErrorEval;
+import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaError;
 import org.apache.poi.ss.usermodel.Row;
@@ -54,7 +57,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 
-final class ConverterUtils {
+public final class ConverterUtils {
     
     public static final String FORMULA_PREFIX = "=";
     public static final Set<String> ERRORS = unmodifiableSet(new HashSet<>(asList(
@@ -160,7 +163,22 @@ final class ConverterUtils {
             case CELL_TYPE_ERROR: { return CellValue.from(forInt(c.getErrorCellValue()).getString()); }
             case CELL_TYPE_BLANK: { return CellValue.BLANK; }
             case CELL_TYPE_FORMULA: { return CellValue.from(String.format("%s%s", FORMULA_PREFIX, c.getCellFormula())); }
-            default: { throw new IllegalArgumentException(String.format("Type %s is not supported.", c.getCellType())); }
+            default: { throw new IllegalArgumentException(String.format("Cell's type %s is not supported.", c.getCellType())); }
+        }
+    }
+    
+    /** Returns the new {@link CellValue} from provided {@link org.apache.poi.ss.usermodel.CellValue}. */
+    public static ICellValue resolveCellValue(org.apache.poi.ss.usermodel.CellValue cellval) {
+        if (cellval == null) { return CellValue.BLANK; }
+
+        switch (cellval.getCellType()) {
+            case CELL_TYPE_NUMERIC: { return CellValue.from(cellval.getNumberValue()); }
+            case CELL_TYPE_STRING: { return CellValue.from(cellval.getStringValue()); }
+            case CELL_TYPE_BOOLEAN: { return CellValue.from(cellval.getBooleanValue()); }
+            case CELL_TYPE_ERROR: { return CellValue.from(ErrorEval.valueOf(cellval.getErrorValue()).getErrorString()); }
+            case CELL_TYPE_BLANK: { return CellValue.BLANK; }
+            case CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
+            default: { throw new IllegalArgumentException(String.format("CellValue's tType %s is not supported.", cellval.getCellType())); }
         }
     }
     
@@ -171,7 +189,7 @@ final class ConverterUtils {
             case CELL_TYPE_BOOLEAN: { return Boolean.class; }
             case CELL_TYPE_NUMERIC: { return Double.class; }
             case CELL_TYPE_FORMULA: case CELL_TYPE_STRING: case CELL_TYPE_ERROR: { return String.class; }
-            default: { throw new IllegalArgumentException(String.format("Type %s is not supported.", c.getCellType())); }
+            default: { throw new IllegalArgumentException(String.format("Cell's type %s is not supported.", c.getCellType())); }
         }
     }
     
@@ -193,7 +211,11 @@ final class ConverterUtils {
             return CELL_TYPE_STRING;
         }
 
-        throw new IllegalArgumentException(String.format("Type %s is not supported.", c.get().getClass().getSimpleName()));
+        throw new IllegalArgumentException(String.format("CellVale's type %s is not supported.", c.get().getClass().getSimpleName()));
+    }
+
+    public static ICellValue resolveValueEval(ValueEval valueEval) {
+        return resolveCellValue(coerceValueEvalToCellValue(valueEval));
     }
 
     /** Creates an instance of new {@link XSSFWorkbook}. */

@@ -1,22 +1,28 @@
 package com.dataart.spreadsheetanalytics.functions.poi.data;
 
-import java.util.Arrays;
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.coerceValueTo;
+import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
-import org.apache.poi.ss.formula.EvaluationCell;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
 import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.BoolEval;
+import org.apache.poi.ss.formula.eval.ErrorEval;
+import org.apache.poi.ss.formula.eval.EvaluationException;
 import org.apache.poi.ss.formula.eval.RefEval;
-import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IDsCell;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
-import com.dataart.spreadsheetanalytics.engine.PoiValueConverters;
+import com.dataart.spreadsheetanalytics.engine.ConverterUtils;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -27,98 +33,106 @@ import com.dataart.spreadsheetanalytics.model.DataSet;
 public class ValidateFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
 
+    public static final String DATASET_NAME = "Validation";
+    
+    static final Set<String> SEVERITIES = new HashSet<>(Arrays.asList("E", "W"));
+
+    protected static final String FIELD_1 = "Message";
+    protected static final String FIELD_2 = "Severity";
+    protected static final String FIELD_3 = "Cell";
+    protected static final String FIELD_4 = "CellContent";
+    protected static final String FIELD_5 = "CellValue";
+
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
-        log.debug("In evaluate() of FUNCEXEC function. Args = {}", Arrays.toString(args));
+        log.debug("In evaluate() of VALIDATE function. Args = {}", Arrays.toString(args));
 
+        //number of arguments
         if (args.length != 4) {
-            throw new IllegalArgumentException("VALIDATE function should have 4 arguments");
+            log.error("VALIDATE function must have 4 arguments.");
+            return ErrorEval.VALUE_INVALID;
         }
 
-        BoolEval expression = null;
-
-        if (args[0] instanceof BoolEval) {
-            expression = (BoolEval) args[0];
-        } else {
-            expression = dereference(BoolEval.class, args[0]);
-            if (expression == null) {
-                throw new IllegalArgumentException(
-                        "first argument of the VALIDATE function should be boolean expression or a reference to boolean expression");
-            }
+        //1: boolean expression
+        BoolEval expression = args[0] instanceof BoolEval
+                            ? (BoolEval) args[0]
+                            : dereference(BoolEval.class, args[0]);
+                            
+        if (expression == null) {
+            log.error("First argument of the VALIDATE function should be boolean expression or a reference to boolean expression. But was {}", args[0]);
+            return ErrorEval.VALUE_INVALID;
         }
 
-        StringEval messageEval = null;
-
-        if (args[1] instanceof StringEval) {
-            messageEval = (StringEval) args[1];
-        } else {
-            messageEval = dereference(StringEval.class, args[1]);
-            if (messageEval == null) {
-                throw new IllegalArgumentException("second argument of the VALIDATE function should be text message");
-            }
+        //message
+        String message;
+        try { message = (String) coerceValueTo(getSingleValue(args[1], ec.getRowIndex(), ec.getColumnIndex())); }
+        catch (EvaluationException e) {
+            log.error(String.format("Second argument of the VALIDATE function should be text message. But was: %s.", args[1]), e);
+            return ErrorEval.VALUE_INVALID;
         }
 
+        //reference to a cell
         if (!(args[2] instanceof RefEval)) {
-            throw new IllegalArgumentException("third argument of the VALIDATE function should be reference to the target cell");
+            log.error("Third argument of the VALIDATE function should be reference to the target cell. But was {}", args[2]);
+            return ErrorEval.VALUE_INVALID;
         }
 
-        StringEval severityEval = null;
-
-        if (args[3] instanceof StringEval) {
-            severityEval = (StringEval) args[3];
-        } else {
-            severityEval = dereference(StringEval.class, args[3]);
-            if (severityEval == null) {
-                throw new IllegalArgumentException("fourth argument of the VALIDATE function should be string");
-            }
+        //severity
+        String severity;
+        try { severity = (String) coerceValueTo(getSingleValue(args[3], ec.getRowIndex(), ec.getColumnIndex())); }
+        catch (EvaluationException e) {
+            log.error(String.format("Fourth argument of the VALIDATE function should be a string (Severity). But was: %s.", args[3]), e);
+            return ErrorEval.VALUE_INVALID;
         }
+        severity = severity.toUpperCase(Locale.getDefault());
 
-        String severity = severityEval.getStringValue();
-
-        if (!("Error".equals(severity) || "Warning".equals(severity))) {
-            throw new IllegalArgumentException("third argument of the VALIDATE function should be \"Error\" or \"Warning\"");
+        if (!SEVERITIES.contains(severity)) {
+            log.error("Severity {} is not supported by VALIDATE function.", severity);
+            return ErrorEval.VALUE_INVALID;
         }
-
-        String message = messageEval.getStringValue();
-        RefEval ref = (RefEval) args[2];
-
+        
+        //expression = TRUE - return nothing
         if (expression.getBooleanValue()) { return BlankEval.instance; }
-        else {
-            try {
-                DataSet dataSet = (DataSet) external.getDataSetStorage().getDataSet("Validation");
-                IDsRow row = dataSet.addRow();
-
-                IDsCell messageCell = row.addCell();
-                messageCell.value(new CellValue(message));
-
-                IDsCell severityCell = row.addCell();
-                severityCell.value(new CellValue(severity));
-
-                IDsCell cellCellAddress = row.addCell();
-                cellCellAddress.value(new CellValue(A1Address.fromRowColumn(ref.getRow(), ref.getColumn()).address()));
-
-                ICellValue targetCellValue = PoiValueConverters.resolveValueEval(ref.getInnerValueEval(0));
-
-                IDsCell cellCellFormula = row.addCell();
-                EvaluationWorkbook evWbk = ec.getWorkbook();
-
-                EvaluationCell evCell = evWbk.getSheet(0).getCell(ref.getRow(), ref.getColumn());
-                String formulaString = evWbk.getFormulaString(evCell);
-                cellCellFormula.value(formulaString == null ? targetCellValue : new CellValue(formulaString));
-
-                IDsCell cellCellValue = row.addCell();
-                cellCellValue.value(targetCellValue);
-
-                return args[1];
-
-            } catch (Exception e) {
-                log.debug("The excetpion was caught during opening the Validation dataset");
-                return BlankEval.instance;
-            }
+        
+        //expression = FALSE - log to dataset
+        IDataSet dataSet = (IDataSet) ec.getCustomEvaluationContext().get(DATASET_NAME);
+        if (dataSet == null) {
+            log.error("No Validation DataSet in current context is found. The new one is about to be created.");
+            dataSet = newValidationDataSet(DATASET_NAME);
         }
+
+        RefEval ref = (RefEval) args[2]; //cell
+        
+        IDsRow row = dataSet.addRow(); //new row in validation data set
+
+        row.addCell().value(new CellValue(message)); //message
+        row.addCell().value(new CellValue(severity)); //severity
+        row.addCell().value(new CellValue(A1Address.fromRowColumn(ref.getRow(), ref.getColumn()).address())); //cell address
+
+        ICellValue targetCellValue = ConverterUtils.resolveValueEval(ref.getInnerValueEval(0));
+        EvaluationWorkbook evWbk = ec.getWorkbook();
+        String formulaString = evWbk.getFormulaString(evWbk.getSheet(0).getCell(ref.getRow(), ref.getColumn()));
+        
+        row.addCell().value(formulaString == null ? targetCellValue : new CellValue(formulaString)); //cell formula
+        row.addCell().value(targetCellValue); //cell value
+
+        return args[1];
     }
 
-    private static <T extends ValueEval> T dereference(Class<T> target, ValueEval value) {
+    protected static IDataSet newValidationDataSet(String name) {
+        DataSet validateSet = new DataSet(DATASET_NAME);
+
+        IDsRow r = validateSet.addRow();
+        r.addCell().value(new CellValue(FIELD_1));
+        r.addCell().value(new CellValue(FIELD_2));
+        r.addCell().value(new CellValue(FIELD_3));
+        r.addCell().value(new CellValue(FIELD_4));
+        r.addCell().value(new CellValue(FIELD_5));
+        
+        return validateSet;
+    }
+    
+    protected static <T extends ValueEval> T dereference(Class<T> target, ValueEval value) {
         if (!(value instanceof RefEval)) { return null; }
         
         ValueEval candidateValue = ((RefEval) value).getInnerValueEval(0);
