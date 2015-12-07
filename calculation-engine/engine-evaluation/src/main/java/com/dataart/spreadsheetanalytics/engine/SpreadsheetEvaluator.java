@@ -31,8 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.poi.common.fork.FormulaParseNAException;
 import org.apache.poi.common.fork.FormulaParseNameException;
@@ -81,7 +79,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected final IDataModel model;
     protected final EvaluationWorkbook evaluationWorkbook;
     protected final WorkbookEvaluator poiEvaluator;
-    protected final Lock evaluateLock = new ReentrantLock();
     
     static {
         try { loadCustomFunctions(); }
@@ -107,34 +104,29 @@ public class SpreadsheetEvaluator implements IEvaluator {
 
     @Override
     public IEvaluationResult<IDataModel> evaluate() {
-        try {
-            this.evaluateLock.lock();
-            
-            IEvaluationContext evaluationContext = new EvaluationContext();
-            IDataModel dataModel = this.model;
-    
-            for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
-                IDmRow row = this.model.getRow(i);
-                if (row == null) { continue; }
-    
-                for (int j = row.getFirstColumnIndex(); j <= row.getLastColumnIndex(); j++) {
-                    IDmCell cell = row.getCell(i);
-                    if (cell == null) { continue; }
-    
-                    ICellAddress addr = A1Address.fromRowColumn(i, j);
-                    ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext);
-                    
-                    try { ((DmCell) cell).value(Optional.of(val)); }
-                    catch (ValuesStackNotEmptyException e) {
-                        val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr);
-                        ((DmCell) cell).value(Optional.of(val)); 
-                    }
+        IEvaluationContext evaluationContext = new EvaluationContext();
+        IDataModel dataModel = this.model;
+
+        for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
+            IDmRow row = this.model.getRow(i);
+            if (row == null) { continue; }
+
+            for (int j = row.getFirstColumnIndex(); j <= row.getLastColumnIndex(); j++) {
+                IDmCell cell = row.getCell(i);
+                if (cell == null) { continue; }
+
+                ICellAddress addr = A1Address.fromRowColumn(i, j);
+                ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext);
+                
+                try { ((DmCell) cell).value(Optional.of(val)); }
+                catch (ValuesStackNotEmptyException e) {
+                    val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr);
+                    ((DmCell) cell).value(Optional.of(val)); 
                 }
             }
-    
-            return new EvaluationResult<>(evaluationContext, dataModel);
         }
-        finally { this.evaluateLock.unlock(); }
+
+        return new EvaluationResult<>(evaluationContext, dataModel);
     }
 
     protected ICellValue evaluateCell(EvaluationCell c, EvaluationContext evaluationContext) {
