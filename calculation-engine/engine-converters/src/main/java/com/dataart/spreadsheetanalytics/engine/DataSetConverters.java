@@ -29,8 +29,6 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DsCell;
-import com.dataart.spreadsheetanalytics.model.DsRow;
 
 final class DataSetConverters {
     
@@ -46,10 +44,10 @@ final class DataSetConverters {
         DataSet dataSet = new DataSet(sheet.getSheetName());
         
         for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
-            DsRow dsRow = dataSet.createRow(); 
+            IDsRow dsRow = dataSet.addRow(); 
             Row row = sheet.getRow(i);
             for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
-                DsCell cell = dsRow.createCell();
+                IDsCell cell = dsRow.addCell();
                 cell.value(ConverterUtils.resolveCellValue(row.getCell(j)));
             }
         }

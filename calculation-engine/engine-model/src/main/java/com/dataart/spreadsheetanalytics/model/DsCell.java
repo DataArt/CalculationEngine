@@ -23,18 +23,18 @@ public class DsCell implements IDsCell {
     protected final int index;
     protected ICellValue value;
 
-    public DsCell(int cellIndex) {
-        this.index = cellIndex;
+    public DsCell(int cellIdx) {
+        this.index = cellIdx;
     }
 
     @Override public ICellValue value() { return this.value; }
-    public void value(ICellValue value) { this.value = value; }
+    @Override public void value(ICellValue value) { this.value = value; }
 
     @Override public int index() { return this.index; }
 
     @Override
     public String toString() {
-        return value == null ? "null" : value.toString();
+        return this.value == null ? "null" : this.value.toString();
     }
 
 }

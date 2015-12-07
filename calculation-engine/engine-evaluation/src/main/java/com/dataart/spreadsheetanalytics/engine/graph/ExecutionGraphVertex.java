@@ -58,26 +58,26 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
 
     @Override
     public IExecutionGraphVertexProperty property(PropertyName name) {
-        IExecutionGraphVertexProperty property = properties.get(name);
+        IExecutionGraphVertexProperty property = this.properties.get(name);
         if (property == null) {
             property = new ExecutionGraphVertexProperty(this, name);
-            properties.put(name, property);
+            this.properties.put(name, property);
         }
         return property;
     }
 
-    @Override public Object id() { return id; }
-    @Override public String name() { return name; }
-    @Override public String alias() { return alias; }
-    @Override public ICellFormulaExpression formula() { return formula; }
-    @Override public Object value() { return value; }
-    @Override public Type type() { return type; }
-    @Override public Object sourceObjectId() { return sourceObjectId; }
+    @Override public Object id() { return this.id; }
+    @Override public String name() { return this.name; }
+    @Override public String alias() { return this.alias; }
+    @Override public ICellFormulaExpression formula() { return this.formula; }
+    @Override public Object value() { return this.value; }
+    @Override public Type type() { return this.type; }
+    @Override public Object sourceObjectId() { return this.sourceObjectId; }
 
     @Override
     public String toString() {
         return String.format("name: %s,%nvalue: %s,%nformula: %s,%ntype: %s", 
-                                    name,       value,        formula,   type);
+                         this.name, this.value, this.formula, this.type);
     }
 
     @Override

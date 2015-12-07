@@ -26,13 +26,13 @@ public class ExecutionGraphConfig {
     }
 
     public int getDuplicatesNumberThreshold() {
-        if (joinVertices && duplicatesNumberThreshold != null) { return duplicatesNumberThreshold.intValue(); }
+        if (this.joinVertices && this.duplicatesNumberThreshold != null) { return this.duplicatesNumberThreshold.intValue(); }
         else { return -1; }
     }
     
     @Override
     public String toString() {
-        return String.format("joinVertices=%s duplicatesNumberThreshold=%s", joinVertices, duplicatesNumberThreshold);
+        return String.format("joinVertices=%s duplicatesNumberThreshold=%s", this.joinVertices, this.duplicatesNumberThreshold);
     }
 
 }

@@ -31,7 +31,7 @@ public class DmCell implements IDmCell {
     @Override public ICellAddress address() { return this.address; }
     public void address(ICellAddress address) { this.address = address; }
     
-    @Override public ICellValue content() { return content; }
+    @Override public ICellValue content() { return this.content; }
     public void content(ICellValue content) { this.content = content; }
     
     @Override public Optional<ICellValue> value() { return this.value; }

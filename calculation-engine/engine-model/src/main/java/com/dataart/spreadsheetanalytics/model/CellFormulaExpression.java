@@ -88,11 +88,11 @@ public class CellFormulaExpression implements ICellFormulaExpression {
                              "Ptgs: %s " + 
                              "Index in Ptgs: %s ",
                              
-                              formulaStr,
-                              formulaValues,
-                              formulaPtgStr,
-                              ptgStr,
-                              Integer.toString(iptg));
+                             this.formulaStr,
+                             this.formulaValues,
+                             this.formulaPtgStr,
+                             this.ptgStr,
+                             Integer.toString(this.iptg));
     }
 
 }

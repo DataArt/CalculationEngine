@@ -34,7 +34,6 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
@@ -44,8 +43,6 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 @FunctionMeta("QUERY")
 public class QueryFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(QueryFunction.class);
-    
-    protected ExternalServices external = ExternalServices.INSTANCE;
 
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
@@ -107,13 +104,13 @@ public class QueryFunction implements CustomFunction {
     }
 
     private static TableEval toTableEval(IDataSet dset) {
-        TableEval table = new TableEval(0, 0, dset.length() - 1, dset.width() - 1);
+        TableEval table = new TableEval(0, 0, dset.length() - 1, dset.getRow(0).width() - 1);
         
         List<List<Object>> rows = new ArrayList<>(dset.length());
         
-        dset.rows().forEach(r -> {
-            List<Object> cells = new ArrayList<>(dset.width());
-            r.cells().forEach(v -> cells.add(v.value().get()));
+        dset.forEach(r -> {
+            List<Object> cells = new ArrayList<>(r.width());
+            r.forEach(v -> cells.add(v.value().get()));
             rows.add(cells);
         });
         

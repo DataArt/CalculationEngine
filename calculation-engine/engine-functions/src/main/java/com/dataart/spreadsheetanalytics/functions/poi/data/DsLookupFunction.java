@@ -39,7 +39,6 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
@@ -53,8 +52,6 @@ import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 public class DsLookupFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
     
-    protected ExternalServices external = ExternalServices.INSTANCE;
-
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
@@ -163,7 +160,7 @@ public class DsLookupFunction implements CustomFunction {
             int allFieldsPresent = where.size();
             
             for (Entry<Integer, Object> whereColumn : where.entrySet()) {
-                IDsCell cell = row.cellAt(whereColumn.getKey() - 1);
+                IDsCell cell = row.getCell(whereColumn.getKey() - 1);
                 
                 if (cell != null) {
                     allFieldsPresent--;
@@ -176,7 +173,7 @@ public class DsLookupFunction implements CustomFunction {
             }
             
             if (allFieldsPresent == 0 && allFieldsMatch) {
-                found.add(valueToValueEval(row.cells().get(columnIndex - 1).value().get()));
+                found.add(valueToValueEval(row.getCell(columnIndex - 1).value().get()));
                 break; // collecting only the first matching record according to product owner requirements
             }
         }

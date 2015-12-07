@@ -28,22 +28,21 @@ public enum ExternalServices {
     protected DataModelAccessor dataModelStorage;
     protected DataSourceHub dataSourceHub;
     protected AttributeFunctionStorage attributeFunctionStorage;
-    
     protected DataSetOptimisationsCache dataSetOptimisationsCache;
 
-    public DataSetAccessor getDataSetStorage() { return dataSetStorage; }
+    public DataSetAccessor getDataSetStorage() { return this.dataSetStorage; }
     public void setDataSetStorage(DataSetAccessor dataSetStorage) { this.dataSetStorage = dataSetStorage; }
 
-    public DataModelAccessor getDataModelStorage() { return dataModelStorage; }
+    public DataModelAccessor getDataModelStorage() { return this.dataModelStorage; }
     public void setDataModelStorage(DataModelAccessor dataModelStorage) { this.dataModelStorage = dataModelStorage; }
 
-    public DataSourceHub getDataSourceHub() { return dataSourceHub; }
+    public DataSourceHub getDataSourceHub() { return this.dataSourceHub; }
     public void setDataSourceHub(DataSourceHub dataSourceHub) { this.dataSourceHub = dataSourceHub; }
 
-    public AttributeFunctionStorage getAttributeFunctionStorage() { return attributeFunctionStorage; }
+    public AttributeFunctionStorage getAttributeFunctionStorage() { return this.attributeFunctionStorage; }
     public void setAttributeFunctionStorage(AttributeFunctionStorage attributeFunctionStorage) { this.attributeFunctionStorage = attributeFunctionStorage; }
     
-    public DataSetOptimisationsCache getDataSetOptimisationsCache() { return dataSetOptimisationsCache; }
+    public DataSetOptimisationsCache getDataSetOptimisationsCache() { return this.dataSetOptimisationsCache; }
     public void setDataSetOptimisationsCache(DataSetOptimisationsCache dataSetOptimisationsCache) { this.dataSetOptimisationsCache = dataSetOptimisationsCache; }
     
 }

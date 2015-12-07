@@ -15,16 +15,16 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-import java.util.List;
-
 public interface IDsRow extends Iterable<IDsCell> {
 
     int index();
-    
+
     int width();
-    
-    List<IDsCell> cells();
-    
-    IDsCell cellAt(int cellIndex);
-    
+
+    IDsCell addCell();
+
+    IDsCell addCell(int cellIdx);
+
+    IDsCell getCell(int cellIdx);
+
 }

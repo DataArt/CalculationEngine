@@ -61,7 +61,7 @@ public class CacheBasedDataModelAccessor implements DataModelAccessor {
     @Override
     public Map<IDataModelId, IDataModel> getDataModels() {
         Map<IDataModelId, IDataModel> dms = new HashMap<>();
-        for (Entry<IDataModelId, IDataModel> entry : dataModelToIdCache) {
+        for (Entry<IDataModelId, IDataModel> entry : this.dataModelToIdCache) {
             dms.put(entry.getKey(), entry.getValue());
         }
         return Collections.<IDataModelId, IDataModel>unmodifiableMap(dms);

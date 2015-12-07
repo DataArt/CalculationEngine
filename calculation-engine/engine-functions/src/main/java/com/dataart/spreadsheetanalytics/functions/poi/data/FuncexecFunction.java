@@ -44,7 +44,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.Converters;
@@ -56,8 +55,6 @@ import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 @FunctionMeta(value = "FUNCEXEC")
 public class FuncexecFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
-    
-    protected ExternalServices external = ExternalServices.INSTANCE; 
     
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {

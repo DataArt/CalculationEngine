@@ -34,6 +34,8 @@ import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
  */
 public interface CustomFunction extends FreeRefFunction {
     
+    ExternalServices external = ExternalServices.INSTANCE;
+    
     static List<ValueEval> prepareQueryArgs(List<ValueEval> queryArgs) throws EvaluationException {
         List<ValueEval> args = new LinkedList<>();
         

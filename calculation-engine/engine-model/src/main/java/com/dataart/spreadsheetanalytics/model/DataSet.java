@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -32,47 +33,66 @@ public class DataSet implements IDataSet {
     protected IDataModelId dataModelId;
     protected String name;
     
-    protected List<IDsRow> rows;
-    
-    protected final Lock atomicOperation = new ReentrantLock();
+    protected final List<IDsRow> rows;
+    protected final Optional<Lock> writeLock;
 
     public DataSet(String name) {
+        this(name, new ArrayList<>(), true);
+    }
+    
+    public DataSet(String name, List<IDsRow> rowsImpl, boolean doWriteLock) {
         this.name = name;
-        this.dataModelId = new DataModelId(UUID.randomUUID().toString()); /*TODO: generate ID*/
-        this.rows = new ArrayList<>();
+        this.dataModelId = new DataModelId(UUID.randomUUID().toString());
+        this.rows = rowsImpl;
+        this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
 
     @Override public IDataModelId dataModelId() { return this.dataModelId; }
     
-    @Override public String name() { return name; }
+    @Override public String name() { return this.name; }
     @Override public void name(String name) { this.name = name; }
 
     @Override public int length() { return this.rows.size(); }
-    @Override public int width() { return rows.isEmpty() ? 0 : rows.get(0).width(); }
 
-    @Override public List<IDsRow> rows() { return Collections.<IDsRow>unmodifiableList(this.rows); }
-    
-    public DsRow createRow() {
-        try {
-            atomicOperation.lock();
-            
-            DsRow row = new DsRow(rows.size() + 1);
-            rows.add(row);
-            return row;
-        } finally {
-            atomicOperation.unlock();
-        }
+    @Override 
+    public Iterator<IDsRow> iterator() {
+        return Collections.<IDsRow>unmodifiableList(this.rows).iterator();
     }
 
-    @Override public Iterator<IDsRow> iterator() {
-        return Collections.<IDsRow>unmodifiableList(rows).iterator();
+    @Override
+    public IDsRow addRow() {
+        try {
+            if (this.writeLock.isPresent()) { this.writeLock.get().lock(); }
+
+            int rowIdx = this.rows.size();
+            this.rows.add(rowIdx, new DsRow(rowIdx));
+            return this.rows.get(rowIdx);
+        }
+        finally { if (this.writeLock.isPresent()) { this.writeLock.get().unlock(); } }
+    }
+
+    @Override
+    public IDsRow addRow(int rowIdx) {
+        if (rowIdx < 0 || rowIdx > this.rows.size()) { return null; }
+        
+        try {
+            if (this.writeLock.isPresent()) { this.writeLock.get().lock(); }
+            
+            this.rows.add(rowIdx, new DsRow(rowIdx));
+            return this.rows.get(rowIdx);
+        }
+        finally { if (this.writeLock.isPresent()) { this.writeLock.get().unlock(); } }
+    }
+
+    @Override
+    public IDsRow getRow(int rowIdx) {
+        return rowIdx < 0 || rowIdx >= this.rows.size() ? null : this.rows.get(rowIdx);
     }
 
     @Override
     public String toString() {
         StringBuilder toString = new StringBuilder();
-        rows.forEach(r -> toString.append(r).append("\n"));
+        this.rows.forEach(r -> toString.append(r).append("\n"));
         return toString.toString();
     }
-
 }

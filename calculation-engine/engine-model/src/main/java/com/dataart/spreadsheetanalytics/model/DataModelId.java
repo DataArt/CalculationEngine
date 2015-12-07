@@ -23,6 +23,6 @@ public class DataModelId implements IDataModelId {
 
     public DataModelId(Object id) { this.id = id; }
 
-    public Object id() { return id; }
+    public Object id() { return this.id; }
     
 }

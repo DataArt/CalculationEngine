@@ -44,78 +44,78 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
     }
     
     @Override
-    public Object get() { return pvalue; }
+    public Object get() { return this.pvalue; }
 
     @Override
     public void set(Object pvalue) {
         this.pvalue = pvalue;
                 
-        switch (pname) {
+        switch (this.pname) {
             case FORMULA_STRING: {
-                String flaStr = ((String) pvalue).replace("$", "");
-                ((CellFormulaExpression) parent.formula).formulaStr(flaStr);
+                String flaStr = ((String) this.pvalue).replace("$", "");
+                ((CellFormulaExpression) this.parent.formula).formulaStr(flaStr);
                 break;
             }
             case INDEX_IN_FORMULA: {
-                ((CellFormulaExpression) parent.formula).iptg((int) pvalue);
+                ((CellFormulaExpression) this.parent.formula).iptg((int) this.pvalue);
                 break;
             }
             case ROOT_FORMULA_ID: {
-                ((CellFormulaExpression) parent.formula).rootFormulaId(pvalue);
+                ((CellFormulaExpression) this.parent.formula).rootFormulaId(this.pvalue);
                 break;
             }
             case FORMULA_VALUES: {
-                ((CellFormulaExpression) parent.formula).formulaValues((String) pvalue);
+                ((CellFormulaExpression) this.parent.formula).formulaValues((String) this.pvalue);
                 break;
             }
             case PTGS: {
-                ((CellFormulaExpression) parent.formula).ptgs((Ptg[]) pvalue);
+                ((CellFormulaExpression) this.parent.formula).ptgs((Ptg[]) this.pvalue);
                 break;
             }
             case FORMULA_PTG: {
-                ((CellFormulaExpression) parent.formula).formulaPtg((Object[]) pvalue);
+                ((CellFormulaExpression) this.parent.formula).formulaPtg((Object[]) this.pvalue);
                 break;
             }
             case FORMULA_PTG_STRING: {
-                ((CellFormulaExpression) parent.formula).formulaPtgStr((String) pvalue);
+                ((CellFormulaExpression) this.parent.formula).formulaPtgStr((String) this.pvalue);
                 break;                
             }
             case PTG_STRING: {
-                ((CellFormulaExpression) parent.formula).ptgStr((String) pvalue);
+                ((CellFormulaExpression) this.parent.formula).ptgStr((String) this.pvalue);
                 break;                                
             }
             case SOURCE_OBJECT_ID: {
-                parent.sourceObjectId = pvalue;
+                this.parent.sourceObjectId = this.pvalue;
                 break;
             }
             case TYPE: {
-                if (parent.type != null && Type.CELL_WITH_FORMULA == parent.type) { this.pvalue = parent.type; break; }
-                parent.type = pvalue instanceof Type 
-                                ? (Type) pvalue 
-                                : pvalue instanceof Ptg 
-                                    ? ptgToVertexType((Ptg) pvalue) 
-                                    : Enum.valueOf(Type.class, (String) pvalue);
-                this.pvalue = parent.type;
+                if (this.parent.type != null && Type.CELL_WITH_FORMULA == this.parent.type) { this.pvalue = this.parent.type; break; }
+                this.parent.type = this.pvalue instanceof Type 
+                                ? (Type) this.pvalue 
+                                : this.pvalue instanceof Ptg 
+                                    ? ptgToVertexType((Ptg) this.pvalue) 
+                                    : Enum.valueOf(Type.class, (String) this.pvalue);
+                this.pvalue = this.parent.type;
                 break;
             }
             case VALUE: {
-                parent.value = ExecutionGraphBuilderUtils.coerceValueTo(pvalue);
+                this.parent.value = ExecutionGraphBuilderUtils.coerceValueTo(this.pvalue);
                 break;
             }
             case VERTEX_ID: {
-                parent.id = pvalue;
+                this.parent.id = this.pvalue;
                 break;
             }
             case NAME: {
-                parent.name = (String) pvalue;
+                this.parent.name = (String) this.pvalue;
                 break;
             }
             case ALIAS: {
-                parent.alias = (String) pvalue;
+                this.parent.alias = (String) this.pvalue;
                 break;
             }
             default: {
-                    throw new IllegalArgumentException(String.format("Property %s is not supported by %s.", pname, parent.getClass().getSimpleName()));
+                    throw new IllegalArgumentException(String.format("Property %s is not supported by %s.", this.pname, this.parent.getClass().getSimpleName()));
                 }
             }
     }

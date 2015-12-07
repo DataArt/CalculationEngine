@@ -135,26 +135,26 @@ public class Validate_Function_Test {
         
         assertThat(validationDS.length()).isEqualTo(4 + 1);
         
-        String valRowText1 = valRow1.cellAt(0).value().get() + ", " +  
-                             valRow1.cellAt(1).value().get() + ", " + 
-                             valRow1.cellAt(2).value().get() + ", " +
-                             valRow1.cellAt(3).value().get() + ", " +
-                             valRow1.cellAt(4).value().get();
-        String valRowText4 = valRow4.cellAt(0).value().get() + ", " +  
-                             valRow4.cellAt(1).value().get() + ", " + 
-                             valRow4.cellAt(2).value().get() + ", " +
-                             valRow4.cellAt(3).value().get() + ", " +
-                             valRow4.cellAt(4).value().get();
-        String valRowText5 = valRow5.cellAt(0).value().get() + ", " +  
-                             valRow5.cellAt(1).value().get() + ", " + 
-                             valRow5.cellAt(2).value().get() + ", " +
-                             valRow5.cellAt(3).value().get() + ", " +
-                             valRow5.cellAt(4).value().get();
-        String valRowText9 = valRow9.cellAt(0).value().get() + ", " +  
-                             valRow9.cellAt(1).value().get() + ", " + 
-                             valRow9.cellAt(2).value().get() + ", " +
-                             valRow9.cellAt(3).value().get() + ", " +
-                             valRow9.cellAt(4).value().get();
+        String valRowText1 = valRow1.getCell(0).value().get() + ", " +  
+                             valRow1.getCell(1).value().get() + ", " + 
+                             valRow1.getCell(2).value().get() + ", " +
+                             valRow1.getCell(3).value().get() + ", " +
+                             valRow1.getCell(4).value().get();
+        String valRowText4 = valRow4.getCell(0).value().get() + ", " +  
+                             valRow4.getCell(1).value().get() + ", " + 
+                             valRow4.getCell(2).value().get() + ", " +
+                             valRow4.getCell(3).value().get() + ", " +
+                             valRow4.getCell(4).value().get();
+        String valRowText5 = valRow5.getCell(0).value().get() + ", " +  
+                             valRow5.getCell(1).value().get() + ", " + 
+                             valRow5.getCell(2).value().get() + ", " +
+                             valRow5.getCell(3).value().get() + ", " +
+                             valRow5.getCell(4).value().get();
+        String valRowText9 = valRow9.getCell(0).value().get() + ", " +  
+                             valRow9.getCell(1).value().get() + ", " + 
+                             valRow9.getCell(2).value().get() + ", " +
+                             valRow9.getCell(3).value().get() + ", " +
+                             valRow9.getCell(4).value().get();
         
         assertThat(valRowText1).isEqualTo(expectedValues.get(expectedColumn + 2));
         assertThat(valRowText4).isEqualTo(expectedValues.get(expectedColumn + 5));

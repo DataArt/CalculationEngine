@@ -16,9 +16,12 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine.dataset;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.AbstractLazyDataSet;
 
 public class ODataDataSet extends AbstractLazyDataSet {
+
+    private static final RuntimeException NS = new UnsupportedOperationException("Class " + ODataDataSet.class.getSimpleName() + " is a stub and not yet implemented.");
 
     public ODataDataSet(String name) {
         super(name);
@@ -26,8 +29,22 @@ public class ODataDataSet extends AbstractLazyDataSet {
 
     @Override
     public IDataSet get(Parameters parameters) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        throw NS;
+    }
+
+    @Override
+    public IDsRow addRow() {
+        throw NS;
+    }
+
+    @Override
+    public IDsRow addRow(int rowIdx) {
+        throw NS;
+    }
+
+    @Override
+    public IDsRow getRow(int rowIdx) {
+        throw NS;
     }
 
 }

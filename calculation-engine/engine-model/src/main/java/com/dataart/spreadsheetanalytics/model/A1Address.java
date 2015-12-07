@@ -35,9 +35,9 @@ public class A1Address implements ICellAddress, IA1Address {
 
     @Override public A1Address a1Address() { return this; }
     @Override public IDataModelId dataModelId() { return null; }
-    @Override public String address() { return address; }
-    @Override public int row() { return row; }
-    @Override public int column() { return column; }
+    @Override public String address() { return this.address; }
+    @Override public int row() { return this.row; }
+    @Override public int column() { return this.column; }
 
     public static A1Address fromA1Address(String a1address) {
         if (isRange(a1address)) { return new A1RangeAddress(a1address); }
@@ -69,26 +69,27 @@ public class A1Address implements ICellAddress, IA1Address {
     
     @Override
     public String toString() {
-        return String.format("%s[%s,%s]", address, row, column);
+        return String.format("%s[%s,%s]", this.address, this.row, this.column);
     }
+    
     @Override
     public int hashCode() {
         int prime = 31;
         int result = 1;
-        result = prime * result + column;
-        result = prime * result + row;
+        result = prime * result + this.column;
+        result = prime * result + this.row;
         return result;
     }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { return true; }
         if (obj == null) { return false; }
         if (getClass() != obj.getClass()) { return false; }
         A1Address other = (A1Address) obj;
-        if (column != other.column) { return false; }
-        if (row != other.row) { return false; }
+        if (this.column != other.column) { return false; }
+        if (this.row != other.row) { return false; }
         return true;
     }
-    
-    
+
 }

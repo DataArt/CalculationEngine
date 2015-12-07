@@ -16,9 +16,11 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.api.model;
 
 public interface IDsCell {
-    
+
     int index();
-    
+
     ICellValue value();
+
+    void value(ICellValue value);
 
 }

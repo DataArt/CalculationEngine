@@ -16,7 +16,6 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.model;
 
 import java.util.Iterator;
-import java.util.List;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
@@ -27,7 +26,7 @@ public abstract class AbstractLazyDataSet implements ILazyDataSet {
     private static final RuntimeException NOT_EXECUTED = new IllegalStateException("DataSet not executed.");
     
     protected DataSet dataSet;
-    protected Boolean executed = Boolean.FALSE;
+    protected boolean executed;
         
     public AbstractLazyDataSet(String name) {
         this.dataSet = new DataSet(name);
@@ -38,19 +37,12 @@ public abstract class AbstractLazyDataSet implements ILazyDataSet {
     @Override public void name(String name) { this.dataSet.name(name); }
 
     @Override public int length() {
-        if (!executed) { throw NOT_EXECUTED; }
+        if (!this.executed) { throw NOT_EXECUTED; }
         return this.dataSet.length();
     }
-    @Override public int width() {
-        if (!executed) { throw NOT_EXECUTED; }
-        return this.dataSet.width();
-    }
-    @Override public List<IDsRow> rows() {
-        if (!executed) { throw NOT_EXECUTED; }
-        return this.dataSet.rows();
-    }
+    
     @Override public Iterator<IDsRow> iterator() {
-        if (!executed) { throw NOT_EXECUTED; }
+        if (!this.executed) { throw NOT_EXECUTED; }
         return this.dataSet.iterator();
     }
 }

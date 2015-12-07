@@ -84,10 +84,10 @@ public class DataModel implements IDataModel {
         if (rowIdx < 0) { return; }
         
         try {
-            if (writeLock.isPresent()) { writeLock.get().lock(); }
+            if (this.writeLock.isPresent()) { this.writeLock.get().lock(); }
             this.table.put(Integer.valueOf(rowIdx), row);
         }
-        finally { if (writeLock.isPresent()) { writeLock.get().unlock(); } }
+        finally { if (this.writeLock.isPresent()) { this.writeLock.get().unlock(); } }
     }
     
     @Override
@@ -111,17 +111,17 @@ public class DataModel implements IDataModel {
         if (rowIdx < 0 || cellIdx < 0) { return; }
         
         try {
-            if (cellWriteLock.isPresent()) { cellWriteLock.get().lock(); }
+            if (this.cellWriteLock.isPresent()) { this.cellWriteLock.get().lock(); }
             
             IDmRow r = this.getRow(rowIdx);
             if (r == null) { 
-                r = new DmRow(); 
+                r = new DmRow(rowIdx); 
                 this.setRow(rowIdx, r); 
             }
             
             r.setCell(cellIdx, cell);
         }
-        finally { if (cellWriteLock.isPresent()) { cellWriteLock.get().unlock(); } }
+        finally { if (this.cellWriteLock.isPresent()) { this.cellWriteLock.get().unlock(); } }
     }
     
     @Override
@@ -142,6 +142,6 @@ public class DataModel implements IDataModel {
     }
 
     @Override
-    public String toString() { return name(); }
+    public String toString() { return this.name; }
 
 }

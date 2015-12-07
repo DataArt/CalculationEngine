@@ -37,7 +37,7 @@ public class CellValue implements ICellValue {
     public CellValue(Boolean value) { this(value, Boolean.class); }
     public CellValue(String value) { this(value, String.class); }
 
-    @Override public Object get() { return value; }
+    @Override public Object get() { return this.value; }
     @Override public Class<? extends Object> type() { return this.type; }
 
     /**
@@ -55,7 +55,7 @@ public class CellValue implements ICellValue {
 
     @Override
     public String toString() {
-        return value == null ? "null" : value.toString() + ":" + type.getSimpleName();
+        return this.value == null ? "null" : this.value.toString() + ":" + this.type.getSimpleName();
     }
 
 }

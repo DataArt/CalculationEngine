@@ -59,7 +59,6 @@ public class SpreadsheetAuditor implements IAuditor {
 
     protected final SpreadsheetEvaluator evaluator;
     protected final Lock graphLock = new ReentrantLock();
-    protected final Lock staticGraphLock = new ReentrantLock();
 
     public SpreadsheetAuditor(SpreadsheetEvaluator evaluator) {
         this.evaluator = evaluator;
@@ -68,12 +67,12 @@ public class SpreadsheetAuditor implements IAuditor {
     @Override
     public IExecutionGraph buildDependencyGraph(ICellAddress cell) {
         try {
-            graphLock.lock();
+            this.graphLock.lock();
             log.debug("Building Dependency Graph for address: {}.", cell);
             
-            return PoiDependencyGraphBuilder.buildDependencyGraph(evaluator.model, cell);
+            return PoiDependencyGraphBuilder.buildDependencyGraph(this.evaluator.model, cell);
         } finally {
-            graphLock.unlock();
+            this.graphLock.unlock();
             log.debug("Building Dependency Graph for address: {} is finished.", cell);
         }
     }
@@ -81,13 +80,13 @@ public class SpreadsheetAuditor implements IAuditor {
     @Override
     public IExecutionGraph buildDependencyGraph() {
         try {
-            graphLock.lock();
-            log.debug("Building Dependency Graph for DataModel: {}.", evaluator.model);
+            this.graphLock.lock();
+            log.debug("Building Dependency Graph for DataModel: {}.", this.evaluator.model);
             
-            return PoiDependencyGraphBuilder.buildDependencyGraph(evaluator.model);
+            return PoiDependencyGraphBuilder.buildDependencyGraph(this.evaluator.model);
         } finally {
-            graphLock.unlock();
-            log.debug("Building Dependency Graph for DataModel: {} is finished.", evaluator.model);
+            this.graphLock.unlock();
+            log.debug("Building Dependency Graph for DataModel: {} is finished.", this.evaluator.model);
         }
     }
     
@@ -99,14 +98,14 @@ public class SpreadsheetAuditor implements IAuditor {
     @Override
     public IExecutionGraph buildExecutionGraph(ICellAddress cell, ExecutionGraphConfig config) {
         try {
-            graphLock.lock();
+            this.graphLock.lock();
             log.debug("Building Graph for address: {}.", cell);
             
             /* Clear POI cache to allow graph building to be full */
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
-            try { graphBuilder.setRefsToNames(getWorkbookNames(Converters.toWorkbook(evaluator.model))); }
+            try { graphBuilder.setRefsToNames(getWorkbookNames(Converters.toWorkbook(this.evaluator.model))); }
             catch (Exception e) { e.printStackTrace(); /*TODO: remove Workbook*/ }
             
             graphBuilder.setExecutionGraphConfig(config);
@@ -114,7 +113,7 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
             try {
-                IEvaluationResult<ICellValue> res = evaluator.evaluate(cell);
+                IEvaluationResult<ICellValue> res = this.evaluator.evaluate(cell);
                 ICellValue cv = res.getResult();
                 
                 if (cv == null || cv.get() == null) { return buildSingleVertexGraphForEmptyCell(cell); }
@@ -136,7 +135,7 @@ public class SpreadsheetAuditor implements IAuditor {
                 return graphBuilder.get();
             }
         } finally {
-            graphLock.unlock();
+            this.graphLock.unlock();
             log.debug("Building Graph for address: {} is finished.", cell);
         }
     }
@@ -149,28 +148,28 @@ public class SpreadsheetAuditor implements IAuditor {
     @Override
     public IExecutionGraph buildExecutionGraph(ExecutionGraphConfig config) {
         try {
-            graphLock.lock();
-            log.debug("Building Graph for DataModel: {} with Config: {}.", evaluator.model, config);
+            this.graphLock.lock();
+            log.debug("Building Graph for DataModel: {} with Config: {}.", this.evaluator.model, config);
             
             /* Clear POI cache to allow graph building to be full */
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
             
-            try { graphBuilder.setRefsToNames(getWorkbookNames(Converters.toWorkbook(evaluator.model))); }
+            try { graphBuilder.setRefsToNames(getWorkbookNames(Converters.toWorkbook(this.evaluator.model))); }
             catch (Exception e) { e.printStackTrace(); /*TODO: remove Workbook*/ }
             
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
-            evaluator.evaluate();
+            this.evaluator.evaluate();
 
             graphBuilder.runPostProcessing(true);
             return graphBuilder.get();
             
         } finally {
-            graphLock.unlock();
-            log.debug("Building Graph for DataModel: {} with Config: {} is finished.", evaluator.model, config);
+            this.graphLock.unlock();
+            log.debug("Building Graph for DataModel: {} with Config: {} is finished.", this.evaluator.model, config);
         }
     }
     
@@ -184,6 +183,6 @@ public class SpreadsheetAuditor implements IAuditor {
     }
     
     @Override
-    public IEvaluator getEvaluator() { return evaluator; }
+    public IEvaluator getEvaluator() { return this.evaluator; }
 
 }

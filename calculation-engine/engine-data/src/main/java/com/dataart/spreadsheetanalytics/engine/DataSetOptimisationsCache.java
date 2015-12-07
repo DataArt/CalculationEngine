@@ -34,7 +34,7 @@ public class DataSetOptimisationsCache {
    
     public void setDataSetToLazyParameters(Cache<ILazyDataSet.Parameters, IDataSet> dataSetToLazyParameters) { this.dataSetToLazyParameters = dataSetToLazyParameters; }
 
-    public Cache<DsLookupParameters, List> getDataSetToDsLookupParameters() { return dataSetToDsLookupParameters; }
+    public Cache<DsLookupParameters, List> getDataSetToDsLookupParameters() { return this.dataSetToDsLookupParameters; }
     public void setDataSetToDsLookupParameters(Cache<DsLookupParameters, List> dataSetToDsLookupParameters) { this.dataSetToDsLookupParameters = dataSetToDsLookupParameters; }
 
     
@@ -54,9 +54,9 @@ public class DataSetOptimisationsCache {
         public int hashCode() {
             int prime = 31;
             int result = 1;
-            result = prime * result + columnIndex;
-            result = prime * result + ((dsname == null) ? 0 : dsname.hashCode());
-            result = prime * result + ((where == null) ? 0 : where.hashCode());
+            result = prime * result + this.columnIndex;
+            result = prime * result + ((this.dsname == null) ? 0 : this.dsname.hashCode());
+            result = prime * result + ((this.where == null) ? 0 : this.where.hashCode());
             return result;
         }
 
@@ -66,13 +66,13 @@ public class DataSetOptimisationsCache {
             if (obj == null) { return false; }
             if (getClass() != obj.getClass()) { return false; }
             DsLookupParameters other = (DsLookupParameters) obj;
-            if (columnIndex != other.columnIndex) { return false; }
-            if (dsname == null) {
+            if (this.columnIndex != other.columnIndex) { return false; }
+            if (this.dsname == null) {
                 if (other.dsname != null) { return false; }
-            } else if (!dsname.equals(other.dsname)) { return false; }
-            if (where == null) {
+            } else if (!this.dsname.equals(other.dsname)) { return false; }
+            if (this.where == null) {
                 if (other.where != null) { return false; }
-            } else if (!where.equals(other.where)) { return false; }
+            } else if (!this.where.equals(other.where)) { return false; }
             return true;
         }
     }

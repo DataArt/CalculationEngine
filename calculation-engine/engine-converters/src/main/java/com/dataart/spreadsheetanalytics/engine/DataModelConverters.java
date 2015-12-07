@@ -59,7 +59,7 @@ final class DataModelConverters {
         
         for (int i = s.getFirstRowNum(); i <= s.getLastRowNum(); i++) {
             Row r = s.getRow(i);
-            DmRow row = r == null ? null : new DmRow();
+            DmRow row = r == null ? null : new DmRow(i);
             dm.setRow(i, row);
             if (r == null) { continue; }
             

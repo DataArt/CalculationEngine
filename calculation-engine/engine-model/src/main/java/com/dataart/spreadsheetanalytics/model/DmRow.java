@@ -30,17 +30,19 @@ import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
 public class DmRow implements IDmRow {
+
+    protected final int index;
     
     /** Row implementation: cell number to {@link IDmCell} */
     protected final Map<Integer, IDmCell> table;
-    
     protected final Optional<Lock> writeLock;
     
-    public DmRow() {
-        this(new HashMap<>(), true);
+    public DmRow(int index) {
+        this(index, new HashMap<>(), true);
     }
     
-    public DmRow(Map<Integer, IDmCell> tableImpl, boolean doWriteLock) {
+    public DmRow(int index, Map<Integer, IDmCell> tableImpl, boolean doWriteLock) {
+        this.index = index;
         this.table = tableImpl;
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
@@ -53,6 +55,8 @@ public class DmRow implements IDmRow {
                          .collect(Collectors.<IDmCell>toList())
                          .listIterator();
     }
+    
+    @Override public int index() { return this.index; }
     
     @Override
     public IDmCell getCell(int column) {
@@ -67,10 +71,10 @@ public class DmRow implements IDmRow {
     @Override
     public void setCell(int column, IDmCell cell) {
         try {
-            if (writeLock.isPresent()) { writeLock.get().lock(); }
+            if (this.writeLock.isPresent()) { this.writeLock.get().lock(); }
             this.table.put(Integer.valueOf(column), cell);
         }
-        finally { if (writeLock.isPresent()) { writeLock.get().unlock(); } }
+        finally { if (this.writeLock.isPresent()) { this.writeLock.get().unlock(); } }
     }
     
     @Override

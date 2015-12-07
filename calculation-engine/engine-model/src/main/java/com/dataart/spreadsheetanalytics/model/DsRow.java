@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -28,44 +29,58 @@ import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 public class DsRow implements IDsRow {
 
     protected final int index;
-    protected List<IDsCell> cells;
     
-    protected final Lock atomicOperation = new ReentrantLock();
+    protected final List<IDsCell> cells;
+    protected final Optional<Lock> writeLock;
     
-    public DsRow(int rowIndex) {
-        this.index = rowIndex;
-        this.cells = new ArrayList<>();
+    public DsRow(int rowIdx) {
+        this(rowIdx, new ArrayList<>(), true);
+    }
+    
+    public DsRow(int rowIdx, List<IDsCell> cellsImpl, boolean doWriteLock) {
+        this.index = rowIdx;
+        this.cells = cellsImpl;
+        this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
 
     @Override public int index() { return this.index; }
-    
-    @Override public int width() { return cells.size(); }
-    
-    @Override public List<IDsCell> cells() { return Collections.<IDsCell>unmodifiableList(this.cells); }
-    
-    @Override public IDsCell cellAt(int cellIndex) {
-        return cellIndex < 0 || cellIndex >= cells().size() ? null : cells().get(cellIndex);
-    }
-    
-    public DsCell createCell() {
-        try {
-            atomicOperation.lock();
-            
-            DsCell cell = new DsCell(cells.size() + 1);
-            cells.add(cell);
-            return cell;
-        } finally {
-            atomicOperation.unlock();
-        }
-    }
+    @Override public int width() { return this.cells.size(); }
 
-    @Override
+    @Override 
     public Iterator<IDsCell> iterator() {
         return Collections.<IDsCell>unmodifiableList(this.cells).iterator();
     }
 
-    @Override
+    @Override 
+    public IDsCell addCell() {
+        try {
+            if (this.writeLock.isPresent()) { this.writeLock.get().lock(); }
+            
+            int cellIdx = this.cells.size();
+            this.cells.add(cellIdx, new DsCell(cellIdx));
+            return this.cells.get(cellIdx);
+        }
+        finally { if (this.writeLock.isPresent()) { this.writeLock.get().unlock(); } }
+    }
+
+    @Override 
+    public IDsCell addCell(int cellIdx) {
+        try {
+            if (this.writeLock.isPresent()) { this.writeLock.get().lock(); }
+            
+            this.cells.add(cellIdx, new DsCell(cellIdx));
+            return this.cells.get(cellIdx);
+        }
+        finally { if (this.writeLock.isPresent()) { this.writeLock.get().unlock(); } }
+    }
+    
+    @Override 
+    public IDsCell getCell(int cellIdx) {
+        return cellIdx < 0 || cellIdx >= this.cells.size() ? null : this.cells.get(cellIdx);
+    }
+    
+    @Override 
     public String toString() {
-        return cells.toString();
-    }    
+        return this.cells.toString();
+    }
 }

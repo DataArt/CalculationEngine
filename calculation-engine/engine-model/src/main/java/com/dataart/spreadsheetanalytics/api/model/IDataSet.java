@@ -15,14 +15,11 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-import java.util.List;
 
 /**
  * Basic interface to represent a spreadsheet.
  * Uses the same concept (spreadsheet), but can contains only values, not formulas.
  * After giving any instance of this type to Evaluator the resuilt will be the same (equal spreadsheets).
- * 
- * Known subinterface: {@link IDataModel}.
  */
 public interface IDataSet extends Iterable<IDsRow> {
 
@@ -34,8 +31,10 @@ public interface IDataSet extends Iterable<IDsRow> {
 
     int length();
     
-    int width();
-
-    List<IDsRow> rows();
+    IDsRow addRow();
+    
+    IDsRow addRow(int rowIdx);
+    
+    IDsRow getRow(int rowIdx);
 
 }

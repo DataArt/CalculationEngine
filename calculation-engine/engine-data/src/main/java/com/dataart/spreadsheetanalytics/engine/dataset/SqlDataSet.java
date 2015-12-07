@@ -21,6 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.model.AbstractLazyDataSet;
 import com.dataart.spreadsheetanalytics.model.DataSet;
@@ -47,14 +48,18 @@ public class SqlDataSet extends AbstractLazyDataSet {
     @Override
     public IDataSet get(Parameters parameters) throws Exception {
         try {
-            executionLock.lock();
+            this.executionLock.lock();
             
-            this.dataSet = (DataSet) dataSourceHub.executeQuery(sqlDataSource, new TextDataSourceQuery(sql), parameters.getParameters());
+            this.dataSet = (DataSet) this.dataSourceHub.executeQuery(this.sqlDataSource, new TextDataSourceQuery(this.sql), parameters.getParameters());
             this.executed = Boolean.TRUE;
             
             return this.dataSet;
-        } finally {
-            executionLock.unlock();
-        }
+        } 
+        finally { this.executionLock.unlock(); }
     }
+
+    @Override public IDsRow addRow() { throw new UnsupportedOperationException(""); }
+    @Override public IDsRow addRow(int rowIdx) { throw new UnsupportedOperationException("Cannot add rows to SQL DataSet."); }
+    
+    @Override public IDsRow getRow(int rowIdx) { return this.dataSet.getRow(rowIdx); }
 }

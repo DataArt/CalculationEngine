@@ -61,7 +61,7 @@ public class A1RangeAddress extends A1Address {
     public int hashCode() {
         int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((addresses == null) ? 0 : addresses.hashCode());
+        result = prime * result + ((this.addresses == null) ? 0 : this.addresses.hashCode());
         return result;
     }
 
@@ -71,9 +71,9 @@ public class A1RangeAddress extends A1Address {
         if (!super.equals(obj)) { return false; }
         if (getClass() != obj.getClass()) { return false; }
         A1RangeAddress other = (A1RangeAddress) obj;
-        if (addresses == null) {
+        if (this.addresses == null) {
             if (other.addresses != null) { return false; }
-        } else if (!addresses.equals(other.addresses)) { return false; }
+        } else if (!this.addresses.equals(other.addresses)) { return false; }
         return true;
     }
     

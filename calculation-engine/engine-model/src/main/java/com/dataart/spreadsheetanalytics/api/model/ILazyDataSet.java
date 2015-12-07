@@ -54,15 +54,15 @@ public interface ILazyDataSet extends IDataSet {
             this.parameters = parameters;
         }
         
-        public List<Object> getParameters() { return parameters; }
+        public List<Object> getParameters() { return this.parameters; }
         public void setParameters(List<Object> parameters) { this.parameters = parameters; }
 
         @Override
         public int hashCode() {
             int prime = 31;
             int result = 1;
-            result = prime * result + ((dsname == null) ? 0 : dsname.hashCode());
-            result = prime * result + ((parameters == null) ? 0 : parameters.hashCode());
+            result = prime * result + ((this.dsname == null) ? 0 : this.dsname.hashCode());
+            result = prime * result + ((this.parameters == null) ? 0 : this.parameters.hashCode());
             return result;
         }
 
@@ -72,12 +72,12 @@ public interface ILazyDataSet extends IDataSet {
             if (obj == null) { return false; }
             if (getClass() != obj.getClass()) { return false; }
             Parameters other = (Parameters) obj;
-            if (dsname == null) {
+            if (this.dsname == null) {
                 if (other.dsname != null) { return false; }
-            } else if (!dsname.equals(other.dsname)) { return false; }
-            if (parameters == null) {
+            } else if (!this.dsname.equals(other.dsname)) { return false; }
+            if (this.parameters == null) {
                 if (other.parameters != null) { return false; }
-            } else if (!parameters.equals(other.parameters)) { return false; }
+            } else if (!this.parameters.equals(other.parameters)) { return false; }
             return true;
         }
         

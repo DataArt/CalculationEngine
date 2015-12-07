@@ -18,39 +18,40 @@ package com.dataart.spreadsheetanalytics.functions.poi.data;
 import java.util.UUID;
 
 import org.apache.poi.ss.formula.OperationEvaluationContext;
-import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DsRow;
 
 @FunctionMeta("VALIDATE2")
 public class Validate2Function implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(Validate2Function.class);
     
+    public static final String DATASET_NAME = "Validation";
+    
     protected ExternalServices external = ExternalServices.INSTANCE;
 
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
-        DataSet validateSet = (DataSet) ec.getCustomEvaluationContext().get("Validation");
+        DataSet validateSet = (DataSet) ec.getCustomEvaluationContext().get(DATASET_NAME);
         if (validateSet == null) {
             log.error("No Validation DataSet in current context is found. No information will be logged.");
-            return ErrorEval.VALUE_INVALID;
+            validateSet = new DataSet(DATASET_NAME);
         }
         
-        DsRow r = validateSet.createRow();
-        r.createCell().value(CellValue.from("Message" + UUID.randomUUID().toString()));
-        r.createCell().value(CellValue.from("Severity"));
-        r.createCell().value(CellValue.from("Cell"));
-        r.createCell().value(CellValue.from("CellContent"));
-        r.createCell().value(CellValue.from("CellValue"));
+        IDsRow r = validateSet.addRow();
+        r.addCell().value(CellValue.from("Message" + UUID.randomUUID().toString()));
+        r.addCell().value(CellValue.from("Severity"));
+        r.addCell().value(CellValue.from("Cell"));
+        r.addCell().value(CellValue.from("CellContent"));
+        r.addCell().value(CellValue.from("CellValue"));
         
         return new StringEval("Called VALIDATE2 function.");
     }

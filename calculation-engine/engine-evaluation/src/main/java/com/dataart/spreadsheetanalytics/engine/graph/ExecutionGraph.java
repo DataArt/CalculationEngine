@@ -41,8 +41,8 @@ public class ExecutionGraph implements IExecutionGraph {
     @Override
     public IExecutionGraphVertex getRootVertex() {
         List<IExecutionGraphVertex> possible = new LinkedList<>();
-        for (ExecutionGraphVertex ivertex : dgraph.vertexSet()) {
-            if (dgraph.outgoingEdgesOf(ivertex).isEmpty()) { possible.add(ivertex); }
+        for (ExecutionGraphVertex ivertex : this.dgraph.vertexSet()) {
+            if (this.dgraph.outgoingEdgesOf(ivertex).isEmpty()) { possible.add(ivertex); }
         }
         if (possible.isEmpty()) { throw new IllegalStateException("No graph root found"); }
         if (possible.size() > 1) { throw new IllegalStateException(String.format("Many graph roots found (%s)", possible.size())); }
@@ -52,25 +52,27 @@ public class ExecutionGraph implements IExecutionGraph {
 
     @Override
     public Set<IExecutionGraphVertex> getVertices() {
-        return dgraph.vertexSet().stream()
-                                 .map(s -> s)
-                                 .collect(Collectors.<IExecutionGraphVertex>toSet());
+        return this.dgraph.vertexSet()
+                          .stream()
+                          .map(s -> s)
+                          .collect(Collectors.<IExecutionGraphVertex>toSet());
     }
 
     @Override
     public Set<IExecutionGraphEdge> getEdges() {
-        return dgraph.edgeSet().stream()
-                               .collect(Collectors.<IExecutionGraphEdge>toSet());
+        return this.dgraph.edgeSet()
+                          .stream()
+                          .collect(Collectors.<IExecutionGraphEdge>toSet());
     }
 
     @Override
     public IExecutionGraphVertex getEdgeSource(IExecutionGraphEdge edge) {
-        return dgraph.getEdgeSource((ExecutionGraphEdge) edge);
+        return this.dgraph.getEdgeSource((ExecutionGraphEdge) edge);
     }
 
     @Override
     public IExecutionGraphVertex getEdgeTarget(IExecutionGraphEdge edge) {
-        return dgraph.getEdgeTarget((ExecutionGraphEdge) edge);
+        return this.dgraph.getEdgeTarget((ExecutionGraphEdge) edge);
     }
 
 }

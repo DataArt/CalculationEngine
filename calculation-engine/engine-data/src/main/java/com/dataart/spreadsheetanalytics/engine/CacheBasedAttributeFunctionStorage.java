@@ -45,7 +45,7 @@ public class CacheBasedAttributeFunctionStorage implements AttributeFunctionStor
     @Override
     public Map<String, DefineFunctionMeta> getDefineFunctions() {
         Map<String, DefineFunctionMeta> map = new HashMap<>();
-        for (Entry<String, DefineFunctionMeta> entry : defineFunctionsCache) {
+        for (Entry<String, DefineFunctionMeta> entry : this.defineFunctionsCache) {
             map.put(entry.getKey(), entry.getValue());
         }
         return Collections.<String, DefineFunctionMeta>unmodifiableMap(map);

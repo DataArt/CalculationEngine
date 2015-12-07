@@ -29,6 +29,9 @@ public interface IDmRow extends Iterable<IDmCell> {
     /** Sets the cell at given address.column. */
     void setCell(ICellAddress address, IDmCell cell);
 
+    /** This row index. */
+    int index();
+    
     /** Number of cells is a row. */
     int width();
     

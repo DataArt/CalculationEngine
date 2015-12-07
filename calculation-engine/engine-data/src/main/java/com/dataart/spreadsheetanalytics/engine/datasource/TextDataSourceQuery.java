@@ -21,7 +21,7 @@ public class TextDataSourceQuery implements DataSourceQuery {
     
     protected String query;
     public TextDataSourceQuery(String query) { this.query = query; }
-    public String query() { return query; }
+    public String query() { return this.query; }
     public void query(String query) { this.query = query; }
 
 }

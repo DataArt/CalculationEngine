@@ -31,6 +31,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.poi.common.fork.FormulaParseNAException;
 import org.apache.poi.common.fork.FormulaParseNameException;
@@ -49,7 +52,6 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
@@ -60,9 +62,7 @@ import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
 import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
-import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DsCell;
-import com.dataart.spreadsheetanalytics.model.DsRow;
+import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.dataart.spreadsheetanalytics.model.EvaluationContext;
 
 /**
@@ -82,6 +82,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected final IDataModel model;
     protected final EvaluationWorkbook evaluationWorkbook;
     protected final WorkbookEvaluator poiEvaluator;
+    protected final Lock evaluateLock = new ReentrantLock();
     
     static {
         try { loadCustomFunctions(); }
@@ -96,44 +97,45 @@ public class SpreadsheetEvaluator implements IEvaluator {
     
     @Override
     public IEvaluationResult<ICellValue> evaluate(ICellAddress addr) {
-        return this.evaluate(addr, new EvaluationContext());
-    }
-    
-    @Override
-    public IEvaluationResult<ICellValue> evaluate(ICellAddress addr, IEvaluationContext evaluationContext) {
         EvaluationCell cell = getEvaluationCell(this.evaluationWorkbook, addr);
         if (cell == null) { return null; }
+        
+        IEvaluationContext evaluationContext = new EvaluationContext();
         
         try { return new EvaluationResult<ICellValue>(evaluationContext, evaluateCell(cell, (EvaluationContext) evaluationContext)); }
         catch (ValuesStackNotEmptyException e) { return new EvaluationResult<ICellValue>(evaluationContext, CellValue.from(VALUE_INVALID.getErrorString())); }
     }
 
     @Override
-    public IEvaluationResult<IDataSet> evaluate() {
-        return this.evaluate(new EvaluationContext());
-    }
+    public IEvaluationResult<IDataModel> evaluate() {
+        try {
+            this.evaluateLock.lock();
+            
+            IEvaluationContext evaluationContext = new EvaluationContext();
+            IDataModel dataModel = this.model;
     
-    @Override
-    public IEvaluationResult<IDataSet> evaluate(IEvaluationContext evaluationContext) {
-        DataSet dataSet = new DataSet(model.name());
-
-        for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
-            IDmRow row = this.model.getRow(i);
-            DsRow evaluatedRow = dataSet.createRow();
-            if (row == null) { continue; }
-
-            for (int j = row.getFirstColumnIndex(); j <= row.getLastColumnIndex(); j++) {
-                IDmCell cell = row.getCell(i);
-                DsCell evaluatedCell = evaluatedRow.createCell();
-                if (cell == null) { continue; }
-
-                ICellAddress addr = A1Address.fromRowColumn(i, j);
-                try { evaluatedCell.value(evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext)); }
-                catch (ValuesStackNotEmptyException e) { evaluatedCell.value(handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr)); }
+            for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
+                IDmRow row = this.model.getRow(i);
+                if (row == null) { continue; }
+    
+                for (int j = row.getFirstColumnIndex(); j <= row.getLastColumnIndex(); j++) {
+                    IDmCell cell = row.getCell(i);
+                    if (cell == null) { continue; }
+    
+                    ICellAddress addr = A1Address.fromRowColumn(i, j);
+                    ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext);
+                    
+                    try { ((DmCell) cell).value(Optional.of(val)); }
+                    catch (ValuesStackNotEmptyException e) {
+                        val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr);
+                        ((DmCell) cell).value(Optional.of(val)); 
+                    }
+                }
             }
+    
+            return new EvaluationResult<>(evaluationContext, dataModel);
         }
-
-        return new EvaluationResult<>(evaluationContext, dataSet);
+        finally { this.evaluateLock.unlock(); }
     }
 
     protected ICellValue evaluateCell(EvaluationCell c, EvaluationContext evaluationContext) {
