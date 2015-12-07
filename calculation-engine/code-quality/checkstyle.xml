@@ -119,6 +119,12 @@
       <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''." />
     </module>
 
+    <module name="RequireThis">
+      <property name="checkFields" value="true" />
+      <property name="checkMethods" value="false" />
+      <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''." />
+    </module>
+
     <module name="SeparatorWrap">
       <property name="tokens" value="DOT" />
       <property name="option" value="nl" />
