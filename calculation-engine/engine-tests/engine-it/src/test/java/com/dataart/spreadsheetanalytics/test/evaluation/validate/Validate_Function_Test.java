@@ -46,7 +46,6 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class Validate_Function_Test {
 
@@ -81,12 +80,12 @@ public class Validate_Function_Test {
         external.setDataSetStorage(dataSetStorage);
 
         DataSet validationDS = new DataSet("Validation");
-        DsRow valRow = validationDS.createRow();
-        valRow.createCell().value(CellValue.from("Message"));
-        valRow.createCell().value(CellValue.from("Severity"));
-        valRow.createCell().value(CellValue.from("Cell"));
-        valRow.createCell().value(CellValue.from("CellContent"));
-        valRow.createCell().value(CellValue.from("CellValue"));
+        IDsRow valRow = validationDS.addRow();
+        valRow.addCell().value(CellValue.from("Message"));
+        valRow.addCell().value(CellValue.from("Severity"));
+        valRow.addCell().value(CellValue.from("Cell"));
+        valRow.addCell().value(CellValue.from("CellContent"));
+        valRow.addCell().value(CellValue.from("CellValue"));
         
         dataSetStorage.saveDataSet(validationDS);
 
@@ -94,7 +93,7 @@ public class Validate_Function_Test {
         
         evaluator = new SpreadsheetEvaluator(dataModel);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
-            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i));
+            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i)).getResult();
             expectedValues.put(expectedColumn + i, value.get());
         }
     }
@@ -116,23 +115,23 @@ public class Validate_Function_Test {
         //when
         List<ICellValue> vals = new ArrayList<>(expectedRowEnd);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
-            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i));
-            vals.add(i, value);
+            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i)).getResult();
+            vals.add(value);
         }
-        
+
         IDataSet validationDS = dsStorage.getDataSet("Validation");
 
-        IDsRow valRow1 = validationDS.rows().get(1);
-        IDsRow valRow4 = validationDS.rows().get(4);
-        IDsRow valRow5 = validationDS.rows().get(5);
-        IDsRow valRow9 = validationDS.rows().get(9);
-        
+        IDsRow valRow1 = validationDS.getRow(1);
+        IDsRow valRow4 = validationDS.getRow(2);
+        IDsRow valRow5 = validationDS.getRow(3);
+        IDsRow valRow9 = validationDS.getRow(4);
+
         //then
         for (ICellValue value : vals) {
             assertThat(value).isNotNull();
             //add assert for return value
         }
-        
+
         assertThat(validationDS.length()).isEqualTo(4 + 1);
         
         String valRowText1 = valRow1.getCell(0).value().get() + ", " +  
@@ -161,5 +160,5 @@ public class Validate_Function_Test {
         assertThat(valRowText5).isEqualTo(expectedValues.get(expectedColumn + 6));
         assertThat(valRowText9).isEqualTo(expectedValues.get(expectedColumn + 10));
     }
-       
+
 }

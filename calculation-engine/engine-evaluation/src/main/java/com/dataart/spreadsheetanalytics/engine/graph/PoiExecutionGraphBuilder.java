@@ -28,7 +28,6 @@ import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.coerceValueEvalToCellValue;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.ptgToString;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
@@ -73,7 +72,6 @@ import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
-import org.apache.poi.ss.usermodel.Cell;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
@@ -82,7 +80,6 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
-import com.dataart.spreadsheetanalytics.model.CellValue;
 
 /**
  * This class is a direct implementation of {@link IExecutionGraphBuilder} interface from forked POI library.
@@ -723,23 +720,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         emptyGraph.addVertex(vertex);
         return ExecutionGraph.wrap(emptyGraph);
-    }
-    
-    public static ICellValue resolveCellValue(org.apache.poi.ss.usermodel.CellValue poiValue) {
-        if (poiValue == null) { return CellValue.BLANK; }
-        
-        switch (poiValue.getCellType()) {
-            case Cell.CELL_TYPE_STRING: { return CellValue.from(poiValue.getStringValue()); }
-            case Cell.CELL_TYPE_NUMERIC: { return CellValue.from(Double.valueOf(poiValue.getNumberValue())); }
-            case Cell.CELL_TYPE_BOOLEAN: { return CellValue.from(Boolean.valueOf(poiValue.getBooleanValue())); }
-            case Cell.CELL_TYPE_ERROR: { return CellValue.from(ErrorEval.valueOf(poiValue.getErrorValue()).getErrorString()); }
-            case Cell.CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
-            case Cell.CELL_TYPE_BLANK: default: { return CellValue.BLANK; }
-        }
-    }
-    
-    public static ICellValue resolveValueEval(ValueEval valueEval) {
-        return resolveCellValue(coerceValueEvalToCellValue(valueEval));
     }
 
     public void setRefsToNames(Map<String, String> refsToNames) { this.refsToNames = refsToNames; }

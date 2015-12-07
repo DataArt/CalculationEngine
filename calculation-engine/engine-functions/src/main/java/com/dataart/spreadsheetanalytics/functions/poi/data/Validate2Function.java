@@ -33,9 +33,9 @@ import com.dataart.spreadsheetanalytics.model.DataSet;
 @FunctionMeta("VALIDATE2")
 public class Validate2Function implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(Validate2Function.class);
-    
+
     public static final String DATASET_NAME = "Validation";
-    
+
     protected ExternalServices external = ExternalServices.INSTANCE;
 
     @Override
@@ -45,14 +45,14 @@ public class Validate2Function implements CustomFunction {
             log.error("No Validation DataSet in current context is found. No information will be logged.");
             validateSet = new DataSet(DATASET_NAME);
         }
-        
+
         IDsRow r = validateSet.addRow();
         r.addCell().value(CellValue.from("Message" + UUID.randomUUID().toString()));
         r.addCell().value(CellValue.from("Severity"));
         r.addCell().value(CellValue.from("Cell"));
         r.addCell().value(CellValue.from("CellContent"));
         r.addCell().value(CellValue.from("CellValue"));
-        
+
         return new StringEval("Called VALIDATE2 function.");
     }
 }
