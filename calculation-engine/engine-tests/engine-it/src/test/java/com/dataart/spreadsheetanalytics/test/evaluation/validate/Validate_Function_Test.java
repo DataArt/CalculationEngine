@@ -94,7 +94,7 @@ public class Validate_Function_Test {
         
         evaluator = new SpreadsheetEvaluator(dataModel);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
-            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i));
+            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i)).getResult();
             expectedValues.put(expectedColumn + i, value.get());
         }
     }
@@ -116,7 +116,7 @@ public class Validate_Function_Test {
         //when
         List<ICellValue> vals = new ArrayList<>(expectedRowEnd);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
-            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i));
+            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i)).getResult();
             vals.add(value);
         }
 

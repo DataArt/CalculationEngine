@@ -110,7 +110,7 @@ public class Funcexec_Test {
 
         evaluator = new SpreadsheetEvaluator(dataModel);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
-            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i));
+            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i)).getResult();
             expectedValues.put(expectedColumn + i, value.get());
         }
     }
@@ -136,7 +136,7 @@ public class Funcexec_Test {
 
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
             //when
-            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i));
+            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i)).getResult();
 
             //then
             assertThat(value).isNotNull();

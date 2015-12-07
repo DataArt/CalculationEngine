@@ -18,7 +18,6 @@ package com.dataart.spreadsheetanalytics.engine;
 import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
 import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.getEvaluationCell;
 import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.toEvaluationWorkbook;
-import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.resolveValueEval;
 import static com.dataart.spreadsheetanalytics.functions.poi.Functions.getUdfFinder;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
@@ -139,7 +138,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected ICellValue evaluateCell(EvaluationCell c, EvaluationContext evaluationContext) {
         if (c == null) { return null; }
         
-        try { return resolveValueEval(this.poiEvaluator.evaluate(c, evaluationContext)); }
+        try { return PoiValueConverters.resolveValueEval(this.poiEvaluator.evaluate(c, evaluationContext)); }
         catch (FormulaParseNameException e) { return handleNameParseException(); }
         catch (FormulaParseNAException e) { return handleNaParseException(); }
         catch (IncorrectExternalReferenceException e) { return handleIncorrectExternalReferenceException(); }
