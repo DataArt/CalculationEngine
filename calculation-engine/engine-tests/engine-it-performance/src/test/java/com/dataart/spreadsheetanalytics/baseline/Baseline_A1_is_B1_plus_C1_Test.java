@@ -15,6 +15,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -23,8 +24,8 @@ public class Baseline_A1_is_B1_plus_C1_Test extends BenchmarkTestParent {
 
     @Benchmark
     public void evaluate_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
-        ICellValue value = state.evaluator.evaluate(state.address);
-        assertThat(value.get()).isEqualTo(state.expectedValue); /* comment for better performance */
+        IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.address);
+        assertThat(value.getResult().get()).isEqualTo(state.expectedValue); /* comment for better performance */
         bh.consume(value);
     }
    

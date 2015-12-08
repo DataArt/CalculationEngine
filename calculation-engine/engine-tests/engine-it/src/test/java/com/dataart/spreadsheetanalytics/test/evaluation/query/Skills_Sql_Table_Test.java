@@ -108,7 +108,7 @@ public class Skills_Sql_Table_Test {
         external.setDataModelAccessor(dataModelStorage);
         external.setDataSetAccessor(dataSetStorage);
         external.setDataSourceHub(dataSourceHub);
-        external.setAttributeFunctionStorage(attributeFunctionStorage);
+        external.setMetaFunctionAccessor(attributeFunctionStorage);
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
         
         dataSourceHub.addDataSource(new TempSqlDataSource());

@@ -51,7 +51,7 @@ public class BenchmarkTestParent {
         
         ExternalServices.INSTANCE.setDataSetAccessor(new CacheBasedDataSetAccessor());
         ExternalServices.INSTANCE.setDataModelAccessor(new CacheBasedDataModelAccessor());
-        ExternalServices.INSTANCE.setAttributeFunctionStorage(new CacheBasedMetaFunctionAccessor());
+        ExternalServices.INSTANCE.setMetaFunctionAccessor(new CacheBasedMetaFunctionAccessor());
         ExternalServices.INSTANCE.setDataSourceHub(new CacheBasedDataSourceHub());
         ExternalServices.INSTANCE.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
     }

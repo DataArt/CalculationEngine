@@ -17,6 +17,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.dslookup.ZParentTest;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
@@ -47,7 +48,7 @@ public class DSLOOKUP_1000set_100times_Test extends ZParentTest {
 
             this.expectedValues = new HashMap<>();
             for (int i = from; i < from + iterations; i++)
-                expectedValues.put(A1Address.fromA1Address(columnA + i), evaluator.evaluate(A1Address.fromA1Address(columnB + i)).get());
+                expectedValues.put(A1Address.fromA1Address(columnA + i), evaluator.evaluate(A1Address.fromA1Address(columnB + i)).getResult().get());
 
             this.addressMap = new HashMap<>();
             for (int i = from; i < from + iterations; i++)
@@ -60,8 +61,8 @@ public class DSLOOKUP_1000set_100times_Test extends ZParentTest {
     @Benchmark
     public void evaluate_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            ICellValue value = state.evaluator.evaluate(state.addressAt(i));
-            assertThat(value.get()).isEqualTo(state.expectedValues.get(state.addressAt(i))); /* comment for better performance */
+            IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressAt(i));
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValues.get(state.addressAt(i))); /* comment for better performance */
             bh.consume(value);
         }
     }

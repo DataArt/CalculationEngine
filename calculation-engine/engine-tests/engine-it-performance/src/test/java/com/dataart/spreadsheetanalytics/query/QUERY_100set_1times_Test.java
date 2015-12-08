@@ -16,10 +16,11 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 
 public class QUERY_100set_1times_Test extends ZParentTest {
 
@@ -54,8 +55,8 @@ public class QUERY_100set_1times_Test extends ZParentTest {
     @Benchmark
     public void evaluate_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            ICellValue value = state.evaluator.evaluate(state.addressAt(i));
-            assertThat(value.get()).isEqualTo(expectedValue); /* comment for better performance */
+            IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressAt(i));
+            assertThat(value.getResult().get()).isEqualTo(expectedValue); /* comment for better performance */
             bh.consume(value);
         }
     }

@@ -27,7 +27,7 @@ public enum ExternalServices {
     protected DataSetAccessor dataSetAccessor;
     protected DataModelAccessor dataModelAccessor;
     protected DataSourceHub dataSourceHub;
-    protected MetaFunctionAccessor attributeFunctionStorage;
+    protected MetaFunctionAccessor metaFunctionAccessor;
     protected DataSetOptimisationsCache dataSetOptimisationsCache;
 
     public DataSetAccessor getDataSetAccessor() { return this.dataSetAccessor; }
@@ -39,8 +39,8 @@ public enum ExternalServices {
     public DataSourceHub getDataSourceHub() { return this.dataSourceHub; }
     public void setDataSourceHub(DataSourceHub dataSourceHub) { this.dataSourceHub = dataSourceHub; }
 
-    public MetaFunctionAccessor getAttributeFunctionStorage() { return this.attributeFunctionStorage; }
-    public void setAttributeFunctionStorage(MetaFunctionAccessor attributeFunctionStorage) { this.attributeFunctionStorage = attributeFunctionStorage; }
+    public MetaFunctionAccessor getMetaFunctionAccessor() { return this.metaFunctionAccessor; }
+    public void setMetaFunctionAccessor(MetaFunctionAccessor metaFunctionAccessor) { this.metaFunctionAccessor = metaFunctionAccessor; }
     
     public DataSetOptimisationsCache getDataSetOptimisationsCache() { return this.dataSetOptimisationsCache; }
     public void setDataSetOptimisationsCache(DataSetOptimisationsCache dataSetOptimisationsCache) { this.dataSetOptimisationsCache = dataSetOptimisationsCache; }

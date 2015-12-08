@@ -79,7 +79,7 @@ class OtherFunctions extends Functions {
             //TODO: provide acces to DependencyExtractors
             DependencyExtractors.toMetaFunctions(dm, ModeldefineFunction.map)
                                 .get(ModeldefineFunction.KEYWORD).values()
-                                .forEach(dfm -> external.getAttributeFunctionStorage().addDefine(dfm));
+                                .forEach(dfm -> external.getMetaFunctionAccessor().addDefine(dfm));
         });
     }
 }

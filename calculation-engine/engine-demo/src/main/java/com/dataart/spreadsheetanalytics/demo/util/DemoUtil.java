@@ -172,7 +172,7 @@ public class DemoUtil {
         external.setDataModelAccessor(dataModelStorage);
         external.setDataSetAccessor(dataSetStorage);
         external.setDataSourceHub(dataSourceHub);
-        external.setAttributeFunctionStorage(attributeFunctionStorage);
+        external.setMetaFunctionAccessor(attributeFunctionStorage);
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
         
         //if this model is a dataset also - put it to cache

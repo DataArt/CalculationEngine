@@ -77,7 +77,7 @@ public class FuncexecFunction implements ICustomFunction {
         }
         defineFunctionName = defineFunctionName.toUpperCase(Locale.getDefault());
 
-        final MetaFunctionAccessor defines = this.external.getAttributeFunctionStorage();
+        final MetaFunctionAccessor defines = this.external.getMetaFunctionAccessor();
 
         if (defines.get(defineFunctionName) == null) {
             log.warn("No DEFINE function with name {} is found.", defineFunctionName);

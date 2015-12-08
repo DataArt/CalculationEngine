@@ -412,7 +412,7 @@ public class GraphTestUtil {
         external.setDataModelAccessor(dataModelStorage);
         external.setDataSetAccessor(dataSetStorage);
         external.setDataSourceHub(dataSourceHub);
-        external.setAttributeFunctionStorage(attributeFunctionStorage);
+        external.setMetaFunctionAccessor(attributeFunctionStorage);
         
         //add data model to storage
         dataModelStorage.add(model);

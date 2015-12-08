@@ -18,6 +18,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
@@ -65,8 +66,8 @@ public class SIMPLE_1000times_Test extends ZParentTest {
     @Benchmark
     public void evaluate_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            ICellValue value = state.evaluator.evaluate(state.addressAt(i));
-            assertThat(value.get()).isEqualTo(state.expectedValue); /* comment for better performance */
+            IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressAt(i));
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValue); /* comment for better performance */
             bh.consume(value);
         }
     }

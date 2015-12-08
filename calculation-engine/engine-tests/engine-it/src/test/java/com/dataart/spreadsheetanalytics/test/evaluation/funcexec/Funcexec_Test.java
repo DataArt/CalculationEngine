@@ -79,7 +79,7 @@ public class Funcexec_Test {
         MetaFunctionAccessor metaFunctionAccessor = new CacheBasedMetaFunctionAccessor();
 
         external.setDataModelAccessor(dataModelAccessor);
-        external.setAttributeFunctionStorage(metaFunctionAccessor);
+        external.setMetaFunctionAccessor(metaFunctionAccessor);
 
         dataModelAccessor.add(dataModel); //execution model
 

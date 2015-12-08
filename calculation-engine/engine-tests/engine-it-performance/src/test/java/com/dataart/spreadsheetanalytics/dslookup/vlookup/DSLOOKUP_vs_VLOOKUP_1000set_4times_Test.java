@@ -17,6 +17,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -46,7 +47,7 @@ public class DSLOOKUP_vs_VLOOKUP_1000set_4times_Test extends ZParentTest {
 
             this.expectedValues = new HashMap<>();
             for (int i = from; i < from + iterations; i++) {
-                Object val = evaluator.evaluate(A1Address.fromA1Address(columnB + i)).get();
+                Object val = evaluator.evaluate(A1Address.fromA1Address(columnB + i)).getResult().get();
                 expectedValues.put(A1Address.fromA1Address(columnA + i), val);
                 expectedValues.put(A1Address.fromA1Address(columnB + i), val);
             }
@@ -66,8 +67,8 @@ public class DSLOOKUP_vs_VLOOKUP_1000set_4times_Test extends ZParentTest {
     @Benchmark
     public void evaluate_ExcelDataModelDsLookup_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            ICellValue value = state.evaluator.evaluate(state.addressAtColumnA(i));
-            assertThat(value.get()).isEqualTo(state.expectedValues.get(state.addressAtColumnA(i))); /* comment for better performance */
+            IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressAtColumnA(i));
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValues.get(state.addressAtColumnA(i))); /* comment for better performance */
             bh.consume(value);
         }
     }
@@ -75,8 +76,8 @@ public class DSLOOKUP_vs_VLOOKUP_1000set_4times_Test extends ZParentTest {
     @Benchmark
     public void evaluate_ExcelDataModelVLookup_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            ICellValue value = state.evaluator.evaluate(state.addressAtColumnB(i));
-            assertThat(value.get()).isEqualTo(state.expectedValues.get(state.addressAtColumnB(i))); /* comment for better performance */
+            IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressAtColumnB(i));
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValues.get(state.addressAtColumnB(i))); /* comment for better performance */
             bh.consume(value);
         }
     }

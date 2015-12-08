@@ -3,7 +3,6 @@ package com.dataart.spreadsheetanalytics.funcexec;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -18,7 +17,9 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.Converters;
+import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 
@@ -41,14 +42,18 @@ public class FUNCEXEC_vs_PLAIN_1times_Test extends ZParentTest {
             this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
-            external.getDataModelAccessor().addDataModel(this.dataModel);
-            external.getAttributeFunctionStorage().refreshDefines(new HashSet<>(external.getDataModelAccessor().getDataModels().values()));
+            external.getDataModelAccessor().add(this.dataModel);
+            Map<DefineFunctionMeta, IDataModel> defineModels = Converters.toMetaFunctions(new XSSFWorkbook(excelFile), DefineFunctionMeta.class);
+            defineModels.forEach((k, v) -> {
+                external.getMetaFunctionAccessor().add(k);
+                external.getDataModelAccessor().add(v);
+            });
 
             this.expectedValues = new HashMap<>();
 
             for (int i = from; i < from + iterations; i++) {
                 ICellAddress address = A1Address.fromA1Address(columnB + i);
-                Double value = (Double) evaluator.evaluate(address).get();
+                Double value = (Double) evaluator.evaluate(address).getResult().get();
                 this.expectedValues.put(address, value);
                 this.expectedValues.put(A1Address.fromA1Address(columnA + i), value);
             }
@@ -68,8 +73,8 @@ public class FUNCEXEC_vs_PLAIN_1times_Test extends ZParentTest {
     @Benchmark
     public void evaluate_ExcelDataModelFuncexec_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            ICellValue value = state.evaluator.evaluate(state.addressAtColumnA(i));
-            assertThat(value.get()).isEqualTo(state.expectedValues.get(state.addressAtColumnA(i))); /* comment for better performance */
+            IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressAtColumnA(i));
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValues.get(state.addressAtColumnA(i))); /* comment for better performance */
             bh.consume(value);
         }
     }
@@ -77,8 +82,8 @@ public class FUNCEXEC_vs_PLAIN_1times_Test extends ZParentTest {
     @Benchmark
     public void evaluate_ExcelDataModelPlainFormula_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
         for (int i = from; i < from + state.iterations; i++) {
-            ICellValue value = state.evaluator.evaluate(state.addressAtColumnB(i));
-            assertThat(value.get()).isEqualTo(state.expectedValues.get(state.addressAtColumnB(i))); /* comment for better performance */
+            IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressAtColumnB(i));
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValues.get(state.addressAtColumnB(i))); /* comment for better performance */
             bh.consume(value);
         }
     }
