@@ -35,6 +35,7 @@ import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
@@ -59,7 +60,6 @@ public class Validate_Function_Test {
     static int expectedRowStart = 2;
     static int expectedRowEnd = 10;
     
-    static SpreadsheetEvaluator evaluator;
     static IDataModel dataModel;
     
     @BeforeClass
@@ -94,7 +94,7 @@ public class Validate_Function_Test {
 
         expectedValues = new HashMap<>();
         
-        evaluator = new SpreadsheetEvaluator(dataModel);
+        SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(dataModel);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
             ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i)).getResult();
             expectedValues.put(expectedColumn + i, value.get());
@@ -112,6 +112,7 @@ public class Validate_Function_Test {
     @Test
     public void evaluate_ValidateFunction_SeparateContexts() throws Exception {
         //given
+        IEvaluator evaluator = new SpreadsheetEvaluator(dataModel);
         int[] rows = {2, 5, 6, 10};
 
         //when
@@ -152,7 +153,8 @@ public class Validate_Function_Test {
     @Test
     public void evaluate_ValidateFunction_SharedContext() throws Exception {
         //given
-
+        IEvaluator evaluator = new SpreadsheetEvaluator(dataModel);
+        
         //when
         IEvaluationResult<IDataModel> result = evaluator.evaluate();
 
@@ -162,12 +164,6 @@ public class Validate_Function_Test {
         IDsRow valRow4 = validationDS.getRow(2);
         IDsRow valRow5 = validationDS.getRow(3);
         IDsRow valRow9 = validationDS.getRow(4);
-
-        //then
-//        for (ICellValue value : vals) {
-//            assertThat(value).isNotNull();
-//            //add assert for return value
-//        }
 
         assertThat(validationDS.length()).isEqualTo(4 + 1);
         
