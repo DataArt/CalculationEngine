@@ -40,9 +40,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
@@ -163,7 +163,7 @@ public class DsLookupFunction implements ICustomFunction {
             int allFieldsPresent = where.size();
             
             for (Entry<Integer, Object> whereColumn : where.entrySet()) {
-                IDsCell cell = row.getCell(whereColumn.getKey() - 1);
+                IDsCell cell = row.getCell(whereColumn.getKey());
                 
                 if (cell != null) {
                     allFieldsPresent--;
@@ -176,7 +176,7 @@ public class DsLookupFunction implements ICustomFunction {
             }
             
             if (allFieldsPresent == 0 && allFieldsMatch) {
-                found.add(valueToValueEval(row.getCell(columnIndex - 1).value().get()));
+                found.add(valueToValueEval(row.getCell(columnIndex).value().get()));
                 break; // collecting only the first matching record according to product owner requirements
             }
         }

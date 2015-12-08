@@ -32,21 +32,14 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
-import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
-import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
@@ -77,28 +70,19 @@ public class Monthly_Data_Query_Test {
               .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(Duration.ETERNAL))
               .setStatisticsEnabled(false);
 
-        cacheManager.createCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
-        cacheManager.createCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
-        cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
         cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
         cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS, config.setTypes(DsLookupParameters.class, List.class));
         
         final ExternalServices external = ExternalServices.INSTANCE;
 
-        DataModelAccessor dataModelStorage = new CacheBasedDataModelAccessor();
         DataSetAccessor dataSetStorage = new CacheBasedDataSetAccessor();
-        DataSourceHub dataSourceHub = new CacheBasedDataSourceHub();
-        MetaFunctionAccessor attributeFunctionStorage = new CacheBasedMetaFunctionAccessor(); 
         
-        external.setDataModelAccessor(dataModelStorage);
         external.setDataSetAccessor(dataSetStorage);
-        external.setDataSourceHub(dataSourceHub);
-        external.setAttributeFunctionStorage(attributeFunctionStorage);
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
-        final IDataSet dataSet = Converters.toDataSet(new XSSFWorkbook(pathDataModel));
+        final IDataSet dataSet = Converters.toDataSet(new XSSFWorkbook(pathDataSet));
         dataSetStorage.saveDataSet(dataSet);
 
         expectedValues = new HashMap<>();
@@ -114,11 +98,8 @@ public class Monthly_Data_Query_Test {
     public static void after() throws Exception {
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
-        cacheManager.destroyCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_ID_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_NAME_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
         cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
         cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS);
     }
