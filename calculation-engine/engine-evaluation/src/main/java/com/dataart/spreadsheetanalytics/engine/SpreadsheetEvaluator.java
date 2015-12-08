@@ -16,7 +16,6 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
-import static com.dataart.spreadsheetanalytics.engine.Functions.getUdfFinder;
 import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.getEvaluationCell;
 import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.toEvaluationWorkbook;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
@@ -46,9 +45,9 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
@@ -87,7 +86,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     public SpreadsheetEvaluator(IDataModel model) throws IOException {
         this.model = model;
         this.evaluationWorkbook = toEvaluationWorkbook(toWorkbook(this.model));
-        this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, getUdfFinder());        
+        this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, null);        
     }
     
     @Override
