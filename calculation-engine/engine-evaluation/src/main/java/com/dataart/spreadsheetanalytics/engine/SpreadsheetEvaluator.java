@@ -112,13 +112,13 @@ public class SpreadsheetEvaluator implements IEvaluator {
             if (row == null) { continue; }
 
             for (int j = row.getFirstColumnIndex(); j <= row.getLastColumnIndex(); j++) {
-                IDmCell cell = row.getCell(i);
+                IDmCell cell = row.getCell(j);
                 if (cell == null) { continue; }
 
                 ICellAddress addr = A1Address.fromRowColumn(i, j);
                 ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext);
                 
-                try { ((DmCell) cell).value(Optional.of(val)); }
+                try { ((DmCell) cell).value(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); }
                 catch (ValuesStackNotEmptyException e) {
                     val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr);
                     ((DmCell) cell).value(Optional.of(val)); 

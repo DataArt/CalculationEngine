@@ -50,6 +50,8 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IDsCell;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
@@ -65,8 +67,6 @@ import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DsCell;
-import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class Skills_Sql_Table_Test {
 
@@ -270,15 +270,15 @@ class TempSqlDataSource implements DataSource {
         ResultSet rs = st.getResultSet();
         ResultSetMetaData rsmd = rs.getMetaData();
         
-        DsRow row = ds.createRow();
+        IDsRow row = ds.addRow();
         for (int i = 1; i <= rsmd.getColumnCount(); i++)
-            row.createCell().value(new CellValue(rsmd.getColumnLabel(i)));
+            row.addCell().value(new CellValue(rsmd.getColumnLabel(i)));
         
         while (rs.next()) {
-            row = ds.createRow();
+            row = ds.addRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                 Object o = rs.getObject(i);
-                DsCell cell = row.createCell();
+                IDsCell cell = row.addCell();
                 if (o == null || o instanceof String) { cell.value(new CellValue((String) o)); } 
                 else if (o instanceof Double) { cell.value(new CellValue((Double) o)); } 
                 else if (o instanceof Boolean) { cell.value(new CellValue((Boolean) o)); }

@@ -10,11 +10,11 @@ import java.util.Set;
 
 import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
-import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.BoolEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.EvaluationException;
 import org.apache.poi.ss.formula.eval.RefEval;
+import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +33,7 @@ import com.dataart.spreadsheetanalytics.model.DataSet;
 public class ValidateFunction implements CustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
 
+    public static final StringEval BLANK = new StringEval("");
     public static final String DATASET_NAME = "Validation";
     
     static final Set<String> SEVERITIES = new HashSet<>(Arrays.asList("E", "W"));
@@ -92,13 +93,14 @@ public class ValidateFunction implements CustomFunction {
         }
         
         //expression = TRUE - return nothing
-        if (expression.getBooleanValue()) { return BlankEval.instance; }
+        if (expression.getBooleanValue()) { return BLANK; }
         
         //expression = FALSE - log to dataset
         IDataSet dataSet = (IDataSet) ec.getCustomEvaluationContext().get(DATASET_NAME);
         if (dataSet == null) {
             log.error("No Validation DataSet in current context is found. The new one is about to be created.");
             dataSet = newValidationDataSet(DATASET_NAME);
+            ec.getCustomEvaluationContext().set(DATASET_NAME, dataSet);
         }
 
         RefEval ref = (RefEval) args[2]; //cell

@@ -40,9 +40,12 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
+import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.functions.poi.data.ValidateFunction;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
@@ -107,19 +110,53 @@ public class Validate_Function_Test {
     }
 
     @Test
-    public void compare_QueryFormula_ExpectedValueFromMap() throws Exception {
+    public void evaluate_ValidateFunction_SeparateContexts() throws Exception {
         //given
-        // Map with expected values: expectedValues
-        DataSetAccessor dsStorage = ExternalServices.INSTANCE.getDataSetStorage();
+        int[] rows = {2, 5, 6, 10};
 
         //when
-        List<ICellValue> vals = new ArrayList<>(expectedRowEnd);
+        List<IEvaluationResult<ICellValue>> vals = new ArrayList<>(expectedRowEnd);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
-            ICellValue value = evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i)).getResult();
-            vals.add(value);
+            vals.add(evaluator.evaluate(A1Address.fromA1Address(toEvaluateColumn + i)));
         }
+        
+        //then
+        int i = 0;
+        for (IEvaluationResult<ICellValue> res : vals) {
+            
+            IEvaluationContext ctx = res.getContext();
+            IDataSet validationDS = (IDataSet) ctx.get(ValidateFunction.DATASET_NAME);
+            
+            if (validationDS == null) { continue; }
 
-        IDataSet validationDS = dsStorage.getDataSet("Validation");
+            ICellValue val = res.getResult();
+            assertThat(val).isNotNull();
+            assertThat((String) expectedValues.get(expectedColumn + rows[i])).startsWith((String) val.get());
+            
+            assertThat(validationDS.length()).isEqualTo(1 + 1);
+            
+            IDsRow valRow = validationDS.getRow(1);
+            
+            String valRowText = valRow.getCell(0).value().get() + ", " +  
+                                valRow.getCell(1).value().get() + ", " + 
+                                valRow.getCell(2).value().get() + ", " +
+                                valRow.getCell(3).value().get() + ", " +
+                                valRow.getCell(4).value().get();
+            
+            assertThat(valRowText).isEqualTo(expectedValues.get(expectedColumn + rows[i]));
+            
+            i++;
+        }
+    }
+    
+    @Test
+    public void evaluate_ValidateFunction_SharedContext() throws Exception {
+        //given
+
+        //when
+        IEvaluationResult<IDataModel> result = evaluator.evaluate();
+
+        IDataSet validationDS = (IDataSet) result.getContext().get(ValidateFunction.DATASET_NAME);
 
         IDsRow valRow1 = validationDS.getRow(1);
         IDsRow valRow4 = validationDS.getRow(2);
@@ -127,10 +164,10 @@ public class Validate_Function_Test {
         IDsRow valRow9 = validationDS.getRow(4);
 
         //then
-        for (ICellValue value : vals) {
-            assertThat(value).isNotNull();
-            //add assert for return value
-        }
+//        for (ICellValue value : vals) {
+//            assertThat(value).isNotNull();
+//            //add assert for return value
+//        }
 
         assertThat(validationDS.length()).isEqualTo(4 + 1);
         

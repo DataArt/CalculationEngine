@@ -142,6 +142,13 @@ public class DataModel implements IDataModel {
     }
 
     @Override
-    public String toString() { return this.name; }
+    public String toString() { 
+        return this.name + "\n" + 
+               String.join("\n", this.table.entrySet()
+                                           .stream()
+                                           .sorted(Comparator.comparing(Entry::getKey))
+                                           .map(e -> e.getValue() == null ? "null" : e.getValue().toString())
+                                           .collect(Collectors.<String>toList()));
+    }
 
 }

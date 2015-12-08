@@ -5,18 +5,14 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Iterator;
-
-import com.dataart.spreadsheetanalytics.engine.Converters;
-
-import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IDmCell;
-import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
+import com.dataart.spreadsheetanalytics.api.model.IDmRow;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 
 public class DataModelTest {
 

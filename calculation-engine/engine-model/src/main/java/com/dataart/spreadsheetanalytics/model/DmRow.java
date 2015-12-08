@@ -93,5 +93,14 @@ public class DmRow implements IDmRow {
     public int getLastColumnIndex() {
         return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
     }
+    
+    @Override
+    public String toString() {
+        return String.join(" | ", this.table.entrySet()
+                                            .stream()
+                                            .sorted(Comparator.comparing(Entry::getKey))
+                                            .map(e -> e.getValue() == null ? "null" : e.getValue().toString())
+                                            .collect(Collectors.<String>toList()));
+    }
 
 }

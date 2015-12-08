@@ -15,5 +15,8 @@ class EvaluationResult<T> implements IEvaluationResult<T> {
 
     @Override public IEvaluationContext getContext() { return this.evaluationContext; }
     @Override public T getResult() { return this.result; }
+    
+    @Override
+    public String toString() { return this.result.toString(); }
 
 }
