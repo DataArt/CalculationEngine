@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.engine;
 
+import java.util.Collection;
 import java.util.Map;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -22,12 +23,14 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
 public interface DataModelAccessor {
 
-    void addDataModel(IDataModel dataModel);
+    void add(IDataModel dataModel);
     
-    IDataModel getDataModel(IDataModelId dataModelId);
+    void addAll(Collection<IDataModel> dataModels);
     
-    IDataModel getDataModel(String dataModelName);
+    IDataModel get(IDataModelId dataModelId);
+    
+    IDataModel get(String dataModelName);
 
-    Map<IDataModelId, IDataModel> getDataModels();
+    Map<IDataModelId, IDataModel> getAll();
 
 }

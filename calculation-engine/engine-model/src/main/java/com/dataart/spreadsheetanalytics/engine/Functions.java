@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.functions.poi;
+package com.dataart.spreadsheetanalytics.engine;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +29,9 @@ import org.apache.poi.ss.formula.udf.UDFFinder;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
+import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 
 /**
  * Util class to work fith custom spreadsheet functions.
@@ -46,7 +49,7 @@ public class Functions {
     /**
      * Cache for custom functions (classes).
      */
-    protected static final Map<String, Class<? extends CustomFunction>> fs;
+    protected static final Map<String, Class<? extends ICustomFunction>> fs;
     static { fs = load(PACKAGE_FUNCTIONS); }
 
     /**
@@ -58,20 +61,20 @@ public class Functions {
     /**
      * Does scan and load for custom functions.
      * By default it is invoked from static block of this class with {@link #PACKAGE_FUNCTIONS} as parameter.
-     * It scans given package for {@link CustomFunction} and if that class has {@link FunctionMeta} annotation on it,
+     * It scans given package for {@link ICustomFunction} and if that class has {@link FunctionMeta} annotation on it,
      * it will be added to functions cache ({@link #fs}).
      * 
      * This can be called for other custom functions from 3pty package.
      */
-    protected static Map<String, Class<? extends CustomFunction>> load(String functionPackage) {
-        Map<String, Class<? extends CustomFunction>> map = new HashMap<>();
+    protected static Map<String, Class<? extends ICustomFunction>> load(String functionPackage) {
+        Map<String, Class<? extends ICustomFunction>> map = new HashMap<>();
 
-        Set<Class<? extends CustomFunction>> classes = new Reflections(functionPackage).getSubTypesOf(CustomFunction.class);
+        Set<Class<? extends ICustomFunction>> classes = new Reflections(functionPackage).getSubTypesOf(ICustomFunction.class);
 
-        for (Class<? extends CustomFunction> cls : classes) {
+        for (Class<? extends ICustomFunction> cls : classes) {
 
-            if (cls.isAnnotationPresent(FunctionMeta.class)) {
-                FunctionMeta meta = cls.getAnnotation(FunctionMeta.class);
+            if (cls.isAnnotationPresent(CustomFunctionMeta.class)) {
+                CustomFunctionMeta meta = cls.getAnnotation(CustomFunctionMeta.class);
                 map.put(meta.value(), cls);
             }
         }
@@ -84,11 +87,11 @@ public class Functions {
      * If you extend {@link Functions} class and replace/add {@link #fs} please also replace/add {@link #poifs}.
      * UDFFinder instance is needed for some CustomFunction to do evaluation in POI.
      */
-    protected static UDFFinder loadPoi(Map<String, Class<? extends CustomFunction>> fs) {
+    protected static UDFFinder loadPoi(Map<String, Class<? extends ICustomFunction>> fs) {
         List<String> names = new ArrayList<>(fs.size());
-        List<CustomFunction> funcs = new ArrayList<>(fs.size());
+        List<ICustomFunction> funcs = new ArrayList<>(fs.size());
 
-        for (Entry<String, Class<? extends CustomFunction>> en : fs.entrySet()) {
+        for (Entry<String, Class<? extends ICustomFunction>> en : fs.entrySet()) {
 
             try {
                 names.add(en.getKey());
@@ -101,13 +104,13 @@ public class Functions {
         return names.isEmpty() ? null
                                : new AggregatingUDFFinder(new DefaultUDFFinder(
                                        names.toArray(new String[names.size()]),
-                                       funcs.toArray(new CustomFunction[funcs.size()])));
+                                       funcs.toArray(new ICustomFunction[funcs.size()])));
     }
 
     /**
      * Returns unmodifiable cache of custom functions (name-class).
      */
-    public static Map<String, Class<? extends CustomFunction>> get() { return Collections.unmodifiableMap(fs); }
+    public static Map<String, Class<? extends ICustomFunction>> get() { return Collections.unmodifiableMap(fs); }
 
     /**
      * Returns static instance of {@link UDFFinder} for custom functions. Can be null.
@@ -119,7 +122,7 @@ public class Functions {
      * Use this if common case. Use spesific {@link #fs}.putAll() and {@link #poifs} = {@link #loadPoi(Map)} 
      * if more flexibility is needed.
      */
-    public static void add(Map<String, Class<? extends CustomFunction>> moreCustomFunctions) {
+    public static void add(Map<String, Class<? extends ICustomFunction>> moreCustomFunctions) {
         fs.putAll(moreCustomFunctions);
         poifs = loadPoi(fs);
     }

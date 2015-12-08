@@ -40,7 +40,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.ext.GraphMLExporter;
 
-import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
@@ -57,7 +57,7 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
@@ -402,16 +402,16 @@ public class GraphTestUtil {
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
-        cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
+        cacheManager.createCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
         cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
         
         DataModelAccessor dataModelStorage = new CacheBasedDataModelAccessor();
         DataSetAccessor dataSetStorage = new CacheBasedDataSetAccessor();
         DataSourceHub dataSourceHub = new CacheBasedDataSourceHub();
-        AttributeFunctionStorage attributeFunctionStorage = new CacheBasedAttributeFunctionStorage(); 
+        MetaFunctionAccessor attributeFunctionStorage = new CacheBasedMetaFunctionAccessor(); 
         
-        external.setDataModelStorage(dataModelStorage);
-        external.setDataSetStorage(dataSetStorage);
+        external.setDataModelAccessor(dataModelStorage);
+        external.setDataSetAccessor(dataSetStorage);
         external.setDataSourceHub(dataSourceHub);
         external.setAttributeFunctionStorage(attributeFunctionStorage);
         
@@ -419,7 +419,7 @@ public class GraphTestUtil {
         dataModelStorage.addDataModel(model);
         
         //update all define functions based on data models in cache
-        attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
+        attributeFunctionStorage.refreshDefines(new HashSet<>(dataModelStorage.getDataModels().values()));
     }
     
     public static void destroyExternalServices() throws Exception {
@@ -430,7 +430,7 @@ public class GraphTestUtil {
         cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME);
         cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
     }
     

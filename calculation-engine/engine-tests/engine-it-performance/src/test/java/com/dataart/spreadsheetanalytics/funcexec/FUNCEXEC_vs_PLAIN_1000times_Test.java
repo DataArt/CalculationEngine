@@ -41,8 +41,8 @@ public class FUNCEXEC_vs_PLAIN_1000times_Test extends ZParentTest {
             this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
             this.evaluator = new SpreadsheetEvaluator(dataModel);
 
-            external.getDataModelStorage().addDataModel(this.dataModel);
-            external.getAttributeFunctionStorage().updateDefineFunctions(new HashSet<>(external.getDataModelStorage().getDataModels().values()));
+            external.getDataModelAccessor().addDataModel(this.dataModel);
+            external.getAttributeFunctionStorage().refreshDefines(new HashSet<>(external.getDataModelAccessor().getDataModels().values()));
 
             this.expectedValues = new HashMap<>();
 

@@ -24,23 +24,23 @@ import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 public enum ExternalServices {
     INSTANCE;
 
-    protected DataSetAccessor dataSetStorage;
-    protected DataModelAccessor dataModelStorage;
+    protected DataSetAccessor dataSetAccessor;
+    protected DataModelAccessor dataModelAccessor;
     protected DataSourceHub dataSourceHub;
-    protected AttributeFunctionStorage attributeFunctionStorage;
+    protected MetaFunctionAccessor attributeFunctionStorage;
     protected DataSetOptimisationsCache dataSetOptimisationsCache;
 
-    public DataSetAccessor getDataSetStorage() { return this.dataSetStorage; }
-    public void setDataSetStorage(DataSetAccessor dataSetStorage) { this.dataSetStorage = dataSetStorage; }
+    public DataSetAccessor getDataSetAccessor() { return this.dataSetAccessor; }
+    public void setDataSetAccessor(DataSetAccessor dataSetAccessor) { this.dataSetAccessor = dataSetAccessor; }
 
-    public DataModelAccessor getDataModelStorage() { return this.dataModelStorage; }
-    public void setDataModelStorage(DataModelAccessor dataModelStorage) { this.dataModelStorage = dataModelStorage; }
+    public DataModelAccessor getDataModelAccessor() { return this.dataModelAccessor; }
+    public void setDataModelAccessor(DataModelAccessor dataModelAccessor) { this.dataModelAccessor = dataModelAccessor; }
 
     public DataSourceHub getDataSourceHub() { return this.dataSourceHub; }
     public void setDataSourceHub(DataSourceHub dataSourceHub) { this.dataSourceHub = dataSourceHub; }
 
-    public AttributeFunctionStorage getAttributeFunctionStorage() { return this.attributeFunctionStorage; }
-    public void setAttributeFunctionStorage(AttributeFunctionStorage attributeFunctionStorage) { this.attributeFunctionStorage = attributeFunctionStorage; }
+    public MetaFunctionAccessor getAttributeFunctionStorage() { return this.attributeFunctionStorage; }
+    public void setAttributeFunctionStorage(MetaFunctionAccessor attributeFunctionStorage) { this.attributeFunctionStorage = attributeFunctionStorage; }
     
     public DataSetOptimisationsCache getDataSetOptimisationsCache() { return this.dataSetOptimisationsCache; }
     public void setDataSetOptimisationsCache(DataSetOptimisationsCache dataSetOptimisationsCache) { this.dataSetOptimisationsCache = dataSetOptimisationsCache; }

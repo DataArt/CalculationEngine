@@ -19,18 +19,18 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
+import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.engine.ConverterUtils;
-import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
-import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 
-@FunctionMeta(value = "VALIDATE")
-public class ValidateFunction implements CustomFunction {
+@CustomFunctionMeta(value = "VALIDATE")
+public class ValidateFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
 
     public static final StringEval BLANK = new StringEval("");

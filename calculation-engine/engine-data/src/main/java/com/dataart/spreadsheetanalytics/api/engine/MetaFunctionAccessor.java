@@ -13,20 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.engine;
+package com.dataart.spreadsheetanalytics.api.engine;
 
-import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import java.util.Map;
 
-public abstract class AttributeFunctionMeta {
+import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
 
-    protected String name;
-    protected IDataModelId dataModelId;
-    
-    public String name() { return this.name; }
-    public void name(String name) { this.name = name; }
-    
-    public IDataModelId dataModelId() { return this.dataModelId; }
-    public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
-    
-    abstract AttributeFunctionMeta parse(String formula);
+public interface MetaFunctionAccessor<T extends FunctionMeta> {
+
+    void add(T meta);
+
+    Map<String, T> getAll();
+
+    T get(String name);
+
 }

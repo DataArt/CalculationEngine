@@ -23,11 +23,11 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
-import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
+import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 
-@FunctionMeta("DEFINE")
-public class DefineFunction implements CustomFunction {
+@CustomFunctionMeta("DEFINE")
+public class DefineFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(DefineFunction.class);
 
     /**
@@ -38,7 +38,7 @@ public class DefineFunction implements CustomFunction {
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
         log.debug("In evaluate() of DEFINE function. Args = {}", Arrays.toString(args));
         
-        return new StringEval(DefineFunction.class.getAnnotation(FunctionMeta.class).value());
+        return new StringEval(DefineFunction.class.getAnnotation(CustomFunctionMeta.class).value());
     }
 
 }

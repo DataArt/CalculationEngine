@@ -39,18 +39,21 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
+import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
-import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
-import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
-@FunctionMeta(value = "DSLOOKUP")
-public class DsLookupFunction implements CustomFunction {
+@CustomFunctionMeta(value = "DSLOOKUP")
+public class DsLookupFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
+    
+    protected ExternalServices external = ExternalServices.INSTANCE;
     
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
@@ -104,7 +107,7 @@ public class DsLookupFunction implements CustomFunction {
         }
 
         IDataSet dataSet;
-        try { dataSet = external.getDataSetStorage().getDataSet(datasetName); }
+        try { dataSet = this.external.getDataSetAccessor().getDataSet(datasetName); }
         catch (Exception e) {
             log.error("The DataSet with name = {} cannot be found\retrived from DataSet storage.", datasetName);
             return ErrorEval.NA;
@@ -182,7 +185,7 @@ public class DsLookupFunction implements CustomFunction {
     }
     
     protected List<ValueEval> fetchValuesWithOptimisations(DsLookupParameters parameters) {
-        DataSetOptimisationsCache caches = external.getDataSetOptimisationsCache();
+        DataSetOptimisationsCache caches = this.external.getDataSetOptimisationsCache();
         Cache<DsLookupParameters, List> cache = caches.getDataSetToDsLookupParameters();
        
         if (cache.containsKey(parameters)) { return cache.get(parameters); }
@@ -194,7 +197,7 @@ public class DsLookupFunction implements CustomFunction {
     protected void updateOptimisationsCache(DsLookupParameters parameters, IDataSet dataSet, List<ValueEval> fetchedValues) {
         if (fetchedValues == null || parameters == null) { return; }
         
-        DataSetOptimisationsCache caches = external.getDataSetOptimisationsCache();
+        DataSetOptimisationsCache caches = this.external.getDataSetOptimisationsCache();
         Cache<DsLookupParameters, List> cache = caches.getDataSetToDsLookupParameters();
         
         cache.put(parameters, fetchedValues);

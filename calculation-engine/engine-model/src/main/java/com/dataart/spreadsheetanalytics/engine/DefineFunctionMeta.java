@@ -25,6 +25,7 @@ import java.util.Map;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import com.dataart.spreadsheetanalytics.engine.FunctionMeta.MetaFunctionKeyword;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 
@@ -40,9 +41,9 @@ import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
  * <li>Input paramenters (links to {@link ICellAddress})</li>
  * <li>Output paramentes (links to {@link ICellAddress})</li>
  * <li>Id of {@link IDataModel} as {@link IDataModelId}</li>
- * 
  */
-public class DefineFunctionMeta extends AttributeFunctionMeta {
+@MetaFunctionKeyword(DefineFunctionMeta.KEYWORD)
+public class DefineFunctionMeta extends FunctionMeta {
 
     /** Name of DEFINE function in excel */
     public static final String KEYWORD = "DEFINE";

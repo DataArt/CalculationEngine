@@ -198,7 +198,7 @@ public final class ConverterUtils {
      * For types @see {@link Cell#getCellType()}.
      */
     public static int resolveCellType(ICellValue c) {
-        if (CellValue.BLANK == c.get()) { return CELL_TYPE_BLANK; }
+        if (CellValue.BLANK == c) { return CELL_TYPE_BLANK; }
 
         if (c.type() == Boolean.class) { return CELL_TYPE_BOOLEAN; }
         if (c.type() == Double.class) { return CELL_TYPE_NUMERIC; }

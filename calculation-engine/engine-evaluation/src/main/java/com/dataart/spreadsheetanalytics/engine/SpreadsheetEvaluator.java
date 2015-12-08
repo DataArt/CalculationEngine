@@ -16,9 +16,9 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
+import static com.dataart.spreadsheetanalytics.engine.Functions.getUdfFinder;
 import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.getEvaluationCell;
 import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.toEvaluationWorkbook;
-import static com.dataart.spreadsheetanalytics.functions.poi.Functions.getUdfFinder;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -55,8 +56,6 @@ import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder;
-import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
-import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
@@ -151,11 +150,11 @@ public class SpreadsheetEvaluator implements IEvaluator {
     }
 
     protected static void loadCustomFunctions() throws ReflectiveOperationException {
-        Map<String, Class<? extends CustomFunction>> map = Functions.get();
+        Map<String, Class<? extends ICustomFunction>> map = Functions.get();
         AnalysisToolPak._saFunctionsByName = new HashMap<>();
         map.forEach((k, v) -> AnalysisToolPak._saFunctionsByName.put(k, null));
         
-        for (Entry<String, Class<? extends CustomFunction>> en : map.entrySet())
+        for (Entry<String, Class<? extends ICustomFunction>> en : map.entrySet())
             { WorkbookEvaluator.registerFunction(en.getKey(), en.getValue().newInstance()); }
     }
     

@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.functions.poi;
+package com.dataart.spreadsheetanalytics.api.model;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -22,12 +22,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Marker for {@link CustomFunction}s.
+ * Marker for {@link ICustomFunction}s.
  * Must contain name of function and (optional) number of arguments.
  */
 @Target(TYPE)
 @Retention(RUNTIME)
-public @interface FunctionMeta {
+public @interface CustomFunctionMeta {
 
     /** Name of this function */
     String value();

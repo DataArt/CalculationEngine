@@ -53,7 +53,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 

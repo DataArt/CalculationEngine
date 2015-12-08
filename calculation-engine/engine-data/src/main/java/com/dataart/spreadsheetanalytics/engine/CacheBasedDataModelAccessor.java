@@ -15,9 +15,11 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.cache.Cache;
 import javax.cache.Cache.Entry;
@@ -41,25 +43,36 @@ public class CacheBasedDataModelAccessor implements DataModelAccessor {
     protected Cache<String, IDataModel> dataModelToNameCache = Caching.getCache(DATA_MODEL_TO_NAME_CACHE_NAME, String.class, IDataModel.class);
 
     @Override
-    public void addDataModel(IDataModel dataModel) {
+    public void add(IDataModel dataModel) {
         this.dataModelToIdCache.put(dataModel.dataModelId(), dataModel);
         this.dataModelToNameCache.put(dataModel.name(), dataModel);
         
         log.debug("DataModel {} is added to DataModelStorage.", dataModel.name());
     }
+    
+    @Override
+    public void addAll(Collection<IDataModel> dataModels) {
+        dataModels.forEach(dm -> {
+            if (dm == null) { return; }
+            this.dataModelToIdCache.put(dm.dataModelId(), dm);
+            this.dataModelToNameCache.put(dm.name(), dm);
+        });
+        
+        log.debug("DataModels {} are added to DataModelStorage.", dataModels.stream().map(IDataModel::toString).collect(Collectors.<String>toList()));
+    }
 
     @Override
-    public IDataModel getDataModel(IDataModelId dataModelId) {
+    public IDataModel get(IDataModelId dataModelId) {
         return this.dataModelToIdCache.get(dataModelId);
     }
     
     @Override
-    public IDataModel getDataModel(String name) {
+    public IDataModel get(String name) {
         return this.dataModelToNameCache.get(name);
     }
 
     @Override
-    public Map<IDataModelId, IDataModel> getDataModels() {
+    public Map<IDataModelId, IDataModel> getAll() {
         Map<IDataModelId, IDataModel> dms = new HashMap<>();
         for (Entry<IDataModelId, IDataModel> entry : this.dataModelToIdCache) {
             dms.put(entry.getKey(), entry.getValue());

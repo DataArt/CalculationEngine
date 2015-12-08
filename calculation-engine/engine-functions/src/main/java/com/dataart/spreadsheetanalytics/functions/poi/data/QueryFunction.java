@@ -34,16 +34,19 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
+import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
-import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
-import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
 
-@FunctionMeta("QUERY")
-public class QueryFunction implements CustomFunction {
+@CustomFunctionMeta("QUERY")
+public class QueryFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(QueryFunction.class);
 
+    protected ExternalServices external = ExternalServices.INSTANCE;
+    
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
 
@@ -80,7 +83,7 @@ public class QueryFunction implements CustomFunction {
         
         List<Object> execParams = new LinkedList<>();
         try {
-            for (ValueEval v : CustomFunction.prepareQueryArgs(queryArgs))
+            for (ValueEval v : ICustomFunction.prepareQueryArgs(queryArgs))
                 { execParams.add(coerceValueTo(getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex()))); }
             
         } catch (Exception e) {
@@ -91,10 +94,10 @@ public class QueryFunction implements CustomFunction {
         log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {
-            IDataSet dset = external.getDataSetStorage().getDataSet(execDataSet, new Parameters(execDataSet, execParams));
+            IDataSet dset = this.external.getDataSetAccessor().getDataSet(execDataSet, new Parameters(execDataSet, execParams));
             
             dset.name(cachedDataSet);
-            external.getDataSetStorage().saveDataSet(dset, DataSetScope.LOCAL);
+            this.external.getDataSetAccessor().saveDataSet(dset, DataSetScope.LOCAL);
 
             return toTableEval(dset);
         } catch (Exception e) {

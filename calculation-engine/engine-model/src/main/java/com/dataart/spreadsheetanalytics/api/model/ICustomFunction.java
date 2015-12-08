@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.functions.poi;
+package com.dataart.spreadsheetanalytics.api.model;
 
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
@@ -25,16 +25,11 @@ import org.apache.poi.ss.formula.eval.EvaluationException;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.FreeRefFunction;
 
-import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-
 /**
  * High level interface for all custom functions for spreadsheet.
  * It is a marker interface and is needed only for functions scan part (and loading into memory).
- * Since some of the functions require data access, it might use access to {@link ExternalServices}.
  */
-public interface CustomFunction extends FreeRefFunction {
-    
-    ExternalServices external = ExternalServices.INSTANCE;
+public interface ICustomFunction extends FreeRefFunction {
     
     static List<ValueEval> prepareQueryArgs(List<ValueEval> queryArgs) throws EvaluationException {
         List<ValueEval> args = new LinkedList<>();

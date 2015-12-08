@@ -80,7 +80,7 @@ public class Validate_Function_Test {
 
         DataSetAccessor dataSetStorage = new CacheBasedDataSetAccessor();
         
-        external.setDataSetStorage(dataSetStorage);
+        external.setDataSetAccessor(dataSetStorage);
 
         DataSet validationDS = new DataSet("Validation");
         IDsRow valRow = validationDS.addRow();

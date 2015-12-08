@@ -18,8 +18,6 @@ package com.dataart.spreadsheetanalytics.test.evaluation.funcexec;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 import javax.cache.CacheManager;
@@ -33,26 +31,18 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
-import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
-import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
+import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
-import com.dataart.spreadsheetanalytics.api.model.IDataSet;
-import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedAttributeFunctionStorage;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
-import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
-import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
+import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 
@@ -81,30 +71,23 @@ public class Funcexec_Test {
 
         cacheManager.createCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
         cacheManager.createCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
-        cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
-        cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
-        cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
-        cacheManager.createCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
-        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
-        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS, config.setTypes(DsLookupParameters.class, List.class));
+        cacheManager.createCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, FunctionMeta.class));
 
         final ExternalServices external = ExternalServices.INSTANCE;
 
-        DataModelAccessor dataModelStorage = new CacheBasedDataModelAccessor();
-        DataSetAccessor dataSetStorage = new CacheBasedDataSetAccessor();
-        DataSourceHub dataSourceHub = new CacheBasedDataSourceHub();
-        AttributeFunctionStorage attributeFunctionStorage = new CacheBasedAttributeFunctionStorage();
+        DataModelAccessor dataModelAccessor = new CacheBasedDataModelAccessor();
+        MetaFunctionAccessor metaFunctionAccessor = new CacheBasedMetaFunctionAccessor();
 
-        external.setDataModelStorage(dataModelStorage);
-        external.setDataSetStorage(dataSetStorage);
-        external.setDataSourceHub(dataSourceHub);
-        external.setAttributeFunctionStorage(attributeFunctionStorage);
-        external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
+        external.setDataModelAccessor(dataModelAccessor);
+        external.setAttributeFunctionStorage(metaFunctionAccessor);
 
-        dataModelStorage.addDataModel(dataModel);
+        dataModelAccessor.add(dataModel); //execution model
 
-        //update all define functions based on data models in cache
-        attributeFunctionStorage.updateDefineFunctions(new HashSet<>(dataModelStorage.getDataModels().values()));
+        Map<DefineFunctionMeta, IDataModel> defineModels = Converters.toMetaFunctions(new XSSFWorkbook(pathDataModel), DefineFunctionMeta.class);
+        defineModels.forEach((k, v) -> {
+            metaFunctionAccessor.add(k); //defein meta info with link to DataModel
+            dataModelAccessor.add(v); //define model
+        });
 
         expectedValues = new HashMap<>();
 
@@ -121,12 +104,7 @@ public class Funcexec_Test {
 
         cacheManager.destroyCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_ID_CACHE_NAME);
         cacheManager.destroyCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_NAME_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedAttributeFunctionStorage.DEFINE_FUNCTIONS_CACHE_NAME);
-        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
-        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS);
+        cacheManager.destroyCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME);
     }
 
     @Test

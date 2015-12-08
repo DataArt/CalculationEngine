@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -131,5 +132,19 @@ public final class Converters {
     public static List<IDataModel> toDataModels(final IDataModel workbook, final String function) throws IOException {
         return DependencyExtractors.toDataModels(workbook, function);
     }
+    
+    /** @see DependencyExtractors#toMetaFunctions(IDataModel, Class) */
+    public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(IDataModel book, Class<T> metaClass) throws IOException {
+        return DependencyExtractors.toMetaFunctions(book, metaClass);
+    }
+    
+    /** @see DependencyExtractors#toMetaFunctions(InputStream, Class) */
+    public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(InputStream book, Class<T> metaClass) throws IOException {
+        return DependencyExtractors.toMetaFunctions(book, metaClass);    
+    }
 
+    /** @see DependencyExtractors#toMetaFunctions(Workbook, Class) */
+    public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(Workbook book, Class<T> metaClass) {
+        return DependencyExtractors.toMetaFunctions(book, metaClass);
+    }
 }

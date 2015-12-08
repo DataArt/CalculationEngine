@@ -17,10 +17,10 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DependencyExtractors;
+import com.dataart.spreadsheetanalytics.engine.Functions;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
-import com.dataart.spreadsheetanalytics.functions.poi.Functions;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.other.project.functions.ModeldefineFunction;
@@ -75,11 +75,11 @@ class OtherFunctions extends Functions {
         Functions.add(Functions.load(OTHER_PACKAGE_FUNCTIONS));
         
         ExternalServices external = ExternalServices.INSTANCE;
-        external.getDataModelStorage().getDataModels().values().forEach(dm -> {
+        external.getDataModelAccessor().getDataModels().values().forEach(dm -> {
             //TODO: provide acces to DependencyExtractors
-            DependencyExtractors.scanForAttributeFunctionMeta(dm, ModeldefineFunction.map)
+            DependencyExtractors.toMetaFunctions(dm, ModeldefineFunction.map)
                                 .get(ModeldefineFunction.KEYWORD).values()
-                                .forEach(dfm -> external.getAttributeFunctionStorage().addDefineFunction(dfm));
+                                .forEach(dfm -> external.getAttributeFunctionStorage().addDefine(dfm));
         });
     }
 }

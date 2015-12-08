@@ -43,18 +43,21 @@ import org.apache.poi.xssf.usermodel.XSSFForkedEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.engine.AttributeFunctionStorage;
+import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
+import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
-import com.dataart.spreadsheetanalytics.functions.poi.CustomFunction;
-import com.dataart.spreadsheetanalytics.functions.poi.FunctionMeta;
-import com.dataart.spreadsheetanalytics.functions.poi.Functions;
+import com.dataart.spreadsheetanalytics.engine.Functions;
 
-@FunctionMeta(value = "FUNCEXEC")
-public class FuncexecFunction implements CustomFunction {
+@CustomFunctionMeta(value = "FUNCEXEC")
+public class FuncexecFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);
+    
+    protected ExternalServices external = ExternalServices.INSTANCE;
     
     @Override
     public ValueEval evaluate(ValueEval[] args, OperationEvaluationContext ec) {
@@ -74,9 +77,9 @@ public class FuncexecFunction implements CustomFunction {
         }
         defineFunctionName = defineFunctionName.toUpperCase(Locale.getDefault());
 
-        final AttributeFunctionStorage defines = external.getAttributeFunctionStorage();
+        final MetaFunctionAccessor defines = this.external.getAttributeFunctionStorage();
 
-        if (!defines.getDefineFunctions().containsKey(defineFunctionName)) {
+        if (defines.get(defineFunctionName) == null) {
             log.warn("No DEFINE function with name {} is found.", defineFunctionName);
             return ErrorEval.NAME_INVALID;
         }
@@ -86,7 +89,7 @@ public class FuncexecFunction implements CustomFunction {
         inArgs.remove(0); //remove define function name
         
         try {
-            for (ValueEval v : CustomFunction.prepareQueryArgs(inArgs))
+            for (ValueEval v : ICustomFunction.prepareQueryArgs(inArgs))
                 { inputValues.add(getSingleValue(v, ec.getRowIndex(), ec.getColumnIndex())); }
         }
         catch (EvaluationException e) {
@@ -94,7 +97,7 @@ public class FuncexecFunction implements CustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
 
-        final DefineFunctionMeta meta = defines.getDefineFunctions().get(defineFunctionName);       
+        final DefineFunctionMeta meta = (DefineFunctionMeta) defines.get(defineFunctionName);       
         log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
         
         if (meta.inputs().size() != inputValues.size()) {
@@ -110,7 +113,7 @@ public class FuncexecFunction implements CustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
 
-        IDataModel dmWithDefine = external.getDataModelStorage().getDataModel(meta.dataModelId());
+        IDataModel dmWithDefine = this.external.getDataModelAccessor().get(meta.dataModelId());
         
         Workbook wb;
         try { wb = Converters.toWorkbook(dmWithDefine); } 
