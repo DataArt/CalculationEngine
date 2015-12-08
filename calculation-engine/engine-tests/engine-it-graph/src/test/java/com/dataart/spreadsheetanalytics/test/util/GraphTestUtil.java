@@ -27,7 +27,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -40,12 +39,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.ext.GraphMLExporter;
 
-import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
+import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
@@ -57,10 +56,10 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
@@ -416,10 +415,14 @@ public class GraphTestUtil {
         external.setAttributeFunctionStorage(attributeFunctionStorage);
         
         //add data model to storage
-        dataModelStorage.addDataModel(model);
+        dataModelStorage.add(model);
         
         //update all define functions based on data models in cache
-        attributeFunctionStorage.refreshDefines(new HashSet<>(dataModelStorage.getDataModels().values()));
+        Map<DefineFunctionMeta, IDataModel> defineModels = Converters.toMetaFunctions(model, DefineFunctionMeta.class);
+        defineModels.forEach((k, v) -> {
+            attributeFunctionStorage.add(k); //defein meta info with link to DataModel
+            dataModelStorage.add(v); //define model
+        });
     }
     
     public static void destroyExternalServices() throws Exception {
