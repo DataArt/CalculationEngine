@@ -220,12 +220,16 @@ public final class ConverterUtils {
 
     /** Creates an instance of new {@link XSSFWorkbook}. */
     public static Workbook newWorkbook() {
-        return new XSSFWorkbook();
+        Workbook book = new XSSFWorkbook();
+        book.addToolPack(Functions.getUdfFinder());
+        return book;
     }
 
     /** Creates an instance of new {@link XSSFWorkbook} from {@link InputStream}. */
     public static Workbook newWorkbook(InputStream original) throws IOException {
-        return new XSSFWorkbook(original);
+        Workbook book = new XSSFWorkbook(original);
+        book.addToolPack(Functions.getUdfFinder());
+        return book;
     }
 
 }

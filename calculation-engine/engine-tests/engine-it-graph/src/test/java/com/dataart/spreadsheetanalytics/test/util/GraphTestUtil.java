@@ -63,6 +63,7 @@ import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
+import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph;
@@ -401,7 +402,7 @@ public class GraphTestUtil {
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSourceHub.DATA_SOURCE_CACHE_NAME, config.setTypes(Object.class, DataSource.class));
-        cacheManager.createCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, DefineFunctionMeta.class));
+        cacheManager.createCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, FunctionMeta.class));
         cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
         
         DataModelAccessor dataModelStorage = new CacheBasedDataModelAccessor();

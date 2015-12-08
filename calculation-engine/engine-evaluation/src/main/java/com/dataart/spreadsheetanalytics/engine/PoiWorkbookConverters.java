@@ -157,7 +157,8 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
     }
 
     @Override public UDFFinder getUDFFinder() { return Functions.getUdfFinder(); }
-    @Override public String getFormulaString(EvaluationCell cell) { return ((PoiProxyCell)cell).getCellFormula(); } //TODO: for graph
+
+    @Override public String getFormulaString(EvaluationCell cell) { return ((PoiProxyCell) cell).getCellFormula(); }
 }
 
 class PoiProxyCell implements EvaluationCell {
@@ -194,7 +195,7 @@ class PoiProxyCell implements EvaluationCell {
 
     public String getCellFormula() {
         if (CELL_TYPE_FORMULA != ConverterUtils.resolveCellType(this.value)) { return null; }
-        return (String) this.value.get();
+        return ((String) this.value.get()).replaceFirst("=", "");
     }
 
     public double getNumericCellValue() {
