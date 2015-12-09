@@ -40,6 +40,7 @@ import org.apache.poi.ss.formula.FormulaType;
 import org.apache.poi.ss.formula.ptg.NamePtg;
 import org.apache.poi.ss.formula.ptg.NameXPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
+import org.apache.poi.ss.formula.udf.AggregatingUDFFinder;
 import org.apache.poi.ss.formula.udf.UDFFinder;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -156,7 +157,11 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
         throw new UnsupportedOperationException(evaluationCell.toString());
     }
 
-    @Override public UDFFinder getUDFFinder() { return Functions.getUdfFinder(); }
+    @Override public UDFFinder getUDFFinder() {
+        AggregatingUDFFinder result = (AggregatingUDFFinder) UDFFinder.DEFAULT;
+        result.add(Functions.getUdfFinder());
+        return result;
+    }
 
     @Override public String getFormulaString(EvaluationCell cell) { return ((PoiProxyCell) cell).getCellFormula(); }
 }
