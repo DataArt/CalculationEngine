@@ -114,9 +114,10 @@ public class SpreadsheetEvaluator implements IEvaluator {
                 if (cell == null) { continue; }
 
                 ICellAddress addr = A1Address.fromRowColumn(i, j);
-                ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext);
-                
-                try { ((DmCell) cell).value(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); }
+                ICellValue val = null;
+                try {
+                    val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext);                
+                    ((DmCell) cell).value(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); }
                 catch (ValuesStackNotEmptyException e) {
                     val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr);
                     ((DmCell) cell).value(Optional.of(val)); 
