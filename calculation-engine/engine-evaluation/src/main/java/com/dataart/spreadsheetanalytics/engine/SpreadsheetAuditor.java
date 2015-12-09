@@ -28,7 +28,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.poi.common.fork.IncorrectExternalReferenceException;
 import org.apache.poi.ss.formula.FormulaParseException;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
@@ -118,12 +117,11 @@ public class SpreadsheetAuditor implements IAuditor {
                 
                 if (cv == null || cv.get() == null) { return buildSingleVertexGraphForEmptyCell(cell); }
 
-                
-                if (Cell.CELL_TYPE_FORMULA != ConverterUtils.resolveCellType(cv)) { return buildSingleVertexGraphForCellWithValue(cv, cell); }
-
                 graphBuilder.runPostProcessing(false);
                 ExecutionGraph g = graphBuilder.get();
                 
+                if (g.getVertices().isEmpty()) { return buildSingleVertexGraphForCellWithValue(cv, cell); }
+
                 if (g.getVertices().isEmpty() || g.getVertices().size() == 1) {
                     if (VALUE_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, VALUE_INVALID, null); }
                     if (NAME_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, NAME_INVALID, null); }
