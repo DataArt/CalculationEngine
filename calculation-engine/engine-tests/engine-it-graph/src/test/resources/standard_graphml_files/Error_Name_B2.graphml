@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B2">
-<node id="0b5be742-9f35-4cb7-9cc8-39bb5fa3eb9d">
+<node id="58d805cb-e175-42a4-8240-6b5f820f7a85">
 <data key="name">B2</data>
-<data key="value">#NAME?</data>
+<data key="value"/>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: #NAME?; Formula values: #NAME?;</data>
+<data key="formula">Formula string: CONCATENATE(A2, A1); Formula values: CONCATENATE(, );</data>
 </node>
+<node id="238d5cde-82fd-47b4-8309-d56354a0de01">
+<data key="name">A1</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: A1; Formula values: ;</data>
+</node>
+<node id="d8e58ed1-98c7-4453-a753-52f42b32f635">
+<data key="name">A2</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: A2; Formula values: ;</data>
+</node>
+<node id="26f8ad3f-6b9b-4fa8-8964-093fb6a66b27">
+<data key="name">CONCATENATE</data>
+<data key="value"/>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: CONCATENATE(A2, A1); Formula values: CONCATENATE(, );</data>
+</node>
+<edge source="d8e58ed1-98c7-4453-a753-52f42b32f635" target="26f8ad3f-6b9b-4fa8-8964-093fb6a66b27"/>
+<edge source="238d5cde-82fd-47b4-8309-d56354a0de01" target="26f8ad3f-6b9b-4fa8-8964-093fb6a66b27"/>
+<edge source="26f8ad3f-6b9b-4fa8-8964-093fb6a66b27" target="58d805cb-e175-42a4-8240-6b5f820f7a85"/>
 </graph>
 </graphml>

@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D8">
-<node id="134f56bd-b7e3-4d2f-b0e2-96f793d9d1db">
+<node id="7ec3f99b-20ba-4737-a782-9ad508106cb7">
 <data key="name">D8</data>
-<data key="value">#N/A</data>
+<data key="value">5.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
+<data key="formula">Formula string: VALUE + VALUE; Formula values: 3.0 + 2.0;</data>
 </node>
-<node id="bdb7a9cc-3993-4101-ac61-898624fed34e">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+<node id="630352b6-8b0e-4dc0-8266-820746a22cbb">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
 </node>
-<node id="ca55a230-9c60-498d-bfdc-603c606818c8">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
+<node id="38009905-426b-4531-9a00-015b3d201052">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<edge source="bdb7a9cc-3993-4101-ac61-898624fed34e" target="ca55a230-9c60-498d-bfdc-603c606818c8"/>
-<edge source="ca55a230-9c60-498d-bfdc-603c606818c8" target="134f56bd-b7e3-4d2f-b0e2-96f793d9d1db"/>
+<node id="c31f8fef-936a-4734-a1a4-6e6cbc459c0e">
+<data key="name">+</data>
+<data key="value">5.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE + VALUE; Formula values: 3.0 + 2.0;</data>
+</node>
+<edge source="38009905-426b-4531-9a00-015b3d201052" target="c31f8fef-936a-4734-a1a4-6e6cbc459c0e"/>
+<edge source="630352b6-8b0e-4dc0-8266-820746a22cbb" target="c31f8fef-936a-4734-a1a4-6e6cbc459c0e"/>
+<edge source="c31f8fef-936a-4734-a1a4-6e6cbc459c0e" target="7ec3f99b-20ba-4737-a782-9ad508106cb7"/>
 </graph>
 </graphml>

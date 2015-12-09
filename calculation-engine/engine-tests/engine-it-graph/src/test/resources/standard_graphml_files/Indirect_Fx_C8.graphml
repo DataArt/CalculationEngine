@@ -1,39 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="C8">
-<node id="24941fe4-e7e2-4ad4-842c-df5658529f52">
+<node id="1cdd3798-995a-47b5-8c10-31efb7167f8c">
 <data key="name">C8</data>
-<data key="value">62.0</data>
+<data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: INDIRECT(VALUE &amp; A5); Formula values: INDIRECT(B &amp; 5.0);</data>
+<data key="formula">Formula string: VALUE = VALUE; Formula values: 1.0 = 8.0;</data>
 </node>
-<node id="e3ee11c4-91d9-4e1e-a593-5b58b3d75538">
+<node id="5bdaa8cf-6455-4902-8d1d-ac7046550644">
 <data key="name">VALUE</data>
-<data key="value">B</data>
+<data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula string: VALUE; Formula values: B;</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
 </node>
-<node id="55168fbb-5e49-4716-8637-b88b373c49c6">
-<data key="name">A5</data>
-<data key="value">5.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A5; Formula values: 5.0;</data>
+<node id="0b0f0824-49bf-4e29-824f-9ce09f80e81c">
+<data key="name">VALUE</data>
+<data key="value">8.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 8.0;</data>
 </node>
-<node id="5063f56a-d3ee-4d23-b921-d9c9360563da">
-<data key="name">&amp;</data>
-<data key="value">B5</data>
+<node id="07329330-6901-40f6-a85c-b83664b9b108">
+<data key="name">=</data>
+<data key="value">FALSE</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: VALUE &amp; A5; Formula values: B &amp; 5.0;</data>
+<data key="formula">Formula string: VALUE = VALUE; Formula values: 1.0 = 8.0;</data>
 </node>
-<node id="47e73526-f0f0-4479-8f41-778e06a1f3a8">
-<data key="name">INDIRECT</data>
-<data key="value">62.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: INDIRECT(VALUE &amp; A5); Formula values: INDIRECT(B &amp; 5.0);</data>
-</node>
-<edge source="55168fbb-5e49-4716-8637-b88b373c49c6" target="5063f56a-d3ee-4d23-b921-d9c9360563da"/>
-<edge source="e3ee11c4-91d9-4e1e-a593-5b58b3d75538" target="5063f56a-d3ee-4d23-b921-d9c9360563da"/>
-<edge source="5063f56a-d3ee-4d23-b921-d9c9360563da" target="47e73526-f0f0-4479-8f41-778e06a1f3a8"/>
-<edge source="47e73526-f0f0-4479-8f41-778e06a1f3a8" target="24941fe4-e7e2-4ad4-842c-df5658529f52"/>
+<edge source="0b0f0824-49bf-4e29-824f-9ce09f80e81c" target="07329330-6901-40f6-a85c-b83664b9b108"/>
+<edge source="5bdaa8cf-6455-4902-8d1d-ac7046550644" target="07329330-6901-40f6-a85c-b83664b9b108"/>
+<edge source="07329330-6901-40f6-a85c-b83664b9b108" target="1cdd3798-995a-47b5-8c10-31efb7167f8c"/>
 </graph>
 </graphml>

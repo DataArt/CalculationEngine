@@ -1,162 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_5_">
-<node id="cb643303-158d-4777-9a16-3969c5aa2580">
+<node id="606fdb2c-52df-4b8c-b133-0607753355a3">
 <data key="name">C1</data>
 <data key="value">1.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A1; Formula values: 1.0;</data>
 </node>
-<node id="169a3bc3-1e49-44b9-ad59-680828587853">
+<node id="3a094e0d-f0f1-4a43-b8a3-5425d7c2f566">
 <data key="name">A1</data>
 <data key="value">1.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A1; Formula values: 1.0;</data>
 </node>
-<node id="fffeef28-c8f7-41fe-9593-03830ebe295d">
+<node id="9b354797-6511-456f-827b-a494a93474a4">
 <data key="name">C2</data>
 <data key="value">2.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A2; Formula values: 2.0;</data>
 </node>
-<node id="77335d89-ec4e-45a4-8a80-662e6f5280ed">
+<node id="5b8fd39f-c7d5-465d-8de9-344f5d276637">
 <data key="name">A2</data>
 <data key="value">2.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A2; Formula values: 2.0;</data>
 </node>
-<node id="615832da-aeef-443c-8e37-a4796dd87aea">
+<node id="0503d747-761d-482c-b976-60b5a76a35ca">
 <data key="name">C3</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A3; Formula values: 3.0;</data>
 </node>
-<node id="b4154ef3-645f-4b7b-8c40-d85969d68a36">
+<node id="a6bfc4f8-cf51-4fb4-9c2f-f57ff1ba9413">
 <data key="name">A3</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A3; Formula values: 3.0;</data>
 </node>
-<node id="711acac8-5140-4283-b197-df19d5f8af99">
+<node id="c24120af-2369-4540-8614-90b4f7fa0a35">
 <data key="name">C4</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A4; Formula values: 4.0;</data>
 </node>
-<node id="3629c163-d03a-4fe1-bf30-548f5c9f699f">
+<node id="161a4454-1c94-44b4-abca-96bcaa75e469">
 <data key="name">A4</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A4; Formula values: 4.0;</data>
 </node>
-<node id="702a7da3-251c-42df-aa8c-4f80328759b5">
+<node id="61aa4b83-81b1-4050-a331-3c6b2bf691f8">
 <data key="name">C5</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A5; Formula values: 5.0;</data>
 </node>
-<node id="7fc21d50-5337-4318-9ab3-3dd0d5192a48">
+<node id="3a775f22-dbd1-45bc-9a15-41e9902bf393">
 <data key="name">A5</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A5; Formula values: 5.0;</data>
 </node>
-<node id="4157fcd0-d089-491a-a413-28503ba6508e">
-<data key="name">D7</data>
-<data key="value">FALSE</data>
+<node id="0f0415c1-7536-470f-a955-041c6806be97">
+<data key="name">D6</data>
+<data key="value">[[A]]</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISNA(A5); Formula values: ISNA(5.0);</data>
+<data key="formula">Formula string: INDEX(VALUE, VALUE, A1:B5); Formula values: INDEX(2.0, 1.0, 1.0, A, 2.0, B, 3.0, C, 4.0, D, 5.0, E);</data>
 </node>
-<node id="923a4815-35ba-4140-9c29-f1f72e6f6899">
-<data key="name">C5</data>
+<node id="bcc477ff-5c56-472d-bb14-f645c35015f9">
+<data key="name">A1:B5</data>
+<data key="value">[[1.0, A], [2.0, B], [3.0, C], [4.0, D], [5.0, E]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A1:B5; Formula values: [[1.0, A], [2.0, B], [3.0, C], [4.0, D], [5.0, E]];</data>
+</node>
+<node id="7ef99ae4-d7db-4ed5-8f96-2a42f3b7486f">
+<data key="name">VALUE</data>
+<data key="value">1.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="369f6bb9-d77c-4275-bf64-5144f062990a">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
+</node>
+<node id="e7469e3b-789c-449f-ad17-fddefcf36514">
+<data key="name">INDEX</data>
+<data key="value">[[A]]</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: INDEX(VALUE, VALUE, A1:B5); Formula values: INDEX(2.0, 1.0, 1.0, A, 2.0, B, 3.0, C, 4.0, D, 5.0, E);</data>
+</node>
+<node id="950ff05d-5d81-4116-9f67-2a85268dc89b">
+<data key="name">D7</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: A5; Formula values: 5.0;</data>
+<data key="formula">Formula string: VALUE + VALUE; Formula values: 2.0 + 3.0;</data>
 </node>
-<node id="222ed1bb-2340-4d1c-a3b1-7c2f6d755cf9">
-<data key="name">ISNA</data>
-<data key="value">FALSE</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(A5); Formula values: ISNA(5.0);</data>
+<node id="4e9f99e6-197b-447e-a217-455f7dbcc47f">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<node id="d062239c-28cf-41bc-90e1-a465d1004cb0">
+<node id="131ce52c-b487-4f1e-b443-d9588fcf1d8a">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
+</node>
+<node id="e79190b8-58f3-4eb6-94a9-a1de4f518609">
+<data key="name">+</data>
+<data key="value">5.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE + VALUE; Formula values: 2.0 + 3.0;</data>
+</node>
+<node id="de4611e2-9e99-4486-abc7-cabe48243dcd">
 <data key="name">D8</data>
-<data key="value">#N/A</data>
+<data key="value">5.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
+<data key="formula">Formula string: VALUE + VALUE; Formula values: 3.0 + 2.0;</data>
 </node>
-<node id="a87b7309-6c3b-4a07-993a-84c334f8d0a7">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+<node id="4ff98184-0216-4a9a-b007-a807c37c038e">
+<data key="name">VALUE</data>
+<data key="value">3.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
 </node>
-<node id="c49555bf-0c6e-491e-abf5-174462ba1de1">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
+<node id="47f2367b-f5e9-456d-92ae-095a0af3d774">
+<data key="name">VALUE</data>
+<data key="value">2.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<node id="f9674e8a-1a1c-4021-8fe4-9855f1bf7b26">
+<node id="5eab7895-ebd5-488f-8484-e91fde7d4758">
+<data key="name">+</data>
+<data key="value">5.0</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: VALUE + VALUE; Formula values: 3.0 + 2.0;</data>
+</node>
+<node id="a4894d26-f446-42ba-8517-7065fd29b9d8">
 <data key="name">D9</data>
-<data key="value">#N/A</data>
+<data key="value">1.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISNA(ISNA(D6)); Formula values: ISNA(ISNA(#N/A));</data>
+<data key="formula">Formula string: SUM(B1, A1); Formula values: SUM(A, 1.0);</data>
 </node>
-<node id="aa7e0461-9a9b-4239-99ce-70cbad1567cc">
-<data key="name">D8</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
-</node>
-<node id="e8d5b2d1-e514-438b-8251-733f12c5fad9">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
+<node id="6fde133d-0113-4a50-b7cc-5bd887d385d0">
+<data key="name">A1</data>
+<data key="value">1.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+<data key="formula">Formula string: A1; Formula values: 1.0;</data>
 </node>
-<node id="68265ad7-ad9c-4767-a543-e252f5640a65">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
-</node>
-<node id="53f396e8-cb7c-4fae-aed2-3b2a9baad74b">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(ISNA(D6)); Formula values: ISNA(ISNA(#N/A));</data>
-</node>
-<node id="3e6f9ba6-7e3b-455c-b765-232318bf6bcb">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
+<node id="d6f68363-9fad-4fbf-8220-b5d56abc2fc8">
+<data key="name">B1</data>
+<data key="value">A</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+<data key="formula">Formula string: B1; Formula values: A;</data>
 </node>
-<node id="80f456ac-66ee-47e8-8d53-35acb86fe496">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
+<node id="1c46264a-efbf-435e-bcf3-d13451af1018">
+<data key="name">SUM</data>
+<data key="value">1.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
+<data key="formula">Formula string: SUM(B1, A1); Formula values: SUM(A, 1.0);</data>
 </node>
-<edge source="169a3bc3-1e49-44b9-ad59-680828587853" target="cb643303-158d-4777-9a16-3969c5aa2580"/>
-<edge source="77335d89-ec4e-45a4-8a80-662e6f5280ed" target="fffeef28-c8f7-41fe-9593-03830ebe295d"/>
-<edge source="b4154ef3-645f-4b7b-8c40-d85969d68a36" target="615832da-aeef-443c-8e37-a4796dd87aea"/>
-<edge source="3629c163-d03a-4fe1-bf30-548f5c9f699f" target="711acac8-5140-4283-b197-df19d5f8af99"/>
-<edge source="7fc21d50-5337-4318-9ab3-3dd0d5192a48" target="702a7da3-251c-42df-aa8c-4f80328759b5"/>
-<edge source="923a4815-35ba-4140-9c29-f1f72e6f6899" target="222ed1bb-2340-4d1c-a3b1-7c2f6d755cf9"/>
-<edge source="222ed1bb-2340-4d1c-a3b1-7c2f6d755cf9" target="4157fcd0-d089-491a-a413-28503ba6508e"/>
-<edge source="a87b7309-6c3b-4a07-993a-84c334f8d0a7" target="c49555bf-0c6e-491e-abf5-174462ba1de1"/>
-<edge source="c49555bf-0c6e-491e-abf5-174462ba1de1" target="d062239c-28cf-41bc-90e1-a465d1004cb0"/>
-<edge source="e8d5b2d1-e514-438b-8251-733f12c5fad9" target="68265ad7-ad9c-4767-a543-e252f5640a65"/>
-<edge source="68265ad7-ad9c-4767-a543-e252f5640a65" target="d062239c-28cf-41bc-90e1-a465d1004cb0"/>
-<edge source="aa7e0461-9a9b-4239-99ce-70cbad1567cc" target="53f396e8-cb7c-4fae-aed2-3b2a9baad74b"/>
-<edge source="3e6f9ba6-7e3b-455c-b765-232318bf6bcb" target="80f456ac-66ee-47e8-8d53-35acb86fe496"/>
-<edge source="80f456ac-66ee-47e8-8d53-35acb86fe496" target="d062239c-28cf-41bc-90e1-a465d1004cb0"/>
-<edge source="53f396e8-cb7c-4fae-aed2-3b2a9baad74b" target="f9674e8a-1a1c-4021-8fe4-9855f1bf7b26"/>
-<edge source="7fc21d50-5337-4318-9ab3-3dd0d5192a48" target="923a4815-35ba-4140-9c29-f1f72e6f6899"/>
-<edge source="c49555bf-0c6e-491e-abf5-174462ba1de1" target="aa7e0461-9a9b-4239-99ce-70cbad1567cc"/>
-<edge source="68265ad7-ad9c-4767-a543-e252f5640a65" target="aa7e0461-9a9b-4239-99ce-70cbad1567cc"/>
-<edge source="80f456ac-66ee-47e8-8d53-35acb86fe496" target="aa7e0461-9a9b-4239-99ce-70cbad1567cc"/>
+<edge source="3a094e0d-f0f1-4a43-b8a3-5425d7c2f566" target="606fdb2c-52df-4b8c-b133-0607753355a3"/>
+<edge source="5b8fd39f-c7d5-465d-8de9-344f5d276637" target="9b354797-6511-456f-827b-a494a93474a4"/>
+<edge source="a6bfc4f8-cf51-4fb4-9c2f-f57ff1ba9413" target="0503d747-761d-482c-b976-60b5a76a35ca"/>
+<edge source="161a4454-1c94-44b4-abca-96bcaa75e469" target="c24120af-2369-4540-8614-90b4f7fa0a35"/>
+<edge source="3a775f22-dbd1-45bc-9a15-41e9902bf393" target="61aa4b83-81b1-4050-a331-3c6b2bf691f8"/>
+<edge source="3a094e0d-f0f1-4a43-b8a3-5425d7c2f566" target="bcc477ff-5c56-472d-bb14-f645c35015f9"/>
+<edge source="5b8fd39f-c7d5-465d-8de9-344f5d276637" target="bcc477ff-5c56-472d-bb14-f645c35015f9"/>
+<edge source="a6bfc4f8-cf51-4fb4-9c2f-f57ff1ba9413" target="bcc477ff-5c56-472d-bb14-f645c35015f9"/>
+<edge source="161a4454-1c94-44b4-abca-96bcaa75e469" target="bcc477ff-5c56-472d-bb14-f645c35015f9"/>
+<edge source="3a775f22-dbd1-45bc-9a15-41e9902bf393" target="bcc477ff-5c56-472d-bb14-f645c35015f9"/>
+<edge source="369f6bb9-d77c-4275-bf64-5144f062990a" target="e7469e3b-789c-449f-ad17-fddefcf36514"/>
+<edge source="7ef99ae4-d7db-4ed5-8f96-2a42f3b7486f" target="e7469e3b-789c-449f-ad17-fddefcf36514"/>
+<edge source="bcc477ff-5c56-472d-bb14-f645c35015f9" target="e7469e3b-789c-449f-ad17-fddefcf36514"/>
+<edge source="e7469e3b-789c-449f-ad17-fddefcf36514" target="0f0415c1-7536-470f-a955-041c6806be97"/>
+<edge source="131ce52c-b487-4f1e-b443-d9588fcf1d8a" target="e79190b8-58f3-4eb6-94a9-a1de4f518609"/>
+<edge source="4e9f99e6-197b-447e-a217-455f7dbcc47f" target="e79190b8-58f3-4eb6-94a9-a1de4f518609"/>
+<edge source="e79190b8-58f3-4eb6-94a9-a1de4f518609" target="950ff05d-5d81-4116-9f67-2a85268dc89b"/>
+<edge source="47f2367b-f5e9-456d-92ae-095a0af3d774" target="5eab7895-ebd5-488f-8484-e91fde7d4758"/>
+<edge source="4ff98184-0216-4a9a-b007-a807c37c038e" target="5eab7895-ebd5-488f-8484-e91fde7d4758"/>
+<edge source="5eab7895-ebd5-488f-8484-e91fde7d4758" target="de4611e2-9e99-4486-abc7-cabe48243dcd"/>
+<edge source="d6f68363-9fad-4fbf-8220-b5d56abc2fc8" target="1c46264a-efbf-435e-bcf3-d13451af1018"/>
+<edge source="6fde133d-0113-4a50-b7cc-5bd887d385d0" target="1c46264a-efbf-435e-bcf3-d13451af1018"/>
+<edge source="1c46264a-efbf-435e-bcf3-d13451af1018" target="a4894d26-f446-42ba-8517-7065fd29b9d8"/>
 </graph>
 </graphml>

@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="All"/>
+<graph edgedefault="directed" id="All_">
+<node id="f75a405b-81ac-459c-b1cf-825db4da829f">
+<data key="name">E6</data>
+<data key="value">21.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(5.0, 8.0, 1.0, 7.0);</data>
+</node>
+<node id="e89bfb1a-3c3c-475a-a9ef-3c9c2e9fe704">
+<data key="name">A2:A5</data>
+<data key="value">[[5.0], [8.0], [1.0], [7.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A2:A5; Formula values: [[5.0], [8.0], [1.0], [7.0]];</data>
+</node>
+<node id="8082795f-ec1e-43d9-8a0a-afd302b51b05">
+<data key="name">SUM</data>
+<data key="value">21.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(5.0, 8.0, 1.0, 7.0);</data>
+</node>
+<node id="ad525817-88e2-45ec-affa-541045efd39d">
+<data key="name">E10</data>
+<data key="value">20.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(B3:B5); Formula values: SUM(4.0, 8.0, 8.0);</data>
+</node>
+<node id="86ee957b-7c08-436d-a032-4dd23cc0a1a3">
+<data key="name">B3:B5</data>
+<data key="value">[[4.0], [8.0], [8.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: B3:B5; Formula values: [[4.0], [8.0], [8.0]];</data>
+</node>
+<node id="8cc1f5cd-9fec-4bf0-b376-edc989b227f6">
+<data key="name">SUM</data>
+<data key="value">20.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(B3:B5); Formula values: SUM(4.0, 8.0, 8.0);</data>
+</node>
+<edge source="e89bfb1a-3c3c-475a-a9ef-3c9c2e9fe704" target="8082795f-ec1e-43d9-8a0a-afd302b51b05"/>
+<edge source="8082795f-ec1e-43d9-8a0a-afd302b51b05" target="f75a405b-81ac-459c-b1cf-825db4da829f"/>
+<edge source="86ee957b-7c08-436d-a032-4dd23cc0a1a3" target="8cc1f5cd-9fec-4bf0-b376-edc989b227f6"/>
+<edge source="8cc1f5cd-9fec-4bf0-b376-edc989b227f6" target="ad525817-88e2-45ec-affa-541045efd39d"/>
+</graph>
 </graphml>

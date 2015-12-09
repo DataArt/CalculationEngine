@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="С8">
-<node id="ecdba27a-8a76-44ab-9384-fa6d0db6c218">
-<data key="name">С8</data>
-<data key="value"/>
-<data key="type">EMPTY_CELL</data>
-<data key="formula">Formula string: null; Formula values: null;</data>
+<graph edgedefault="directed" id="C8">
+<node id="ce901f9b-03f0-4de4-8341-78dc0a3bf875">
+<data key="name">C8</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ISLOGICAL(A4); Formula values: ISLOGICAL(some text for test);</data>
 </node>
+<node id="2e8568c2-a435-4f7f-97c6-a75bbdc0adb5">
+<data key="name">A4</data>
+<data key="value">some text for test</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A4; Formula values: some text for test;</data>
+</node>
+<node id="57391883-1c56-4a84-8178-ccef7e49078a">
+<data key="name">ISLOGICAL</data>
+<data key="value">FALSE</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: ISLOGICAL(A4); Formula values: ISLOGICAL(some text for test);</data>
+</node>
+<edge source="2e8568c2-a435-4f7f-97c6-a75bbdc0adb5" target="57391883-1c56-4a84-8178-ccef7e49078a"/>
+<edge source="57391883-1c56-4a84-8178-ccef7e49078a" target="ce901f9b-03f0-4de4-8341-78dc0a3bf875"/>
 </graph>
 </graphml>

@@ -1,13 +1,15 @@
 var nodes = new vis.DataSet([
                              /* {id: a, label: b, ...}, */
-{id: '134f56bd-b7e3-4d2f-b0e2-96f793d9d1db', label: 'D8\n#N/A', color: '#31b0d5', title: 'Name: D8<br>Alias: null<br>Value: #N/A<br>Type: CELL_WITH_FORMULA<br>Id: 134f56bd-b7e3-4d2f-b0e2-96f793d9d1db<br>Formula Expression: Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: #N/A ISNA ; Ptgs: D6 ISNA  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e048149'},
-{id: 'bdb7a9cc-3993-4101-ac61-898624fed34e', label: 'D6\n#N/A', color: '#31b0d5', title: 'Name: D6<br>Alias: null<br>Value: #N/A<br>Type: CELL_WITH_VALUE<br>Id: bdb7a9cc-3993-4101-ac61-898624fed34e<br>Formula Expression: Formula String: D6; Formula Values: #N/A; Formula Ptg: #N/A; Ptgs: D6 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e048149'},
-{id: 'ca55a230-9c60-498d-bfdc-603c606818c8', label: 'ISNA\n#N/A', color: '#f0ad4e', title: 'Name: ISNA<br>Alias: null<br>Value: #N/A<br>Type: FUNCTION<br>Id: ca55a230-9c60-498d-bfdc-603c606818c8<br>Formula Expression: Formula String: ISNA(D6); Formula Values: ISNA(#N/A); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@5e048149'}
+{id: '38009905-426b-4531-9a00-015b3d201052', label: 'VALUE\n2.0', color: '#31b0d5', title: 'Name: VALUE<br>Alias: null<br>Value: 2.0<br>Type: CONSTANT_VALUE<br>Id: 38009905-426b-4531-9a00-015b3d201052<br>Formula Expression: Formula String: VALUE; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: VALUE Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@5c30a9b0'},
+{id: '7ec3f99b-20ba-4737-a782-9ad508106cb7', label: 'D8\n5.0', color: '#31b0d5', title: 'Name: D8<br>Alias: null<br>Value: 5.0<br>Type: CELL_WITH_FORMULA<br>Id: 7ec3f99b-20ba-4737-a782-9ad508106cb7<br>Formula Expression: Formula String: VALUE + VALUE; Formula Values: 3.0 + 2.0; Formula Ptg: 3.0 2.0 +; Ptgs: VALUE VALUE + Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@5c30a9b0'},
+{id: '630352b6-8b0e-4dc0-8266-820746a22cbb', label: 'VALUE\n3.0', color: '#31b0d5', title: 'Name: VALUE<br>Alias: null<br>Value: 3.0<br>Type: CONSTANT_VALUE<br>Id: 630352b6-8b0e-4dc0-8266-820746a22cbb<br>Formula Expression: Formula String: VALUE; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@5c30a9b0'},
+{id: 'c31f8fef-936a-4734-a1a4-6e6cbc459c0e', label: '+\n5.0', color: '#f0ad4e', title: 'Name: +<br>Alias: null<br>Value: 5.0<br>Type: OPERATOR<br>Id: c31f8fef-936a-4734-a1a4-6e6cbc459c0e<br>Formula Expression: Formula String: VALUE + VALUE; Formula Values: 3.0 + 2.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@5c30a9b0'}
                             ]);
 
 
 var edges = new vis.DataSet([
                              /* {from: id_a, to: id_b}, */
-{from: 'ca55a230-9c60-498d-bfdc-603c606818c8', to: '134f56bd-b7e3-4d2f-b0e2-96f793d9d1db'},
-{from: 'bdb7a9cc-3993-4101-ac61-898624fed34e', to: 'ca55a230-9c60-498d-bfdc-603c606818c8'}
+{from: 'c31f8fef-936a-4734-a1a4-6e6cbc459c0e', to: '7ec3f99b-20ba-4737-a782-9ad508106cb7'},
+{from: '38009905-426b-4531-9a00-015b3d201052', to: 'c31f8fef-936a-4734-a1a4-6e6cbc459c0e'},
+{from: '630352b6-8b0e-4dc0-8266-820746a22cbb', to: 'c31f8fef-936a-4734-a1a4-6e6cbc459c0e'}
                             ]);
