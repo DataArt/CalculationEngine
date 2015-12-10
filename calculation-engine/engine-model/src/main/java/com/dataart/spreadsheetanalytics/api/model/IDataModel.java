@@ -29,6 +29,9 @@ public interface IDataModel extends Iterable<IDmRow> {
     /** The Id of this model. Should be unique in DataModel storage. */
     IDataModelId dataModelId();
     
+    /** Sets the Id of this model. Should be unique in DataModel storage. */
+    void dataModelId(IDataModelId dataModelId);
+    
     /** Name of this model. Not required to be unique, but highly recommended. */
     String name();
     

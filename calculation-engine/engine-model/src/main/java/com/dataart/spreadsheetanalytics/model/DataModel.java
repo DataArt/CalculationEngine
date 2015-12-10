@@ -57,6 +57,8 @@ public class DataModel implements IDataModel {
     }
 
     @Override public IDataModelId dataModelId() { return this.dataModelId; }
+    @Override public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
+
     @Override public String name() { return this.name; }
     @Override public void name(String name) { this.name = name; }
 
