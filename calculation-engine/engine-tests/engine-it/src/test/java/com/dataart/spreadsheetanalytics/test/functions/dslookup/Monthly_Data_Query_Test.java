@@ -13,11 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.test.evaluation.funcexec;
+package com.dataart.spreadsheetanalytics.test.functions.dslookup;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.cache.CacheManager;
@@ -31,37 +32,37 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
+import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
-import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
-import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
+import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 
-public class Funcexec_Test {
+public class Monthly_Data_Query_Test {
 
-    static String pathDataModel = "src/test/resources/datamodel/Funcexec_Test.xlsx";
+    static String pathDataModel = "src/test/resources/datamodel/Monthly_Data_Query_Test.xlsx";
+    static String pathDataSet = "src/test/resources/dataset/Monthly_Data_Query.xlsx";
     static Map<String, Object> expectedValues;
     static String toEvaluateColumn = "A";
     static String expectedColumn = "B";
     static int expectedRowStart = 2;
-    static int expectedRowEnd = 29;
-
-    static IEvaluator evaluator;
+    static int expectedRowEnd = 16;
+    
+    static SpreadsheetEvaluator evaluator;
     static IDataModel dataModel;
-
+    
     @BeforeClass
     public static void before() throws Exception {
         dataModel = Converters.toDataModel(new XSSFWorkbook(pathDataModel));
-
+        
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
         MutableConfiguration config = new MutableConfiguration();
@@ -69,28 +70,23 @@ public class Funcexec_Test {
               .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(Duration.ETERNAL))
               .setStatisticsEnabled(false);
 
-        cacheManager.createCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataModel.class));
-        cacheManager.createCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataModel.class));
-        cacheManager.createCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME, config.setTypes(String.class, FunctionMeta.class));
-
+        cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
+        cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
+        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS, config.setTypes(ILazyDataSet.Parameters.class, IDataSet.class));
+        cacheManager.createCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS, config.setTypes(DsLookupParameters.class, List.class));
+        
         final ExternalServices external = ExternalServices.INSTANCE;
 
-        DataModelAccessor dataModelAccessor = new CacheBasedDataModelAccessor();
-        MetaFunctionAccessor metaFunctionAccessor = new CacheBasedMetaFunctionAccessor();
+        DataSetAccessor dataSetStorage = new CacheBasedDataSetAccessor();
+        
+        external.setDataSetAccessor(dataSetStorage);
+        external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
-        external.setDataModelAccessor(dataModelAccessor);
-        external.setMetaFunctionAccessor(metaFunctionAccessor);
-
-        dataModelAccessor.add(dataModel); //execution model
-
-        Map<DefineFunctionMeta, IDataModel> defineModels = Converters.toMetaFunctions(new XSSFWorkbook(pathDataModel), DefineFunctionMeta.class);
-        defineModels.forEach((k, v) -> {
-            metaFunctionAccessor.add(k); //defein meta info with link to DataModel
-            dataModelAccessor.add(v); //define model
-        });
+        final IDataSet dataSet = Converters.toDataSet(new XSSFWorkbook(pathDataSet));
+        dataSetStorage.saveDataSet(dataSet);
 
         expectedValues = new HashMap<>();
-
+        
         evaluator = new SpreadsheetEvaluator(dataModel);
         for (int i = expectedRowStart; i <= expectedRowEnd; i++) {
             ICellValue value = evaluator.evaluate(A1Address.fromA1Address(expectedColumn + i)).getResult();
@@ -102,13 +98,14 @@ public class Funcexec_Test {
     public static void after() throws Exception {
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
 
-        cacheManager.destroyCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_ID_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedDataModelAccessor.DATA_MODEL_TO_NAME_CACHE_NAME);
-        cacheManager.destroyCache(CacheBasedMetaFunctionAccessor.META_FUNCTIONS_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME);
+        cacheManager.destroyCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME);
+        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
+        cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_DS_LOOKUP_PARAMETERS);
     }
 
     @Test
-    public void compare_FuncexecFormula_ExpectedValueFromMap() {
+    public void compare_DsLookupFormula_ExpectedValueFromMap() {
         //given
         // Map with expected values: expectedValues
 
@@ -122,5 +119,6 @@ public class Funcexec_Test {
                 .overridingErrorMessage("expected:<[%s]> but was:<[%s] at %s]>", expectedValues.get(expectedColumn + i), value.get(), toEvaluateColumn + i)
                 .isEqualTo(expectedValues.get(expectedColumn + i));
         }
-    }    
+    }
+
 }

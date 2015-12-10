@@ -70,7 +70,7 @@ public final class Converters {
     }
     
     /** @see DataSetDtoConverters#toDataSet(DataSetDto) */
-    public static IDataSet toDataSet (final DataSetDto dto) {
+    public static IDataSet toDataSet(final DataSetDto dto) {
         return DataSetDtoConverters.toDataSet(dto);
     }
     

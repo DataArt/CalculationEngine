@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
@@ -23,16 +22,16 @@ public class DataModelDtoConvertersTest {
     
     static IDataModelId sharedId = new DataModelId(UUID.randomUUID().toString());
     
-    @BeforeClass
+//    @BeforeClass
     public void before() throws IOException {
         dataModel = (DataModel) Converters.toDataModel(new FileInputStream(dataModelPath));
         
-        validJsonObject = new ObjectNode(JsonNodeFactory.instance)
+        validJsonObject = (ObjectNode) new ObjectNode(JsonNodeFactory.instance)
                                 .put("name", "Sheet1")
                                 .put("dataModelId", sharedId.toString())
                                 .set("table", new ObjectNode(JsonNodeFactory.instance)
                                                     .put("C1", 4.0)
-                                                    .put() //TODO
+                                                    
                             );
         
         validJsonString = DataModelDtoConverters.mapper.writeValueAsString(validJsonObject);

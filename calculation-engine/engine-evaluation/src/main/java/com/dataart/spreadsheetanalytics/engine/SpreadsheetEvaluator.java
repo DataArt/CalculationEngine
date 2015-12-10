@@ -16,8 +16,8 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
-import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.getEvaluationCell;
-import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.toEvaluationWorkbook;
+import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.getEvaluationCell;
+import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.toEvaluationWorkbook;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;

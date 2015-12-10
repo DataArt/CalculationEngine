@@ -28,13 +28,12 @@ import com.dataart.spreadsheetanalytics.dto.DataSetDto;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModelId;
 import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 final class DataSetDtoConverters {
 
-    protected static final ObjectMapper mapper = new ObjectMapper();
+    static final ObjectMapper mapper = new ObjectMapper();
     
     private DataSetDtoConverters() {
         mapper.configure(IGNORE_UNKNOWN, true);
@@ -67,7 +66,7 @@ final class DataSetDtoConverters {
         return mapper.readValue(json, DataSetDto.class);
     }
     
-    static IDataSet toDataSet (final DataSetDto dto) {
+    static IDataSet toDataSet(final DataSetDto dto) {
         IDataSet dataSet = new DataSet(dto.name);
         dataSet.dataModelId(new DataModelId(dto.dataModelId));
         
@@ -95,8 +94,7 @@ final class DataSetDtoConverters {
     }
     
     static ObjectNode toJsonObject(final DataSetDto dto) {
-        JsonNode json = mapper.valueToTree(dto);
-        return (ObjectNode) json;
+        return (ObjectNode) mapper.valueToTree(dto);
     }
 
     static ObjectNode toJsonObject(final IDataSet dataSet) {

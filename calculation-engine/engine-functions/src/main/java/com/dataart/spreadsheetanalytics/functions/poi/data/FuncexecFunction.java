@@ -15,7 +15,12 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.functions.poi.data;
 
+import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
+import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.getEvaluationCell;
+import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.toEvaluationWorkbook;
+import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.updateCell;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.coerceValueTo;
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.populateCellValue;
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
 import java.io.IOException;
@@ -24,34 +29,33 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.apache.poi.ss.formula.ArrayEval;
+import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.formula.IStabilityClassifier;
 import org.apache.poi.ss.formula.OperationEvaluationContext;
 import org.apache.poi.ss.formula.TwoDEval;
+import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.EvaluationException;
 import org.apache.poi.ss.formula.eval.RefEval;
 import org.apache.poi.ss.formula.eval.StringEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
-import org.apache.poi.ss.formula.eval.forked.ForkedEvaluator;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFForkedEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
-import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
-import com.dataart.spreadsheetanalytics.engine.Functions;
 
 @CustomFunctionMeta(value = "FUNCEXEC")
 public class FuncexecFunction implements ICustomFunction {
@@ -101,7 +105,7 @@ public class FuncexecFunction implements ICustomFunction {
         log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
         
         if (meta.inputs().size() != inputValues.size()) {
-            log.warn("Wrong number of input arguments for FUNCEXEC+DEFINE. Expected: {}, Actua: {}.", meta.inputs().size(), args.length - 1);
+            log.warn("Wrong number of input arguments for FUNCEXEC+DEFINE. Expected: {}, Actual: {}.", meta.inputs().size(), args.length - 1);
             return ErrorEval.VALUE_INVALID;
         }
                 
@@ -116,32 +120,32 @@ public class FuncexecFunction implements ICustomFunction {
         IDataModel dmWithDefine = this.external.getDataModelAccessor().get(meta.dataModelId());
         
         Workbook wb;
-        try { wb = Converters.toWorkbook(dmWithDefine); } 
+        try { wb = toWorkbook(dmWithDefine); } 
         catch (IOException e) {
             log.warn("Cannot convert IDataModel to Workbook, but Workbook is needed for evaluation.", e);
             return ErrorEval.REF_INVALID;
         }
         
-        ForkedEvaluator forkedEvaluator = XSSFForkedEvaluator.create(wb, IStabilityClassifier.TOTALLY_IMMUTABLE, Functions.getUdfFinder());
-
+        EvaluationWorkbook defineBook = toEvaluationWorkbook(wb);
+        
         Sheet s = wb.getSheetAt(0);
-        String firstSheetName = s.getSheetName(); /*TODO: one sheet support only*/
         for (int i = 0; i < inputAddresses.size(); i++) {
             
-            Row r = s.getRow(inputAddresses.get(i).row());
-            if (r == null) { r = s.createRow(inputAddresses.get(i).row()); }
-            Cell c = r.getCell(inputAddresses.get(i).column());
-            if (c == null) { c = r.createCell(inputAddresses.get(i).column()); }
+            Row defineRow = s.getRow(inputAddresses.get(i).row());
+            if (defineRow == null) { defineRow = s.createRow(inputAddresses.get(i).row()); }
+            Cell defineCell = defineRow.getCell(inputAddresses.get(i).column());
+            if (defineCell == null) { defineCell = defineRow.createCell(inputAddresses.get(i).column()); }
             
-            forkedEvaluator.updateCell(firstSheetName, 
-                                       inputAddresses.get(i).row(), inputAddresses.get(i).column(),
-                                       inputValues.get(i));
+            populateCellValue(defineCell, inputValues.get(i));
+            updateCell(defineBook, defineCell);
         }
-            
-        List<ValueEval> outputValues = new ArrayList<>(meta.outputs().size());
-        meta.outputs()
-            .forEach(a -> outputValues.add(forkedEvaluator.evaluate(firstSheetName, a.row(), a.column())));
-
+        
+        WorkbookEvaluator defineEvaluator = new WorkbookEvaluator(defineBook, IStabilityClassifier.TOTALLY_IMMUTABLE, null);
+        List<ValueEval> outputValues = meta.outputs()
+                                           .stream()
+                                           .map(a -> defineEvaluator.evaluate(getEvaluationCell(defineBook, a), ec.getCustomEvaluationContext()))
+                                           .collect(Collectors.<ValueEval>toList());
+        
         log.debug("Output Values of DEFINE execution: {}.", outputValues);
 
         return outputValues.size() == 1 ? outputValues.get(0) : toArrayEval(outputValues);
