@@ -48,6 +48,7 @@ public class CellValue implements ICellValue {
         if (o == null) { return BLANK; }
         else if (o instanceof String) { return new CellValue(o, String.class); }
         else if (o instanceof Double) { return new CellValue(o, Double.class); }
+        else if (o instanceof Integer) { return new CellValue(new Double((Integer) o)); }
         else if (o instanceof Boolean) { return new CellValue(o, Boolean.class); }
 
         throw new IllegalArgumentException(String.format("The object %s of class %s is not supported as type for CellValue", o, o.getClass().getSimpleName()));
@@ -56,6 +57,30 @@ public class CellValue implements ICellValue {
     @Override
     public String toString() {
         return this.value == null ? "null" : this.value.toString() + ":" + this.type.getSimpleName();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.type == null) ? 0 : type.hashCode());
+        result = prime * result + ((this.value == null) ? 0 : value.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) { return true; }
+        if (obj == null) { return false; }
+        if (getClass() != obj.getClass()) { return false; }
+        CellValue other = (CellValue) obj;
+        if (type == null) {
+            if (other.type != null) { return false; }
+        } else if (type != other.type) { return false; }
+        if (value == null) {
+            if (other.value != null) { return false; }
+        } else if (!value.equals(other.value)) { return false; }
+        return true;
     }
 
 }
