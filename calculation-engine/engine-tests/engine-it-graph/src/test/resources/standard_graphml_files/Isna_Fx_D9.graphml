@@ -1,53 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D9">
-<node id="214b04ae-8354-4133-a132-178f68f49eed">
+<node id="b54690db-9088-4989-ba7b-6c345edcde6e">
 <data key="name">D9</data>
-<data key="value">#N/A</data>
+<data key="value">1.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISNA(ISNA(D6)); Formula values: ISNA(ISNA(#N/A));</data>
+<data key="formula">Formula string: SUM(B1, A1); Formula values: SUM(A, 1.0);</data>
 </node>
-<node id="6dfb19b9-c67c-4704-8579-f8da091a1061">
-<data key="name">D8</data>
-<data key="value">#N/A</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
-</node>
-<node id="18f3f847-bf71-4dca-920e-b19a55b490ba">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
+<node id="6465248d-c6d8-40d2-8068-900be05dc1a8">
+<data key="name">A1</data>
+<data key="value">1.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+<data key="formula">Formula string: A1; Formula values: 1.0;</data>
 </node>
-<node id="400e6a19-c465-4096-ba99-9c3ac0846116">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
-</node>
-<node id="aabbcbcf-2e3b-4960-99a3-6fb7e3aadbc1">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(ISNA(D6)); Formula values: ISNA(ISNA(#N/A));</data>
-</node>
-<node id="bbc91a1c-4f14-4733-a61b-3cbfe6da1255">
-<data key="name">D6</data>
-<data key="value">#N/A</data>
+<node id="6fa07e17-f759-4349-bacc-3df11b760a21">
+<data key="name">B1</data>
+<data key="value">A</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D6; Formula values: #N/A;</data>
+<data key="formula">Formula string: B1; Formula values: A;</data>
 </node>
-<node id="41a12f2f-36d6-44b3-8e46-c63d6a071ebe">
-<data key="name">ISNA</data>
-<data key="value">#N/A</data>
+<node id="5f0b57d1-6ba6-41c9-9884-e01f0098aa77">
+<data key="name">SUM</data>
+<data key="value">1.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISNA(D6); Formula values: ISNA(#N/A);</data>
+<data key="formula">Formula string: SUM(B1, A1); Formula values: SUM(A, 1.0);</data>
 </node>
-<edge source="18f3f847-bf71-4dca-920e-b19a55b490ba" target="400e6a19-c465-4096-ba99-9c3ac0846116"/>
-<edge source="400e6a19-c465-4096-ba99-9c3ac0846116" target="6dfb19b9-c67c-4704-8579-f8da091a1061"/>
-<edge source="6dfb19b9-c67c-4704-8579-f8da091a1061" target="aabbcbcf-2e3b-4960-99a3-6fb7e3aadbc1"/>
-<edge source="bbc91a1c-4f14-4733-a61b-3cbfe6da1255" target="41a12f2f-36d6-44b3-8e46-c63d6a071ebe"/>
-<edge source="41a12f2f-36d6-44b3-8e46-c63d6a071ebe" target="6dfb19b9-c67c-4704-8579-f8da091a1061"/>
-<edge source="aabbcbcf-2e3b-4960-99a3-6fb7e3aadbc1" target="214b04ae-8354-4133-a132-178f68f49eed"/>
+<edge source="6fa07e17-f759-4349-bacc-3df11b760a21" target="5f0b57d1-6ba6-41c9-9884-e01f0098aa77"/>
+<edge source="6465248d-c6d8-40d2-8068-900be05dc1a8" target="5f0b57d1-6ba6-41c9-9884-e01f0098aa77"/>
+<edge source="5f0b57d1-6ba6-41c9-9884-e01f0098aa77" target="b54690db-9088-4989-ba7b-6c345edcde6e"/>
 </graph>
 </graphml>

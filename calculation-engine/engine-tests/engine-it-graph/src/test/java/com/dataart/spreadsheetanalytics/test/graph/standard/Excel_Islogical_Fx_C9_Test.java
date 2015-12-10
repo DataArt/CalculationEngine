@@ -24,9 +24,9 @@ import org.junit.Test;
 
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 
-public class Excel_Islogical_Fx_С8_Test extends SerializedGraphTest {
+public class Excel_Islogical_Fx_C9_Test extends SerializedGraphTest {
 
-    static String address = "С8";
+    static String address = "C9";
     static String file = "Islogical_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
 

@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="JOIN_ALL"/>
+<graph edgedefault="directed" id="JOIN_ALL_">
+<node id="b757c1d2-ea42-4438-8d43-d06bf7769f45">
+<data key="name">E6</data>
+<data key="value">21.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(5.0, 8.0, 1.0, 7.0);</data>
+</node>
+<node id="03fa9c14-03f6-427a-add0-6f9027d186cd">
+<data key="name">A2:A5</data>
+<data key="value">[[5.0], [8.0], [1.0], [7.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A2:A5; Formula values: [[5.0], [8.0], [1.0], [7.0]];</data>
+</node>
+<node id="3c0d9835-ee0a-4bf8-87f0-36fb50ca29f6">
+<data key="name">SUM</data>
+<data key="value">21.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(5.0, 8.0, 1.0, 7.0);</data>
+</node>
+<node id="60fb2423-0438-4fdd-96b8-1775f3a03f34">
+<data key="name">E10</data>
+<data key="value">20.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(B3:B5); Formula values: SUM(4.0, 8.0, 8.0);</data>
+</node>
+<node id="6364bb64-732f-41ab-8892-9c25c962ef30">
+<data key="name">B3:B5</data>
+<data key="value">[[4.0], [8.0], [8.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: B3:B5; Formula values: [[4.0], [8.0], [8.0]];</data>
+</node>
+<node id="49363191-ad04-46af-b2ec-a78f76ca2c37">
+<data key="name">SUM</data>
+<data key="value">20.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(B3:B5); Formula values: SUM(4.0, 8.0, 8.0);</data>
+</node>
+<edge source="03fa9c14-03f6-427a-add0-6f9027d186cd" target="3c0d9835-ee0a-4bf8-87f0-36fb50ca29f6"/>
+<edge source="3c0d9835-ee0a-4bf8-87f0-36fb50ca29f6" target="b757c1d2-ea42-4438-8d43-d06bf7769f45"/>
+<edge source="6364bb64-732f-41ab-8892-9c25c962ef30" target="49363191-ad04-46af-b2ec-a78f76ca2c37"/>
+<edge source="49363191-ad04-46af-b2ec-a78f76ca2c37" target="60fb2423-0438-4fdd-96b8-1775f3a03f34"/>
+</graph>
 </graphml>

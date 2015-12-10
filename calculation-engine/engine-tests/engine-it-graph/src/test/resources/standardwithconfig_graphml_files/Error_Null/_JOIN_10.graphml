@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="JOIN_10"/>
+<graph edgedefault="directed" id="JOIN_10_">
+<node id="981d8ba1-5370-45cc-af07-f3ee12079e0e">
+<data key="name">E6</data>
+<data key="value">21.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(5.0, 8.0, 1.0, 7.0);</data>
+</node>
+<node id="1eb23c89-1896-4c0a-b4d8-015d1a049915">
+<data key="name">A2:A5</data>
+<data key="value">[[5.0], [8.0], [1.0], [7.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: A2:A5; Formula values: [[5.0], [8.0], [1.0], [7.0]];</data>
+</node>
+<node id="54a04bf3-7b35-4e59-87c4-d049a3d773bf">
+<data key="name">SUM</data>
+<data key="value">21.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(5.0, 8.0, 1.0, 7.0);</data>
+</node>
+<node id="80112ea5-f5b8-4d75-b51d-6eb0d447281c">
+<data key="name">E10</data>
+<data key="value">20.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(B3:B5); Formula values: SUM(4.0, 8.0, 8.0);</data>
+</node>
+<node id="69be3aa4-c81e-4d36-8ba3-f99254827365">
+<data key="name">B3:B5</data>
+<data key="value">[[4.0], [8.0], [8.0]]</data>
+<data key="type">RANGE</data>
+<data key="formula">Formula string: B3:B5; Formula values: [[4.0], [8.0], [8.0]];</data>
+</node>
+<node id="d576fd30-6bf3-4e96-81bd-490441d64814">
+<data key="name">SUM</data>
+<data key="value">20.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(B3:B5); Formula values: SUM(4.0, 8.0, 8.0);</data>
+</node>
+<edge source="1eb23c89-1896-4c0a-b4d8-015d1a049915" target="54a04bf3-7b35-4e59-87c4-d049a3d773bf"/>
+<edge source="54a04bf3-7b35-4e59-87c4-d049a3d773bf" target="981d8ba1-5370-45cc-af07-f3ee12079e0e"/>
+<edge source="69be3aa4-c81e-4d36-8ba3-f99254827365" target="d576fd30-6bf3-4e96-81bd-490441d64814"/>
+<edge source="d576fd30-6bf3-4e96-81bd-490441d64814" target="80112ea5-f5b8-4d75-b51d-6eb0d447281c"/>
+</graph>
 </graphml>
