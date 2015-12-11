@@ -20,9 +20,11 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 public class DataModelId implements IDataModelId {
 
     protected final Object id;
-
-    public DataModelId(Object id) { this.id = id; }
-
-    public Object id() { return this.id; }
     
+    public DataModelId(Object id) { this.id = id; }
+    
+    public Object id() { return this.id; }
+
+    @Override public String toString() { return this.id.toString(); }
+
 }

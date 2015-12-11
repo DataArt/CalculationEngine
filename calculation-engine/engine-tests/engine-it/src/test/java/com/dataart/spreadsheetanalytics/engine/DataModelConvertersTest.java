@@ -16,7 +16,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
-public class ExcelFileConvertersTest {
+public class DataModelConvertersTest {
 
     static final String excel = "src/test/resources/datamodel/ExcelFileConverters_Test.xlsx";
 

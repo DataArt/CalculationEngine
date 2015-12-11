@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.test.evaluation.validate;
+package com.dataart.spreadsheetanalytics.test.functions.validate;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
@@ -33,7 +33,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -48,8 +47,6 @@ import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.functions.poi.data.ValidateFunction;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.CellValue;
-import com.dataart.spreadsheetanalytics.model.DataSet;
 
 public class Validate_Function_Test {
 
@@ -76,21 +73,7 @@ public class Validate_Function_Test {
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_ID_CACHE_NAME, config.setTypes(IDataModelId.class, IDataSet.class));
         cacheManager.createCache(CacheBasedDataSetAccessor.DATA_SET_TO_NAME_CACHE_NAME, config.setTypes(String.class, IDataSet.class));
         
-        final ExternalServices external = ExternalServices.INSTANCE;
-
-        DataSetAccessor dataSetStorage = new CacheBasedDataSetAccessor();
-        
-        external.setDataSetAccessor(dataSetStorage);
-
-        DataSet validationDS = new DataSet("Validation");
-        IDsRow valRow = validationDS.addRow();
-        valRow.addCell().value(CellValue.from("Message"));
-        valRow.addCell().value(CellValue.from("Severity"));
-        valRow.addCell().value(CellValue.from("Cell"));
-        valRow.addCell().value(CellValue.from("CellContent"));
-        valRow.addCell().value(CellValue.from("CellValue"));
-        
-        dataSetStorage.saveDataSet(validationDS);
+        ExternalServices.INSTANCE.setDataSetAccessor(new CacheBasedDataSetAccessor());
 
         expectedValues = new HashMap<>();
         

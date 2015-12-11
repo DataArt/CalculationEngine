@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import static com.dataart.spreadsheetanalytics.engine.Functions.getUdfFinder;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,6 +56,10 @@ final class DataModelConverters {
      */
     static IDataModel toDataModel(final Workbook workbook) throws IOException {
         if (workbook == null) { return null; }
+        
+        //add custom functions information
+        workbook.addToolPack(getUdfFinder());
+        
         Sheet s = workbook.getSheetAt(0); //TODO: only one sheet is supported
         if (s == null) { return null; }
         
@@ -61,15 +67,17 @@ final class DataModelConverters {
         
         for (int i = s.getFirstRowNum(); i <= s.getLastRowNum(); i++) {
             Row r = s.getRow(i);
-            DmRow row = r == null ? null : new DmRow(i);
-            dm.setRow(i, row);
             if (r == null) { continue; }
+            
+            DmRow row = new DmRow(i);
+            dm.setRow(i, row);
             
             for (int j = r.getFirstCellNum(); j < r.getLastCellNum(); j++) {
                 Cell c = r.getCell(j);
-                DmCell cell = c == null ? null : new DmCell();
-                row.setCell(j, cell);
                 if (c == null) { continue; }
+                
+                DmCell cell = new DmCell();
+                row.setCell(j, cell);
                 
                 cell.address(A1Address.fromRowColumn(i, j));
                 cell.alias("TODO"/*TODO*/);

@@ -16,8 +16,9 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
-import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.getEvaluationCell;
-import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.toEvaluationWorkbook;
+import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.getEvaluationCell;
+import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.toEvaluationWorkbook;
+import static com.dataart.spreadsheetanalytics.model.A1Address.fromRowColumn;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
@@ -55,7 +56,6 @@ import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder;
-import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.dataart.spreadsheetanalytics.model.EvaluationContext;
@@ -113,13 +113,12 @@ public class SpreadsheetEvaluator implements IEvaluator {
                 IDmCell cell = row.getCell(j);
                 if (cell == null) { continue; }
 
-                ICellAddress addr = A1Address.fromRowColumn(i, j);
-                ICellValue val = null;
                 try {
-                    val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, addr), (EvaluationContext) evaluationContext);                
-                    ((DmCell) cell).value(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); }
+                    ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, fromRowColumn(i, j)), (EvaluationContext) evaluationContext);                
+                    ((DmCell) cell).value(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); 
+                }
                 catch (ValuesStackNotEmptyException e) {
-                    val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), addr);
+                    ICellValue val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), fromRowColumn(i, j));
                     ((DmCell) cell).value(Optional.of(val)); 
                 }
             }

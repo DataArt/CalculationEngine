@@ -26,13 +26,24 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.dto.DataModelDto;
+import com.dataart.spreadsheetanalytics.dto.DataSetDto;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public final class Converters {
     
-    public static final String FORMULA_PREFIX = "=";
-    
     private Converters() {}
-
+    
+    /** @see DataModelDtoConverters#toDataModel(DataModelDto) */
+    public static IDataModel toDataModel(final DataModelDto dto) {
+        return DataModelDtoConverters.toDataModel(dto);
+    }
+    
+    /** @see DataModelDtoConverters#toDataModel(String) */
+    public static IDataModel toDataModel(final String json) throws IOException {
+        return DataModelDtoConverters.toDataModel(json);
+    }
+    
     /** @see DependencyExtractors#toDataModel(InputStream, ICellAddress) */
     public static IDataModel toDataModel(final InputStream workbook, final ICellAddress address) throws IOException {
         return DependencyExtractors.toDataModel(workbook, address);
@@ -56,6 +67,16 @@ public final class Converters {
     /** @see DataModelConverters#toDataModel(Workbook) */
     public static IDataModel toDataModel(final Workbook workbook) throws IOException {
         return DataModelConverters.toDataModel(workbook);
+    }
+    
+    /** @see DataSetDtoConverters#toDataSet(DataSetDto) */
+    public static IDataSet toDataSet(final DataSetDto dto) {
+        return DataSetDtoConverters.toDataSet(dto);
+    }
+    
+    /** @see DataSetDtoConverters#toDataSet(String) */
+    public static IDataSet toDataSet(final String json) throws IOException {
+        return DataSetDtoConverters.toDataSet(json);
     }
     
     /** @see DataSetConverters#toDataSet(InputStream) */
@@ -147,4 +168,65 @@ public final class Converters {
     public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(Workbook book, Class<T> metaClass) {
         return DependencyExtractors.toMetaFunctions(book, metaClass);
     }
+    
+    /** @see DataModelDtoConverters#toDataModelDto(IDataModel) */
+    public static DataModelDto toDataModelDto(final IDataModel dataModel) {
+        return DataModelDtoConverters.toDataModelDto(dataModel);
+    }
+    
+    /** @see DataModelDtoConverters#toDataModel(String) */
+    public static DataModelDto toDataModelDto(final String json) throws IOException {
+        return DataModelDtoConverters.toDataModelDto(json);
+    }
+    
+    /** @see DataSetDtoConverters#toDataSetDto(IDataSet) */
+    public static DataSetDto toDataSetDto(final IDataSet dataSet) {
+        return DataSetDtoConverters.toDataSetDto(dataSet);
+    }
+    
+    /** @see DataSetDtoConverters#toDataSetDto(String) */
+    public static DataSetDto toDataSetDto(final String json) throws IOException {
+        return DataSetDtoConverters.toDataSetDto(json);
+    }
+    
+    /** @see DataModelDtoConverters#toDataModel(DataModelDto) */
+    public static String toJsonString(final DataModelDto dto) throws IOException {
+        return DataModelDtoConverters.toJsonString(dto);
+    }
+
+    /** @see DataModelDtoConverters#toJsonString(IDataModel) */
+    public static String toJsonString(final IDataModel dataModel) throws IOException {
+        return DataModelDtoConverters.toJsonString(dataModel);
+    }
+    
+    /** @see DataSetDtoConverters#toJsonString(DataSetDto) */
+    public static String toJsonString(final DataSetDto dto) throws IOException {
+        return DataSetDtoConverters.toJsonString(dto);
+    }
+
+    /** @see DataSetDtoConverters#toJsonString(IDataSet) */
+    public static String toJsonString(final IDataSet dataSet) throws IOException {
+        return DataSetDtoConverters.toJsonString(dataSet);
+    }
+    
+    /** @see DataModelDtoConverters#toJsonObject(DataModelDto) */
+    public static ObjectNode toJsonObject(final DataModelDto dto) {
+        return DataModelDtoConverters.toJsonObject(dto);
+    }
+
+    /** @see DataModelDtoConverters#toDataModel(DataModelDto) */
+    public static ObjectNode toJsonObject(final IDataModel dataModel) {
+        return DataModelDtoConverters.toJsonObject(dataModel);
+    }
+    
+    /** @see DataSetDtoConverters#toJsonObject(DataSetDto) */
+    public static ObjectNode toJsonObject(final DataSetDto dto) {
+        return DataSetDtoConverters.toJsonObject(dto);
+    }
+
+    /** @see DataSetDtoConverters#toJsonObject(IDataSet) */
+    public static ObjectNode toJsonObject(final IDataSet dataSet) {
+        return DataSetDtoConverters.toJsonObject(dataSet);
+    }
+    
 }

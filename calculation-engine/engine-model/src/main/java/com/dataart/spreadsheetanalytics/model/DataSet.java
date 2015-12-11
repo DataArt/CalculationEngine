@@ -48,6 +48,7 @@ public class DataSet implements IDataSet {
     }
 
     @Override public IDataModelId dataModelId() { return this.dataModelId; }
+    @Override public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
     
     @Override public String name() { return this.name; }
     @Override public void name(String name) { this.name = name; }
@@ -95,4 +96,5 @@ public class DataSet implements IDataSet {
         this.rows.forEach(r -> toString.append(r).append("\n"));
         return toString.toString();
     }
+
 }

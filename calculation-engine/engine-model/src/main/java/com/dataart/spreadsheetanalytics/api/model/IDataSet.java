@@ -25,6 +25,8 @@ public interface IDataSet extends Iterable<IDsRow> {
 
     IDataModelId dataModelId();
     
+    void dataModelId(IDataModelId dataModelId);
+    
     String name();
     
     void name(String name);

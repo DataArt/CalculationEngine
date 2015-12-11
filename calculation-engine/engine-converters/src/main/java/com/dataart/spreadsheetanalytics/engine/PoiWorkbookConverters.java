@@ -78,7 +78,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
 
     public PoiProxyWorkbook(final Workbook wb) {
         ewb = XSSFEvaluationWorkbook.create(XSSFWorkbook.class.cast(wb));
-        this.sheet = makeSheet(wb, ewb);
+        this.sheet = makeSheet(wb, (FormulaParsingWorkbook) ewb);
         this.names = makeNames(wb, ewb);
     }
 
@@ -106,7 +106,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
         return names;
     }
 
-    private PoiProxySheet makeSheet(Workbook wb, EvaluationWorkbook ewb) {
+    private PoiProxySheet makeSheet(Workbook wb, FormulaParsingWorkbook ewb) {
         Sheet wbSheet = wb.getSheetAt(0);
         PoiProxySheet sheet = new PoiProxySheet(wbSheet.getSheetName());
 
@@ -119,7 +119,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
                 if (wbSheetRowCell == null) { continue; }
                 
                 final Ptg[] tokens = CELL_TYPE_FORMULA == wbSheetRowCell.getCellType()
-                        ? FormulaParser.parse(wbSheetRowCell.getCellFormula(), (FormulaParsingWorkbook) ewb, FormulaType.CELL, 0)
+                        ? FormulaParser.parse(wbSheetRowCell.getCellFormula(), ewb, FormulaType.CELL, 0)
                         : null;
                 sheet.setCell(PoiProxyCell.makeCell(sheet, wbSheetRowCell, tokens));
             }
@@ -178,6 +178,13 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
     }
 
     @Override public String getFormulaString(EvaluationCell cell) { return ((PoiProxyCell) cell).getCellFormula(); }
+
+    public void updateCell(Cell cell) {
+        if (this.sheet == null || cell == null) { return; }
+
+        this.sheet.setCell(PoiProxyCell.makeCell(this.sheet, cell, null));
+    }
+    
 }
 
 class PoiProxyCell implements EvaluationCell {

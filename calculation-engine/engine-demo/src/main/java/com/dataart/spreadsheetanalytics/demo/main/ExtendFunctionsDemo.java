@@ -16,14 +16,13 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
-import com.dataart.spreadsheetanalytics.engine.DependencyExtractors;
+import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.Functions;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.other.project.functions.ModeldefineFunction;
 
 public class ExtendFunctionsDemo {
 
@@ -75,11 +74,14 @@ class OtherFunctions extends Functions {
         Functions.add(Functions.load(OTHER_PACKAGE_FUNCTIONS));
         
         ExternalServices external = ExternalServices.INSTANCE;
-        external.getDataModelAccessor().getDataModels().values().forEach(dm -> {
-            //TODO: provide acces to DependencyExtractors
-            DependencyExtractors.toMetaFunctions(dm, ModeldefineFunction.map)
-                                .get(ModeldefineFunction.KEYWORD).values()
-                                .forEach(dfm -> external.getMetaFunctionAccessor().addDefine(dfm));
+        external.getDataModelAccessor().getAll().values().forEach(dm -> {
+            try {
+                Map<DefineFunctionMeta, IDataModel> defineModels = Converters.toMetaFunctions(dm, DefineFunctionMeta.class);
+                defineModels.forEach((k, v) -> {
+                    external.getMetaFunctionAccessor().add(k); //define meta info with link to DataModel
+                    external.getDataModelAccessor().add(v); //define model
+                });
+            } catch (Exception e) { e.printStackTrace(); }
         });
     }
 }
