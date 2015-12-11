@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import static com.dataart.spreadsheetanalytics.engine.Functions.getUdfFinder;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,6 +54,10 @@ final class DataModelConverters {
      */
     static IDataModel toDataModel(final Workbook workbook) throws IOException {
         if (workbook == null) { return null; }
+        
+        //add custom functions information
+        workbook.addToolPack(getUdfFinder());
+        
         Sheet s = workbook.getSheetAt(0); //TODO: only one sheet is supported
         if (s == null) { return null; }
         
