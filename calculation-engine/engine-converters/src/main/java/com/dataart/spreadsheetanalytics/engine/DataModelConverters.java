@@ -19,8 +19,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map.Entry;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -74,7 +76,12 @@ final class DataModelConverters {
                 cell.content(ConverterUtils.resolveCellValue(c));
             }
         }
-        
+
+        for (int nIdx = 0; nIdx < workbook.getNumberOfNames(); nIdx++) {
+            Name name = workbook.getNameAt(nIdx);
+            dm.addName(A1Address.fromA1Address(name.getRefersToFormula()), name.getNameName());
+        }
+
         return dm;
     }
     
@@ -112,7 +119,13 @@ final class DataModelConverters {
         
         Sheet wbSheet = result.getSheet(dataModel.name());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.name()); }
-        
+
+        for (Entry<A1Address, String> entry : ((DataModel) dataModel).getNames().entrySet()) {
+            Name name = result.createName();
+            name.setNameName(entry.getValue());
+            name.setRefersToFormula(entry.getKey().address());
+        }
+
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {
             IDmRow dmRow = dataModel.getRow(rowIdx);
             if (dmRow == null) { continue; }

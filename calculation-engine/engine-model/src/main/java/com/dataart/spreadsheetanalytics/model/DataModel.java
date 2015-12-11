@@ -36,6 +36,7 @@ public class DataModel implements IDataModel {
 
     protected IDataModelId dataModelId;
     protected String name;
+    protected Map<A1Address, String> names;
 
     /** Workbook (table) representation: Row index, Column index, Data {@link IDmCell} */
     protected final Map<Integer, IDmRow> table;
@@ -54,7 +55,12 @@ public class DataModel implements IDataModel {
         this.table = tableImpl;
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
         this.cellWriteLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
+        this.names = new HashMap<>();
     }
+
+    public void addName(A1Address cellAddress, String nameText) { this.names.put(cellAddress, nameText); }
+
+    public Map<A1Address, String> getNames() { return this.names; }
 
     @Override public IDataModelId dataModelId() { return this.dataModelId; }
     @Override public String name() { return this.name; }

@@ -42,6 +42,7 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.poi.common.fork.FormulaParseNameException;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.usermodel.Cell;
@@ -50,6 +51,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -59,6 +62,8 @@ import com.dataart.spreadsheetanalytics.model.DmCell;
 
 public final class ConverterUtils {
     
+    private static final Logger log = LoggerFactory.getLogger(ConverterUtils.class);
+
     public static final String FORMULA_PREFIX = "=";
     public static final Set<String> ERRORS = unmodifiableSet(new HashSet<>(asList(
                                                   NULL.getString(),
@@ -121,7 +126,15 @@ public final class ConverterUtils {
             case CELL_TYPE_BLANK: { break; }
             case CELL_TYPE_BOOLEAN: { cell.setCellValue((Boolean) value.get()); break; }
             case CELL_TYPE_NUMERIC: { cell.setCellValue((Double) value.get()); break; }
-            case CELL_TYPE_FORMULA: { cell.setCellFormula(((String) value.get()).substring(1)); break; }
+            case CELL_TYPE_FORMULA: {
+                try {
+                    cell.setCellFormula(((String) value.get()).substring(1));
+                    break;
+                } catch (FormulaParseNameException e) {
+                    log.error("Formula parsing error while trying to set formula field in cell " + e.getMessage());
+                    break;
+                }
+            }
             case CELL_TYPE_ERROR: { cell.setCellErrorValue(FormulaError.forString((String) value.get()).getCode()); break; }
             case CELL_TYPE_STRING: { cell.setCellValue((String) value.get()); break; }
             

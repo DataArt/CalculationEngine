@@ -74,9 +74,10 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
 
     private PoiProxySheet sheet; //NOPMD
     private Map<Integer, PoiProxyName> names; //NOPMD
+    EvaluationWorkbook ewb;
 
     public PoiProxyWorkbook(final Workbook wb) {
-        EvaluationWorkbook ewb = XSSFEvaluationWorkbook.create(XSSFWorkbook.class.cast(wb));
+        ewb = XSSFEvaluationWorkbook.create(XSSFWorkbook.class.cast(wb));
         this.sheet = makeSheet(wb, ewb);
         this.names = makeNames(wb, ewb);
     }
@@ -128,11 +129,24 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
     }
 
     @Override public String getSheetName(int i) { return this.sheet.getName(); }
-    @Override public int getSheetIndex(EvaluationSheet evaluationSheet) { return 0; }
-    @Override public int getSheetIndex(String s) { return 0; }
-    @Override public EvaluationSheet getSheet(int i) { return this.sheet; }
-    @Override public ExternalSheet getExternalSheet(int i) { throw new UnsupportedOperationException("Only one sheet per Workbook is supported."); }
-    @Override public ExternalSheet getExternalSheet(String firstSheetName, String lastSheetName, int externalWorkbookNumber) { return null; }
+    @Override public int getSheetIndex(EvaluationSheet evaluationSheet) {
+        return 0;
+    }
+    @Override public int getSheetIndex(String s) {
+        if (sheet.getName().equals(s)) { return 0; }
+        else { return -1; }
+    }
+    @Override public EvaluationSheet getSheet(int i) {
+        return this.sheet;
+    }
+    @Override public ExternalSheet getExternalSheet(int i) {
+        return ewb.getExternalSheet(i);
+    }
+
+    @Override public ExternalSheet getExternalSheet(String firstSheetName, String lastSheetName, int externalWorkbookNumber) {
+        return ewb.getExternalSheet(firstSheetName, lastSheetName, externalWorkbookNumber);
+    }
+
     @Override public int convertFromExternSheetIndex(int i) { return 0; }
     @Override public ExternalName getExternalName(int i, int i1) { throw new UnsupportedOperationException("external names are not supported"); }
     @Override public ExternalName getExternalName(String s, String s1, int i) { throw new UnsupportedOperationException("external names are not supported"); }
@@ -158,7 +172,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
     }
 
     @Override public UDFFinder getUDFFinder() {
-        AggregatingUDFFinder result = (AggregatingUDFFinder) UDFFinder.DEFAULT;
+        AggregatingUDFFinder result = new AggregatingUDFFinder(UDFFinder.DEFAULT);
         result.add(Functions.getUdfFinder());
         return result;
     }
