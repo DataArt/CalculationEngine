@@ -121,8 +121,7 @@ public class SpreadsheetAuditor implements IAuditor {
                 ExecutionGraph g = graphBuilder.get();
                 
                 if (g.getVertices().isEmpty()) { return buildSingleVertexGraphForCellWithValue(cv, cell); }
-
-                if (g.getVertices().isEmpty() || g.getVertices().size() == 1) {
+                if (g.getVertices().size() == 1) {
                     if (VALUE_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, VALUE_INVALID, null); }
                     if (NAME_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, NAME_INVALID, null); }
                 }
