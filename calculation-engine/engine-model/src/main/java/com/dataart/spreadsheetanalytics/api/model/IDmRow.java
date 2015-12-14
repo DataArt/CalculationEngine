@@ -33,7 +33,7 @@ public interface IDmRow extends Iterable<IDmCell> {
     int index();
     
     /** Number of cells is a row. */
-    int width();
+    int cellCount();
     
     /** Number of first column in this row. */
     int getFirstColumnIndex();

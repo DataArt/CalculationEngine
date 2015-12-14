@@ -27,19 +27,19 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 public interface IDataModel extends Iterable<IDmRow> {
 
     /** The Id of this model. Should be unique in DataModel storage. */
-    IDataModelId dataModelId();
+    IDataModelId getDataModelId();
     
     /** Sets the Id of this model. Should be unique in DataModel storage. */
-    void dataModelId(IDataModelId dataModelId);
+    void setDataModelId(IDataModelId dataModelId);
     
     /** Name of this model. Not required to be unique, but highly recommended. */
-    String name();
+    String getName();
     
     /** Name of this DataModel can always be changed. */
-    void name(String name);
+    void setName(String name);
 
     /** Number of rows in this DataModel. */
-    int length();
+    int rowCount();
     
     /** Number of first row in this sheet. */
     int getFirstRowIndex();

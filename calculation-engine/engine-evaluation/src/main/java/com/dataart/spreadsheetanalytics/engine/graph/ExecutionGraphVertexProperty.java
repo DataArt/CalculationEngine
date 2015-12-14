@@ -23,7 +23,6 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
-import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
 
 /**
  * Class represent ony property of {@link IExecutionGraphVertex}.
@@ -53,35 +52,35 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
         switch (this.pname) {
             case FORMULA_STRING: {
                 String flaStr = ((String) this.pvalue).replace("$", "");
-                ((CellFormulaExpression) this.parent.formula).formulaStr(flaStr);
+                this.parent.formula.formulaStr(flaStr);
                 break;
             }
             case INDEX_IN_FORMULA: {
-                ((CellFormulaExpression) this.parent.formula).iptg((int) this.pvalue);
+                this.parent.formula.iptg((int) this.pvalue);
                 break;
             }
             case ROOT_FORMULA_ID: {
-                ((CellFormulaExpression) this.parent.formula).rootFormulaId(this.pvalue);
+                this.parent.formula.rootFormulaId(this.pvalue);
                 break;
             }
             case FORMULA_VALUES: {
-                ((CellFormulaExpression) this.parent.formula).formulaValues((String) this.pvalue);
+                this.parent.formula.formulaValues((String) this.pvalue);
                 break;
             }
             case PTGS: {
-                ((CellFormulaExpression) this.parent.formula).ptgs((Ptg[]) this.pvalue);
+                this.parent.formula.ptgs((Ptg[]) this.pvalue);
                 break;
             }
             case FORMULA_PTG: {
-                ((CellFormulaExpression) this.parent.formula).formulaPtg((Object[]) this.pvalue);
+                this.parent.formula.formulaPtg((Object[]) this.pvalue);
                 break;
             }
             case FORMULA_PTG_STRING: {
-                ((CellFormulaExpression) this.parent.formula).formulaPtgStr((String) this.pvalue);
+                this.parent.formula.formulaPtgStr((String) this.pvalue);
                 break;                
             }
             case PTG_STRING: {
-                ((CellFormulaExpression) this.parent.formula).ptgStr((String) this.pvalue);
+                this.parent.formula.ptgStr((String) this.pvalue);
                 break;                                
             }
             case SOURCE_OBJECT_ID: {

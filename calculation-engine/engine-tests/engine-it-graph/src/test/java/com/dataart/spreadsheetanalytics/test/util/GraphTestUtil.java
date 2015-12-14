@@ -47,7 +47,6 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
@@ -66,6 +65,7 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
+import com.dataart.spreadsheetanalytics.engine.graph.CellFormulaExpression;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
@@ -228,7 +228,7 @@ public class GraphTestUtil {
                 initExternalServices(model);
                 
                 final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
-                final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+                final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
 
                 final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
@@ -271,7 +271,7 @@ public class GraphTestUtil {
         initExternalServices(model);
         
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
-        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+        final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
         final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
@@ -438,7 +438,7 @@ public class GraphTestUtil {
         cacheManager.destroyCache(DataSetOptimisationsCache.DATA_SET_TO_LAZY_PARAMETERS);
     }
     
-    public static String formulaToString(ICellFormulaExpression formula) {
+    public static String formulaToString(CellFormulaExpression formula) {
         if (formula == null) { return "null"; }
         
         return String.format("Formula string: %s; Formula values: %s;", 

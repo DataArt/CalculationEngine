@@ -23,15 +23,15 @@ package com.dataart.spreadsheetanalytics.api.model;
  */
 public interface IDataSet extends Iterable<IDsRow> {
 
-    IDataModelId dataModelId();
+    IDataModelId getDataModelId();
     
-    void dataModelId(IDataModelId dataModelId);
+    void setDataModelId(IDataModelId dataModelId);
     
-    String name();
+    String getName();
     
-    void name(String name);
+    void setName(String name);
 
-    int length();
+    int rowCount();
     
     IDsRow addRow();
     

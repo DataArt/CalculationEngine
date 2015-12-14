@@ -44,7 +44,7 @@ final class DataModelConverters {
      * Converts an {@link InputStream} to {@link IDataModel}. Uses new {@link XSSFWorkbook} as proxy.
      * @see DataModelConverters#toDataModel(Workbook)
      */
-    static IDataModel toDataModel(final InputStream workbook) throws IOException {
+    static IDataModel toDataModel(final InputStream workbook) {
         return toDataModel(ConverterUtils.newWorkbook(workbook));
     }
     
@@ -52,7 +52,7 @@ final class DataModelConverters {
      * For given {@link Workbook} does convert everything to new {@link DataModel} structure.
      * Does copy all supported fields (for supported fields see {@link DataModel} class.
      */
-    static IDataModel toDataModel(final Workbook workbook) throws IOException {
+    static IDataModel toDataModel(final Workbook workbook) {
         if (workbook == null) { return null; }
         
         //add custom functions information
@@ -89,9 +89,12 @@ final class DataModelConverters {
     /**
      * Uses {@link DataModelConverters#toXlsxFile(IDataModel, InputStream)} with null formatting (no formatting).
      */
-    static OutputStream toXlsxFile(final IDataModel dataModel) throws IOException {
+    static OutputStream toXlsxFile(final IDataModel dataModel) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        toWorkbook(dataModel, (Workbook) null).write(xlsx);
+        
+        try { toWorkbook(dataModel, (Workbook) null).write(xlsx); }
+        catch (IOException e) { throw new RuntimeException(e); }
+        
         return xlsx;
     }
     
@@ -99,27 +102,30 @@ final class DataModelConverters {
      * Uses {@link DataModelConverters#toWorkbook(IDataModel, InputStream)} with {@link ByteArrayOutputStream} as out stream
      * and new {@link XSSFWorkbook} as {@link InputStream} wrapper.
      */
-    static OutputStream toXlsxFile(final IDataModel dataModel, final InputStream formatting) throws IOException {
+    static OutputStream toXlsxFile(final IDataModel dataModel, final InputStream formatting) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        toWorkbook(dataModel, ConverterUtils.newWorkbook(formatting)).write(xlsx);
+        
+        try { toWorkbook(dataModel, ConverterUtils.newWorkbook(formatting)).write(xlsx); }
+        catch (IOException e) { throw new RuntimeException(e); }
+        
         return xlsx;
     }
     
     /**
      * Convertes plain {@link IDataModel} to plain new {@link XSSFWorkbook}.
      */
-    static Workbook toWorkbook(final IDataModel dataModel) throws IOException {
+    static Workbook toWorkbook(final IDataModel dataModel) {
         return toWorkbook(dataModel, (Workbook) null);
     }
     
     /**
      * Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided.
      */
-    static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
+    static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) {
         Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
         
-        Sheet wbSheet = result.getSheet(dataModel.name());
-        if (wbSheet == null) { wbSheet = result.createSheet(dataModel.name()); }
+        Sheet wbSheet = result.getSheet(dataModel.getName());
+        if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
         
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {
             IDmRow dmRow = dataModel.getRow(rowIdx);

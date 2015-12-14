@@ -47,13 +47,13 @@ public class DataSet implements IDataSet {
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
 
-    @Override public IDataModelId dataModelId() { return this.dataModelId; }
-    @Override public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
+    @Override public IDataModelId getDataModelId() { return this.dataModelId; }
+    @Override public void setDataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
     
-    @Override public String name() { return this.name; }
-    @Override public void name(String name) { this.name = name; }
+    @Override public String getName() { return this.name; }
+    @Override public void setName(String name) { this.name = name; }
 
-    @Override public int length() { return this.rows.size(); }
+    @Override public int rowCount() { return this.rows.size(); }
 
     @Override 
     public Iterator<IDsRow> iterator() {

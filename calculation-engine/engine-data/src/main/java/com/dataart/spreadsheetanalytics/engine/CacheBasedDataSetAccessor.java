@@ -38,68 +38,70 @@ public class CacheBasedDataSetAccessor implements DataSetAccessor {
     protected Cache<String, IDataSet> dataSetToNameCache = Caching.getCache(DATA_SET_TO_NAME_CACHE_NAME, String.class, IDataSet.class);
     
     @Override
-    public void saveDataSet(IDataSet dset) {
-        saveDataSet(dset, DataSetScope.GLOBAL);
+    public void add(IDataSet dataSet) {
+        this.add(dataSet, DataSetScope.GLOBAL);
     }
     
     @Override
-    public void saveDataSet(IDataSet dset, DataSetScope scope) {
-        if (dset == null) { return; }
-        if (dset.name() == null) { throw new IllegalArgumentException("DataSet must have a name."); }
+    public void add(IDataSet dataSet, DataSetScope scope) {
+        if (dataSet == null) { return; }
+        if (dataSet.getName() == null) { throw new IllegalArgumentException("DataSet must have a name."); }
         
         switch (scope) {
             case LOCAL: {
-                this.dataSetToNameCache.put(dset.name(), dset);
-                this.dataSetToIdCache.put(dset.dataModelId(), dset);
+                this.dataSetToNameCache.put(dataSet.getName(), dataSet);
+                this.dataSetToIdCache.put(dataSet.getDataModelId(), dataSet);
                 break;
             }
             case GLOBAL: default: {
-                this.dataSetToNameCache.put(dset.name(), dset);
-                this.dataSetToIdCache.put(dset.dataModelId(), dset);
+                this.dataSetToNameCache.put(dataSet.getName(), dataSet);
+                this.dataSetToIdCache.put(dataSet.getDataModelId(), dataSet);
                 break;
             }
         }
         
-        log.debug("Saved new DataSet {} with scope {} to DataSetStorage", dset.name(), scope);
+        log.debug("Saved new DataSet {} with scope {} to DataSetStorage", dataSet.getName(), scope);
     }
 
     @Override
-    public IDataSet getDataSet(IDataModelId dataModelId) throws Exception {
+    public IDataSet get(IDataModelId dataModelId) {
         IDataSet dset = this.dataSetToIdCache.get(dataModelId);
         if (dset == null) { throw new IllegalStateException(String.format("No DataSet with id = %s is found in DataSet storage.", dataModelId)); }
         
-        return isLazyDataSet(dset) ? ((ILazyDataSet) dset).get(Parameters.EMPTY) : dset; 
+        try { return this.isLazy(dset) ? ((ILazyDataSet) dset).get(Parameters.EMPTY) : dset; }
+        catch (Exception e) { throw new RuntimeException(e); }
     }
 
     @Override
-    public IDataSet getDataSet(String name) throws Exception {
-        return getDataSet(name, Parameters.EMPTY);
+    public IDataSet get(String dataSetName) {
+        return this.get(dataSetName, Parameters.EMPTY);
     }
     
     @Override
-    public IDataSet getDataSet(String name, Parameters parameters) throws Exception {
+    public IDataSet get(String dataSetName, Parameters parameters) {
         DataSetOptimisationsCache optimisationsCaches = ExternalServices.INSTANCE.getDataSetOptimisationsCache();
         
         if (Parameters.EMPTY != parameters && optimisationsCaches.dataSetToLazyParameters.containsKey(parameters)) {
             return optimisationsCaches.dataSetToLazyParameters.get(parameters);
         }
         
-        IDataSet dset = this.dataSetToNameCache.get(name);
-        if (dset == null) { throw new IllegalStateException(String.format("No DataSet with name = %s is found in DataSet storage.", name)); }
+        IDataSet dset = this.dataSetToNameCache.get(dataSetName);
+        if (dset == null) { throw new IllegalStateException(String.format("No DataSet with name = %s is found in DataSet storage.", dataSetName)); }
 
-        dset = isLazyDataSet(dset) ? ((ILazyDataSet) dset).get(parameters) : dset;
+        try { dset = isLazy(dset) ? ((ILazyDataSet) dset).get(parameters) : dset; }
+        catch (Exception e) { throw new RuntimeException(e); }
         
         if (Parameters.EMPTY != parameters) { optimisationsCaches.dataSetToLazyParameters.put(parameters, dset); }
         return dset;
     }
 
     @Override
-    public boolean isLazyDataSet(String name) {
-        return this.dataSetToNameCache.containsKey(name) && this.dataSetToNameCache.get(name) instanceof ILazyDataSet;
+    public boolean isLazy(String dataSetName) {
+        return this.dataSetToNameCache.containsKey(dataSetName) && this.dataSetToNameCache.get(dataSetName) instanceof ILazyDataSet;
     }
 
     @Override
-    public boolean isLazyDataSet(IDataSet dataSet) {    
+    public boolean isLazy(IDataSet dataSet) {    
         return dataSet instanceof ILazyDataSet;
     }
 

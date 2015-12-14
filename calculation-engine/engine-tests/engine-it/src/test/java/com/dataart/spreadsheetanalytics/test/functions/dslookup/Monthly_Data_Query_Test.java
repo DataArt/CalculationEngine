@@ -83,7 +83,7 @@ public class Monthly_Data_Query_Test {
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
 
         final IDataSet dataSet = Converters.toDataSet(new XSSFWorkbook(pathDataSet));
-        dataSetStorage.saveDataSet(dataSet);
+        dataSetStorage.add(dataSet);
 
         expectedValues = new HashMap<>();
         

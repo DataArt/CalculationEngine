@@ -111,13 +111,13 @@ public class Skills_Sql_Table_Test {
         external.setMetaFunctionAccessor(attributeFunctionStorage);
         external.setDataSetOptimisationsCache(new DataSetOptimisationsCache());
         
-        dataSourceHub.addDataSource(new TempSqlDataSource());
+        dataSourceHub.add(new TempSqlDataSource());
 
-        dataSetStorage.saveDataSet(new SqlDataSet("AllSkills", "SELECT * FROM skills"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsInCity", "SELECT * FROM skills WHERE CITY = '?' OR CITY = '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForQualification", "SELECT FirstName, LastName FROM skills WHERE Qualification = '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForNotLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish is not ?"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLevelOfEnglish", "SELECT FirstName, LastName, Level FROM skills WHERE LevelOfEnglish in (?, ?, ?)"));
+        dataSetStorage.add(new SqlDataSet("AllSkills", "SELECT * FROM skills"));
+        dataSetStorage.add(new SqlDataSet("SkillsInCity", "SELECT * FROM skills WHERE CITY = '?' OR CITY = '?'"));
+        dataSetStorage.add(new SqlDataSet("SkillsForQualification", "SELECT FirstName, LastName FROM skills WHERE Qualification = '?'"));
+        dataSetStorage.add(new SqlDataSet("SkillsForNotLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish is not ?"));
+        dataSetStorage.add(new SqlDataSet("SkillsForLevelOfEnglish", "SELECT FirstName, LastName, Level FROM skills WHERE LevelOfEnglish in (?, ?, ?)"));
 
         expectedValues = new HashMap<>();
         
@@ -160,24 +160,24 @@ public class Skills_Sql_Table_Test {
         //And check that local DataSets are saved to storage (when they need to be removed?)
         final DataSetAccessor dsStorage = ExternalServices.INSTANCE.getDataSetAccessor();
         
-        IDataSet dsA2 = dsStorage.getDataSet("A2");
+        IDataSet dsA2 = dsStorage.get("A2");
         assertThat(dsA2).isNotNull();
-        assertThat(dsA2.length()).isEqualTo(16);
-        IDataSet dsA3 = dsStorage.getDataSet("A3");
+        assertThat(dsA2.rowCount()).isEqualTo(16);
+        IDataSet dsA3 = dsStorage.get("A3");
         assertThat(dsA3).isNotNull();
-        assertThat(dsA3.length()).isEqualTo(16);
-        IDataSet dsA5 = dsStorage.getDataSet("A5");
+        assertThat(dsA3.rowCount()).isEqualTo(16);
+        IDataSet dsA5 = dsStorage.get("A5");
         assertThat(dsA5).isNotNull();
-        assertThat(dsA5.length()).isEqualTo(7);
-        IDataSet dsA7 = dsStorage.getDataSet("A7");
+        assertThat(dsA5.rowCount()).isEqualTo(7);
+        IDataSet dsA7 = dsStorage.get("A7");
         assertThat(dsA7).isNotNull();
-        assertThat(dsA7.length()).isEqualTo(9);
-        IDataSet dsA9 = dsStorage.getDataSet("A9");
+        assertThat(dsA7.rowCount()).isEqualTo(9);
+        IDataSet dsA9 = dsStorage.get("A9");
         assertThat(dsA9).isNotNull();
-        assertThat(dsA9.length()).isEqualTo(9);
-        IDataSet dsA11 = dsStorage.getDataSet("A11");
+        assertThat(dsA9.rowCount()).isEqualTo(9);
+        IDataSet dsA11 = dsStorage.get("A11");
         assertThat(dsA11).isNotNull();
-        assertThat(dsA11.length()).isEqualTo(4);
+        assertThat(dsA11.rowCount()).isEqualTo(4);
     }
     
     @Test
@@ -194,10 +194,10 @@ public class Skills_Sql_Table_Test {
         evaluator.evaluate(A16);
         
         //when
-        IDataSet AllSkills_DS = ExternalServices.INSTANCE.getDataSetAccessor().getDataSet("AllSkills");
-        IDataSet A14_DS = ExternalServices.INSTANCE.getDataSetAccessor().getDataSet("A14");
-        IDataSet A15_DS = ExternalServices.INSTANCE.getDataSetAccessor().getDataSet("A15");
-        IDataSet A16_DS = ExternalServices.INSTANCE.getDataSetAccessor().getDataSet("A16");
+        IDataSet AllSkills_DS = ExternalServices.INSTANCE.getDataSetAccessor().get("AllSkills");
+        IDataSet A14_DS = ExternalServices.INSTANCE.getDataSetAccessor().get("A14");
+        IDataSet A15_DS = ExternalServices.INSTANCE.getDataSetAccessor().get("A15");
+        IDataSet A16_DS = ExternalServices.INSTANCE.getDataSetAccessor().get("A16");
         
         //then
         assertThat(AllSkills_DS).isInstanceOf(DataSet.class);

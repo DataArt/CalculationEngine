@@ -150,7 +150,7 @@ public class ValidateWithFuncexec_Function_Test {
 
         //then
         assertThat(validationDS).isNotNull();
-        assertThat(validationDS.length()).isEqualTo(13 + 1);
+        assertThat(validationDS.rowCount()).isEqualTo(13 + 1);
         
         //check validation set
         for (int i = 0; i < expected_set.length; i++) {

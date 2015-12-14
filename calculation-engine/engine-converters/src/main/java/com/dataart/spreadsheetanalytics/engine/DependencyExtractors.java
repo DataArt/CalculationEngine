@@ -24,7 +24,6 @@ import static org.apache.poi.ss.formula.FormulaType.CELL;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 import static org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook.create;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -49,20 +48,20 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
-public final class DependencyExtractors {
+final class DependencyExtractors {
     private static final Logger log = LoggerFactory.getLogger(DependencyExtractors.class);
     
     private DependencyExtractors() {}
 
-    static IDataModel toDataModel(final IDataModel book, final ICellAddress address) throws IOException {
+    static IDataModel toDataModel(final IDataModel book, final ICellAddress address) {
         return toDataModel(DataModelConverters.toWorkbook(book), address);
     }
     
-    static IDataModel toDataModel(final InputStream book, final ICellAddress address) throws IOException {
+    static IDataModel toDataModel(final InputStream book, final ICellAddress address) {
         return toDataModel(ConverterUtils.newWorkbook(book), address);
     }
     
-    static IDataModel toDataModel(final Workbook book, final ICellAddress address) throws IOException {
+    static IDataModel toDataModel(final Workbook book, final ICellAddress address) {
         if (book == null || address == null) { return null; }
         if (address instanceof A1RangeAddress) { throw new IllegalArgumentException("A1RangeAddress is not supported, only one cell can be converted to DataModel."); }
         
@@ -75,11 +74,11 @@ public final class DependencyExtractors {
         return createDataModelFromCell(s, create((XSSFWorkbook) book), fromRowColumn(c.getRowIndex(), c.getColumnIndex()));
     }
     
-    static List<IDataModel> toDataModels(final IDataModel book, final String function) throws IOException {
+    static List<IDataModel> toDataModels(final IDataModel book, final String function) {
         return toDataModels(DataModelConverters.toWorkbook(book), function);
     }
     
-    static List<IDataModel> toDataModels(final InputStream book, final String function) throws IOException {
+    static List<IDataModel> toDataModels(final InputStream book, final String function) {
         return toDataModels(ConverterUtils.newWorkbook(book), function);
     }
     
@@ -104,11 +103,11 @@ public final class DependencyExtractors {
         return list;
     }
     
-    static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(IDataModel book, Class<T> metaClass) throws IOException {
+    static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(IDataModel book, Class<T> metaClass) {
         return toMetaFunctions(DataModelConverters.toWorkbook(book), metaClass);
     }
     
-    static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(InputStream book, Class<T> metaClass) throws IOException {
+    static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(InputStream book, Class<T> metaClass) {
         return toMetaFunctions(ConverterUtils.newWorkbook(book), metaClass);    
     }
 
@@ -182,8 +181,8 @@ public final class DependencyExtractors {
     
     static <T extends FunctionMeta> T createAttributeFunctionMeta(Class<T> metaClass, String formula, IDataModel model) throws Exception {
         T meta = (T) metaClass.newInstance().parse(formula);
-        meta.dataModelId(model.dataModelId());
-        if (meta.name() == null) { meta.name(model.name()); }
+        meta.dataModelId(model.getDataModelId());
+        if (meta.name() == null) { meta.name(model.getName()); }
 
         return meta;
     }

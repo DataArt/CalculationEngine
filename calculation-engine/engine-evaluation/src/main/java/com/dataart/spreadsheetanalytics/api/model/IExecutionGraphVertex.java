@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
+import com.dataart.spreadsheetanalytics.engine.graph.CellFormulaExpression;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 
 /**
@@ -54,7 +55,7 @@ public interface IExecutionGraphVertex extends Comparable<IExecutionGraphVertex>
      * there should be some kind of a expression to evaluate.
      * E.g. formula can be: 1, A1, A1+A2, A1+1, IF(A1=A2,A3,A4), etc.
      */
-    ICellFormulaExpression formula();
+    CellFormulaExpression formula();
 
     /**
      * Container for vertex value. Value can be in different types,

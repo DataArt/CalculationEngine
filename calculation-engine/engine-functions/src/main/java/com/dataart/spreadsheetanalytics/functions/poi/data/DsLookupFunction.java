@@ -107,7 +107,7 @@ public class DsLookupFunction implements ICustomFunction {
         }
 
         IDataSet dataSet;
-        try { dataSet = this.external.getDataSetAccessor().getDataSet(datasetName); }
+        try { dataSet = this.external.getDataSetAccessor().get(datasetName); }
         catch (Exception e) {
             log.error("The DataSet with name = {} cannot be found\retrived from DataSet storage.", datasetName);
             return ErrorEval.NA;
@@ -141,7 +141,7 @@ public class DsLookupFunction implements ICustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
         
-        DsLookupParameters parameters = new DsLookupParameters(dataSet.name(), indexToValue, columnIndex);
+        DsLookupParameters parameters = new DsLookupParameters(dataSet.getName(), indexToValue, columnIndex);
         List<ValueEval> fetchedValues = fetchValuesWithOptimisations(parameters);
         
         if (fetchedValues == null) {

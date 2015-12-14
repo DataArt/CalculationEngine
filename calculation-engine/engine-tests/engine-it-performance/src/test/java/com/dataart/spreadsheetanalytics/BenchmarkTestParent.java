@@ -67,7 +67,7 @@ public class BenchmarkTestParent {
                                             .measurementIterations(5)
                                             .timeout(TimeValue.seconds(30))
                                             .threads(2)
-                                            .forks(1) //0 for debug, 1 for run
+                                            .forks(0) //0 for debug, 1 for run
                                             .shouldFailOnError(true)
                                             .shouldDoGC(true) //because of graph
                                             .addProfiler(profilers.FlightRecordingProfiler.class);

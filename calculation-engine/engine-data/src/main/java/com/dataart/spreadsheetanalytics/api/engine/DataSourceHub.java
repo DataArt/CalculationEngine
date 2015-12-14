@@ -23,13 +23,13 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 
 public interface DataSourceHub {
 
-    void addDataSource(DataSource dataSource);
+    void add(DataSource dataSource);
     
-    void removeDataSource(DataSource dataSource);
+    void remove(DataSource dataSource);
     
-    void removeDataSource(String dataSourceName);
+    void remove(String dataSourceName);
     
-    DataSource getDataSource(String dataSourceName);
+    DataSource get(String dataSourceName);
 
     IDataSet executeQuery(String dataSourceName, DataSourceQuery query, List<Object> params) throws Exception;
 }

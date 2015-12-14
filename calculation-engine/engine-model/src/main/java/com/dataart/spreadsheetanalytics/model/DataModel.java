@@ -56,11 +56,11 @@ public class DataModel implements IDataModel {
         this.cellWriteLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }
 
-    @Override public IDataModelId dataModelId() { return this.dataModelId; }
-    @Override public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
+    @Override public IDataModelId getDataModelId() { return this.dataModelId; }
+    @Override public void setDataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
 
-    @Override public String name() { return this.name; }
-    @Override public void name(String name) { this.name = name; }
+    @Override public String getName() { return this.name; }
+    @Override public void setName(String name) { this.name = name; }
 
     @Override public Iterator<IDmRow> iterator() {
         return this.table.entrySet()
@@ -131,7 +131,7 @@ public class DataModel implements IDataModel {
         if (address != null ) { this.setCell(address.row(), address.column(), cell); }
     }
     
-    @Override public int length() { return this.table.size(); }
+    @Override public int rowCount() { return this.table.size(); }
 
     @Override
     public int getFirstRowIndex() {

@@ -68,19 +68,20 @@ final class DataModelDtoConverters {
         dto.table = table;
         dto.result = result;
         
-        dto.dataModelId = dataModel.dataModelId().toString();
-        dto.name = dataModel.name();
+        dto.dataModelId = dataModel.getDataModelId().toString();
+        dto.name = dataModel.getName();
         
         return dto;
     }
     
-    static DataModelDto toDataModelDto(final String json) throws IOException {
-        return mapper.readValue(json, DataModelDto.class);
+    static DataModelDto toDataModelDto(final String json) {
+        try { return mapper.readValue(json, DataModelDto.class); }
+        catch (IOException e) { throw new RuntimeException(e); }
     }
     
     static IDataModel toDataModel(final DataModelDto dto) {
         IDataModel dataModel = new DataModel(dto.name);
-        dataModel.dataModelId(new DataModelId(dto.dataModelId));
+        dataModel.setDataModelId(new DataModelId(dto.dataModelId));
         
         for (Entry<String, Object> cell : dto.table.entrySet()) {
             ICellAddress address = A1Address.fromA1Address(cell.getKey());
@@ -107,15 +108,16 @@ final class DataModelDtoConverters {
         return dataModel;
     }
     
-    static IDataModel toDataModel(final String json) throws IOException {
+    static IDataModel toDataModel(final String json) {
         return toDataModel(toDataModelDto(json));
     }
     
-    static String toJsonString(final DataModelDto dto) throws IOException {
-        return mapper.writeValueAsString(dto);
+    static String toJsonString(final DataModelDto dto) {
+        try { return mapper.writeValueAsString(dto); }
+        catch (IOException e) { throw new RuntimeException(e); }
     }
 
-    static String toJsonString(final IDataModel dataModel) throws IOException {
+    static String toJsonString(final IDataModel dataModel) {
         return toJsonString(toDataModelDto(dataModel));
     }
     

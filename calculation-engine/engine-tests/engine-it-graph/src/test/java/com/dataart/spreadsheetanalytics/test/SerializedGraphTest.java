@@ -54,7 +54,7 @@ public abstract class SerializedGraphTest {
         GraphTestUtil.initExternalServices(model);
         
         final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
-        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(address));
+        final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
         //build
         graph = auditor.buildExecutionGraph(addr);

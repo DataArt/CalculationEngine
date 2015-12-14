@@ -44,11 +44,11 @@ public class ExtendFunctionsDemo {
         //evaluate and save to map to print later
         Map<String, Object> values = new LinkedHashMap<>();
         for (String cell : cellsToEvaluate) {
-            values.put(cell, evaluator.evaluate(new CellAddress(model.dataModelId(), A1Address.fromA1Address(cell))));
+            values.put(cell, evaluator.evaluate(new CellAddress(model.getDataModelId(), A1Address.fromA1Address(cell))));
         }
 
         //last cell
-        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1)));
+        final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1)));
 
         //create Auditor
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);

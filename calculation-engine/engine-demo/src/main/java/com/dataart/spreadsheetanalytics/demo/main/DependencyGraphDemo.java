@@ -45,7 +45,7 @@ public class DependencyGraphDemo {
         //prepare DataModel to work with
         final IDataModel model = Converters.toDataModel(new XSSFWorkbook(excel));
                 
-        final ICellAddress addr = new CellAddress(model.dataModelId(), A1Address.fromA1Address(graphCell));
+        final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(graphCell));
 
         final IEvaluator evaluator = new SpreadsheetEvaluator(model);
         final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
