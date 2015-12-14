@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D7">
-<node id="eb43d323-6674-4bf4-b25c-ff294b5236fa">
+<node id="6cfbd5a3-b884-48a4-9232-6e723ac55225">
 <data key="name">D7</data>
-<data key="value">TRUE</data>
+<data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISBLANK(C5); Formula values: ISBLANK();</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(0.0);</data>
 </node>
-<node id="80e1d1ea-4c1a-46a3-8e3d-9afc87dfe38c">
+<node id="d441d97f-6c7c-4d0e-a585-dd7428a80605">
 <data key="name">C5</data>
-<data key="value"/>
-<data key="type">EMPTY_CELL</data>
-<data key="formula">Formula string: C5; Formula values: ;</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_REFERENCE</data>
+<data key="formula">Formula string: VALUE; Formula values: 0.0;</data>
 </node>
-<node id="d478d249-b7e5-433d-b164-ae2c822eac27">
+<node id="bce61dc8-4545-4289-b4b9-71754cc79df4">
+<data key="name">VALUE</data>
+<data key="value">0.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 0.0;</data>
+</node>
+<node id="f2b614fa-d12c-4f3e-8185-1111a914ea48">
 <data key="name">ISBLANK</data>
-<data key="value">TRUE</data>
+<data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISBLANK(C5); Formula values: ISBLANK();</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(0.0);</data>
 </node>
-<edge source="80e1d1ea-4c1a-46a3-8e3d-9afc87dfe38c" target="d478d249-b7e5-433d-b164-ae2c822eac27"/>
-<edge source="d478d249-b7e5-433d-b164-ae2c822eac27" target="eb43d323-6674-4bf4-b25c-ff294b5236fa"/>
+<edge source="bce61dc8-4545-4289-b4b9-71754cc79df4" target="d441d97f-6c7c-4d0e-a585-dd7428a80605"/>
+<edge source="d441d97f-6c7c-4d0e-a585-dd7428a80605" target="f2b614fa-d12c-4f3e-8185-1111a914ea48"/>
+<edge source="f2b614fa-d12c-4f3e-8185-1111a914ea48" target="6cfbd5a3-b884-48a4-9232-6e723ac55225"/>
 </graph>
 </graphml>

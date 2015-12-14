@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
+import java.util.Map;
+
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 /**
@@ -24,7 +26,7 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
  * 
  * Basic implementation: {@link DataModel}.
  */
-public interface IDataModel extends Iterable<IDmRow> {
+public interface IDataModel extends Iterable<IDmRow> /* TODO, Spliterator<IDmRow>*/ {
 
     /** The Id of this model. Should be unique in DataModel storage. */
     IDataModelId getDataModelId();
@@ -70,5 +72,14 @@ public interface IDataModel extends Iterable<IDmRow> {
     
     /** Sets the Cell at given position. Creates a new Row if Row does not exist. */
     void setCell(ICellAddress address, IDmCell cell);
+
+    /** Gets String alias for CellAddress */
+    String getCellAlias(ICellAddress cellAddress);
+    
+    /** Sets String alias for CellAddress */
+    void setCellAlias(ICellAddress address, String alias);
+
+    /** Returns all available Cell Aliases */
+    Map<ICellAddress, String> getCellAliases();
 
 }

@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,6 +37,7 @@ public class DataModel implements IDataModel {
 
     protected IDataModelId dataModelId;
     protected String name;
+    protected Map<ICellAddress, String> names;
 
     /** Workbook (table) representation: Row index, Column index, Data {@link IDmCell} */
     protected final Map<Integer, IDmRow> table;
@@ -54,11 +56,12 @@ public class DataModel implements IDataModel {
         this.table = tableImpl;
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
         this.cellWriteLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
+        this.names = new HashMap<>();
     }
 
     @Override public IDataModelId getDataModelId() { return this.dataModelId; }
     @Override public void setDataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
-
+    
     @Override public String getName() { return this.name; }
     @Override public void setName(String name) { this.name = name; }
 
@@ -141,6 +144,21 @@ public class DataModel implements IDataModel {
     @Override
     public int getLastRowIndex() {
         return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
+    }
+    
+    @Override
+    public void setCellAlias(ICellAddress cellAddress, String nameText) {
+        this.names.put(cellAddress, nameText);
+    }
+
+    @Override
+    public String getCellAlias(ICellAddress cellAddress) {
+        return this.names.get(cellAddress);
+    }
+
+    @Override
+    public Map<ICellAddress, String> getCellAliases() {
+        return Collections.<ICellAddress, String>unmodifiableMap(this.names);
     }
 
     @Override

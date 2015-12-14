@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-public interface IDmRow extends Iterable<IDmCell> {
+public interface IDmRow extends Iterable<IDmCell> /*TODO, Spliterator<IDmCell>*/ {
 
     /** Returns a cell at given column. */
     IDmCell getCell(int cellIdx);

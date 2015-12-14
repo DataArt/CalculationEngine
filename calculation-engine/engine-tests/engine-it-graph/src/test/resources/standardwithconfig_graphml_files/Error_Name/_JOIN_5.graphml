@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_5_">
-<node id="117139cc-3021-463c-84c6-955067f00f96">
+<node id="59b6418e-ad49-4091-8d21-998ca163e4b5">
 <data key="name">B2</data>
-<data key="value"/>
+<data key="value">0.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: CONCATENATE(A2, A1); Formula values: CONCATENATE(, );</data>
+<data key="formula">Formula string: VALUE; Formula values: 0.0;</data>
 </node>
-<node id="b4a7d913-506d-4ab5-9f4b-b7353b3b0383">
-<data key="name">A1</data>
-<data key="value"/>
-<data key="type">EMPTY_CELL</data>
-<data key="formula">Formula string: A1; Formula values: ;</data>
+<node id="1d5a3127-fb1e-4f11-8c5c-7ae3e96f129b">
+<data key="name">VALUE</data>
+<data key="value">0.0</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 0.0;</data>
 </node>
-<node id="3e3ad7c9-8013-4283-82fc-46f6464baade">
-<data key="name">A2</data>
-<data key="value"/>
-<data key="type">EMPTY_CELL</data>
-<data key="formula">Formula string: A2; Formula values: ;</data>
-</node>
-<node id="76b1805b-09b0-4193-9483-3d648b9e8c0e">
-<data key="name">CONCATENATE</data>
-<data key="value"/>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: CONCATENATE(A2, A1); Formula values: CONCATENATE(, );</data>
-</node>
-<edge source="3e3ad7c9-8013-4283-82fc-46f6464baade" target="76b1805b-09b0-4193-9483-3d648b9e8c0e"/>
-<edge source="b4a7d913-506d-4ab5-9f4b-b7353b3b0383" target="76b1805b-09b0-4193-9483-3d648b9e8c0e"/>
-<edge source="76b1805b-09b0-4193-9483-3d648b9e8c0e" target="117139cc-3021-463c-84c6-955067f00f96"/>
+<edge source="1d5a3127-fb1e-4f11-8c5c-7ae3e96f129b" target="59b6418e-ad49-4091-8d21-998ca163e4b5"/>
 </graph>
 </graphml>

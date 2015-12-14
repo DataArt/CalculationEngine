@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -82,7 +83,12 @@ final class DataModelConverters {
                 cell.content(ConverterUtils.resolveCellValue(c));
             }
         }
-        
+
+        for (int nIdx = 0; nIdx < workbook.getNumberOfNames(); nIdx++) {
+            Name name = workbook.getNameAt(nIdx);
+            dm.setCellAlias(A1Address.fromA1Address(name.getRefersToFormula()), name.getNameName());
+        }
+
         return dm;
     }
     
@@ -126,7 +132,7 @@ final class DataModelConverters {
         
         Sheet wbSheet = result.getSheet(dataModel.getName());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
-        
+
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {
             IDmRow dmRow = dataModel.getRow(rowIdx);
             if (dmRow == null) { continue; }
@@ -143,6 +149,13 @@ final class DataModelConverters {
                 ConverterUtils.populateCellValue(wbCell, dmCell.content());
             }
         }
+        
+        dataModel.getCellAliases().forEach((k, v) -> {
+            Name name = result.createName();
+            name.setNameName(v);
+            name.setRefersToFormula(k.a1Address().address());
+        });
+        
         return result;
     }
 

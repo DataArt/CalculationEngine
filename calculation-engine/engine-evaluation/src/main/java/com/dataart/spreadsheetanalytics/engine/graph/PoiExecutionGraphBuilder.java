@@ -422,7 +422,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             } else if (this.dgraph.incomingEdgesOf(vertex).size() > 1) {
                 vertex.type = CELL_WITH_FORMULA;
             }
-          }
+        }
     }
 
     protected void checkForEmptyValues(ExecutionGraphVertex vertex) {
@@ -561,8 +561,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected Set<ExecutionGraphVertex> getParents(ExecutionGraphVertex vertex) {
         Set<ExecutionGraphVertex> retvals = new HashSet<>();
-        for (ExecutionGraphEdge edge : this.dgraph.outgoingEdgesOf(vertex)) 
-            { retvals.add(this.dgraph.getEdgeTarget(edge)); }
+        Set<ExecutionGraphEdge> edges = this.dgraph.outgoingEdgesOf(vertex);
+        for (ExecutionGraphEdge edge : edges) { retvals.add(this.dgraph.getEdgeTarget(edge)); }
+        return retvals;
+    }
+
+    protected Set<ExecutionGraphVertex> getChildren(ExecutionGraphVertex vertex) {
+        Set<ExecutionGraphVertex> retvals = new HashSet<>();
+        Set<ExecutionGraphEdge> edges = this.dgraph.incomingEdgesOf(vertex);
+        for (ExecutionGraphEdge edge : edges) { retvals.add(this.dgraph.getEdgeSource(edge)); }
         return retvals;
     }
 
@@ -672,6 +679,16 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 for (IExecutionGraphVertex ivrt : getVerticesFromCache(addr)) {
                     ExecutionGraphVertex vrt = (ExecutionGraphVertex) ivrt;
                     vrt.alias = entry.getKey();
+                }
+            }
+            Set<IExecutionGraphVertex> namedVertices = getVerticesFromCache(entry.getKey());
+            if (namedVertices != null) {
+                for (IExecutionGraphVertex inamedVertex : namedVertices) {
+                    ExecutionGraphVertex namedVertex = (ExecutionGraphVertex) inamedVertex;
+                    for (ExecutionGraphVertex parent : getParents(namedVertex)) {
+                        for (ExecutionGraphVertex child : getChildren(namedVertex)) { connect(child, parent); }
+                    }
+                    removeVertex(namedVertex);
                 }
             }
         }

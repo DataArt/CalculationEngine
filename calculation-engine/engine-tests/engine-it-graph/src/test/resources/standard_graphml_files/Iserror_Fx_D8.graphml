@@ -1,46 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D8">
-<node id="987f95ce-e598-48cb-860d-5f8e07081663">
+<node id="1319ea77-703c-4b19-a6a4-c41f1ec0e46c">
 <data key="name">D8</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(SUM(VALUE, A1)); Formula values: ISERROR(SUM(76.0, 5.0));</data>
+<data key="formula">Formula string: ISERROR(VALUE); Formula values: ISERROR(0.0);</data>
 </node>
-<node id="618eccb0-e79e-41b6-bb48-0d6f0f692016">
+<node id="edc5757e-22f6-4003-b15d-45cf7a4159fd">
 <data key="name">D3</data>
-<data key="value">81.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(VALUE, A1); Formula values: SUM(76.0, 5.0);</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_REFERENCE</data>
+<data key="formula">Formula string: VALUE; Formula values: 0.0;</data>
 </node>
-<node id="2e5f1f3c-5506-486a-a5f2-f93dac3d44c7">
-<data key="name">A1</data>
-<data key="value">5.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A1; Formula values: 5.0;</data>
-</node>
-<node id="4b9d4a92-a462-4854-9793-194066bcdae9">
+<node id="09025245-13fa-4955-83c8-e700ad2cc10a">
 <data key="name">VALUE</data>
-<data key="value">76.0</data>
+<data key="value">0.0</data>
 <data key="type">CONSTANT_VALUE</data>
-<data key="formula">Formula string: VALUE; Formula values: 76.0;</data>
+<data key="formula">Formula string: VALUE; Formula values: 0.0;</data>
 </node>
-<node id="247227d8-2973-41b7-ae67-6ba6359534f0">
-<data key="name">SUM</data>
-<data key="value">81.0</data>
-<data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(VALUE, A1); Formula values: SUM(76.0, 5.0);</data>
-</node>
-<node id="8ad5cfa8-0127-4245-8ee0-59b654be85eb">
+<node id="add19052-73f2-46b9-94dc-c75a212c8794">
 <data key="name">ISERROR</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(SUM(VALUE, A1)); Formula values: ISERROR(SUM(76.0, 5.0));</data>
+<data key="formula">Formula string: ISERROR(VALUE); Formula values: ISERROR(0.0);</data>
 </node>
-<edge source="4b9d4a92-a462-4854-9793-194066bcdae9" target="247227d8-2973-41b7-ae67-6ba6359534f0"/>
-<edge source="2e5f1f3c-5506-486a-a5f2-f93dac3d44c7" target="247227d8-2973-41b7-ae67-6ba6359534f0"/>
-<edge source="247227d8-2973-41b7-ae67-6ba6359534f0" target="618eccb0-e79e-41b6-bb48-0d6f0f692016"/>
-<edge source="618eccb0-e79e-41b6-bb48-0d6f0f692016" target="8ad5cfa8-0127-4245-8ee0-59b654be85eb"/>
-<edge source="8ad5cfa8-0127-4245-8ee0-59b654be85eb" target="987f95ce-e598-48cb-860d-5f8e07081663"/>
+<edge source="09025245-13fa-4955-83c8-e700ad2cc10a" target="edc5757e-22f6-4003-b15d-45cf7a4159fd"/>
+<edge source="edc5757e-22f6-4003-b15d-45cf7a4159fd" target="add19052-73f2-46b9-94dc-c75a212c8794"/>
+<edge source="add19052-73f2-46b9-94dc-c75a212c8794" target="1319ea77-703c-4b19-a6a4-c41f1ec0e46c"/>
 </graph>
 </graphml>
