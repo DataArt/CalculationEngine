@@ -18,7 +18,6 @@ package com.dataart.spreadsheetanalytics.engine.graph;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.ptgToString;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 
-import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -52,17 +51,12 @@ public class PoiDependencyGraphBuilder {
     protected final DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> state;
 
     protected PoiDependencyGraphBuilder(IDataModel model) {
-        try {
-            this.poiBook = Converters.toWorkbook(model);
-            this.poiFormulaBook = XSSFEvaluationWorkbook.create((XSSFWorkbook) this.poiBook);
-            this.state = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e); //TODO: remove Workbook, build graph on IDataModel
-        }
+        this.poiBook = Converters.toWorkbook(model);
+        this.poiFormulaBook = XSSFEvaluationWorkbook.create((XSSFWorkbook) this.poiBook);
+        this.state = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
     }
     
     public static IExecutionGraph buildDependencyGraph(IDataModel dataModel) {
-        
         return null;
     }
     

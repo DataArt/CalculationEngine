@@ -39,7 +39,7 @@ public class CacheBasedDataSourceHub implements DataSourceHub {
     public IDataSet executeQuery(String dataSourceName, DataSourceQuery query, List<Object> params) throws Exception {
         log.debug("Execute data query for DataSource: {} and Query: {}", dataSourceName, query);
         
-        DataSource ds = getDataSource(dataSourceName);
+        DataSource ds = this.get(dataSourceName);
         
         if (ds == null) {
             IllegalStateException e = new IllegalStateException(String.format("DataSource with name %s is not found.", dataSourceName));
@@ -51,24 +51,24 @@ public class CacheBasedDataSourceHub implements DataSourceHub {
     }
     
     @Override
-    public void addDataSource(DataSource sqlDataSource) {
+    public void add(DataSource sqlDataSource) {
         this.dataSourceCache.put(sqlDataSource.name() == null ? "" : sqlDataSource.name(), sqlDataSource);
         log.debug("Added DataSource with name {}", sqlDataSource.name());
     }
 
     @Override
-    public void removeDataSource(DataSource dataSource) {
+    public void remove(DataSource dataSource) {
         if (dataSource == null) { return; }
         this.dataSourceCache.remove(dataSource.name() == null ? "" : dataSource.name());
     }
 
     @Override
-    public void removeDataSource(String dataSourceName) {
+    public void remove(String dataSourceName) {
         this.dataSourceCache.remove(dataSourceName == null ? "" : dataSourceName);
     }
 
     @Override
-    public DataSource getDataSource(String dataSourceName) {
+    public DataSource get(String dataSourceName) {
         return this.dataSourceCache.get(dataSourceName == null ? "" : dataSourceName);
     }
 

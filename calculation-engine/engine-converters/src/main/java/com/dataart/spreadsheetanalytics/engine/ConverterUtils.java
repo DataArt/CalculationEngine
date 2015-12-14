@@ -62,7 +62,6 @@ import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 
 public final class ConverterUtils {
-    
     private static final Logger log = LoggerFactory.getLogger(ConverterUtils.class);
 
     public static final String FORMULA_PREFIX = "=";
@@ -82,9 +81,12 @@ public final class ConverterUtils {
     /**
      * {@link #clearContent(Workbook)} with new {@link ConverterUtils#newWorkbook(InputStream)}.
      */
-    static OutputStream clearContent(InputStream workbook) throws IOException {
+    static OutputStream clearContent(InputStream workbook) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        clearContent(ConverterUtils.newWorkbook(workbook)).write(xlsx);
+        
+        try { clearContent(ConverterUtils.newWorkbook(workbook)).write(xlsx); }
+        catch (IOException e) { throw new RuntimeException(e); }
+        
         return xlsx;
     }
     
@@ -92,9 +94,12 @@ public final class ConverterUtils {
      * Gets an instance of a Workbook ({@link ConverterUtils#newWorkbook(InputStream)}, creates copy of original file, 
      * clears all the cell values, but preserves formatting.
      */
-    static Workbook clearContent(final Workbook book) throws IOException {
+    static Workbook clearContent(final Workbook book) {
         ByteArrayOutputStream originalOut = new ByteArrayOutputStream();
-        book.write(originalOut);
+        
+        try { book.write(originalOut); }
+        catch (IOException e) { throw new RuntimeException(e); }
+        
         InputStream originalIn = new ByteArrayInputStream(copyOf(originalOut.toByteArray(), originalOut.size()));
 
         Workbook w = ConverterUtils.newWorkbook(originalIn);
@@ -245,10 +250,12 @@ public final class ConverterUtils {
     }
 
     /** Creates an instance of new {@link XSSFWorkbook} from {@link InputStream}. */
-    public static Workbook newWorkbook(InputStream original) throws IOException {
-        Workbook book = new XSSFWorkbook(original);
-        book.addToolPack(Functions.getUdfFinder());
-        return book;
+    public static Workbook newWorkbook(InputStream original) {
+        try {
+            Workbook book = new XSSFWorkbook(original);
+            book.addToolPack(Functions.getUdfFinder());
+            return book;
+        }
+        catch (IOException e) { throw new RuntimeException(e); }
     }
-
 }

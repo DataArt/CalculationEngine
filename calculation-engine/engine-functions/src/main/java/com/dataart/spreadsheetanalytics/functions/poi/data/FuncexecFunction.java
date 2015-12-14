@@ -23,7 +23,6 @@ import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.coerceValueT
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.populateCellValue;
 import static org.apache.poi.ss.formula.eval.OperandResolver.getSingleValue;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -119,16 +118,10 @@ public class FuncexecFunction implements ICustomFunction {
 
         IDataModel dmWithDefine = this.external.getDataModelAccessor().get(meta.dataModelId());
         
-        Workbook wb;
-        try { wb = toWorkbook(dmWithDefine); } 
-        catch (IOException e) {
-            log.warn("Cannot convert IDataModel to Workbook, but Workbook is needed for evaluation.", e);
-            return ErrorEval.REF_INVALID;
-        }
+        Workbook book = toWorkbook(dmWithDefine);
+        EvaluationWorkbook defineBook = toEvaluationWorkbook(book);
         
-        EvaluationWorkbook defineBook = toEvaluationWorkbook(wb);
-        
-        Sheet s = wb.getSheetAt(0);
+        Sheet s = book.getSheetAt(0); //TODO one sheet support
         for (int i = 0; i < inputAddresses.size(); i++) {
             
             Row defineRow = s.getRow(inputAddresses.get(i).row());

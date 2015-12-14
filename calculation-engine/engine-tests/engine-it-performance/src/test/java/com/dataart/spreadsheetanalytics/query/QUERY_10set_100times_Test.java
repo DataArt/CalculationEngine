@@ -37,7 +37,7 @@ public class QUERY_10set_100times_Test extends ZParentTest {
 
         @Setup(Level.Trial)
         public void initialize() throws Exception {
-            external.getDataSetAccessor().saveDataSet(Converters.toDataSet(new XSSFWorkbook(dataSet)));
+            external.getDataSetAccessor().add(Converters.toDataSet(new XSSFWorkbook(dataSet)));
 
             this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
             this.evaluator = new SpreadsheetEvaluator(dataModel);

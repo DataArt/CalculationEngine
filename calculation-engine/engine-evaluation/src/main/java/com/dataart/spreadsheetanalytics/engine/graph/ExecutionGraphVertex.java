@@ -25,7 +25,6 @@ import java.util.UUID;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
 
-import com.dataart.spreadsheetanalytics.api.model.ICellFormulaExpression;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 
@@ -42,7 +41,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     protected String name;
     protected Object value;
     protected String alias;
-    protected ICellFormulaExpression formula;
+    protected CellFormulaExpression formula;
     protected Type type;
     protected Object sourceObjectId;
 
@@ -69,7 +68,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     @Override public Object id() { return this.id; }
     @Override public String name() { return this.name; }
     @Override public String alias() { return this.alias; }
-    @Override public ICellFormulaExpression formula() { return this.formula; }
+    @Override public CellFormulaExpression formula() { return this.formula; }
     @Override public Object value() { return this.value; }
     @Override public Type type() { return this.type; }
     @Override public Object sourceObjectId() { return this.sourceObjectId; }

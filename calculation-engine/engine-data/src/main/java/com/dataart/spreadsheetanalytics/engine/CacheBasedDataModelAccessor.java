@@ -44,18 +44,18 @@ public class CacheBasedDataModelAccessor implements DataModelAccessor {
 
     @Override
     public void add(IDataModel dataModel) {
-        this.dataModelToIdCache.put(dataModel.dataModelId(), dataModel);
-        this.dataModelToNameCache.put(dataModel.name(), dataModel);
+        this.dataModelToIdCache.put(dataModel.getDataModelId(), dataModel);
+        this.dataModelToNameCache.put(dataModel.getName(), dataModel);
         
-        log.debug("DataModel {} is added to DataModelStorage.", dataModel.name());
+        log.debug("DataModel {} is added to DataModelStorage.", dataModel.getName());
     }
     
     @Override
     public void addAll(Collection<IDataModel> dataModels) {
         dataModels.forEach(dm -> {
             if (dm == null) { return; }
-            this.dataModelToIdCache.put(dm.dataModelId(), dm);
-            this.dataModelToNameCache.put(dm.name(), dm);
+            this.dataModelToIdCache.put(dm.getDataModelId(), dm);
+            this.dataModelToNameCache.put(dm.getName(), dm);
         });
         
         log.debug("DataModels {} are added to DataModelStorage.", dataModels.stream().map(IDataModel::toString).collect(Collectors.<String>toList()));
@@ -67,8 +67,8 @@ public class CacheBasedDataModelAccessor implements DataModelAccessor {
     }
     
     @Override
-    public IDataModel get(String name) {
-        return this.dataModelToNameCache.get(name);
+    public IDataModel get(String dataModelName) {
+        return this.dataModelToNameCache.get(dataModelName);
     }
 
     @Override

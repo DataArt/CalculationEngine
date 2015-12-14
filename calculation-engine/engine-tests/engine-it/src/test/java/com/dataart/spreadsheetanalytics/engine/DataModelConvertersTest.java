@@ -78,9 +78,9 @@ public class DataModelConvertersTest {
         //then
 
         //common
-        assertThat(dm.dataModelId()).isNotNull();
-        assertThat(dm.name()).isEqualTo("Sheet1");
-        assertThat(dm.length()).isEqualTo(v.length);
+        assertThat(dm.getDataModelId()).isNotNull();
+        assertThat(dm.getName()).isEqualTo("Sheet1");
+        assertThat(dm.rowCount()).isEqualTo(v.length);
         assertThat(dm.iterator()).isNotNull();
         
         //cell values
@@ -88,7 +88,7 @@ public class DataModelConvertersTest {
             assertThat(dm.getRow(i)).isNotNull();    
         
         for (int i = 0; i < v.length; i++)
-            assertThat(dm.getRow(i).width()).isEqualTo(v[i].length);
+            assertThat(dm.getRow(i).cellCount()).isEqualTo(v[i].length);
         
         for (int i = 0; i < v.length; i++)
             for (int j = 0; j < v[i].length; j++)

@@ -82,7 +82,7 @@ public class DmRow implements IDmRow {
         if (address != null) { this.setCell(address.column(), cell); }        
     }
 
-    @Override public int width() { return this.table.size(); }
+    @Override public int cellCount() { return this.table.size(); }
     
     @Override
     public int getFirstColumnIndex() {

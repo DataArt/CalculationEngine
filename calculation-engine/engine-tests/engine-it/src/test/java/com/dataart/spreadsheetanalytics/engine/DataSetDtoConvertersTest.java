@@ -37,8 +37,8 @@ public class DataSetDtoConvertersTest {
     @BeforeClass
     public static void before() throws IOException {
         dataSet = (DataSet) Converters.toDataSet(new FileInputStream(dataSetPath));
-        dataSet.dataModelId(sharedId);
-        dataSet.name("Sheet1");
+        dataSet.setDataModelId(sharedId);
+        dataSet.setName("Sheet1");
         
         dataSetDto = new DataSetDto();
         dataSetDto.name = "Sheet1";
@@ -164,10 +164,10 @@ public class DataSetDtoConvertersTest {
     public static void assertDataSetsEqual(IDataSet expected, IDataSet actual) {
         if (expected == actual) { return; }
         
-        if (!expected.name().equals(actual.name())) { throw new AssertionError(String.format("DataSet Assert: name - expected [%s], but was [%s]", expected.name(), actual.name())); }
-        if (!expected.dataModelId().toString().equals(actual.dataModelId().toString())) { throw new AssertionError(String.format("DataSet Assert: DataModelId - expected [%s], but was [%s]", expected.dataModelId(), actual.dataModelId())); }
+        if (!expected.getName().equals(actual.getName())) { throw new AssertionError(String.format("DataSet Assert: name - expected [%s], but was [%s]", expected.getName(), actual.getName())); }
+        if (!expected.getDataModelId().toString().equals(actual.getDataModelId().toString())) { throw new AssertionError(String.format("DataSet Assert: DataModelId - expected [%s], but was [%s]", expected.getDataModelId(), actual.getDataModelId())); }
             
-        assertThat(actual.length()).isEqualTo(expected.length());
+        assertThat(actual.rowCount()).isEqualTo(expected.rowCount());
         
         for (IDsRow exRow : expected) {
             IDsRow acRow = actual.getRow(exRow.index());

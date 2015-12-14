@@ -32,15 +32,15 @@ public abstract class AbstractLazyDataSet implements ILazyDataSet {
         this.dataSet = new DataSet(name);
     }
 
-    @Override public IDataModelId dataModelId() { return this.dataSet.dataModelId(); }
-    @Override public void dataModelId(IDataModelId dataModelId) { this.dataSet.dataModelId(dataModelId); }
+    @Override public IDataModelId getDataModelId() { return this.dataSet.getDataModelId(); }
+    @Override public void setDataModelId(IDataModelId dataModelId) { this.dataSet.setDataModelId(dataModelId); }
     
-    @Override public String name() { return this.dataSet.name(); }
-    @Override public void name(String name) { this.dataSet.name(name); }
+    @Override public String getName() { return this.dataSet.getName(); }
+    @Override public void setName(String name) { this.dataSet.setName(name); }
 
-    @Override public int length() {
+    @Override public int rowCount() {
         if (!this.executed) { throw NOT_EXECUTED; }
-        return this.dataSet.length();
+        return this.dataSet.rowCount();
     }
     
     @Override public Iterator<IDsRow> iterator() {

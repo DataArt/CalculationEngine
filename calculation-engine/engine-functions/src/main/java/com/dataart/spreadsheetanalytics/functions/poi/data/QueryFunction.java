@@ -35,8 +35,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
-import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
@@ -94,10 +94,10 @@ public class QueryFunction implements ICustomFunction {
         log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {
-            IDataSet dset = this.external.getDataSetAccessor().getDataSet(execDataSet, new Parameters(execDataSet, execParams));
+            IDataSet dset = this.external.getDataSetAccessor().get(execDataSet, new Parameters(execDataSet, execParams));
             
-            dset.name(cachedDataSet);
-            this.external.getDataSetAccessor().saveDataSet(dset, DataSetScope.LOCAL);
+            dset.setName(cachedDataSet);
+            this.external.getDataSetAccessor().add(dset, DataSetScope.LOCAL);
 
             return toTableEval(dset);
         } catch (Exception e) {
@@ -107,9 +107,9 @@ public class QueryFunction implements ICustomFunction {
     }
 
     private static TableEval toTableEval(IDataSet dset) {
-        TableEval table = new TableEval(0, 0, dset.length() - 1, dset.getRow(0).width() - 1);
+        TableEval table = new TableEval(0, 0, dset.rowCount() - 1, dset.getRow(0).width() - 1);
         
-        List<List<Object>> rows = new ArrayList<>(dset.length());
+        List<List<Object>> rows = new ArrayList<>(dset.rowCount());
         
         dset.forEach(r -> {
             List<Object> cells = new ArrayList<>(r.width());

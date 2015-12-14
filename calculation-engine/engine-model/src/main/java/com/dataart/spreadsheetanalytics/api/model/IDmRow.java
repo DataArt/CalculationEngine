@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-public interface IDmRow extends Iterable<IDmCell> {
+public interface IDmRow extends Iterable<IDmCell> /*TODO, Spliterator<IDmCell>*/ {
 
     /** Returns a cell at given column. */
     IDmCell getCell(int cellIdx);
@@ -33,7 +33,7 @@ public interface IDmRow extends Iterable<IDmCell> {
     int index();
     
     /** Number of cells is a row. */
-    int width();
+    int cellCount();
     
     /** Number of first column in this row. */
     int getFirstColumnIndex();

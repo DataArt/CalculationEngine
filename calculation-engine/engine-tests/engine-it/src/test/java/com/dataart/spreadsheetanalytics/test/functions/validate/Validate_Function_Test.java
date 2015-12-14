@@ -117,7 +117,7 @@ public class Validate_Function_Test {
             assertThat(val).isNotNull();
             assertThat((String) expectedValues.get(expectedColumn + rows[i])).startsWith((String) val.get());
             
-            assertThat(validationDS.length()).isEqualTo(1 + 1);
+            assertThat(validationDS.rowCount()).isEqualTo(1 + 1);
             
             IDsRow valRow = validationDS.getRow(1);
             
@@ -148,7 +148,7 @@ public class Validate_Function_Test {
         IDsRow valRow5 = validationDS.getRow(3);
         IDsRow valRow9 = validationDS.getRow(4);
 
-        assertThat(validationDS.length()).isEqualTo(4 + 1);
+        assertThat(validationDS.rowCount()).isEqualTo(4 + 1);
         
         String valRowText1 = valRow1.getCell(0).value().get() + ", " +  
                              valRow1.getCell(1).value().get() + ", " + 

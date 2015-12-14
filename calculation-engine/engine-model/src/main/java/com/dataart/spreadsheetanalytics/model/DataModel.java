@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,7 +37,7 @@ public class DataModel implements IDataModel {
 
     protected IDataModelId dataModelId;
     protected String name;
-    protected Map<A1Address, String> names;
+    protected Map<ICellAddress, String> names;
 
     /** Workbook (table) representation: Row index, Column index, Data {@link IDmCell} */
     protected final Map<Integer, IDmRow> table;
@@ -58,15 +59,11 @@ public class DataModel implements IDataModel {
         this.names = new HashMap<>();
     }
 
-    public void addName(A1Address cellAddress, String nameText) { this.names.put(cellAddress, nameText); }
-
-    public Map<A1Address, String> getNames() { return this.names; }
-
-    @Override public IDataModelId dataModelId() { return this.dataModelId; }
-    @Override public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
-
-    @Override public String name() { return this.name; }
-    @Override public void name(String name) { this.name = name; }
+    @Override public IDataModelId getDataModelId() { return this.dataModelId; }
+    @Override public void setDataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
+    
+    @Override public String getName() { return this.name; }
+    @Override public void setName(String name) { this.name = name; }
 
     @Override public Iterator<IDmRow> iterator() {
         return this.table.entrySet()
@@ -137,7 +134,7 @@ public class DataModel implements IDataModel {
         if (address != null ) { this.setCell(address.row(), address.column(), cell); }
     }
     
-    @Override public int length() { return this.table.size(); }
+    @Override public int rowCount() { return this.table.size(); }
 
     @Override
     public int getFirstRowIndex() {
@@ -147,6 +144,21 @@ public class DataModel implements IDataModel {
     @Override
     public int getLastRowIndex() {
         return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
+    }
+    
+    @Override
+    public void setCellAlias(ICellAddress cellAddress, String nameText) {
+        this.names.put(cellAddress, nameText);
+    }
+
+    @Override
+    public String getCellAlias(ICellAddress cellAddress) {
+        return this.names.get(cellAddress);
+    }
+
+    @Override
+    public Map<ICellAddress, String> getCellAliases() {
+        return Collections.<ICellAddress, String>unmodifiableMap(this.names);
     }
 
     @Override

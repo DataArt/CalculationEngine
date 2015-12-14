@@ -40,7 +40,7 @@ final class DataSetDtoConverters {
     }
     
     static DataSetDto toDataSetDto(final IDataSet dataSet) {
-        List<List<Object>> table = new ArrayList<>(dataSet.length());
+        List<List<Object>> table = new ArrayList<>(dataSet.rowCount());
         
         for (IDsRow r : dataSet) {
             List<Object> row = new ArrayList<>(r.width());
@@ -56,19 +56,20 @@ final class DataSetDtoConverters {
         
         dto.table = table;
         
-        dto.dataModelId = dataSet.dataModelId().toString();
-        dto.name = dataSet.name();
+        dto.dataModelId = dataSet.getDataModelId().toString();
+        dto.name = dataSet.getName();
         
         return dto;
     }
     
-    static DataSetDto toDataSetDto(final String json) throws IOException {
-        return mapper.readValue(json, DataSetDto.class);
+    static DataSetDto toDataSetDto(final String json) {
+        try { return mapper.readValue(json, DataSetDto.class); }
+        catch (IOException e) { throw new RuntimeException(e); }
     }
     
     static IDataSet toDataSet(final DataSetDto dto) {
         IDataSet dataSet = new DataSet(dto.name);
-        dataSet.dataModelId(new DataModelId(dto.dataModelId));
+        dataSet.setDataModelId(new DataModelId(dto.dataModelId));
         
         for (List<Object> row : dto.table) {
             IDsRow dsrow = dataSet.addRow();
@@ -81,15 +82,16 @@ final class DataSetDtoConverters {
         return dataSet;
     }
     
-    static IDataSet toDataSet(final String json) throws IOException {
+    static IDataSet toDataSet(final String json) {
         return toDataSet(toDataSetDto(json));
     }
     
-    static String toJsonString(final DataSetDto dto) throws IOException {
-        return mapper.writeValueAsString(dto);
+    static String toJsonString(final DataSetDto dto) {
+        try { return mapper.writeValueAsString(dto); }
+        catch (IOException e) { throw new RuntimeException(e); }
     }
 
-    static String toJsonString(final IDataSet dataSet) throws IOException {
+    static String toJsonString(final IDataSet dataSet) {
         return toJsonString(toDataSetDto(dataSet));
     }
     

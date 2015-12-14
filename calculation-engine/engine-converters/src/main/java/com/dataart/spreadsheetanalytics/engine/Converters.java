@@ -15,7 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -40,32 +39,32 @@ public final class Converters {
     }
     
     /** @see DataModelDtoConverters#toDataModel(String) */
-    public static IDataModel toDataModel(final String json) throws IOException {
+    public static IDataModel toDataModel(final String json) {
         return DataModelDtoConverters.toDataModel(json);
     }
     
     /** @see DependencyExtractors#toDataModel(InputStream, ICellAddress) */
-    public static IDataModel toDataModel(final InputStream workbook, final ICellAddress address) throws IOException {
+    public static IDataModel toDataModel(final InputStream workbook, final ICellAddress address) {
         return DependencyExtractors.toDataModel(workbook, address);
     }
     
     /** @see DependencyExtractors#toDataModel(Workbook, ICellAddress) */
-    public static IDataModel toDataModel(final Workbook workbook, final ICellAddress address) throws IOException {
+    public static IDataModel toDataModel(final Workbook workbook, final ICellAddress address) {
         return DependencyExtractors.toDataModel(workbook, address);
     }
     
     /** @see DependencyExtractors#toDataModel(IDataModel, ICellAddress) */
-    public static IDataModel toDataModel(final IDataModel workbook, final ICellAddress address) throws IOException {
+    public static IDataModel toDataModel(final IDataModel workbook, final ICellAddress address) {
         return DependencyExtractors.toDataModel(workbook, address);
     }
     
     /** @see DataModelConverters#toDataModel(InputStream) */
-    public static IDataModel toDataModel(final InputStream workbook) throws IOException {
+    public static IDataModel toDataModel(final InputStream workbook) {
         return DataModelConverters.toDataModel(workbook);
     }
     
     /** @see DataModelConverters#toDataModel(Workbook) */
-    public static IDataModel toDataModel(final Workbook workbook) throws IOException {
+    public static IDataModel toDataModel(final Workbook workbook) {
         return DataModelConverters.toDataModel(workbook);
     }
     
@@ -75,72 +74,72 @@ public final class Converters {
     }
     
     /** @see DataSetDtoConverters#toDataSet(String) */
-    public static IDataSet toDataSet(final String json) throws IOException {
+    public static IDataSet toDataSet(final String json) {
         return DataSetDtoConverters.toDataSet(json);
     }
     
     /** @see DataSetConverters#toDataSet(InputStream) */
-    public static IDataSet toDataSet(final InputStream workbook) throws IOException {
+    public static IDataSet toDataSet(final InputStream workbook) {
         return DataSetConverters.toDataSet(workbook);
     }
     
     /** @see DataSetConverters#toDataSet(Workbook) */
-    public static IDataSet toDataSet(final Workbook workbook) throws IOException {
+    public static IDataSet toDataSet(final Workbook workbook) {
         return DataSetConverters.toDataSet(workbook);
     }
 
     /** @see DataModelConverters#toXlsxFile(IDataModel) */
-    public static OutputStream toXlsxFile(final IDataModel dataModel) throws IOException {
+    public static OutputStream toXlsxFile(final IDataModel dataModel) {
         return DataModelConverters.toXlsxFile(dataModel);
     }
     
     /** @see DataModelConverters#toXlsxFile(IDataModel, InputStream) */
-    public static OutputStream toXlsxFile(final IDataModel dataModel, final InputStream formatting) throws IOException {
+    public static OutputStream toXlsxFile(final IDataModel dataModel, final InputStream formatting) {
         return DataModelConverters.toXlsxFile(dataModel, formatting);
     }
     
     /** @see DataSetConverters#toXlsxFile(IDataSet) */
-    public static OutputStream toXlsxFile(final IDataSet dataSet) throws IOException {
+    public static OutputStream toXlsxFile(final IDataSet dataSet) {
         return DataSetConverters.toXlsxFile(dataSet);
     }
     
     /** @see DataSetConverters#toXlsxFile(IDataSet, InputStream) */
-    public static OutputStream toXlsxFile(final IDataSet dataSet, final InputStream formatting) throws IOException {
+    public static OutputStream toXlsxFile(final IDataSet dataSet, final InputStream formatting) {
         return DataSetConverters.toXlsxFile(dataSet, formatting);
     }
     
     /** @see DataModelConverters#toWorkbook(IDataModel) */
-    public static Workbook toWorkbook(final IDataModel dataModel) throws IOException {
+    public static Workbook toWorkbook(final IDataModel dataModel) {
         return DataModelConverters.toWorkbook(dataModel);
     }
     
     /** @see DataModelConverters#toWorkbook(IDataModel, Workbook) */
-    public static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) throws IOException {
+    public static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) {
         return DataModelConverters.toWorkbook(dataModel, formatting);
     }
 
     /** @see DataSetConverters#toWorkbook(IDataSet) */
-    public static Workbook toWorkbook(final IDataSet dataSet) throws IOException {
+    public static Workbook toWorkbook(final IDataSet dataSet) {
         return DataSetConverters.toWorkbook(dataSet);
     }
     
     /** @see DataSetConverters#toWorkbook(IDataSet, Workbook) */
-    public static Workbook toWorkbook(final IDataSet dataSet, final Workbook formatting) throws IOException {
+    public static Workbook toWorkbook(final IDataSet dataSet, final Workbook formatting) {
         return DataSetConverters.toWorkbook(dataSet, formatting);        
     }
     
     /** @see ConverterUtils#clearContent(InputStream) */
-    public static OutputStream clearContent(final InputStream workbook) throws IOException {
+    public static OutputStream clearContent(final InputStream workbook) {
         return ConverterUtils.clearContent(workbook);
     }
     
     /** @see ConverterUtils#clearContent(Workbook) */
-    public static Workbook clearContent(final Workbook workbook) throws IOException {
+    public static Workbook clearContent(final Workbook workbook) {
         return ConverterUtils.clearContent(workbook);
     }
 
     /** @see DependencyExtractors#toDataModels(InputStream, String) */
-    public static List<IDataModel> toDataModels(final InputStream workbook, final String function) throws IOException {
+    public static List<IDataModel> toDataModels(final InputStream workbook, final String function) {
         return DependencyExtractors.toDataModels(workbook, function);
     }
     
@@ -150,17 +149,17 @@ public final class Converters {
     }
     
     /** @see DependencyExtractors#toDataModels(IDataModel, String) */
-    public static List<IDataModel> toDataModels(final IDataModel workbook, final String function) throws IOException {
+    public static List<IDataModel> toDataModels(final IDataModel workbook, final String function) {
         return DependencyExtractors.toDataModels(workbook, function);
     }
     
     /** @see DependencyExtractors#toMetaFunctions(IDataModel, Class) */
-    public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(IDataModel book, Class<T> metaClass) throws IOException {
+    public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(IDataModel book, Class<T> metaClass) {
         return DependencyExtractors.toMetaFunctions(book, metaClass);
     }
     
     /** @see DependencyExtractors#toMetaFunctions(InputStream, Class) */
-    public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(InputStream book, Class<T> metaClass) throws IOException {
+    public static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(InputStream book, Class<T> metaClass) {
         return DependencyExtractors.toMetaFunctions(book, metaClass);    
     }
 
@@ -175,7 +174,7 @@ public final class Converters {
     }
     
     /** @see DataModelDtoConverters#toDataModel(String) */
-    public static DataModelDto toDataModelDto(final String json) throws IOException {
+    public static DataModelDto toDataModelDto(final String json) {
         return DataModelDtoConverters.toDataModelDto(json);
     }
     
@@ -185,27 +184,27 @@ public final class Converters {
     }
     
     /** @see DataSetDtoConverters#toDataSetDto(String) */
-    public static DataSetDto toDataSetDto(final String json) throws IOException {
+    public static DataSetDto toDataSetDto(final String json) {
         return DataSetDtoConverters.toDataSetDto(json);
     }
     
     /** @see DataModelDtoConverters#toDataModel(DataModelDto) */
-    public static String toJsonString(final DataModelDto dto) throws IOException {
+    public static String toJsonString(final DataModelDto dto) {
         return DataModelDtoConverters.toJsonString(dto);
     }
 
     /** @see DataModelDtoConverters#toJsonString(IDataModel) */
-    public static String toJsonString(final IDataModel dataModel) throws IOException {
+    public static String toJsonString(final IDataModel dataModel) {
         return DataModelDtoConverters.toJsonString(dataModel);
     }
     
     /** @see DataSetDtoConverters#toJsonString(DataSetDto) */
-    public static String toJsonString(final DataSetDto dto) throws IOException {
+    public static String toJsonString(final DataSetDto dto) {
         return DataSetDtoConverters.toJsonString(dto);
     }
 
     /** @see DataSetDtoConverters#toJsonString(IDataSet) */
-    public static String toJsonString(final IDataSet dataSet) throws IOException {
+    public static String toJsonString(final IDataSet dataSet) {
         return DataSetDtoConverters.toJsonString(dataSet);
     }
     

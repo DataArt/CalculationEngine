@@ -16,9 +16,10 @@ Provided features:
 * Cell evaluation (formula calculation)
 * Workbook evaluation (workbook with formulas to workbook with data)
 * Calculation graph building (feature attached to evaluation process)
-* Custom functions: DEFINE, FUNCEXEC, DSLOOKUP, QUERY (see [custom function documentation for details](https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description))
+* Custom functions: DEFINE, FUNCEXEC, DSLOOKUP, QUERY, VALIDATE (see [custom function documentation for details](https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description))
 * .xlsx only support
-* Import from .xlsx and export to .xlsx (data only)
+* Import from .xlsx and export to .xlsx
+* Custom format for spreadsheet data (JSON)
 
 ## Modules
 Project uses maven as build tool. Project modules description:
@@ -27,6 +28,7 @@ Project uses maven as build tool. Project modules description:
 * poi-fork-parent - root maven module for _apache-poi_, _apache-poi-fork_ and _apache-poi-ooxml-fork_ - to build Apache POI and publish jars to local maven repository.
 * code-quality - maven parent pom for code quality tools (_checkstyle_, _pmd_, _findbugs_, _errorprone_).
 * engine-model - contains all _model_ classes (interfaces and realization), this module is a base dependency to all others.
+* engine-converters - util module for all type of conversion (from xlsx to json, json to dto, etc.).
 * engine-data - contains all _data-related_ objects and objects to work with '_data_. _Data_ means external information - everything that can be stored somewhere (database, network, filesystem) - excel files, data sources, caches for data sets, etc. Since Calculation Engine does not require any particular data storage - it only provides APIs to implement them.
 * engine-data-cache-impl - contains basic Cache implementations for engine-data module. Since library need some storage to save information to - it needs to be provided with implementation of JCache standard - EHCache (http://www.ehcache.org) is used here.
 * engine-functions - contains all the custom functions and classes to load\use them in application.
@@ -51,6 +53,7 @@ from root directory _calculation-engine_. It will build and install to local mav
 
 Next output jar files should be included in application (dependencies are not specified here):
 * spreadsheetanalytics-model-[version].jar
+* spreadsheetanalytics-converters-[version].jar
 * spreadsheetanalytics-data-[version].jar
 * spreadsheetanalytics-functions-[version].jar
 * spreadsheetanalytics-evaluation-[version].jar

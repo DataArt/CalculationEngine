@@ -34,12 +34,12 @@ final class DataSetConverters {
     
     private DataSetConverters() {}
     
-    static IDataSet toDataSet(final InputStream workbook) throws IOException {
+    static IDataSet toDataSet(final InputStream workbook) {
         return toDataSet(ConverterUtils.newWorkbook(workbook));
     }
     
     /* TODO: throw exception of formula is found or add flag 'ignore formulas' */
-    static IDataSet toDataSet(final Workbook workbook) throws IOException {
+    static IDataSet toDataSet(final Workbook workbook) {
         Sheet sheet = workbook.getSheetAt(0); //TODO: this works only for single sheet documents
         DataSet dataSet = new DataSet(sheet.getSheetName());
         
@@ -54,27 +54,33 @@ final class DataSetConverters {
         return dataSet;
     }
     
-    static OutputStream toXlsxFile(final IDataSet dataSet) throws IOException {
+    static OutputStream toXlsxFile(final IDataSet dataSet) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        toWorkbook(dataSet, (Workbook) null).write(xlsx);
+        
+        try { toWorkbook(dataSet, (Workbook) null).write(xlsx); }
+        catch (IOException e) { throw new RuntimeException(e); }
+        
         return xlsx;
     }
     
-    static OutputStream toXlsxFile(final IDataSet dataSet, final InputStream formatting) throws IOException {
+    static OutputStream toXlsxFile(final IDataSet dataSet, final InputStream formatting) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
-        toWorkbook(dataSet, ConverterUtils.newWorkbook(formatting)).write(xlsx);
+        
+        try { toWorkbook(dataSet, ConverterUtils.newWorkbook(formatting)).write(xlsx); }
+        catch (IOException e) { throw new RuntimeException(e); }
+        
         return xlsx;
     }
         
-    static Workbook toWorkbook(final IDataSet dataSet) throws IOException {
+    static Workbook toWorkbook(final IDataSet dataSet) {
         return toWorkbook(dataSet, (Workbook) null);
     }
     
     //TODO: rewrite to use common code with IDataModel
-    static Workbook toWorkbook(final IDataSet dataSet, final Workbook formatting) throws IOException {
+    static Workbook toWorkbook(final IDataSet dataSet, final Workbook formatting) {
         Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
         
-        Sheet sheet = result.createSheet(dataSet.name());
+        Sheet sheet = result.createSheet(dataSet.getName());
         for (IDsRow row : dataSet) {
             Row wbRow = sheet.createRow(row.index() - 1);
             for (IDsCell cell : row) {

@@ -23,20 +23,20 @@ import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 public interface DataSetAccessor {
     
     /**
-     * {@link #saveDataSet(IDataSet, DataSetScope)} with {@link DataSetScope#GLOBAL}
+     * {@link #add(IDataSet, DataSetScope)} with {@link DataSetScope#GLOBAL}
      */
-    void saveDataSet(IDataSet dset);
+    void add(IDataSet dataSet);
     
-    void saveDataSet(IDataSet dset, DataSetScope scope);
+    void add(IDataSet dataSet, DataSetScope scope);
     
-    IDataSet getDataSet(IDataModelId dataModelId) throws Exception;
+    IDataSet get(IDataModelId dataModelId);
     
-    IDataSet getDataSet(String name) throws Exception;
+    IDataSet get(String dataSetName);
     
-    IDataSet getDataSet(String name, ILazyDataSet.Parameters parameters) throws Exception;
+    IDataSet get(String dataSetName, ILazyDataSet.Parameters parameters);
     
-    boolean isLazyDataSet(String name);
+    boolean isLazy(String dataSetName);
     
-    boolean isLazyDataSet(IDataSet dataSet);
+    boolean isLazy(IDataSet dataSet);
 
 }

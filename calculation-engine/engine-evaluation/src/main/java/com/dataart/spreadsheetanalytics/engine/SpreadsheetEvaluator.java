@@ -26,7 +26,6 @@ import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.REF_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.VALUE_INVALID;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -83,7 +82,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         catch (Exception e) { log.error("Custom functions loading was unsuccessful. This may cause Evaluator to not work with custom functions.", e); }
     }
         
-    public SpreadsheetEvaluator(IDataModel model) throws IOException {
+    public SpreadsheetEvaluator(IDataModel model) {
         this.model = model;
         this.evaluationWorkbook = toEvaluationWorkbook(toWorkbook(this.model));
         this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, null);        

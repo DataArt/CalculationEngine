@@ -79,7 +79,6 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
-import com.dataart.spreadsheetanalytics.model.CellFormulaExpression;
 
 /**
  * This class is a direct implementation of {@link IExecutionGraphBuilder} interface from forked POI library.

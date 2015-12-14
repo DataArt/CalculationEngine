@@ -38,8 +38,8 @@ public class DataModelDtoConvertersTest {
     public static void before() throws IOException {
         dataModel = (DataModel) Converters.toDataModel(new FileInputStream(dataModelPath));
         dataModel = (DataModel) new SpreadsheetEvaluator(dataModel).evaluate().getResult();
-        dataModel.dataModelId(sharedId);
-        dataModel.name("Sheet1");
+        dataModel.setDataModelId(sharedId);
+        dataModel.setName("Sheet1");
         
         dataModelDto = new DataModelDto();
         dataModelDto.name = "Sheet1";
@@ -163,15 +163,15 @@ public class DataModelDtoConvertersTest {
     public static void assertDataModelsEqual(IDataModel expected, IDataModel actual) {
         if (expected == actual) { return; }
         
-        if (!expected.name().equals(actual.name())) { throw new AssertionError(String.format("DataModel Assert: name - expected [%s], but was [%s]", expected.name(), actual.name())); }
-        if (!expected.dataModelId().toString().equals(actual.dataModelId().toString())) { throw new AssertionError(String.format("DataModel Assert: DataModelId - expected [%s], but was [%s]", expected.dataModelId(), actual.dataModelId())); }
+        if (!expected.getName().equals(actual.getName())) { throw new AssertionError(String.format("DataModel Assert: name - expected [%s], but was [%s]", expected.getName(), actual.getName())); }
+        if (!expected.getDataModelId().toString().equals(actual.getDataModelId().toString())) { throw new AssertionError(String.format("DataModel Assert: DataModelId - expected [%s], but was [%s]", expected.getDataModelId(), actual.getDataModelId())); }
             
-        assertThat(actual.length()).isEqualTo(expected.length());
+        assertThat(actual.rowCount()).isEqualTo(expected.rowCount());
         
         for (IDmRow exRow : expected) {
             IDmRow acRow = actual.getRow(exRow.index());
             
-            assertThat(acRow.width()).isEqualTo(exRow.width());
+            assertThat(acRow.cellCount()).isEqualTo(exRow.cellCount());
             
             for (IDmCell exCell : exRow) {
                 IDmCell acCell = acRow.getCell(exCell.address().column());
