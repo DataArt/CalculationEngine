@@ -42,6 +42,7 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.poi.common.fork.FormulaParseNAException;
 import org.apache.poi.common.fork.FormulaParseNameException;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
@@ -132,6 +133,11 @@ public final class ConverterUtils {
                     break;
                 } catch (FormulaParseNameException e) {
                     log.error("Formula parsing error while trying to set formula field in cell " + e.getMessage());
+                    cell.setCellFormula(ErrorEval.NAME_INVALID.getErrorString());
+                    break;
+                } catch (FormulaParseNAException e) {
+                    log.error("Formula parsing error while trying to set formula field in cell " + e.getMessage());
+                    cell.setCellFormula(ErrorEval.NA.getErrorString());
                     break;
                 }
             }
