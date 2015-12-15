@@ -44,7 +44,9 @@ public class DataModelDtoConvertersTest {
         dataModelDto = new DataModelDto();
         dataModelDto.name = "Sheet1";
         dataModelDto.dataModelId = sharedId.toString();
-        dataModelDto.names = Collections.<String, String>emptyMap();
+        dataModelDto.names = new TreeMap<>();
+        dataModelDto.names.put("Sheet1!$C$1", "My_Age");
+        dataModelDto.names.put("Sheet1!$C$3", "My_Id");
         
         dataModelDto.table = new TreeMap<>();
         dataModelDto.table.put("A3", "Text");
@@ -71,7 +73,9 @@ public class DataModelDtoConvertersTest {
         validJsonObject = (ObjectNode) ((ObjectNode) ((ObjectNode) new ObjectNode(JsonNodeFactory.instance)
                                 .put("name", "Sheet1")
                                 .put("dataModelId", sharedId.toString())
-                                .set("names", new ObjectNode(JsonNodeFactory.instance)))
+                                .set("names", new ObjectNode(JsonNodeFactory.instance)
+                                                    .put("Sheet1!$C$1", "My_Age")
+                                                    .put("Sheet1!$C$3", "My_Id")))
                                 .set("table", new ObjectNode(JsonNodeFactory.instance)
                                                     .put("A3", "Text")
                                                     .put("A7", "=ISLOGICAL(TRUE)")
