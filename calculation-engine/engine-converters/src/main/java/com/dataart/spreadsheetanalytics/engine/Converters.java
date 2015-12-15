@@ -93,7 +93,7 @@ public final class Converters {
         return DataSetConverters.toDataSet(workbook);
     }
 
-    /** @see DataSetConverters#toDataSet(dataModel) */
+    /** @see DataSetConverters#toDataSet(IDataModel) */
     public static IDataSet toDataSet(final IDataModel dataModel) {
         return DataSetConverters.toDataSet(dataModel);
     }
