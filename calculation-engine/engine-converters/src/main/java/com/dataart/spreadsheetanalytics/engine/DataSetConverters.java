@@ -58,18 +58,20 @@ final class DataSetConverters {
     }
 
     /**
-     * Converts plain {@link IDataModel} to new {@link IDataSet} with formatting
-     * provided.
+     * Converts {@link IDataModel} to the new {@link IDataSet}.
      */
-    static IDataSet toDataSet(IDataModel dataModel) {
+    static IDataSet toDataSet(final IDataModel dataModel) {
         IDataSet dataSet = new DataSet(dataModel.getName());
+        
         for (IDmRow dmRow : dataModel) {
             IDsRow dsRow = dataSet.addRow(dmRow.index());
+            
             for (IDmCell dmCell : dmRow) {
                 IDsCell dsCell = dsRow.addCell(dmCell.getAddress().column());
                 dsCell.setValue(dmCell.getValue().get());
             }
         }
+        
         return dataSet;
     }
     

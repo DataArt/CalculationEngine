@@ -96,13 +96,14 @@ final class DataModelConverters {
     }
     
     /**
-     * Converts plain {@link IDataSet} to new {@link IDataModel} with formatting
-     * provided.
+     * Converts {@link IDataSet} to the new {@link IDataModel}.
      */
-    static IDataModel toDataModel(IDataSet dataSet) {
+    static IDataModel toDataModel(final IDataSet dataSet) {
         DataModel dataModel = new DataModel(dataSet.getName());
+        
         for (IDsRow dsRow : dataSet) {
             DmRow dmRow = new DmRow(dsRow.index());
+            
             for (IDsCell dsCell : dsRow) {
                 DmCell dmCell = new DmCell();
                 dmCell.setValue(Optional.of(dsCell.getValue()));
@@ -112,6 +113,7 @@ final class DataModelConverters {
             }
             dataModel.setRow(dsRow.index(), dmRow);
         }
+        
         return dataModel;
     }
 
