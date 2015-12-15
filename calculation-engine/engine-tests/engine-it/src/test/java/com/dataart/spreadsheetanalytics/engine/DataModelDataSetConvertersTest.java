@@ -1,6 +1,6 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static com.dataart.spreadsheetanalytics.engine.Converters.toDataSet;
 import static com.dataart.spreadsheetanalytics.engine.Converters.toDataModel;
 

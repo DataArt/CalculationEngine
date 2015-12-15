@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.test;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
