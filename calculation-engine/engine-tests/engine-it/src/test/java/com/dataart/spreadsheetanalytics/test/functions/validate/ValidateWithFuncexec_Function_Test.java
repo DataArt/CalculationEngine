@@ -155,21 +155,21 @@ public class ValidateWithFuncexec_Function_Test {
         //check validation set
         for (int i = 0; i < expected_set.length; i++) {
             IDsRow row = validationDS.getRow(i);
-            assertThat(row.getCell(0).value().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][0], row.getCell(0).value().get(), i, 0)
+            assertThat(row.getCell(0).getValue().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][0], row.getCell(0).getValue().get(), i, 0)
                                                     .isEqualTo(expected_set[i][0]);
-            assertThat(row.getCell(1).value().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][1], row.getCell(1).value().get(), i, 1)
+            assertThat(row.getCell(1).getValue().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][1], row.getCell(1).getValue().get(), i, 1)
                                                     .isEqualTo(expected_set[i][1]);
-            assertThat(row.getCell(2).value().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][2], row.getCell(2).value().get(), i, 2)
+            assertThat(row.getCell(2).getValue().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][2], row.getCell(2).getValue().get(), i, 2)
                                                     .isEqualTo(expected_set[i][2]);
-            assertThat(row.getCell(3).value().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][3], row.getCell(3).value().get(), i, 3)
+            assertThat(row.getCell(3).getValue().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][3], row.getCell(3).getValue().get(), i, 3)
                                                     .isEqualTo(expected_set[i][3]);
-            assertThat(row.getCell(4).value().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][4], row.getCell(4).value().get(), i, 4)
+            assertThat(row.getCell(4).getValue().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s] and cell [%s]", expected_set[i][4], row.getCell(4).getValue().get(), i, 4)
                                                     .isEqualTo(expected_set[i][4]);
         }
         
         //check results
         for (IDmRow row : result.getResult()) {
-            assertThat(row.getCell(0).value().get().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s]", expected_val[row.index()], row.getCell(0).value().get().get(), row.index())
+            assertThat(row.getCell(0).getValue().get().get()).overridingErrorMessage("expected:<[%s]> but was:<[%s]> at row [%s]", expected_val[row.index()], row.getCell(0).getValue().get().get(), row.index())
                                                           .isEqualTo(expected_val[row.index()]);
         }
     }

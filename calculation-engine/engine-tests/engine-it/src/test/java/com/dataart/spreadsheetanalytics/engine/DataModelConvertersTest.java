@@ -96,22 +96,18 @@ public class DataModelConvertersTest {
         
         for (int i = 0; i < v.length; i++)
             for (int j = 0; j < v[i].length; j++) {
-                assertThat(dm.getRow(i).getCell(j).address().row()).isEqualTo(i);
-                assertThat(dm.getRow(i).getCell(j).address().column()).isEqualTo(j);
-                assertThat(dm.getRow(i).getCell(j).address().a1Address().address()).isEqualTo(a[j] + "" + (i + 1));
+                assertThat(dm.getRow(i).getCell(j).getAddress().row()).isEqualTo(i);
+                assertThat(dm.getRow(i).getCell(j).getAddress().column()).isEqualTo(j);
+                assertThat(dm.getRow(i).getCell(j).getAddress().a1Address().address()).isEqualTo(a[j] + "" + (i + 1));
             }
         
         for (int i = 0; i < v.length; i++)
             for (int j = 0; j < v[i].length; j++)
-                assertThat(dm.getRow(i).getCell(j).alias()).isEqualTo("TODO"); //TODO
+                assertThat(dm.getRow(i).getCell(j).getValue()).isEqualTo(Optional.empty());
         
         for (int i = 0; i < v.length; i++)
             for (int j = 0; j < v[i].length; j++)
-                assertThat(dm.getRow(i).getCell(j).value()).isEqualTo(Optional.empty());
-        
-        for (int i = 0; i < v.length; i++)
-            for (int j = 0; j < v[i].length; j++)
-                assertThat(dm.getRow(i).getCell(j).content().get()).isEqualTo(v[i][j]);
+                assertThat(dm.getRow(i).getCell(j).getContent().get()).isEqualTo(v[i][j]);
         
         Iterator<IDmRow> e1 = dm.iterator();
         for (int i = 0; i < v.length; i++) {

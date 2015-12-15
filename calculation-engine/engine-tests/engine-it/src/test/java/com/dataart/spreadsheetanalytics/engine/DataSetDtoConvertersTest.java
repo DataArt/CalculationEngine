@@ -172,12 +172,12 @@ public class DataSetDtoConvertersTest {
         for (IDsRow exRow : expected) {
             IDsRow acRow = actual.getRow(exRow.index());
             
-            assertThat(acRow.width()).isEqualTo(exRow.width());
+            assertThat(acRow.cellCount()).isEqualTo(exRow.cellCount());
             
             for (IDsCell exCell : exRow) {
                 IDsCell acCell = acRow.getCell(exCell.index());
                 
-                assertThat(acCell.value()).isEqualTo(exCell.value());
+                assertThat(acCell.getValue()).isEqualTo(exCell.getValue());
             }
         }
     }

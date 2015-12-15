@@ -61,7 +61,7 @@ public class DataModelTest {
                 IDmCell cell = cellerator.next();
                 String value = "";
 
-                value = cell.content().get().toString();
+                value = cell.getContent().get().toString();
 
                 actualValues[index++] = value;
             }

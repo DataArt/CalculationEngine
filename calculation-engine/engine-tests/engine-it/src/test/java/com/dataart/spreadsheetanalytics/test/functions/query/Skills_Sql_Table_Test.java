@@ -258,7 +258,7 @@ class TempSqlDataSource implements DataSource {
         TextDataSourceQuery textQuery = (TextDataSourceQuery) query;
         final DataSet ds = new DataSet(UUID.randomUUID().toString());
     
-        String queryToExecute = textQuery.query();
+        String queryToExecute = textQuery.getText();
         for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        
     
         PreparedStatement st = co.prepareStatement(queryToExecute);
@@ -269,16 +269,16 @@ class TempSqlDataSource implements DataSource {
         
         IDsRow row = ds.addRow();
         for (int i = 1; i <= rsmd.getColumnCount(); i++)
-            row.addCell().value(new CellValue(rsmd.getColumnLabel(i)));
+            row.addCell().setValue(new CellValue(rsmd.getColumnLabel(i)));
         
         while (rs.next()) {
             row = ds.addRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                 Object o = rs.getObject(i);
                 IDsCell cell = row.addCell();
-                if (o == null || o instanceof String) { cell.value(new CellValue((String) o)); } 
-                else if (o instanceof Double) { cell.value(new CellValue((Double) o)); } 
-                else if (o instanceof Boolean) { cell.value(new CellValue((Boolean) o)); }
+                if (o == null || o instanceof String) { cell.setValue(new CellValue((String) o)); } 
+                else if (o instanceof Double) { cell.setValue(new CellValue((Double) o)); } 
+                else if (o instanceof Boolean) { cell.setValue(new CellValue((Boolean) o)); }
                 else { throw new IllegalArgumentException(String.format("Type %s is not supported by CellValue class.", o.getClass())); }
                 
             }
@@ -288,7 +288,7 @@ class TempSqlDataSource implements DataSource {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return null;
     }
 }

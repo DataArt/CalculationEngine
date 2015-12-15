@@ -165,7 +165,6 @@ public final class ConverterUtils {
         
         DmCell toCell = new DmCell();
         toCell.setAddress(address);
-        toCell.setAlias("TODO"); /*TODO*/
         toCell.setContent(resolveCellValue(fromCell));
         
         to.setCell(address, toCell);

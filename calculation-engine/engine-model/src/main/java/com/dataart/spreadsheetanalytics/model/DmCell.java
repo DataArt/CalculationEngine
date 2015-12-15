@@ -26,7 +26,6 @@ public class DmCell implements IDmCell {
     protected ICellAddress address;
     protected ICellValue content;
     protected Optional<ICellValue> value = Optional.empty();
-    protected String alias;
     
     @Override public ICellAddress getAddress() { return this.address; }
     public void setAddress(ICellAddress address) { this.address = address; }
@@ -36,9 +35,6 @@ public class DmCell implements IDmCell {
     
     @Override public Optional<ICellValue> getValue() { return this.value; }
     public void setValue(Optional<ICellValue> value) { this.value = value; }
-    
-    @Override public String getAlias() { return this.alias; }
-    public void setAlias(String alias) { this.alias = alias; }
 
     @Override public String toString() { return this.content.toString(); }
     

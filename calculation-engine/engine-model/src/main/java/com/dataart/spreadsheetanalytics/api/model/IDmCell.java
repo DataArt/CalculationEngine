@@ -28,7 +28,4 @@ public interface IDmCell {
     /** Value only if it exists: 2+2 will be 4 (value), SUM(A1, B1) will be 4 if A1 = 2 and B1 = 2. Empty by default. */
     Optional<ICellValue> getValue();
 
-    /** Defined name. */
-    String getAlias();
-
 }

@@ -79,7 +79,6 @@ final class DataModelConverters {
                 row.setCell(j, cell);
                 
                 cell.setAddress(A1Address.fromRowColumn(i, j));
-                cell.setAlias("TODO"/*TODO*/);
                 cell.setContent(ConverterUtils.resolveCellValue(c));
             }
         }
