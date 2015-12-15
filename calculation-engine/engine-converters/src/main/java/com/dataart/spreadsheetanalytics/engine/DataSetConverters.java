@@ -25,7 +25,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.api.model.IDmCell;
+import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.DataSet;
@@ -49,6 +52,22 @@ final class DataSetConverters {
             for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
                 IDsCell cell = dsRow.addCell();
                 cell.setValue(ConverterUtils.resolveCellValue(row.getCell(j)));
+            }
+        }
+        return dataSet;
+    }
+
+    /**
+     * Converts plain {@link IDataModel} to new {@link IDataSet} with formatting
+     * provided.
+     */
+    static IDataSet toDataSet(IDataModel dataModel) {
+        IDataSet dataSet = new DataSet(dataModel.getName());
+        for (IDmRow dmRow : dataModel) {
+            IDsRow dsRow = dataSet.addRow(dmRow.index());
+            for (IDmCell dmCell : dmRow) {
+                IDsCell dsCell = dsRow.addCell(dmCell.getAddress().column());
+                dsCell.setValue(dmCell.getValue().get());
             }
         }
         return dataSet;

@@ -67,6 +67,11 @@ public final class Converters {
     public static IDataModel toDataModel(final Workbook workbook) {
         return DataModelConverters.toDataModel(workbook);
     }
+
+    /** @see DataModelConverters#toDataModel(IDataSet) */
+    public static IDataModel toDataModel(final IDataSet dataSet) {
+        return DataModelConverters.toDataModel(dataSet);
+    }
     
     /** @see DataSetDtoConverters#toDataSet(DataSetDto) */
     public static IDataSet toDataSet(final DataSetDto dto) {
@@ -86,6 +91,11 @@ public final class Converters {
     /** @see DataSetConverters#toDataSet(Workbook) */
     public static IDataSet toDataSet(final Workbook workbook) {
         return DataSetConverters.toDataSet(workbook);
+    }
+
+    /** @see DataSetConverters#toDataSet(dataModel) */
+    public static IDataSet toDataSet(final IDataModel dataModel) {
+        return DataSetConverters.toDataSet(dataModel);
     }
 
     /** @see DataModelConverters#toXlsxFile(IDataModel) */
