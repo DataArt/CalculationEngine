@@ -310,7 +310,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         switch (vertex.type) {
 
             case CELL_WITH_VALUE: {
-                CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
+                CellFormulaExpression formula = vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(vertex.value().toString());
                 formula.formulaPtgStr(vertex.value().toString());
@@ -351,7 +351,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                         vertex.value = ivertex.value();
                     }
                 }
-                CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula();
+                CellFormulaExpression iformula = vertex.formula();
                 iformula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes, vertex));
                 iformula.formulaValues(createFormulaString(formulaPtg[0], formulaValuesNodes, vertex));
                 iformula.formulaPtgStr(createPtgString(formulaPtg[0], formulaPtgNodes, vertex));
@@ -376,7 +376,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
                 // TODO: are you sure you need only '=' ?
                 Collections.sort(formulaValuesNodes, (n1, n2) -> isCompareOperand(n1) ? -1 : 0);
-                CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula;
+                CellFormulaExpression iformula = vertex.formula;
                 iformula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
                 iformula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
                 iformula.ptgStr(createPtgString(null, ptgNodes, vertex));
@@ -386,7 +386,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return result;
             }
             case RANGE: {
-                CellFormulaExpression iformula = (CellFormulaExpression) vertex.formula();
+                CellFormulaExpression iformula = vertex.formula();
                 iformula.formulaStr(vertex.property(NAME).get().toString());
                 iformula.formulaValues(vertex.property(VALUE).get().toString());
                 iformula.formulaPtgStr(vertex.property(VALUE).get().toString());
@@ -401,7 +401,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             case CONSTANT_VALUE: {
                 vertex.property(NAME).set(CONSTANT_VALUE_NAME);
-                CellFormulaExpression formula = (CellFormulaExpression) vertex.formula;
+                CellFormulaExpression formula = vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(vertex.value().toString());
                 formula.formulaPtgStr(vertex.value().toString());
@@ -409,7 +409,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return CellFormulaExpression.copyOf(formula);
             }
             default: {
-                return (CellFormulaExpression) vertex.formula;
+                return vertex.formula;
             }
         }
 
