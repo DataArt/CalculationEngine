@@ -113,6 +113,9 @@ public class SpreadsheetAuditor implements IAuditor {
             
             try {
                 IEvaluationResult<ICellValue> res = this.evaluator.evaluate(cell);
+
+                if (res == null) { return buildSingleVertexGraphForEmptyCell(cell); }
+
                 ICellValue cv = res.getResult();
                 
                 if (cv == null || cv.get() == null) { return buildSingleVertexGraphForEmptyCell(cell); }

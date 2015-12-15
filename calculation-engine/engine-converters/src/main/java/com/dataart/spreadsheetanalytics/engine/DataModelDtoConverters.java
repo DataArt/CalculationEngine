@@ -62,6 +62,9 @@ final class DataModelDtoConverters {
                 }
             }
         }
+
+        dataModel.getCellAliases().forEach( (k,v) -> names.put(k.a1Address().address(), v) );
+
         DataModelDto dto = new DataModelDto();
         
         dto.names = names;
@@ -104,7 +107,9 @@ final class DataModelDtoConverters {
         }
         
         //TODO: add support for names: Map<String, String> names = dto.names;
-        
+
+        dto.getNames().forEach( (k,v) -> dataModel.setCellAlias(A1Address.fromA1Address(k), v) );
+
         return dataModel;
     }
     

@@ -133,6 +133,12 @@ final class DataModelConverters {
         Sheet wbSheet = result.getSheet(dataModel.getName());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
 
+        dataModel.getCellAliases().forEach((k, v) -> {
+            Name name = result.createName();
+            name.setNameName(v);
+            name.setRefersToFormula(k.a1Address().address());
+        });
+
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {
             IDmRow dmRow = dataModel.getRow(rowIdx);
             if (dmRow == null) { continue; }
@@ -149,13 +155,7 @@ final class DataModelConverters {
                 ConverterUtils.populateCellValue(wbCell, dmCell.getContent());
             }
         }
-        
-        dataModel.getCellAliases().forEach((k, v) -> {
-            Name name = result.createName();
-            name.setNameName(v);
-            name.setRefersToFormula(k.a1Address().address());
-        });
-        
+
         return result;
     }
 
