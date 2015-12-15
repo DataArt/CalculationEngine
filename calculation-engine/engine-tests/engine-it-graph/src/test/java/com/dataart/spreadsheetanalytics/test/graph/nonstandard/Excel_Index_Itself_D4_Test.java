@@ -25,6 +25,7 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
@@ -38,7 +39,7 @@ public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
     static String file = "Index_Itself";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CalculationEngineException.class)
     public void assert_ExcelFile_SerializedGraph() throws IOException {
         //given
         final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));

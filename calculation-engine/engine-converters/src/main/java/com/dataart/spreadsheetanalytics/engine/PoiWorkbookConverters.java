@@ -148,8 +148,8 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
     }
 
     @Override public int convertFromExternSheetIndex(int i) { return 0; }
-    @Override public ExternalName getExternalName(int i, int i1) { throw new UnsupportedOperationException("external names are not supported"); }
-    @Override public ExternalName getExternalName(String s, String s1, int i) { throw new UnsupportedOperationException("external names are not supported"); }
+    @Override public ExternalName getExternalName(int i, int i1) { throw new CalculationEngineException("external names are not supported"); }
+    @Override public ExternalName getExternalName(String s, String s1, int i) { throw new CalculationEngineException("external names are not supported"); }
 
     @Override
     public EvaluationName getName(NamePtg namePtg) { return this.names.get(namePtg.getIndex()); }
@@ -162,13 +162,13 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
                          .findAny().orElse(null);
     }
 
-    @Override public String resolveNameXText(NameXPtg nameXPtg) { throw new UnsupportedOperationException(); }
+    @Override public String resolveNameXText(NameXPtg nameXPtg) { throw new CalculationEngineException(); }
 
     public Ptg[] getFormulaTokens(EvaluationCell evaluationCell) {
         if (evaluationCell instanceof PoiProxyCell) {
             return ((PoiProxyCell) evaluationCell).getPtgs();
         }
-        throw new UnsupportedOperationException(evaluationCell.toString());
+        throw new CalculationEngineException(evaluationCell.toString());
     }
 
     @Override public UDFFinder getUDFFinder() {
@@ -225,27 +225,27 @@ class PoiProxyCell implements EvaluationCell {
     }
 
     public double getNumericCellValue() {
-        if (CELL_TYPE_NUMERIC != ConverterUtils.resolveCellType(this.value)) { throw new IllegalStateException("Trying to get numeric value from non-numeric cell."); }
+        if (CELL_TYPE_NUMERIC != ConverterUtils.resolveCellType(this.value)) { throw new CalculationEngineException("Trying to get numeric value from non-numeric cell."); }
         return (Double) this.value.get();
     }
 
     public String getStringCellValue() {
-        if (CELL_TYPE_STRING != ConverterUtils.resolveCellType(this.value)) { throw new IllegalStateException("Trying to get string value from non-string cell."); }
+        if (CELL_TYPE_STRING != ConverterUtils.resolveCellType(this.value)) { throw new CalculationEngineException("Trying to get string value from non-string cell."); }
         return (String) this.value.get();
     }
 
     public boolean getBooleanCellValue() {
-        if (CELL_TYPE_BOOLEAN != ConverterUtils.resolveCellType(this.value)) { throw new IllegalStateException("Trying to get boolean value from non-boolean cell."); }
+        if (CELL_TYPE_BOOLEAN != ConverterUtils.resolveCellType(this.value)) { throw new CalculationEngineException("Trying to get boolean value from non-boolean cell."); }
         return (Boolean) this.value.get();
     }
 
     public int getErrorCellValue() {
-        if (CELL_TYPE_ERROR != ConverterUtils.resolveCellType(this.value)) { throw new IllegalStateException("Trying to get error value from non-error cell."); }
+        if (CELL_TYPE_ERROR != ConverterUtils.resolveCellType(this.value)) { throw new CalculationEngineException("Trying to get error value from non-error cell."); }
         return FormulaError.forString((String) this.value.get()).getCode();
     }
 
     public int getCachedFormulaResultType() {
-        throw new UnsupportedOperationException("Does not support Cached Formula Results.");
+        throw new CalculationEngineException("Does not support Cached Formula Results.");
     }
 
     public Date getDateCellValue() {

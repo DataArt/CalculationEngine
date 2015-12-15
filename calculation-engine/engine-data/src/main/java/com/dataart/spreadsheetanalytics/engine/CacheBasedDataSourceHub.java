@@ -42,9 +42,8 @@ public class CacheBasedDataSourceHub implements DataSourceHub {
         DataSource ds = this.get(dataSourceName);
         
         if (ds == null) {
-            IllegalStateException e = new IllegalStateException(String.format("DataSource with name %s is not found.", dataSourceName));
-            log.error("DataSource not found exception.", e);
-            throw e;
+            log.error(String.format("DataSource with name %s is not found.", dataSourceName));
+            throw new CalculationEngineException(String.format("DataSource with name %s is not found.", dataSourceName));
         }
         
         return ds.executeQuery(query, params);

@@ -22,10 +22,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -64,15 +68,6 @@ public class DataModel implements IDataModel {
     
     @Override public String getName() { return this.name; }
     @Override public void setName(String name) { this.name = name; }
-
-    @Override public Iterator<IDmRow> iterator() {
-        return this.table.entrySet()
-                         .stream()
-                         .sorted(Comparator.comparing(Entry::getKey))
-                         .map(Entry::getValue)
-                         .collect(Collectors.<IDmRow>toList())
-                         .listIterator();
-    }
 
     @Override
     public IDmRow getRow(int rowIdx) {
@@ -160,7 +155,27 @@ public class DataModel implements IDataModel {
     public Map<ICellAddress, String> getCellAliases() {
         return Collections.<ICellAddress, String>unmodifiableMap(this.names);
     }
+    
+    @Override 
+    public Iterator<IDmRow> iterator() {
+        return this.table.entrySet()
+                         .stream()
+                         .sorted(Comparator.comparing(Entry::getKey))
+                         .map(Entry::getValue)
+                         .collect(Collectors.<IDmRow>toList())
+                         .listIterator();
+    }
 
+    @Override
+    public Spliterator<IDmRow> spliterator() {
+        return Spliterators.<IDmRow>spliterator(this.iterator(), this.table.size(), 0);
+    }
+
+    @Override
+    public Stream<IDmRow> stream() {
+        return StreamSupport.<IDmRow>stream(this.spliterator(), false);
+    }
+    
     @Override
     public String toString() { 
         return this.name + "\n" + 

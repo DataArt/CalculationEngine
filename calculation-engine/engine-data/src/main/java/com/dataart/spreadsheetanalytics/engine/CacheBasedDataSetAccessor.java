@@ -45,7 +45,7 @@ public class CacheBasedDataSetAccessor implements DataSetAccessor {
     @Override
     public void add(IDataSet dataSet, DataSetScope scope) {
         if (dataSet == null) { return; }
-        if (dataSet.getName() == null) { throw new IllegalArgumentException("DataSet must have a name."); }
+        if (dataSet.getName() == null) { throw new CalculationEngineException("DataSet must have a name."); }
         
         switch (scope) {
             case LOCAL: {
@@ -66,10 +66,10 @@ public class CacheBasedDataSetAccessor implements DataSetAccessor {
     @Override
     public IDataSet get(IDataModelId dataModelId) {
         IDataSet dset = this.dataSetToIdCache.get(dataModelId);
-        if (dset == null) { throw new IllegalStateException(String.format("No DataSet with id = %s is found in DataSet storage.", dataModelId)); }
+        if (dset == null) { throw new CalculationEngineException(String.format("No DataSet with id = %s is found in DataSet storage.", dataModelId)); }
         
         try { return this.isLazy(dset) ? ((ILazyDataSet) dset).get(Parameters.EMPTY) : dset; }
-        catch (Exception e) { throw new RuntimeException(e); }
+        catch (Exception e) { throw new CalculationEngineException(e); }
     }
 
     @Override
@@ -86,10 +86,10 @@ public class CacheBasedDataSetAccessor implements DataSetAccessor {
         }
         
         IDataSet dset = this.dataSetToNameCache.get(dataSetName);
-        if (dset == null) { throw new IllegalStateException(String.format("No DataSet with name = %s is found in DataSet storage.", dataSetName)); }
+        if (dset == null) { throw new CalculationEngineException(String.format("No DataSet with name = %s is found in DataSet storage.", dataSetName)); }
 
         try { dset = isLazy(dset) ? ((ILazyDataSet) dset).get(parameters) : dset; }
-        catch (Exception e) { throw new RuntimeException(e); }
+        catch (Exception e) { throw new CalculationEngineException(e); }
         
         if (Parameters.EMPTY != parameters) { optimisationsCaches.dataSetToLazyParameters.put(parameters, dset); }
         return dset;

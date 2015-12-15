@@ -20,9 +20,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
@@ -55,11 +59,6 @@ public class DataSet implements IDataSet {
 
     @Override public int rowCount() { return this.rows.size(); }
 
-    @Override 
-    public Iterator<IDsRow> iterator() {
-        return Collections.<IDsRow>unmodifiableList(this.rows).iterator();
-    }
-
     @Override
     public IDsRow addRow() {
         try {
@@ -88,6 +87,21 @@ public class DataSet implements IDataSet {
     @Override
     public IDsRow getRow(int rowIdx) {
         return rowIdx < 0 || rowIdx >= this.rows.size() ? null : this.rows.get(rowIdx);
+    }
+
+    @Override 
+    public Iterator<IDsRow> iterator() {
+        return Collections.<IDsRow>unmodifiableList(this.rows).iterator();
+    }
+
+    @Override
+    public Spliterator<IDsRow> spliterator() {
+        return Spliterators.<IDsRow>spliterator(this.iterator(), this.rows.size(), 0);
+    }
+
+    @Override
+    public Stream<IDsRow> stream() {
+        return StreamSupport.<IDsRow>stream(this.spliterator(), false);
     }
 
     @Override

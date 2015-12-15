@@ -58,7 +58,7 @@ final class DataSetConverters {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
         try { toWorkbook(dataSet, (Workbook) null).write(xlsx); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         return xlsx;
     }
@@ -67,7 +67,7 @@ final class DataSetConverters {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
         try { toWorkbook(dataSet, ConverterUtils.newWorkbook(formatting)).write(xlsx); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         return xlsx;
     }

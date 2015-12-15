@@ -83,7 +83,7 @@ final class DataModelDtoConverters {
     
     static DataModelDto toDataModelDto(final String json) {
         try { return mapper.readValue(json, DataModelDto.class); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
     }
     
     static IDataModel toDataModel(final DataModelDto dto) {
@@ -123,7 +123,7 @@ final class DataModelDtoConverters {
     
     static String toJsonString(final DataModelDto dto) {
         try { return mapper.writeValueAsString(dto); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
     }
 
     static String toJsonString(final IDataModel dataModel) {

@@ -98,7 +98,7 @@ final class DataModelConverters {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
         try { toWorkbook(dataModel, (Workbook) null).write(xlsx); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         return xlsx;
     }
@@ -111,7 +111,7 @@ final class DataModelConverters {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
         try { toWorkbook(dataModel, ConverterUtils.newWorkbook(formatting)).write(xlsx); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         return xlsx;
     }

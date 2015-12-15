@@ -78,6 +78,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 
 /**
@@ -163,14 +164,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     @Override
     public void putVertexToStack(ValueEval value, IExecutionGraphVertex vertex) {
-        if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
+        if (value == null) { throw new CalculationEngineException("ValueEval to assosiate vertex with cannot be null."); }
         if (!this.valueToVertex.containsKey(value)) { this.valueToVertex.put(value, new LinkedList<IExecutionGraphVertex>()); }
         this.valueToVertex.get(value).push(vertex);
     }
 
     @Override
     public IExecutionGraphVertex getVertexFromStack(ValueEval value) {
-        if (value == null) { throw new IllegalArgumentException("ValueEval to assosiate vertex with cannot be null."); }
+        if (value == null) { throw new CalculationEngineException("ValueEval to assosiate vertex with cannot be null."); }
         /* the value is taken from the Deque while it is taken from the stack in poi WorkbookEvaluator class */
         return this.valueToVertex.get(value).pop();
     }
@@ -230,9 +231,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-        // copy or link subgraphs to identical vertices
-        // and
-        // modify Formula field with additional values
+        // copy or link subgraphs to identical vertices and modify Formula field with additional values
         Map<String, AtomicInteger> adressToCount = new HashMap<>();
 
         for (ExecutionGraphVertex vertex : graph.vertexSet()) {
@@ -249,7 +248,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     // need to link
                     Set<ExecutionGraphVertex> subgraphTops = new HashSet<>();
 
-                    // TODO: point to optimize!
                     for (IExecutionGraphVertex itmpVertex : graph.vertexSet()) {
 
                         ExecutionGraphVertex tmpVertex = (ExecutionGraphVertex) itmpVertex;
@@ -274,7 +272,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             /* Adding IF Value */
             if (IF == type) {
                 Set<ExecutionGraphEdge> two = graph.incomingEdgesOf(vertex);
-                if (two.size() != 2) { throw new IllegalStateException("IF must have only two incoming edges."); }
+                if (two.size() != 2) { throw new CalculationEngineException("IF must have only two incoming edges."); }
 
                 Object ifBranchValue = null;
                 for (ExecutionGraphEdge e : two) {
@@ -374,7 +372,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     ptgNodes.add(formula.ptgStr());
                     if (OPERATOR != ivertex.type) { vertex.value = ivertex.value; }
                 }
-                // TODO: are you sure you need only '=' ?
                 Collections.sort(formulaValuesNodes, (n1, n2) -> isCompareOperand(n1) ? -1 : 0);
                 CellFormulaExpression iformula = vertex.formula;
                 iformula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
@@ -533,8 +530,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             return RANGE;
         }
 
-        // TODO: add more for our cases
-        throw new IllegalArgumentException("Unsupported Ptg class: " + ptg.getClass());
+        throw new CalculationEngineException("Unsupported Ptg class: " + ptg.getClass());
     }
 
     /**

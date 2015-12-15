@@ -16,6 +16,7 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.api.model;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
@@ -81,5 +82,8 @@ public interface IDataModel extends Iterable<IDmRow> /* TODO, Spliterator<IDmRow
 
     /** Returns all available Cell Aliases */
     Map<ICellAddress, String> getCellAliases();
+    
+    /** Stream support for DataModel */
+    Stream<IDmRow> stream();
 
 }

@@ -16,14 +16,19 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.model;
 
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
 public abstract class AbstractLazyDataSet implements ILazyDataSet {
 
-    private static final RuntimeException NOT_EXECUTED = new IllegalStateException("DataSet not executed.");
+    private static final CalculationEngineException NOT_EXECUTED = new CalculationEngineException("DataSet not executed.");
     
     protected DataSet dataSet;
     protected boolean executed;
@@ -46,5 +51,17 @@ public abstract class AbstractLazyDataSet implements ILazyDataSet {
     @Override public Iterator<IDsRow> iterator() {
         if (!this.executed) { throw NOT_EXECUTED; }
         return this.dataSet.iterator();
+    }
+    
+    @Override
+    public Spliterator<IDsRow> spliterator() {
+        if (!this.executed) { throw NOT_EXECUTED; }
+        return Spliterators.<IDsRow>spliterator(this.iterator(), this.dataSet.rowCount(), 0);
+    }
+
+    @Override
+    public Stream<IDsRow> stream() {
+        if (!this.executed) { throw NOT_EXECUTED; }
+        return StreamSupport.<IDsRow>stream(this.spliterator(), false);
     }
 }

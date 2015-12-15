@@ -16,6 +16,7 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.model;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
 /**
  * Basic implementation of {@link ICellValue}.
@@ -51,7 +52,7 @@ public class CellValue implements ICellValue {
         else if (o instanceof Integer) { return new CellValue(new Double((Integer) o)); }
         else if (o instanceof Boolean) { return new CellValue(o, Boolean.class); }
 
-        throw new IllegalArgumentException(String.format("The object %s of class %s is not supported as type for CellValue", o, o.getClass().getSimpleName()));
+        throw new CalculationEngineException(String.format("The object %s of class %s is not supported as type for CellValue", o, o.getClass().getSimpleName()));
     }
 
     @Override

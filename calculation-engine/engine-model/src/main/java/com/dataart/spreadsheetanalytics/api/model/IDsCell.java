@@ -17,10 +17,13 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 public interface IDsCell {
 
+    /** This Cell's index in a row.*/
     int index();
 
+    /** Returns the actual value. */
     ICellValue getValue();
 
+    /** Sets the actual value. */
     void setValue(ICellValue value);
 
 }

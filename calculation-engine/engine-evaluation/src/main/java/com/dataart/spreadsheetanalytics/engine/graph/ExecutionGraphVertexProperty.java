@@ -23,6 +23,7 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
 /**
  * Class represent ony property of {@link IExecutionGraphVertex}.
@@ -114,7 +115,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 break;
             }
             default: {
-                    throw new IllegalArgumentException(String.format("Property %s is not supported by %s.", this.pname, this.parent.getClass().getSimpleName()));
+                    throw new CalculationEngineException(String.format("Property %s is not supported by %s.", this.pname, this.parent.getClass().getSimpleName()));
                 }
             }
     }
