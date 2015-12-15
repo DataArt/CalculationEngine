@@ -4,7 +4,6 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.TreeMap;
 import java.util.UUID;
 
