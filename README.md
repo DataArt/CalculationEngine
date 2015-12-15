@@ -68,7 +68,7 @@ To add Calculation Engine as dependency to project use:
 <dependency>
   <groupId>com.dataart</groupId>
   <artifactId>spreadsheetanalytics-evaluation</artifactId>
-  <version>0.6</version>
+  <version>${version}</version>
 </dependency>
 ```
 Note: _spreadsheetanalytics-evaluation_ module has dependencies to all other modules, so they do need to be included.
