@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -30,8 +31,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
+import com.dataart.spreadsheetanalytics.api.model.IDsCell;
+import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DmCell;
@@ -91,6 +95,26 @@ final class DataModelConverters {
         return dm;
     }
     
+    /**
+     * Converts plain {@link IDataSet} to new {@link IDataModel} with formatting
+     * provided.
+     */
+    static IDataModel toDataModel(IDataSet dataSet) {
+        DataModel dataModel = new DataModel(dataSet.getName());
+        for (IDsRow dsRow : dataSet) {
+            DmRow dmRow = new DmRow(dsRow.index());
+            for (IDsCell dsCell : dsRow) {
+                DmCell dmCell = new DmCell();
+                dmCell.setValue(Optional.of(dsCell.getValue()));
+                dmCell.setAddress(A1Address.fromRowColumn(dsRow.index(), dsCell.index()));
+                dmCell.setContent(dsCell.getValue());
+                dmRow.setCell(dsCell.index(), dmCell);
+            }
+            dataModel.setRow(dsRow.index(), dmRow);
+        }
+        return dataModel;
+    }
+
     /**
      * Uses {@link DataModelConverters#toXlsxFile(IDataModel, InputStream)} with null formatting (no formatting).
      */
