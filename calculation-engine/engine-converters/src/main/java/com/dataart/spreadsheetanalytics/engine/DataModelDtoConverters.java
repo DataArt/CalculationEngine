@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -49,8 +50,6 @@ final class DataModelDtoConverters {
         Map<String, Object> table = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
         
-        Map<String, String> names = new HashMap<>(); //TODO: implement as soon as we get names support
-        
         for (IDmRow r : dataModel) {
             for (IDmCell c : r) {
                 ICellAddress address = c.getAddress();
@@ -62,8 +61,13 @@ final class DataModelDtoConverters {
                 }
             }
         }
-
-        dataModel.getCellAliases().forEach( (k,v) -> names.put(k.a1Address().address(), v) );
+        
+        Map<String, String> names = dataModel.getCellAliases()
+                                             .entrySet()
+                                             .stream()
+                                             .collect(Collectors.toMap(
+                                                         e -> e.getKey().a1Address().address(), 
+                                                         e -> e.getValue()));
 
         DataModelDto dto = new DataModelDto();
         
