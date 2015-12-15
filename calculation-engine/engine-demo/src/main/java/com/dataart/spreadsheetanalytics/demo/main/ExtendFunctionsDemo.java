@@ -71,7 +71,7 @@ class OtherFunctions extends Functions {
     public static final String OTHER_PACKAGE_FUNCTIONS = "com.other.project.functions";
 
     public static void init() { //or non static init()
-        Functions.add(Functions.load(OTHER_PACKAGE_FUNCTIONS));
+        Functions.add(Functions.loadCustomFunctions(OTHER_PACKAGE_FUNCTIONS));
         
         ExternalServices external = ExternalServices.INSTANCE;
         external.getDataModelAccessor().getAll().values().forEach(dm -> {

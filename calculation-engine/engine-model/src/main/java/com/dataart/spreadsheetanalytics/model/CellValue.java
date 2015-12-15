@@ -38,7 +38,7 @@ public class CellValue implements ICellValue {
     public CellValue(String value) { this(value, String.class); }
 
     @Override public Object get() { return this.value; }
-    @Override public Class<? extends Object> type() { return this.type; }
+    @Override public Class<? extends Object> getType() { return this.type; }
 
     /**
      * Creates new instance of {@link CellValue} with given argument.

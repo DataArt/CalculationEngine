@@ -107,13 +107,13 @@ public class QueryFunction implements ICustomFunction {
     }
 
     private static TableEval toTableEval(IDataSet dset) {
-        TableEval table = new TableEval(0, 0, dset.rowCount() - 1, dset.getRow(0).width() - 1);
+        TableEval table = new TableEval(0, 0, dset.rowCount() - 1, dset.getRow(0).cellCount() - 1);
         
         List<List<Object>> rows = new ArrayList<>(dset.rowCount());
         
         dset.forEach(r -> {
-            List<Object> cells = new ArrayList<>(r.width());
-            r.forEach(v -> cells.add(v.value().get()));
+            List<Object> cells = new ArrayList<>(r.cellCount());
+            r.forEach(v -> cells.add(v.getValue().get()));
             rows.add(cells);
         });
         

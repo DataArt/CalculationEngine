@@ -23,6 +23,6 @@ public interface DataSource {
     
     IDataSet executeQuery(DataSourceQuery query, List<Object> params) throws Exception;
 
-    String name();
+    String getName();
 
 }

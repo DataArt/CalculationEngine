@@ -181,8 +181,8 @@ final class DependencyExtractors {
     
     static <T extends FunctionMeta> T createAttributeFunctionMeta(Class<T> metaClass, String formula, IDataModel model) throws Exception {
         T meta = (T) metaClass.newInstance().parse(formula);
-        meta.dataModelId(model.getDataModelId());
-        if (meta.name() == null) { meta.name(model.getName()); }
+        meta.setDataModelId(model.getDataModelId());
+        if (meta.getName() == null) { meta.setName(model.getName()); }
 
         return meta;
     }

@@ -78,9 +78,9 @@ final class DataModelConverters {
                 DmCell cell = new DmCell();
                 row.setCell(j, cell);
                 
-                cell.address(A1Address.fromRowColumn(i, j));
-                cell.alias("TODO"/*TODO*/);
-                cell.content(ConverterUtils.resolveCellValue(c));
+                cell.setAddress(A1Address.fromRowColumn(i, j));
+                cell.setAlias("TODO"/*TODO*/);
+                cell.setContent(ConverterUtils.resolveCellValue(c));
             }
         }
 
@@ -146,7 +146,7 @@ final class DataModelConverters {
                 Cell wbCell = wbRow.getCell(cellIdx);
                 if (wbCell == null) { wbCell = wbRow.createCell(cellIdx); }
                 
-                ConverterUtils.populateCellValue(wbCell, dmCell.content());
+                ConverterUtils.populateCellValue(wbCell, dmCell.getContent());
             }
         }
         

@@ -44,7 +44,7 @@ public class DsRow implements IDsRow {
     }
 
     @Override public int index() { return this.index; }
-    @Override public int width() { return this.cells.size(); }
+    @Override public int cellCount() { return this.cells.size(); }
 
     @Override 
     public Iterator<IDsCell> iterator() {

@@ -124,7 +124,7 @@ public class DsLookupFunction implements ICustomFunction {
         Map<Integer, Object> indexToValue = new HashMap<>();
 
         for (IDsCell cell : titleRow) {
-            ICellValue value = cell.value();
+            ICellValue value = cell.getValue();
             
             if (pairs.containsKey(value.get())) { indexToValue.put(cell.index(), pairs.get(value.get())); }
 
@@ -169,14 +169,14 @@ public class DsLookupFunction implements ICustomFunction {
                     allFieldsPresent--;
                     Object extValue = coerceValueTo(whereColumn.getValue());
                     /* Such a strange conversion because of Number types - everything is Double in POI */
-                    Object intValue = coerceValueTo(valueToValueEval(cell.value().get()));
+                    Object intValue = coerceValueTo(valueToValueEval(cell.getValue().get()));
 
                     if (!intValue.equals(extValue)) { allFieldsMatch = false; break; }
                 }
             }
             
             if (allFieldsPresent == 0 && allFieldsMatch) {
-                found.add(valueToValueEval(row.getCell(columnIndex).value().get()));
+                found.add(valueToValueEval(row.getCell(columnIndex).getValue().get()));
                 break; // collecting only the first matching record according to product owner requirements
             }
         }

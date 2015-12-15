@@ -27,11 +27,11 @@ public abstract class FunctionMeta {
     protected String name;
     protected IDataModelId dataModelId;
     
-    public String name() { return this.name; }
-    public void name(String name) { this.name = name; }
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
     
-    public IDataModelId dataModelId() { return this.dataModelId; }
-    public void dataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
+    public IDataModelId getDataModelId() { return this.dataModelId; }
+    public void setDataModelId(IDataModelId dataModelId) { this.dataModelId = dataModelId; }
     
     abstract FunctionMeta parse(String formula);
     

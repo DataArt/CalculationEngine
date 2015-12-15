@@ -53,12 +53,12 @@ final class DataModelDtoConverters {
         
         for (IDmRow r : dataModel) {
             for (IDmCell c : r) {
-                ICellAddress address = c.address();
+                ICellAddress address = c.getAddress();
                 
-                table.put(address.a1Address().address(), c.content().get());
+                table.put(address.a1Address().address(), c.getContent().get());
 
-                if (c.value().isPresent()) {
-                    result.put(address.a1Address().address(), c.value().get().get());
+                if (c.getValue().isPresent()) {
+                    result.put(address.a1Address().address(), c.getValue().get().get());
                 }
             }
         }
@@ -88,8 +88,8 @@ final class DataModelDtoConverters {
             Object content = cell.getValue();
             
             DmCell dmcell = new DmCell();
-            dmcell.address(address);
-            dmcell.content(CellValue.from(content));
+            dmcell.setAddress(address);
+            dmcell.setContent(CellValue.from(content));
             
             dataModel.setCell(address, dmcell);
         }
@@ -100,7 +100,7 @@ final class DataModelDtoConverters {
             
             ICellAddress address = A1Address.fromA1Address(cell.getKey());
             
-            ((DmCell) dataModel.getCell(address)).value(Optional.of(CellValue.from(value)));
+            ((DmCell) dataModel.getCell(address)).setValue(Optional.of(CellValue.from(value)));
         }
         
         //TODO: add support for names: Map<String, String> names = dto.names;

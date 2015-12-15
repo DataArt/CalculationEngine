@@ -23,7 +23,7 @@ public class DataModelId implements IDataModelId {
     
     public DataModelId(Object id) { this.id = id; }
     
-    public Object id() { return this.id; }
+    public Object get() { return this.id; }
 
     @Override public String toString() { return this.id.toString(); }
 

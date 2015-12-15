@@ -26,11 +26,11 @@ public class DsCell implements IDsCell {
     public DsCell(int cellIdx) {
         this.index = cellIdx;
     }
-
-    @Override public ICellValue value() { return this.value; }
-    @Override public void value(ICellValue value) { this.value = value; }
-
+    
     @Override public int index() { return this.index; }
+    
+    @Override public ICellValue getValue() { return this.value; }
+    @Override public void setValue(ICellValue value) { this.value = value; }
 
     @Override
     public String toString() {

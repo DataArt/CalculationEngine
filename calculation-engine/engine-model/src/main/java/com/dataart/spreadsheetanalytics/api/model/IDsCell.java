@@ -19,8 +19,8 @@ public interface IDsCell {
 
     int index();
 
-    ICellValue value();
+    ICellValue getValue();
 
-    void value(ICellValue value);
+    void setValue(ICellValue value);
 
 }

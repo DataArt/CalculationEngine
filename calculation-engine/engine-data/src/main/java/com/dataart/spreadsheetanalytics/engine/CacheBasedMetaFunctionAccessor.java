@@ -33,7 +33,7 @@ public class CacheBasedMetaFunctionAccessor implements MetaFunctionAccessor {
 
     @Override
     public void add(FunctionMeta meta) {
-        this.metaFunctionsCache.put(meta.name(), meta);
+        this.metaFunctionsCache.put(meta.getName(), meta);
     }
     
     @Override

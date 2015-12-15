@@ -52,14 +52,14 @@ public class CacheBasedDataSourceHub implements DataSourceHub {
     
     @Override
     public void add(DataSource sqlDataSource) {
-        this.dataSourceCache.put(sqlDataSource.name() == null ? "" : sqlDataSource.name(), sqlDataSource);
-        log.debug("Added DataSource with name {}", sqlDataSource.name());
+        this.dataSourceCache.put(sqlDataSource.getName() == null ? "" : sqlDataSource.getName(), sqlDataSource);
+        log.debug("Added DataSource with name {}", sqlDataSource.getName());
     }
 
     @Override
     public void remove(DataSource dataSource) {
         if (dataSource == null) { return; }
-        this.dataSourceCache.remove(dataSource.name() == null ? "" : dataSource.name());
+        this.dataSourceCache.remove(dataSource.getName() == null ? "" : dataSource.getName());
     }
 
     @Override

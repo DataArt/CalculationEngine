@@ -50,7 +50,7 @@ public class SqlDataSet extends AbstractLazyDataSet {
         try {
             this.executionLock.lock();
             
-            this.dataSet = (DataSet) this.dataSourceHub.executeQuery(this.sqlDataSource, new TextDataSourceQuery(this.sql), parameters.getParameters());
+            this.dataSet = (DataSet) this.dataSourceHub.executeQuery(this.sqlDataSource, new TextDataSourceQuery(this.sql), parameters.get());
             this.executed = Boolean.TRUE;
             
             return this.dataSet;

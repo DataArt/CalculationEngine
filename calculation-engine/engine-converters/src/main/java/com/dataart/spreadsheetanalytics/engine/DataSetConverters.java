@@ -48,7 +48,7 @@ final class DataSetConverters {
             Row row = sheet.getRow(i);
             for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
                 IDsCell cell = dsRow.addCell();
-                cell.value(ConverterUtils.resolveCellValue(row.getCell(j)));
+                cell.setValue(ConverterUtils.resolveCellValue(row.getCell(j)));
             }
         }
         return dataSet;
@@ -85,7 +85,7 @@ final class DataSetConverters {
             Row wbRow = sheet.createRow(row.index() - 1);
             for (IDsCell cell : row) {
                 Cell wbCell = wbRow.createCell(cell.index() - 1);
-                ConverterUtils.populateCellValue(wbCell, cell.value());
+                ConverterUtils.populateCellValue(wbCell, cell.getValue());
             }
         }
         

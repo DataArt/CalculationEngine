@@ -54,8 +54,8 @@ public interface ILazyDataSet extends IDataSet {
             this.parameters = parameters;
         }
         
-        public List<Object> getParameters() { return this.parameters; }
-        public void setParameters(List<Object> parameters) { this.parameters = parameters; }
+        public List<Object> get() { return this.parameters; }
+        public void set(List<Object> parameters) { this.parameters = parameters; }
 
         @Override
         public int hashCode() {

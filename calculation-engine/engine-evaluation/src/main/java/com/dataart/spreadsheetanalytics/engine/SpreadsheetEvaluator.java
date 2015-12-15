@@ -114,11 +114,11 @@ public class SpreadsheetEvaluator implements IEvaluator {
 
                 try {
                     ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, fromRowColumn(i, j)), (EvaluationContext) evaluationContext);                
-                    ((DmCell) cell).value(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); 
+                    ((DmCell) cell).setValue(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); 
                 }
                 catch (ValuesStackNotEmptyException e) {
                     ICellValue val = handleExceptionForGraphBuilder(this.poiEvaluator.getExecutionGraphBuilder(), fromRowColumn(i, j));
-                    ((DmCell) cell).value(Optional.of(val)); 
+                    ((DmCell) cell).setValue(Optional.of(val)); 
                 }
             }
         }
@@ -148,7 +148,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     }
 
     protected static void loadCustomFunctions() throws ReflectiveOperationException {
-        Map<String, Class<? extends ICustomFunction>> map = Functions.get();
+        Map<String, Class<? extends ICustomFunction>> map = Functions.getCustomFunctions();
         AnalysisToolPak._saFunctionsByName = new HashMap<>();
         map.forEach((k, v) -> AnalysisToolPak._saFunctionsByName.put(k, null));
         

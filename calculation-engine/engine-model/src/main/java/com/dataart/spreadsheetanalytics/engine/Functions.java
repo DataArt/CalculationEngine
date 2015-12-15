@@ -30,8 +30,8 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 
 /**
  * Util class to work fith custom spreadsheet functions.
@@ -50,13 +50,13 @@ public class Functions {
      * Cache for custom functions (classes).
      */
     protected static final Map<String, Class<? extends ICustomFunction>> fs;
-    static { fs = load(PACKAGE_FUNCTIONS); }
+    static { fs = loadCustomFunctions(PACKAGE_FUNCTIONS); }
 
     /**
      * POI's cache for custom functions: static instance of {@link UDFFinder}
      */
     protected static UDFFinder poifs;
-    static { poifs = loadPoi(fs); }
+    static { poifs = loadPoiCustomFunctions(fs); }
     
     /**
      * Does scan and load for custom functions.
@@ -66,7 +66,7 @@ public class Functions {
      * 
      * This can be called for other custom functions from 3pty package.
      */
-    protected static Map<String, Class<? extends ICustomFunction>> load(String functionPackage) {
+    protected static Map<String, Class<? extends ICustomFunction>> loadCustomFunctions(String functionPackage) {
         Map<String, Class<? extends ICustomFunction>> map = new HashMap<>();
 
         Set<Class<? extends ICustomFunction>> classes = new Reflections(functionPackage).getSubTypesOf(ICustomFunction.class);
@@ -87,7 +87,7 @@ public class Functions {
      * If you extend {@link Functions} class and replace/add {@link #fs} please also replace/add {@link #poifs}.
      * UDFFinder instance is needed for some CustomFunction to do evaluation in POI.
      */
-    protected static UDFFinder loadPoi(Map<String, Class<? extends ICustomFunction>> fs) {
+    protected static UDFFinder loadPoiCustomFunctions(Map<String, Class<? extends ICustomFunction>> fs) {
         List<String> names = new ArrayList<>(fs.size());
         List<ICustomFunction> funcs = new ArrayList<>(fs.size());
 
@@ -110,7 +110,7 @@ public class Functions {
     /**
      * Returns unmodifiable cache of custom functions (name-class).
      */
-    public static Map<String, Class<? extends ICustomFunction>> get() { return Collections.unmodifiableMap(fs); }
+    public static Map<String, Class<? extends ICustomFunction>> getCustomFunctions() { return Collections.unmodifiableMap(fs); }
 
     /**
      * Returns static instance of {@link UDFFinder} for custom functions. Can be null.
@@ -119,12 +119,12 @@ public class Functions {
     
     /**
      * The best way to add more custom functions. Does everything: adds functions, creates new UDFFinder.
-     * Use this if common case. Use spesific {@link #fs}.putAll() and {@link #poifs} = {@link #loadPoi(Map)} 
+     * Use this if common case. Use spesific {@link #fs}.putAll() and {@link #poifs} = {@link #loadPoiCustomFunctions(Map)} 
      * if more flexibility is needed.
      */
     public static void add(Map<String, Class<? extends ICustomFunction>> moreCustomFunctions) {
         fs.putAll(moreCustomFunctions);
-        poifs = loadPoi(fs);
+        poifs = loadPoiCustomFunctions(fs);
     }
     
 }

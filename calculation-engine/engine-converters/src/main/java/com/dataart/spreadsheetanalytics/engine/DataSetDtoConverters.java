@@ -43,10 +43,10 @@ final class DataSetDtoConverters {
         List<List<Object>> table = new ArrayList<>(dataSet.rowCount());
         
         for (IDsRow r : dataSet) {
-            List<Object> row = new ArrayList<>(r.width());
+            List<Object> row = new ArrayList<>(r.cellCount());
             
             for (IDsCell c : r) {
-                row.add(c.value().get());
+                row.add(c.getValue().get());
             }
             
             table.add(row);
@@ -75,7 +75,7 @@ final class DataSetDtoConverters {
             IDsRow dsrow = dataSet.addRow();
             
             for (Object value : row) {
-                dsrow.addCell().value(CellValue.from(value));
+                dsrow.addCell().setValue(CellValue.from(value));
             }
         }
         

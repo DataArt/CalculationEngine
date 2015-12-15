@@ -60,11 +60,11 @@ public class DefineFunctionMeta extends FunctionMeta {
     protected List<ICellAddress> inputs;
     protected List<ICellAddress> outputs;
     
-    public List<ICellAddress> inputs() { return this.inputs; }
-    public void inputs(List<ICellAddress> inputs) { this.inputs = inputs; }
+    public List<ICellAddress> getInputs() { return this.inputs; }
+    public void setInputs(List<ICellAddress> inputs) { this.inputs = inputs; }
     
-    public List<ICellAddress> outputs() { return this.outputs; }
-    public void outputs(List<ICellAddress> outputs) { this.outputs = outputs; }
+    public List<ICellAddress> getOutputs() { return this.outputs; }
+    public void setOutputs(List<ICellAddress> outputs) { this.outputs = outputs; }
     
     public DefineFunctionMeta parse(String formula) {
 
@@ -80,7 +80,7 @@ public class DefineFunctionMeta extends FunctionMeta {
         if (!formula.contains(IN_OUT_SEPARATOR)) { throw new IllegalArgumentException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR); }
         
         DefineFunctionMeta meta = new DefineFunctionMeta();
-        meta.name(ptgs[0].toUpperCase(Locale.getDefault()));
+        meta.setName(ptgs[0].toUpperCase(Locale.getDefault()));
 
         List<ICellAddress> in = new LinkedList<>();
         List<ICellAddress> out = new LinkedList<>();
@@ -102,8 +102,8 @@ public class DefineFunctionMeta extends FunctionMeta {
             }
         }
 
-        meta.inputs(in);
-        meta.outputs(out);
+        meta.setInputs(in);
+        meta.setOutputs(out);
 
         return meta;
     }

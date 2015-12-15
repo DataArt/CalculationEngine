@@ -103,12 +103,12 @@ public class FuncexecFunction implements ICustomFunction {
         final DefineFunctionMeta meta = (DefineFunctionMeta) defines.get(defineFunctionName);       
         log.info("Found DEFINE function to invoke. Name = {}.", defineFunctionName);
         
-        if (meta.inputs().size() != inputValues.size()) {
-            log.warn("Wrong number of input arguments for FUNCEXEC+DEFINE. Expected: {}, Actual: {}.", meta.inputs().size(), args.length - 1);
+        if (meta.getInputs().size() != inputValues.size()) {
+            log.warn("Wrong number of input arguments for FUNCEXEC+DEFINE. Expected: {}, Actual: {}.", meta.getInputs().size(), args.length - 1);
             return ErrorEval.VALUE_INVALID;
         }
                 
-        List<ICellAddress> inputAddresses = meta.inputs();
+        List<ICellAddress> inputAddresses = meta.getInputs();
         log.debug("Input Addresses for DEFINE: {}, Input Values for DEFINE: {}.", inputAddresses, inputValues);
         
         if (inputAddresses.size() != inputValues.size()) {
@@ -116,7 +116,7 @@ public class FuncexecFunction implements ICustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
 
-        IDataModel dmWithDefine = this.external.getDataModelAccessor().get(meta.dataModelId());
+        IDataModel dmWithDefine = this.external.getDataModelAccessor().get(meta.getDataModelId());
         
         Workbook book = toWorkbook(dmWithDefine);
         EvaluationWorkbook defineBook = toEvaluationWorkbook(book);
@@ -134,7 +134,7 @@ public class FuncexecFunction implements ICustomFunction {
         }
         
         WorkbookEvaluator defineEvaluator = new WorkbookEvaluator(defineBook, IStabilityClassifier.TOTALLY_IMMUTABLE, null);
-        List<ValueEval> outputValues = meta.outputs()
+        List<ValueEval> outputValues = meta.getOutputs()
                                            .stream()
                                            .map(a -> defineEvaluator.evaluate(getEvaluationCell(defineBook, a), ec.getCustomEvaluationContext()))
                                            .collect(Collectors.<ValueEval>toList());

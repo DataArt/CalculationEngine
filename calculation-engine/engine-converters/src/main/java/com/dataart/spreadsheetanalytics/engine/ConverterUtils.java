@@ -158,9 +158,9 @@ public final class ConverterUtils {
         if (fromCell == null) { return; }
         
         DmCell toCell = new DmCell();
-        toCell.address(address);
-        toCell.alias("TODO"); /*TODO*/
-        toCell.content(resolveCellValue(fromCell));
+        toCell.setAddress(address);
+        toCell.setAlias("TODO"); /*TODO*/
+        toCell.setContent(resolveCellValue(fromCell));
         
         to.setCell(address, toCell);
     }
@@ -218,10 +218,10 @@ public final class ConverterUtils {
     public static int resolveCellType(ICellValue c) {
         if (CellValue.BLANK == c) { return CELL_TYPE_BLANK; }
 
-        if (c.type() == Boolean.class) { return CELL_TYPE_BOOLEAN; }
-        if (c.type() == Double.class) { return CELL_TYPE_NUMERIC; }
+        if (c.getType() == Boolean.class) { return CELL_TYPE_BOOLEAN; }
+        if (c.getType() == Double.class) { return CELL_TYPE_NUMERIC; }
 
-        if (c.type() == String.class) {
+        if (c.getType() == String.class) {
             String val = (String) c.get();
 
             if (val.startsWith(FORMULA_PREFIX)) { return CELL_TYPE_FORMULA; }

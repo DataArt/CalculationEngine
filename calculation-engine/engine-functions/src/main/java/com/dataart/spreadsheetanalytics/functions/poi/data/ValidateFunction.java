@@ -19,9 +19,9 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.engine.ConverterUtils;
@@ -107,16 +107,16 @@ public class ValidateFunction implements ICustomFunction {
         
         IDsRow row = dataSet.addRow(); //new row in validation data set
 
-        row.addCell().value(new CellValue(message)); //message
-        row.addCell().value(new CellValue(severity)); //severity
-        row.addCell().value(new CellValue(A1Address.fromRowColumn(ref.getRow(), ref.getColumn()).address())); //cell address
+        row.addCell().setValue(new CellValue(message)); //message
+        row.addCell().setValue(new CellValue(severity)); //severity
+        row.addCell().setValue(new CellValue(A1Address.fromRowColumn(ref.getRow(), ref.getColumn()).address())); //cell address
 
         ICellValue targetCellValue = ConverterUtils.resolveValueEval(ref.getInnerValueEval(0));
         EvaluationWorkbook evWbk = ec.getWorkbook();
         String formulaString = evWbk.getFormulaString(evWbk.getSheet(0).getCell(ref.getRow(), ref.getColumn()));
         
-        row.addCell().value(formulaString == null ? targetCellValue : new CellValue(formulaString)); //cell formula
-        row.addCell().value(targetCellValue); //cell value
+        row.addCell().setValue(formulaString == null ? targetCellValue : new CellValue(formulaString)); //cell formula
+        row.addCell().setValue(targetCellValue); //cell value
 
         return args[1];
     }
@@ -125,11 +125,11 @@ public class ValidateFunction implements ICustomFunction {
         DataSet validateSet = new DataSet(DATASET_NAME);
 
         IDsRow r = validateSet.addRow();
-        r.addCell().value(new CellValue(FIELD_1));
-        r.addCell().value(new CellValue(FIELD_2));
-        r.addCell().value(new CellValue(FIELD_3));
-        r.addCell().value(new CellValue(FIELD_4));
-        r.addCell().value(new CellValue(FIELD_5));
+        r.addCell().setValue(new CellValue(FIELD_1));
+        r.addCell().setValue(new CellValue(FIELD_2));
+        r.addCell().setValue(new CellValue(FIELD_3));
+        r.addCell().setValue(new CellValue(FIELD_4));
+        r.addCell().setValue(new CellValue(FIELD_5));
         
         return validateSet;
     }

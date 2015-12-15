@@ -28,17 +28,17 @@ public class DmCell implements IDmCell {
     protected Optional<ICellValue> value = Optional.empty();
     protected String alias;
     
-    @Override public ICellAddress address() { return this.address; }
-    public void address(ICellAddress address) { this.address = address; }
+    @Override public ICellAddress getAddress() { return this.address; }
+    public void setAddress(ICellAddress address) { this.address = address; }
     
-    @Override public ICellValue content() { return this.content; }
-    public void content(ICellValue content) { this.content = content; }
+    @Override public ICellValue getContent() { return this.content; }
+    public void setContent(ICellValue content) { this.content = content; }
     
-    @Override public Optional<ICellValue> value() { return this.value; }
-    public void value(Optional<ICellValue> value) { this.value = value; }
+    @Override public Optional<ICellValue> getValue() { return this.value; }
+    public void setValue(Optional<ICellValue> value) { this.value = value; }
     
-    @Override public String alias() { return this.alias; }
-    public void alias(String alias) { this.alias = alias; }
+    @Override public String getAlias() { return this.alias; }
+    public void setAlias(String alias) { this.alias = alias; }
 
     @Override public String toString() { return this.content.toString(); }
     

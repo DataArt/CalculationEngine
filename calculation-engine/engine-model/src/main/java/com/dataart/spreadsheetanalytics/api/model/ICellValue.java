@@ -31,6 +31,6 @@ public interface ICellValue {
     Object get();
 
     /** Type of this cell. One of: String (for text nd formulas), Double (for numbers), Boolean (for logical), Object (for null) */
-    Class<? extends Object> type();
+    Class<? extends Object> getType();
 
 }

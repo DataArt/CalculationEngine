@@ -19,7 +19,7 @@ public interface IDsRow extends Iterable<IDsCell> {
 
     int index();
 
-    int width();
+    int cellCount();
 
     IDsCell addCell();
 
