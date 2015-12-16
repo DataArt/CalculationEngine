@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
+import java.util.stream.Stream;
+
 public interface IDmRow extends Iterable<IDmCell> /*TODO, Spliterator<IDmCell>*/ {
 
     /** Returns a cell at given column. */
@@ -40,5 +42,8 @@ public interface IDmRow extends Iterable<IDmCell> /*TODO, Spliterator<IDmCell>*/
 
     /** Number of last column in this row. */
     int getLastColumnIndex();
+    
+    /** Stream support for Row */
+    Stream<IDmCell> stream();
 
 }

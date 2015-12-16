@@ -39,6 +39,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 
@@ -61,7 +62,7 @@ public class PoiDependencyGraphBuilder {
     }
     
     public static IExecutionGraph buildDependencyGraph(IDataModel dataModel, ICellAddress cell) {
-        if (dataModel == null) { throw new IllegalArgumentException("DataModel and PoiModel are required to build dependency graph"); }
+        if (dataModel == null) { throw new CalculationEngineException("DataModel and PoiModel are required to build dependency graph"); }
         
         PoiDependencyGraphBuilder db = new PoiDependencyGraphBuilder(dataModel);
         

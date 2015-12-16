@@ -15,16 +15,25 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
+import java.util.stream.Stream;
+
 public interface IDsRow extends Iterable<IDsCell> {
 
-    int index();
-
-    int cellCount();
-
+    /** Adds a new cell to the end. */
     IDsCell addCell();
 
+    /** Adds a new cell to the given column. */
     IDsCell addCell(int cellIdx);
 
+    /** Returns a cell at the given column. */
     IDsCell getCell(int cellIdx);
 
+    /** This row index. */
+    int index();
+
+    /** Number of cells is a row. */
+    int cellCount();
+
+    /** Stream support for Row */
+    Stream<IDsCell> stream();
 }

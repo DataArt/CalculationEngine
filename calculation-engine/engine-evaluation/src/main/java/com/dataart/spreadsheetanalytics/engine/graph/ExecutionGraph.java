@@ -25,6 +25,7 @@ import org.jgrapht.DirectedGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
 public class ExecutionGraph implements IExecutionGraph {
 
@@ -44,8 +45,8 @@ public class ExecutionGraph implements IExecutionGraph {
         for (ExecutionGraphVertex ivertex : this.dgraph.vertexSet()) {
             if (this.dgraph.outgoingEdgesOf(ivertex).isEmpty()) { possible.add(ivertex); }
         }
-        if (possible.isEmpty()) { throw new IllegalStateException("No graph root found"); }
-        if (possible.size() > 1) { throw new IllegalStateException(String.format("Many graph roots found (%s)", possible.size())); }
+        if (possible.isEmpty()) { throw new CalculationEngineException("No graph root found"); }
+        if (possible.size() > 1) { throw new CalculationEngineException(String.format("Many graph roots found (%s)", possible.size())); }
         
         return possible.get(0);
     }

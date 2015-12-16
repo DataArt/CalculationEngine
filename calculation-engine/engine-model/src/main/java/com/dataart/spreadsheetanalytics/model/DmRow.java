@@ -21,9 +21,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
@@ -45,15 +49,6 @@ public class DmRow implements IDmRow {
         this.index = index;
         this.table = tableImpl;
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
-    }
-
-    @Override public Iterator<IDmCell> iterator() {
-        return this.table.entrySet()
-                         .stream()
-                         .sorted(Comparator.comparing(Entry::getKey))
-                         .map(Entry::getValue)
-                         .collect(Collectors.<IDmCell>toList())
-                         .listIterator();
     }
     
     @Override public int index() { return this.index; }
@@ -92,6 +87,26 @@ public class DmRow implements IDmRow {
     @Override
     public int getLastColumnIndex() {
         return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
+    }
+    
+    @Override 
+    public Iterator<IDmCell> iterator() {
+        return this.table.entrySet()
+                         .stream()
+                         .sorted(Comparator.comparing(Entry::getKey))
+                         .map(Entry::getValue)
+                         .collect(Collectors.<IDmCell>toList())
+                         .listIterator();
+    }
+    
+    @Override
+    public Spliterator<IDmCell> spliterator() {
+        return Spliterators.<IDmCell>spliterator(this.iterator(), this.table.size(), 0);
+    }
+    
+    @Override
+    public Stream<IDmCell> stream() {
+        return StreamSupport.<IDmCell>stream(this.spliterator(), false);
     }
     
     @Override

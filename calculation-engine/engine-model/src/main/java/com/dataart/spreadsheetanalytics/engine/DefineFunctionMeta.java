@@ -76,8 +76,8 @@ public class DefineFunctionMeta extends FunctionMeta {
                             .replace(" ", "")
                             .split(",");
         
-        if (ptgs.length < 2) { throw new IllegalArgumentException("Number of arguments in " + KEYWORD + " function must be more than 2"); }
-        if (!formula.contains(IN_OUT_SEPARATOR)) { throw new IllegalArgumentException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR); }
+        if (ptgs.length < 2) { throw new CalculationEngineException("Number of arguments in " + KEYWORD + " function must be more than 2"); }
+        if (!formula.contains(IN_OUT_SEPARATOR)) { throw new CalculationEngineException(KEYWORD + " function must contain a " + IN_OUT_SEPARATOR); }
         
         DefineFunctionMeta meta = new DefineFunctionMeta();
         meta.setName(ptgs[0].toUpperCase(Locale.getDefault()));

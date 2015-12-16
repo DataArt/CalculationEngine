@@ -20,8 +20,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
@@ -45,11 +49,6 @@ public class DsRow implements IDsRow {
 
     @Override public int index() { return this.index; }
     @Override public int cellCount() { return this.cells.size(); }
-
-    @Override 
-    public Iterator<IDsCell> iterator() {
-        return Collections.<IDsCell>unmodifiableList(this.cells).iterator();
-    }
 
     @Override 
     public IDsCell addCell() {
@@ -79,8 +78,25 @@ public class DsRow implements IDsRow {
         return cellIdx < 0 || cellIdx >= this.cells.size() ? null : this.cells.get(cellIdx);
     }
     
+
+    @Override 
+    public Iterator<IDsCell> iterator() {
+        return Collections.<IDsCell>unmodifiableList(this.cells).iterator();
+    }
+    
+    @Override
+    public Spliterator<IDsCell> spliterator() {
+        return Spliterators.<IDsCell>spliterator(this.iterator(), this.cells.size(), 0);
+    }
+    
+    @Override
+    public Stream<IDsCell> stream() {
+        return StreamSupport.<IDsCell>stream(this.spliterator(), false);
+    }
+    
     @Override 
     public String toString() {
         return this.cells.toString();
     }
+
 }

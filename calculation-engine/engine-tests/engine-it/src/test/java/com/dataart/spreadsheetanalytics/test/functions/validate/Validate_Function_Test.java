@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.test.functions.validate;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.HashMap;

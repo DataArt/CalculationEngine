@@ -3,7 +3,7 @@ package com.dataart.spreadsheetanalytics.test.util;
 import java.util.List;
 
 import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.api.StrictAssertions;
+import org.assertj.core.api.Assertions;
 import org.junit.ComparisonFailure;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
@@ -33,14 +33,14 @@ public class ExecutionGraphAssert extends AbstractAssert {
         IExecutionGraph _actual = (IExecutionGraph) this.actual;
 
         //compare vertex by vertex
-        StrictAssertions.assertThat(_actual.getVertices().size()).overridingErrorMessage("Number of Vertices expected: <[%s]>, but was in actual: <[%s]>", _expected.getVerticesML().size(), _actual.getVertices().size())
+        Assertions.assertThat(_actual.getVertices().size()).overridingErrorMessage("Number of Vertices expected: <[%s]>, but was in actual: <[%s]>", _expected.getVerticesML().size(), _actual.getVertices().size())
                                                                  .isEqualTo(_expected.getVerticesML().size());
         
         for (IExecutionGraphVertex av : _actual.getVertices()) {            
             List<ExecutionGraphVertexML> ev_set = _expected.verticesIndexName.get(av.name());
-            StrictAssertions.assertThat(ev_set).overridingErrorMessage("Vertex is present in actual graph, but not present in expected: <[%s:%s:%s]>", av.name(), av.type(), av.value())
+            Assertions.assertThat(ev_set).overridingErrorMessage("Vertex is present in actual graph, but not present in expected: <[%s:%s:%s]>", av.name(), av.type(), av.value())
                                                .isNotNull();
-            StrictAssertions.assertThat(ev_set.size()).overridingErrorMessage("Vertex is present in actual graph, but not present in expected: <[%s:%s:%s]>", av.name(), av.type(), av.value())
+            Assertions.assertThat(ev_set.size()).overridingErrorMessage("Vertex is present in actual graph, but not present in expected: <[%s:%s:%s]>", av.name(), av.type(), av.value())
                                                       .isNotEqualTo(0);
 
             boolean ok = false;
@@ -51,12 +51,12 @@ public class ExecutionGraphAssert extends AbstractAssert {
                 } catch (Exception | ComparisonFailure e) { }
             }
             
-            StrictAssertions.assertThat(ok).overridingErrorMessage("Vertex is present in actual graph, but not present in expected:%n<[%s;%s;%s;%s]>", av.name(), av.type(), av.value(), av.formula())
+            Assertions.assertThat(ok).overridingErrorMessage("Vertex is present in actual graph, but not present in expected:%n<[%s;%s;%s;%s]>", av.name(), av.type(), av.value(), av.formula())
                                            .isTrue();
         }
 
         //compare edge by edge
-        StrictAssertions.assertThat(_actual.getEdges().size()).overridingErrorMessage("Number of Edges expected: <[%s]>, but was in actual: <[%s]>", _expected.getEdgesML().size(), _actual.getEdges().size())
+        Assertions.assertThat(_actual.getEdges().size()).overridingErrorMessage("Number of Edges expected: <[%s]>, but was in actual: <[%s]>", _expected.getEdgesML().size(), _actual.getEdges().size())
                                                               .isEqualTo(_expected.getEdgesML().size());
         
         for (ExecutionGraphEdgeML ee : _expected.getEdgesML()) {
@@ -75,7 +75,7 @@ public class ExecutionGraphAssert extends AbstractAssert {
                 } catch (Exception | ComparisonFailure e) { }
             }
 
-            StrictAssertions.assertThat(ok).overridingErrorMessage("Edge is present in expected graph, but not found in actual: %n[%s;%s;%s;%s]%n->%n[%s;%s;%s;%s]", ee_source.name(), ee_source.type(), ee_source.value(), ee_source.formulaToString, ee_target.name(), ee_target.type(), ee_target.value(), ee_target.formulaToString)
+            Assertions.assertThat(ok).overridingErrorMessage("Edge is present in expected graph, but not found in actual: %n[%s;%s;%s;%s]%n->%n[%s;%s;%s;%s]", ee_source.name(), ee_source.type(), ee_source.value(), ee_source.formulaToString, ee_target.name(), ee_target.type(), ee_target.value(), ee_target.formulaToString)
                                            .isTrue();
         }
         
@@ -83,10 +83,10 @@ public class ExecutionGraphAssert extends AbstractAssert {
     }
 
     private static void assertVerticesAreEqual(IExecutionGraphVertex av, ExecutionGraphVertexML ev) {
-        StrictAssertions.assertThat(av.name()).isEqualTo(ev.name());
-        StrictAssertions.assertThat(av.value() == null ? "" : av.value().toString()).isEqualTo(ev.value().toString());
-        StrictAssertions.assertThat(av.type().toString()).isEqualTo(ev.type().toString());
-        StrictAssertions.assertThat(GraphTestUtil.formulaToString(av.formula())).isEqualTo(ev.formulaToString);
+        Assertions.assertThat(av.name()).isEqualTo(ev.name());
+        Assertions.assertThat(av.value() == null ? "" : av.value().toString()).isEqualTo(ev.value().toString());
+        Assertions.assertThat(av.type().toString()).isEqualTo(ev.type().toString());
+        Assertions.assertThat(GraphTestUtil.formulaToString(av.formula())).isEqualTo(ev.formulaToString);
     }
 
 }

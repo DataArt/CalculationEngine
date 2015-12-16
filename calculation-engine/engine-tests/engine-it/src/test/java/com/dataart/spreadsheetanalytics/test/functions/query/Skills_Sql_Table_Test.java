@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.test.functions.query;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -63,7 +63,7 @@ final class DependencyExtractors {
     
     static IDataModel toDataModel(final Workbook book, final ICellAddress address) {
         if (book == null || address == null) { return null; }
-        if (address instanceof A1RangeAddress) { throw new IllegalArgumentException("A1RangeAddress is not supported, only one cell can be converted to DataModel."); }
+        if (address instanceof A1RangeAddress) { throw new CalculationEngineException("A1RangeAddress is not supported, only one cell can be converted to DataModel."); }
         
         Sheet s = book.getSheetAt(0); /* TODO: only one sheet is supported */
         Row r = s.getRow(address.row());

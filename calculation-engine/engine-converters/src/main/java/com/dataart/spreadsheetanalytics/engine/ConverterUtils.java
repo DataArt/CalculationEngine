@@ -85,7 +85,7 @@ public final class ConverterUtils {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
         try { clearContent(ConverterUtils.newWorkbook(workbook)).write(xlsx); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         return xlsx;
     }
@@ -98,7 +98,7 @@ public final class ConverterUtils {
         ByteArrayOutputStream originalOut = new ByteArrayOutputStream();
         
         try { book.write(originalOut); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         InputStream originalIn = new ByteArrayInputStream(copyOf(originalOut.toByteArray(), originalOut.size()));
 
@@ -149,7 +149,7 @@ public final class ConverterUtils {
             case CELL_TYPE_ERROR: { cell.setCellErrorValue(FormulaError.forString((String) value.get()).getCode()); break; }
             case CELL_TYPE_STRING: { cell.setCellValue((String) value.get()); break; }
             
-            default: { throw new IllegalArgumentException(String.format("Type of value %s is not supported: %s", value, value.getClass().getSimpleName())); }
+            default: { throw new CalculationEngineException(String.format("Type of value %s is not supported: %s", value, value.getClass().getSimpleName())); }
         }
     }
     
@@ -186,7 +186,7 @@ public final class ConverterUtils {
             case CELL_TYPE_ERROR: { return CellValue.from(forInt(c.getErrorCellValue()).getString()); }
             case CELL_TYPE_BLANK: { return CellValue.BLANK; }
             case CELL_TYPE_FORMULA: { return CellValue.from(String.format("%s%s", FORMULA_PREFIX, c.getCellFormula())); }
-            default: { throw new IllegalArgumentException(String.format("Cell's type %s is not supported.", c.getCellType())); }
+            default: { throw new CalculationEngineException(String.format("Cell's type %s is not supported.", c.getCellType())); }
         }
     }
     
@@ -200,8 +200,8 @@ public final class ConverterUtils {
             case CELL_TYPE_BOOLEAN: { return CellValue.from(cellval.getBooleanValue()); }
             case CELL_TYPE_ERROR: { return CellValue.from(ErrorEval.valueOf(cellval.getErrorValue()).getErrorString()); }
             case CELL_TYPE_BLANK: { return CellValue.BLANK; }
-            case CELL_TYPE_FORMULA: { throw new IllegalStateException("Result of evaluation cannot be a formula."); }
-            default: { throw new IllegalArgumentException(String.format("CellValue's tType %s is not supported.", cellval.getCellType())); }
+            case CELL_TYPE_FORMULA: { throw new CalculationEngineException("Result of evaluation cannot be a formula."); }
+            default: { throw new CalculationEngineException(String.format("CellValue's tType %s is not supported.", cellval.getCellType())); }
         }
     }
     
@@ -212,7 +212,7 @@ public final class ConverterUtils {
             case CELL_TYPE_BOOLEAN: { return Boolean.class; }
             case CELL_TYPE_NUMERIC: { return Double.class; }
             case CELL_TYPE_FORMULA: case CELL_TYPE_STRING: case CELL_TYPE_ERROR: { return String.class; }
-            default: { throw new IllegalArgumentException(String.format("Cell's type %s is not supported.", c.getCellType())); }
+            default: { throw new CalculationEngineException(String.format("Cell's type %s is not supported.", c.getCellType())); }
         }
     }
     
@@ -234,7 +234,7 @@ public final class ConverterUtils {
             return CELL_TYPE_STRING;
         }
 
-        throw new IllegalArgumentException(String.format("CellVale's type %s is not supported.", c.get().getClass().getSimpleName()));
+        throw new CalculationEngineException(String.format("CellVale's type %s is not supported.", c.get().getClass().getSimpleName()));
     }
 
     public static ICellValue resolveValueEval(ValueEval valueEval) {
@@ -255,6 +255,6 @@ public final class ConverterUtils {
             book.addToolPack(Functions.getUdfFinder());
             return book;
         }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
     }
 }

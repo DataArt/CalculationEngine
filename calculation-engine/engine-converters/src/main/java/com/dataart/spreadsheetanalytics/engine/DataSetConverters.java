@@ -58,15 +58,16 @@ final class DataSetConverters {
     }
 
     /**
-     * Converts plain {@link IDataModel} to new {@link IDataSet} with formatting
-     * provided.
+     * Converts {@link IDataModel} to the new {@link IDataSet}.
      */
-    static IDataSet toDataSet(IDataModel dataModel) {
+    static IDataSet toDataSet(final IDataModel dataModel) {
         IDataSet dataSet = new DataSet(dataModel.getName());
         if (dataModel.rowCount() == 0) { return dataSet; }
+
         for (IDmRow dmRow : dataModel) {
             if (dmRow.cellCount() == 0) { continue; }
             IDsRow dsRow = dataSet.addRow(dmRow.index());
+            
             for (IDmCell dmCell : dmRow) {
                 IDsCell dsCell = dsRow.addCell(dmCell.getAddress().column());
                 if (dmCell.getValue().isPresent()) {
@@ -74,6 +75,7 @@ final class DataSetConverters {
                 }
             }
         }
+        
         return dataSet;
     }
     
@@ -81,7 +83,7 @@ final class DataSetConverters {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
         try { toWorkbook(dataSet, (Workbook) null).write(xlsx); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         return xlsx;
     }
@@ -90,7 +92,7 @@ final class DataSetConverters {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
         try { toWorkbook(dataSet, ConverterUtils.newWorkbook(formatting)).write(xlsx); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
         
         return xlsx;
     }

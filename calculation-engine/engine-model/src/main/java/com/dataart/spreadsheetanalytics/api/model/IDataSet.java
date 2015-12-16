@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
+import java.util.stream.Stream;
 
 /**
  * Basic interface to represent a spreadsheet.
@@ -23,20 +24,30 @@ package com.dataart.spreadsheetanalytics.api.model;
  */
 public interface IDataSet extends Iterable<IDsRow> {
 
+    /** The Id of this model. Should be unique in DataModel storage. */
     IDataModelId getDataModelId();
     
+    /** Sets the Id of this model. Should be unique in DataModel storage. */
     void setDataModelId(IDataModelId dataModelId);
     
+    /** Name of this model. Not required to be unique, but highly recommended. */
     String getName();
     
+    /** Name of this DataModel can always be changed. */
     void setName(String name);
 
+    /** Number of rows in this DataSet. */
     int rowCount();
     
+    /** Adds a new Row to the end. */
     IDsRow addRow();
     
+    /** Adds a new Row to the given row index. */
     IDsRow addRow(int rowIdx);
     
+    /** Gets a Row from the given row index. */
     IDsRow getRow(int rowIdx);
 
+    /** Stream support for DataSet */
+    Stream<IDsRow> stream();
 }

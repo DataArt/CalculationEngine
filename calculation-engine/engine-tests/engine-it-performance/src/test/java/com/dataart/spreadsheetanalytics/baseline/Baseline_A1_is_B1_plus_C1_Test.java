@@ -1,6 +1,6 @@
 package com.dataart.spreadsheetanalytics.baseline;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openjdk.jmh.annotations.Benchmark;

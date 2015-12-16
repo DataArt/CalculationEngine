@@ -1,10 +1,9 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.TreeMap;
 import java.util.UUID;
 

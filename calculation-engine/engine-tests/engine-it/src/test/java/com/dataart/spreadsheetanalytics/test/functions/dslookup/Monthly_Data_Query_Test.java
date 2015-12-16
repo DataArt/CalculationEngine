@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.test.functions.dslookup;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
 import java.util.List;

@@ -64,7 +64,7 @@ final class DataSetDtoConverters {
     
     static DataSetDto toDataSetDto(final String json) {
         try { return mapper.readValue(json, DataSetDto.class); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
     }
     
     static IDataSet toDataSet(final DataSetDto dto) {
@@ -88,7 +88,7 @@ final class DataSetDtoConverters {
     
     static String toJsonString(final DataSetDto dto) {
         try { return mapper.writeValueAsString(dto); }
-        catch (IOException e) { throw new RuntimeException(e); }
+        catch (IOException e) { throw new CalculationEngineException(e); }
     }
 
     static String toJsonString(final IDataSet dataSet) {
