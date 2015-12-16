@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Optional;
 
+import org.apache.poi.common.fork.ExecutionGraphBuilderUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
@@ -89,7 +90,7 @@ final class DataModelConverters {
 
         for (int nIdx = 0; nIdx < workbook.getNumberOfNames(); nIdx++) {
             Name name = workbook.getNameAt(nIdx);
-            dm.setCellAlias(A1Address.fromA1Address(name.getRefersToFormula()), name.getNameName());
+            dm.setCellAlias(A1Address.fromA1Address(ExecutionGraphBuilderUtils.removeSheetFromNameRef(name.getRefersToFormula())), name.getNameName());
         }
 
         return dm;

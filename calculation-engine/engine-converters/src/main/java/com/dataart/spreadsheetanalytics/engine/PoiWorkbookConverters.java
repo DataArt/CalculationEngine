@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.poi.common.fork.ExecutionGraphBuilderUtils;
 import org.apache.poi.ss.formula.EvaluationCell;
 import org.apache.poi.ss.formula.EvaluationName;
 import org.apache.poi.ss.formula.EvaluationSheet;
@@ -93,7 +94,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
             Ptg[] ptgs;
             String refersToFormula;
             if (!wbName.isFunctionName() && wbName.getRefersToFormula() != null) { //NOPMD
-                refersToFormula = wbName.getRefersToFormula();
+                refersToFormula = ExecutionGraphBuilderUtils.createPoiNameRef(wbName.getRefersToFormula(), this.sheet.getName());
                 ptgs = FormulaParser.parse(refersToFormula, (FormulaParsingWorkbook) ewb, FormulaType.NAMEDRANGE, 0 /*TODO: sheet index*/);
             } else {
                 ptgs = null;
