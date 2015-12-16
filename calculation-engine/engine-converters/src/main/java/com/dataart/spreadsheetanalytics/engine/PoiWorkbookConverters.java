@@ -20,6 +20,7 @@ import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.apache.poi.common.fork.ExecutionGraphBuilderUtils;
 import org.apache.poi.ss.formula.EvaluationCell;
 import org.apache.poi.ss.formula.EvaluationName;
 import org.apache.poi.ss.formula.EvaluationSheet;
@@ -94,7 +94,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
             Ptg[] ptgs;
             String refersToFormula;
             if (!wbName.isFunctionName() && wbName.getRefersToFormula() != null) { //NOPMD
-                refersToFormula = ExecutionGraphBuilderUtils.createPoiNameRef(wbName.getRefersToFormula(), this.sheet.getName());
+                refersToFormula = createPoiNameRef(wbName.getRefersToFormula(), this.sheet.getName());
                 ptgs = FormulaParser.parse(refersToFormula, (FormulaParsingWorkbook) ewb, FormulaType.NAMEDRANGE, 0 /*TODO: sheet index*/);
             } else {
                 ptgs = null;
