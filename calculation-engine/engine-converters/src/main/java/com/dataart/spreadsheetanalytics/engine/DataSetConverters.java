@@ -63,11 +63,15 @@ final class DataSetConverters {
      */
     static IDataSet toDataSet(IDataModel dataModel) {
         IDataSet dataSet = new DataSet(dataModel.getName());
+        if (dataModel.rowCount() == 0) { return dataSet; }
         for (IDmRow dmRow : dataModel) {
+            if (dmRow.cellCount() == 0) { continue; }
             IDsRow dsRow = dataSet.addRow(dmRow.index());
             for (IDmCell dmCell : dmRow) {
                 IDsCell dsCell = dsRow.addCell(dmCell.getAddress().column());
-                dsCell.setValue(dmCell.getValue().get());
+                if (dmCell.getValue().isPresent()) {
+                    dsCell.setValue(dmCell.getValue().get());
+                }
             }
         }
         return dataSet;
