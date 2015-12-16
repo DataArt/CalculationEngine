@@ -64,8 +64,7 @@ final class DataSetConverters {
         IDataSet dataSet = new DataSet(dataModel.getName());
         if (dataModel.rowCount() == 0) { return dataSet; }
 
-        for (IDmRow dmRow : dataModel) {
-            if (dmRow.cellCount() == 0) { continue; }
+        for (IDmRow dmRow : dataModel) {            
             IDsRow dsRow = dataSet.addRow();
             for (IDmCell dmCell : dmRow) {
                 IDsCell dsCell = dsRow.addCell(dmCell.getAddress().column());
