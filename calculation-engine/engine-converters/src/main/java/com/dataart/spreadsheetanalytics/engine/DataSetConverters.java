@@ -47,11 +47,15 @@ final class DataSetConverters {
         DataSet dataSet = new DataSet(sheet.getSheetName());
         
         for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
-            IDsRow dsRow = dataSet.addRow(); 
+            IDsRow dsRow = dataSet.addRow();
             Row row = sheet.getRow(i);
             for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
+                Cell wbCell = row.getCell(j);
+                if (wbCell != null && wbCell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                    throw new CalculationEngineException("DataSet should not contain formulas");
+                }
                 IDsCell cell = dsRow.addCell();
-                cell.setValue(ConverterUtils.resolveCellValue(row.getCell(j)));
+                cell.setValue(ConverterUtils.resolveCellValue(wbCell));
             }
         }
         return dataSet;
