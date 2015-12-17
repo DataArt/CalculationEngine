@@ -17,7 +17,7 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 import java.util.stream.Stream;
 
-public interface IDmRow extends Iterable<IDmCell> /*TODO, Spliterator<IDmCell>*/ {
+public interface IDmRow extends Iterable<IDmCell> {
 
     /** Returns a cell at given column. */
     IDmCell getCell(int cellIdx);

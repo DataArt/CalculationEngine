@@ -94,7 +94,7 @@ public class DataModelTest {
         Stream<IDmRow> st = dm.stream();
                 
         //then
-//        assertThat(st.count()).isEqualTo(7);
+        assertThat(st.count()).isEqualTo(7);
         
         dm.stream().findFirst().orElseThrow(() -> new AssertionError("No first value in Stream"));
         

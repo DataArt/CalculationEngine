@@ -21,17 +21,20 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.dataart.spreadsheetanalytics.engine.Functions;
+
 /**
- * Marker for {@link ICustomFunction}s.
+ * Marker interface for {@link ICustomFunction}s.
  * Must contain name of function and (optional) number of arguments.
+ * Used in Custom Function scan process (in {@link Functions} class.
  */
 @Target(TYPE)
 @Retention(RUNTIME)
 public @interface CustomFunctionMeta {
 
-    /** Name of this function */
+    /** Name of the custom function. */
     String value();
 
-    /** Number of input arguments in case this is static data */
+    /** Number of input arguments in case this is a static information. */
     int numberOfArguments() default 0;
 }

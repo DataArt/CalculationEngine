@@ -24,10 +24,15 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
  * Representation of typical spreadsheet.
  * Can contain formulas and values.
  * Can be evaluated using Evaluator.
+ * May be of two states: not-evaluated and evaluated. The difference is only in its cell's values.
+ * If model is not evaluated - value will be empty, if it is evaluated - cell contains some value.
+ * Original cell's content is present at all time.
+ * 
+ * Provides methods for row\cell manipulations. It is a kind of a collection represents a table.
  * 
  * Basic implementation: {@link DataModel}.
  */
-public interface IDataModel extends Iterable<IDmRow> /* TODO, Spliterator<IDmRow>*/ {
+public interface IDataModel extends Iterable<IDmRow> {
 
     /** The Id of this model. Should be unique in DataModel storage. */
     IDataModelId getDataModelId();
