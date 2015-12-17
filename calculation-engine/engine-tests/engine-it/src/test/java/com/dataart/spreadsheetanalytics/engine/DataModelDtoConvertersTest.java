@@ -44,8 +44,8 @@ public class DataModelDtoConvertersTest {
         dataModelDto.name = "Sheet1";
         dataModelDto.dataModelId = sharedId.toString();
         dataModelDto.names = new TreeMap<>();
-        dataModelDto.names.put("Sheet1!$C$1", "My_Age");
-        dataModelDto.names.put("Sheet1!$C$3", "My_Id");
+        dataModelDto.names.put("C1", "My_Age");
+        dataModelDto.names.put("C3", "My_Id");
         
         dataModelDto.table = new TreeMap<>();
         dataModelDto.table.put("A3", "Text");
@@ -73,8 +73,8 @@ public class DataModelDtoConvertersTest {
                                 .put("name", "Sheet1")
                                 .put("dataModelId", sharedId.toString())
                                 .set("names", new ObjectNode(JsonNodeFactory.instance)
-                                                    .put("Sheet1!$C$1", "My_Age")
-                                                    .put("Sheet1!$C$3", "My_Id")))
+                                                    .put("C1", "My_Age")
+                                                    .put("C3", "My_Id")))
                                 .set("table", new ObjectNode(JsonNodeFactory.instance)
                                                     .put("A3", "Text")
                                                     .put("A7", "=ISLOGICAL(TRUE)")
