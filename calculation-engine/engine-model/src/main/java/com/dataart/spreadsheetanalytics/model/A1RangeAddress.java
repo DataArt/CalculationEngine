@@ -25,6 +25,10 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 
+/**
+ * Special case of {@link A1Address} for ranges.
+ * Its implementation is just a container for {@link A1Address} instances.
+ */
 public class A1RangeAddress extends A1Address {
 
     protected List<IA1Address> addresses;

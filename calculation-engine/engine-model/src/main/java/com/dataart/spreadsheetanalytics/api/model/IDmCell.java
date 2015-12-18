@@ -17,6 +17,10 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 import java.util.Optional;
 
+/**
+ * Cell representation in a {@link IDmRow}.
+ * Cell has an address, content (original value) and value (if it was evaluated).
+ */
 public interface IDmCell {
 
     /** An address of this Cell: row number, column number, A1 format value and link to {@link IDataModelId} */
@@ -24,6 +28,9 @@ public interface IDmCell {
 
     /** The content. Can be a value (Double, String, Boolean), empty (null), formula (String) */
     ICellValue getContent();
+    
+    /** Sets the content. Can be a value (Double, String, Boolean), empty (null), formula (String) */
+    void setContent(ICellValue value);
 
     /** Value only if it exists: 2+2 will be 4 (value), SUM(A1, B1) will be 4 if A1 = 2 and B1 = 2. Empty by default. */
     Optional<ICellValue> getValue();

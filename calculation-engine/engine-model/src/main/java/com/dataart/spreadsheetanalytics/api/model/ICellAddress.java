@@ -46,6 +46,6 @@ public interface ICellAddress {
     /**
      * Link to {@link IDataModelId}.
      */
-    IDataModelId dataModelId();
+    IDataModelId getDataModelId();
 
 }

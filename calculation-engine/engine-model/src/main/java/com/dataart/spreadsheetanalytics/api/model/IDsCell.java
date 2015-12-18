@@ -15,6 +15,10 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
+/**
+ * Cell representation in a {@link IDsRow}.
+ * Contains index of cell in a row and value.
+ */
 public interface IDsCell {
 
     /** This Cell's index in a row.*/

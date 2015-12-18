@@ -15,6 +15,16 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+
+/**
+ * DataSet scope over the execution (evaluation).
+ * {@link #LOCAL} - only for this execution.
+ * {@link #GLOBAL} - for all executions.
+ * 
+ * Some custom functions can produce new {@link IDataSet} as result of execution.
+ * These data sets might be stored in context or local storage with a scope.
+ */
 public enum DataSetScope {
     LOCAL,
     GLOBAL;

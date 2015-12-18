@@ -15,12 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -49,13 +46,6 @@ public class DefineFunctionMeta extends FunctionMeta {
     public static final String KEYWORD = "DEFINE";
     /** Separator for intput and output arguments */
     public static final String IN_OUT_SEPARATOR = "#";
-    
-    public static final Map<String, Class<DefineFunctionMeta>> ATTRIBUTE_FUNCTION;
-    static {
-        Map<String, Class<DefineFunctionMeta>> map = new LinkedHashMap<>();
-        map.put(DefineFunctionMeta.KEYWORD, DefineFunctionMeta.class);
-        ATTRIBUTE_FUNCTION = Collections.unmodifiableMap(map);
-    }
     
     protected List<ICellAddress> inputs;
     protected List<ICellAddress> outputs;

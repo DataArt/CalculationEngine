@@ -13,7 +13,7 @@ public class ModeldefineFunctionMeta extends DefineFunctionMeta {
         mdfm.name(dfm.name());
         mdfm.inputs(dfm.inputs());
         mdfm.outputs(dfm.outputs());
-        mdfm.dataModelId(dfm.dataModelId());
+        mdfm.dataModelId(dfm.getDataModelId());
         return mdfm;
     }
 

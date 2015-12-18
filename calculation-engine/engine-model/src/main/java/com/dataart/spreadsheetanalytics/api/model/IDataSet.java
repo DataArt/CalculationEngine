@@ -18,9 +18,11 @@ package com.dataart.spreadsheetanalytics.api.model;
 import java.util.stream.Stream;
 
 /**
- * Basic interface to represent a spreadsheet.
+ * Basic interface to represent a spreadsheet with data only.
+ * It looks like a result of a SELECT query from RBD.
  * Uses the same concept (spreadsheet), but can contains only values, not formulas.
- * After giving any instance of this type to Evaluator the resuilt will be the same (equal spreadsheets).
+ * Cannot be evaluated, only sorted, searched for, etc.
+ * Cannot contain empty rows, but can contain cell with empty values.
  */
 public interface IDataSet extends Iterable<IDsRow> {
 

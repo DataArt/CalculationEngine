@@ -17,6 +17,12 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 import java.util.stream.Stream;
 
+/**
+ * Row representation in a {@link IDataSet}.
+ * It is a container for {@link IDsCell}s.
+ * 
+ * Allows to add/get cells and iterate over cells.
+ */
 public interface IDsRow extends Iterable<IDsCell> {
 
     /** Adds a new cell to the end. */

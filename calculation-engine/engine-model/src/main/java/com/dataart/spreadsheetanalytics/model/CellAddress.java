@@ -34,7 +34,7 @@ public class CellAddress implements ICellAddress {
         this.a1Address = a1Address;
     }
 
-    @Override public IDataModelId dataModelId() { return this.dataModelId; }
+    @Override public IDataModelId getDataModelId() { return this.dataModelId; }
     @Override public int row() { return this.a1Address.row(); }
     @Override public int column() { return this.a1Address.column(); }
     @Override public A1Address a1Address() { return this.a1Address; }

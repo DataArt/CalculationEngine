@@ -22,6 +22,10 @@ import java.lang.annotation.Target;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
+/**
+ * Abstract container for CustomFunction meta information.
+ * Meta information of a function is: name, parameters, return type, etc. - enything that is not the function code itself.
+ */
 public abstract class FunctionMeta {
 
     protected String name;

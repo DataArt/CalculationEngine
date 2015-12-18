@@ -26,7 +26,7 @@ import java.util.List;
  * and all the meta informations.
  * 
  * For example if this class is used to get data from SQL source, the meta information will be 
- * SQL query and SqlDataSource name. The result of SQL query will converted to {@link IDataSet}. 
+ * SQL query and SqlDataSource name. The result of SQL query will be converted to {@link IDataSet}. 
  */
 public interface ILazyDataSet extends IDataSet {
 
