@@ -90,7 +90,11 @@ final class DataModelConverters {
 
         for (int nIdx = 0; nIdx < workbook.getNumberOfNames(); nIdx++) {
             Name name = workbook.getNameAt(nIdx);
-            dm.setCellAlias(A1Address.fromA1Address(removeSheetFromNameRef(name.getRefersToFormula())), name.getNameName());
+            
+            String address = removeSheetFromNameRef(name.getRefersToFormula());
+            if (address == null) { continue; }
+            
+            dm.setCellAlias(A1Address.fromA1Address(address), name.getNameName());
         }
 
         return dm;

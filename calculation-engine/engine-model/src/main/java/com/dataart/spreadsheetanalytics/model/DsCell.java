@@ -18,6 +18,11 @@ package com.dataart.spreadsheetanalytics.model;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 
+/**
+ * Implementation of {@link IDsCell}.
+ * 
+ * Simple container for index and value.
+ */
 public class DsCell implements IDsCell {
 
     protected final int index;

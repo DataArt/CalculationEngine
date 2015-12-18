@@ -21,6 +21,11 @@ import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 /**
  * Basic implementation of {@link ICellValue}.
  * It is a simple wrapper for {@link Object} (represents the value).
+ * 
+ * Inside implementation there are 3 data types: 
+ * {@link Double} for numeric values;
+ * {@link Boolean} for logical values;
+ * {@link String} for text values, errors and formulas;
  */
 public class CellValue implements ICellValue {
     

@@ -21,6 +21,10 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 
+/**
+ * Implementation of {@link IDmCell}.
+ * Simple container for address, content and value.
+ */
 public class DmCell implements IDmCell {
     
     protected ICellAddress address;

@@ -33,6 +33,11 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
+/**
+ * Implementation of {@link IDmRow}.
+ * 
+ * Uses Map to store Cells with their indexes.
+ */
 public class DmRow implements IDmRow {
 
     protected final int index;
