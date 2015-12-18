@@ -61,7 +61,7 @@ Next output jar files should be included in application (dependencies are not sp
 Also the above jars required jars from Apache POI fork to be included as dependencies:
 * poi-fork-[version].jar
 * poi-ooxml-fork-[version].jar    
-Current version: **3.13-beta1.ce.0.7.0.1.dev**.  
+Current version: **3.13-beta1.ce.0.7.0.x.dev**.  
 
 To add Calculation Engine as dependency to project use:
 ```
