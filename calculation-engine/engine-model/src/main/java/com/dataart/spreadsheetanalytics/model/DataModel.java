@@ -37,6 +37,16 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 
+/**
+ * Implementation of {@link IDataModel}.
+ * This class represents a table collection.
+ * Uses java Map to store Rows and their indexes.
+ * 
+ * Current version support two variants: 
+ * Default - when {@link HashMap} is used for rows storing and write-lock is true. 
+ * WriteLock means all write (set) operations will be locked using {@link Lock} class.
+ * Customisable - when constructor allows to specify Map to be used and boolean for write lock.   
+ */
 public class DataModel implements IDataModel {
 
     protected IDataModelId dataModelId;

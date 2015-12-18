@@ -34,7 +34,7 @@ public class A1Address implements ICellAddress, IA1Address {
     protected int column;
 
     @Override public A1Address a1Address() { return this; }
-    @Override public IDataModelId dataModelId() { return null; }
+    @Override public IDataModelId getDataModelId() { return null; }
     @Override public String address() { return this.address; }
     @Override public int row() { return this.row; }
     @Override public int column() { return this.column; }
@@ -63,7 +63,7 @@ public class A1Address implements ICellAddress, IA1Address {
         return a;
     }
 
-    protected static boolean isRange(String a1address) {
+    public static boolean isRange(String a1address) {
         return a1address.contains(":");
     }
     

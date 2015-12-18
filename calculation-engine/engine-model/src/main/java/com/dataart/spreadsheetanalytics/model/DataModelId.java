@@ -17,6 +17,10 @@ package com.dataart.spreadsheetanalytics.model;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
+/**
+ * Simple implementation of {@link IDataModelId}.
+ * Contains generic {@link Object} instance as id.
+ */
 public class DataModelId implements IDataModelId {
 
     protected final Object id;

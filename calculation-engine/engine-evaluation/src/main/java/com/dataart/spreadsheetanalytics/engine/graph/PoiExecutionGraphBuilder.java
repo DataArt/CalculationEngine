@@ -718,7 +718,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         vertex.property(FORMULA_VALUES).set(cell.get().toString());
         vertex.property(FORMULA_PTG_STRING).set("");
         vertex.property(PTG_STRING).set("");
-        vertex.property(SOURCE_OBJECT_ID).set(address.dataModelId());
+        vertex.property(SOURCE_OBJECT_ID).set(address.getDataModelId());
 
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         emptyGraph.addVertex(vertex);

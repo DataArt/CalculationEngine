@@ -30,6 +30,11 @@ import java.util.stream.StreamSupport;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 
+/**
+ * Implementation of {@link IDsRow}.
+ * 
+ * By default uses {@link ArrayList} to store Cells.
+ */
 public class DsRow implements IDsRow {
 
     protected final int index;

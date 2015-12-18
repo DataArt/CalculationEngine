@@ -21,6 +21,10 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 
+/**
+ * Implementation of {@link IDmCell}.
+ * Simple container for address, content and value.
+ */
 public class DmCell implements IDmCell {
     
     protected ICellAddress address;
@@ -31,7 +35,7 @@ public class DmCell implements IDmCell {
     public void setAddress(ICellAddress address) { this.address = address; }
     
     @Override public ICellValue getContent() { return this.content; }
-    public void setContent(ICellValue content) { this.content = content; }
+    @Override public void setContent(ICellValue content) { this.content = content; }
     
     @Override public Optional<ICellValue> getValue() { return this.value; }
     public void setValue(Optional<ICellValue> value) { this.value = value; }

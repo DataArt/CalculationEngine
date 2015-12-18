@@ -28,6 +28,8 @@ import org.apache.poi.ss.formula.functions.FreeRefFunction;
 /**
  * High level interface for all custom functions for spreadsheet.
  * It is a marker interface and is needed only for functions scan part (and loading into memory).
+ * 
+ * May provide some common methods used in all custom functions.
  */
 public interface ICustomFunction extends FreeRefFunction {
     

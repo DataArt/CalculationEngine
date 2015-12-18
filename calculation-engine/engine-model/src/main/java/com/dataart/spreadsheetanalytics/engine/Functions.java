@@ -38,7 +38,6 @@ import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
  * Allows to scan for such functions (java classes), load them into target (evaluator) objects.
  * 
  * This class can be extended to support loading of more custom functions from different packages.
- * 
  */
 public class Functions {
     private static final Logger log = LoggerFactory.getLogger(Functions.class);

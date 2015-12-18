@@ -26,9 +26,12 @@ import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
+/**
+ * Common code for {@link ILazyDataSet} classes.
+ */
 public abstract class AbstractLazyDataSet implements ILazyDataSet {
 
-    private static final CalculationEngineException NOT_EXECUTED = new CalculationEngineException("DataSet not executed.");
+    protected static final CalculationEngineException NOT_EXECUTED = new CalculationEngineException("DataSet not executed.");
     
     protected DataSet dataSet;
     protected boolean executed;
