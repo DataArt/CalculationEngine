@@ -62,7 +62,7 @@ final class DataModelDtoConverters {
             }
         }
         
-        Map<String, String> names = dataModel.getCellAliases()
+        Map<String, String> names = ((DataModel) dataModel).getCellAliases()
                                              .entrySet()
                                              .stream()
                                              .collect(Collectors.toMap(
@@ -110,9 +110,7 @@ final class DataModelDtoConverters {
             ((DmCell) dataModel.getCell(address)).setValue(Optional.of(CellValue.from(value)));
         }
         
-        //TODO: add support for names: Map<String, String> names = dto.names;
-
-        dto.getNames().forEach( (k,v) -> dataModel.setCellAlias(A1Address.fromA1Address(k), v) );
+        dto.getNames().forEach((k, v) -> ((DataModel) dataModel).setCellAlias(A1Address.fromA1Address(k), v));
 
         return dataModel;
     }

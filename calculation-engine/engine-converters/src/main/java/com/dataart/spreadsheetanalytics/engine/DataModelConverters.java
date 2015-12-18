@@ -163,7 +163,7 @@ final class DataModelConverters {
         Sheet wbSheet = result.getSheet(dataModel.getName());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
 
-        dataModel.getCellAliases().forEach((k, v) -> {
+        ((DataModel) dataModel).getCellAliases().forEach((k, v) -> {
             Name name = result.createName();
             name.setNameName(v);
             name.setRefersToFormula(k.a1Address().address());

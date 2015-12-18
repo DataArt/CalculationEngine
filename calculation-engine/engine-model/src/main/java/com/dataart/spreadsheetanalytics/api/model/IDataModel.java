@@ -36,25 +36,25 @@ public interface IDataModel extends Iterable<IDmRow> {
 
     /** The Id of this model. Should be unique in DataModel storage. */
     IDataModelId getDataModelId();
-    
+
     /** Sets the Id of this model. Should be unique in DataModel storage. */
     void setDataModelId(IDataModelId dataModelId);
-    
+
     /** Name of this model. Not required to be unique, but highly recommended. */
     String getName();
-    
+
     /** Name of this DataModel can always be changed. */
     void setName(String name);
 
     /** Number of rows in this DataModel. */
     int rowCount();
-    
+
     /** Number of first row in this sheet. */
     int getFirstRowIndex();
-    
+
     /** Number of last row in this sheet. */
     int getLastRowIndex();
-    
+
     /** Returns the Row at given position. Null if does not exist. */
     IDmRow getRow(int rowIdx);
 
@@ -63,10 +63,10 @@ public interface IDataModel extends Iterable<IDmRow> {
 
     /** Sets a Rows at given address. Replaces old if exists. Null rows are accepted. */
     void setRow(int rowIdx, IDmRow row);
-        
+
     /** Sets a Rows at given address (row argument of address). Replaces old if exists. Null rows are accepted. */
     void setRow(ICellAddress address, IDmRow row);
-    
+
     /** Returns the Cell at given position. Null if does not exist. */
     IDmCell getCell(int rowIdx, int cellIdx);
 
@@ -75,19 +75,28 @@ public interface IDataModel extends Iterable<IDmRow> {
 
     /** Sets the Cell at given position. Creates a new Row if Row does not exist. */
     void setCell(int rowIdx, int cellIdx, IDmCell cell);
-    
+
     /** Sets the Cell at given position. Creates a new Row if Row does not exist. */
     void setCell(ICellAddress address, IDmCell cell);
 
-    /** Gets String alias for CellAddress */
-    String getCellAlias(ICellAddress cellAddress);
-    
-    /** Sets String alias for CellAddress */
-    void setCellAlias(ICellAddress address, String alias);
+    /** Returns {@link ICellAddress} if name is set to this address. */
+    ICellAddress getNamedAddress(String alias);
 
-    /** Returns all available Cell Aliases */
-    Map<ICellAddress, String> getCellAliases();
-    
+    /** Sets name for {@link ICellAddress}. */
+    void setNamedAddress(String alias, ICellAddress address);
+
+    /** Returns {@link ICellValue} if name is set to this value. */
+    ICellValue getNamedValue(String alias);
+
+    /** Sets name for {@link ICellValue}. */
+    void setNamedValue(String alias, ICellValue value);
+
+    /** Returns all available Named Addresses. */
+    Map<String, ICellAddress> getNamedAddresses();
+
+    /** Returns all available Named Values. */
+    Map<String, ICellValue> getNamedValues();
+
     /** Stream support for DataModel */
     Stream<IDmRow> stream();
 

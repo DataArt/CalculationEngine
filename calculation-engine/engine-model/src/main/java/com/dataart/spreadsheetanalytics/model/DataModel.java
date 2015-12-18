@@ -32,6 +32,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
@@ -151,19 +152,52 @@ public class DataModel implements IDataModel {
         return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
     }
     
-    @Override
     public void setCellAlias(ICellAddress cellAddress, String nameText) {
         this.names.put(cellAddress, nameText);
     }
 
-    @Override
     public String getCellAlias(ICellAddress cellAddress) {
         return this.names.get(cellAddress);
     }
 
-    @Override
     public Map<ICellAddress, String> getCellAliases() {
         return Collections.<ICellAddress, String>unmodifiableMap(this.names);
+    }
+    
+    @Override
+    public ICellAddress getNamedAddress(String alias) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setNamedAddress(String alias, ICellAddress address) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public ICellValue getNamedValue(String alias) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setNamedValue(String alias, ICellValue value) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Map<String, ICellAddress> getNamedAddresses() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Map<String, ICellValue> getNamedValues() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
     @Override 
