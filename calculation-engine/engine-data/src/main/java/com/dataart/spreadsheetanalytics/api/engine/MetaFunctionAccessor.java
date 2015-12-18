@@ -19,12 +19,19 @@ import java.util.Map;
 
 import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
 
+/**
+ * Storage (Cache, Provider) for {@link FunctionMeta}.
+ * Used in Custom Functions to access function meta information.
+ */
 public interface MetaFunctionAccessor<T extends FunctionMeta> {
 
+    /** Adds {@link FunctionMeta} to storage. */
     void add(T meta);
 
+    /** Returns all available {@link FunctionMeta}s. */
     Map<String, T> getAll();
 
+    /** Returns {@link FunctionMeta} by its name. Null - if not found. */
     T get(String name);
 
 }

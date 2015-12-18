@@ -48,19 +48,29 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
+/**
+ * Util methods for Meta Information extraction or Excel minimization.
+ */
 final class DependencyExtractors {
     private static final Logger log = LoggerFactory.getLogger(DependencyExtractors.class);
     
     private DependencyExtractors() {}
 
+    /** Invokes {@link #toDataModel(Workbook, ICellAddress)} with {@link IDataModel} converted to {@link Workbook}. */
     static IDataModel toDataModel(final IDataModel book, final ICellAddress address) {
         return toDataModel(DataModelConverters.toWorkbook(book), address);
     }
     
+    /** Invokes {@link #toDataModel(Workbook, ICellAddress)} with {@link InputStream} converted to {@link Workbook}. */
     static IDataModel toDataModel(final InputStream book, final ICellAddress address) {
         return toDataModel(ConverterUtils.newWorkbook(book), address);
     }
     
+    /**
+     * Extracts {@link IDataModel} from {@link Workbook} at given {@link ICellAddress}.
+     * Useful for formula. If given {@link ICellAddress} contains formula it can be parsed.
+     * Based on this parsed information a new {@link IDataModel} might be created.
+     */
     static IDataModel toDataModel(final Workbook book, final ICellAddress address) {
         if (book == null || address == null) { return null; }
         if (address instanceof A1RangeAddress) { throw new CalculationEngineException("A1RangeAddress is not supported, only one cell can be converted to DataModel."); }
@@ -74,14 +84,21 @@ final class DependencyExtractors {
         return createDataModelFromCell(s, create((XSSFWorkbook) book), fromRowColumn(c.getRowIndex(), c.getColumnIndex()));
     }
     
+    /** Invokes {@link #toDataModels(Workbook, String)} with {@link IDataModel} converted to {@link Workbook}. */
     static List<IDataModel> toDataModels(final IDataModel book, final String function) {
         return toDataModels(DataModelConverters.toWorkbook(book), function);
     }
     
+    /** Invokes {@link #toDataModels(Workbook, String)} with {@link InputStream} converted to {@link Workbook}. */
     static List<IDataModel> toDataModels(final InputStream book, final String function) {
         return toDataModels(ConverterUtils.newWorkbook(book), function);
     }
     
+    /**
+     * Extracts {@link IDataModel} from {@link Workbook} for given function name.
+     * Useful for formula with particular functions. Does scan IDataModel for exact formula use and create new 
+     * {@link IDataModel} for every formula found.
+     */
     static List<IDataModel> toDataModels(final Workbook book, final String function) {
         if (book == null || function == null) { return emptyList(); }
         List<IDataModel> list = new LinkedList<>();
@@ -103,14 +120,20 @@ final class DependencyExtractors {
         return list;
     }
     
+    /** Invokes {@link #toMetaFunctions(Workbook, Class)} with {@link IDataModel} converted to {@link Workbook}. */
     static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(IDataModel book, Class<T> metaClass) {
         return toMetaFunctions(DataModelConverters.toWorkbook(book), metaClass);
     }
     
+    /** Invokes {@link #toMetaFunctions(Workbook, Class)} with {@link InputStream} converted to {@link Workbook}. */
     static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(InputStream book, Class<T> metaClass) {
         return toMetaFunctions(ConverterUtils.newWorkbook(book), metaClass);    
     }
 
+    /**
+     * Does the same logic as {@link #toDataModels(Workbook, String)}, but for each new {@link IDataModel} created
+     * also created an instance of given {@link FunctionMeta}.
+     */
     static <T extends FunctionMeta> Map<T, IDataModel> toMetaFunctions(Workbook book, Class<T> metaClass) {
         Map<T, IDataModel> map = new HashMap<>();
 
@@ -140,12 +163,14 @@ final class DependencyExtractors {
         return map;
     }
 
+    /** Based on given cell address creates new {@link IDataModel} with all parsed cell dependencies. */
     static IDataModel createDataModelFromCell(Sheet sheet, FormulaParsingWorkbook workbook, ICellAddress address) {
         IDataModel dm = new DataModel(randomUUID().toString());
         resolveCellDependencies(address, sheet, workbook).forEach(cell -> ConverterUtils.copyCell(cell, sheet, dm));
         return dm;
     }
 
+    /** For given cell address gives a list of this cell's dependencies. */
     static List<ICellAddress> resolveCellDependencies(ICellAddress cellAddress, Sheet sheet, FormulaParsingWorkbook workbook) {
         Row row = sheet.getRow(cellAddress.row());
         if (row == null) { return emptyList(); }
@@ -179,6 +204,7 @@ final class DependencyExtractors {
         return dependencies;
     }
     
+    /** Create an instance of new {@link FunctionMeta} and fills it with minimum information. */
     static <T extends FunctionMeta> T createAttributeFunctionMeta(Class<T> metaClass, String formula, IDataModel model) throws Exception {
         T meta = (T) metaClass.newInstance().parse(formula);
         meta.setDataModelId(model.getDataModelId());

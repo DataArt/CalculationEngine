@@ -15,6 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.engine.datasource;
 
+/**
+ * Container for Queries to be used in {@link DataSource}.
+ */
 public interface DataSourceQuery {
 
 }

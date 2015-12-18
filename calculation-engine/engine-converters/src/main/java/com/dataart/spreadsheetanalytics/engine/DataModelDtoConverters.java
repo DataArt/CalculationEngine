@@ -37,6 +37,9 @@ import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+/**
+ * Util methods for conversion to\from {@link IDataModel} and {@link DataModelDto}.
+ */
 final class DataModelDtoConverters {
 
     static final ObjectMapper mapper = new ObjectMapper();
@@ -45,6 +48,7 @@ final class DataModelDtoConverters {
         mapper.configure(IGNORE_UNKNOWN, true);
     }
     
+    /** Converts {@link IDataModel} to {@link DataModelDto}. */
     static DataModelDto toDataModelDto(final IDataModel dataModel) {
 
         Map<String, Object> table = new HashMap<>();
@@ -62,6 +66,7 @@ final class DataModelDtoConverters {
             }
         }
         
+        //TODO remove casting
         Map<String, String> names = ((DataModel) dataModel).getCellAliases()
                                              .entrySet()
                                              .stream()
@@ -81,11 +86,13 @@ final class DataModelDtoConverters {
         return dto;
     }
     
+    /** Converts JSON string that represents an {@link IDataModel} to {@link DataModelDto}. */
     static DataModelDto toDataModelDto(final String json) {
         try { return mapper.readValue(json, DataModelDto.class); }
         catch (IOException e) { throw new CalculationEngineException(e); }
     }
     
+    /** Converts a {@link DataModelDto} to {@link IDataModel}. */
     static IDataModel toDataModel(final DataModelDto dto) {
         IDataModel dataModel = new DataModel(dto.name);
         dataModel.setDataModelId(new DataModelId(dto.dataModelId));
@@ -115,23 +122,28 @@ final class DataModelDtoConverters {
         return dataModel;
     }
     
+    /** Converts JSON string that represents an {@link IDataModel} to {@link IDataModel}. */
     static IDataModel toDataModel(final String json) {
         return toDataModel(toDataModelDto(json));
     }
     
+    /** Converts a {@link DataModelDto} to JSON string that represents an {@link IDataModel}. */
     static String toJsonString(final DataModelDto dto) {
         try { return mapper.writeValueAsString(dto); }
         catch (IOException e) { throw new CalculationEngineException(e); }
     }
 
+    /** Converts a {@link IDataModel} to JSON string that represents an {@link IDataModel}. */
     static String toJsonString(final IDataModel dataModel) {
         return toJsonString(toDataModelDto(dataModel));
     }
     
+    /** Converts a {@link DataModelDto} to JSON object represented by {@link ObjectNode}. */
     static ObjectNode toJsonObject(final DataModelDto dto) {
         return (ObjectNode) mapper.valueToTree(dto);
     }
 
+    /** Converts a {@link IDataModel} to JSON object represented by {@link ObjectNode}. */
     static ObjectNode toJsonObject(final IDataModel dataModel) {
         return toJsonObject(toDataModelDto(dataModel));
     }

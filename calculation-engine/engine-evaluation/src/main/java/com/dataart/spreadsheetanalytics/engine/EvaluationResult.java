@@ -3,6 +3,9 @@ package com.dataart.spreadsheetanalytics.engine;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 
+/**
+ * {@link IEvaluationResult} implementation.
+ */
 class EvaluationResult<T> implements IEvaluationResult<T> {
 
     protected final IEvaluationContext evaluationContext;

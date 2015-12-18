@@ -89,7 +89,6 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
  * When evaluation is done it's {@link #runPostProcessing(boolean)} method does 'clean' graph's structure.
  * 
  * New instance of this class should be created for each evaluation (with graph building).
- *
  */
 public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
@@ -115,8 +114,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     /**
      * This method should be used when creating a new vertex from a cell, so
      * vertex name is a cell's address. New Vertex will be created any time this
-     * method is invoked. New vertex will be stored in
-     * address-to-set-of-vertices map.
+     * method is invoked. New vertex will be stored in address-to-set-of-vertices map.
      */
     @Override
     public IExecutionGraphVertex createVertex(String address) {

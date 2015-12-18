@@ -29,6 +29,9 @@ import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 
+/**
+ * https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description#validate
+ */
 @CustomFunctionMeta(value = "VALIDATE")
 public class ValidateFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);

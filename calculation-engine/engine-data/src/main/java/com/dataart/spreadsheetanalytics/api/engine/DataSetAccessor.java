@@ -20,23 +20,30 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 
+/**
+ * Storage for {@link IDataSet}s.
+ */
 public interface DataSetAccessor {
     
-    /**
-     * {@link #add(IDataSet, DataSetScope)} with {@link DataSetScope#GLOBAL}
-     */
+    /** Invokes {@link #add(IDataSet, DataSetScope)} with {@link DataSetScope#GLOBAL} */
     void add(IDataSet dataSet);
     
+    /** Adds {@link IDataSet} to storage with given scope. */
     void add(IDataSet dataSet, DataSetScope scope);
     
+    /** Returns {@link IDataSet} by Id. */
     IDataSet get(IDataModelId dataModelId);
     
+    /** Returns {@link IDataSet} by name. */
     IDataSet get(String dataSetName);
     
+    /** Returns {@link IDataSet} by name, provides access to parameters. */
     IDataSet get(String dataSetName, ILazyDataSet.Parameters parameters);
     
+    /** Checks if {@link IDataSet} is {@link ILazyDataSet}. */
     boolean isLazy(String dataSetName);
     
+    /** Checks if {@link IDataSet} is {@link ILazyDataSet}. */
     boolean isLazy(IDataSet dataSet);
 
 }

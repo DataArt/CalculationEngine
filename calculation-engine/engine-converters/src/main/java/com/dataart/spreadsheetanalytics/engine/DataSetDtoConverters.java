@@ -31,6 +31,9 @@ import com.dataart.spreadsheetanalytics.model.DataSet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+/**
+ * Util methods to convert to\from {@link IDataSet} and {@link DataSetDto}.
+ */
 final class DataSetDtoConverters {
 
     static final ObjectMapper mapper = new ObjectMapper();
@@ -39,6 +42,7 @@ final class DataSetDtoConverters {
         mapper.configure(IGNORE_UNKNOWN, true);
     }
     
+    /** Converts {@link IDataSet} to {@link DataSetDto}. */
     static DataSetDto toDataSetDto(final IDataSet dataSet) {
         List<List<Object>> table = new ArrayList<>(dataSet.rowCount());
         
@@ -62,11 +66,13 @@ final class DataSetDtoConverters {
         return dto;
     }
     
+    /** Converts valid JSON string that represents a {@link IDataSet} to {@link DataSetDto}. */
     static DataSetDto toDataSetDto(final String json) {
         try { return mapper.readValue(json, DataSetDto.class); }
         catch (IOException e) { throw new CalculationEngineException(e); }
     }
     
+    /** Converts a {@link DataSetDto} to {@link IDataSet}. */
     static IDataSet toDataSet(final DataSetDto dto) {
         IDataSet dataSet = new DataSet(dto.name);
         dataSet.setDataModelId(new DataModelId(dto.dataModelId));
@@ -82,23 +88,28 @@ final class DataSetDtoConverters {
         return dataSet;
     }
     
+    /** Converts a valid JSON string that represents a {@link DataSet} to {@link IDataSet}. */
     static IDataSet toDataSet(final String json) {
         return toDataSet(toDataSetDto(json));
     }
     
+    /** Converts a {@link DataSetDto} to JSON string. */
     static String toJsonString(final DataSetDto dto) {
         try { return mapper.writeValueAsString(dto); }
         catch (IOException e) { throw new CalculationEngineException(e); }
     }
 
+    /** Converts a {@link DataSet} to JSON string. */
     static String toJsonString(final IDataSet dataSet) {
         return toJsonString(toDataSetDto(dataSet));
     }
     
+    /** Converts a {@link DataSetDto} to JSON object that is represented by {@link ObjectNode}. */
     static ObjectNode toJsonObject(final DataSetDto dto) {
         return (ObjectNode) mapper.valueToTree(dto);
     }
 
+    /** Converts a {@link DataSet} to JSON object that is represented by {@link ObjectNode}. */
     static ObjectNode toJsonObject(final IDataSet dataSet) {
         return toJsonObject(toDataSetDto(dataSet));
     }

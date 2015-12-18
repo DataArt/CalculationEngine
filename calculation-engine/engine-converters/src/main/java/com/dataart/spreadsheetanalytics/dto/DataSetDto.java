@@ -17,6 +17,11 @@ package com.dataart.spreadsheetanalytics.dto;
 
 import java.util.List;
 
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+
+/**
+ * JSON representation of {@link IDataSet}.
+ */
 public class DataSetDto {
 
     public String name;

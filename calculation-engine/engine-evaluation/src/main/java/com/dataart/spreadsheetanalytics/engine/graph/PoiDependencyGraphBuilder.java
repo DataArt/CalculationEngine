@@ -43,6 +43,9 @@ import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 
+/**
+ * Methods to build dependency graphs.
+ */
 public class PoiDependencyGraphBuilder {
 
     public static final String VERTEX_VALUE = "N/A"; 

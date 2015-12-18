@@ -25,6 +25,9 @@ import javax.cache.Caching;
 
 import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 
+/**
+ * {@link MetaFunctionAccessor} implementation based on {@link Cache}.
+ */
 public class CacheBasedMetaFunctionAccessor implements MetaFunctionAccessor {
 
     public static final String META_FUNCTIONS_CACHE_NAME = "metaFunctionsCache";

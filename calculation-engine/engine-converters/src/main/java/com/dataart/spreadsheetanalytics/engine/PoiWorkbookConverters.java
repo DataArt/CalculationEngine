@@ -15,12 +15,12 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine; //NOPMD
 
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,14 +58,27 @@ import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 
+/**
+ * Util methods and classes for convertion from {@link Workbook} to {@link EvaluationWorkbook}.
+ * Since {@link Workbook} is just a container for data, but for evaluation instance of {@link EvaluationWorkbook} is needed,
+ * this converter methods should do this step.
+ */
 final class PoiWorkbookConverters {
 
     private PoiWorkbookConverters() {}
 
+    /**
+     * Converter {@link Workbook} to {@link EvaluationWorkbook}.
+     * The final classes are hidden from external use.
+     */
     public static EvaluationWorkbook toEvaluationWorkbook(Workbook workbook) {
         return new PoiProxyWorkbook(workbook);
     }
 
+    /**
+     * Returns {@link EvaluationCell} of given {@link EvaluationWorkbook}.
+     * {@link EvaluationWorkbook} should be created with {@link #toEvaluationWorkbook(Workbook)} method.
+     */
     public static EvaluationCell getEvaluationCell(EvaluationWorkbook evaluationWorkbook, ICellAddress addr) {
         return ((PoiProxyWorkbook) evaluationWorkbook).getSheet(0).getCell(addr.row(), addr.column());
     }

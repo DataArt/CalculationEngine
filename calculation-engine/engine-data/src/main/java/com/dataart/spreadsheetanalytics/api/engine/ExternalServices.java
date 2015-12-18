@@ -20,6 +20,8 @@ import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 /**
  * This is a singlethon class-facade to all external services 
  * needed for calculation engine to calculate and build graphs.
+ * 
+ * Used in some Custom Function to access data.
  */
 public enum ExternalServices {
     INSTANCE;

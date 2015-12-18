@@ -32,6 +32,9 @@ import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
+/**
+ * {@link DataModelAccessor} implementation based on {@link Cache}.
+ */
 public class CacheBasedDataModelAccessor implements DataModelAccessor {
     private static final Logger log = LoggerFactory.getLogger(CacheBasedDataModelAccessor.class);
     

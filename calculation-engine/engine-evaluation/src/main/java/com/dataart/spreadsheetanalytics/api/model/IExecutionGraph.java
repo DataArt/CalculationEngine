@@ -17,14 +17,21 @@ package com.dataart.spreadsheetanalytics.api.model;
 
 import java.util.Set;
 
+import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
+import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
+
+/**
+ * Represents execution graph. Can be got from {@link IAuditor} methods.
+ * Contains {@link IExecutionGraphVertex} and {@link IExecutionGraphEdge}.
+ */
 public interface IExecutionGraph {
 
     /**
      * Returns the root vertex of ExecutionGraph
      *
-     * @throws IllegalStateException if there is no root vertex
+     * @throws CalculationEngineException if there is no root vertex
      */
-    IExecutionGraphVertex getRootVertex() throws IllegalStateException;
+    IExecutionGraphVertex getRootVertex() throws CalculationEngineException;
 
     /**
      * Returns the set of the graph edges 

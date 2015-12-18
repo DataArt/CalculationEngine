@@ -1,5 +1,10 @@
 package com.dataart.spreadsheetanalytics.engine.graph;
 
+/**
+ * Provides possible configuration options for building execution graphs.
+ * Can manage number of vertices, duplicates, etc.
+ * Only manages 'visual' part of graph.
+ */
 public class ExecutionGraphConfig {
 
     /** No joining of duplicate graph nodes */
@@ -17,7 +22,9 @@ public class ExecutionGraphConfig {
     /** The number of duplicates is less or equal to 10 */
     public static final ExecutionGraphConfig LIMIT_TO_10_DUPLICATE_VERTICES = new ExecutionGraphConfig(true, 10);
 
+    /** If TRUE - all equal vertices will be merged to one. Not if FALSE. */
     protected final boolean joinVertices;
+    /** Enables {@link #joinVertices} to TRUE if number of equal vertices is more or equal to this number. */
     protected final Integer duplicatesNumberThreshold;
 
     public ExecutionGraphConfig(boolean joinVertices, Integer duplicatesNumberThreshold) {

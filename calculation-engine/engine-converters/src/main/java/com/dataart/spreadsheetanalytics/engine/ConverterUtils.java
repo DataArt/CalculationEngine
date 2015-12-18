@@ -58,9 +58,13 @@ import org.slf4j.LoggerFactory;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 
+/**
+ * Util methods to convert some generic things related to {@link IDataModel} and {@link IDataSet}.
+ */
 public final class ConverterUtils {
     private static final Logger log = LoggerFactory.getLogger(ConverterUtils.class);
 
@@ -78,9 +82,7 @@ public final class ConverterUtils {
     
     private ConverterUtils() {}
 
-    /**
-     * {@link #clearContent(Workbook)} with new {@link ConverterUtils#newWorkbook(InputStream)}.
-     */
+    /** {@link #clearContent(Workbook)} with new {@link ConverterUtils#newWorkbook(InputStream)}. */
     static OutputStream clearContent(InputStream workbook) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
@@ -120,9 +122,7 @@ public final class ConverterUtils {
         return w;
     }
 
-    /**
-     * Inserts a value to a Cell based on a value type (class).
-     */
+    /** Inserts a value to a Cell based on a value type (class). */
     static void populateCellValue(final Cell cell, final ICellValue value) {
         if (cell == null) { return; }
         
@@ -153,9 +153,7 @@ public final class ConverterUtils {
         }
     }
     
-    /**
-     * Does cell of a given address copy from {@link Sheet} to {@link IDataModel}. 
-     */
+    /** Does cell of a given address copy from {@link Sheet} to {@link IDataModel}. */
     static void copyCell(ICellAddress address, Sheet from, IDataModel to) {
         if (from == null) { return; }
         Row fromRow = from.getRow(address.row());
@@ -170,6 +168,7 @@ public final class ConverterUtils {
         to.setCell(address, toCell);
     }
 
+    /** Checks if formula string contains given function. */
     static boolean isFunctionInFormula(String formula, String function) {
         String filteredFormula = formula.replace(POI_FUNCTION_PREFIX, "");
         return filteredFormula.startsWith(function) && filteredFormula.replace(function, "").startsWith("(");
@@ -237,6 +236,7 @@ public final class ConverterUtils {
         throw new CalculationEngineException(String.format("CellVale's type %s is not supported.", c.get().getClass().getSimpleName()));
     }
 
+    /** Converts {@link ValueEval} to {@link ICellValue}. */
     public static ICellValue resolveValueEval(ValueEval valueEval) {
         return resolveCellValue(coerceValueEvalToCellValue(valueEval));
     }

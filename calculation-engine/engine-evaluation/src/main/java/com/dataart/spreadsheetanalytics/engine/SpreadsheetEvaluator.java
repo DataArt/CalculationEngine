@@ -67,8 +67,8 @@ import com.dataart.spreadsheetanalytics.model.EvaluationContext;
  * This version of Evaluator requires an {@link IDataModel} to evaluate. DataModel provides access to POI's proxy workbook object, 
  * so instance of {@link WorkbookEvaluator} can do actual evaluation.
  * 
- * {@link IExecutionGraphBuilder} can be attached to this class to trace all evaluation steps. This is usually done via
- * {@link IAuditor}.
+ * {@link IExecutionGraphBuilder} can be attached to this class to trace all evaluation steps. 
+ * This is usually done via {@link IAuditor}.
  */
 public class SpreadsheetEvaluator implements IEvaluator {
     private static final Logger log = LoggerFactory.getLogger(SpreadsheetEvaluator.class);

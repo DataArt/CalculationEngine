@@ -28,6 +28,9 @@ import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSourceQuery;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 
+/**
+ * {@link DataSourceHub} implementation based on {@link Cache}.
+ */
 public class CacheBasedDataSourceHub implements DataSourceHub {
     private static final Logger log = LoggerFactory.getLogger(CacheBasedDataSourceHub.class);
 
