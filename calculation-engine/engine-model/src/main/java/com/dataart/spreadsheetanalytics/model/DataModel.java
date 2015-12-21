@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -175,12 +176,12 @@ public class DataModel implements IDataModel {
 
     @Override
     public Map<String, ICellAddress> getNamedAddresses() {
-        return this.namedAdresses;
+        return Collections.<String, ICellAddress>unmodifiableMap(this.namedAdresses);
     }
 
     @Override
     public Map<String, ICellValue> getNamedValues() {
-        return this.namedValues;
+        return Collections.<String, ICellValue>unmodifiableMap(this.namedValues);
     }
     
     @Override 
