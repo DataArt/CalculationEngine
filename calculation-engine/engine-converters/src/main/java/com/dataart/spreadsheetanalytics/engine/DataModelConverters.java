@@ -98,7 +98,7 @@ final class DataModelConverters {
             String address = name.getRefersToFormula();
             if (address == null) { continue; }
 
-            dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(address));
+            dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(address)));
         }
 
         return dm;

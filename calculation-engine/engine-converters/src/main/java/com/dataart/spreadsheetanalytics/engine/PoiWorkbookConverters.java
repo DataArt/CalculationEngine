@@ -15,7 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine; //NOPMD
 
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
