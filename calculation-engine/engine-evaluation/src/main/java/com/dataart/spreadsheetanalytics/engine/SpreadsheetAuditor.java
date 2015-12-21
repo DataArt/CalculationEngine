@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 import org.apache.poi.common.fork.IncorrectExternalReferenceException;
 import org.apache.poi.ss.formula.FormulaParseException;
@@ -104,9 +105,17 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
-            try { graphBuilder.setRefsToNames(getWorkbookNames(Converters.toWorkbook(this.evaluator.model))); }
-            catch (Exception e) { e.printStackTrace(); /*TODO: remove Workbook*/ }
-            
+
+            Map<String, String> namedObjects = this.evaluator.model
+                                                             .getNamedAddresses().entrySet().stream()
+                                                             .collect(Collectors.toMap( e -> e.getKey(),
+                                                                                        e -> e.getValue().a1Address().address()));
+            namedObjects.putAll(this.evaluator.model
+                                              .getNamedValues().entrySet().stream()
+                                              .collect(Collectors.toMap(e -> e.getKey(),
+                                                                             e -> e.getValue().get().toString())));
+
+            graphBuilder.setRefsToNames(namedObjects);
             graphBuilder.setExecutionGraphConfig(config);
             
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
@@ -130,7 +139,7 @@ public class SpreadsheetAuditor implements IAuditor {
                 
                 return g;
             } catch (FormulaParseException | IncorrectExternalReferenceException e) {
-                log.warn("Caught exception while building graph, but graph should be ok.", e);
+                log.warn("Caught exception while building a graph, but the graph should be ok.", e);
                 return graphBuilder.get();
             }
         } finally {
