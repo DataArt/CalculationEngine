@@ -52,7 +52,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 
         switch (this.pname) {
             case FORMULA_STRING: {
-                String flaStr = ((String) this.pvalue).replace("$", "");
+                String flaStr = (this.pvalue == null) ? "" : ((String) this.pvalue).replace("$", "");
                 this.parent.formula.formulaStr(flaStr);
                 break;
             }

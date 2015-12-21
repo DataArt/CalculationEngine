@@ -123,7 +123,11 @@ final class DataModelDtoConverters {
             Object value = entry.getValue();
             if (value instanceof String) {
                 String stringValue = (String) value;
-                dataModel.setNamedAddress(alias, A1Address.fromA1Address(stringValue));
+                if (stringValue.charAt(0) == '=') {
+                    dataModel.setNamedValue(alias, ConverterUtils.createCellValue(value));
+                } else {
+                    dataModel.setNamedAddress(alias, A1Address.fromA1Address(stringValue));
+                }
             } else {
                 dataModel.setNamedValue(alias, ConverterUtils.createCellValue(value));
             }

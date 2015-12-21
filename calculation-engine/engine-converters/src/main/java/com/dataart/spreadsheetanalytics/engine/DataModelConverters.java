@@ -167,9 +167,14 @@ final class DataModelConverters {
         });
 
         dataModel.getNamedValues().forEach((k, v) -> {
+            String refString = ConverterUtils.resolveCellValueToObject(v).toString();
             Name name = result.createName();
             name.setNameName(k);
-            name.setRefersToFormula(ConverterUtils.resolveCellValueToObject(v).toString());
+            if (refString.charAt(0) == '=') {
+                name.setRefersToFormula(refString.substring(1));
+            } else {
+                name.setRefersToFormula(refString);
+            }
         });
 
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {

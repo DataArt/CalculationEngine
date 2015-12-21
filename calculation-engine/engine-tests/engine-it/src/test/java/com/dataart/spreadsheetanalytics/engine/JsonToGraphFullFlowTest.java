@@ -40,17 +40,21 @@ public class JsonToGraphFullFlowTest {
                 .set("table", new ObjectNode(JsonNodeFactory.instance)
                                     .put("A1", 10.8)
                                     .put("B2", 5.0)
-                                    .put("C3", "=B2+Tax")
                                     .put("A2", 1200.0)
                                     .put("A3", 30.0)
+                                    .put("A4", 50.0)
+                                    .put("A5", 20.0)
+                                    .put("C3", "=B2+Tax")
                                     .put("D2", "=ISEVEN(C3)")
-                                    .put("D3", "=SUM(A2,A3,Coef)")))
+                                    .put("D3", "=SUM(A2,A3,Coef)")
+                                    .put("D4", "=My_Sum")))
                 .set("result", new ObjectNode(JsonNodeFactory.instance)))
                 .set("names", new ObjectNode(JsonNodeFactory.instance)
                         .put("Bon", "A3")
                         .put("Rev", "A2")
                         .put("Total", "D3")
                         .put("Tax", "A1")
+                        .put("My_Sum", "=AVERAGE(A4,A5)")
                         .put("Coef", 2.0));
 
         json = DataModelDtoConverters.mapper.writeValueAsString(jsonObject);
@@ -90,25 +94,34 @@ public class JsonToGraphFullFlowTest {
         vertexNameToValue.put("A1", 10.8);
         vertexNameToValue.put("A2", 1200.0);
         vertexNameToValue.put("A3", 30.0);
+        vertexNameToValue.put("A4", 50.0);
+        vertexNameToValue.put("A5", 20.0);
         vertexNameToValue.put("B2", 5.0);
         vertexNameToValue.put("+", 15.8);
         vertexNameToValue.put("C3", 15.8);
         vertexNameToValue.put("ISEVEN", "FALSE");
         vertexNameToValue.put("D2", "FALSE");
         vertexNameToValue.put("SUM", 1232.0);
+        vertexNameToValue.put("AVERAGE", 35.0);
+        vertexNameToValue.put("D4", 35.0);
+        vertexNameToValue.put("My_Sum", 35.0);
         vertexNameToValue.put("D3", 1232.0);
         vertexNameToValue.put("Coef", 2.0);
 
         Map<String, String> edgeSourceToTarget = new HashMap<>();
         edgeSourceToTarget.put("A1", "+");
         edgeSourceToTarget.put("B2", "+");
-        edgeSourceToTarget.put("+", "C3");
-        edgeSourceToTarget.put("C3", "ISEVEN");
-        edgeSourceToTarget.put("ISEVEN", "D2");
         edgeSourceToTarget.put("A2", "SUM");
         edgeSourceToTarget.put("A3", "SUM");
+        edgeSourceToTarget.put("C3", "ISEVEN");
+        edgeSourceToTarget.put("+", "C3");
+        edgeSourceToTarget.put("ISEVEN", "D2");
         edgeSourceToTarget.put("SUM", "D3");
         edgeSourceToTarget.put("Coef", "SUM");
+        edgeSourceToTarget.put("A4", "AVERAGE");
+        edgeSourceToTarget.put("A5", "AVERAGE");
+        edgeSourceToTarget.put("AVERAGE", "D4");
+        edgeSourceToTarget.put("My_Sum", "D4");
 
         Map<String, Object> aliasesToAddresses = new HashMap<>();
         aliasesToAddresses.put("Coef", 2);
