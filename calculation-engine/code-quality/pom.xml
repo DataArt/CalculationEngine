@@ -35,8 +35,25 @@ limitations under the License.
   </licenses>
 
   <scm>
-    <url>https://github.com/DataArt/CalculationEngine</url>
+    <connection>scm:git:git@github.com:DataArt/CalculationEngine.git</connection>
+    <developerConnection>scm:git:git@github.com:DataArt/CalculationEngine.git</developerConnection>
+    <url>git@github.com:DataArt/CalculationEngine.git</url>
   </scm>
+
+  <developers>
+    <developer>
+      <name>Roman Roschin</name>
+      <email>Roman.Roschin@dataart.com</email>
+      <organization>DataArt Apps, Inc</organization>
+      <organizationUrl>http://dataart.com</organizationUrl>
+    </developer>
+    <developer>
+      <name>Sergey Kharchenko</name>
+      <email>Sergey.Kharchenko@dataart.com</email>
+      <organization>DataArt Apps, Inc</organization>
+      <organizationUrl>http://dataart.com</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -69,7 +86,7 @@ limitations under the License.
           </dependency>
         </dependencies>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
