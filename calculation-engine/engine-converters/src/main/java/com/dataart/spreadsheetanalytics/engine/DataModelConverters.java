@@ -17,6 +17,7 @@ package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.Functions.getUdfFinder;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.removeSheetFromNameRef;
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -96,9 +97,8 @@ final class DataModelConverters {
             
             String address = name.getRefersToFormula();
             if (address == null) { continue; }
-            
-            //TODO remove casting
-            ((DataModel) dm).setCellAlias(A1Address.fromA1Address(removeSheetFromNameRef(address)), name.getNameName());
+
+            dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(address)));
         }
 
         return dm;
@@ -159,11 +159,17 @@ final class DataModelConverters {
         Sheet wbSheet = result.getSheet(dataModel.getName());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
 
-        //TODO: remove casting
-        ((DataModel) dataModel).getCellAliases().forEach((k, v) -> {
+
+        dataModel.getNamedAddresses().forEach((k, v) -> {
             Name name = result.createName();
-            name.setNameName(v);
-            name.setRefersToFormula(k.a1Address().address());
+            name.setNameName(k);
+            name.setRefersToFormula(createPoiNameRef(v.a1Address().address(), dataModel.getName()));
+        });
+
+        dataModel.getNamedValues().forEach((k, v) -> {
+            Name name = result.createName();
+            name.setNameName(k);
+            name.setRefersToFormula(ConverterUtils.resolveCellValueToObject(v).toString());
         });
 
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {

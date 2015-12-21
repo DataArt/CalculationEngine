@@ -30,7 +30,7 @@ public class DataModelDto {
     public Map<String, Object> table;
     public Map<String, Object> result;
 
-    public Map<String, String> names;
+    public Map<String, Object> names;
 
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
@@ -44,7 +44,7 @@ public class DataModelDto {
     public Map<String, Object> getResult() { return this.result; }
     public void setResult(Map<String, Object> result) { this.result = result; }
 
-    public Map<String, String> getNames() { return this.names; }
-    public void setNames(Map<String, String> names) { this.names = names; }
+    public Map<String, Object> getNames() { return this.names; }
+    public void setNames(Map<String, Object> names) { this.names = names; }
 
 }

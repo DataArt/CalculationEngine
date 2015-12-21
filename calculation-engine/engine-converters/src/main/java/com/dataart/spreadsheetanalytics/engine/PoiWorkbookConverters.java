@@ -15,7 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine; //NOPMD
 
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
@@ -107,7 +106,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
             Ptg[] ptgs;
             String refersToFormula;
             if (!wbName.isFunctionName() && wbName.getRefersToFormula() != null) { //NOPMD
-                refersToFormula = createPoiNameRef(wbName.getRefersToFormula(), this.sheet.getName());
+                refersToFormula = wbName.getRefersToFormula();
                 ptgs = FormulaParser.parse(refersToFormula, (FormulaParsingWorkbook) ewb, FormulaType.NAMEDRANGE, 0 /*TODO: sheet index*/);
             } else {
                 ptgs = null;
