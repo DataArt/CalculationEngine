@@ -20,7 +20,6 @@ import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,7 +93,7 @@ class PoiProxyWorkbook implements EvaluationWorkbook, Iterable<PoiProxySheet> {
             Ptg[] ptgs;
             String refersToFormula;
             if (!wbName.isFunctionName() && wbName.getRefersToFormula() != null) { //NOPMD
-                refersToFormula = createPoiNameRef(wbName.getRefersToFormula(), this.sheet.getName());
+                refersToFormula = wbName.getRefersToFormula();
                 ptgs = FormulaParser.parse(refersToFormula, (FormulaParsingWorkbook) ewb, FormulaType.NAMEDRANGE, 0 /*TODO: sheet index*/);
             } else {
                 ptgs = null;

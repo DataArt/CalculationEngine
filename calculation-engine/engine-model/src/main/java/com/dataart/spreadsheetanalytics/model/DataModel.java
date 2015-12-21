@@ -15,7 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,7 +51,8 @@ public class DataModel implements IDataModel {
 
     protected IDataModelId dataModelId;
     protected String name;
-    protected Map<ICellAddress, String> names;
+    protected Map<String, ICellAddress> namedAdresses;
+    protected Map<String, ICellValue> namedValues;
 
     /** Workbook (table) representation: Row index, Column index, Data {@link IDmCell} */
     protected final Map<Integer, IDmRow> table;
@@ -71,7 +71,8 @@ public class DataModel implements IDataModel {
         this.table = tableImpl;
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
         this.cellWriteLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
-        this.names = new HashMap<>();
+        this.namedAdresses = new HashMap<>();
+        this.namedValues = new HashMap<>();
     }
 
     @Override public IDataModelId getDataModelId() { return this.dataModelId; }
@@ -151,53 +152,35 @@ public class DataModel implements IDataModel {
     public int getLastRowIndex() {
         return this.table.keySet().stream().max(Integer::compare).orElse(Integer.valueOf(-1));
     }
-    
-    public void setCellAlias(ICellAddress cellAddress, String nameText) {
-        this.names.put(cellAddress, nameText);
-    }
 
-    public String getCellAlias(ICellAddress cellAddress) {
-        return this.names.get(cellAddress);
-    }
-
-    public Map<ICellAddress, String> getCellAliases() {
-        return Collections.<ICellAddress, String>unmodifiableMap(this.names);
-    }
-    
     @Override
     public ICellAddress getNamedAddress(String alias) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.namedAdresses.get(alias);
     }
 
     @Override
     public void setNamedAddress(String alias, ICellAddress address) {
-        // TODO Auto-generated method stub
-        
+        this.namedAdresses.put(alias, address);
     }
 
     @Override
     public ICellValue getNamedValue(String alias) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.namedValues.get(alias);
     }
 
     @Override
     public void setNamedValue(String alias, ICellValue value) {
-        // TODO Auto-generated method stub
-        
+        this.namedValues.put(alias, value);
     }
 
     @Override
     public Map<String, ICellAddress> getNamedAddresses() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.namedAdresses;
     }
 
     @Override
     public Map<String, ICellValue> getNamedValues() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.namedValues;
     }
     
     @Override 

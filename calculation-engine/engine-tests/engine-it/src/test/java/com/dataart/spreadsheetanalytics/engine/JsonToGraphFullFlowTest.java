@@ -44,13 +44,14 @@ public class JsonToGraphFullFlowTest {
                                     .put("A2", 1200.0)
                                     .put("A3", 30.0)
                                     .put("D2", "=ISEVEN(C3)")
-                                    .put("D3", "=SUM(A2,A3)")))
+                                    .put("D3", "=SUM(A2,A3,Coef)")))
                 .set("result", new ObjectNode(JsonNodeFactory.instance)))
                 .set("names", new ObjectNode(JsonNodeFactory.instance)
-                        .put("A1", "Tax")
-                        .put("A2", "Rev")
-                        .put("A3", "Bon")
-                        .put("D3", "Total"));
+                        .put("Bon", "A3")
+                        .put("Rev", "A2")
+                        .put("Total", "D3")
+                        .put("Tax", "A1")
+                        .put("Coef", 2.0));
 
         json = DataModelDtoConverters.mapper.writeValueAsString(jsonObject);
     }
@@ -62,7 +63,7 @@ public class JsonToGraphFullFlowTest {
         Double b2_expected_value = 5.0;
         Double c3_expected_value = 15.8;
         Boolean d2_expected_value = false;
-        Double d3_expected_value = 1230.0;
+        Double d3_expected_value = 1232.0;
 
         //when
         IDataModel model = DataModelDtoConverters.toDataModel(json);
@@ -85,7 +86,7 @@ public class JsonToGraphFullFlowTest {
     public void toDataModel_jsonString_validateExecutionGraph() {
 
         //given
-        Map<String, Object> vertexNameToValue = new HashMap<String, Object>();
+        Map<String, Object> vertexNameToValue = new HashMap<>();
         vertexNameToValue.put("A1", 10.8);
         vertexNameToValue.put("A2", 1200.0);
         vertexNameToValue.put("A3", 30.0);
@@ -94,10 +95,11 @@ public class JsonToGraphFullFlowTest {
         vertexNameToValue.put("C3", 15.8);
         vertexNameToValue.put("ISEVEN", "FALSE");
         vertexNameToValue.put("D2", "FALSE");
-        vertexNameToValue.put("SUM", 1230.0);
-        vertexNameToValue.put("D3", 1230.0);
+        vertexNameToValue.put("SUM", 1232.0);
+        vertexNameToValue.put("D3", 1232.0);
+        vertexNameToValue.put("Coef", 2.0);
 
-        Map<String, String> edgeSourceToTarget = new HashMap<String, String>();
+        Map<String, String> edgeSourceToTarget = new HashMap<>();
         edgeSourceToTarget.put("A1", "+");
         edgeSourceToTarget.put("B2", "+");
         edgeSourceToTarget.put("+", "C3");
@@ -106,8 +108,10 @@ public class JsonToGraphFullFlowTest {
         edgeSourceToTarget.put("A2", "SUM");
         edgeSourceToTarget.put("A3", "SUM");
         edgeSourceToTarget.put("SUM", "D3");
+        edgeSourceToTarget.put("Coef", "SUM");
 
-        Map<String, String> aliasesToAddresses = new HashMap<String, String>();
+        Map<String, Object> aliasesToAddresses = new HashMap<>();
+        aliasesToAddresses.put("Coef", 2);
         aliasesToAddresses.put("Tax", "A1");
         aliasesToAddresses.put("Total", "D3");
         aliasesToAddresses.put("Bon", "A3");
@@ -126,8 +130,12 @@ public class JsonToGraphFullFlowTest {
             Object value = vertexNameToValue.get(vertex.name());
             assertThat(vertex.value()).isEqualTo(value);
             if (vertex.alias() != null) {
-                String expectedByAlias = aliasesToAddresses.get(vertex.alias());
-                assertThat(vertex.name()).isEqualTo(expectedByAlias);
+                Object expectedByAlias = aliasesToAddresses.get(vertex.alias());
+                if (expectedByAlias instanceof String) {
+                    assertThat(vertex.name()).isEqualTo((String) expectedByAlias);
+                } else {
+                    assertThat(vertex.value()).isEqualTo(expectedByAlias);
+                }
             }
         }
 

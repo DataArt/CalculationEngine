@@ -47,6 +47,15 @@ final class DataModelDtoConverters {
     
     static DataModelDto toDataModelDto(final IDataModel dataModel) {
 
+        Map<String, Object> names = dataModel.getNamedAddresses()
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                            e -> e.getKey(),
+                            e -> e.getValue().a1Address().address()));
+
+        dataModel.getNamedValues().forEach( (k,v) -> names.put(k, v.get()) );
+
         Map<String, Object> table = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
         
@@ -61,13 +70,6 @@ final class DataModelDtoConverters {
                 }
             }
         }
-        
-        Map<String, String> names = ((DataModel) dataModel).getCellAliases()
-                                             .entrySet()
-                                             .stream()
-                                             .collect(Collectors.toMap(
-                                                         e -> e.getKey().a1Address().address(), 
-                                                         e -> e.getValue()));
 
         DataModelDto dto = new DataModelDto();
         
@@ -109,8 +111,17 @@ final class DataModelDtoConverters {
             
             ((DmCell) dataModel.getCell(address)).setValue(Optional.of(CellValue.from(value)));
         }
-        
-        dto.getNames().forEach((k, v) -> ((DataModel) dataModel).setCellAlias(A1Address.fromA1Address(k), v));
+
+        for (Entry<String, Object> entry : dto.getNames().entrySet()) {
+            String alias = entry.getKey();
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                String stringValue = (String) value;
+                dataModel.setNamedAddress(alias, A1Address.fromA1Address(stringValue));
+            } else {
+                dataModel.setNamedValue(alias, ConverterUtils.createCellValue(value));
+            }
+        }
 
         return dataModel;
     }
