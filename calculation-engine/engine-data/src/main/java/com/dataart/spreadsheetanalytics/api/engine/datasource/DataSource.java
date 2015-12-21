@@ -19,10 +19,21 @@ import java.util.List;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 
+/**
+ * Generic Data Source. Some gateway to any data storage that can execute 'queries'.
+ * Can provide access to Relational DB, File System, Network access, etc.
+ */
 public interface DataSource {
     
+    /**
+     * Executes some query that can contain parameters.
+     * Reesult of query should be converted to {@link IDataSet}.
+     */
     IDataSet executeQuery(DataSourceQuery query, List<Object> params) throws Exception;
 
+    /**
+     * Name of this {@link DataSource}. Used to store sources in cache.
+     */
     String getName();
 
 }

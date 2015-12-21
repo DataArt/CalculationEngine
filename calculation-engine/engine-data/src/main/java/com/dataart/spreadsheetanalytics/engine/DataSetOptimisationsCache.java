@@ -24,6 +24,9 @@ import javax.cache.Caching;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 
+/**
+ * Cache for some Custom Functions results.
+ */
 public class DataSetOptimisationsCache {
     
     public static final String DATA_SET_TO_LAZY_PARAMETERS = "dataSetToLazyParameters";

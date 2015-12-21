@@ -17,6 +17,11 @@ package com.dataart.spreadsheetanalytics.dto;
 
 import java.util.Map;
 
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+
+/**
+ * JSON representation of {@link IDataModel}.
+ */
 public class DataModelDto {
 
     public String name;

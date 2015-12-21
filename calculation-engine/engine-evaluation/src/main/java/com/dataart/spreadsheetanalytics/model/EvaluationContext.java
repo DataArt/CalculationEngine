@@ -7,6 +7,9 @@ import org.apache.poi.common.fork.CustomEvaluationContext;
 
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
 
+/**
+ * {@link IEvaluationContext} implementation. Uses {@link HashMap} to store context objects.
+ */
 public class EvaluationContext implements IEvaluationContext, CustomEvaluationContext {
 
     protected final Map<Object, Object> map = new HashMap<>();

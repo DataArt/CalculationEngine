@@ -21,15 +21,23 @@ import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSourceQuery;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 
+/**
+ * Storage for {@link DataSource}s.
+ */
 public interface DataSourceHub {
 
+    /** Adds new {@link DataSource} to storage. */
     void add(DataSource dataSource);
     
+    /** Removes {@link DataSource} from storage. */
     void remove(DataSource dataSource);
     
+    /** Removes {@link DataSource} from storage by its name. */
     void remove(String dataSourceName);
     
+    /** Returns {@link DataSource} from storage by its name. */
     DataSource get(String dataSourceName);
 
+    /** Invokes {@link DataSource#executeQuery(DataSourceQuery, List)}. */
     IDataSet executeQuery(String dataSourceName, DataSourceQuery query, List<Object> params) throws Exception;
 }

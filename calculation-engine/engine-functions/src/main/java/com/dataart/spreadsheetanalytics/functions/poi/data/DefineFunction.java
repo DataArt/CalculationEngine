@@ -23,9 +23,12 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
+import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 
+/**
+ * https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description#define
+ */
 @CustomFunctionMeta("DEFINE")
 public class DefineFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(DefineFunction.class);

@@ -56,6 +56,9 @@ import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 
+/**
+ * https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description#funcexec
+ */
 @CustomFunctionMeta(value = "FUNCEXEC")
 public class FuncexecFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(FuncexecFunction.class);

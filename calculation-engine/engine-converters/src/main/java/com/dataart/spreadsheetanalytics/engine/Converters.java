@@ -29,6 +29,9 @@ import com.dataart.spreadsheetanalytics.dto.DataModelDto;
 import com.dataart.spreadsheetanalytics.dto.DataSetDto;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+/**
+ * Public API for all converter methods.
+ */
 public final class Converters {
     
     private Converters() {}

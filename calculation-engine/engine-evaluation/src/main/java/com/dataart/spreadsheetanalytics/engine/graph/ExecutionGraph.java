@@ -27,6 +27,9 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
+/**
+ * {@link IExecutionGraph} implementation.
+ */
 public class ExecutionGraph implements IExecutionGraph {
 
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph;

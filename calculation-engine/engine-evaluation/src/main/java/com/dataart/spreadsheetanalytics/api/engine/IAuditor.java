@@ -16,23 +16,44 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.api.engine;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 
+/**
+ * In addition to {@link IEvaluator} this entity allows to collect execution and dependency information from 
+ * {@link IDataModel}s. The result of such information collection is an {@link IExecutionGraph} - graph structure of 
+ * dependencies or execution steps.
+ */
 public interface IAuditor {
-
+    
+    /** Returns instance of Evaluator connected to this Auditor. */
     IEvaluator getEvaluator();
 
+    /** Builds static dependency graph for {@link IDataModel}. */
     IExecutionGraph buildDependencyGraph();
 
+    /** Builds static dependency graph for one cell from {@link IDataModel}. */
     IExecutionGraph buildDependencyGraph(ICellAddress cell);
 
+    /** Builds runtime execution graph (execution trace) for {@link IDataModel}. */
     IExecutionGraph buildExecutionGraph();
 
+    /**
+     * Builds runtime execution graph (execution trace) for {@link IDataModel}.
+     * Allows to specify some configuration parameters that will be used to build graph.
+     * @see ExecutionGraphConfig for details.
+     */
     IExecutionGraph buildExecutionGraph(ExecutionGraphConfig config);
 
+    /** Builds runtime execution graph (execution trace) for one cell from {@link IDataModel}. */
     IExecutionGraph buildExecutionGraph(ICellAddress cell);
 
+    /**
+     * Builds runtime execution graph (execution trace) for one cell from {@link IDataModel}.
+     * Allows to specify some configuration parameters that will be used to build graph.
+     * @see ExecutionGraphConfig for details.
+     */
     IExecutionGraph buildExecutionGraph(ICellAddress cell, ExecutionGraphConfig config);
 
 }

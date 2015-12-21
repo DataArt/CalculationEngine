@@ -33,15 +33,24 @@ import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 
+/**
+ * Util methods for conversion to\from {@link IDataSet}.
+ */
 final class DataSetConverters {
     
     private DataSetConverters() {}
     
+    /** Invokes {@link #toDataSet(Workbook)} with new {@link Workbook}. */
     static IDataSet toDataSet(final InputStream workbook) {
         return toDataSet(ConverterUtils.newWorkbook(workbook));
     }
     
-    /* TODO: throw exception of formula is found or add flag 'ignore formulas' */
+    /**
+     * Converts a {@link Workbook} to new {@link IDataSet}.
+     * Ignores empty rows.
+     * 
+     * @throws {@link CalculationEngineException} if {@link Workbook} contains formulas or Cell references.
+     */
     static IDataSet toDataSet(final Workbook workbook) {
         Sheet sheet = workbook.getSheetAt(0); //TODO: this works only for single sheet documents
         DataSet dataSet = new DataSet(sheet.getSheetName());
@@ -62,7 +71,9 @@ final class DataSetConverters {
     }
 
     /**
-     * Converts {@link IDataModel} to the new {@link IDataSet}.
+     * Converts an {@link IDataModel} to a new {@link IDataSet}.
+     * Ignores empty rows.
+     * Uses {@link IDmCell#getValue()} for {@link IDsCell} values.
      */
     static IDataSet toDataSet(final IDataModel dataModel) {
         IDataSet dataSet = new DataSet(dataModel.getName());
@@ -81,6 +92,10 @@ final class DataSetConverters {
         return dataSet;
     }
     
+    /**
+     * Converts {@link IDataSet} to new {@link Workbook}, 
+     * then writes this Workbook to new {@link ByteArrayOutputStream}.
+     */
     static OutputStream toXlsxFile(final IDataSet dataSet) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
@@ -90,6 +105,11 @@ final class DataSetConverters {
         return xlsx;
     }
     
+    /**
+     * Converts {@link IDataSet} to {@link Workbook},
+     * then writes this Workbook to new {@link ByteArrayOutputStream}.
+     * Middle-state {@link Workbook} is created from @param formatting.
+     */
     static OutputStream toXlsxFile(final IDataSet dataSet, final InputStream formatting) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
@@ -98,12 +118,16 @@ final class DataSetConverters {
         
         return xlsx;
     }
-        
+
+    /** Converts {@link IDataSet} to new {@link Workbook}. */
     static Workbook toWorkbook(final IDataSet dataSet) {
         return toWorkbook(dataSet, (Workbook) null);
     }
     
-    //TODO: rewrite to use common code with IDataModel
+    /**
+     * Converts {@link IDataSet} to {@link Workbook}.
+     * The result {@link Workbook} is created from @param formatting.
+     */
     static Workbook toWorkbook(final IDataSet dataSet, final Workbook formatting) {
         Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
         

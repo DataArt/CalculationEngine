@@ -17,6 +17,9 @@ package com.dataart.spreadsheetanalytics.engine.datasource;
 
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSourceQuery;
 
+/**
+ * Text based {@link DataSourceQuery}.
+ */
 public class TextDataSourceQuery implements DataSourceQuery {
     
     protected String text;

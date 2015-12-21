@@ -43,6 +43,9 @@ import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.dataart.spreadsheetanalytics.model.DmRow;
 
+/**
+ * Util methods for conversion to\from {@link IDataModel}.
+ */
 final class DataModelConverters {
     
     private DataModelConverters() {}
@@ -68,7 +71,7 @@ final class DataModelConverters {
         Sheet s = workbook.getSheetAt(0); //TODO: only one sheet is supported
         if (s == null) { return null; }
         
-        DataModel dm = new DataModel(s.getSheetName());
+        IDataModel dm = new DataModel(s.getSheetName());
         
         for (int i = s.getFirstRowNum(); i <= s.getLastRowNum(); i++) {
             Row r = s.getRow(i);
@@ -92,18 +95,16 @@ final class DataModelConverters {
         for (int nIdx = 0; nIdx < workbook.getNumberOfNames(); nIdx++) {
             Name name = workbook.getNameAt(nIdx);
             
-            String address = removeSheetFromNameRef(name.getRefersToFormula());
+            String address = name.getRefersToFormula();
             if (address == null) { continue; }
-            
+
             dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(address));
         }
 
         return dm;
     }
     
-    /**
-     * Converts {@link IDataSet} to the new {@link IDataModel}.
-     */
+    /** Converts {@link IDataSet} to the new {@link IDataModel}. */
     static IDataModel toDataModel(final IDataSet dataSet) {
         DataModel dataModel = new DataModel(dataSet.getName());
         
@@ -123,9 +124,7 @@ final class DataModelConverters {
         return dataModel;
     }
 
-    /**
-     * Uses {@link DataModelConverters#toXlsxFile(IDataModel, InputStream)} with null formatting (no formatting).
-     */
+    /** Uses {@link DataModelConverters#toXlsxFile(IDataModel, InputStream)} with null formatting (no formatting). */
     static OutputStream toXlsxFile(final IDataModel dataModel) {
         ByteArrayOutputStream xlsx = new ByteArrayOutputStream();
         
@@ -148,21 +147,18 @@ final class DataModelConverters {
         return xlsx;
     }
     
-    /**
-     * Convertes plain {@link IDataModel} to plain new {@link XSSFWorkbook}.
-     */
+    /** Convertes plain {@link IDataModel} to plain new {@link XSSFWorkbook}. */
     static Workbook toWorkbook(final IDataModel dataModel) {
         return toWorkbook(dataModel, (Workbook) null);
     }
     
-    /**
-     * Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided.
-     */
+    /** Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided. */
     static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) {
         Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
         
         Sheet wbSheet = result.getSheet(dataModel.getName());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
+
 
         dataModel.getNamedAddresses().forEach((k, v) -> {
             Name name = result.createName();

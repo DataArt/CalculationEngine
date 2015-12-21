@@ -28,6 +28,9 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 
+/**
+ * {@link DataSetAccessor} implementation based on {@link Cache}.
+ */
 public class CacheBasedDataSetAccessor implements DataSetAccessor {
     private static final Logger log = LoggerFactory.getLogger(CacheBasedDataSetAccessor.class);
     

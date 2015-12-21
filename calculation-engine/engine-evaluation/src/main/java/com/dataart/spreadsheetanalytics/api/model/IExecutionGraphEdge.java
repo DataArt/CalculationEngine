@@ -15,6 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
+/**
+ * Edge representation in {@link IExecutionGraph}.
+ */
 public interface IExecutionGraphEdge {
 
 }

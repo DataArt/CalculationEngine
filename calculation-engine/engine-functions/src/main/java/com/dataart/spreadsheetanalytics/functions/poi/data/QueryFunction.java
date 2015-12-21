@@ -41,6 +41,9 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet.Parameters;
 import com.dataart.spreadsheetanalytics.engine.DataSetScope;
 
+/**
+ * https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description#query
+ */
 @CustomFunctionMeta("QUERY")
 public class QueryFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(QueryFunction.class);

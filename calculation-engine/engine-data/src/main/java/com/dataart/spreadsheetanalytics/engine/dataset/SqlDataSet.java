@@ -18,7 +18,6 @@ package com.dataart.spreadsheetanalytics.engine.dataset;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
@@ -27,14 +26,15 @@ import com.dataart.spreadsheetanalytics.engine.datasource.TextDataSourceQuery;
 import com.dataart.spreadsheetanalytics.model.AbstractLazyDataSet;
 import com.dataart.spreadsheetanalytics.model.DataSet;
 
+/**
+ * LazyDataSet for SQL queries.
+ */
 public class SqlDataSet extends AbstractLazyDataSet {
 
     protected String sql;
     protected String sqlDataSource;
     
     protected final Lock executionLock = new ReentrantLock(); 
-
-    protected DataSourceHub dataSourceHub = ExternalServices.INSTANCE.getDataSourceHub();
 
     public SqlDataSet(String name, String sql, String sqlDataSource) {
         super(name);
@@ -51,7 +51,8 @@ public class SqlDataSet extends AbstractLazyDataSet {
         try {
             this.executionLock.lock();
             
-            this.dataSet = (DataSet) this.dataSourceHub.executeQuery(this.sqlDataSource, new TextDataSourceQuery(this.sql), parameters.get());
+            this.dataSet = (DataSet) ExternalServices.INSTANCE.getDataSourceHub()
+                                .executeQuery(this.sqlDataSource, new TextDataSourceQuery(this.sql), parameters.get());
             this.executed = Boolean.TRUE;
             
             return this.dataSet;

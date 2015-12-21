@@ -21,16 +21,24 @@ import java.util.Map;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
+/**
+ * Storage for {@link IDataModel}s.
+ */
 public interface DataModelAccessor {
 
+    /** Adds {@link IDataModel} to storage. */
     void add(IDataModel dataModel);
     
+    /** Adds several {@link IDataModel}s to storage. */
     void addAll(Collection<IDataModel> dataModels);
     
+    /** Returns {@link IDataModel} by Id. */
     IDataModel get(IDataModelId dataModelId);
     
+    /** Returns {@link IDataModel} by name. */
     IDataModel get(String dataModelName);
 
+    /** Returns all {@link IDataModel}s in storage. */
     Map<IDataModelId, IDataModel> getAll();
 
 }

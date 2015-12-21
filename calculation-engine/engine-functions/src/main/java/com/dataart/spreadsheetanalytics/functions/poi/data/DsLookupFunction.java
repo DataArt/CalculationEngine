@@ -49,6 +49,9 @@ import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 
+/**
+ * https://github.com/DataArt/CalculationEngine/wiki/Custom-Functions-List-and-Description#dslookup
+ */
 @CustomFunctionMeta(value = "DSLOOKUP")
 public class DsLookupFunction implements ICustomFunction {
     private static final Logger log = LoggerFactory.getLogger(DsLookupFunction.class);
