@@ -191,13 +191,13 @@ public class DataModel implements IDataModel {
     @Override
     public Map<String, ICellAddress> getNamedAddresses() {
         // TODO Auto-generated method stub
-        return null;
+        return Collections.emptyMap();
     }
 
     @Override
     public Map<String, ICellValue> getNamedValues() {
         // TODO Auto-generated method stub
-        return null;
+        return Collections.emptyMap();
     }
     
     @Override 
