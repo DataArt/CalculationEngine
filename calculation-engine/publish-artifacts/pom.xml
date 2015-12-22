@@ -19,7 +19,7 @@ limitations under the License.
 
   <groupId>com.dataart</groupId>
   <artifactId>spreadsheetanalytics-publish-artifacts</artifactId>
-  <version>0.7.0.3.dev</version>
+  <version>0.7.0.4.dev</version>
   <packaging>pom</packaging>
 
   <name>spreadsheetanalytics-publish-artifacts</name>
@@ -33,16 +33,26 @@ limitations under the License.
   <profiles>
     <profile>
       <id>MavenCentral</id>
-      
+
       <distributionManagement>
+        <repository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
         <snapshotRepository>
           <id>ossrh</id>
           <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
       </distributionManagement>
-      
+
       <build>
         <plugins>
+          <plugin>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+              <skip>true</skip>
+            </configuration>
+          </plugin>
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
