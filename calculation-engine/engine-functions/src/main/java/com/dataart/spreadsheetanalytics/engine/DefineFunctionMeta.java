@@ -34,10 +34,10 @@ import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
  * When parsing of spreadsheet is done (search for DEFINEs) all information is stored in instances of this class.
  * 
  * Meta information contains:
- * <li>Function name</li>
- * <li>Input paramenters (links to {@link ICellAddress})</li>
- * <li>Output paramentes (links to {@link ICellAddress})</li>
- * <li>Id of {@link IDataModel} as {@link IDataModelId}</li>
+ * Function name;
+ * Input paramenters (links to {@link ICellAddress});
+ * Output paramentes (links to {@link ICellAddress});
+ * Id of {@link IDataModel} as {@link IDataModelId};
  */
 @MetaFunctionKeyword(DefineFunctionMeta.KEYWORD)
 public class DefineFunctionMeta extends FunctionMeta {

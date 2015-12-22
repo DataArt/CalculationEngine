@@ -19,11 +19,41 @@ limitations under the License.
 
   <groupId>com.dataart</groupId>
   <artifactId>spreadsheetanalytics-code-quality</artifactId>
-  <version>0.7.0.3.dev</version>
+  <version>0.7.0.4.dev</version>
   <packaging>pom</packaging>
 
   <name>spreadsheetanalytics-code-quality</name>
+  <description>Shared Analytics Framework Calculation Engine</description>
   <url>https://github.com/DataArt/CalculationEngine</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://github.com/DataArt/CalculationEngine/blob/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:DataArt/CalculationEngine.git</connection>
+    <developerConnection>scm:git:git@github.com:DataArt/CalculationEngine.git</developerConnection>
+    <url>git@github.com:DataArt/CalculationEngine.git</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Roman Roschin</name>
+      <email>Roman.Roschin@dataart.com</email>
+      <organization>DataArt Apps, Inc</organization>
+      <organizationUrl>http://dataart.com</organizationUrl>
+    </developer>
+    <developer>
+      <name>Sergey Kharchenko</name>
+      <email>Sergey.Kharchenko@dataart.com</email>
+      <organization>DataArt Apps, Inc</organization>
+      <organizationUrl>http://dataart.com</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,8 +86,7 @@ limitations under the License.
           </dependency>
         </dependencies>
       </plugin>
-      
-      <!-- Attache sources to jar for code coverage -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -65,6 +94,20 @@ limitations under the License.
         <executions>
           <execution>
             <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
             <goals>
               <goal>jar</goal>
             </goals>

@@ -17,18 +17,31 @@ limitations under the License.
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.poi</groupId>
+  <groupId>com.dataart</groupId>
   <artifactId>poi-fork-build</artifactId>
-  <version>3.13-beta1.ce.0.7.0.3.dev</version>
+  <version>3.13-beta1.ce.0.7.0.4.dev</version>
   <packaging>pom</packaging>
 
-  <name>poi-fork-build</name>
-  <url>http://poi.apache.org</url>
+  <name>DataArt Apps Apache POI fork build</name>
+  <description>DataArt Apps Apache POI fork build</description>
+  <url>https://github.com/DataArt/ApachePoiFork</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://github.com/DataArt/CalculationEngine/blob/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/DataArt/ApachePoiFork</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <build>
     <plugins>
       <plugin>
@@ -40,32 +53,34 @@ limitations under the License.
           <target>1.8</target>
         </configuration>
       </plugin>
-      
-	  <!-- This plugin will pull all the code from apache-poi git or apache-poi-fork git if you want. 
-	  Not sure we need it, because we hava downloaded poi once via 'git submodule add' and can do changes and merge them with original poi-git-url.
-	  But let's leave it as is for now. -->
-      <!--plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-plugin</artifactId>
-        <version>1.9.4</version>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
         <executions>
           <execution>
-            <id>apache-poi-fork-github-pull</id>
-            <phase>validate</phase>
+            <id>attach-sources</id>
             <goals>
-              <goal>checkout</goal>
+              <goal>jar</goal>
             </goals>
-            <configuration>
-              <goals>checkout</goals>
-              <connectionUrl>scm:git:git@gitlab.com:DataArt/ApachePoiFork.git</connectionUrl>
-              <skipCheckoutIfExists>true</skipCheckoutIfExists>
-              <scmVersionType>tag</scmVersionType>
-              <scmVersion>REL_3_12_FINAL</scmVersion>
-              <checkoutDirectory>../apache-poi/poi</checkoutDirectory>
-            </configuration>
           </execution>
         </executions>
-      </plugin-->
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -76,7 +91,7 @@ limitations under the License.
             <phase>generate-sources</phase>
             <configuration>
               <tasks>
-                <ant antfile="build.xml" target="jar" dir="poi"/>
+                <ant antfile="build.xml" target="jar" dir="poi" />
               </tasks>
             </configuration>
             <goals>

@@ -17,13 +17,43 @@ limitations under the License.
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.poi</groupId>
+  <groupId>com.dataart</groupId>
   <artifactId>poi-fork</artifactId>
-  <version>3.13-beta1.ce.0.7.0.3.dev</version>
+  <version>3.13-beta1.ce.0.7.0.4.dev</version>
   <packaging>pom</packaging>
 
-  <name>poi-fork</name>
-  <url>http://poi.apache.org</url>
+  <name>DataArt Apps Apache POI fork jar</name>
+  <description>DataArt Apps Apache POI fork jar</description>
+  <url>https://github.com/DataArt/ApachePoiFork</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://github.com/DataArt/CalculationEngine/blob/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+  <connection>scm:git:git@github.com:DataArt/ApachePoiFork.git</connection>
+  <developerConnection>scm:git:git@github.com:DataArt/ApachePoiFork.git</developerConnection>
+  <url>git@github.com:DataArt/ApachePoiFork.git</url>
+</scm>
+
+  <developers>
+    <developer>
+      <name>Roman Roschin</name>
+      <email>Roman.Roschin@dataart.com</email>
+      <organization>DataArt Apps, Inc</organization>
+      <organizationUrl>http://dataart.com</organizationUrl>
+    </developer>
+    <developer>
+      <name>Sergey Kharchenko</name>
+      <email>Sergey.Kharchenko@dataart.com</email>
+      <organization>DataArt Apps, Inc</organization>
+      <organizationUrl>http://dataart.com</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,6 +71,34 @@ limitations under the License.
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
