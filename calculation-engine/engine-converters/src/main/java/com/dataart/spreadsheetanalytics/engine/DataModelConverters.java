@@ -15,9 +15,10 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import static com.dataart.spreadsheetanalytics.engine.ConverterUtils.FORMULA_PREFIX;
 import static com.dataart.spreadsheetanalytics.engine.Functions.getUdfFinder;
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.removeSheetFromNameRef;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
+import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.removeSheetFromNameRef;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -35,13 +36,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
-import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.dataart.spreadsheetanalytics.model.DmRow;
@@ -101,6 +101,7 @@ final class DataModelConverters {
             String address = name.getRefersToFormula();
             if (address == null) { continue; }
 
+            //TODO: Maxim
             if (address.contains("!")) {
                 try {
                     dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(address)));
@@ -179,26 +180,21 @@ final class DataModelConverters {
         Sheet wbSheet = result.getSheet(dataModel.getName());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
 
-
         dataModel.getNamedAddresses().forEach((k, v) -> {
             Name name = result.createName();
             name.setNameName(k);
-            if (v.a1Address() instanceof A1RangeAddress) {
-                name.setRefersToFormula(createPoiNameRef(((A1RangeAddress) v.a1Address()).addressRangeString(), dataModel.getName()));
-            } else {
-                name.setRefersToFormula(createPoiNameRef(v.a1Address().address(), dataModel.getName()));
-            }
+            
+            name.setRefersToFormula(createPoiNameRef(v.a1Address().address(), dataModel.getName()));
         });
 
         dataModel.getNamedValues().forEach((k, v) -> {
-            String refString = ConverterUtils.resolveCellValueToObject(v).toString();
             Name name = result.createName();
             name.setNameName(k);
-            if (refString.charAt(0) == '=') {
-                name.setRefersToFormula(refString.substring(1));
-            } else {
-                name.setRefersToFormula(refString);
-            }
+            
+            String refString = v.get() == null ? "" : v.get().toString();
+            if (refString.startsWith(FORMULA_PREFIX)) { refString = refString.substring(1); }
+            
+            name.setRefersToFormula(refString);
         });
 
         for (int rowIdx = dataModel.getFirstRowIndex(); rowIdx <= dataModel.getLastRowIndex(); rowIdx++) {

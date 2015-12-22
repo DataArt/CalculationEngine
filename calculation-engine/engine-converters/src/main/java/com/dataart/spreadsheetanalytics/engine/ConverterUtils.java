@@ -258,19 +258,4 @@ public final class ConverterUtils {
         catch (IOException e) { throw new CalculationEngineException(e); }
     }
 
-    public static ICellValue createCellValue(Object value) {
-        if (value instanceof Integer) { return new CellValue(((Integer) value).doubleValue()); }
-        if (value instanceof Double) { return new CellValue((Double) value); }
-        if (value instanceof Boolean) { return new CellValue((Boolean) value); }
-        if (value instanceof String) { return new CellValue((String) value); }
-        return CellValue.BLANK;
-    }
-
-    public static Object resolveCellValueToObject(ICellValue cellValue) {
-        Object value = cellValue.get();
-        if (value instanceof Double) { return (Double) value; }
-        if (value instanceof String) { return (String) value; }
-        if (value instanceof Boolean) { return (Boolean) value; }
-        return "";
-    }
 }

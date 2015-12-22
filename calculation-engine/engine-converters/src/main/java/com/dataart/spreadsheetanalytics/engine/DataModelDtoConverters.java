@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
+import static com.dataart.spreadsheetanalytics.model.A1Address.fromA1Address;
+import static com.dataart.spreadsheetanalytics.model.A1Address.isAddress;
 import static com.fasterxml.jackson.core.JsonGenerator.Feature.IGNORE_UNKNOWN;
 
 import java.io.IOException;
@@ -29,7 +31,6 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.dto.DataModelDto;
-import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DataModelId;
@@ -99,7 +100,7 @@ final class DataModelDtoConverters {
         dataModel.setDataModelId(new DataModelId(dto.dataModelId));
         
         for (Entry<String, Object> cell : dto.table.entrySet()) {
-            ICellAddress address = A1Address.fromA1Address(cell.getKey());
+            ICellAddress address = fromA1Address(cell.getKey());
             Object content = cell.getValue();
             
             DmCell dmcell = new DmCell();
@@ -113,23 +114,18 @@ final class DataModelDtoConverters {
             Object value = cell.getValue();
             if (value == null) { continue; }
             
-            ICellAddress address = A1Address.fromA1Address(cell.getKey());
+            ICellAddress address = fromA1Address(cell.getKey());
             
             ((DmCell) dataModel.getCell(address)).setValue(Optional.of(CellValue.from(value)));
         }
 
         for (Entry<String, Object> entry : dto.getNames().entrySet()) {
-            String alias = entry.getKey();
-            Object value = entry.getValue();
-            if (value instanceof String) {
-                String stringValue = (String) value;
-                if (stringValue.charAt(0) == '=') {
-                    dataModel.setNamedValue(alias, ConverterUtils.createCellValue(value));
-                } else {
-                    dataModel.setNamedAddress(alias, A1Address.fromA1Address(stringValue));
-                }
+            Object aliasValue = entry.getValue();
+            
+            if (isAddress(aliasValue)) {
+                dataModel.setNamedAddress(entry.getKey(), fromA1Address((String) aliasValue));
             } else {
-                dataModel.setNamedValue(alias, ConverterUtils.createCellValue(value));
+                dataModel.setNamedValue(entry.getKey(), CellValue.from(aliasValue));
             }
         }
 
