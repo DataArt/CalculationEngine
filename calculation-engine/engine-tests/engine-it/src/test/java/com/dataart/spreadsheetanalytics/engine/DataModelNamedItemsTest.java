@@ -32,7 +32,8 @@ public class DataModelNamedItemsTest {
         Double expected_c2_value = 30.0;
         Double expected_c3_value = 7.325;
         Double expected_c4_value = 15.8;
-        Double expected_c5_value = 6.875;
+        Double expected_c5_value = 17.1;
+        Double expected_e5_value = 6.875;
 
         // when
         SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(dataModel);
@@ -41,6 +42,8 @@ public class DataModelNamedItemsTest {
         assertThat(evaluator.evaluate(A1Address.fromA1Address("C2")).getResult().get()).isEqualTo(expected_c2_value);
         assertThat(evaluator.evaluate(A1Address.fromA1Address("C3")).getResult().get()).isEqualTo(expected_c3_value);
         assertThat(evaluator.evaluate(A1Address.fromA1Address("C4")).getResult().get()).isEqualTo(expected_c4_value);
-        assertThat(evaluator.evaluate(A1Address.fromA1Address("E5")).getResult().get()).isEqualTo(expected_c5_value);
+        assertThat(evaluator.evaluate(A1Address.fromA1Address("C5")).getResult().get()).isEqualTo(expected_c5_value);
+        assertThat(evaluator.evaluate(A1Address.fromA1Address("E5")).getResult().get()).isEqualTo(expected_e5_value);
     }
+
 }
