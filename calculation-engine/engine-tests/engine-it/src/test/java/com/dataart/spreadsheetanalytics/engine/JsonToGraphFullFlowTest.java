@@ -3,9 +3,7 @@ package com.dataart.spreadsheetanalytics.engine;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.junit.BeforeClass;
@@ -21,7 +19,6 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModelId;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 

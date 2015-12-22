@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,11 +35,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
+import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DmCell;
 import com.dataart.spreadsheetanalytics.model.DmRow;
@@ -98,7 +101,24 @@ final class DataModelConverters {
             String address = name.getRefersToFormula();
             if (address == null) { continue; }
 
-            dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(address)));
+            if (address.contains("!")) {
+                try {
+                    dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(address)));
+                } catch (NumberFormatException e) {
+                    dm.setNamedValue(name.getNameName(), new CellValue("=" + address));
+                }
+            } else {
+                try {
+                    double doubleValue = Double.parseDouble(address);
+                    dm.setNamedValue(name.getNameName(), new CellValue(doubleValue));
+                } catch (NumberFormatException e) {
+                    if ("true".equals(address.toLowerCase(Locale.ENGLISH)) || "false".equals(address.toLowerCase(Locale.ENGLISH))) {
+                        dm.setNamedValue(name.getNameName(), new CellValue(Boolean.valueOf(address)));
+                    } else {
+                        dm.setNamedValue(name.getNameName(), new CellValue(address));
+                    }
+                }
+            }
         }
 
         return dm;
@@ -163,7 +183,11 @@ final class DataModelConverters {
         dataModel.getNamedAddresses().forEach((k, v) -> {
             Name name = result.createName();
             name.setNameName(k);
-            name.setRefersToFormula(createPoiNameRef(v.a1Address().address(), dataModel.getName()));
+            if (v.a1Address() instanceof A1RangeAddress) {
+                name.setRefersToFormula(createPoiNameRef(((A1RangeAddress) v.a1Address()).addressRangeString(), dataModel.getName()));
+            } else {
+                name.setRefersToFormula(createPoiNameRef(v.a1Address().address(), dataModel.getName()));
+            }
         });
 
         dataModel.getNamedValues().forEach((k, v) -> {

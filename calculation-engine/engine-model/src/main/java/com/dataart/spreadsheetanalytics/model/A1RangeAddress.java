@@ -81,4 +81,11 @@ public class A1RangeAddress extends A1Address {
         return true;
     }
     
+    public String addressRangeString() {
+        if (this.addresses == null || this.addresses.isEmpty()) { return null; }
+        String firstAddress = this.addresses.get(0).address();
+        String lastAddress = this.addresses.get(this.addresses.size() - 1).address();
+        return firstAddress + ":" + lastAddress;
+    }
+
 }
