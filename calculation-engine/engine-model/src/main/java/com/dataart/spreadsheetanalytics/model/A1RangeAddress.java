@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import static java.lang.String.format;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,15 +30,19 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 /**
  * Special case of {@link A1Address} for ranges.
  * Its implementation is just a container for {@link A1Address} instances.
+ * 
+ * TODO: Maxim
  */
 public class A1RangeAddress extends A1Address {
 
+    public static final String RANGE_DELIMITER = ":";
+    
     protected List<IA1Address> addresses;
 
     protected A1RangeAddress(String a1address) {
         this.addresses = new LinkedList<>();
         
-        if (!a1address.contains(":")) { this.addresses.add(A1Address.fromA1Address(a1address)); return; }
+        if (!a1address.contains(RANGE_DELIMITER)) { this.addresses.add(A1Address.fromA1Address(a1address)); return; }
         
         CellRangeAddress addrs = CellRangeAddress.valueOf(a1address);
         int fromR = addrs.getFirstRow();
@@ -81,11 +87,13 @@ public class A1RangeAddress extends A1Address {
         return true;
     }
     
-    public String addressRangeString() {
-        if (this.addresses == null || this.addresses.isEmpty()) { return null; }
-        String firstAddress = this.addresses.get(0).address();
-        String lastAddress = this.addresses.get(this.addresses.size() - 1).address();
-        return firstAddress + ":" + lastAddress;
+    @Override
+    public String address() {
+        if (this.addresses.size() == 1) { return this.addresses.get(0).address(); }
+
+        return format("%s%s%s", this.addresses.get(0).address(), 
+                                RANGE_DELIMITER, 
+                                this.addresses.get(this.addresses.size() - 1).address());
     }
 
 }

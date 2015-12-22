@@ -3,27 +3,21 @@ package com.dataart.spreadsheetanalytics.engine;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.FileInputStream;
-import java.util.UUID;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.A1Address;
-import com.dataart.spreadsheetanalytics.model.DataModel;
-import com.dataart.spreadsheetanalytics.model.DataModelId;
 
 public class DataModelNamedItemsTest {
 
     static String dataModelPath = "src/test/resources/datamodel/DataModelNamedItems_Test.xlsx";
-    static DataModel dataModel;
-    static IDataModelId sharedId = new DataModelId(UUID.randomUUID().toString());
+    static IDataModel dataModel;
 
     @BeforeClass
     public static void before() throws Exception {
-        dataModel = (DataModel) Converters.toDataModel(new FileInputStream(dataModelPath));
-        dataModel.setDataModelId(sharedId);
-        dataModel.setName("Sheet1");
+        dataModel = Converters.toDataModel(new FileInputStream(dataModelPath));
     }
 
     @Test
@@ -37,13 +31,20 @@ public class DataModelNamedItemsTest {
 
         // when
         SpreadsheetEvaluator evaluator = new SpreadsheetEvaluator(dataModel);
+        
+        Object actual_c2_value = evaluator.evaluate(A1Address.fromA1Address("C2")).getResult().get();
+        Object actual_c3_value = evaluator.evaluate(A1Address.fromA1Address("C3")).getResult().get();
+        Object actual_c4_value = evaluator.evaluate(A1Address.fromA1Address("C4")).getResult().get();
+        Object actual_c5_value = evaluator.evaluate(A1Address.fromA1Address("C5")).getResult().get();
+        Object actual_e5_value = evaluator.evaluate(A1Address.fromA1Address("E5")).getResult().get();
 
         // then
-        assertThat(evaluator.evaluate(A1Address.fromA1Address("C2")).getResult().get()).isEqualTo(expected_c2_value);
-        assertThat(evaluator.evaluate(A1Address.fromA1Address("C3")).getResult().get()).isEqualTo(expected_c3_value);
-        assertThat(evaluator.evaluate(A1Address.fromA1Address("C4")).getResult().get()).isEqualTo(expected_c4_value);
-        assertThat(evaluator.evaluate(A1Address.fromA1Address("C5")).getResult().get()).isEqualTo(expected_c5_value);
-        assertThat(evaluator.evaluate(A1Address.fromA1Address("E5")).getResult().get()).isEqualTo(expected_e5_value);
+
+        assertThat(actual_c2_value).isEqualTo(expected_c2_value);
+        assertThat(actual_c3_value).isEqualTo(expected_c3_value);
+        assertThat(actual_c4_value).isEqualTo(expected_c4_value);
+        assertThat(actual_c5_value).isEqualTo(expected_c5_value);
+        assertThat(actual_e5_value).isEqualTo(expected_e5_value);
     }
 
 }

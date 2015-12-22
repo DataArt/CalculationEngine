@@ -12,7 +12,6 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
-import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
@@ -22,18 +21,17 @@ import com.dataart.spreadsheetanalytics.model.DataModelId;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class JsonToGraphFullFlowTest {
+public class JsonToDataModelToEvaluatorToAuditorTest {
     
     static String json;
     static ObjectNode jsonObject;
-    static IDataModelId sharedId = new DataModelId(UUID.randomUUID().toString());
 
     @BeforeClass
     public static void before() throws Exception {
         
         jsonObject = (ObjectNode) ((ObjectNode) ((ObjectNode) new ObjectNode(JsonNodeFactory.instance)
                 .put("name", "Sheet1")
-                .put("dataModelId", sharedId.toString())
+                .put("dataModelId", new DataModelId(UUID.randomUUID().toString()).toString())
                 .set("table", new ObjectNode(JsonNodeFactory.instance)
                                     .put("A1", 10.8)
                                     .put("B2", 5.0)
@@ -47,12 +45,13 @@ public class JsonToGraphFullFlowTest {
                                     .put("D4", "=My_Sum")))
                 .set("result", new ObjectNode(JsonNodeFactory.instance)))
                 .set("names", new ObjectNode(JsonNodeFactory.instance)
-                        .put("Bon", "A3")
-                        .put("Rev", "A2")
-                        .put("Total", "D3")
-                        .put("Tax", "A1")
-                        .put("My_Sum", "=AVERAGE(A4,A5)")
-                        .put("Coef", 2.0));
+                                    .put("Bon", "A3")
+                                    .put("Rev", "A2")
+                                    .put("Total", "D3")
+                                    .put("Tax", "A1")
+                                    .put("RangeA", "A1,A2,A3,C1,C3,D4,F10")
+                                    .put("My_Sum", "=AVERAGE(A4,A5)")
+                                    .put("Coef", 2.0));
 
         json = DataModelDtoConverters.mapper.writeValueAsString(jsonObject);
     }
@@ -80,7 +79,6 @@ public class JsonToGraphFullFlowTest {
         assertThat(evaluator.evaluate(A1Address.fromA1Address("D3")).getResult().get()).isEqualTo(d3_expected_value);
 
         assertThat(actualJsonObject).isEqualTo(jsonObject);
-
     }
 
     @Test
@@ -120,12 +118,12 @@ public class JsonToGraphFullFlowTest {
         edgeSourceToTarget.put("AVERAGE", "D4");
         edgeSourceToTarget.put("My_Sum", "D4");
 
-        Map<String, Object> aliasesToAddresses = new HashMap<>();
-        aliasesToAddresses.put("Coef", 2);
-        aliasesToAddresses.put("Tax", "A1");
-        aliasesToAddresses.put("Total", "D3");
-        aliasesToAddresses.put("Bon", "A3");
-        aliasesToAddresses.put("Rev", "A2");
+        Map<String, Object> aliasToVertexName = new HashMap<>();
+        aliasToVertexName.put("Coef", "VALUE");
+        aliasToVertexName.put("Tax", "A1");
+        aliasToVertexName.put("Total", "D3");
+        aliasToVertexName.put("Bon", "A3");
+        aliasToVertexName.put("Rev", "A2");
 
         //when
         IDataModel model = DataModelDtoConverters.toDataModel(json);
@@ -139,14 +137,9 @@ public class JsonToGraphFullFlowTest {
             ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
             Object value = vertexNameToValue.get(vertex.name());
             assertThat(vertex.value()).isEqualTo(value);
-            if (vertex.alias() != null) {
-                Object expectedByAlias = aliasesToAddresses.get(vertex.alias());
-                if (expectedByAlias instanceof String) {
-                    assertThat(vertex.name()).isEqualTo((String) expectedByAlias);
-                } else {
-                    assertThat(vertex.value()).isEqualTo(expectedByAlias);
-                }
-            }
+            
+            if (vertex.alias() == null) { continue; }
+            assertThat(vertex.name()).isEqualTo(aliasToVertexName.get(vertex.alias()));
         }
 
         //checking edges
@@ -156,7 +149,6 @@ public class JsonToGraphFullFlowTest {
             String expected = edgeSourceToTarget.get(from);
             assertThat(to).isEqualTo(expected);
         }
-
     }
 
 }

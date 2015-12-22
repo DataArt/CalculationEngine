@@ -67,6 +67,13 @@ public class A1Address implements ICellAddress, IA1Address {
         return a1address.contains(":");
     }
     
+    public static boolean isAddress(Object value) {
+        //TODO: Maxim check for validatetions...
+        
+        try { return A1Address.fromA1Address((String) value) != null; }
+        catch (Exception e) { return false; }
+    }
+    
     @Override
     public String toString() {
         return String.format("%s[%s,%s]", this.address, this.row, this.column);
@@ -91,5 +98,5 @@ public class A1Address implements ICellAddress, IA1Address {
         if (this.row != other.row) { return false; }
         return true;
     }
-
+    
 }
