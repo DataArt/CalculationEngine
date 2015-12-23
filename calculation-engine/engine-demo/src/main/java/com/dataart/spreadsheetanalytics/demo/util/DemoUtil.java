@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,14 +21,13 @@ import javax.cache.expiry.Duration;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSourceHub;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
+import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSource;
 import com.dataart.spreadsheetanalytics.api.engine.datasource.DataSourceQuery;
-import com.dataart.spreadsheetanalytics.api.engine.datasource.SqlDataSource;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
@@ -40,10 +38,10 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
-import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSourceHub;
+import com.dataart.spreadsheetanalytics.engine.CacheBasedMetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
@@ -178,34 +176,34 @@ public class DemoUtil {
         //if this model is a dataset also - put it to cache
         try {
             final IDataSet dataSet = Converters.toDataSet(new XSSFWorkbook(excel));
-            dataSetStorage.saveDataSet(dataSet);                       
+            dataSetStorage.add(dataSet);                       
         } catch (Exception e) {
             System.out.println("This workbook is not a dataset itself.");
         }        
         
         //add data model to storage
-        dataModelStorage.addDataModel(model);
+        dataModelStorage.add(model);
         
         //update all define functions based on data models in cache
-        attributeFunctionStorage.refreshDefines(new HashSet<>(dataModelStorage.getDataModels().values()));
+//        attributeFunctionStorage.refreshDefines(new HashSet<>(dataModelStorage.getAll().values()));
         
         //add in memory sql data source
-        dataSourceHub.addDataSource(new TempSqlDataSource());
+        dataSourceHub.add(new TempSqlDataSource());
         //add lazy sql dataset to storage
         String sql = "SELECT * FROM creaditcards WHERE AGE = ? OR AGE = ? OR FIRSTNAME = '?'";
         final ILazyDataSet sqlDataSet = new SqlDataSet("PersonsWithCreaditCard", sql);
-        dataSetStorage.saveDataSet(sqlDataSet);
+        dataSetStorage.add(sqlDataSet);
         
-        dataSetStorage.saveDataSet(new SqlDataSet("AllSkills", "SELECT * FROM skills"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsInCity", "SELECT * FROM skills WHERE CITY = '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForQualification", "SELECT FirstName, LastName FROM skills WHERE Qualification = '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("LevelFromSkillsInCity", "SELECT Level FROM skills WHERE City = '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForNotLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish is not '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish = '?'"));
-        dataSetStorage.saveDataSet(new SqlDataSet("SkillsForLevel", "SELECT FirstName, LastName FROM skills WHERE Level = '?'"));
+        dataSetStorage.add(new SqlDataSet("AllSkills", "SELECT * FROM skills"));
+        dataSetStorage.add(new SqlDataSet("SkillsInCity", "SELECT * FROM skills WHERE CITY = '?'"));
+        dataSetStorage.add(new SqlDataSet("SkillsForQualification", "SELECT FirstName, LastName FROM skills WHERE Qualification = '?'"));
+        dataSetStorage.add(new SqlDataSet("LevelFromSkillsInCity", "SELECT Level FROM skills WHERE City = '?'"));
+        dataSetStorage.add(new SqlDataSet("SkillsForNotLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish is not '?'"));
+        dataSetStorage.add(new SqlDataSet("SkillsForLevelOfEnglish", "SELECT * FROM skills WHERE LevelOfEnglish = '?'"));
+        dataSetStorage.add(new SqlDataSet("SkillsForLevel", "SELECT FirstName, LastName FROM skills WHERE Level = '?'"));
 
     }
-    public static class TempSqlDataSource implements SqlDataSource {
+    public static class TempSqlDataSource implements DataSource {
 
         private Connection co;
         
@@ -277,7 +275,7 @@ public class DemoUtil {
             TextDataSourceQuery textQuery = (TextDataSourceQuery) query;
             final DataSet ds = new DataSet(UUID.randomUUID().toString());
 
-            String queryToExecute = textQuery.query();
+            String queryToExecute = textQuery.getText();
             for (int i = 0; i < params.size(); i++) queryToExecute = queryToExecute.replaceFirst("\\?", params.get(i).toString());        
 
             PreparedStatement st = co.prepareStatement(queryToExecute);
@@ -288,7 +286,7 @@ public class DemoUtil {
             
             IDsRow row = ds.addRow();
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
-                row.addCell().value(new CellValue(rsmd.getColumnLabel(i)));
+                row.addCell().setValue(new CellValue(rsmd.getColumnLabel(i)));
             
             while (rs.next()) {
                 row = ds.addRow();
@@ -296,10 +294,10 @@ public class DemoUtil {
                     Object o = rs.getObject(i);
                     IDsCell cell = row.addCell();
                     
-                    if (o == null) { cell.value(CellValue.BLANK); }
-                    else if (o instanceof String) { cell.value(new CellValue((String) o)); }
-                    else if (o instanceof Double) { cell.value(new CellValue((Double) o)); }
-                    else if (o instanceof Boolean) { cell.value(new CellValue((Boolean) o)); }
+                    if (o == null) { cell.setValue(CellValue.BLANK); }
+                    else if (o instanceof String) { cell.setValue(new CellValue((String) o)); }
+                    else if (o instanceof Double) { cell.setValue(new CellValue((Double) o)); }
+                    else if (o instanceof Boolean) { cell.setValue(new CellValue((Boolean) o)); }
                 }
             }
             
@@ -307,9 +305,7 @@ public class DemoUtil {
         }
 
         @Override
-        public String name() {
-            return null;
-        }
+        public String getName() { return null; }
     }
     
 }

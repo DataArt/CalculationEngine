@@ -10,10 +10,10 @@ public class ModeldefineFunctionMeta extends DefineFunctionMeta {
     public ModeldefineFunctionMeta parse(String formula) {
         DefineFunctionMeta dfm = super.parse(formula.replace(KEYWORD, ""));
         ModeldefineFunctionMeta mdfm = new ModeldefineFunctionMeta();
-        mdfm.name(dfm.name());
-        mdfm.inputs(dfm.inputs());
-        mdfm.outputs(dfm.outputs());
-        mdfm.dataModelId(dfm.getDataModelId());
+        mdfm.setName(dfm.getName());
+        mdfm.setInputs(dfm.getInputs());
+        mdfm.setOutputs(dfm.getOutputs());
+        mdfm.setDataModelId(dfm.getDataModelId());
         return mdfm;
     }
 
