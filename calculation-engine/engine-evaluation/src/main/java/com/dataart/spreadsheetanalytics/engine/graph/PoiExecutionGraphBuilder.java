@@ -71,6 +71,7 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
+import org.apache.poi.ss.formula.ptg.UnionPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -187,7 +188,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     
     @Override
     public Set<IExecutionGraphVertex> getVerticesFromCache(String address) {
-        return this.addressToVertices.get(address);
+        return this.addressToVertices.get(address) == null ?
+                new HashSet<IExecutionGraphVertex>() : this.addressToVertices.get(address);
     }
 
     @Override
@@ -228,6 +230,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
             }
         }
+
+        //TODO: Clarify how to handle comma
+        for (IExecutionGraphVertex vrtx : this.getVerticesFromCache(UnionPtg.instance.toFormulaString())) { this.removeVertex(vrtx); }
 
         // copy or link subgraphs to identical vertices and modify Formula field with additional values
         Map<String, AtomicInteger> adressToCount = new HashMap<>();

@@ -44,6 +44,10 @@ import java.util.Set;
 
 import org.apache.poi.common.fork.FormulaParseNAException;
 import org.apache.poi.common.fork.FormulaParseNameException;
+import org.apache.poi.ss.formula.EvaluationWorkbook;
+import org.apache.poi.ss.formula.FormulaParseException;
+import org.apache.poi.ss.formula.FormulaParser;
+import org.apache.poi.ss.formula.FormulaParsingWorkbook;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.usermodel.Cell;
@@ -51,6 +55,7 @@ import org.apache.poi.ss.usermodel.FormulaError;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -256,6 +261,17 @@ public final class ConverterUtils {
             return book;
         }
         catch (IOException e) { throw new CalculationEngineException(e); }
+    }
+
+    /** Creates an instance of new {@link EvaluationWorkbook} from {@link Workbook} */
+    public static EvaluationWorkbook newEvaluationWorkbook(Workbook workbook) {
+        return XSSFEvaluationWorkbook.create((XSSFWorkbook) workbook);
+    }
+
+    /** Returns true if value string is formula */
+    static boolean isFormula(String value, EvaluationWorkbook workbook) {
+        try { return FormulaParser.parse(value, (FormulaParsingWorkbook) workbook, 0, 0).length > 1; } // TODO: formulaType and sheet index are 0
+        catch (FormulaParseException e) { return false; }
     }
 
 }
