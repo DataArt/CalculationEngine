@@ -48,6 +48,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
@@ -83,7 +84,8 @@ public class FuncexecFunction implements ICustomFunction {
         }
         defineFunctionName = defineFunctionName.toUpperCase(Locale.getDefault());
 
-        final MetaFunctionAccessor defines = this.external.getMetaFunctionAccessor();
+        MetaFunctionAccessor defines = (MetaFunctionAccessor) ec.getCustomEvaluationContext().get(MetaFunctionAccessor.class);
+        if (defines == null) { defines = this.external.getMetaFunctionAccessor(); }
 
         if (defines.get(defineFunctionName) == null) {
             log.warn("No DEFINE function with name {} is found.", defineFunctionName);
@@ -119,7 +121,10 @@ public class FuncexecFunction implements ICustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
 
-        IDataModel dmWithDefine = this.external.getDataModelAccessor().get(meta.getDataModelId());
+        DataModelAccessor dataModels = (DataModelAccessor) ec.getCustomEvaluationContext().get(DataModelAccessor.class);
+        if (dataModels == null) { dataModels = this.external.getDataModelAccessor(); }
+        
+        IDataModel dmWithDefine = dataModels.get(meta.getDataModelId());
         
         Workbook book = toWorkbook(dmWithDefine);
         EvaluationWorkbook defineBook = toEvaluationWorkbook(book);

@@ -100,7 +100,7 @@ final class DataModelConverters {
 
         for (int nIdx = 0; nIdx < workbook.getNumberOfNames(); nIdx++) {
             Name name = workbook.getNameAt(nIdx);
-            
+
             String reference = name.getRefersToFormula();
             if (reference == null) { continue; }
 

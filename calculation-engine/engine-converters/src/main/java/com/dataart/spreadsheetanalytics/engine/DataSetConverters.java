@@ -76,6 +76,8 @@ final class DataSetConverters {
      * Uses {@link IDmCell#getValue()} for {@link IDsCell} values.
      */
     static IDataSet toDataSet(final IDataModel dataModel) {
+        if (dataModel == null) { return null; }
+        
         IDataSet dataSet = new DataSet(dataModel.getName());
         if (dataModel.rowCount() == 0) { return dataSet; }
 

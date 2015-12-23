@@ -39,6 +39,8 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
+import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
@@ -46,6 +48,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 
@@ -109,10 +112,25 @@ public class DsLookupFunction implements ICustomFunction {
             }
         }
 
+        DataSetAccessor dataSets = (DataSetAccessor) ec.getCustomEvaluationContext().get(DataSetAccessor.class);
+        if (dataSets == null) { dataSets = this.external.getDataSetAccessor(); }
+        
         IDataSet dataSet;
-        try { dataSet = this.external.getDataSetAccessor().get(datasetName); }
+        try { dataSet = dataSets.get(datasetName); }
         catch (Exception e) {
             log.error("The DataSet with name = {} cannot be found\retrived from DataSet storage.", datasetName);
+            return ErrorEval.NA;
+        }
+        
+        if (dataSet == null) {
+            DataModelAccessor dataModels = (DataModelAccessor) ec.getCustomEvaluationContext().get(DataModelAccessor.class);
+            if (dataModels == null) { dataModels = this.external.getDataModelAccessor(); }
+            
+            dataSet = Converters.toDataSet(dataModels.get(datasetName));
+        }
+
+        if (dataSet == null) {
+            log.error("The DataSet with name = {} cannot found in DataSet/DataModel storage.", datasetName);
             return ErrorEval.NA;
         }
 
@@ -145,12 +163,12 @@ public class DsLookupFunction implements ICustomFunction {
         }
         
         DsLookupParameters parameters = new DsLookupParameters(dataSet.getName(), indexToValue, columnIndex);
-        List<ValueEval> fetchedValues = fetchValuesWithOptimisations(parameters);
+        List<ValueEval> fetchedValues = fetchValuesWithOptimisations(parameters, ec);
         
         if (fetchedValues == null) {
             fetchedValues = fetchValuesWithFullScan(dataSet, indexToValue, columnIndex);
             
-            updateOptimisationsCache(parameters, dataSet, fetchedValues);
+            updateOptimisationsCache(parameters, dataSet, fetchedValues, ec);
         }
 
         //This is per PO decision: DSLOOKUP should return only one value - first found.
@@ -187,8 +205,10 @@ public class DsLookupFunction implements ICustomFunction {
         return found;
     }
     
-    protected List<ValueEval> fetchValuesWithOptimisations(DsLookupParameters parameters) {
-        DataSetOptimisationsCache caches = this.external.getDataSetOptimisationsCache();
+    protected List<ValueEval> fetchValuesWithOptimisations(DsLookupParameters parameters, OperationEvaluationContext ec) {
+        DataSetOptimisationsCache caches = (DataSetOptimisationsCache) ec.getCustomEvaluationContext().get(DataSetOptimisationsCache.class);
+        if (caches == null) { caches = this.external.getDataSetOptimisationsCache(); }
+        
         Cache<DsLookupParameters, List> cache = caches.getDataSetToDsLookupParameters();
        
         if (cache.containsKey(parameters)) { return cache.get(parameters); }
@@ -197,10 +217,12 @@ public class DsLookupFunction implements ICustomFunction {
     }
 
 
-    protected void updateOptimisationsCache(DsLookupParameters parameters, IDataSet dataSet, List<ValueEval> fetchedValues) {
+    protected void updateOptimisationsCache(DsLookupParameters parameters, IDataSet dataSet, List<ValueEval> fetchedValues, OperationEvaluationContext ec) {
         if (fetchedValues == null || parameters == null) { return; }
         
-        DataSetOptimisationsCache caches = this.external.getDataSetOptimisationsCache();
+        DataSetOptimisationsCache caches = (DataSetOptimisationsCache) ec.getCustomEvaluationContext().get(DataSetOptimisationsCache.class);
+        if (caches == null) { caches = this.external.getDataSetOptimisationsCache(); }
+        
         Cache<DsLookupParameters, List> cache = caches.getDataSetToDsLookupParameters();
         
         cache.put(parameters, fetchedValues);

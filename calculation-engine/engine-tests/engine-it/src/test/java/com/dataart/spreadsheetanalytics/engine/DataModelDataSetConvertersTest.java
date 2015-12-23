@@ -1,8 +1,8 @@
 package com.dataart.spreadsheetanalytics.engine;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static com.dataart.spreadsheetanalytics.engine.Converters.toDataSet;
 import static com.dataart.spreadsheetanalytics.engine.Converters.toDataModel;
+import static com.dataart.spreadsheetanalytics.engine.Converters.toDataSet;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,12 +16,9 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
-import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
-import com.dataart.spreadsheetanalytics.model.DataSet;
-import com.dataart.spreadsheetanalytics.model.DsRow;
 
 public class DataModelDataSetConvertersTest {
 
