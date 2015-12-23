@@ -51,7 +51,6 @@ import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
-import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder;
@@ -77,13 +76,20 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected final EvaluationWorkbook evaluationWorkbook;
     protected final WorkbookEvaluator poiEvaluator;
     
+    protected final EvaluationContext globalContext;
+    
     static {
         try { loadCustomFunctions(); }
         catch (Exception e) { log.error("Custom functions loading was unsuccessful. This may cause Evaluator to not work with custom functions.", e); }
     }
         
     public SpreadsheetEvaluator(IDataModel model) {
+        this(model, null);        
+    }
+    
+    public SpreadsheetEvaluator(IDataModel model, EvaluationContext globalContext) {
         this.model = model;
+        this.globalContext = globalContext;
         this.evaluationWorkbook = toEvaluationWorkbook(toWorkbook(this.model));
         this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, null);        
     }
@@ -93,16 +99,17 @@ public class SpreadsheetEvaluator implements IEvaluator {
         EvaluationCell cell = getEvaluationCell(this.evaluationWorkbook, addr);
         if (cell == null) { return null; }
         
-        IEvaluationContext evaluationContext = new EvaluationContext();
+        EvaluationContext evaluationContext = new EvaluationContext(this.globalContext);
         
-        try { return new EvaluationResult<ICellValue>(evaluationContext, evaluateCell(cell, (EvaluationContext) evaluationContext)); }
+        try { return new EvaluationResult<ICellValue>(evaluationContext, evaluateCell(cell, evaluationContext)); }
         catch (ValuesStackNotEmptyException e) { return new EvaluationResult<ICellValue>(evaluationContext, CellValue.from(VALUE_INVALID.getErrorString())); }
     }
 
     @Override
     public IEvaluationResult<IDataModel> evaluate() {
-        IEvaluationContext evaluationContext = new EvaluationContext();
         IDataModel dataModel = this.model;
+        
+        EvaluationContext evaluationContext = new EvaluationContext(this.globalContext);
 
         for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
             IDmRow row = this.model.getRow(i);
@@ -113,7 +120,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
                 if (cell == null) { continue; }
 
                 try {
-                    ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, fromRowColumn(i, j)), (EvaluationContext) evaluationContext);                
+                    ICellValue val = evaluateCell(getEvaluationCell(this.evaluationWorkbook, fromRowColumn(i, j)), evaluationContext);                
                     ((DmCell) cell).setValue(val == null ? Optional.<ICellValue>empty() : Optional.of(val)); 
                 }
                 catch (ValuesStackNotEmptyException e) {

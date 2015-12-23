@@ -34,6 +34,7 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
 import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
@@ -97,10 +98,13 @@ public class QueryFunction implements ICustomFunction {
         log.info("QUERY function for DataModel: {}, Local DataSet: {}, Resolved parameters: {}", execDataSet, cachedDataSet, execParams);
 
         try {
-            IDataSet dset = this.external.getDataSetAccessor().get(execDataSet, new Parameters(execDataSet, execParams));
+            DataSetAccessor dataSets = (DataSetAccessor) ec.getCustomEvaluationContext().get(DataSetAccessor.class);
+            if (dataSets == null) { dataSets = this.external.getDataSetAccessor(); } 
+            
+            IDataSet dset = dataSets.get(execDataSet, new Parameters(execDataSet, execParams));
             
             dset.setName(cachedDataSet);
-            this.external.getDataSetAccessor().add(dset, DataSetScope.LOCAL);
+            dataSets.add(dset, DataSetScope.LOCAL);
 
             return toTableEval(dset);
         } catch (Exception e) {

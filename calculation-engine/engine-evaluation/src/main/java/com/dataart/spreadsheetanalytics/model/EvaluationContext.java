@@ -13,6 +13,12 @@ import com.dataart.spreadsheetanalytics.api.model.IEvaluationContext;
 public class EvaluationContext implements IEvaluationContext, CustomEvaluationContext {
 
     protected final Map<Object, Object> map = new HashMap<>();
+    
+    public EvaluationContext() { this(null); }
+
+    public EvaluationContext(final EvaluationContext another) {
+        if (another != null) { this.map.putAll(another.map); }
+    }
 
     @Override public Object get(Object key) { return this.map.get(key); }
     @Override public void set(Object key, Object value) { this.map.put(key, value); }

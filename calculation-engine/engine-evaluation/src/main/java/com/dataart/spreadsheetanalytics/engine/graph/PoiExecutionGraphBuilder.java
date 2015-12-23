@@ -491,7 +491,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                             .collect(toList())),
                                                 opname));
         } else if (optg instanceof ValueOperatorPtg) {
-            return stripRedundantSymbols(String.format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", ops.size() > 0 ? ops.get(0) : "", opname));
+            return stripRedundantSymbols(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", ops.size() > 0 ? ops.get(0) : "", opname));
         }
 
         return "";

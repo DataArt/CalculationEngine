@@ -100,7 +100,7 @@ final class DataModelConverters {
             
             String address = name.getRefersToFormula();
             if (address == null) { continue; }
-
+            
             //TODO: Maxim
             if (address.contains("!")) {
                 try {
