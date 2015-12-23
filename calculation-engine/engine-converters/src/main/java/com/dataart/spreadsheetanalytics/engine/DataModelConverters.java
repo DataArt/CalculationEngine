@@ -107,7 +107,7 @@ final class DataModelConverters {
             if (A1Address.isAddress(removeSheetFromNameRef(reference))) {
                 dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(reference)));
             } else if (isFormula(reference, evaluationWbook)) {
-                dm.setNamedValue(name.getNameName(), new CellValue(ConverterUtils.FORMULA_PREFIX + reference));
+                dm.setNamedValue(name.getNameName(), new CellValue(FORMULA_PREFIX + reference));
             } else {
                 dm.setNamedValue(name.getNameName(), CellValue.from(reference));
             }
