@@ -39,6 +39,7 @@ import org.apache.poi.ss.formula.eval.ValueEval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
@@ -47,6 +48,7 @@ import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
+import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache.DsLookupParameters;
 
@@ -117,6 +119,18 @@ public class DsLookupFunction implements ICustomFunction {
         try { dataSet = dataSets.get(datasetName); }
         catch (Exception e) {
             log.error("The DataSet with name = {} cannot be found\retrived from DataSet storage.", datasetName);
+            return ErrorEval.NA;
+        }
+        
+        if (dataSet == null) {
+            DataModelAccessor dataModels = (DataModelAccessor) ec.getCustomEvaluationContext().get(DataModelAccessor.class);
+            if (dataModels == null) { dataModels = this.external.getDataModelAccessor(); }
+            
+            dataSet = Converters.toDataSet(dataModels.get(datasetName));
+        }
+
+        if (dataSet == null) {
+            log.error("The DataSet with name = {} cannot found in DataSet/DataModel storage.", datasetName);
             return ErrorEval.NA;
         }
 
