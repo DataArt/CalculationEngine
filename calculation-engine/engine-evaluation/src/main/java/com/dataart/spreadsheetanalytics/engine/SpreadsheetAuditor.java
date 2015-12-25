@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 import org.apache.poi.common.fork.IncorrectExternalReferenceException;
 import org.apache.poi.ss.formula.FormulaParseException;
@@ -106,16 +105,6 @@ public class SpreadsheetAuditor implements IAuditor {
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
 
-            Map<String, String> namedObjects = this.evaluator.model
-                                                             .getNamedAddresses().entrySet().stream()
-                                                             .collect(Collectors.toMap( e -> e.getKey(),
-                                                                                        e -> e.getValue().a1Address().address()));
-            namedObjects.putAll(this.evaluator.model
-                                              .getNamedValues().entrySet().stream()
-                                              .collect(Collectors.toMap(e -> e.getKey(),
-                                                                             e -> e.getValue().get().toString())));
-
-            graphBuilder.setRefsToNames(namedObjects);
             graphBuilder.setExecutionGraphConfig(config);
             
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
@@ -163,9 +152,6 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
-            
-            try { graphBuilder.setRefsToNames(getWorkbookNames(Converters.toWorkbook(this.evaluator.model))); }
-            catch (Exception e) { e.printStackTrace(); /*TODO: remove Workbook*/ }
             
             graphBuilder.setExecutionGraphConfig(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);

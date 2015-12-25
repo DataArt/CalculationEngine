@@ -72,6 +72,7 @@ import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.UnionPtg;
+//import org.apache.poi.ss.formula.ptg.UnionPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -95,7 +96,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
-    protected Map<String, String> refsToNames = new HashMap<>();
 
     static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
     
@@ -159,6 +159,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     public void removeVertex(IExecutionGraphVertex vertex) {
         if (vertex == null) { return; }
         this.dgraph.removeVertex((ExecutionGraphVertex) vertex);
+        String address = null;
+        for (Entry<String, Set<IExecutionGraphVertex>> entry : this.addressToVertices.entrySet()) {
+            if (entry.getValue().contains(vertex)) {
+                address = entry.getKey();
+                entry.getValue().remove(vertex);
+            }
+        }
+        if (null != address && this.addressToVertices.get(address).isEmpty()) { this.addressToVertices.remove(address); }
     }
 
     @Override
@@ -231,9 +239,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-        //TODO: Clarify how to handle comma
-        for (IExecutionGraphVertex vrtx : this.getVerticesFromCache(UnionPtg.instance.toFormulaString())) { this.removeVertex(vrtx); }
-
         // copy or link subgraphs to identical vertices and modify Formula field with additional values
         Map<String, AtomicInteger> adressToCount = new HashMap<>();
 
@@ -301,7 +306,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (this.config.getDuplicatesNumberThreshold() != -1) {
             removeAllDuplicates();
         }
-        addNamesToAliases();
+
     }
 
     protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> graph) {
@@ -466,7 +471,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                                .stream()
                                                                .map(v -> v.toString())
                                                                .collect(toList()))));
-        } else if (optg instanceof ValueOperatorPtg) {
+        } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
             return stripRedundantSymbols(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", opname, ops.size() > 0 ? ops.get(0) : ""));
         }
         return "";
@@ -495,7 +500,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                                                             .map(v -> v.toString())
                                                             .collect(toList())),
                                                 opname));
-        } else if (optg instanceof ValueOperatorPtg) {
+        } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
             return stripRedundantSymbols(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", ops.size() > 0 ? ops.get(0) : "", opname));
         }
 
@@ -525,9 +530,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             return FUNCTION;
         } else if (ptg instanceof ValueOperatorPtg || ptg instanceof OperationPtg) { // single operators: +, -, /, *, =
             return OPERATOR;
-        } else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg || ptg instanceof NamePtg) {
+        } else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg) {
             return CELL_WITH_VALUE;
-        } else if (ptg instanceof ScalarConstantPtg) {
+        } else if (ptg instanceof ScalarConstantPtg || ptg instanceof NamePtg) {
             return CONSTANT_VALUE;
         } else if (ptg instanceof AreaPtg) {
             return RANGE;
@@ -641,9 +646,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return null;
     }
 
-    protected void reassignOutgoingEdges(ExecutionGraphVertex ivertex1, ExecutionGraphVertex ivertex2) {
-        for (ExecutionGraphEdge item : this.dgraph.outgoingEdgesOf(ivertex2)) 
-            { this.dgraph.addEdge(ivertex1, this.dgraph.getEdgeTarget(item)); }
+    protected void reassignOutgoingEdges(ExecutionGraphVertex to, ExecutionGraphVertex from) {
+        for (ExecutionGraphEdge item : this.dgraph.outgoingEdgesOf(from))
+            { this.dgraph.addEdge(to, this.dgraph.getEdgeTarget(item)); }
     }
 
     protected IExecutionGraphVertex removeLeafDublicates(String address, int num) {
@@ -668,29 +673,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     // TODO: not the best solution, but works as for now
     protected static boolean isCompareOperand(String name) {
         return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
-    }
-
-    protected void addNamesToAliases() {
-        for (Entry<String, String> entry : this.refsToNames.entrySet()) {
-            String[] tokens = entry.getValue().split("!");
-            String addr = tokens[tokens.length - 1].replace("$", "");
-            if (getVerticesFromCache(addr) != null) {
-                for (IExecutionGraphVertex ivrt : getVerticesFromCache(addr)) {
-                    ExecutionGraphVertex vrt = (ExecutionGraphVertex) ivrt;
-                    vrt.alias = entry.getKey();
-                }
-            }
-            Set<IExecutionGraphVertex> namedVertices = getVerticesFromCache(entry.getKey());
-            if (namedVertices != null) {
-                for (IExecutionGraphVertex inamedVertex : namedVertices) {
-                    ExecutionGraphVertex namedVertex = (ExecutionGraphVertex) inamedVertex;
-                    for (ExecutionGraphVertex parent : getParents(namedVertex)) {
-                        for (ExecutionGraphVertex child : getChildren(namedVertex)) { connect(child, parent); }
-                    }
-                    removeVertex(namedVertex);
-                }
-            }
-        }
     }
 
     public static ExecutionGraph buildSingleVertexGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
@@ -737,7 +719,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return ExecutionGraph.wrap(emptyGraph);
     }
 
-    public void setRefsToNames(Map<String, String> refsToNames) { this.refsToNames = refsToNames; }
     public void setExecutionGraphConfig(ExecutionGraphConfig config) { this.config = config; }
 
 }
