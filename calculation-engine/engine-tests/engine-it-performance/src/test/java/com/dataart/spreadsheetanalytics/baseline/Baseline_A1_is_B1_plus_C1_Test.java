@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -20,31 +21,34 @@ import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 
+@State(Scope.Benchmark)
 public class Baseline_A1_is_B1_plus_C1_Test extends BenchmarkTestParent {
 
+    @Param({"1"}) public int iterations;
+
+    Object expectedValue = new Double(5.0);
+    String column = "A";
+
+    IDataModel dataModel;
+    IEvaluator evaluator;
+
+    ICellAddress address;
+
+    @Setup(Level.Trial)
+    public void initialize() throws Exception {
+        String excelFile = "src/test/resources/datamodel/baseline/A1_is_B1_plus_C1.xlsx";
+
+        this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
+        this.evaluator = new SpreadsheetEvaluator(dataModel);
+        
+        address = A1Address.fromA1Address(column + iterations);
+    }
+
     @Benchmark
-    public void evaluate_ExcelDataModel_ExecutionTimeIsOk(BenchmarkStateEvaluator state, Blackhole bh) {
+    public void evaluate_ExcelDataModel_ExecutionTimeIsOk(Baseline_A1_is_B1_plus_C1_Test state, Blackhole bh) {
         IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.address);
         assertThat(value.getResult().get()).isEqualTo(state.expectedValue); /* comment for better performance */
         bh.consume(value);
-    }
-   
-    @State(Scope.Benchmark)
-    public static class BenchmarkStateEvaluator {
-        String excelFile = "src/test/resources/datamodel/baseline/A1_is_B1_plus_C1.xlsx";
-        Object expectedValue = new Double(5.0);
-        String column = "A";
-        int iterations = 1;
-
-        IDataModel dataModel;
-        IEvaluator evaluator;
-        ICellAddress address = A1Address.fromA1Address(column + iterations);
-
-        @Setup(Level.Trial)
-        public void initialize() throws Exception {
-            this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
-            this.evaluator = new SpreadsheetEvaluator(dataModel);
-        }
     }
 
 }
