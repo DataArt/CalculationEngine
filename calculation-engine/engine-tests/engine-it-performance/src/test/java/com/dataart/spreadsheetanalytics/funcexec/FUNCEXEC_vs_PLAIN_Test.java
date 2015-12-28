@@ -1,5 +1,6 @@
 package com.dataart.spreadsheetanalytics.funcexec;
 
+import static com.dataart.spreadsheetanalytics.model.A1Address.fromA1Address;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
@@ -22,20 +23,17 @@ import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
-import com.dataart.spreadsheetanalytics.model.A1Address;
 
 @State(Scope.Benchmark)
 public class FUNCEXEC_vs_PLAIN_Test extends BenchmarkTestParent {
 
-    @Param({"1", "100", "1000"})
-    public int iterations;
+    @Param({"1", "100", "1000"}) public int cell_iterations;
     
     String columnA = "A";
     String columnB = "B";
     int from = 2;
 
-    Double[] expectedValuesA;
-    Double[] expectedValuesB;
+    Double[] expectedValues;
 
     IDataModel dataModel;
     IEvaluator evaluator;
@@ -45,7 +43,7 @@ public class FUNCEXEC_vs_PLAIN_Test extends BenchmarkTestParent {
 
     @Setup(Level.Trial)
     public void initialize() throws Exception {
-        String excelFile = "src/test/resources/datamodel/funcexec/FUNCEXEC_vs_PLAIN_" + iterations + "times.xlsx";
+        String excelFile = "src/test/resources/datamodel/funcexec/FUNCEXEC_vs_PLAIN_" + cell_iterations + "times.xlsx";
         
         this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
         this.evaluator = new SpreadsheetEvaluator(dataModel);
@@ -57,38 +55,32 @@ public class FUNCEXEC_vs_PLAIN_Test extends BenchmarkTestParent {
             external.getDataModelAccessor().add(v);
         });
 
-        this.expectedValuesA = new Double[from + iterations]; 
-        this.expectedValuesB = new Double[from + iterations];
+        this.expectedValues = new Double[from + cell_iterations]; 
+        for (int i = from; i < from + cell_iterations; i++)
+            this.expectedValues[i] = (Double) evaluator.evaluate(fromA1Address(columnB + i)).getResult().get();
 
-        for (int i = from; i < from + iterations; i++) {
-            Double value = (Double) evaluator.evaluate(A1Address.fromA1Address(columnB + i)).getResult().get();
-            
-            this.expectedValuesA[i] = value;
-            this.expectedValuesB[i] = value;
-        }
-
-        this.addressA = new ICellAddress[from + iterations];
-        this.addressB = new ICellAddress[from + iterations];
-        for (int i = from; i < from + iterations; i++) {
-            this.addressA[i] = A1Address.fromA1Address(columnA + i);
-            this.addressB[i] = A1Address.fromA1Address(columnB + i);
+        this.addressA = new ICellAddress[from + cell_iterations];
+        this.addressB = new ICellAddress[from + cell_iterations];
+        for (int i = from; i < from + cell_iterations; i++) {
+            this.addressA[i] = fromA1Address(columnA + i);
+            this.addressB[i] = fromA1Address(columnB + i);
         }
     }
 
     @Benchmark
     public void evaluate_ExcelDataModelFuncexec_ExecutionTimeIsOk(FUNCEXEC_vs_PLAIN_Test state, Blackhole bh) {
-        for (int i = state.from; i < state.from + state.iterations; i++) {
+        for (int i = state.from; i < state.from + state.cell_iterations; i++) {
             IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressA[i]);
-            assertThat(value.getResult().get()).isEqualTo(state.expectedValuesA[i]); /* comment for better performance */
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValues[i]); /* comment for better performance */
             bh.consume(value);
         }
     }
 
     @Benchmark
     public void evaluate_ExcelDataModelPlainFormula_ExecutionTimeIsOk(FUNCEXEC_vs_PLAIN_Test state, Blackhole bh) {
-        for (int i = state.from; i < state.from + state.iterations; i++) {
+        for (int i = state.from; i < state.from + state.cell_iterations; i++) {
             IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.addressB[i]);
-            assertThat(value.getResult().get()).isEqualTo(state.expectedValuesB[i]); /* comment for better performance */
+            assertThat(value.getResult().get()).isEqualTo(state.expectedValues[i]); /* comment for better performance */
             bh.consume(value);
         }
     }
