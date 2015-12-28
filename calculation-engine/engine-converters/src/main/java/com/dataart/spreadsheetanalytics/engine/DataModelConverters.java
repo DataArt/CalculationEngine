@@ -16,6 +16,7 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.ConverterUtils.FORMULA_PREFIX;
+import static com.dataart.spreadsheetanalytics.engine.ConverterUtils.isFormula;
 import static com.dataart.spreadsheetanalytics.engine.Functions.getUdfFinder;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.createPoiNameRef;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.removeSheetFromNameRef;
@@ -24,9 +25,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Locale;
 import java.util.Optional;
 
+import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
@@ -95,30 +96,20 @@ final class DataModelConverters {
             }
         }
 
+        EvaluationWorkbook evaluationWbook = ConverterUtils.newEvaluationWorkbook(workbook);
+
         for (int nIdx = 0; nIdx < workbook.getNumberOfNames(); nIdx++) {
             Name name = workbook.getNameAt(nIdx);
-            
-            String address = name.getRefersToFormula();
-            if (address == null) { continue; }
-            
-            //TODO: Maxim
-            if (address.contains("!")) {
-                try {
-                    dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(address)));
-                } catch (NumberFormatException e) {
-                    dm.setNamedValue(name.getNameName(), new CellValue("=" + address));
-                }
+
+            String reference = name.getRefersToFormula();
+            if (reference == null) { continue; }
+
+            if (A1Address.isAddress(removeSheetFromNameRef(reference))) {
+                dm.setNamedAddress(name.getNameName(), A1Address.fromA1Address(removeSheetFromNameRef(reference)));
+            } else if (isFormula(reference, evaluationWbook)) {
+                dm.setNamedValue(name.getNameName(), new CellValue(FORMULA_PREFIX + reference));
             } else {
-                try {
-                    double doubleValue = Double.parseDouble(address);
-                    dm.setNamedValue(name.getNameName(), new CellValue(doubleValue));
-                } catch (NumberFormatException e) {
-                    if ("true".equals(address.toLowerCase(Locale.ENGLISH)) || "false".equals(address.toLowerCase(Locale.ENGLISH))) {
-                        dm.setNamedValue(name.getNameName(), new CellValue(Boolean.valueOf(address)));
-                    } else {
-                        dm.setNamedValue(name.getNameName(), new CellValue(address));
-                    }
-                }
+                dm.setNamedValue(name.getNameName(), CellValue.from(reference));
             }
         }
 
@@ -176,7 +167,7 @@ final class DataModelConverters {
     /** Convertes plain {@link IDataModel} to new {@link XSSFWorkbook} with formatting provided. */
     static Workbook toWorkbook(final IDataModel dataModel, final Workbook formatting) {
         Workbook result = formatting == null ? ConverterUtils.newWorkbook() : ConverterUtils.clearContent(formatting);
-        
+
         Sheet wbSheet = result.getSheet(dataModel.getName());
         if (wbSheet == null) { wbSheet = result.createSheet(dataModel.getName()); }
 

@@ -70,7 +70,9 @@ public class A1Address implements ICellAddress, IA1Address {
     public static boolean isAddress(Object value) {
         //TODO: Maxim check for validatetions...
         
-        try { return A1Address.fromA1Address((String) value) != null; }
+        try {
+            A1Address address = A1Address.fromA1Address((String) value);
+            return address.row() > -1 && address.column() > -1; }
         catch (Exception e) { return false; }
     }
     

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
+<graph edgedefault="directed" id="JOIN_10_">
+<node id="8f173d77-c439-473f-b9a7-ef3fea36a881">
+<data key="name">C2</data>
+<data key="value">30.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2); Formula values: SUM(12.9, 4.5, 12.6);</data>
+</node>
+<node id="9f1a6c43-e0e6-48ef-be9a-fc445bbad374">
+<data key="name">A2</data>
+<data key="value">12.6</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 12.6;</data>
+</node>
+<node id="b6064a48-58e7-4262-b110-04b2c79470ce">
+<data key="name">A4</data>
+<data key="value">4.5</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A4; Formula values: 4.5;</data>
+</node>
+<node id="ff805530-c594-4cd5-997e-52590afd958a">
+<data key="name">VALUE</data>
+<data key="value">12.9</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: 12.9;</data>
+</node>
+<node id="e328b3f6-686a-4be0-ac5f-9372f289f5cd">
+<data key="name">SUM</data>
+<data key="value">30.0</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2); Formula values: SUM(12.9, 4.5, 12.6);</data>
+</node>
+<node id="e5dcec60-3dc4-4d91-b6e5-0d6e016fb4c2">
+<data key="name">C3</data>
+<data key="value">7.325</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVERAGE(VALUE); Formula values: AVERAGE(12.6, 3.2, 4.5, 9.0);</data>
+</node>
+<node id="5ad760e3-51fc-491c-a52f-400f44c5a4fd">
+<data key="name">VALUE</data>
+<data key="value">[[12.6], [3.2], [4.5], [9.0]]</data>
+<data key="type">CONSTANT_VALUE</data>
+<data key="formula">Formula string: VALUE; Formula values: [[12.6], [3.2], [4.5], [9.0]];</data>
+</node>
+<node id="c79467b5-943c-4ae1-9e34-7cca84b6c150">
+<data key="name">AVERAGE</data>
+<data key="value">7.325</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: AVERAGE(VALUE); Formula values: AVERAGE(12.6, 3.2, 4.5, 9.0);</data>
+</node>
+<node id="4e9ee6a0-02e3-44b1-8750-817dd7b89d02">
+<data key="name">C4</data>
+<data key="value">15.8</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(Sheet1!$A$3, Sheet1!$A$2); Formula values: SUM(3.2, 12.6);</data>
+</node>
+<node id="b2aacbbf-704b-476a-951c-7bfbc7d257e1">
+<data key="name">Sheet1!$A$2</data>
+<data key="value">12.6</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Sheet1!$A$2; Formula values: 12.6;</data>
+</node>
+<node id="70560f20-2255-491d-911f-7493e8a0b8d0">
+<data key="name">Sheet1!$A$3</data>
+<data key="value">3.2</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Sheet1!$A$3; Formula values: 3.2;</data>
+</node>
+<node id="96dcfb3e-a2ff-4f64-bbff-d34cee5099c9">
+<data key="name">SUM</data>
+<data key="value">15.8</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(Sheet1!$A$3, Sheet1!$A$2); Formula values: SUM(3.2, 12.6);</data>
+</node>
+<node id="daf61ad9-b321-42fa-a1e3-4f62572c849c">
+<data key="name">E5</data>
+<data key="value">6.875</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE) - SUM(Sheet1!$A$3, Sheet1!$A$2); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE(12.6, 3.2, 4.5, 9.0) - SUM(3.2, 12.6);</data>
+</node>
+<node id="42dfc0ef-ec53-495a-931c-5a5fbe8a18a2">
+<data key="name">C2</data>
+<data key="value">30.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2); Formula values: SUM(12.9, 4.5, 12.6);</data>
+</node>
+<node id="bea4a408-432d-446c-877e-ab36749edfc7">
+<data key="name">C3</data>
+<data key="value">7.325</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVERAGE(VALUE); Formula values: AVERAGE(12.6, 3.2, 4.5, 9.0);</data>
+</node>
+<node id="b8da4e7a-8e29-4297-90bb-87003960a202">
+<data key="name">-</data>
+<data key="value">22.675</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE(12.6, 3.2, 4.5, 9.0);</data>
+</node>
+<node id="066ff5a2-d690-4ec8-ae78-dc8619ed6221">
+<data key="name">Sheet1!$A$2</data>
+<data key="value">12.6</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Sheet1!$A$2; Formula values: 12.6;</data>
+</node>
+<node id="d6291d23-3711-44e7-9077-cd81773149cf">
+<data key="name">Sheet1!$A$3</data>
+<data key="value">3.2</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: Sheet1!$A$3; Formula values: 3.2;</data>
+</node>
+<node id="6913ed54-f2b1-4c1f-8faa-50e7195300eb">
+<data key="name">SUM</data>
+<data key="value">15.8</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: SUM(Sheet1!$A$3, Sheet1!$A$2); Formula values: SUM(3.2, 12.6);</data>
+</node>
+<node id="959038f5-3ed3-4e53-8d86-bc3297c9d798">
+<data key="name">-</data>
+<data key="value">6.875</data>
+<data key="type">OPERATOR</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE) - SUM(Sheet1!$A$3, Sheet1!$A$2); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE(12.6, 3.2, 4.5, 9.0) - SUM(3.2, 12.6);</data>
+</node>
+<edge source="ff805530-c594-4cd5-997e-52590afd958a" target="e328b3f6-686a-4be0-ac5f-9372f289f5cd"/>
+<edge source="b6064a48-58e7-4262-b110-04b2c79470ce" target="e328b3f6-686a-4be0-ac5f-9372f289f5cd"/>
+<edge source="9f1a6c43-e0e6-48ef-be9a-fc445bbad374" target="e328b3f6-686a-4be0-ac5f-9372f289f5cd"/>
+<edge source="e328b3f6-686a-4be0-ac5f-9372f289f5cd" target="8f173d77-c439-473f-b9a7-ef3fea36a881"/>
+<edge source="9f1a6c43-e0e6-48ef-be9a-fc445bbad374" target="5ad760e3-51fc-491c-a52f-400f44c5a4fd"/>
+<edge source="b6064a48-58e7-4262-b110-04b2c79470ce" target="5ad760e3-51fc-491c-a52f-400f44c5a4fd"/>
+<edge source="5ad760e3-51fc-491c-a52f-400f44c5a4fd" target="c79467b5-943c-4ae1-9e34-7cca84b6c150"/>
+<edge source="c79467b5-943c-4ae1-9e34-7cca84b6c150" target="e5dcec60-3dc4-4d91-b6e5-0d6e016fb4c2"/>
+<edge source="70560f20-2255-491d-911f-7493e8a0b8d0" target="96dcfb3e-a2ff-4f64-bbff-d34cee5099c9"/>
+<edge source="b2aacbbf-704b-476a-951c-7bfbc7d257e1" target="96dcfb3e-a2ff-4f64-bbff-d34cee5099c9"/>
+<edge source="96dcfb3e-a2ff-4f64-bbff-d34cee5099c9" target="4e9ee6a0-02e3-44b1-8750-817dd7b89d02"/>
+<edge source="bea4a408-432d-446c-877e-ab36749edfc7" target="b8da4e7a-8e29-4297-90bb-87003960a202"/>
+<edge source="42dfc0ef-ec53-495a-931c-5a5fbe8a18a2" target="b8da4e7a-8e29-4297-90bb-87003960a202"/>
+<edge source="d6291d23-3711-44e7-9077-cd81773149cf" target="6913ed54-f2b1-4c1f-8faa-50e7195300eb"/>
+<edge source="066ff5a2-d690-4ec8-ae78-dc8619ed6221" target="6913ed54-f2b1-4c1f-8faa-50e7195300eb"/>
+<edge source="6913ed54-f2b1-4c1f-8faa-50e7195300eb" target="959038f5-3ed3-4e53-8d86-bc3297c9d798"/>
+<edge source="b8da4e7a-8e29-4297-90bb-87003960a202" target="959038f5-3ed3-4e53-8d86-bc3297c9d798"/>
+<edge source="959038f5-3ed3-4e53-8d86-bc3297c9d798" target="daf61ad9-b321-42fa-a1e3-4f62572c849c"/>
+<edge source="e328b3f6-686a-4be0-ac5f-9372f289f5cd" target="42dfc0ef-ec53-495a-931c-5a5fbe8a18a2"/>
+<edge source="c79467b5-943c-4ae1-9e34-7cca84b6c150" target="bea4a408-432d-446c-877e-ab36749edfc7"/>
+</graph>
+</graphml>

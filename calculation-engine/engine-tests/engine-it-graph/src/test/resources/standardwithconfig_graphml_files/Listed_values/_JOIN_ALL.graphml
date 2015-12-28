@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="JOIN_ALL">
-<node id="84c79651-17d9-474d-affb-1d0222ec3dd1">
+<graph edgedefault="directed" id="JOIN_ALL_">
+<node id="0434f774-1fbc-4695-a32b-c8d97946edab">
 <data key="name">E5</data>
-<data key="value">#VALUE!</data>
+<data key="value">[9.0, 7.0]</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">null</data>
+<data key="formula">Formula string: A5 , D5; Formula values: 7.0 , 9.0;</data>
 </node>
+<node id="ccef06ba-5bf8-47b9-b61d-c14948026302">
+<data key="name">A5</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A5; Formula values: 7.0;</data>
+</node>
+<node id="247860ba-5836-42af-9c4f-16eca47b7967">
+<data key="name">D5</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D5; Formula values: 9.0;</data>
+</node>
+<node id="5abdf007-3f0a-4d96-ab30-dd9b6af4a87e">
+<data key="name">,</data>
+<data key="value">[9.0, 7.0]</data>
+<data key="type">FUNCTION</data>
+<data key="formula">Formula string: A5 , D5; Formula values: 7.0 , 9.0;</data>
+</node>
+<edge source="247860ba-5836-42af-9c4f-16eca47b7967" target="5abdf007-3f0a-4d96-ab30-dd9b6af4a87e"/>
+<edge source="ccef06ba-5bf8-47b9-b61d-c14948026302" target="5abdf007-3f0a-4d96-ab30-dd9b6af4a87e"/>
+<edge source="5abdf007-3f0a-4d96-ab30-dd9b6af4a87e" target="0434f774-1fbc-4695-a32b-c8d97946edab"/>
 </graph>
 </graphml>
