@@ -25,7 +25,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 
 @State(Scope.Benchmark)
-public class GRAPH_vs_EVALUATION_Test extends BenchmarkTestParent {
+public class Graph_vs_Evaluate_Test extends BenchmarkTestParent {
 
     @Param({"1", "10", "100", "1000"}) public int cell_iterations;
     @Param({"SIMPLE", "COMPLEX"}) public String formula_complexity;
@@ -55,7 +55,7 @@ public class GRAPH_vs_EVALUATION_Test extends BenchmarkTestParent {
     }
 
     @Benchmark
-    public void evaluate_ExcelDataModel_ExecutionTimeIsOk(GRAPH_vs_EVALUATION_Test state, Blackhole bh) {
+    public void evaluate_ExcelDataModel_ExecutionTimeIsOk(Graph_vs_Evaluate_Test state, Blackhole bh) {
         for (int i = state.from; i < state.from + state.cell_iterations; i++) {
             IEvaluationResult<ICellValue> value = state.evaluator.evaluate(state.address[i]);
             assertThat(value.getResult().get()).isEqualTo(state.expectedValue); /* comment for better performance */
@@ -64,7 +64,7 @@ public class GRAPH_vs_EVALUATION_Test extends BenchmarkTestParent {
     }
 
     @Benchmark
-    public void graph_ExcelDataModel_ExecutionTimeIsOk(GRAPH_vs_EVALUATION_Test state, Blackhole bh) {
+    public void graph_ExcelDataModel_ExecutionTimeIsOk(Graph_vs_Evaluate_Test state, Blackhole bh) {
         for (int i = state.from; i < state.from + state.cell_iterations; i++) {
             IExecutionGraph graph = state.auditor.buildExecutionGraph(state.address[i]);
             assertThat(graph.getRootVertex().value()).isEqualTo(state.expectedValue); /* comment for better performance */
