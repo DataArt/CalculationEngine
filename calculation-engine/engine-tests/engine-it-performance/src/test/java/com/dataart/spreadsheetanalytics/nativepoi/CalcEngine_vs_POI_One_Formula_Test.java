@@ -60,7 +60,7 @@ public class CalcEngine_vs_POI_One_Formula_Test extends BenchmarkTestParent {
 
         this.poiExpectedValues = new ValueEval[from + cell_iterations - 1];
         for (int i = from - 1; i < from + cell_iterations - 1; i++)
-            this.poiExpectedValues[i] = poiEvaluator.evaluate(ewb.getSheet(0).getCell(from, columnAIndex));
+            this.poiExpectedValues[i] = poiEvaluator.evaluate(ewb.getSheet(0).getCell(i, columnAIndex));
 
         this.addressA = new ICellAddress[from + cell_iterations];
         for (int i = from; i < from + cell_iterations; i++)
@@ -68,7 +68,7 @@ public class CalcEngine_vs_POI_One_Formula_Test extends BenchmarkTestParent {
 
         this.addressB = new EvaluationCell[from + cell_iterations - 1];
         for (int i = from - 1; i < from + cell_iterations - 1; i++)
-            this.addressB[i] = ewb.getSheet(0).getCell(from, columnAIndex);
+            this.addressB[i] = ewb.getSheet(0).getCell(i, columnAIndex);
     }
 
     @Benchmark

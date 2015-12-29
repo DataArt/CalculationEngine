@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -27,7 +28,7 @@ import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 @State(Scope.Benchmark)
 public class CalcEngine_vs_POI_Formula_Set_Test extends BenchmarkTestParent {
 
-    int cell_iterations = 100;
+    @Param({"100"}) public int cell_iterations;
 
     int columnAIndex = 0;
     String columnA = "A";
@@ -45,7 +46,7 @@ public class CalcEngine_vs_POI_Formula_Set_Test extends BenchmarkTestParent {
 
     @Setup(Level.Trial)
     public void initialize() throws Exception {
-        String excelFile = "src/test/resources/datamodel/nativepoi/CalcEngine_vs_POI_" + cell_iterations + "formulas.xlsx";
+        String excelFile = "src/test/resources/datamodel/nativepoi/CalcEngine_vs_POI_set" + cell_iterations + "formulas.xlsx";
 
         XSSFWorkbook wb = new XSSFWorkbook(excelFile);
         XSSFEvaluationWorkbook ewb = XSSFEvaluationWorkbook.create(wb);
@@ -59,7 +60,7 @@ public class CalcEngine_vs_POI_Formula_Set_Test extends BenchmarkTestParent {
 
         this.poiExpectedValues = new ValueEval[from + cell_iterations - 1];
         for (int i = from - 1; i < from + cell_iterations - 1; i++)
-            this.poiExpectedValues[i] = poiEvaluator.evaluate(ewb.getSheet(0).getCell(from, columnAIndex));
+            this.poiExpectedValues[i] = poiEvaluator.evaluate(ewb.getSheet(0).getCell(i, columnAIndex));
 
         this.addressA = new ICellAddress[from + cell_iterations];
         for (int i = from; i < from + cell_iterations; i++)
@@ -67,7 +68,7 @@ public class CalcEngine_vs_POI_Formula_Set_Test extends BenchmarkTestParent {
 
         this.addressB = new EvaluationCell[from + cell_iterations - 1];
         for (int i = from - 1; i < from + cell_iterations - 1; i++)
-            this.addressB[i] = ewb.getSheet(0).getCell(from, columnAIndex);
+            this.addressB[i] = ewb.getSheet(0).getCell(i, columnAIndex);
     }
 
     @Benchmark
