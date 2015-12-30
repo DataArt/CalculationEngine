@@ -74,9 +74,7 @@ limitations under the License.
             <configuration>
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
               <includes>
-                <include>**/dslookup/shuffled/*_Test.java</include>
-                <include>**/dslookup/sorted/*_Test.java</include>
-                <include>**/dslookup/vlookup/*_Test.java</include>
+                <include>**/dslookup/*_Test.java</include>
                 <include>**/baseline/*_Test.java</include>
               </includes>
             </configuration>
@@ -156,7 +154,7 @@ limitations under the License.
             <configuration>
               <argLine>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</argLine>
               <includes>
-                <include>**/poi/*_Test.java</include>
+                <include>**/nativepoi/*_Test.java</include>
                 <include>**/baseline/*_Test.java</include>
               </includes>
             </configuration>

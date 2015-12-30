@@ -100,7 +100,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
     
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
-    protected ExecutionGraphConfig config = ExecutionGraphConfig.DEFAULT;
+    protected final ExecutionGraphConfig config;
     /*
      * The map is used to store vertices using value field as a key
      * One value may correspond to several vertices. That's why we use Deques instead of single values.
@@ -108,6 +108,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected Map<ValueEval, Deque<IExecutionGraphVertex>> valueToVertex = new HashMap<>();
     protected Map<String, Set<IExecutionGraphVertex>> addressToVertices = new HashMap<>();
 
+    public PoiExecutionGraphBuilder() { this(ExecutionGraphConfig.DEFAULT); }
+    public PoiExecutionGraphBuilder(ExecutionGraphConfig config) { this.config = config; }
+    
     public ExecutionGraph get() {
         return ExecutionGraph.wrap(this.dgraph);
     }
@@ -303,10 +306,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-        if (this.config.getDuplicatesNumberThreshold() != -1) {
-            removeAllDuplicates();
-        }
-
+        if (this.config.getDuplicatesNumberThreshold() != -1) { removeAllDuplicates(); }
     }
 
     protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> graph) {
@@ -670,7 +670,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return result;
     }
 
-    // TODO: not the best solution, but works as for now
     protected static boolean isCompareOperand(String name) {
         return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
     }
@@ -718,7 +717,5 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         emptyGraph.addVertex(vertex);
         return ExecutionGraph.wrap(emptyGraph);
     }
-
-    public void setExecutionGraphConfig(ExecutionGraphConfig config) { this.config = config; }
 
 }

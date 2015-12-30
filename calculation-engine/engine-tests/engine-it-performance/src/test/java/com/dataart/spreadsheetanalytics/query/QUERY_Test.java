@@ -39,7 +39,7 @@ public class QUERY_Test extends BenchmarkTestParent {
     @Setup(Level.Trial)
     public void initialize() throws Exception {
         String excelFile = "src/test/resources/datamodel/query/QUERY_" + data_set_size + "set_" + cell_iterations + "times.xlsx";
-        String dataSet = "src/test/resources/dataset/ShuffledDataSet" + data_set_size + ".xlsx";
+        String dataSet = "src/test/resources/dataset/shuffled" + data_set_size + ".xlsx";
         
         external.getDataSetAccessor().add(Converters.toDataSet(new XSSFWorkbook(dataSet)));
         

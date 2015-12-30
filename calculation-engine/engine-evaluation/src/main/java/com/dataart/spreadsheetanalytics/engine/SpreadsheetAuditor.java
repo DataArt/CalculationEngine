@@ -103,9 +103,10 @@ public class SpreadsheetAuditor implements IAuditor {
             /* Clear POI cache to allow graph building to be full */
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
-            PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
-
-            graphBuilder.setExecutionGraphConfig(config);
+            boolean isEvaluatorCacheDisabled = this.evaluator.poiEvaluator._isCacheDisabled;
+            this.evaluator.poiEvaluator._isCacheDisabled = false;
+            
+            PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder(config);
             
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
@@ -130,6 +131,8 @@ public class SpreadsheetAuditor implements IAuditor {
             } catch (FormulaParseException | IncorrectExternalReferenceException e) {
                 log.warn("Caught exception while building a graph, but the graph should be ok.", e);
                 return graphBuilder.get();
+            } finally {
+                this.evaluator.poiEvaluator._isCacheDisabled = isEvaluatorCacheDisabled;
             }
         } finally {
             this.graphLock.unlock();
@@ -151,12 +154,17 @@ public class SpreadsheetAuditor implements IAuditor {
             /* Clear POI cache to allow graph building to be full */
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
-            PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder();
+            boolean isEvaluatorCacheDisabled = this.evaluator.poiEvaluator._isCacheDisabled;
+            this.evaluator.poiEvaluator._isCacheDisabled = false;
             
-            graphBuilder.setExecutionGraphConfig(config);
+            PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
-            
-            this.evaluator.evaluate();
+
+            try {
+                this.evaluator.evaluate();
+            } finally {
+                this.evaluator.poiEvaluator._isCacheDisabled = isEvaluatorCacheDisabled;
+            }
 
             graphBuilder.runPostProcessing(true);
             return graphBuilder.get();
