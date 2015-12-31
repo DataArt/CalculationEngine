@@ -32,7 +32,6 @@ public class CalcEngine_vs_POI_One_Formula_Test extends BenchmarkTestParent {
 
     int columnAIndex = 0;
     String columnA = "A";
-    String columnB = "B";
     int from = 1;
 
     Object[] ccExpectedValues;
@@ -56,7 +55,7 @@ public class CalcEngine_vs_POI_One_Formula_Test extends BenchmarkTestParent {
 
         this.ccExpectedValues = new Object[from + cell_iterations];
         for (int i = from; i < from + cell_iterations; i++)
-            this.ccExpectedValues[i] = ccEvaluator.evaluate(fromA1Address(columnB + i)).getResult().get();
+            this.ccExpectedValues[i] = ccEvaluator.evaluate(fromA1Address(columnA + i)).getResult().get();
 
         this.poiExpectedValues = new ValueEval[from + cell_iterations - 1];
         for (int i = from - 1; i < from + cell_iterations - 1; i++)
