@@ -75,8 +75,8 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
 
     @Override
     public String toString() {
-        return String.format("name: %s,%nvalue: %s,%nformula: %s,%ntype: %s", 
-                         this.name, this.value, this.formula, this.type);
+        return String.format("name: %s,%nalias: %s,%nvalue: %s,%nformula: %s,%ntype: %s", 
+                         this.name, this.alias, this.value, this.formula, this.type);
     }
 
     @Override

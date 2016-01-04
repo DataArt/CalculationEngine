@@ -92,7 +92,6 @@ public class SpreadsheetEvaluator implements IEvaluator {
         this.globalContext = globalContext;
         this.evaluationWorkbook = toEvaluationWorkbook(toWorkbook(this.model));
         this.poiEvaluator = new WorkbookEvaluator(this.evaluationWorkbook, TOTALLY_IMMUTABLE, null);
-        this.poiEvaluator._isCacheDisabled = true;
     }
     
     @Override

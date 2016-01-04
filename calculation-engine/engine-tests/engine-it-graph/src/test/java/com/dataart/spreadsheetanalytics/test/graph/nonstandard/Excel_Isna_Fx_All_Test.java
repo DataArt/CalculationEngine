@@ -27,7 +27,6 @@ import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
@@ -50,7 +49,7 @@ public class Excel_Isna_Fx_All_Test extends SerializedGraphTest {
     public void beforeTest() throws Exception {
         final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
         GraphTestUtil.initExternalServices(model);
-        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+        auditor = new SpreadsheetAuditor(model);
     }
 
     @After

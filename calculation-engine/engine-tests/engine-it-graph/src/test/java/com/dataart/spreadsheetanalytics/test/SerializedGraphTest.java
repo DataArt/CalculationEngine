@@ -30,7 +30,6 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.test.util.ExecutionGraphAssert;
@@ -53,7 +52,7 @@ public abstract class SerializedGraphTest {
         
         GraphTestUtil.initExternalServices(model);
         
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));        
+        final IAuditor auditor = new SpreadsheetAuditor(model);        
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
         //build

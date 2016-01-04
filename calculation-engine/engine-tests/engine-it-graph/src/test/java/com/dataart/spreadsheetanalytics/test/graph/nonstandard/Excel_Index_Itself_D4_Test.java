@@ -28,7 +28,6 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
@@ -44,7 +43,7 @@ public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
         //given
         final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
 
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+        final IAuditor auditor = new SpreadsheetAuditor(model);
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         graph = auditor.buildExecutionGraph(addr);
 

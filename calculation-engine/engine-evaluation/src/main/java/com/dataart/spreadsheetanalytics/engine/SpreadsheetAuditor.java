@@ -59,8 +59,8 @@ public class SpreadsheetAuditor implements IAuditor {
     protected final SpreadsheetEvaluator evaluator;
     protected final Lock graphLock = new ReentrantLock();
 
-    public SpreadsheetAuditor(SpreadsheetEvaluator evaluator) {
-        this.evaluator = evaluator;
+    public SpreadsheetAuditor(IDataModel model) {
+        this.evaluator = new SpreadsheetEvaluator(model);
     }
 
     @Override
@@ -102,12 +102,8 @@ public class SpreadsheetAuditor implements IAuditor {
             
             /* Clear POI cache to allow graph building to be full */
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
-            
-            boolean isEvaluatorCacheDisabled = this.evaluator.poiEvaluator._isCacheDisabled;
-            this.evaluator.poiEvaluator._isCacheDisabled = false;
-            
+                        
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder(config);
-            
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
             
             try {
@@ -131,8 +127,6 @@ public class SpreadsheetAuditor implements IAuditor {
             } catch (FormulaParseException | IncorrectExternalReferenceException e) {
                 log.warn("Caught exception while building a graph, but the graph should be ok.", e);
                 return graphBuilder.get();
-            } finally {
-                this.evaluator.poiEvaluator._isCacheDisabled = isEvaluatorCacheDisabled;
             }
         } finally {
             this.graphLock.unlock();
@@ -154,21 +148,13 @@ public class SpreadsheetAuditor implements IAuditor {
             /* Clear POI cache to allow graph building to be full */
             this.evaluator.poiEvaluator.clearAllCachedResultValues();
             
-            boolean isEvaluatorCacheDisabled = this.evaluator.poiEvaluator._isCacheDisabled;
-            this.evaluator.poiEvaluator._isCacheDisabled = false;
-            
             PoiExecutionGraphBuilder graphBuilder = new PoiExecutionGraphBuilder(config);
             this.evaluator.setExecutionGraphBuilder(graphBuilder);
 
-            try {
-                this.evaluator.evaluate();
-            } finally {
-                this.evaluator.poiEvaluator._isCacheDisabled = isEvaluatorCacheDisabled;
-            }
+            this.evaluator.evaluate();
 
             graphBuilder.runPostProcessing(true);
             return graphBuilder.get();
-            
         } finally {
             this.graphLock.unlock();
             log.debug("Building Graph for DataModel: {} with Config: {} is finished.", this.evaluator.model, config);

@@ -64,7 +64,6 @@ import com.dataart.spreadsheetanalytics.engine.DataSetOptimisationsCache;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.engine.graph.CellFormulaExpression;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
@@ -166,7 +165,7 @@ public class GraphTestUtil {
 
                 initExternalServices(model);
 
-                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+                final IAuditor auditor = new SpreadsheetAuditor(model);
 
                 final IExecutionGraph graph = auditor.buildExecutionGraph(config);
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
@@ -227,7 +226,7 @@ public class GraphTestUtil {
                 
                 initExternalServices(model);
                 
-                final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+                final IAuditor auditor = new SpreadsheetAuditor(model);
                 final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
 
                 final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
@@ -270,7 +269,7 @@ public class GraphTestUtil {
         
         initExternalServices(model);
         
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+        final IAuditor auditor = new SpreadsheetAuditor(model);
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
         final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
@@ -304,7 +303,7 @@ public class GraphTestUtil {
 
         initExternalServices(model);
 
-        final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+        final IAuditor auditor = new SpreadsheetAuditor(model);
 
         final IExecutionGraph graph = auditor.buildExecutionGraph(config);
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
@@ -353,7 +352,7 @@ public class GraphTestUtil {
 
                     initExternalServices(model);
 
-                    final IAuditor auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator(model));
+                    final IAuditor auditor = new SpreadsheetAuditor(model);
 
                     final IExecutionGraph graph = auditor.buildExecutionGraph(config);
                     final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
