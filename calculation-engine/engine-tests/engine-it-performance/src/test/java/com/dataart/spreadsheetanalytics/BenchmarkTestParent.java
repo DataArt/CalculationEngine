@@ -60,7 +60,7 @@ public class BenchmarkTestParent {
     public void startAllBenchmarks() throws Exception {
         ChainedOptionsBuilder opts = new OptionsBuilder()
                                             .mode(Mode.SampleTime)
-                                            .timeUnit(TimeUnit.MILLISECONDS)
+                                            .timeUnit(TimeUnit.NANOSECONDS)
                                             .warmupTime(TimeValue.seconds(1))
                                             .warmupIterations(8)
                                             .measurementTime(TimeValue.seconds(1))
