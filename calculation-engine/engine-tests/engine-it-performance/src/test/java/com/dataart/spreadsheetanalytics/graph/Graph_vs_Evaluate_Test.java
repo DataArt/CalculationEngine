@@ -47,7 +47,7 @@ public class Graph_vs_Evaluate_Test extends BenchmarkTestParent {
         
         this.dataModel = Converters.toDataModel(new XSSFWorkbook(excelFile));
         this.evaluator = new SpreadsheetEvaluator(dataModel);
-        this.auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) this.evaluator);
+        this.auditor = new SpreadsheetAuditor(dataModel);
 
         this.address = new ICellAddress[from + cell_iterations];
         for (int i = from; i < from + cell_iterations; i++)
