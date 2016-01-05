@@ -29,6 +29,7 @@ import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.ptgToString;
+import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.ALIAS;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
@@ -37,7 +38,6 @@ import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyN
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.TYPE;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.ALIAS;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
 import java.util.Collection;
@@ -96,8 +96,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
-
-    static final Set<String> POI_VALUE_REDUNDANT_SYMBOLS = new HashSet<>(asList("[", "]"));
+    
+    protected static final String B_LEFT = "[";
+    protected static final String B_RIGHT = "]";
+    protected static final String EMPTY = "";
     
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
     protected final ExecutionGraphConfig config;
@@ -466,14 +468,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
         
         if (optg == null || optg instanceof AbstractFunctionPtg) {
-            return stripRedundantSymbols(format("%s(%s)", 
+            return removeBrackets(format("%s(%s)", 
                                                  opname,
                                                  join(",", asList(ops)
                                                                .stream()
                                                                .map(v -> v.toString())
                                                                .collect(toList()))));
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return stripRedundantSymbols(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", opname, ops.size() > 0 ? ops.get(0) : ""));
+            return removeBrackets(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", opname, ops.size() > 0 ? ops.get(0) : ""));
         }
         return "";
     }
@@ -483,7 +485,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         
         if (optg == null) {
             opname = "IF";
-            return stripRedundantSymbols(format("%s %s ",
+            return removeBrackets(format("%s %s ",
                                                 join(",", asList(ops)
                                                             .stream()
                                                             .map(v -> v.toString())
@@ -495,23 +497,21 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
         }
         if (optg instanceof AbstractFunctionPtg) {
-            return stripRedundantSymbols(format("%s %s ",
+            return removeBrackets(format("%s %s ",
                                                 join(",", asList(ops)
                                                             .stream()
                                                             .map(v -> v.toString())
                                                             .collect(toList())),
                                                 opname));
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return stripRedundantSymbols(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", ops.size() > 0 ? ops.get(0) : "", opname));
+            return removeBrackets(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", ops.size() > 0 ? ops.get(0) : "", opname));
         }
 
         return "";
     }
 
-    protected static String stripRedundantSymbols(String inline) {
-        for (String token : POI_VALUE_REDUNDANT_SYMBOLS) 
-            { inline = inline.replace(token, ""); }
-        return inline;
+    protected static String removeBrackets(String inline) {
+        return inline.indexOf(B_LEFT) < 0 ? inline : inline.replace(B_LEFT, EMPTY).replace(B_RIGHT, EMPTY);
     }
 
     protected static boolean isErrorValue(Object val) {
