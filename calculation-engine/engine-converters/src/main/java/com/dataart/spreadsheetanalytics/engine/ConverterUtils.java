@@ -15,9 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOf;
-import static java.util.Collections.unmodifiableSet;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.coerceValueEvalToCellValue;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
@@ -39,8 +37,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.poi.common.fork.FormulaParseNAException;
 import org.apache.poi.common.fork.FormulaParseNameException;
@@ -74,14 +70,6 @@ public final class ConverterUtils {
     private static final Logger log = LoggerFactory.getLogger(ConverterUtils.class);
 
     public static final String FORMULA_PREFIX = "=";
-    public static final Set<String> ERRORS = unmodifiableSet(new HashSet<>(asList(
-                                                  NULL.getString(),
-                                                  DIV0.getString(),
-                                                  VALUE.getString(),
-                                                  REF.getString(),
-                                                  NAME.getString(),
-                                                  NUM.getString(),
-                                                  NA.getString())));
         
     private static final String POI_FUNCTION_PREFIX = "_xlfn.";
     
@@ -234,7 +222,7 @@ public final class ConverterUtils {
             String val = (String) c.get();
 
             if (val.startsWith(FORMULA_PREFIX)) { return CELL_TYPE_FORMULA; }
-            if (ERRORS.contains(val)) { return CELL_TYPE_ERROR; }
+            if (isErrorValue(val)) { return CELL_TYPE_ERROR; }
             return CELL_TYPE_STRING;
         }
 
@@ -274,4 +262,13 @@ public final class ConverterUtils {
         catch (FormulaParseException e) { return false; }
     }
 
+    static boolean isErrorValue(String val) {
+        return NULL.getString().equals(val)  ||
+               DIV0.getString().equals(val)  ||
+               VALUE.getString().equals(val) ||
+               REF.getString().equals(val)   ||
+               NAME.getString().equals(val)  ||
+               NUM.getString().equals(val)   ||
+               NA.getString().equals(val);
+    }
 }

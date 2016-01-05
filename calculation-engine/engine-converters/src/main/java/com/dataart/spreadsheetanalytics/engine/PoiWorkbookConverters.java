@@ -234,7 +234,7 @@ class PoiProxyCell implements EvaluationCell {
 
     public String getCellFormula() {
         if (CELL_TYPE_FORMULA != ConverterUtils.resolveCellType(this.value)) { return null; }
-        return ((String) this.value.get()).replaceFirst("=", "");
+        return ((String) this.value.get()).substring(1); //TODO: Performance tip#3 - first char removal in formula
     }
 
     public double getNumericCellValue() {
