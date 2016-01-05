@@ -37,6 +37,7 @@ import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyN
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.TYPE;
+import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.ALIAS;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
 import java.util.Collection;
@@ -72,7 +73,6 @@ import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.UnionPtg;
-//import org.apache.poi.ss.formula.ptg.UnionPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -233,7 +233,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
                 for (IExecutionGraphVertex ivertex : vs) {
                     ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-                    if (CELL_WITH_FORMULA == (Type) vertex.property(TYPE).get()) { standard = vertex; break; }
+                    if (CELL_WITH_FORMULA == (Type) vertex.property(TYPE).get() || null != vertex.property(ALIAS).get())
+                    { standard = vertex; break; }
                 }
 
                 if (standard != null) {

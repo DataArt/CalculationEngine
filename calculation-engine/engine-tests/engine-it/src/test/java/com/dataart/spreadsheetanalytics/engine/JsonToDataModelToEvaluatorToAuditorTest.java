@@ -14,6 +14,7 @@ import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.DataModelId;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -89,20 +90,20 @@ public class JsonToDataModelToEvaluatorToAuditorTest {
         
         Map<String, Map<String, Object>> vertices = new HashMap<>();
         vertices.put("A3",     new HashMap<String, Object>(){{
-                                    put("value", 30.0);
-                                    put("alias", null); }});
-        vertices.put("ISEVEN", new HashMap<String, Object>(){{
-                                    put("value", false);
-                                    put("alias", null); }});
+            put("value", 30.0);
+            put("alias", null); }});
+        vertices.put("AVERAGE", new HashMap<String, Object>(){{
+            put("value", 605.4);
+            put("alias", "My_Sum"); }});
         vertices.put("SUM",    new HashMap<String, Object>(){{
-                                    put("value", 1232.0);
-                                    put("alias", null); }});
+            put("value", 1232.0);
+            put("alias", null); }});
         vertices.put("B2",     new HashMap<String, Object>(){{
-                                    put("value", 5.0);
-                                    put("alias", "Bon"); }});
+            put("value", 5.0);
+            put("alias", null); }});
         vertices.put("A1",     new HashMap<String, Object>(){{
-                                    put("value", 10.8);
-                                    put("alias", "Tax"); }});
+            put("value", 10.8);
+            put("alias", "Tax"); }});
         
         //when
         IDataModel model = DataModelDtoConverters.toDataModel(json);
