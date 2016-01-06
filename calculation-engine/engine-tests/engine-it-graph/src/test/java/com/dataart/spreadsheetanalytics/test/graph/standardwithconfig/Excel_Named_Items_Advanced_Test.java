@@ -1,0 +1,74 @@
+package com.dataart.spreadsheetanalytics.test.graph.standardwithconfig;
+
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.ALL_CELLS_GRAPHML_DIR;
+import static com.dataart.spreadsheetanalytics.test.util.GraphTestUtil.STANDARD_EXCELS_DIR;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
+import com.dataart.spreadsheetanalytics.api.model.IDataModel;
+import com.dataart.spreadsheetanalytics.engine.Converters;
+import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
+import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
+import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
+
+public class Excel_Named_Items_Advanced_Test extends SerializedGraphTest {
+
+    static String file = "Named_Items_Advanced";
+    static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
+    static String graphml = file + "/";
+    static String suffix = "All";
+    static String suffix1 = "JOIN_ALL";
+    static String suffix2 = "JOIN_2";
+    static String suffix3 = "JOIN_5";
+    static String suffix4 = "JOIN_10";
+
+    IAuditor auditor = null;
+
+    @Before
+    public void beforeTest() throws Exception {
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
+        GraphTestUtil.initExternalServices(model);
+        auditor = new SpreadsheetAuditor(model);
+    }
+
+    @After
+    public void afterTest() throws Exception {
+        super.after();
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
+        graph = auditor.buildExecutionGraph();
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix);
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_All() throws Exception {
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix1);
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_2() throws Exception {
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_2_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix2);
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_5() throws Exception {
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_5_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix3);
+    }
+
+    @Test
+    public void assert_ExcelFile_SerializedGraph_Join_10() throws Exception {
+        graph = auditor.buildExecutionGraph(ExecutionGraphConfig.LIMIT_TO_10_DUPLICATE_VERTICES);
+        super.compare_ExcelFile_SerializedGraph(ALL_CELLS_GRAPHML_DIR, graphml, suffix4);
+    }
+
+}
