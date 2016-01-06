@@ -43,7 +43,7 @@ public class EvaluationWorksheetSavingToXlsDemo {
         }
         
         //create Auditor
-        final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
+        final IAuditor auditor = new SpreadsheetAuditor(model);
         //build graph
         final IExecutionGraph graph = auditor.buildExecutionGraph(ExecutionGraphConfig.JOIN_ALL_DUPLICATE_VERTICES);
 

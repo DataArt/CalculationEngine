@@ -18,14 +18,12 @@ package com.dataart.spreadsheetanalytics.demo.main;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
-import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.demo.util.DemoUtil;
 import com.dataart.spreadsheetanalytics.engine.Converters;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
-import com.dataart.spreadsheetanalytics.engine.SpreadsheetEvaluator;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 
@@ -47,8 +45,7 @@ public class DependencyGraphDemo {
                 
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(graphCell));
 
-        final IEvaluator evaluator = new SpreadsheetEvaluator(model);
-        final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
+        final IAuditor auditor = new SpreadsheetAuditor(model);
         final IExecutionGraph graph = auditor.buildDependencyGraph(addr);
         
         //print graph

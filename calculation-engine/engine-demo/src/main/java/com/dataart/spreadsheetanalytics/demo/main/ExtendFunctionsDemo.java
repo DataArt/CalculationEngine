@@ -51,7 +51,7 @@ public class ExtendFunctionsDemo {
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(cellsToEvaluate.get(cellsToEvaluate.size() - 1)));
 
         //create Auditor
-        final IAuditor auditor = new SpreadsheetAuditor((SpreadsheetEvaluator) evaluator);
+        final IAuditor auditor = new SpreadsheetAuditor(model);
         //build graph
         final IExecutionGraph graph = auditor.buildExecutionGraph(addr, ExecutionGraphConfig.DEFAULT);
 
