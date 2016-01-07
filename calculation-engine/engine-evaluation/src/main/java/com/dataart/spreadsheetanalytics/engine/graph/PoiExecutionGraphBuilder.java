@@ -313,42 +313,42 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (this.config.getDuplicatesNumberThreshold() != -1) { removeAllDuplicates(); }
     }
 
-    protected static CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, PoiExecutionGraphBuilder all) {
-        updateVertexType(vertex, all.dgraph);
+    //TODO: this recursive method call costs about 30-40% of all graph building time, need to fix it.
+    protected static CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, PoiExecutionGraphBuilder state) {
+        updateVertexType(vertex, state.dgraph);
 
         switch (vertex.type) {
             case CELL_WITH_VALUE: {
-                CellFormulaExpression formula = vertex.formula;
-                formula.formulaStr(vertex.property(NAME).get().toString());
-                formula.formulaValues(vertex.value().toString());
-                formula.formulaPtgStr(vertex.value().toString());
-                formula.ptgStr(vertex.property(NAME).get().toString());
-                checkVertexForEmptyValues(vertex);
-                return formula;
+                vertex.formula.formulaStr(vertex.property(NAME).get().toString());
+                vertex.formula.formulaValues(vertex.value().toString());
+                vertex.formula.formulaPtgStr(vertex.value().toString());
+                vertex.formula.ptgStr(vertex.property(NAME).get().toString());
+                
+                Object value = vertex.property(VALUE).get();
+                if (value.toString().isEmpty() || value instanceof BlankEval) {
+                    vertex.property(TYPE).set(EMPTY_CELL);
+                }
+                
+                return CellFormulaExpression.copyOf(vertex.formula);
             }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
-                ExecutionGraphVertex ivertex = null;
-                CellFormulaExpression formula = null;
-                for (ExecutionGraphEdge edge : all.dgraph.incomingEdgesOf(vertex)) {
-                    ivertex = all.dgraph.getEdgeSource(edge);
-                    formula = buildFormula(ivertex, all);
-                }
-                vertex.formula = CellFormulaExpression.copyOf(formula);
-                vertex.value = (ivertex == null) ? vertex.value : ivertex.value;
-                return CellFormulaExpression.copyOf(formula);
+                ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).stream().findFirst().get();
+                ExecutionGraphVertex source = state.dgraph.getEdgeSource(edge);
+                vertex.formula = buildFormula(source, state);
+                vertex.value = source.value;
+                return CellFormulaExpression.copyOf(vertex.formula);
             }
             case OPERATOR:
             case FUNCTION: {
-                Set<ExecutionGraphEdge> edges = all.dgraph.incomingEdgesOf(vertex);
                 List<String> formulaStringNodes = new LinkedList<>();
                 List<String> formulaValuesNodes = new LinkedList<>();
                 List<String> formulaPtgNodes = new LinkedList<>();
                 List<String> ptgNodes = new LinkedList<>();
                 Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
-                for (ExecutionGraphEdge edge : edges) {
-                    ExecutionGraphVertex ivertex = all.dgraph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, all);
+                for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
+                    ExecutionGraphVertex ivertex = state.dgraph.getEdgeSource(edge);
+                    CellFormulaExpression formula = buildFormula(ivertex, state);
                     formulaStringNodes.add(formula.formulaStr());
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
@@ -359,60 +359,52 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                         vertex.value = ivertex.value();
                     }
                 }
-                CellFormulaExpression iformula = vertex.formula();
-                iformula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes, vertex));
-                iformula.formulaValues(createFormulaString(formulaPtg[0], formulaValuesNodes, vertex));
-                iformula.formulaPtgStr(createPtgString(formulaPtg[0], formulaPtgNodes, vertex));
-                iformula.ptgStr(createPtgString(formulaPtg[0], ptgNodes, vertex));
-                CellFormulaExpression result = CellFormulaExpression.copyOf(iformula);
-                iformula.formulaPtgStr("");
-                iformula.ptgStr("");
-                return result;
+                vertex.formula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes, vertex));
+                vertex.formula.formulaValues(createFormulaString(formulaPtg[0], formulaValuesNodes, vertex));
+                vertex.formula.formulaPtgStr(createPtgString(formulaPtg[0], formulaPtgNodes, vertex));
+                vertex.formula.ptgStr(createPtgString(formulaPtg[0], ptgNodes, vertex));
+                vertex.formula.formulaPtgStr("");
+                vertex.formula.ptgStr("");
+                return CellFormulaExpression.copyOf(vertex.formula);
             }
             case IF: {
-                Set<ExecutionGraphEdge> edges = all.dgraph.incomingEdgesOf(vertex);
                 List<String> formulaValuesNodes = new LinkedList<>();
                 List<String> formulaPtgNodes = new LinkedList<>();
                 List<String> ptgNodes = new LinkedList<>();
-                for (ExecutionGraphEdge edge : edges) {
-                    ExecutionGraphVertex ivertex = all.dgraph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, all);
+                for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
+                    ExecutionGraphVertex ivertex = state.dgraph.getEdgeSource(edge);
+                    CellFormulaExpression formula = buildFormula(ivertex, state);
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
                     if (OPERATOR != ivertex.type) { vertex.value = ivertex.value; }
                 }
                 Collections.sort(formulaValuesNodes, (n1, n2) -> isCompareOperand(n1) ? -1 : 0);
-                CellFormulaExpression iformula = vertex.formula;
-                iformula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
-                iformula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
-                iformula.ptgStr(createPtgString(null, ptgNodes, vertex));
-                CellFormulaExpression result = CellFormulaExpression.copyOf(iformula);
-                iformula.formulaPtgStr("");
-                iformula.ptgStr("");
-                return result;
+                vertex.formula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
+                vertex.formula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
+                vertex.formula.ptgStr(createPtgString(null, ptgNodes, vertex));
+                vertex.formula.formulaPtgStr("");
+                vertex.formula.ptgStr("");
+                return CellFormulaExpression.copyOf(vertex.formula);
             }
             case RANGE: {
-                CellFormulaExpression iformula = vertex.formula();
-                iformula.formulaStr(vertex.property(NAME).get().toString());
-                iformula.formulaValues(vertex.property(VALUE).get().toString());
-                iformula.formulaPtgStr(vertex.property(VALUE).get().toString());
-                iformula.ptgStr(vertex.property(NAME).get().toString());
-                connectValuesToRange(vertex, all);
-                Set<ExecutionGraphEdge> edges = all.dgraph.incomingEdgesOf(vertex);
-                for (ExecutionGraphEdge edge : edges) {
-                    buildFormula(all.dgraph.getEdgeSource(edge), all);
+                vertex.formula.formulaStr(vertex.property(NAME).get().toString());
+                vertex.formula.formulaValues(vertex.property(VALUE).get().toString());
+                vertex.formula.formulaPtgStr(vertex.property(VALUE).get().toString());
+                vertex.formula.ptgStr(vertex.property(NAME).get().toString());
+                connectValuesToRange(vertex, state);
+                for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
+                    buildFormula(state.dgraph.getEdgeSource(edge), state);
                 }
-                return iformula;
+                return CellFormulaExpression.copyOf(vertex.formula);
             }
             case CONSTANT_VALUE: {
                 vertex.property(NAME).set(CONSTANT_VALUE_NAME);
-                CellFormulaExpression formula = vertex.formula;
-                formula.formulaStr(vertex.property(NAME).get().toString());
-                formula.formulaValues(vertex.value().toString());
-                formula.formulaPtgStr(vertex.value().toString());
-                formula.ptgStr(vertex.property(NAME).get().toString());
-                return CellFormulaExpression.copyOf(formula);
+                vertex.formula.formulaStr(vertex.property(NAME).get().toString());
+                vertex.formula.formulaValues(vertex.value().toString());
+                vertex.formula.formulaPtgStr(vertex.value().toString());
+                vertex.formula.ptgStr(vertex.property(NAME).get().toString());
+                return CellFormulaExpression.copyOf(vertex.formula);
             }
             default: {
                 return vertex.formula;
@@ -426,21 +418,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
     }
 
-    protected static void checkVertexForEmptyValues(ExecutionGraphVertex vertex) {
-        Object value = vertex.property(VALUE).get();
-        if (value.toString().isEmpty() || value instanceof BlankEval) {
-            vertex.property(TYPE).set(EMPTY_CELL);
-        }
-    }
-
-    protected static void connectValuesToRange(ExecutionGraphVertex rangeVertex, PoiExecutionGraphBuilder all) {
+    protected static void connectValuesToRange(ExecutionGraphVertex rangeVertex, PoiExecutionGraphBuilder state) {
         Object cellValue = rangeVertex.value();
         if (!(cellValue instanceof Area2DValues)) { return; }
         
         for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
-            if (all.addressToVertices.get(adress) == null) { continue; }
+            if (state.addressToVertices.get(adress) == null) { continue; }
             
-            all.addressToVertices.get(adress).forEach(cellVertex -> all.connect(cellVertex, rangeVertex));
+            state.addressToVertices.get(adress).forEach(cellVertex -> state.connect(cellVertex, rangeVertex));
         }
     }
 
