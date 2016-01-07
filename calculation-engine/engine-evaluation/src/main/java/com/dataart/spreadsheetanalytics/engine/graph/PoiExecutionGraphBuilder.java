@@ -16,6 +16,7 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine.graph;
 
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CONSTANT_VALUE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.EMPTY_CELL;
@@ -231,7 +232,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             // the logic below is very fragile and based on some empirical model
             // and may not work for other type of graphs
             if (vs != null && vs.size() > 1) {
-                IExecutionGraphVertex standard = null;
+                ExecutionGraphVertex standard = null;
 
                 for (IExecutionGraphVertex ivertex : vs) {
                     ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
@@ -304,7 +305,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         for (ExecutionGraphVertex vert : graph.vertexSet()) {
             if (graph.outgoingEdgesOf(vert).isEmpty()) {
                 ExecutionGraphVertex root = vert;
-                root.formula = buildFormula(root, graph);
+                root.formula = buildFormula(root, this);
                 if (!multiRoot) { break; }
             }
         }
@@ -312,28 +313,26 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (this.config.getDuplicatesNumberThreshold() != -1) { removeAllDuplicates(); }
     }
 
-    protected CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> graph) {
-
-        checkValueNode(vertex);
+    protected static CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, PoiExecutionGraphBuilder all) {
+        updateVertexType(vertex, all.dgraph);
 
         switch (vertex.type) {
-
             case CELL_WITH_VALUE: {
                 CellFormulaExpression formula = vertex.formula;
                 formula.formulaStr(vertex.property(NAME).get().toString());
                 formula.formulaValues(vertex.value().toString());
                 formula.formulaPtgStr(vertex.value().toString());
                 formula.ptgStr(vertex.property(NAME).get().toString());
-                checkForEmptyValues(vertex);
+                checkVertexForEmptyValues(vertex);
                 return formula;
             }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
                 ExecutionGraphVertex ivertex = null;
                 CellFormulaExpression formula = null;
-                for (ExecutionGraphEdge edge : graph.incomingEdgesOf(vertex)) {
-                    ivertex = graph.getEdgeSource(edge);
-                    formula = buildFormula(ivertex, graph);
+                for (ExecutionGraphEdge edge : all.dgraph.incomingEdgesOf(vertex)) {
+                    ivertex = all.dgraph.getEdgeSource(edge);
+                    formula = buildFormula(ivertex, all);
                 }
                 vertex.formula = CellFormulaExpression.copyOf(formula);
                 vertex.value = (ivertex == null) ? vertex.value : ivertex.value;
@@ -341,15 +340,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             case OPERATOR:
             case FUNCTION: {
-                Set<ExecutionGraphEdge> edges = graph.incomingEdgesOf(vertex);
+                Set<ExecutionGraphEdge> edges = all.dgraph.incomingEdgesOf(vertex);
                 List<String> formulaStringNodes = new LinkedList<>();
                 List<String> formulaValuesNodes = new LinkedList<>();
                 List<String> formulaPtgNodes = new LinkedList<>();
                 List<String> ptgNodes = new LinkedList<>();
                 Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
                 for (ExecutionGraphEdge edge : edges) {
-                    ExecutionGraphVertex ivertex = graph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, graph);
+                    ExecutionGraphVertex ivertex = all.dgraph.getEdgeSource(edge);
+                    CellFormulaExpression formula = buildFormula(ivertex, all);
                     formulaStringNodes.add(formula.formulaStr());
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
@@ -371,13 +370,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return result;
             }
             case IF: {
-                Set<ExecutionGraphEdge> edges = graph.incomingEdgesOf(vertex);
+                Set<ExecutionGraphEdge> edges = all.dgraph.incomingEdgesOf(vertex);
                 List<String> formulaValuesNodes = new LinkedList<>();
                 List<String> formulaPtgNodes = new LinkedList<>();
                 List<String> ptgNodes = new LinkedList<>();
                 for (ExecutionGraphEdge edge : edges) {
-                    ExecutionGraphVertex ivertex = graph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, graph);
+                    ExecutionGraphVertex ivertex = all.dgraph.getEdgeSource(edge);
+                    CellFormulaExpression formula = buildFormula(ivertex, all);
                     formulaValuesNodes.add(formula.formulaValues());
                     formulaPtgNodes.add(formula.formulaPtgStr());
                     ptgNodes.add(formula.ptgStr());
@@ -399,11 +398,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 iformula.formulaValues(vertex.property(VALUE).get().toString());
                 iformula.formulaPtgStr(vertex.property(VALUE).get().toString());
                 iformula.ptgStr(vertex.property(NAME).get().toString());
-                connectValuesToRange(vertex);
-                Set<ExecutionGraphEdge> edges = graph.incomingEdgesOf(vertex);
+                connectValuesToRange(vertex, all);
+                Set<ExecutionGraphEdge> edges = all.dgraph.incomingEdgesOf(vertex);
                 for (ExecutionGraphEdge edge : edges) {
-                    ExecutionGraphVertex ivertex = graph.getEdgeSource(edge);
-                    buildFormula(ivertex, graph);
+                    buildFormula(all.dgraph.getEdgeSource(edge), all);
                 }
                 return iformula;
             }
@@ -420,34 +418,29 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return vertex.formula;
             }
         }
-
     }
 
-    protected void checkValueNode(ExecutionGraphVertex vertex) {
-        if (vertex.type == CELL_WITH_VALUE) {
-            if (this.dgraph.incomingEdgesOf(vertex).size() == 1) {
-                vertex.type = Type.CELL_WITH_REFERENCE;
-            } else if (this.dgraph.incomingEdgesOf(vertex).size() > 1) {
-                vertex.type = CELL_WITH_FORMULA;
-            }
+    protected static void updateVertexType(ExecutionGraphVertex vertex, DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
+        if (vertex.type == CELL_WITH_VALUE && !dgraph.incomingEdgesOf(vertex).isEmpty()) {
+            vertex.type = dgraph.incomingEdgesOf(vertex).size() == 1 ? CELL_WITH_REFERENCE : CELL_WITH_FORMULA;        
         }
     }
 
-    protected void checkForEmptyValues(ExecutionGraphVertex vertex) {
+    protected static void checkVertexForEmptyValues(ExecutionGraphVertex vertex) {
         Object value = vertex.property(VALUE).get();
         if (value.toString().isEmpty() || value instanceof BlankEval) {
             vertex.property(TYPE).set(EMPTY_CELL);
         }
     }
 
-    protected void connectValuesToRange(ExecutionGraphVertex rangeVertex) {
+    protected static void connectValuesToRange(ExecutionGraphVertex rangeVertex, PoiExecutionGraphBuilder all) {
         Object cellValue = rangeVertex.value();
         if (!(cellValue instanceof Area2DValues)) { return; }
         
         for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
-            if (this.addressToVertices.get(adress) == null) { continue; }
+            if (all.addressToVertices.get(adress) == null) { continue; }
             
-            this.addressToVertices.get(adress).forEach(cellVertex -> connect(cellVertex, rangeVertex));
+            all.addressToVertices.get(adress).forEach(cellVertex -> all.connect(cellVertex, rangeVertex));
         }
     }
 
@@ -455,7 +448,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return ptg instanceof ParenthesisPtg;
     }
 
-    protected String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+    protected static String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
         String opname = "";
         if (optg == null) { // IF
             opname = "IF";
@@ -480,31 +473,28 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return "";
     }
 
-    protected String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+    protected static String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
         String opname = "";
         
         if (optg == null) {
-            opname = "IF";
             return removeBrackets(format("%s %s ",
-                                                join(",", asList(ops)
-                                                            .stream()
-                                                            .map(v -> v.toString())
-                                                            .collect(toList())), 
-                                                opname));
+                                                join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())), 
+                                                "IF"));
         } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
             /* if the function was not recognized as internal function we use the node name as the function name */
             if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
         }
+        
         if (optg instanceof AbstractFunctionPtg) {
             return removeBrackets(format("%s %s ",
-                                                join(",", asList(ops)
-                                                            .stream()
-                                                            .map(v -> v.toString())
-                                                            .collect(toList())),
+                                                join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())),
                                                 opname));
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return removeBrackets(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", ops.size() > 0 ? ops.get(0) : "", opname));
+            return removeBrackets(format("%s %s %s", 
+                                                  ops.size() > 1 ? ops.get(1) : "",
+                                                  ops.size() > 0 ? ops.get(0) : "",
+                                                  opname));
         }
 
         return "";
@@ -544,22 +534,17 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     /**
      * Does copy of all properties for every Vertex from @param vertices. the
-     * first @param istandard is used as object to copy from.
+     * first @param standard is used as object to copy from.
      */
-    protected static void copyProperties(IExecutionGraphVertex istandard, Set<IExecutionGraphVertex> vertices) {
-        ExecutionGraphVertex standard = (ExecutionGraphVertex) istandard;
-        
-        for (IExecutionGraphVertex ivertex : vertices) {
-            if (istandard.equals(ivertex)) { continue; }
+    protected static void copyProperties(ExecutionGraphVertex standard, Set<IExecutionGraphVertex> vertices) {
+        for (IExecutionGraphVertex vertex : vertices) {
+            if (standard.equals(vertex)) { continue; }
 
-            ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-            
-            // copy properties
             for (PropertyName pname : PropertyName.values()) {
                 if (pname == PropertyName.VERTEX_ID) { continue; }
                 if (pname == PropertyName.INDEX_IN_FORMULA) { continue; }
 
-                vertex.property(pname).set(standard.property(pname).get());
+                ((ExecutionGraphVertex) vertex).property(pname).set(standard.property(pname).get());
             }
         }
     }
