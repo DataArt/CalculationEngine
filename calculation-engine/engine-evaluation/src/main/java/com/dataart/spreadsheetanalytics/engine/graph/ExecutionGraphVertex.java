@@ -20,7 +20,6 @@ import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyN
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
 
 import java.util.EnumMap;
-import java.util.UUID;
 
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
@@ -37,7 +36,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
                                   /* Public API interface */
                                   implements IExecutionGraphVertex {
     
-    protected Object id;
+    protected int id;
     protected String name;
     protected Object value;
     protected String alias;
@@ -49,7 +48,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     protected EnumMap<PropertyName, IExecutionGraphVertexProperty> properties = new EnumMap<>(PropertyName.class);
     
     public ExecutionGraphVertex(String name) {
-        this.id = new UUID(ID_RANDOMIZER.nextLong(), ID_RANDOMIZER.nextLong()).toString();
+        this.id = ID_RANDOMIZER.getAndIncrement();
         this.name = name;
         
         property(VERTEX_ID).set(this.id);

@@ -51,7 +51,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -102,7 +101,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String B_LEFT = "[";
     protected static final String B_RIGHT = "]";
     
-    protected static final Random ID_RANDOMIZER = new Random();
+    protected static final AtomicInteger ID_RANDOMIZER = new AtomicInteger();
     
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
     protected final ExecutionGraphConfig config;
