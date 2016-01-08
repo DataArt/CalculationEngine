@@ -104,7 +104,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     
     protected static final Random ID_RANDOMIZER = new Random();
     
+    IExecutionGraphVertex namedVertexRoot;
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+    protected Deque<Boolean> processName = new LinkedList<>();
     protected final ExecutionGraphConfig config;
     /*
      * The map is used to store vertices using value field as a key
@@ -690,5 +692,23 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         emptyGraph.addVertex(vertex);
         return ExecutionGraph.wrap(emptyGraph);
     }
+
+    @Override
+    public boolean getProcessNameState() { return this.processName.getFirst(); }
+
+    @Override
+    public void popRecentProcessNameState() { this.processName.pop(); }
+
+    @Override
+    public void putProcessNameState(boolean state) { this.processName.push(state); }
+
+    @Override
+    public boolean isProcessNameCacheEmpty() { return this.processName.isEmpty(); }
+
+    @Override
+    public IExecutionGraphVertex getNameVertexRoot() { return this.namedVertexRoot; }
+
+    @Override
+    public void setNameVertexRoot(IExecutionGraphVertex root) { this.namedVertexRoot = root; }
 
 }
