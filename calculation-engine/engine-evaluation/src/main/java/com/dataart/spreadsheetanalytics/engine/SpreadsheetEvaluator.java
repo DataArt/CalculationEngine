@@ -19,6 +19,7 @@ import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
 import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.getEvaluationCell;
 import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.toEvaluationWorkbook;
 import static com.dataart.spreadsheetanalytics.model.A1Address.fromRowColumn;
+import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
@@ -100,6 +101,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         if (cell == null) { return null; }
         
         EvaluationContext evaluationContext = new EvaluationContext(this.globalContext);
+        evaluationContext.set(SOURCE_OBJECT_ID, this.model.getDataModelId());
         
         try { return new EvaluationResult<ICellValue>(evaluationContext, evaluateCell(cell, evaluationContext)); }
         catch (ValuesStackNotEmptyException e) { return new EvaluationResult<ICellValue>(evaluationContext, CellValue.from(VALUE_INVALID.getErrorString())); }
@@ -110,6 +112,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         IDataModel dataModel = this.model;
         
         EvaluationContext evaluationContext = new EvaluationContext(this.globalContext);
+        evaluationContext.set(SOURCE_OBJECT_ID, this.model.getDataModelId());
 
         for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
             IDmRow row = this.model.getRow(i);

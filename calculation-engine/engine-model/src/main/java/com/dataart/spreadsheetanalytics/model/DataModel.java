@@ -24,7 +24,6 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
-import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
@@ -49,7 +48,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDmRow;
  * Customisable - when constructor allows to specify Map to be used and boolean for write lock.   
  */
 public class DataModel implements IDataModel {
-
+    
     protected IDataModelId dataModelId;
     protected String name;
     protected Map<String, ICellAddress> namedAdresses;
@@ -67,7 +66,7 @@ public class DataModel implements IDataModel {
     }
     
     public DataModel(String name, Map<Integer, IDmRow> tableImpl, boolean doWriteLock) {
-        this.dataModelId = new DataModelId(UUID.randomUUID().toString());
+        this.dataModelId = new DataModelId();
         this.name = name;
         this.table = tableImpl;
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();

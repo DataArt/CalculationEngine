@@ -15,6 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.model;
 
+import java.util.Random;
+import java.util.UUID;
+
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
 /**
@@ -22,8 +25,12 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
  * Contains generic {@link Object} instance as id.
  */
 public class DataModelId implements IDataModelId {
-
+    
+    protected static final Random ID_RANDOMIZER = new Random();
+    
     protected final Object id;
+    
+    public DataModelId() { this(new UUID(ID_RANDOMIZER.nextLong(), ID_RANDOMIZER.nextLong()).toString()); }
     
     public DataModelId(Object id) { this.id = id; }
     

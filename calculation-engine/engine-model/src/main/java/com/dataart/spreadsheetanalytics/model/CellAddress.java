@@ -27,7 +27,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 public class CellAddress implements ICellAddress {
 
     protected IDataModelId dataModelId;
-    protected A1Address a1Address;
+    protected A1Address a1Address; //TODO: create pool for 128 addresses
 
     public CellAddress(IDataModelId dataModelId, A1Address a1Address) {
         this.dataModelId = dataModelId;

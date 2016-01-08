@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
-import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
@@ -44,7 +43,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDsRow;
  * Customisable - when constructor allows to specify Map to be used and boolean for write lock.
  */
 public class DataSet implements IDataSet {
-
+    
     protected IDataModelId dataModelId;
     protected String name;
     
@@ -57,7 +56,7 @@ public class DataSet implements IDataSet {
     
     public DataSet(String name, List<IDsRow> rowsImpl, boolean doWriteLock) {
         this.name = name;
-        this.dataModelId = new DataModelId(UUID.randomUUID().toString());
+        this.dataModelId = new DataModelId();
         this.rows = rowsImpl;
         this.writeLock = doWriteLock ? Optional.of(new ReentrantLock(true)) : Optional.<Lock>empty();
     }

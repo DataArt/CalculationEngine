@@ -56,7 +56,10 @@ public abstract class SerializedGraphTest {
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
         //build
+        long l1 = System.nanoTime();
         graph = auditor.buildExecutionGraph(addr);
+        long l2 = System.nanoTime();
+        System.out.println("Out is " + (l2 - l1) + " nanos");
     }
     
     public void after() throws Exception {

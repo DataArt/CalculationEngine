@@ -51,6 +51,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -100,7 +101,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     
     protected static final String B_LEFT = "[";
     protected static final String B_RIGHT = "]";
-    protected static final String EMPTY = "";
+    
+    protected static final Random ID_RANDOMIZER = new Random();
     
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
     protected final ExecutionGraphConfig config;
@@ -429,7 +431,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
     }
 
-    protected boolean isSkipVertex(Ptg ptg) {
+    protected static boolean isSkipVertex(Ptg ptg) {
         return ptg instanceof ParenthesisPtg;
     }
 
@@ -486,7 +488,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected static String removeBrackets(String inline) {
-        return inline.indexOf(B_LEFT) < 0 ? inline : inline.replace(B_LEFT, EMPTY).replace(B_RIGHT, EMPTY);
+        return inline.indexOf(B_LEFT) < 0 ? inline : inline.replace(B_LEFT, "").replace(B_RIGHT, "");
     }
 
     protected static boolean isErrorValue(Object val) {
@@ -657,7 +659,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         vertex.property(FORMULA_VALUES).set(error.getErrorString());
         vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
         vertex.property(PTG_STRING).set(error.getErrorString());
-        vertex.property(SOURCE_OBJECT_ID).set("");
+        vertex.property(SOURCE_OBJECT_ID).set(address.getDataModelId());
         
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         emptyGraph.addVertex(vertex);

@@ -15,11 +15,11 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
+import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.ID_RANDOMIZER;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
 
 import java.util.EnumMap;
-import java.util.Map;
 import java.util.UUID;
 
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
@@ -45,10 +45,11 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     protected Type type;
     protected Object sourceObjectId;
 
-    protected Map<PropertyName, IExecutionGraphVertexProperty> properties = new EnumMap<>(PropertyName.class);
+    //TODO: change to fields - will be faster
+    protected EnumMap<PropertyName, IExecutionGraphVertexProperty> properties = new EnumMap<>(PropertyName.class);
     
     public ExecutionGraphVertex(String name) {
-        this.id = UUID.randomUUID().toString();
+        this.id = new UUID(ID_RANDOMIZER.nextLong(), ID_RANDOMIZER.nextLong()).toString();
         this.name = name;
         
         property(VERTEX_ID).set(this.id);
