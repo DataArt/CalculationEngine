@@ -25,7 +25,6 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.isCell;
-import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -97,8 +96,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     
-    protected static final String B_LEFT = "[";
-    protected static final String B_RIGHT = "]";
+    protected static final char B_LEFT = '[';
+    protected static final char B_RIGHT = ']';
     
     protected static final ThreadLocal<AtomicInteger> ID_RANDOMIZER = new ThreadLocal<>();
     
@@ -444,15 +443,22 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
         
         if (optg == null || optg instanceof AbstractFunctionPtg) {
-            return removeBrackets(format("%s(%s)", 
-                                                 opname,
-                                                 join(",", asList(ops)
-                                                               .stream()
-                                                               .map(v -> v.toString())
-                                                               .collect(toList()))));
+            return removeBrackets(new StringBuilder()
+                                    .append(opname)
+                                    .append("(")
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(")")
+                                    .toString());
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return removeBrackets(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", opname, ops.size() > 0 ? ops.get(0) : ""));
+            return removeBrackets(new StringBuilder()
+                                    .append(ops.size() > 1 ? ops.get(1) : "")
+                                    .append(" ")
+                                    .append(opname)
+                                    .append(" ")
+                                    .append(ops.size() > 0 ? ops.get(0) : "")
+                                    .toString());
         }
+        
         return "";
     }
 
@@ -460,31 +466,47 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         String opname = "";
         
         if (optg == null) {
-            return removeBrackets(format("%s %s ",
-                                                join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())), 
-                                                "IF"));
+            return removeBrackets(new StringBuilder()
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(" IF")
+                                    .toString());
         } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
             /* if the function was not recognized as internal function we use the node name as the function name */
             if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
         }
         
+        
         if (optg instanceof AbstractFunctionPtg) {
-            return removeBrackets(format("%s %s ",
-                                                join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())),
-                                                opname));
+            return removeBrackets(new StringBuilder()
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(" ")
+                                    .append(opname)
+                                    .toString());
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return removeBrackets(format("%s %s %s", 
-                                                  ops.size() > 1 ? ops.get(1) : "",
-                                                  ops.size() > 0 ? ops.get(0) : "",
-                                                  opname));
+            return removeBrackets(new StringBuilder()
+                                    .append(ops.size() > 1 ? ops.get(1) : "")
+                                    .append(" ")
+                                    .append(ops.size() > 0 ? ops.get(0) : "")
+                                    .append(" ")
+                                    .append(opname)
+                                    .toString());
         }
 
         return "";
     }
 
-    protected static String removeBrackets(String inline) {
-        return inline.indexOf(B_LEFT) < 0 ? inline : inline.replace(B_LEFT, "").replace(B_RIGHT, "");
+    protected static String removeBrackets(String str) {
+//      TODO: compare performance with: return str.indexOf(B_LEFT) < 0 ? str : str.replace(B_LEFT, "").replace(B_RIGHT, "");
+        if (str.indexOf(B_LEFT) < 0) { return str; }
+        
+        final char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != B_LEFT && chars[i] != B_RIGHT) 
+                { chars[pos++] = chars[i]; }
+        }
+        return new String(chars, 0, pos);
     }
 
     protected static boolean isErrorValue(Object val) {
