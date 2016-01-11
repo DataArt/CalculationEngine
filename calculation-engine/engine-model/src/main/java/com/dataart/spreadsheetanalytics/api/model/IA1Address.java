@@ -19,15 +19,19 @@ import com.dataart.spreadsheetanalytics.model.A1Address;
 
 /**
  * Additional information for {@link ICellAddress} with A1-format.
- * Gives a string representation of {@link ICellAddress#row()} and {@link ICellAddress#column()} in A1 format.
+ * Gives a string representation of {@link #row()} and {@link #column()} in A1 format.
  * 
  * Basic implementation: {@link A1Address}.
  */
 public interface IA1Address {
 
-    /**
-     * row and column in A1 format.
-     */
+    /** Row in a spreadsheet. */
+    int row();
+
+    /** Column in a spreadsheet. */
+    int column();
+    
+    /** row and column in A1 format. */
     String address();
 
 }

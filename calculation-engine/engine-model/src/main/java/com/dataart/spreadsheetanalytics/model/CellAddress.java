@@ -24,10 +24,10 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
  * Contains links (as fileds) to {@link IDataModelId} of current model
  * and {@link A1Address} as implementation of {@link IA1Address}. 
  */
-public class CellAddress implements ICellAddress {
+public class CellAddress implements ICellAddress, IA1Address {
 
     protected IDataModelId dataModelId;
-    protected A1Address a1Address; //TODO: create pool for 128 addresses
+    protected A1Address a1Address;
 
     public CellAddress(IDataModelId dataModelId, A1Address a1Address) {
         this.dataModelId = dataModelId;
@@ -35,9 +35,11 @@ public class CellAddress implements ICellAddress {
     }
 
     @Override public IDataModelId getDataModelId() { return this.dataModelId; }
+    @Override public A1Address a1Address() { return this.a1Address; }
+
     @Override public int row() { return this.a1Address.row(); }
     @Override public int column() { return this.a1Address.column(); }
-    @Override public A1Address a1Address() { return this.a1Address; }
+    @Override public String address() { return this.a1Address.address(); }
 
     /**
      * Converts row-column for A1 format (String).

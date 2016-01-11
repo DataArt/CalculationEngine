@@ -19,7 +19,6 @@ import org.apache.poi.ss.util.CellReference;
 
 import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
-import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 
 /**
  * Implementation of {@link ICellAddress} which uses A1 format to navigate between cells.
@@ -27,21 +26,25 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
  * 
  * Preferable way to use it is to aggregate it in {@link CellAddress} which is more common.
  */
-public class A1Address implements ICellAddress, IA1Address {
+public class A1Address implements IA1Address {
 
     protected String address;
     protected int row;
     protected int column;
 
-    @Override public A1Address a1Address() { return this; }
-    @Override public IDataModelId getDataModelId() { return null; }
     @Override public String address() { return this.address; }
     @Override public int row() { return this.row; }
     @Override public int column() { return this.column; }
 
     public static A1Address fromA1Address(String a1address) {
+        //check in pool
+        A1Address address = A1AddressPool.get(a1address);
+        if (address != null) { return address; }
+        
+        //check if range
         if (isRange(a1address)) { return new A1RangeAddress(a1address); }
         
+        //create
         A1Address a = new A1Address();
         a.address = a1address;
 
@@ -53,6 +56,11 @@ public class A1Address implements ICellAddress, IA1Address {
     }
 
     public static A1Address fromRowColumn(int row, int column) {
+        //check in pool
+        A1Address address = A1AddressPool.get(row, column);
+        if (address != null) { return address; }
+        
+        //create
         A1Address a = new A1Address();
 
         a.row = row;
@@ -68,12 +76,10 @@ public class A1Address implements ICellAddress, IA1Address {
     }
     
     public static boolean isAddress(Object value) {
-        //TODO: Maxim check for validatetions...
-        
         try {
-            A1Address address = A1Address.fromA1Address((String) value);
-            return address.row() > -1 && address.column() > -1; }
-        catch (Exception e) { return false; }
+            A1Address address = fromA1Address((String) value);
+            return address.row() > -1 && address.column() > -1;
+        } catch (Exception e) { return false; }
     }
     
     @Override
