@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_5">
-<node id="31332f4c-d32b-4fc1-8365-b26432ed9a3e">
+<node id="0">
 <data key="name">D5</data>
 <data key="value">expected</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: T(D2); Formula values: T(expected);</data>
 </node>
-<node id="fada7af7-b864-4b63-84e1-fdeeef784d3a">
+<node id="1">
 <data key="name">D2</data>
 <data key="value">expected</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: D2; Formula values: expected;</data>
 </node>
-<node id="8560108c-22d4-4453-b7ba-6076ee51eed6">
+<node id="2">
 <data key="name">T</data>
 <data key="value">expected</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: T(D2); Formula values: T(expected);</data>
 </node>
-<edge source="fada7af7-b864-4b63-84e1-fdeeef784d3a" target="8560108c-22d4-4453-b7ba-6076ee51eed6"/>
-<edge source="8560108c-22d4-4453-b7ba-6076ee51eed6" target="31332f4c-d32b-4fc1-8365-b26432ed9a3e"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

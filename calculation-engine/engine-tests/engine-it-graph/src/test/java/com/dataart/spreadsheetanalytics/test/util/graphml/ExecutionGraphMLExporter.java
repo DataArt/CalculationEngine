@@ -91,7 +91,7 @@ public class ExecutionGraphMLExporter extends GraphMLExporter {
             String value = v.value() == null ? "" : v.value().toString(); 
             
             attr.clear();
-            attr.addAttribute("", "", "id", "CDATA", v.id().toString());
+            attr.addAttribute("", "", "id", "CDATA", Integer.toString(v.id()));
             handler.startElement("", "", "node", attr);
 
             // name
@@ -130,8 +130,8 @@ public class ExecutionGraphMLExporter extends GraphMLExporter {
             // <edge>
             
             attr.clear();
-            attr.addAttribute("", "", "source", "CDATA", g.getEdgeSource(e).id().toString());
-            attr.addAttribute("", "", "target", "CDATA", g.getEdgeTarget(e).id().toString());
+            attr.addAttribute("", "", "source", "CDATA", Integer.toString(g.getEdgeSource(e).id()));
+            attr.addAttribute("", "", "target", "CDATA", Integer.toString(g.getEdgeTarget(e).id()));
             handler.startElement("", "", "edge", attr);
 
             handler.endElement("", "", "edge");

@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="F5">
-<node id="bc7bf838-2f36-4af2-b756-1e5a98c28a73">
+<node id="0">
 <data key="name">F5</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: AND(E1 + D3 = C4, VALUE &lt; D1); Formula values: AND(5.0 + 367.0 = 89.0, 1.0 &lt; 0.4);</data>
 </node>
-<node id="a1303251-8bdb-463d-a821-236917b6f99d">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
 </node>
-<node id="b4fecd53-789c-4cbf-8bb5-bc6dee046a84">
+<node id="2">
 <data key="name">D1</data>
 <data key="value">0.4</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: D1; Formula values: 0.4;</data>
 </node>
-<node id="0757f19e-8db1-4d6b-ac76-0487e39c5b3a">
+<node id="3">
 <data key="name">&lt;</data>
 <data key="value">FALSE</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: VALUE &lt; D1; Formula values: 1.0 &lt; 0.4;</data>
 </node>
-<node id="35fcf070-0ceb-4bbc-ae6a-0aa9ee01c9aa">
+<node id="4">
 <data key="name">E1</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: E1; Formula values: 5.0;</data>
 </node>
-<node id="07ff450c-9365-4c71-ac7e-e7e5bdd92f8f">
+<node id="5">
 <data key="name">D3</data>
 <data key="value">367.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: D3; Formula values: 367.0;</data>
 </node>
-<node id="3a41b1ed-c5bf-4111-a44e-44e42801b2bc">
+<node id="6">
 <data key="name">+</data>
 <data key="value">372.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: E1 + D3; Formula values: 5.0 + 367.0;</data>
 </node>
-<node id="b174b4b5-bf0b-478b-b2f1-99c697f24cc6">
+<node id="7">
 <data key="name">C4</data>
 <data key="value">89.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C4; Formula values: 89.0;</data>
 </node>
-<node id="53b4c0a0-da16-48c3-ad48-c922a92ab0eb">
+<node id="8">
 <data key="name">=</data>
 <data key="value">FALSE</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: E1 + D3 = C4; Formula values: 5.0 + 367.0 = 89.0;</data>
 </node>
-<node id="dffe6e76-0c48-483d-9cc8-fbee08a8e885">
+<node id="9">
 <data key="name">AND</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: AND(E1 + D3 = C4, VALUE &lt; D1); Formula values: AND(5.0 + 367.0 = 89.0, 1.0 &lt; 0.4);</data>
 </node>
-<edge source="b4fecd53-789c-4cbf-8bb5-bc6dee046a84" target="0757f19e-8db1-4d6b-ac76-0487e39c5b3a"/>
-<edge source="a1303251-8bdb-463d-a821-236917b6f99d" target="0757f19e-8db1-4d6b-ac76-0487e39c5b3a"/>
-<edge source="07ff450c-9365-4c71-ac7e-e7e5bdd92f8f" target="3a41b1ed-c5bf-4111-a44e-44e42801b2bc"/>
-<edge source="35fcf070-0ceb-4bbc-ae6a-0aa9ee01c9aa" target="3a41b1ed-c5bf-4111-a44e-44e42801b2bc"/>
-<edge source="b174b4b5-bf0b-478b-b2f1-99c697f24cc6" target="53b4c0a0-da16-48c3-ad48-c922a92ab0eb"/>
-<edge source="3a41b1ed-c5bf-4111-a44e-44e42801b2bc" target="53b4c0a0-da16-48c3-ad48-c922a92ab0eb"/>
-<edge source="53b4c0a0-da16-48c3-ad48-c922a92ab0eb" target="dffe6e76-0c48-483d-9cc8-fbee08a8e885"/>
-<edge source="0757f19e-8db1-4d6b-ac76-0487e39c5b3a" target="dffe6e76-0c48-483d-9cc8-fbee08a8e885"/>
-<edge source="dffe6e76-0c48-483d-9cc8-fbee08a8e885" target="bc7bf838-2f36-4af2-b756-1e5a98c28a73"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="5" target="6"/>
+<edge source="4" target="6"/>
+<edge source="7" target="8"/>
+<edge source="6" target="8"/>
+<edge source="8" target="9"/>
+<edge source="3" target="9"/>
+<edge source="9" target="0"/>
 </graph>
 </graphml>

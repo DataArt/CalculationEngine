@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="All">
-<node id="e57567db-2067-434f-8e1e-24729e7a8e1d">
+<node id="0">
 <data key="name">E5</data>
 <data key="value">5.2</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: AVERAGE(A1:E1); Formula values: AVERAGE(12.0, 2.0, 3.0, 4.0, 5.0);</data>
 </node>
-<node id="0c1c1a9e-3d84-4c37-b122-65077d0f5246">
+<node id="1">
 <data key="name">A1:E1</data>
 <data key="value">[[12.0, 2.0, 3.0, 4.0, 5.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula string: A1:E1; Formula values: [[12.0, 2.0, 3.0, 4.0, 5.0]];</data>
 </node>
-<node id="a5edf447-569b-4c46-b6ef-5289faad2465">
+<node id="2">
 <data key="name">AVERAGE</data>
 <data key="value">5.2</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: AVERAGE(A1:E1); Formula values: AVERAGE(12.0, 2.0, 3.0, 4.0, 5.0);</data>
 </node>
-<edge source="0c1c1a9e-3d84-4c37-b122-65077d0f5246" target="a5edf447-569b-4c46-b6ef-5289faad2465"/>
-<edge source="a5edf447-569b-4c46-b6ef-5289faad2465" target="e57567db-2067-434f-8e1e-24729e7a8e1d"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

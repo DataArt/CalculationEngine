@@ -48,7 +48,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     protected EnumMap<PropertyName, IExecutionGraphVertexProperty> properties = new EnumMap<>(PropertyName.class);
     
     public ExecutionGraphVertex(String name) {
-        this.id = ID_RANDOMIZER.getAndIncrement();
+        this.id = ID_RANDOMIZER.get().getAndIncrement();
         this.name = name;
         
         property(VERTEX_ID).set(this.id);
@@ -65,7 +65,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
         return property;
     }
 
-    @Override public Object id() { return this.id; }
+    @Override public int id() { return this.id; }
     @Override public String name() { return this.name; }
     @Override public String alias() { return this.alias; }
     @Override public CellFormulaExpression formula() { return this.formula; }

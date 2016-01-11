@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="F11">
-<node id="4661fe13-3dea-4c53-8bf4-a4277050c15a">
+<node id="0">
 <data key="name">F11</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: COLUMN(C5); Formula values: COLUMN(7702.0);</data>
 </node>
-<node id="708d08a8-18c4-4902-b947-682f9ab699c5">
+<node id="1">
 <data key="name">C5</data>
 <data key="value">7702.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C5; Formula values: 7702.0;</data>
 </node>
-<node id="c293982a-6879-4805-a4b4-59604bdb4acd">
+<node id="2">
 <data key="name">COLUMN</data>
 <data key="value">3.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: COLUMN(C5); Formula values: COLUMN(7702.0);</data>
 </node>
-<edge source="708d08a8-18c4-4902-b947-682f9ab699c5" target="c293982a-6879-4805-a4b4-59604bdb4acd"/>
-<edge source="c293982a-6879-4805-a4b4-59604bdb4acd" target="4661fe13-3dea-4c53-8bf4-a4277050c15a"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

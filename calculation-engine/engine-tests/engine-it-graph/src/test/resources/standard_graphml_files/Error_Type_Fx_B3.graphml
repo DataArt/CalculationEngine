@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B3">
-<node id="0bbcc2b6-d406-4901-b217-2689e51a2ba0">
+<node id="0">
 <data key="name">B3</data>
 <data key="value">7.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ERROR.TYPE(VALUE); Formula values: ERROR.TYPE(#N/A);</data>
 </node>
-<node id="080a9967-2760-4a01-882b-f0cfdecca94c">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">#N/A</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #N/A;</data>
 </node>
-<node id="1e474cda-5821-46af-9d97-6b203c8005ba">
+<node id="2">
 <data key="name">ERROR.TYPE</data>
 <data key="value">7.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ERROR.TYPE(VALUE); Formula values: ERROR.TYPE(#N/A);</data>
 </node>
-<edge source="080a9967-2760-4a01-882b-f0cfdecca94c" target="1e474cda-5821-46af-9d97-6b203c8005ba"/>
-<edge source="1e474cda-5821-46af-9d97-6b203c8005ba" target="0bbcc2b6-d406-4901-b217-2689e51a2ba0"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

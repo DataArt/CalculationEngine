@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B4">
-<node id="01e816f5-31fe-4b49-ac33-0222fa0089b9">
+<node id="0">
 <data key="name">B4</data>
 <data key="value">45.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ATAN(VALUE) * VALUE / PI(); Formula values: ATAN(1.0) * 180.0 / PI();</data>
 </node>
-<node id="92324f85-7838-4fb2-a4aa-28b28ea5eb7c">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
 </node>
-<node id="8553adc9-1ccc-42ea-8bbd-0622f05a3099">
+<node id="2">
 <data key="name">ATAN</data>
 <data key="value">0.7853981633974483</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ATAN(VALUE); Formula values: ATAN(1.0);</data>
 </node>
-<node id="8c39023f-3adf-439e-b886-39048b9a9466">
+<node id="3">
 <data key="name">VALUE</data>
 <data key="value">180.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 180.0;</data>
 </node>
-<node id="841c2492-76d0-4ace-b733-68398325d342">
+<node id="4">
 <data key="name">*</data>
 <data key="value">141.3716694115407</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: ATAN(VALUE) * VALUE; Formula values: ATAN(1.0) * 180.0;</data>
 </node>
-<node id="7456e2bb-c05e-4917-8bae-b260891fbd19">
+<node id="5">
 <data key="name">PI</data>
 <data key="value">3.141592653589793</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: PI(); Formula values: PI();</data>
 </node>
-<node id="7da78e56-2369-44a5-a0ae-92bdb3365497">
+<node id="6">
 <data key="name">/</data>
 <data key="value">45.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: ATAN(VALUE) * VALUE / PI(); Formula values: ATAN(1.0) * 180.0 / PI();</data>
 </node>
-<edge source="92324f85-7838-4fb2-a4aa-28b28ea5eb7c" target="8553adc9-1ccc-42ea-8bbd-0622f05a3099"/>
-<edge source="8c39023f-3adf-439e-b886-39048b9a9466" target="841c2492-76d0-4ace-b733-68398325d342"/>
-<edge source="8553adc9-1ccc-42ea-8bbd-0622f05a3099" target="841c2492-76d0-4ace-b733-68398325d342"/>
-<edge source="7456e2bb-c05e-4917-8bae-b260891fbd19" target="7da78e56-2369-44a5-a0ae-92bdb3365497"/>
-<edge source="841c2492-76d0-4ace-b733-68398325d342" target="7da78e56-2369-44a5-a0ae-92bdb3365497"/>
-<edge source="7da78e56-2369-44a5-a0ae-92bdb3365497" target="01e816f5-31fe-4b49-ac33-0222fa0089b9"/>
+<edge source="1" target="2"/>
+<edge source="3" target="4"/>
+<edge source="2" target="4"/>
+<edge source="5" target="6"/>
+<edge source="4" target="6"/>
+<edge source="6" target="0"/>
 </graph>
 </graphml>

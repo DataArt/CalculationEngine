@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B7">
-<node id="f3a4833b-afb4-4b4d-8fe8-f2f748eb3e7c">
+<node id="0">
 <data key="name">B7</data>
 <data key="value">160.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: DAYS360(A4, A3); Formula values: DAYS360(42347.0, 42184.0);</data>
 </node>
-<node id="f22e9b1e-23ad-4317-b72f-106e66b08e14">
+<node id="1">
 <data key="name">A3</data>
 <data key="value">42184.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A3; Formula values: 42184.0;</data>
 </node>
-<node id="b84e1982-433c-4b5e-85cd-8e528bb470d8">
+<node id="2">
 <data key="name">A4</data>
 <data key="value">42347.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A4; Formula values: 42347.0;</data>
 </node>
-<node id="d27d68ce-d38c-4b5f-b27d-d64f6a1fc893">
+<node id="3">
 <data key="name">DAYS360</data>
 <data key="value">160.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: DAYS360(A4, A3); Formula values: DAYS360(42347.0, 42184.0);</data>
 </node>
-<edge source="b84e1982-433c-4b5e-85cd-8e528bb470d8" target="d27d68ce-d38c-4b5f-b27d-d64f6a1fc893"/>
-<edge source="f22e9b1e-23ad-4317-b72f-106e66b08e14" target="d27d68ce-d38c-4b5f-b27d-d64f6a1fc893"/>
-<edge source="d27d68ce-d38c-4b5f-b27d-d64f6a1fc893" target="f3a4833b-afb4-4b4d-8fe8-f2f748eb3e7c"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="3" target="0"/>
 </graph>
 </graphml>

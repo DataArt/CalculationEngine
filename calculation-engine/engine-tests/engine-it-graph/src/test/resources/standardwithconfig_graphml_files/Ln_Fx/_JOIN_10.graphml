@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_10">
-<node id="d02f5bef-fae5-4c52-8782-1c7dfdd26457">
+<node id="0">
 <data key="name">B2</data>
 <data key="value">20.085536923187664</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EXP(VALUE); Formula values: EXP(3.0);</data>
 </node>
-<node id="0816adc2-34dc-4572-9317-477ce7290708">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">3.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
 </node>
-<node id="84710a38-09fd-4568-ab1f-bd48aa93ae10">
+<node id="2">
 <data key="name">EXP</data>
 <data key="value">20.085536923187664</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: EXP(VALUE); Formula values: EXP(3.0);</data>
 </node>
-<node id="5b070a9a-1a92-4216-8ec4-412daa2b4c77">
+<node id="3">
 <data key="name">C3</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: LN(EXP(VALUE)); Formula values: LN(EXP(3.0));</data>
 </node>
-<node id="d2fecac7-e8af-4cf3-aa19-364a5777254b">
+<node id="4">
 <data key="name">B2</data>
 <data key="value">20.085536923187664</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EXP(VALUE); Formula values: EXP(3.0);</data>
 </node>
-<node id="c888e402-0429-4c54-9559-64afc25ea585">
+<node id="5">
 <data key="name">LN</data>
 <data key="value">3.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: LN(EXP(VALUE)); Formula values: LN(EXP(3.0));</data>
 </node>
-<node id="df0409cf-d3b5-4e60-bfc6-0a1222592491">
+<node id="6">
 <data key="name">C4</data>
 <data key="value">3.000000153185454</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: LN(VALUE); Formula values: LN(20.08554);</data>
 </node>
-<node id="c1e3313c-13f7-4c5b-b214-a725fd75ab4d">
+<node id="7">
 <data key="name">VALUE</data>
 <data key="value">20.08554</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 20.08554;</data>
 </node>
-<node id="4717a4a0-2679-4c5d-8c3b-1265f935af1f">
+<node id="8">
 <data key="name">LN</data>
 <data key="value">3.000000153185454</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: LN(VALUE); Formula values: LN(20.08554);</data>
 </node>
-<edge source="0816adc2-34dc-4572-9317-477ce7290708" target="84710a38-09fd-4568-ab1f-bd48aa93ae10"/>
-<edge source="84710a38-09fd-4568-ab1f-bd48aa93ae10" target="d02f5bef-fae5-4c52-8782-1c7dfdd26457"/>
-<edge source="d2fecac7-e8af-4cf3-aa19-364a5777254b" target="c888e402-0429-4c54-9559-64afc25ea585"/>
-<edge source="c888e402-0429-4c54-9559-64afc25ea585" target="5b070a9a-1a92-4216-8ec4-412daa2b4c77"/>
-<edge source="c1e3313c-13f7-4c5b-b214-a725fd75ab4d" target="4717a4a0-2679-4c5d-8c3b-1265f935af1f"/>
-<edge source="4717a4a0-2679-4c5d-8c3b-1265f935af1f" target="df0409cf-d3b5-4e60-bfc6-0a1222592491"/>
-<edge source="84710a38-09fd-4568-ab1f-bd48aa93ae10" target="d2fecac7-e8af-4cf3-aa19-364a5777254b"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
+<edge source="4" target="5"/>
+<edge source="5" target="3"/>
+<edge source="7" target="8"/>
+<edge source="8" target="6"/>
+<edge source="2" target="4"/>
 </graph>
 </graphml>

@@ -1,102 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D5">
-<node id="ae9e52f5-0d41-4e83-9f06-d3f4b7c65cb2">
+<node id="0">
 <data key="name">D5</data>
 <data key="value">1.059306170823243</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ATANH(ATAN(VALUE - VALUE * VALUE * VALUE / VALUE)); Formula values: ATANH(ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0));</data>
 </node>
-<node id="5dee283a-afc3-4d69-b76c-7f6276aa4025">
+<node id="1">
 <data key="name">B4</data>
 <data key="value">0.7853981633974483</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ATAN(VALUE - VALUE * VALUE * VALUE / VALUE); Formula values: ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0);</data>
 </node>
-<node id="17e654b2-0fb0-4702-a4a8-a6d46a989519">
+<node id="2">
 <data key="name">C2</data>
 <data key="value">1.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: VALUE - VALUE * VALUE * VALUE / VALUE; Formula values: 18.0 - 4.0 * 2.0 * 2.0 / 2.0;</data>
 </node>
-<node id="4edb33d4-fbca-4617-b7ea-425cdce3571e">
+<node id="3">
 <data key="name">VALUE</data>
 <data key="value">18.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 18.0;</data>
 </node>
-<node id="ca6b81cd-cc1a-412c-bb4c-8773f99a6fd6">
+<node id="4">
 <data key="name">VALUE</data>
 <data key="value">4.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 4.0;</data>
 </node>
-<node id="e0124da0-e984-406d-a898-c981e0ddcc9a">
+<node id="5">
 <data key="name">VALUE</data>
 <data key="value">2.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<node id="36c6effe-4635-4794-8a55-689f079f3460">
+<node id="6">
 <data key="name">*</data>
 <data key="value">8.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: VALUE * VALUE; Formula values: 4.0 * 2.0;</data>
 </node>
-<node id="2065ef01-e46e-4b22-8b66-1ca7e844db2c">
+<node id="7">
 <data key="name">VALUE</data>
 <data key="value">2.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<node id="3e040949-69a2-4b4d-a458-afd4495e19c3">
+<node id="8">
 <data key="name">*</data>
 <data key="value">16.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: VALUE * VALUE * VALUE; Formula values: 4.0 * 2.0 * 2.0;</data>
 </node>
-<node id="8124a4d9-a5cf-44ee-bc8a-f4ab464dbb34">
+<node id="9">
 <data key="name">-</data>
 <data key="value">2.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: VALUE - VALUE * VALUE * VALUE; Formula values: 18.0 - 4.0 * 2.0 * 2.0;</data>
 </node>
-<node id="b2aca032-77a8-4ddc-a2ac-683a755b2750">
+<node id="10">
 <data key="name">VALUE</data>
 <data key="value">2.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<node id="b2fa670f-5538-4f54-9970-6678bd8d5d4c">
+<node id="11">
 <data key="name">/</data>
 <data key="value">1.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: VALUE - VALUE * VALUE * VALUE / VALUE; Formula values: 18.0 - 4.0 * 2.0 * 2.0 / 2.0;</data>
 </node>
-<node id="64bb7ff9-0008-496a-8d9f-4d518345e13b">
+<node id="12">
 <data key="name">ATAN</data>
 <data key="value">0.7853981633974483</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ATAN(VALUE - VALUE * VALUE * VALUE / VALUE); Formula values: ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0);</data>
 </node>
-<node id="eab1827f-e999-4ab0-92af-d1458aea2f4f">
+<node id="13">
 <data key="name">ATANH</data>
 <data key="value">1.059306170823243</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ATANH(ATAN(VALUE - VALUE * VALUE * VALUE / VALUE)); Formula values: ATANH(ATAN(18.0 - 4.0 * 2.0 * 2.0 / 2.0));</data>
 </node>
-<edge source="e0124da0-e984-406d-a898-c981e0ddcc9a" target="36c6effe-4635-4794-8a55-689f079f3460"/>
-<edge source="ca6b81cd-cc1a-412c-bb4c-8773f99a6fd6" target="36c6effe-4635-4794-8a55-689f079f3460"/>
-<edge source="2065ef01-e46e-4b22-8b66-1ca7e844db2c" target="3e040949-69a2-4b4d-a458-afd4495e19c3"/>
-<edge source="36c6effe-4635-4794-8a55-689f079f3460" target="3e040949-69a2-4b4d-a458-afd4495e19c3"/>
-<edge source="3e040949-69a2-4b4d-a458-afd4495e19c3" target="8124a4d9-a5cf-44ee-bc8a-f4ab464dbb34"/>
-<edge source="4edb33d4-fbca-4617-b7ea-425cdce3571e" target="8124a4d9-a5cf-44ee-bc8a-f4ab464dbb34"/>
-<edge source="b2aca032-77a8-4ddc-a2ac-683a755b2750" target="b2fa670f-5538-4f54-9970-6678bd8d5d4c"/>
-<edge source="8124a4d9-a5cf-44ee-bc8a-f4ab464dbb34" target="b2fa670f-5538-4f54-9970-6678bd8d5d4c"/>
-<edge source="b2fa670f-5538-4f54-9970-6678bd8d5d4c" target="17e654b2-0fb0-4702-a4a8-a6d46a989519"/>
-<edge source="17e654b2-0fb0-4702-a4a8-a6d46a989519" target="64bb7ff9-0008-496a-8d9f-4d518345e13b"/>
-<edge source="64bb7ff9-0008-496a-8d9f-4d518345e13b" target="5dee283a-afc3-4d69-b76c-7f6276aa4025"/>
-<edge source="5dee283a-afc3-4d69-b76c-7f6276aa4025" target="eab1827f-e999-4ab0-92af-d1458aea2f4f"/>
-<edge source="eab1827f-e999-4ab0-92af-d1458aea2f4f" target="ae9e52f5-0d41-4e83-9f06-d3f4b7c65cb2"/>
+<edge source="5" target="6"/>
+<edge source="4" target="6"/>
+<edge source="7" target="8"/>
+<edge source="6" target="8"/>
+<edge source="8" target="9"/>
+<edge source="3" target="9"/>
+<edge source="10" target="11"/>
+<edge source="9" target="11"/>
+<edge source="11" target="2"/>
+<edge source="2" target="12"/>
+<edge source="12" target="1"/>
+<edge source="1" target="13"/>
+<edge source="13" target="0"/>
 </graph>
 </graphml>

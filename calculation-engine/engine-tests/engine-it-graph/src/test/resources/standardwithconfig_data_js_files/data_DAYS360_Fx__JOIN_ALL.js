@@ -1,32 +1,32 @@
 var nodes = new vis.DataSet([
                              /* {id: a, label: b, ...}, */
-{id: '1f92b443-0ef7-418c-8ee0-871483dc0f76', label: 'B8\n-160.0', color: '#31b0d5', title: 'Name: B8<br>Value: -160.0<br>Type: CELL_WITH_FORMULA<br>Id: 1f92b443-0ef7-418c-8ee0-871483dc0f76<br>Formula Expression: Formula String: DAYS360(A3, A4); Formula Values: DAYS360(42184.0, 42347.0); Formula Ptg: 42184.0, 42347.0 DAYS360 ; Ptgs: A3, A4 DAYS360  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '99b35d50-71b0-4c13-8dcb-ad4287c1f367', label: 'A3\n42184.0', color: '#31b0d5', title: 'Name: A3<br>Value: 42184.0<br>Type: CELL_WITH_VALUE<br>Id: 99b35d50-71b0-4c13-8dcb-ad4287c1f367<br>Formula Expression: Formula String: A3; Formula Values: 42184.0; Formula Ptg: 42184.0; Ptgs: A3 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '9a95d2e3-1683-41df-b8f8-a4573b0f917c', label: 'A4\n42347.0', color: '#31b0d5', title: 'Name: A4<br>Value: 42347.0<br>Type: CELL_WITH_VALUE<br>Id: 9a95d2e3-1683-41df-b8f8-a4573b0f917c<br>Formula Expression: Formula String: A4; Formula Values: 42347.0; Formula Ptg: 42347.0; Ptgs: A4 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '7a265205-bc9b-4f5c-bc5c-cdbb54713ba3', label: 'B5\n24.0', color: '#31b0d5', title: 'Name: B5<br>Value: 24.0<br>Type: CELL_WITH_FORMULA<br>Id: 7a265205-bc9b-4f5c-bc5c-cdbb54713ba3<br>Formula Expression: Formula String: DAYS360(A2, A1); Formula Values: DAYS360(42029.0, 42005.0); Formula Ptg: 42029.0, 42005.0 DAYS360 ; Ptgs: A2, A1 DAYS360  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '76feb7d6-9e74-41ba-80ce-115e168a3857', label: 'DAYS360\n-160.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Value: -160.0<br>Type: FUNCTION<br>Id: 76feb7d6-9e74-41ba-80ce-115e168a3857<br>Formula Expression: Formula String: DAYS360(A3, A4); Formula Values: DAYS360(42184.0, 42347.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '15d2be9e-4c08-45e9-b7b8-075d7034e410', label: 'A2\n42029.0', color: '#31b0d5', title: 'Name: A2<br>Value: 42029.0<br>Type: CELL_WITH_VALUE<br>Id: 15d2be9e-4c08-45e9-b7b8-075d7034e410<br>Formula Expression: Formula String: A2; Formula Values: 42029.0; Formula Ptg: 42029.0; Ptgs: A2 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '3723633e-e7b2-4a47-87ac-2f41d969271b', label: 'B7\n160.0', color: '#31b0d5', title: 'Name: B7<br>Value: 160.0<br>Type: CELL_WITH_FORMULA<br>Id: 3723633e-e7b2-4a47-87ac-2f41d969271b<br>Formula Expression: Formula String: DAYS360(A4, A3); Formula Values: DAYS360(42347.0, 42184.0); Formula Ptg: 42347.0, 42184.0 DAYS360 ; Ptgs: A4, A3 DAYS360  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '47e1872c-d0e5-4caa-8fc2-d1102577e7e7', label: 'DAYS360\n24.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Value: 24.0<br>Type: FUNCTION<br>Id: 47e1872c-d0e5-4caa-8fc2-d1102577e7e7<br>Formula Expression: Formula String: DAYS360(A2, A1); Formula Values: DAYS360(42029.0, 42005.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '2b53057d-bcbd-425f-b4c0-0d96dc1e3e2b', label: 'DAYS360\n154.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Value: 154.0<br>Type: FUNCTION<br>Id: 2b53057d-bcbd-425f-b4c0-0d96dc1e3e2b<br>Formula Expression: Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '68f6a572-7104-45a9-828f-b398baba0acc', label: 'DAYS360\n160.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Value: 160.0<br>Type: FUNCTION<br>Id: 68f6a572-7104-45a9-828f-b398baba0acc<br>Formula Expression: Formula String: DAYS360(A4, A3); Formula Values: DAYS360(42347.0, 42184.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: 'f087c1bc-59c7-4373-847e-36f750af1a6c', label: 'A1\n42005.0', color: '#31b0d5', title: 'Name: A1<br>Value: 42005.0<br>Type: CELL_WITH_VALUE<br>Id: f087c1bc-59c7-4373-847e-36f750af1a6c<br>Formula Expression: Formula String: A1; Formula Values: 42005.0; Formula Ptg: 42005.0; Ptgs: A1 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'},
-{id: '6ff490d5-cbc0-44ae-9450-1207dad3bea3', label: 'B6\n154.0', color: '#31b0d5', title: 'Name: B6<br>Value: 154.0<br>Type: CELL_WITH_FORMULA<br>Id: 6ff490d5-cbc0-44ae-9450-1207dad3bea3<br>Formula Expression: Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: 42184.0, 42029.0 DAYS360 ; Ptgs: A3, A2 DAYS360  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@11981797'}
+{id: '0', label: 'B5\n24.0', color: '#31b0d5', title: 'Name: B5<br>Alias: null<br>Value: 24.0<br>Type: CELL_WITH_FORMULA<br>Id: 0<br>Formula Expression: Formula String: DAYS360(A2, A1); Formula Values: DAYS360(42029.0, 42005.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '6', label: 'A3\n42184.0', color: '#31b0d5', title: 'Name: A3<br>Alias: null<br>Value: 42184.0<br>Type: CELL_WITH_VALUE<br>Id: 6<br>Formula Expression: Formula String: A3; Formula Values: 42184.0; Formula Ptg: 42184.0; Ptgs: A3 Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '3', label: 'DAYS360\n24.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Alias: null<br>Value: 24.0<br>Type: FUNCTION<br>Id: 3<br>Formula Expression: Formula String: DAYS360(A2, A1); Formula Values: DAYS360(42029.0, 42005.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '1', label: 'A1\n42005.0', color: '#31b0d5', title: 'Name: A1<br>Alias: null<br>Value: 42005.0<br>Type: CELL_WITH_VALUE<br>Id: 1<br>Formula Expression: Formula String: A1; Formula Values: 42005.0; Formula Ptg: 42005.0; Ptgs: A1 Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '5', label: 'A2\n42029.0', color: '#31b0d5', title: 'Name: A2<br>Alias: null<br>Value: 42029.0<br>Type: CELL_WITH_VALUE<br>Id: 5<br>Formula Expression: Formula String: A2; Formula Values: 42029.0; Formula Ptg: 42029.0; Ptgs: A2 Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '15', label: 'DAYS360\n-160.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Alias: null<br>Value: -160.0<br>Type: FUNCTION<br>Id: 15<br>Formula Expression: Formula String: DAYS360(A3, A4); Formula Values: DAYS360(42184.0, 42347.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '4', label: 'B6\n154.0', color: '#31b0d5', title: 'Name: B6<br>Alias: null<br>Value: 154.0<br>Type: CELL_WITH_FORMULA<br>Id: 4<br>Formula Expression: Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '12', label: 'B8\n-160.0', color: '#31b0d5', title: 'Name: B8<br>Alias: null<br>Value: -160.0<br>Type: CELL_WITH_FORMULA<br>Id: 12<br>Formula Expression: Formula String: DAYS360(A3, A4); Formula Values: DAYS360(42184.0, 42347.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '7', label: 'DAYS360\n154.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Alias: null<br>Value: 154.0<br>Type: FUNCTION<br>Id: 7<br>Formula Expression: Formula String: DAYS360(A3, A2); Formula Values: DAYS360(42184.0, 42029.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '10', label: 'A4\n42347.0', color: '#31b0d5', title: 'Name: A4<br>Alias: null<br>Value: 42347.0<br>Type: CELL_WITH_VALUE<br>Id: 10<br>Formula Expression: Formula String: A4; Formula Values: 42347.0; Formula Ptg: 42347.0; Ptgs: A4 Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '11', label: 'DAYS360\n160.0', color: '#f0ad4e', title: 'Name: DAYS360<br>Alias: null<br>Value: 160.0<br>Type: FUNCTION<br>Id: 11<br>Formula Expression: Formula String: DAYS360(A4, A3); Formula Values: DAYS360(42347.0, 42184.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'},
+{id: '8', label: 'B7\n160.0', color: '#31b0d5', title: 'Name: B7<br>Alias: null<br>Value: 160.0<br>Type: CELL_WITH_FORMULA<br>Id: 8<br>Formula Expression: Formula String: DAYS360(A4, A3); Formula Values: DAYS360(42347.0, 42184.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@2d801d8'}
                             ]);
 
 
 var edges = new vis.DataSet([
                              /* {from: id_a, to: id_b}, */
-{from: '99b35d50-71b0-4c13-8dcb-ad4287c1f367', to: '68f6a572-7104-45a9-828f-b398baba0acc'},
-{from: '9a95d2e3-1683-41df-b8f8-a4573b0f917c', to: '68f6a572-7104-45a9-828f-b398baba0acc'},
-{from: '76feb7d6-9e74-41ba-80ce-115e168a3857', to: '1f92b443-0ef7-418c-8ee0-871483dc0f76'},
-{from: 'f087c1bc-59c7-4373-847e-36f750af1a6c', to: '47e1872c-d0e5-4caa-8fc2-d1102577e7e7'},
-{from: '47e1872c-d0e5-4caa-8fc2-d1102577e7e7', to: '7a265205-bc9b-4f5c-bc5c-cdbb54713ba3'},
-{from: '15d2be9e-4c08-45e9-b7b8-075d7034e410', to: '47e1872c-d0e5-4caa-8fc2-d1102577e7e7'},
-{from: '68f6a572-7104-45a9-828f-b398baba0acc', to: '3723633e-e7b2-4a47-87ac-2f41d969271b'},
-{from: '99b35d50-71b0-4c13-8dcb-ad4287c1f367', to: '76feb7d6-9e74-41ba-80ce-115e168a3857'},
-{from: '2b53057d-bcbd-425f-b4c0-0d96dc1e3e2b', to: '6ff490d5-cbc0-44ae-9450-1207dad3bea3'},
-{from: '99b35d50-71b0-4c13-8dcb-ad4287c1f367', to: '2b53057d-bcbd-425f-b4c0-0d96dc1e3e2b'},
-{from: '15d2be9e-4c08-45e9-b7b8-075d7034e410', to: '2b53057d-bcbd-425f-b4c0-0d96dc1e3e2b'},
-{from: '9a95d2e3-1683-41df-b8f8-a4573b0f917c', to: '76feb7d6-9e74-41ba-80ce-115e168a3857'}
+{from: '5', to: '7'},
+{from: '7', to: '4'},
+{from: '15', to: '12'},
+{from: '11', to: '8'},
+{from: '6', to: '15'},
+{from: '10', to: '15'},
+{from: '10', to: '11'},
+{from: '6', to: '7'},
+{from: '1', to: '3'},
+{from: '3', to: '0'},
+{from: '5', to: '3'},
+{from: '6', to: '11'}
                             ]);

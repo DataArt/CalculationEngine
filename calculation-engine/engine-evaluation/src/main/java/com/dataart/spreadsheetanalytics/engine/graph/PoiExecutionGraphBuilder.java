@@ -101,7 +101,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String B_LEFT = "[";
     protected static final String B_RIGHT = "]";
     
-    protected static final AtomicInteger ID_RANDOMIZER = new AtomicInteger();
+    protected static final ThreadLocal<AtomicInteger> ID_RANDOMIZER = new ThreadLocal<>();
     
     IExecutionGraphVertex namedVertexRoot;
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
@@ -114,8 +114,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected Map<ValueEval, Deque<IExecutionGraphVertex>> valueToVertex = new HashMap<>();
     protected Map<String, Set<IExecutionGraphVertex>> addressToVertices = new HashMap<>();
 
-    public PoiExecutionGraphBuilder() { this(ExecutionGraphConfig.DEFAULT); }
-    public PoiExecutionGraphBuilder(ExecutionGraphConfig config) { this.config = config; }
+    public PoiExecutionGraphBuilder() {
+        this(ExecutionGraphConfig.DEFAULT);
+    }
+
+    public PoiExecutionGraphBuilder(ExecutionGraphConfig config) {
+        this.config = config;
+        ID_RANDOMIZER.set(new AtomicInteger(0));
+    }
     
     public ExecutionGraph get() {
         return ExecutionGraph.wrap(this.dgraph);

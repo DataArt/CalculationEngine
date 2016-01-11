@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_5">
-<node id="e06bcba2-9534-40aa-a73c-56a0af2a8e7d">
+<node id="0">
 <data key="name">D2</data>
 <data key="value">expected</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: IF(A2=C1,B4,B1); Formula values: IF(Sun = is, expected);</data>
 </node>
-<node id="451f43e3-8f00-4ac1-9614-f213eb475dc2">
+<node id="1">
 <data key="name">A2</data>
 <data key="value">Sun</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A2; Formula values: Sun;</data>
 </node>
-<node id="6e9d7571-bfc5-4b94-b4ea-1146abd00db3">
+<node id="2">
 <data key="name">C1</data>
 <data key="value">is</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C1; Formula values: is;</data>
 </node>
-<node id="21d49a8e-2ba7-4949-83ca-ed110f59dc05">
+<node id="3">
 <data key="name">=</data>
 <data key="value">FALSE</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: A2 = C1; Formula values: Sun = is;</data>
 </node>
-<node id="372f4f5d-c7c1-4557-8793-8fcedd487107">
+<node id="4">
 <data key="name">IF</data>
 <data key="value">expected</data>
 <data key="type">IF</data>
 <data key="formula">Formula string: IF(A2=C1,B4,B1); Formula values: IF(Sun = is, expected);</data>
 </node>
-<node id="70dc9b89-f525-4bdc-a667-3a6b0d5b502c">
+<node id="5">
 <data key="name">B1</data>
 <data key="value">expected</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B1; Formula values: expected;</data>
 </node>
-<node id="e23cb4ac-d005-421e-a301-9931c2c29fee">
+<node id="7">
 <data key="name">D5</data>
 <data key="value">why not?</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: T(C3); Formula values: T(why not?);</data>
 </node>
-<node id="47c19aef-a296-47d2-bb62-db581407f40c">
+<node id="8">
 <data key="name">C3</data>
 <data key="value">why not?</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C3; Formula values: why not?;</data>
 </node>
-<node id="46419897-4219-4603-afd8-698de9df21bd">
+<node id="9">
 <data key="name">T</data>
 <data key="value">why not?</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: T(C3); Formula values: T(why not?);</data>
 </node>
-<node id="40bd449b-ce31-42ad-885f-b3e33c78e0d9">
+<node id="10">
 <data key="name">D6</data>
 <data key="value"/>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
 </node>
-<node id="0833465a-9965-4c35-a07a-4b71349cb151">
+<node id="11">
 <data key="name">D3</data>
 <data key="value">52.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: D3; Formula values: 52.0;</data>
 </node>
-<node id="8be33ee5-6b14-42c9-979d-23491a1213aa">
+<node id="12">
 <data key="name">T</data>
 <data key="value"/>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: T(D3); Formula values: T(52.0);</data>
 </node>
-<edge source="6e9d7571-bfc5-4b94-b4ea-1146abd00db3" target="21d49a8e-2ba7-4949-83ca-ed110f59dc05"/>
-<edge source="451f43e3-8f00-4ac1-9614-f213eb475dc2" target="21d49a8e-2ba7-4949-83ca-ed110f59dc05"/>
-<edge source="70dc9b89-f525-4bdc-a667-3a6b0d5b502c" target="372f4f5d-c7c1-4557-8793-8fcedd487107"/>
-<edge source="21d49a8e-2ba7-4949-83ca-ed110f59dc05" target="372f4f5d-c7c1-4557-8793-8fcedd487107"/>
-<edge source="372f4f5d-c7c1-4557-8793-8fcedd487107" target="e06bcba2-9534-40aa-a73c-56a0af2a8e7d"/>
-<edge source="47c19aef-a296-47d2-bb62-db581407f40c" target="46419897-4219-4603-afd8-698de9df21bd"/>
-<edge source="46419897-4219-4603-afd8-698de9df21bd" target="e23cb4ac-d005-421e-a301-9931c2c29fee"/>
-<edge source="0833465a-9965-4c35-a07a-4b71349cb151" target="8be33ee5-6b14-42c9-979d-23491a1213aa"/>
-<edge source="8be33ee5-6b14-42c9-979d-23491a1213aa" target="40bd449b-ce31-42ad-885f-b3e33c78e0d9"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="5" target="4"/>
+<edge source="3" target="4"/>
+<edge source="4" target="0"/>
+<edge source="8" target="9"/>
+<edge source="9" target="7"/>
+<edge source="11" target="12"/>
+<edge source="12" target="10"/>
 </graph>
 </graphml>

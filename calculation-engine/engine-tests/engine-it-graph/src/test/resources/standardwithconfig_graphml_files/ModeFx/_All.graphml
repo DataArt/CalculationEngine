@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="All">
-<node id="f328a8e5-0c18-4738-8d6b-60738e56cfec">
+<node id="0">
 <data key="name">E5</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: MODE(A1:E4); Formula values: MODE(12.0, 2.0, 3.0, 4.0, 5.0, 6.0, 4.0, 7.0, 65.0, 7.0, 4.0, 6.0, 8.0, 367.0, 57.0, 45.0, 2.0, 89.0, 46.0, 46.0);</data>
 </node>
-<node id="67963655-2c35-4d0c-9442-21dc3b64986b">
+<node id="1">
 <data key="name">A1:E4</data>
 <data key="value">[[12.0, 2.0, 3.0, 4.0, 5.0], [6.0, 4.0, 7.0, 65.0, 7.0], [4.0, 6.0, 8.0, 367.0, 57.0], [45.0, 2.0, 89.0, 46.0, 46.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula string: A1:E4; Formula values: [[12.0, 2.0, 3.0, 4.0, 5.0], [6.0, 4.0, 7.0, 65.0, 7.0], [4.0, 6.0, 8.0, 367.0, 57.0], [45.0, 2.0, 89.0, 46.0, 46.0]];</data>
 </node>
-<node id="892928c9-249d-4d24-b387-2548e9d75dc3">
+<node id="2">
 <data key="name">MODE</data>
 <data key="value">4.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: MODE(A1:E4); Formula values: MODE(12.0, 2.0, 3.0, 4.0, 5.0, 6.0, 4.0, 7.0, 65.0, 7.0, 4.0, 6.0, 8.0, 367.0, 57.0, 45.0, 2.0, 89.0, 46.0, 46.0);</data>
 </node>
-<edge source="67963655-2c35-4d0c-9442-21dc3b64986b" target="892928c9-249d-4d24-b387-2548e9d75dc3"/>
-<edge source="892928c9-249d-4d24-b387-2548e9d75dc3" target="f328a8e5-0c18-4738-8d6b-60738e56cfec"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

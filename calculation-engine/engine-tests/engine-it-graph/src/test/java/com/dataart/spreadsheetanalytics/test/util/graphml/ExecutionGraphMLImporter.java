@@ -51,7 +51,7 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
         if (elementName.equalsIgnoreCase("node")) {
 
             ExecutionGraphVertexML vertexML = new ExecutionGraphVertexML(null);
-            vertexML.property(PropertyName.VERTEX_ID).set(attributes.getValue("id"));
+            vertexML.property(PropertyName.VERTEX_ID).set(Integer.valueOf(attributes.getValue("id")));
             
             this.graphML.getVerticesML().add(vertexML);
             
@@ -61,8 +61,8 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
         if (elementName.equalsIgnoreCase("edge")) {
 
             ExecutionGraphEdgeML edgeML = new ExecutionGraphEdgeML();
-            edgeML.sourceId = attributes.getValue("source");
-            edgeML.targetId = attributes.getValue("target");
+            edgeML.sourceId = Integer.valueOf(attributes.getValue("source"));
+            edgeML.targetId = Integer.valueOf(attributes.getValue("target"));
 
             this.graphML.getEdgesML().add(edgeML);
         }
@@ -103,7 +103,7 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
             List<ExecutionGraphVertexML> set = graphML.verticesIndexName.get(v.name()) != null ? graphML.verticesIndexName.get(v.name()) : new LinkedList<>();
             set.add(v);
             graphML.verticesIndexName.put(v.name(), set);
-            graphML.verticesIndexId.put(v.id().toString(), v);
+            graphML.verticesIndexId.put(v.id(), v);
         }
     }
 

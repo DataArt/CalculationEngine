@@ -1,6 +1,6 @@
 var nodes = new vis.DataSet([
                              /* {id: a, label: b, ...}, */
-{id: '70c6d633-cca8-4df4-a5bb-63083ecb6033', label: 'D7\n...', color: '#31b0d5', title: 'Name: D7<br>Alias: null<br>Value: null<br>Type: EMPTY_CELL<br>Id: 70c6d633-cca8-4df4-a5bb-63083ecb6033<br>Formula Expression: Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 0 <br>Source Object Id: null'}
+{id: '0', label: 'D7\n...', color: '#31b0d5', title: 'Name: D7<br>Alias: null<br>Value: null<br>Type: EMPTY_CELL<br>Id: 0<br>Formula Expression: Formula String: null; Formula Values: null; Formula Ptg: null; Ptgs: null Index in Ptgs: 0 <br>Source Object Id: null'}
                             ]);
 
 

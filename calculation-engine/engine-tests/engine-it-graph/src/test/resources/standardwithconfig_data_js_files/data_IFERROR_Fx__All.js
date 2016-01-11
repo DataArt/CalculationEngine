@@ -1,32 +1,32 @@
 var nodes = new vis.DataSet([
                              /* {id: a, label: b, ...}, */
-{id: '5946b852-e8aa-4691-9ed2-303f5b5c7190', label: 'B5\n-2.0', color: '#31b0d5', title: 'Name: B5<br>Value: -2.0<br>Type: CELL_WITH_FORMULA<br>Id: 5946b852-e8aa-4691-9ed2-303f5b5c7190<br>Formula Expression: Formula String: IFERROR(B3, A3 - VALUE); Formula Values: IFERROR(7.0, 3.0 - 5.0); Formula Ptg: 7.0, 3.0 5.0 - IFERROR ; Ptgs: B3, A3 VALUE - IFERROR  Index in Ptgs: 5 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: 'a267f447-6775-425e-9e21-87b32955d02d', label: 'B3\n7.0', color: '#31b0d5', title: 'Name: B3<br>Value: 7.0<br>Type: CELL_WITH_VALUE<br>Id: a267f447-6775-425e-9e21-87b32955d02d<br>Formula Expression: Formula String: B3; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: B3 Index in Ptgs: 4 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: 'f93b835c-ac02-4d88-8b82-6bee504b3378', label: 'A4\n5.0', color: '#31b0d5', title: 'Name: A4<br>Value: 5.0<br>Type: CELL_WITH_VALUE<br>Id: f93b835c-ac02-4d88-8b82-6bee504b3378<br>Formula Expression: Formula String: A4; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A4 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: '11300ee1-8dc4-4eb8-ba29-152475a3867a', label: '-\n-2.0', color: '#f0ad4e', title: 'Name: -<br>Value: -2.0<br>Type: OPERATOR<br>Id: 11300ee1-8dc4-4eb8-ba29-152475a3867a<br>Formula Expression: Formula String: A3 - VALUE; Formula Values: 3.0 - 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: '57a84767-bf17-49c6-8858-2d45e35e1b6f', label: 'B4\n6.0', color: '#31b0d5', title: 'Name: B4<br>Value: 6.0<br>Type: CELL_WITH_VALUE<br>Id: 57a84767-bf17-49c6-8858-2d45e35e1b6f<br>Formula Expression: Formula String: B4; Formula Values: 6.0; Formula Ptg: 6.0; Ptgs: B4 Index in Ptgs: 6 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: '80b2d435-cdef-4685-be8f-9eafa4495e89', label: '+\n6.0', color: '#f0ad4e', title: 'Name: +<br>Value: 6.0<br>Type: OPERATOR<br>Id: 80b2d435-cdef-4685-be8f-9eafa4495e89<br>Formula Expression: Formula String:  + IF(A3>A4,B3,B4); Formula Values:  + IF(3.0 > 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 9 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: 'ed1964d5-fba8-4962-90fb-e216e4cfcee7', label: 'VALUE\n5.0', color: '#31b0d5', title: 'Name: VALUE<br>Value: 5.0<br>Type: CONSTANT_VALUE<br>Id: ed1964d5-fba8-4962-90fb-e216e4cfcee7<br>Formula Expression: Formula String: VALUE; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: VALUE Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: 'cbf01748-6cc2-421c-8518-cd6ad5e323cd', label: 'IF\n6.0', color: '#f0ad4e', title: 'Name: IF<br>Value: 6.0<br>Type: IF<br>Id: cbf01748-6cc2-421c-8518-cd6ad5e323cd<br>Formula Expression: Formula String: IF(A3>A4,B3,B4); Formula Values: IF(3.0 > 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: 'eb7b2f13-b172-4bc0-bf84-a8b84960fc76', label: 'A1\n6.0', color: '#31b0d5', title: 'Name: A1<br>Value: 6.0<br>Type: CELL_WITH_FORMULA<br>Id: eb7b2f13-b172-4bc0-bf84-a8b84960fc76<br>Formula Expression: Formula String:  + IF(A3>A4,B3,B4); Formula Values:  + IF(3.0 > 5.0, 6.0); Formula Ptg:  6.0, 3.0 5.0 > IF  +; Ptgs:  B4, A3 A4 > IF  + Index in Ptgs: 9 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: '0447323d-8aa2-47be-9d1b-92cbfc730983', label: 'A3\n3.0', color: '#31b0d5', title: 'Name: A3<br>Value: 3.0<br>Type: CELL_WITH_VALUE<br>Id: 0447323d-8aa2-47be-9d1b-92cbfc730983<br>Formula Expression: Formula String: A3; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: A3 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: 'c92ae402-09c8-4414-b058-076ccb9311d9', label: 'IFERROR\n-2.0', color: '#f0ad4e', title: 'Name: IFERROR<br>Value: -2.0<br>Type: FUNCTION<br>Id: c92ae402-09c8-4414-b058-076ccb9311d9<br>Formula Expression: Formula String: IFERROR(B3, A3 - VALUE); Formula Values: IFERROR(7.0, 3.0 - 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 5 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: '726b20d2-751e-412b-ba79-433f6542dc30', label: 'A3\n3.0', color: '#31b0d5', title: 'Name: A3<br>Value: 3.0<br>Type: CELL_WITH_VALUE<br>Id: 726b20d2-751e-412b-ba79-433f6542dc30<br>Formula Expression: Formula String: A3; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: A3 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'},
-{id: 'e34d13bd-cc86-4509-a349-b73d5e426b97', label: '>\nFALSE', color: '#f0ad4e', title: 'Name: ><br>Value: FALSE<br>Type: OPERATOR<br>Id: e34d13bd-cc86-4509-a349-b73d5e426b97<br>Formula Expression: Formula String: A3 > A4; Formula Values: 3.0 > 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@219bad15'}
+{id: '11', label: 'VALUE\n5.0', color: '#31b0d5', title: 'Name: VALUE<br>Alias: null<br>Value: 5.0<br>Type: CONSTANT_VALUE<br>Id: 11<br>Formula Expression: Formula String: VALUE; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: VALUE Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '14', label: 'IFERROR\n-2.0', color: '#f0ad4e', title: 'Name: IFERROR<br>Alias: null<br>Value: -2.0<br>Type: FUNCTION<br>Id: 14<br>Formula Expression: Formula String: IFERROR(B3, A3 - VALUE); Formula Values: IFERROR(7.0, 3.0 - 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 5 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '4', label: 'IF\n6.0', color: '#f0ad4e', title: 'Name: IF<br>Alias: null<br>Value: 6.0<br>Type: IF<br>Id: 4<br>Formula Expression: Formula String: IF(A3>A4,B3,B4); Formula Values: IF(3.0 > 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: 015508e1-a287-a176-9604-1a327a43f4ba'},
+{id: '10', label: 'A3\n3.0', color: '#31b0d5', title: 'Name: A3<br>Alias: null<br>Value: 3.0<br>Type: CELL_WITH_VALUE<br>Id: 10<br>Formula Expression: Formula String: A3; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: A3 Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '12', label: '-\n-2.0', color: '#f0ad4e', title: 'Name: -<br>Alias: null<br>Value: -2.0<br>Type: OPERATOR<br>Id: 12<br>Formula Expression: Formula String: A3 - VALUE; Formula Values: 3.0 - 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '13', label: 'B3\n7.0', color: '#31b0d5', title: 'Name: B3<br>Alias: null<br>Value: 7.0<br>Type: CELL_WITH_VALUE<br>Id: 13<br>Formula Expression: Formula String: B3; Formula Values: 7.0; Formula Ptg: 7.0; Ptgs: B3 Index in Ptgs: 4 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '1', label: 'A3\n3.0', color: '#31b0d5', title: 'Name: A3<br>Alias: null<br>Value: 3.0<br>Type: CELL_WITH_VALUE<br>Id: 1<br>Formula Expression: Formula String: A3; Formula Values: 3.0; Formula Ptg: 3.0; Ptgs: A3 Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '2', label: 'A4\n5.0', color: '#31b0d5', title: 'Name: A4<br>Alias: null<br>Value: 5.0<br>Type: CELL_WITH_VALUE<br>Id: 2<br>Formula Expression: Formula String: A4; Formula Values: 5.0; Formula Ptg: 5.0; Ptgs: A4 Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '3', label: '>\nFALSE', color: '#f0ad4e', title: 'Name: ><br>Alias: null<br>Value: FALSE<br>Type: OPERATOR<br>Id: 3<br>Formula Expression: Formula String: A3 > A4; Formula Values: 3.0 > 5.0; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '7', label: '+\n6.0', color: '#f0ad4e', title: 'Name: +<br>Alias: null<br>Value: 6.0<br>Type: OPERATOR<br>Id: 7<br>Formula Expression: Formula String:  + IF(A3>A4,B3,B4); Formula Values:  + IF(3.0 > 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 9 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '8', label: 'B5\n-2.0', color: '#31b0d5', title: 'Name: B5<br>Alias: null<br>Value: -2.0<br>Type: CELL_WITH_FORMULA<br>Id: 8<br>Formula Expression: Formula String: IFERROR(B3, A3 - VALUE); Formula Values: IFERROR(7.0, 3.0 - 5.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 5 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '0', label: 'A1\n6.0', color: '#31b0d5', title: 'Name: A1<br>Alias: null<br>Value: 6.0<br>Type: CELL_WITH_FORMULA<br>Id: 0<br>Formula Expression: Formula String:  + IF(A3>A4,B3,B4); Formula Values:  + IF(3.0 > 5.0, 6.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 9 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'},
+{id: '5', label: 'B4\n6.0', color: '#31b0d5', title: 'Name: B4<br>Alias: null<br>Value: 6.0<br>Type: CELL_WITH_VALUE<br>Id: 5<br>Formula Expression: Formula String: B4; Formula Values: 6.0; Formula Ptg: 6.0; Ptgs: B4 Index in Ptgs: 6 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@459f7aa3'}
                             ]);
 
 
 var edges = new vis.DataSet([
                              /* {from: id_a, to: id_b}, */
-{from: '80b2d435-cdef-4685-be8f-9eafa4495e89', to: 'eb7b2f13-b172-4bc0-bf84-a8b84960fc76'},
-{from: '726b20d2-751e-412b-ba79-433f6542dc30', to: 'e34d13bd-cc86-4509-a349-b73d5e426b97'},
-{from: '11300ee1-8dc4-4eb8-ba29-152475a3867a', to: 'c92ae402-09c8-4414-b058-076ccb9311d9'},
-{from: 'e34d13bd-cc86-4509-a349-b73d5e426b97', to: 'cbf01748-6cc2-421c-8518-cd6ad5e323cd'},
-{from: '0447323d-8aa2-47be-9d1b-92cbfc730983', to: '11300ee1-8dc4-4eb8-ba29-152475a3867a'},
-{from: 'cbf01748-6cc2-421c-8518-cd6ad5e323cd', to: '80b2d435-cdef-4685-be8f-9eafa4495e89'},
-{from: '57a84767-bf17-49c6-8858-2d45e35e1b6f', to: 'cbf01748-6cc2-421c-8518-cd6ad5e323cd'},
-{from: 'ed1964d5-fba8-4962-90fb-e216e4cfcee7', to: '11300ee1-8dc4-4eb8-ba29-152475a3867a'},
-{from: 'a267f447-6775-425e-9e21-87b32955d02d', to: 'c92ae402-09c8-4414-b058-076ccb9311d9'},
-{from: 'c92ae402-09c8-4414-b058-076ccb9311d9', to: '5946b852-e8aa-4691-9ed2-303f5b5c7190'},
-{from: 'f93b835c-ac02-4d88-8b82-6bee504b3378', to: 'e34d13bd-cc86-4509-a349-b73d5e426b97'}
+{from: '2', to: '3'},
+{from: '12', to: '14'},
+{from: '1', to: '3'},
+{from: '13', to: '14'},
+{from: '7', to: '0'},
+{from: '14', to: '8'},
+{from: '5', to: '4'},
+{from: '11', to: '12'},
+{from: '4', to: '7'},
+{from: '3', to: '4'},
+{from: '10', to: '12'}
                             ]);

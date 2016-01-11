@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="7c0bf8b0-9303-4258-97f9-dd6c529e3d5a">
+<node id="0">
 <data key="name">E6</data>
 <data key="value">180.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: DEGREES(PI()); Formula values: DEGREES(PI());</data>
 </node>
-<node id="56576417-064c-43d0-948c-9242ce15644a">
+<node id="1">
 <data key="name">PI</data>
 <data key="value">3.141592653589793</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: PI(); Formula values: PI();</data>
 </node>
-<node id="2468b211-0fd8-4732-af53-f81caee8ec97">
+<node id="2">
 <data key="name">DEGREES</data>
 <data key="value">180.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: DEGREES(PI()); Formula values: DEGREES(PI());</data>
 </node>
-<edge source="56576417-064c-43d0-948c-9242ce15644a" target="2468b211-0fd8-4732-af53-f81caee8ec97"/>
-<edge source="2468b211-0fd8-4732-af53-f81caee8ec97" target="7c0bf8b0-9303-4258-97f9-dd6c529e3d5a"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

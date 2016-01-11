@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D2">
-<node id="4e04c3df-eea3-4c35-8fe1-73630a6ce725">
+<node id="0">
 <data key="name">D2</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
 </node>
-<node id="df2fefd6-b6d7-4ca3-861d-8fe744c00205">
+<node id="1">
 <data key="name">A6</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A6; Formula values: 4.0;</data>
 </node>
-<node id="8f954552-21a1-4498-995f-9b21c38a9784">
+<node id="2">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
 </node>
-<edge source="df2fefd6-b6d7-4ca3-861d-8fe744c00205" target="8f954552-21a1-4498-995f-9b21c38a9784"/>
-<edge source="8f954552-21a1-4498-995f-9b21c38a9784" target="4e04c3df-eea3-4c35-8fe1-73630a6ce725"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

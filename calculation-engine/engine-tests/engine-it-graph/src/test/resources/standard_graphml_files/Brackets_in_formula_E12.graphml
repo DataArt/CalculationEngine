@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E12">
-<node id="f4724b36-8972-4527-92d0-77c965bd71c9">
+<node id="0">
 <data key="name">E12</data>
 <data key="value">41686.049999999996</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: E5 * E4 / VALUE; Formula values: 107.3 * 77.7 / 0.2;</data>
 </node>
-<node id="057e5e77-b582-416c-ae52-d1915a9f52f2">
+<node id="1">
 <data key="name">E5</data>
 <data key="value">107.3</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: E5; Formula values: 107.3;</data>
 </node>
-<node id="4ddfd33a-2aa3-497f-9bed-6fe5bc54a410">
+<node id="2">
 <data key="name">E4</data>
 <data key="value">77.7</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: E4; Formula values: 77.7;</data>
 </node>
-<node id="12c36a31-c1b4-4690-b5de-b14ab1eb3896">
+<node id="3">
 <data key="name">VALUE</data>
 <data key="value">0.2</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 0.2;</data>
 </node>
-<node id="fd3eef36-cd1b-4e77-84a4-33dbe334ae7f">
+<node id="4">
 <data key="name">/</data>
 <data key="value">388.5</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: E4 / VALUE; Formula values: 77.7 / 0.2;</data>
 </node>
-<node id="9afcb32b-f516-4391-9d8b-3fb305364764">
+<node id="5">
 <data key="name">*</data>
 <data key="value">41686.049999999996</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: E5 * E4 / VALUE; Formula values: 107.3 * 77.7 / 0.2;</data>
 </node>
-<edge source="12c36a31-c1b4-4690-b5de-b14ab1eb3896" target="fd3eef36-cd1b-4e77-84a4-33dbe334ae7f"/>
-<edge source="4ddfd33a-2aa3-497f-9bed-6fe5bc54a410" target="fd3eef36-cd1b-4e77-84a4-33dbe334ae7f"/>
-<edge source="fd3eef36-cd1b-4e77-84a4-33dbe334ae7f" target="9afcb32b-f516-4391-9d8b-3fb305364764"/>
-<edge source="057e5e77-b582-416c-ae52-d1915a9f52f2" target="9afcb32b-f516-4391-9d8b-3fb305364764"/>
-<edge source="9afcb32b-f516-4391-9d8b-3fb305364764" target="f4724b36-8972-4527-92d0-77c965bd71c9"/>
+<edge source="3" target="4"/>
+<edge source="2" target="4"/>
+<edge source="4" target="5"/>
+<edge source="1" target="5"/>
+<edge source="5" target="0"/>
 </graph>
 </graphml>
