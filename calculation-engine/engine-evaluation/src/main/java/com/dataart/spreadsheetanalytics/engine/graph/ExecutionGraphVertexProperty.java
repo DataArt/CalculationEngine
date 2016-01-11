@@ -52,8 +52,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 
         switch (this.pname) {
             case FORMULA_STRING: {
-                String flaStr = (this.pvalue == null) ? "" : ((String) this.pvalue).replace("$", "");
-                this.parent.formula.formulaStr(flaStr);
+                this.parent.formula.formulaStr((this.pvalue == null) ? "" : PoiExecutionGraphBuilder.removeSymbol(((String) this.pvalue), '$'));
                 break;
             }
             case INDEX_IN_FORMULA: {
@@ -89,6 +88,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 break;
             }
             case TYPE: {
+                //TODO: check if we need all this logic, this might be obsolette
                 if (this.parent.type != null && Type.CELL_WITH_FORMULA == this.parent.type) { this.pvalue = this.parent.type; break; }
                 this.parent.type = this.pvalue instanceof Type 
                                 ? (Type) this.pvalue 
@@ -116,7 +116,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
             }
             default: {
                     throw new CalculationEngineException(String.format("Property %s is not supported by %s.", this.pname, this.parent.getClass().getSimpleName()));
-                }
             }
+        }
     }
 }

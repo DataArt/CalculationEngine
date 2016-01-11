@@ -133,7 +133,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     @Override
     public IExecutionGraphVertex createVertex(String address) {
         // create new vertex object
-        ExecutionGraphVertex v = new ExecutionGraphVertex(address.replace("$", ""));
+        ExecutionGraphVertex v = new ExecutionGraphVertex(removeSymbol(address, '$'));
 
         // add vertex to actual graph
         this.dgraph.addVertex(v);
@@ -504,6 +504,18 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         int pos = 0;
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] != B_LEFT && chars[i] != B_RIGHT) 
+                { chars[pos++] = chars[i]; }
+        }
+        return new String(chars, 0, pos);
+    }
+    
+    public static String removeSymbol(String str, char symbol) {
+        if (str.indexOf(symbol) < 0) { return str; }
+        
+        final char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != symbol) 
                 { chars[pos++] = chars[i]; }
         }
         return new String(chars, 0, pos);
