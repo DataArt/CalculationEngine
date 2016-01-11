@@ -60,7 +60,6 @@ import org.apache.poi.common.fork.IExecutionGraphVertex;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
-import org.apache.poi.ss.formula.eval.BlankEval;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.Area2DValues;
@@ -323,16 +322,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
         switch (vertex.type) {
             case CELL_WITH_VALUE: {
-                vertex.formula.formulaStr(vertex.property(NAME).get().toString());
-                vertex.formula.formulaValues(vertex.value().toString());
-                vertex.formula.formulaPtgStr(vertex.value().toString());
-                vertex.formula.ptgStr(vertex.property(NAME).get().toString());
-                
-                Object value = vertex.property(VALUE).get();
-                if (value.toString().isEmpty() || value instanceof BlankEval) {
-                    vertex.property(TYPE).set(EMPTY_CELL);
-                }
-                
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             case CELL_WITH_REFERENCE:
