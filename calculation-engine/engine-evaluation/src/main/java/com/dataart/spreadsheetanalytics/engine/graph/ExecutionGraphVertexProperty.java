@@ -103,7 +103,7 @@ class ExecutionGraphVertexProperty implements IExecutionGraphVertexProperty {
                 break;
             }
             case VERTEX_ID: {
-                this.parent.id = this.pvalue;
+                this.parent.id = (int) this.pvalue;
                 break;
             }
             case NAME: {

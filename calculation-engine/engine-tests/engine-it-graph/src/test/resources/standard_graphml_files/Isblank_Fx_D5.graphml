@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="D5">
-<node id="6a6e9319-ca89-46aa-a9b0-45536eff4cca">
+<node id="0">
 <data key="name">D5</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
 </node>
-<node id="134bf05a-8e19-414e-8c0d-db986d9441a9">
+<node id="1">
 <data key="name">D2</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
 </node>
-<node id="0c9a0dd5-1fe3-49f3-9d41-cc98bc2ba0ab">
+<node id="2">
 <data key="name">A6</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A6; Formula values: 4.0;</data>
 </node>
-<node id="938f06f6-aa89-49a6-9b64-4f3dd1e070d1">
+<node id="3">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISBLANK(A6); Formula values: ISBLANK(4.0);</data>
 </node>
-<node id="f1d88c79-fe98-45eb-946d-866e83dbf007">
+<node id="4">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
 </node>
-<edge source="0c9a0dd5-1fe3-49f3-9d41-cc98bc2ba0ab" target="938f06f6-aa89-49a6-9b64-4f3dd1e070d1"/>
-<edge source="938f06f6-aa89-49a6-9b64-4f3dd1e070d1" target="134bf05a-8e19-414e-8c0d-db986d9441a9"/>
-<edge source="134bf05a-8e19-414e-8c0d-db986d9441a9" target="f1d88c79-fe98-45eb-946d-866e83dbf007"/>
-<edge source="f1d88c79-fe98-45eb-946d-866e83dbf007" target="6a6e9319-ca89-46aa-a9b0-45536eff4cca"/>
+<edge source="2" target="3"/>
+<edge source="3" target="1"/>
+<edge source="1" target="4"/>
+<edge source="4" target="0"/>
 </graph>
 </graphml>

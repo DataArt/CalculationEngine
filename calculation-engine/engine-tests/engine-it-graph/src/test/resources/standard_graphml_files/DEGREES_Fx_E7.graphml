@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E7">
-<node id="7995c92d-a245-40ca-b5e9-5aeac96f532d">
+<node id="0">
 <data key="name">E7</data>
 <data key="value">6875.493541569879</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: DEGREES(B5); Formula values: DEGREES(120.0);</data>
 </node>
-<node id="3dcf736d-2457-4cd4-8ff8-5555cad52a92">
+<node id="1">
 <data key="name">B5</data>
 <data key="value">120.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B5; Formula values: 120.0;</data>
 </node>
-<node id="53431abc-c39c-4ecf-b16c-4e812ba7ca84">
+<node id="2">
 <data key="name">DEGREES</data>
 <data key="value">6875.493541569879</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: DEGREES(B5); Formula values: DEGREES(120.0);</data>
 </node>
-<edge source="3dcf736d-2457-4cd4-8ff8-5555cad52a92" target="53431abc-c39c-4ecf-b16c-4e812ba7ca84"/>
-<edge source="53431abc-c39c-4ecf-b16c-4e812ba7ca84" target="7995c92d-a245-40ca-b5e9-5aeac96f532d"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

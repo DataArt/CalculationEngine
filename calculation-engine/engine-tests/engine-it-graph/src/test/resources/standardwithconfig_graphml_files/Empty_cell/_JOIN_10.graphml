@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_10">
-<node id="51b33536-aade-4e59-a7ab-f773264c958a">
+<node id="0">
 <data key="name">A1</data>
 <data key="value">12.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: VALUE; Formula values: 12.0;</data>
 </node>
-<node id="069e59c3-c269-41fc-a563-f17e1e7fd00c">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">12.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 12.0;</data>
 </node>
-<node id="893fcbdd-05c4-4930-902c-b68d6e9257d4">
+<node id="2">
 <data key="name">E5</data>
 <data key="value">115.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: SUM(E1:E4); Formula values: SUM(5.0, 7.0, 57.0, 46.0);</data>
 </node>
-<node id="21bcbc2f-69f4-40b6-817d-c1306803b22d">
+<node id="3">
 <data key="name">E1:E4</data>
 <data key="value">[[5.0], [7.0], [57.0], [46.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula string: E1:E4; Formula values: [[5.0], [7.0], [57.0], [46.0]];</data>
 </node>
-<node id="af1e0e42-f715-45f7-b04a-bf151ffa7a15">
+<node id="4">
 <data key="name">SUM</data>
 <data key="value">115.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(E1:E4); Formula values: SUM(5.0, 7.0, 57.0, 46.0);</data>
 </node>
-<edge source="069e59c3-c269-41fc-a563-f17e1e7fd00c" target="51b33536-aade-4e59-a7ab-f773264c958a"/>
-<edge source="21bcbc2f-69f4-40b6-817d-c1306803b22d" target="af1e0e42-f715-45f7-b04a-bf151ffa7a15"/>
-<edge source="af1e0e42-f715-45f7-b04a-bf151ffa7a15" target="893fcbdd-05c4-4930-902c-b68d6e9257d4"/>
+<edge source="1" target="0"/>
+<edge source="3" target="4"/>
+<edge source="4" target="2"/>
 </graph>
 </graphml>

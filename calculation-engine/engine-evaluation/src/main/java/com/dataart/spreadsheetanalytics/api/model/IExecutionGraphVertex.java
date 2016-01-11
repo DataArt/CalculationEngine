@@ -37,7 +37,7 @@ public interface IExecutionGraphVertex extends Comparable<IExecutionGraphVertex>
     /**
      * Id of this vertex. Should be unique in scope of one ExecutionGraph
      */
-    Object id();
+    int id();
     
     /**
      * Name of vertex, since vertices can be different in type, 

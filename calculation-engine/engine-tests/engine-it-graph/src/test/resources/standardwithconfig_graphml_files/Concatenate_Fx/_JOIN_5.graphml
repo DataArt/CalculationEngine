@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_5">
-<node id="edfdc9da-81e0-4cca-be49-74604c0440f5">
+<node id="0">
 <data key="name">D5</data>
 <data key="value">Why do you think so?</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula values: CONCATENATE(?, so, think , you , do , Why );</data>
 </node>
-<node id="4d746677-edf3-4a6a-ae69-8bac585aa910">
+<node id="1">
 <data key="name">A1</data>
 <data key="value">Why </data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A1; Formula values: Why ;</data>
 </node>
-<node id="db0e060c-428e-40c6-8e90-ac770f6a3af1">
+<node id="2">
 <data key="name">B1</data>
 <data key="value">do </data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B1; Formula values: do ;</data>
 </node>
-<node id="f6d12141-1c7e-4f70-93a1-d170aed4f0b4">
+<node id="3">
 <data key="name">C1</data>
 <data key="value">you </data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C1; Formula values: you ;</data>
 </node>
-<node id="c8608308-a41e-4d8e-ba5c-ed1f04ef92a3">
+<node id="4">
 <data key="name">B2</data>
 <data key="value">think </data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B2; Formula values: think ;</data>
 </node>
-<node id="1caa532b-502a-452f-b5cf-bedd07b063df">
+<node id="5">
 <data key="name">C2</data>
 <data key="value">so</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C2; Formula values: so;</data>
 </node>
-<node id="66c11159-6d21-4594-b3f4-d9150925b21f">
+<node id="6">
 <data key="name">C3</data>
 <data key="value">?</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C3; Formula values: ?;</data>
 </node>
-<node id="85c26cfc-8613-4844-a5f9-0978b6460ec1">
+<node id="7">
 <data key="name">CONCATENATE</data>
 <data key="value">Why do you think so?</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: CONCATENATE(C3, C2, B2, C1, B1, A1); Formula values: CONCATENATE(?, so, think , you , do , Why );</data>
 </node>
-<edge source="66c11159-6d21-4594-b3f4-d9150925b21f" target="85c26cfc-8613-4844-a5f9-0978b6460ec1"/>
-<edge source="1caa532b-502a-452f-b5cf-bedd07b063df" target="85c26cfc-8613-4844-a5f9-0978b6460ec1"/>
-<edge source="c8608308-a41e-4d8e-ba5c-ed1f04ef92a3" target="85c26cfc-8613-4844-a5f9-0978b6460ec1"/>
-<edge source="f6d12141-1c7e-4f70-93a1-d170aed4f0b4" target="85c26cfc-8613-4844-a5f9-0978b6460ec1"/>
-<edge source="db0e060c-428e-40c6-8e90-ac770f6a3af1" target="85c26cfc-8613-4844-a5f9-0978b6460ec1"/>
-<edge source="4d746677-edf3-4a6a-ae69-8bac585aa910" target="85c26cfc-8613-4844-a5f9-0978b6460ec1"/>
-<edge source="85c26cfc-8613-4844-a5f9-0978b6460ec1" target="edfdc9da-81e0-4cca-be49-74604c0440f5"/>
+<edge source="6" target="7"/>
+<edge source="5" target="7"/>
+<edge source="4" target="7"/>
+<edge source="3" target="7"/>
+<edge source="2" target="7"/>
+<edge source="1" target="7"/>
+<edge source="7" target="0"/>
 </graph>
 </graphml>

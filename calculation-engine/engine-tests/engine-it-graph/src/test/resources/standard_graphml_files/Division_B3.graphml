@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B3">
-<node id="6926f421-dffd-44f6-b401-99ddbd95b171">
+<node id="0">
 <data key="name">B3</data>
 <data key="value">4.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A1 / A2; Formula values: 100.0 / 25.0;</data>
 </node>
-<node id="2079e98f-3721-401b-8ce7-ce7975585dcd">
+<node id="1">
 <data key="name">A1</data>
 <data key="value">100.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A1; Formula values: 100.0;</data>
 </node>
-<node id="f44198a1-d179-4d3c-8815-fc725f16df42">
+<node id="2">
 <data key="name">A2</data>
 <data key="value">25.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A2; Formula values: 25.0;</data>
 </node>
-<node id="9783ac6d-28b4-441c-b61a-daea9eb8863f">
+<node id="3">
 <data key="name">/</data>
 <data key="value">4.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: A1 / A2; Formula values: 100.0 / 25.0;</data>
 </node>
-<edge source="f44198a1-d179-4d3c-8815-fc725f16df42" target="9783ac6d-28b4-441c-b61a-daea9eb8863f"/>
-<edge source="2079e98f-3721-401b-8ce7-ce7975585dcd" target="9783ac6d-28b4-441c-b61a-daea9eb8863f"/>
-<edge source="9783ac6d-28b4-441c-b61a-daea9eb8863f" target="6926f421-dffd-44f6-b401-99ddbd95b171"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="3" target="0"/>
 </graph>
 </graphml>

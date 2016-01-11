@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="65ab5582-5d7c-4b42-b79e-b8fa4c3c2d4a">
+<node id="0">
 <data key="name">E6</data>
 <data key="value">#REF!</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
 </node>
-<node id="883ab7a8-4b80-438e-afbb-b3df0333a26e">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">#REF!</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
 </node>
-<node id="325cc884-097a-4589-ba8f-f8645c85bb5e">
+<node id="2">
 <data key="name">VALUE</data>
 <data key="value">#REF!</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
 </node>
-<node id="492c80b9-a1e8-4797-a491-e87ee6260ec5">
+<node id="3">
 <data key="name">D5</data>
 <data key="value">9.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: D5; Formula values: 9.0;</data>
 </node>
-<node id="451c775f-2829-4f20-87e2-aa0f6abd1012">
+<node id="4">
 <data key="name">SUM</data>
 <data key="value">#REF!</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(D5, VALUE, VALUE); Formula values: SUM(9.0, #REF!, #REF!);</data>
 </node>
-<edge source="492c80b9-a1e8-4797-a491-e87ee6260ec5" target="451c775f-2829-4f20-87e2-aa0f6abd1012"/>
-<edge source="325cc884-097a-4589-ba8f-f8645c85bb5e" target="451c775f-2829-4f20-87e2-aa0f6abd1012"/>
-<edge source="883ab7a8-4b80-438e-afbb-b3df0333a26e" target="451c775f-2829-4f20-87e2-aa0f6abd1012"/>
-<edge source="451c775f-2829-4f20-87e2-aa0f6abd1012" target="65ab5582-5d7c-4b42-b79e-b8fa4c3c2d4a"/>
+<edge source="3" target="4"/>
+<edge source="2" target="4"/>
+<edge source="1" target="4"/>
+<edge source="4" target="0"/>
 </graph>
 </graphml>

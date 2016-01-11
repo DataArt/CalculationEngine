@@ -43,19 +43,19 @@ public class Excel_XXX_Test extends SerializedGraphTest {
     static String suffix4 = "JOIN_10";
     
     IAuditor auditor = null;
-    
+
     @Before
     public void beforeTest() throws Exception {
-        final IDataModel model = new DataModel(path, path);
-        GraphTestUtil.initExternalServices((DataModel) model);
-        auditor = new SpreadsheetAuditor(new SpreadsheetEvaluator((DataModel) model));        
+        final IDataModel model = Converters.toDataModel(new XSSFWorkbook(path));
+        GraphTestUtil.initExternalServices(model);
+        auditor = new SpreadsheetAuditor(model);
     }
 
     @After
     public void afterTest() throws Exception {
         super.after();
     }
-    
+
     @Test
     public void assert_ExcelFile_SerializedGraph_No_Join() throws Exception {
         graph = auditor.buildExecutionGraph();

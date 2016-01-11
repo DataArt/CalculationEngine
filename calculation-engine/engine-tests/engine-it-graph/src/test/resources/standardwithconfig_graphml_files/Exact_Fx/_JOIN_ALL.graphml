@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_ALL">
-<node id="a718b608-928f-400f-bbad-9a820a878d70">
+<node id="0">
 <data key="name">E5</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EXACT(B2, A2); Formula values: EXACT(56.0, 23.0);</data>
 </node>
-<node id="a32473bd-6396-4bd7-bdc0-90cda37d2a5b">
+<node id="1">
 <data key="name">A2</data>
 <data key="value">23.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A2; Formula values: 23.0;</data>
 </node>
-<node id="1db47dde-22d3-497d-9634-22fc2d17ae1b">
+<node id="2">
 <data key="name">B2</data>
 <data key="value">56.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B2; Formula values: 56.0;</data>
 </node>
-<node id="12447ece-43d3-4b99-9527-a889c50f8cd3">
+<node id="3">
 <data key="name">EXACT</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: EXACT(B2, A2); Formula values: EXACT(56.0, 23.0);</data>
 </node>
-<node id="3dc177cb-7f35-49ef-a856-00216edd68bf">
+<node id="4">
 <data key="name">E6</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EXACT(C3, C2); Formula values: EXACT(76.0, 76.0);</data>
 </node>
-<node id="8df9a0d5-46f5-4cd0-953e-a428c09be4a4">
+<node id="5">
 <data key="name">C2</data>
 <data key="value">76.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C2; Formula values: 76.0;</data>
 </node>
-<node id="468ae1db-326c-498c-b20d-d9a41cb15574">
+<node id="6">
 <data key="name">C3</data>
 <data key="value">76.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: C3; Formula values: 76.0;</data>
 </node>
-<node id="fd49fb47-213d-4d91-b018-653c1cfb423f">
+<node id="7">
 <data key="name">EXACT</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: EXACT(C3, C2); Formula values: EXACT(76.0, 76.0);</data>
 </node>
-<edge source="1db47dde-22d3-497d-9634-22fc2d17ae1b" target="12447ece-43d3-4b99-9527-a889c50f8cd3"/>
-<edge source="a32473bd-6396-4bd7-bdc0-90cda37d2a5b" target="12447ece-43d3-4b99-9527-a889c50f8cd3"/>
-<edge source="12447ece-43d3-4b99-9527-a889c50f8cd3" target="a718b608-928f-400f-bbad-9a820a878d70"/>
-<edge source="468ae1db-326c-498c-b20d-d9a41cb15574" target="fd49fb47-213d-4d91-b018-653c1cfb423f"/>
-<edge source="8df9a0d5-46f5-4cd0-953e-a428c09be4a4" target="fd49fb47-213d-4d91-b018-653c1cfb423f"/>
-<edge source="fd49fb47-213d-4d91-b018-653c1cfb423f" target="3dc177cb-7f35-49ef-a856-00216edd68bf"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="3" target="0"/>
+<edge source="6" target="7"/>
+<edge source="5" target="7"/>
+<edge source="7" target="4"/>
 </graph>
 </graphml>

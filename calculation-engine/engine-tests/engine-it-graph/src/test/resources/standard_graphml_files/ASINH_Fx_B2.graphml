@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B2">
-<node id="b0e3307d-4ad5-4f78-8c6d-dc44494055b5">
+<node id="0">
 <data key="name">B2</data>
 <data key="value">-1.6472311463710965</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ASINH(VALUE); Formula values: ASINH(-2.5);</data>
 </node>
-<node id="0abd96eb-b292-41b1-b8f8-2206f3eec000">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">-2.5</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: -2.5;</data>
 </node>
-<node id="f41ed8a5-65e6-4086-9ed6-ecd26b5e6a53">
+<node id="2">
 <data key="name">ASINH</data>
 <data key="value">-1.6472311463710965</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ASINH(VALUE); Formula values: ASINH(-2.5);</data>
 </node>
-<edge source="0abd96eb-b292-41b1-b8f8-2206f3eec000" target="f41ed8a5-65e6-4086-9ed6-ecd26b5e6a53"/>
-<edge source="f41ed8a5-65e6-4086-9ed6-ecd26b5e6a53" target="b0e3307d-4ad5-4f78-8c6d-dc44494055b5"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

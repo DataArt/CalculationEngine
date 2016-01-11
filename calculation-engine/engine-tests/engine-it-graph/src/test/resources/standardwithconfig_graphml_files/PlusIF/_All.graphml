@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="All">
-<node id="2aee9128-9d18-4da5-b2cf-5e9a0ba69602">
+<node id="0">
 <data key="name">A1</data>
 <data key="value">6.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
 </node>
-<node id="53d98e43-d5b0-409c-b31b-bf7044409c04">
+<node id="1">
 <data key="name">A3</data>
 <data key="value">3.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A3; Formula values: 3.0;</data>
 </node>
-<node id="fca03a73-3acd-45a8-905a-a3e7d2bd96b1">
+<node id="2">
 <data key="name">A4</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A4; Formula values: 5.0;</data>
 </node>
-<node id="954648d4-496e-42d2-b1fd-bceb1888e036">
+<node id="3">
 <data key="name">&gt;</data>
 <data key="value">FALSE</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: A3 &gt; A4; Formula values: 3.0 &gt; 5.0;</data>
 </node>
-<node id="48dd14d1-af23-497a-a1e2-4529c8cd8025">
+<node id="4">
 <data key="name">IF</data>
 <data key="value">6.0</data>
 <data key="type">IF</data>
 <data key="formula">Formula string: IF(A3&gt;A4,B3,B4); Formula values: IF(3.0 &gt; 5.0, 6.0);</data>
 </node>
-<node id="457c5bc1-3c6b-4c84-b9ce-05c4b7c790e2">
+<node id="5">
 <data key="name">B4</data>
 <data key="value">6.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B4; Formula values: 6.0;</data>
 </node>
-<node id="85c3f876-ef9c-4787-b486-6b7e6453b882">
+<node id="7">
 <data key="name">+</data>
 <data key="value">6.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
 </node>
-<edge source="fca03a73-3acd-45a8-905a-a3e7d2bd96b1" target="954648d4-496e-42d2-b1fd-bceb1888e036"/>
-<edge source="53d98e43-d5b0-409c-b31b-bf7044409c04" target="954648d4-496e-42d2-b1fd-bceb1888e036"/>
-<edge source="457c5bc1-3c6b-4c84-b9ce-05c4b7c790e2" target="48dd14d1-af23-497a-a1e2-4529c8cd8025"/>
-<edge source="954648d4-496e-42d2-b1fd-bceb1888e036" target="48dd14d1-af23-497a-a1e2-4529c8cd8025"/>
-<edge source="48dd14d1-af23-497a-a1e2-4529c8cd8025" target="85c3f876-ef9c-4787-b486-6b7e6453b882"/>
-<edge source="85c3f876-ef9c-4787-b486-6b7e6453b882" target="2aee9128-9d18-4da5-b2cf-5e9a0ba69602"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="5" target="4"/>
+<edge source="3" target="4"/>
+<edge source="4" target="7"/>
+<edge source="7" target="0"/>
 </graph>
 </graphml>

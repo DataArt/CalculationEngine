@@ -5,8 +5,8 @@ import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphEdge;
 public class ExecutionGraphEdgeML extends ExecutionGraphEdge {
     private static final long serialVersionUID = 1L;
     
-    public String sourceId;
-    public String targetId;
+    public int sourceId;
+    public int targetId;
     
 
 }

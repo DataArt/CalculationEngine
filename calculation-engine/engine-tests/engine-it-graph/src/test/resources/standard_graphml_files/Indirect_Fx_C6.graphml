@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="C6">
-<node id="6857a25b-3306-4cbc-b64a-423cbb5b9ca0">
+<node id="0">
 <data key="name">C6</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: VALUE + VALUE; Formula values: 2.0 + 3.0;</data>
 </node>
-<node id="a687951f-271f-4011-8353-b7ff36e369ac">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">2.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<node id="40955f8c-50ee-48a8-ae51-df937b2b5b8b">
+<node id="2">
 <data key="name">VALUE</data>
 <data key="value">3.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
 </node>
-<node id="a7f2ed21-7f57-473d-82a1-ee06d94585db">
+<node id="3">
 <data key="name">+</data>
 <data key="value">5.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: VALUE + VALUE; Formula values: 2.0 + 3.0;</data>
 </node>
-<edge source="40955f8c-50ee-48a8-ae51-df937b2b5b8b" target="a7f2ed21-7f57-473d-82a1-ee06d94585db"/>
-<edge source="a687951f-271f-4011-8353-b7ff36e369ac" target="a7f2ed21-7f57-473d-82a1-ee06d94585db"/>
-<edge source="a7f2ed21-7f57-473d-82a1-ee06d94585db" target="6857a25b-3306-4cbc-b64a-423cbb5b9ca0"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="3" target="0"/>
 </graph>
 </graphml>

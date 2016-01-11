@@ -1,29 +1,29 @@
 var nodes = new vis.DataSet([
                              /* {id: a, label: b, ...}, */
-{id: 'bbf9b76d-69eb-4894-afa0-e983307f13a4', label: 'T\nwhy not?', color: '#f0ad4e', title: 'Name: T<br>Value: why not?<br>Type: FUNCTION<br>Id: bbf9b76d-69eb-4894-afa0-e983307f13a4<br>Formula Expression: Formula String: T(C3); Formula Values: T(why not?); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: '0130e88f-4d83-409c-ab10-db7265a8bfce', label: 'D3\n52.0', color: '#31b0d5', title: 'Name: D3<br>Value: 52.0<br>Type: CELL_WITH_VALUE<br>Id: 0130e88f-4d83-409c-ab10-db7265a8bfce<br>Formula Expression: Formula String: D3; Formula Values: 52.0; Formula Ptg: 52.0; Ptgs: D3 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: 'ff83b564-19d4-4d8d-8d21-66c6925d5f25', label: 'B1\nexpected', color: '#31b0d5', title: 'Name: B1<br>Value: expected<br>Type: CELL_WITH_VALUE<br>Id: ff83b564-19d4-4d8d-8d21-66c6925d5f25<br>Formula Expression: Formula String: B1; Formula Values: expected; Formula Ptg: expected; Ptgs: B1 Index in Ptgs: 6 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: 'a2acb389-8573-4a38-bbcd-9e91ba8e3f37', label: 'A2\nSun', color: '#31b0d5', title: 'Name: A2<br>Value: Sun<br>Type: CELL_WITH_VALUE<br>Id: a2acb389-8573-4a38-bbcd-9e91ba8e3f37<br>Formula Expression: Formula String: A2; Formula Values: Sun; Formula Ptg: Sun; Ptgs: A2 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: 'c7d274fd-7588-4a05-872e-8a1edbd7e35f', label: 'T\n', color: '#f0ad4e', title: 'Name: T<br>Value: <br>Type: FUNCTION<br>Id: c7d274fd-7588-4a05-872e-8a1edbd7e35f<br>Formula Expression: Formula String: T(D3); Formula Values: T(52.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: '0ade37a7-5c4f-43c2-acf7-c2e4655b4a76', label: 'C1\nis', color: '#31b0d5', title: 'Name: C1<br>Value: is<br>Type: CELL_WITH_VALUE<br>Id: 0ade37a7-5c4f-43c2-acf7-c2e4655b4a76<br>Formula Expression: Formula String: C1; Formula Values: is; Formula Ptg: is; Ptgs: C1 Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: 'f6381bcb-c5f5-4b71-a67a-667d9a2696e9', label: 'D6\n', color: '#31b0d5', title: 'Name: D6<br>Value: <br>Type: CELL_WITH_FORMULA<br>Id: f6381bcb-c5f5-4b71-a67a-667d9a2696e9<br>Formula Expression: Formula String: T(D3); Formula Values: T(52.0); Formula Ptg: 52.0 T ; Ptgs: D3 T  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: 'cb0be1d2-1db2-479f-8803-e9d8cd2be661', label: '=\nFALSE', color: '#f0ad4e', title: 'Name: =<br>Value: FALSE<br>Type: OPERATOR<br>Id: cb0be1d2-1db2-479f-8803-e9d8cd2be661<br>Formula Expression: Formula String: A2 = C1; Formula Values: Sun = is; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: 'd4b2eb84-d195-4494-a63a-4e256fe90198', label: 'D2\nexpected', color: '#31b0d5', title: 'Name: D2<br>Value: expected<br>Type: CELL_WITH_FORMULA<br>Id: d4b2eb84-d195-4494-a63a-4e256fe90198<br>Formula Expression: Formula String: IF(A2=C1,B4,B1); Formula Values: IF(Sun = is, expected); Formula Ptg: expected, Sun is = IF ; Ptgs: B1, A2 C1 = IF  Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: '91124396-8639-4618-954b-8b852fe5fd77', label: 'IF\nexpected', color: '#f0ad4e', title: 'Name: IF<br>Value: expected<br>Type: IF<br>Id: 91124396-8639-4618-954b-8b852fe5fd77<br>Formula Expression: Formula String: IF(A2=C1,B4,B1); Formula Values: IF(Sun = is, expected); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: '8c549edd-93a5-4091-9d54-76f3db188831', label: 'C3\nwhy not?', color: '#31b0d5', title: 'Name: C3<br>Value: why not?<br>Type: CELL_WITH_VALUE<br>Id: 8c549edd-93a5-4091-9d54-76f3db188831<br>Formula Expression: Formula String: C3; Formula Values: why not?; Formula Ptg: why not?; Ptgs: C3 Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'},
-{id: 'ae7d7272-74b0-49b6-86ac-e824e81a39d1', label: 'D5\nwhy not?', color: '#31b0d5', title: 'Name: D5<br>Value: why not?<br>Type: CELL_WITH_FORMULA<br>Id: ae7d7272-74b0-49b6-86ac-e824e81a39d1<br>Formula Expression: Formula String: T(C3); Formula Values: T(why not?); Formula Ptg: why not? T ; Ptgs: C3 T  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@1f1c7fde'}
+{id: '2', label: 'C1\nis', color: '#31b0d5', title: 'Name: C1<br>Alias: null<br>Value: is<br>Type: CELL_WITH_VALUE<br>Id: 2<br>Formula Expression: Formula String: C1; Formula Values: is; Formula Ptg: is; Ptgs: C1 Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '7', label: 'D5\nwhy not?', color: '#31b0d5', title: 'Name: D5<br>Alias: null<br>Value: why not?<br>Type: CELL_WITH_FORMULA<br>Id: 7<br>Formula Expression: Formula String: T(C3); Formula Values: T(why not?); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '5', label: 'B1\nexpected', color: '#31b0d5', title: 'Name: B1<br>Alias: null<br>Value: expected<br>Type: CELL_WITH_VALUE<br>Id: 5<br>Formula Expression: Formula String: B1; Formula Values: expected; Formula Ptg: expected; Ptgs: B1 Index in Ptgs: 6 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '11', label: 'D3\n52.0', color: '#31b0d5', title: 'Name: D3<br>Alias: null<br>Value: 52.0<br>Type: CELL_WITH_VALUE<br>Id: 11<br>Formula Expression: Formula String: D3; Formula Values: 52.0; Formula Ptg: 52.0; Ptgs: D3 Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '10', label: 'D6\n', color: '#31b0d5', title: 'Name: D6<br>Alias: null<br>Value: <br>Type: CELL_WITH_FORMULA<br>Id: 10<br>Formula Expression: Formula String: T(D3); Formula Values: T(52.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '3', label: '=\nFALSE', color: '#f0ad4e', title: 'Name: =<br>Alias: null<br>Value: FALSE<br>Type: OPERATOR<br>Id: 3<br>Formula Expression: Formula String: A2 = C1; Formula Values: Sun = is; Formula Ptg: ; Ptgs:  Index in Ptgs: 2 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '4', label: 'IF\nexpected', color: '#f0ad4e', title: 'Name: IF<br>Alias: null<br>Value: expected<br>Type: IF<br>Id: 4<br>Formula Expression: Formula String: IF(A2=C1,B4,B1); Formula Values: IF(Sun = is, expected); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: 55fd943b-8fa0-1da2-1d62-dfafd4ebcf76'},
+{id: '12', label: 'T\n', color: '#f0ad4e', title: 'Name: T<br>Alias: null<br>Value: <br>Type: FUNCTION<br>Id: 12<br>Formula Expression: Formula String: T(D3); Formula Values: T(52.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '0', label: 'D2\nexpected', color: '#31b0d5', title: 'Name: D2<br>Alias: null<br>Value: expected<br>Type: CELL_WITH_FORMULA<br>Id: 0<br>Formula Expression: Formula String: IF(A2=C1,B4,B1); Formula Values: IF(Sun = is, expected); Formula Ptg: ; Ptgs:  Index in Ptgs: 3 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '9', label: 'T\nwhy not?', color: '#f0ad4e', title: 'Name: T<br>Alias: null<br>Value: why not?<br>Type: FUNCTION<br>Id: 9<br>Formula Expression: Formula String: T(C3); Formula Values: T(why not?); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '8', label: 'C3\nwhy not?', color: '#31b0d5', title: 'Name: C3<br>Alias: null<br>Value: why not?<br>Type: CELL_WITH_VALUE<br>Id: 8<br>Formula Expression: Formula String: C3; Formula Values: why not?; Formula Ptg: why not?; Ptgs: C3 Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'},
+{id: '1', label: 'A2\nSun', color: '#31b0d5', title: 'Name: A2<br>Alias: null<br>Value: Sun<br>Type: CELL_WITH_VALUE<br>Id: 1<br>Formula Expression: Formula String: A2; Formula Values: Sun; Formula Ptg: Sun; Ptgs: A2 Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@4516c2ef'}
                             ]);
 
 
 var edges = new vis.DataSet([
                              /* {from: id_a, to: id_b}, */
-{from: '8c549edd-93a5-4091-9d54-76f3db188831', to: 'bbf9b76d-69eb-4894-afa0-e983307f13a4'},
-{from: 'c7d274fd-7588-4a05-872e-8a1edbd7e35f', to: 'f6381bcb-c5f5-4b71-a67a-667d9a2696e9'},
-{from: '0ade37a7-5c4f-43c2-acf7-c2e4655b4a76', to: 'cb0be1d2-1db2-479f-8803-e9d8cd2be661'},
-{from: '91124396-8639-4618-954b-8b852fe5fd77', to: 'd4b2eb84-d195-4494-a63a-4e256fe90198'},
-{from: 'ff83b564-19d4-4d8d-8d21-66c6925d5f25', to: '91124396-8639-4618-954b-8b852fe5fd77'},
-{from: 'bbf9b76d-69eb-4894-afa0-e983307f13a4', to: 'ae7d7272-74b0-49b6-86ac-e824e81a39d1'},
-{from: '0130e88f-4d83-409c-ab10-db7265a8bfce', to: 'c7d274fd-7588-4a05-872e-8a1edbd7e35f'},
-{from: 'a2acb389-8573-4a38-bbcd-9e91ba8e3f37', to: 'cb0be1d2-1db2-479f-8803-e9d8cd2be661'},
-{from: 'cb0be1d2-1db2-479f-8803-e9d8cd2be661', to: '91124396-8639-4618-954b-8b852fe5fd77'}
+{from: '8', to: '9'},
+{from: '4', to: '0'},
+{from: '9', to: '7'},
+{from: '3', to: '4'},
+{from: '11', to: '12'},
+{from: '5', to: '4'},
+{from: '2', to: '3'},
+{from: '1', to: '3'},
+{from: '12', to: '10'}
                             ]);

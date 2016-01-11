@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="B1">
-<node id="47137135-933e-4c96-a639-db006005b0d6">
+<node id="0">
 <data key="name">B1</data>
 <data key="value">15.154262241479259</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EXP(EXP(VALUE)); Formula values: EXP(EXP(1.0));</data>
 </node>
-<node id="16c984db-f479-4abb-af04-35669dce68a5">
+<node id="1">
 <data key="name">A1</data>
 <data key="value">2.718281828459045</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EXP(VALUE); Formula values: EXP(1.0);</data>
 </node>
-<node id="1aa6d200-8dcd-4901-8c38-3eea84f49da7">
+<node id="2">
 <data key="name">VALUE</data>
 <data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
 </node>
-<node id="d20313b1-801b-45fb-a01c-962d328105db">
+<node id="3">
 <data key="name">EXP</data>
 <data key="value">2.718281828459045</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: EXP(VALUE); Formula values: EXP(1.0);</data>
 </node>
-<node id="dfd8f6ae-62d0-4810-b6e5-99807ee024fe">
+<node id="4">
 <data key="name">EXP</data>
 <data key="value">15.154262241479259</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: EXP(EXP(VALUE)); Formula values: EXP(EXP(1.0));</data>
 </node>
-<edge source="1aa6d200-8dcd-4901-8c38-3eea84f49da7" target="d20313b1-801b-45fb-a01c-962d328105db"/>
-<edge source="d20313b1-801b-45fb-a01c-962d328105db" target="16c984db-f479-4abb-af04-35669dce68a5"/>
-<edge source="16c984db-f479-4abb-af04-35669dce68a5" target="dfd8f6ae-62d0-4810-b6e5-99807ee024fe"/>
-<edge source="dfd8f6ae-62d0-4810-b6e5-99807ee024fe" target="47137135-933e-4c96-a639-db006005b0d6"/>
+<edge source="2" target="3"/>
+<edge source="3" target="1"/>
+<edge source="1" target="4"/>
+<edge source="4" target="0"/>
 </graph>
 </graphml>

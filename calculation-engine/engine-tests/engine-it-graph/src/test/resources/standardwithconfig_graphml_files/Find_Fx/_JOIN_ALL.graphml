@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_ALL">
-<node id="1b1fe7c1-4497-41e7-bd0f-348318a40d1a">
+<node id="0">
 <data key="name">A5</data>
 <data key="value">6.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: FIND(A1, VALUE); Formula values: FIND(Some text for test, text);</data>
 </node>
-<node id="896a52fa-90b3-4850-a805-659ff642d6f4">
+<node id="1">
 <data key="name">VALUE</data>
 <data key="value">text</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: text;</data>
 </node>
-<node id="ff5391e2-8efd-4ca4-a398-67924e26bbd7">
+<node id="2">
 <data key="name">A1</data>
 <data key="value">Some text for test</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A1; Formula values: Some text for test;</data>
 </node>
-<node id="b10ed774-0a48-41cb-b45f-08c6e5fa51a8">
+<node id="3">
 <data key="name">FIND</data>
 <data key="value">6.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: FIND(A1, VALUE); Formula values: FIND(Some text for test, text);</data>
 </node>
-<edge source="ff5391e2-8efd-4ca4-a398-67924e26bbd7" target="b10ed774-0a48-41cb-b45f-08c6e5fa51a8"/>
-<edge source="896a52fa-90b3-4850-a805-659ff642d6f4" target="b10ed774-0a48-41cb-b45f-08c6e5fa51a8"/>
-<edge source="b10ed774-0a48-41cb-b45f-08c6e5fa51a8" target="1b1fe7c1-4497-41e7-bd0f-348318a40d1a"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="3" target="0"/>
 </graph>
 </graphml>

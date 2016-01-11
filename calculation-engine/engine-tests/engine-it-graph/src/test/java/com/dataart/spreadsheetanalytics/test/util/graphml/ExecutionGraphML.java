@@ -12,7 +12,7 @@ public class ExecutionGraphML extends ExecutionGraph {
     List<ExecutionGraphVertexML> verticesML;
     List<ExecutionGraphEdgeML> edgesML;
     public Map<String, List<ExecutionGraphVertexML>> verticesIndexName;
-    public Map<String, ExecutionGraphVertexML> verticesIndexId;
+    public Map<Integer, ExecutionGraphVertexML> verticesIndexId;
     
     public ExecutionGraphML() {
         this.verticesML = new LinkedList<>();

@@ -1,24 +1,24 @@
 var nodes = new vis.DataSet([
                              /* {id: a, label: b, ...}, */
-{id: 'a3b8e6f2-aaf2-49c7-8a23-3663df991f3e', label: 'A2\n7.3890560989306495', color: '#31b0d5', title: 'Name: A2<br>Value: 7.3890560989306495<br>Type: CELL_WITH_FORMULA<br>Id: a3b8e6f2-aaf2-49c7-8a23-3663df991f3e<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(2.0); Formula Ptg: 2.0 EXP ; Ptgs: VALUE EXP  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: 'c76000aa-bf8b-4b4b-90e4-d83d95f99f6c', label: 'A1\n2.718281828459045', color: '#31b0d5', title: 'Name: A1<br>Value: 2.718281828459045<br>Type: CELL_WITH_FORMULA<br>Id: c76000aa-bf8b-4b4b-90e4-d83d95f99f6c<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(1.0); Formula Ptg: 1.0 EXP ; Ptgs: VALUE EXP  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: 'e73be36e-5ba2-41b2-acf7-f0d7dbfb2998', label: 'VALUE\n1.0', color: '#31b0d5', title: 'Name: VALUE<br>Value: 1.0<br>Type: CONSTANT_VALUE<br>Id: e73be36e-5ba2-41b2-acf7-f0d7dbfb2998<br>Formula Expression: Formula String: VALUE; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: 'ef0b586c-57b1-4d09-804b-e3fdbdcd57bd', label: 'A1\n2.718281828459045', color: '#31b0d5', title: 'Name: A1<br>Value: 2.718281828459045<br>Type: CELL_WITH_FORMULA<br>Id: ef0b586c-57b1-4d09-804b-e3fdbdcd57bd<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(1.0); Formula Ptg: 1.0 EXP ; Ptgs: VALUE EXP  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: '8ad2db4b-356f-4186-a2fb-7f28cea2353c', label: 'VALUE\n2.0', color: '#31b0d5', title: 'Name: VALUE<br>Value: 2.0<br>Type: CONSTANT_VALUE<br>Id: 8ad2db4b-356f-4186-a2fb-7f28cea2353c<br>Formula Expression: Formula String: VALUE; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: '1ed83c5a-63f5-442a-83f0-d4e7d077142e', label: 'EXP\n7.3890560989306495', color: '#f0ad4e', title: 'Name: EXP<br>Value: 7.3890560989306495<br>Type: FUNCTION<br>Id: 1ed83c5a-63f5-442a-83f0-d4e7d077142e<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(2.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: 'dd371849-b875-4900-a829-99cc8cd3c1f1', label: 'EXP\n15.154262241479259', color: '#f0ad4e', title: 'Name: EXP<br>Value: 15.154262241479259<br>Type: FUNCTION<br>Id: dd371849-b875-4900-a829-99cc8cd3c1f1<br>Formula Expression: Formula String: EXP(EXP(VALUE)); Formula Values: EXP(EXP(1.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: '10d09a34-22d2-441d-9ad1-5a13865b6136', label: 'EXP\n2.718281828459045', color: '#f0ad4e', title: 'Name: EXP<br>Value: 2.718281828459045<br>Type: FUNCTION<br>Id: 10d09a34-22d2-441d-9ad1-5a13865b6136<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'},
-{id: 'e47bd01a-26bf-4b38-8ae6-88c2f64510a3', label: 'B1\n15.154262241479259', color: '#31b0d5', title: 'Name: B1<br>Value: 15.154262241479259<br>Type: CELL_WITH_FORMULA<br>Id: e47bd01a-26bf-4b38-8ae6-88c2f64510a3<br>Formula Expression: Formula String: EXP(EXP(VALUE)); Formula Values: EXP(EXP(1.0)); Formula Ptg: 1.0 EXP  EXP ; Ptgs: VALUE EXP  EXP  Index in Ptgs: 1 <br>Source Object Id: org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook@6e1d939e'}
+{id: '7', label: 'VALUE\n2.0', color: '#31b0d5', title: 'Name: VALUE<br>Alias: null<br>Value: 2.0<br>Type: CONSTANT_VALUE<br>Id: 7<br>Formula Expression: Formula String: VALUE; Formula Values: 2.0; Formula Ptg: 2.0; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '0', label: 'A1\n2.718281828459045', color: '#31b0d5', title: 'Name: A1<br>Alias: null<br>Value: 2.718281828459045<br>Type: CELL_WITH_FORMULA<br>Id: 0<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '1', label: 'VALUE\n1.0', color: '#31b0d5', title: 'Name: VALUE<br>Alias: null<br>Value: 1.0<br>Type: CONSTANT_VALUE<br>Id: 1<br>Formula Expression: Formula String: VALUE; Formula Values: 1.0; Formula Ptg: 1.0; Ptgs: VALUE Index in Ptgs: 0 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '4', label: 'A1\n2.718281828459045', color: '#31b0d5', title: 'Name: A1<br>Alias: null<br>Value: 2.718281828459045<br>Type: CELL_WITH_FORMULA<br>Id: 4<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '2', label: 'EXP\n2.718281828459045', color: '#f0ad4e', title: 'Name: EXP<br>Alias: null<br>Value: 2.718281828459045<br>Type: FUNCTION<br>Id: 2<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(1.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '8', label: 'EXP\n7.3890560989306495', color: '#f0ad4e', title: 'Name: EXP<br>Alias: null<br>Value: 7.3890560989306495<br>Type: FUNCTION<br>Id: 8<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(2.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '3', label: 'B1\n15.154262241479259', color: '#31b0d5', title: 'Name: B1<br>Alias: null<br>Value: 15.154262241479259<br>Type: CELL_WITH_FORMULA<br>Id: 3<br>Formula Expression: Formula String: EXP(EXP(VALUE)); Formula Values: EXP(EXP(1.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '6', label: 'A2\n7.3890560989306495', color: '#31b0d5', title: 'Name: A2<br>Alias: null<br>Value: 7.3890560989306495<br>Type: CELL_WITH_FORMULA<br>Id: 6<br>Formula Expression: Formula String: EXP(VALUE); Formula Values: EXP(2.0); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'},
+{id: '5', label: 'EXP\n15.154262241479259', color: '#f0ad4e', title: 'Name: EXP<br>Alias: null<br>Value: 15.154262241479259<br>Type: FUNCTION<br>Id: 5<br>Formula Expression: Formula String: EXP(EXP(VALUE)); Formula Values: EXP(EXP(1.0)); Formula Ptg: ; Ptgs:  Index in Ptgs: 1 <br>Source Object Id: com.dataart.spreadsheetanalytics.engine.PoiProxyWorkbook@60921b21'}
                             ]);
 
 
 var edges = new vis.DataSet([
                              /* {from: id_a, to: id_b}, */
-{from: 'ef0b586c-57b1-4d09-804b-e3fdbdcd57bd', to: 'dd371849-b875-4900-a829-99cc8cd3c1f1'},
-{from: 'e73be36e-5ba2-41b2-acf7-f0d7dbfb2998', to: '10d09a34-22d2-441d-9ad1-5a13865b6136'},
-{from: '8ad2db4b-356f-4186-a2fb-7f28cea2353c', to: '1ed83c5a-63f5-442a-83f0-d4e7d077142e'},
-{from: '1ed83c5a-63f5-442a-83f0-d4e7d077142e', to: 'a3b8e6f2-aaf2-49c7-8a23-3663df991f3e'},
-{from: 'dd371849-b875-4900-a829-99cc8cd3c1f1', to: 'e47bd01a-26bf-4b38-8ae6-88c2f64510a3'},
-{from: '10d09a34-22d2-441d-9ad1-5a13865b6136', to: 'c76000aa-bf8b-4b4b-90e4-d83d95f99f6c'},
-{from: '10d09a34-22d2-441d-9ad1-5a13865b6136', to: 'ef0b586c-57b1-4d09-804b-e3fdbdcd57bd'}
+{from: '1', to: '2'},
+{from: '8', to: '6'},
+{from: '4', to: '5'},
+{from: '7', to: '8'},
+{from: '2', to: '4'},
+{from: '5', to: '3'},
+{from: '2', to: '0'}
                             ]);

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="e8651171-c2ed-4eed-a38f-cd6f2cd34d9d">
+<node id="0">
 <data key="name">E6</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: FUNCEXEC(A2, VALUE); Formula values: FUNCEXEC(5.0, DEVDEF);</data>
 </node>
-<node id="2d2de5b1-fb03-4254-8274-b0b4ed3c7315">
+<node id="2">
 <data key="name">VALUE</data>
 <data key="value">DEVDEF</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
 </node>
-<node id="5be584ca-e83b-410c-b2b0-677543c7dce4">
+<node id="3">
 <data key="name">A2</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A2; Formula values: 5.0;</data>
 </node>
-<node id="4a2cb8b8-a3f1-481b-bfe2-5364f84e03fb">
+<node id="4">
 <data key="name">FUNCEXEC</data>
 <data key="value">5.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: FUNCEXEC(A2, VALUE); Formula values: FUNCEXEC(5.0, DEVDEF);</data>
 </node>
-<edge source="5be584ca-e83b-410c-b2b0-677543c7dce4" target="4a2cb8b8-a3f1-481b-bfe2-5364f84e03fb"/>
-<edge source="2d2de5b1-fb03-4254-8274-b0b4ed3c7315" target="4a2cb8b8-a3f1-481b-bfe2-5364f84e03fb"/>
-<edge source="4a2cb8b8-a3f1-481b-bfe2-5364f84e03fb" target="e8651171-c2ed-4eed-a38f-cd6f2cd34d9d"/>
+<edge source="3" target="4"/>
+<edge source="2" target="4"/>
+<edge source="4" target="0"/>
 </graph>
 </graphml>

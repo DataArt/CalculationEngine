@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_2">
-<node id="13a74d0e-ddde-42f9-89c1-2730b205e1e2">
+<node id="0">
 <data key="name">A8</data>
 <data key="value">48.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: DEVSQ(A1:A7); Formula values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0);</data>
 </node>
-<node id="5463237c-1b96-40ea-aca0-df689b75a83d">
+<node id="1">
 <data key="name">A1:A7</data>
 <data key="value">[[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula string: A1:A7; Formula values: [[4.0], [5.0], [8.0], [7.0], [11.0], [4.0], [3.0]];</data>
 </node>
-<node id="a122c5c2-6fbe-499b-87cf-5002e6434678">
+<node id="2">
 <data key="name">DEVSQ</data>
 <data key="value">48.0</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: DEVSQ(A1:A7); Formula values: DEVSQ(4.0, 5.0, 8.0, 7.0, 11.0, 4.0, 3.0);</data>
 </node>
-<edge source="5463237c-1b96-40ea-aca0-df689b75a83d" target="a122c5c2-6fbe-499b-87cf-5002e6434678"/>
-<edge source="a122c5c2-6fbe-499b-87cf-5002e6434678" target="13a74d0e-ddde-42f9-89c1-2730b205e1e2"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>

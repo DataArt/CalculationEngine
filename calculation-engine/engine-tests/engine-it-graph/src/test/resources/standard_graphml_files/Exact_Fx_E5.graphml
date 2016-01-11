@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E5">
-<node id="285dbc31-05a2-425f-928b-d81118f20ed8">
+<node id="0">
 <data key="name">E5</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EXACT(B2, A2); Formula values: EXACT(56.0, 23.0);</data>
 </node>
-<node id="948da6ec-3d6f-420e-b092-c490d1732c2c">
+<node id="1">
 <data key="name">A2</data>
 <data key="value">23.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A2; Formula values: 23.0;</data>
 </node>
-<node id="8dd68767-74cc-4d03-a796-b05638bde352">
+<node id="2">
 <data key="name">B2</data>
 <data key="value">56.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B2; Formula values: 56.0;</data>
 </node>
-<node id="5d1de03b-72bd-4eac-879f-54289fa2a5b7">
+<node id="3">
 <data key="name">EXACT</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: EXACT(B2, A2); Formula values: EXACT(56.0, 23.0);</data>
 </node>
-<edge source="8dd68767-74cc-4d03-a796-b05638bde352" target="5d1de03b-72bd-4eac-879f-54289fa2a5b7"/>
-<edge source="948da6ec-3d6f-420e-b092-c490d1732c2c" target="5d1de03b-72bd-4eac-879f-54289fa2a5b7"/>
-<edge source="5d1de03b-72bd-4eac-879f-54289fa2a5b7" target="285dbc31-05a2-425f-928b-d81118f20ed8"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="3" target="0"/>
 </graph>
 </graphml>

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E6">
-<node id="07e83079-a0ce-4c15-89ac-8b2920288743">
+<node id="0">
 <data key="name">E6</data>
 <data key="value">[[6.0]]</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: INDEX(VALUE, VALUE, A1:C4); Formula values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0);</data>
 </node>
-<node id="bdf541d0-b458-4c9b-97ad-67bb2e2b339b">
+<node id="1">
 <data key="name">A1:C4</data>
 <data key="value">[[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]]</data>
 <data key="type">RANGE</data>
 <data key="formula">Formula string: A1:C4; Formula values: [[Apples, Lemons, 7.0], [Bananas, Pears, u], [67.0, 6.0, u], [9.0, 98.0, 98.0]];</data>
 </node>
-<node id="a7367f3b-dce7-4ec2-ad75-3d71066cbbd7">
+<node id="2">
 <data key="name">VALUE</data>
 <data key="value">3.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 3.0;</data>
 </node>
-<node id="d0ff9c2d-223c-41de-852d-117ef1f248e3">
+<node id="3">
 <data key="name">VALUE</data>
 <data key="value">2.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 2.0;</data>
 </node>
-<node id="10a87af0-3fd2-447d-804e-1a2e561dc35a">
+<node id="4">
 <data key="name">INDEX</data>
 <data key="value">[[6.0]]</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: INDEX(VALUE, VALUE, A1:C4); Formula values: INDEX(2.0, 3.0, Apples, Lemons, 7.0, Bananas, Pears, u, 67.0, 6.0, u, 9.0, 98.0, 98.0);</data>
 </node>
-<edge source="d0ff9c2d-223c-41de-852d-117ef1f248e3" target="10a87af0-3fd2-447d-804e-1a2e561dc35a"/>
-<edge source="a7367f3b-dce7-4ec2-ad75-3d71066cbbd7" target="10a87af0-3fd2-447d-804e-1a2e561dc35a"/>
-<edge source="bdf541d0-b458-4c9b-97ad-67bb2e2b339b" target="10a87af0-3fd2-447d-804e-1a2e561dc35a"/>
-<edge source="10a87af0-3fd2-447d-804e-1a2e561dc35a" target="07e83079-a0ce-4c15-89ac-8b2920288743"/>
+<edge source="3" target="4"/>
+<edge source="2" target="4"/>
+<edge source="1" target="4"/>
+<edge source="4" target="0"/>
 </graph>
 </graphml>

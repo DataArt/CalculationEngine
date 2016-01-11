@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="E5">
-<node id="36c9aa4c-bc87-4709-bb34-77eda9050e13">
+<node id="0">
 <data key="name">E5</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: AND(C6, B3 + D1 - E1); Formula values: AND(, 6.0 + 0.4 - 5.0);</data>
 </node>
-<node id="8a4f3816-3298-4a1a-8d50-efae1d1c6392">
+<node id="1">
 <data key="name">B3</data>
 <data key="value">6.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B3; Formula values: 6.0;</data>
 </node>
-<node id="bfd2e51d-d734-4302-978d-b3e62f213af8">
+<node id="2">
 <data key="name">D1</data>
 <data key="value">0.4</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: D1; Formula values: 0.4;</data>
 </node>
-<node id="333217ee-786c-4657-ba5a-c6d149449f32">
+<node id="3">
 <data key="name">+</data>
 <data key="value">6.4</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: B3 + D1; Formula values: 6.0 + 0.4;</data>
 </node>
-<node id="d1bfd5f1-9119-417c-95e6-e185a432bcc4">
+<node id="4">
 <data key="name">E1</data>
 <data key="value">5.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: E1; Formula values: 5.0;</data>
 </node>
-<node id="98fe3796-3fda-4cb5-ad84-2d357f08e836">
+<node id="5">
 <data key="name">-</data>
 <data key="value">1.4000000000000004</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: B3 + D1 - E1; Formula values: 6.0 + 0.4 - 5.0;</data>
 </node>
-<node id="d6727c13-b133-40af-9466-308429b6507c">
+<node id="6">
 <data key="name">C6</data>
 <data key="value"/>
 <data key="type">EMPTY_CELL</data>
 <data key="formula">Formula string: C6; Formula values: ;</data>
 </node>
-<node id="c9bbdba3-aef4-49b2-8831-2b0877cf3f6a">
+<node id="7">
 <data key="name">AND</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: AND(C6, B3 + D1 - E1); Formula values: AND(, 6.0 + 0.4 - 5.0);</data>
 </node>
-<edge source="bfd2e51d-d734-4302-978d-b3e62f213af8" target="333217ee-786c-4657-ba5a-c6d149449f32"/>
-<edge source="8a4f3816-3298-4a1a-8d50-efae1d1c6392" target="333217ee-786c-4657-ba5a-c6d149449f32"/>
-<edge source="d1bfd5f1-9119-417c-95e6-e185a432bcc4" target="98fe3796-3fda-4cb5-ad84-2d357f08e836"/>
-<edge source="333217ee-786c-4657-ba5a-c6d149449f32" target="98fe3796-3fda-4cb5-ad84-2d357f08e836"/>
-<edge source="d6727c13-b133-40af-9466-308429b6507c" target="c9bbdba3-aef4-49b2-8831-2b0877cf3f6a"/>
-<edge source="98fe3796-3fda-4cb5-ad84-2d357f08e836" target="c9bbdba3-aef4-49b2-8831-2b0877cf3f6a"/>
-<edge source="c9bbdba3-aef4-49b2-8831-2b0877cf3f6a" target="36c9aa4c-bc87-4709-bb34-77eda9050e13"/>
+<edge source="2" target="3"/>
+<edge source="1" target="3"/>
+<edge source="4" target="5"/>
+<edge source="3" target="5"/>
+<edge source="6" target="7"/>
+<edge source="5" target="7"/>
+<edge source="7" target="0"/>
 </graph>
 </graphml>

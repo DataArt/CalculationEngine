@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="C6">
-<node id="107395c8-7d4b-4f77-b04f-6080b009eda4">
+<node id="0">
 <data key="name">C6</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISNONTEXT(B1); Formula values: ISNONTEXT(some);</data>
 </node>
-<node id="ac668060-0da0-4d1c-b498-2480fb34b808">
+<node id="1">
 <data key="name">B1</data>
 <data key="value">some</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B1; Formula values: some;</data>
 </node>
-<node id="699688b3-ea51-4e60-b07e-947210f0f8a1">
+<node id="2">
 <data key="name">ISNONTEXT</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISNONTEXT(B1); Formula values: ISNONTEXT(some);</data>
 </node>
-<edge source="ac668060-0da0-4d1c-b498-2480fb34b808" target="699688b3-ea51-4e60-b07e-947210f0f8a1"/>
-<edge source="699688b3-ea51-4e60-b07e-947210f0f8a1" target="107395c8-7d4b-4f77-b04f-6080b009eda4"/>
+<edge source="1" target="2"/>
+<edge source="2" target="0"/>
 </graph>
 </graphml>
