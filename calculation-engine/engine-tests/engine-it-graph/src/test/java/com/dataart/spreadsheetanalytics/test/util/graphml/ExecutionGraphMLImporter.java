@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.poi.common.fork.IExecutionGraphVertex.Type;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -83,7 +84,7 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
             switch (key) {
                 case "name": { this.prev.properties().setName(content.toString()); break; }
                 case "value": { this.prev.properties().setValue(content.toString()); break; } 
-                case "type": { this.prev.properties().setType(content.toString()); break; }
+                case "type": { this.prev.properties().setType(Type.valueOf(Type.class, content.toString())); break; }
                 case "formula": { this.prev.formulaToString = content.toString(); break; }
             }
 

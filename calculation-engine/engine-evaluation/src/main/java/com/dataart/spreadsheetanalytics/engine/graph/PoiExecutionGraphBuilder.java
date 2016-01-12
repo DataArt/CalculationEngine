@@ -23,12 +23,9 @@ import static java.util.stream.Collectors.toList;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
-import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CONSTANT_VALUE;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.EMPTY_CELL;
-import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.FUNCTION;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.IF;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.OPERATOR;
-import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.RANGE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -52,15 +49,9 @@ import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
 import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
-import org.apache.poi.ss.formula.ptg.AreaPtg;
-import org.apache.poi.ss.formula.ptg.NamePtg;
-import org.apache.poi.ss.formula.ptg.NameXPxg;
-import org.apache.poi.ss.formula.ptg.OperationPtg;
 import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
-import org.apache.poi.ss.formula.ptg.Ref3DPxg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
-import org.apache.poi.ss.formula.ptg.ScalarConstantPtg;
 import org.apache.poi.ss.formula.ptg.UnionPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
@@ -234,7 +225,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
                 for (IExecutionGraphVertex ivertex : vs) {
                     ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-                    if (CELL_WITH_FORMULA == (Type) vertex.properties().getType() || null != vertex.properties().getAlias())
+                    if (CELL_WITH_FORMULA == vertex.properties().getType() || null != vertex.properties().getAlias())
                     { standard = vertex; break; }
                 }
 
@@ -250,7 +241,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         for (ExecutionGraphVertex vertex : graph.vertexSet()) {
 
             // restore/add subgraphs to identical vertices
-            Type type = (Type) vertex.properties().getType();
+            Type type = vertex.properties().getType();
 
             if (isCell(type)) {
                 String address = vertex.properties().getName();
@@ -520,23 +511,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         boolean isNotInherFunction = "ISERROR".equals(vertex.getName());
         boolean isError = isErrorValue(vertex.getValue());
         return !(isError || isNotInherFunction);
-    }
-
-    public static Type ptgToVertexType(Ptg ptg) {
-
-        if (ptg instanceof AbstractFunctionPtg) { // functions: SUM, COUNT, COS, etc.
-            return FUNCTION;
-        } else if (ptg instanceof ValueOperatorPtg || ptg instanceof OperationPtg) { // single operators: +, -, /, *, =
-            return OPERATOR;
-        } else if (ptg instanceof RefPtg || ptg instanceof Ref3DPxg || ptg instanceof NameXPxg) {
-            return CELL_WITH_VALUE;
-        } else if (ptg instanceof ScalarConstantPtg || ptg instanceof NamePtg) {
-            return CONSTANT_VALUE;
-        } else if (ptg instanceof AreaPtg) {
-            return RANGE;
-        }
-
-        throw new CalculationEngineException("Unsupported Ptg class: " + ptg.getClass());
     }
 
     /**
