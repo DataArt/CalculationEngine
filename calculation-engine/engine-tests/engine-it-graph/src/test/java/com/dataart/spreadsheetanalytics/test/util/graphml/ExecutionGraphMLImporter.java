@@ -21,7 +21,6 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -51,7 +50,7 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
         if (elementName.equalsIgnoreCase("node")) {
 
             ExecutionGraphVertexML vertexML = new ExecutionGraphVertexML(null);
-            vertexML.property(PropertyName.VERTEX_ID).set(Integer.valueOf(attributes.getValue("id")));
+            vertexML.properties().setVertexId(Integer.valueOf(attributes.getValue("id")));
             
             this.graphML.getVerticesML().add(vertexML);
             
@@ -82,9 +81,9 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
             if (this.key == null) { return; }
 
             switch (key) {
-                case "name": { this.prev.property(PropertyName.NAME).set(content.toString()); break; }
-                case "value": { this.prev.property(PropertyName.VALUE).set(content.toString()); break; } 
-                case "type": { this.prev.property(PropertyName.TYPE).set(content.toString()); break; }
+                case "name": { this.prev.properties().setName(content.toString()); break; }
+                case "value": { this.prev.properties().setValue(content.toString()); break; } 
+                case "type": { this.prev.properties().setType(content.toString()); break; }
                 case "formula": { this.prev.formulaToString = content.toString(); break; }
             }
 
