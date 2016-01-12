@@ -35,6 +35,7 @@ import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 
+import org.apache.poi.common.fork.IExecutionGraphVertex.Type;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.ext.GraphMLExporter;
@@ -53,7 +54,6 @@ import com.dataart.spreadsheetanalytics.api.model.IDataSet;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.api.model.ILazyDataSet;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataModelAccessor;
 import com.dataart.spreadsheetanalytics.engine.CacheBasedDataSetAccessor;
@@ -461,34 +461,34 @@ public class GraphTestUtil {
                 /* {id: a, label: b, ...}, */
 
                 verticesJson.append("{id: '")
-                            .append(vertex.id())
+                            .append(vertex.getId())
                             .append("', label: '")
-                            .append(vertex.name())
+                            .append(vertex.getName())
                             .append("\\n")
-                            .append(vertex.value() == null || vertex.value().toString().length() > 55 ? "..." : vertex.value().toString())
+                            .append(vertex.getValue() == null || vertex.getValue().toString().length() > 55 ? "..." : vertex.getValue().toString())
                             .append("', color: '")
-                            .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
+                            .append(vertex.getType() == Type.OPERATOR || vertex.getType() == Type.FUNCTION || vertex.getType() == Type.IF ? "#f0ad4e" : "#31b0d5")
                             .append("', title: '")
                                 .append("Name: ")
-                                .append(vertex.name())
+                                .append(vertex.getName())
                                 .append("<br>")
                                 .append("Alias: ")
-                                .append(vertex.alias())
+                                .append(vertex.getAlias())
                                 .append("<br>")                                
                                 .append("Value: ")
-                                .append(vertex.value())
+                                .append(vertex.getValue())
                                 .append("<br>")
                                 .append("Type: ")
-                                .append(vertex.type())
+                                .append(vertex.getType())
                                 .append("<br>")
                                 .append("Id: ")
-                                .append(vertex.id())
+                                .append(vertex.getId())
                                 .append("<br>")
                                 .append("Formula Expression: ")
-                                .append(vertex.formula())
+                                .append(vertex.getFormula())
                                 .append("<br>")
                                 .append("Source Object Id: ")
-                                .append(vertex.sourceObjectId())
+                                .append(vertex.getSourceObjectId())
                             .append("'},\n");
             }
             verticesJson.setLength(verticesJson.length() > 0 ? verticesJson.length() - 2 : 0);
@@ -500,9 +500,9 @@ public class GraphTestUtil {
                 IExecutionGraphVertex to = graph.getEdgeTarget(edge);
                 
                 edgesJson.append("{from: '")
-                         .append(from.id())
+                         .append(from.getId())
                          .append("', to: '")
-                         .append(to.id())
+                         .append(to.getId())
                          .append("'},\n");
             }
 

@@ -15,20 +15,20 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.CONSTANT_VALUE;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.EMPTY_CELL;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.FUNCTION;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.IF;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
-import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.isCell;
+import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.isCell;
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.ptgToString;
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CONSTANT_VALUE;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.EMPTY_CELL;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.FUNCTION;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.IF;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.OPERATOR;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.RANGE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -45,6 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.poi.common.fork.IExecutionGraphBuilder;
 import org.apache.poi.common.fork.IExecutionGraphVertex;
+import org.apache.poi.common.fork.IExecutionGraphVertex.Type;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.eval.ErrorEval;
@@ -68,7 +69,6 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 
@@ -290,7 +290,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 Object ifBranchValue = null;
                 for (ExecutionGraphEdge e : two) {
                     ExecutionGraphVertex oneOfTwo = graph.getEdgeSource(e);
-                    if (!isCompareOperand(oneOfTwo.name())) {
+                    if (!isCompareOperand(oneOfTwo.getName())) {
                         ifBranchValue = oneOfTwo.properties().getValue();
                         break;
                     }
@@ -343,8 +343,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     ptgNodes.add(formula.ptgStr());
                     // if the parent node has error value we leave it as it is
                     // otherwise it will represent the child's node error value
-                    if (isErrorValue(ivertex.value()) && inheritsErrorValue(vertex)) {
-                        vertex.value = ivertex.value();
+                    if (isErrorValue(ivertex.getValue()) && inheritsErrorValue(vertex)) {
+                        vertex.value = ivertex.getValue();
                     }
                 }
                 vertex.formula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes, vertex));
@@ -389,8 +389,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CONSTANT_VALUE: {
                 vertex.properties().setName(CONSTANT_VALUE_NAME);
                 vertex.formula.formulaStr(vertex.properties().getName());
-                vertex.formula.formulaValues(vertex.value().toString());
-                vertex.formula.formulaPtgStr(vertex.value().toString());
+                vertex.formula.formulaValues(vertex.getValue().toString());
+                vertex.formula.formulaPtgStr(vertex.getValue().toString());
                 vertex.formula.ptgStr(vertex.properties().getName());
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
@@ -407,7 +407,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected static void connectValuesToRange(ExecutionGraphVertex rangeVertex, PoiExecutionGraphBuilder state) {
-        Object cellValue = rangeVertex.value();
+        Object cellValue = rangeVertex.getValue();
         if (!(cellValue instanceof Area2DValues)) { return; }
         
         for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
@@ -428,7 +428,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         } else if (optg instanceof Ptg) {
             opname = ptgToString((Ptg) optg);
             /* if the function was not recognized as internal function we use the node name as the function name */
-            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
+            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.getName(); }
         } else {
             opname = optg.toString();
         }
@@ -464,7 +464,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
             /* if the function was not recognized as internal function we use the node name as the function name */
-            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
+            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.getName(); }
         }
         
         
@@ -517,8 +517,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static boolean inheritsErrorValue(IExecutionGraphVertex ivertex) {
         ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-        boolean isNotInherFunction = "ISERROR".equals(vertex.name());
-        boolean isError = isErrorValue(vertex.value());
+        boolean isNotInherFunction = "ISERROR".equals(vertex.getName());
+        boolean isError = isErrorValue(vertex.getValue());
         return !(isError || isNotInherFunction);
     }
 
@@ -625,7 +625,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     reassignOutgoingEdges(entry.getKey(), vertex);
                     for (ExecutionGraphEdge edge : this.dgraph.incomingEdgesOf(vertex)) {
                         ExecutionGraphVertex child = this.dgraph.getEdgeSource(edge);
-                        if (Type.CONSTANT_VALUE.equals(child.type())) {
+                        if (Type.CONSTANT_VALUE.equals(child.getType())) {
                             childrenToRemove.add(child);
                         }
                     }

@@ -56,13 +56,13 @@ public class DemoUtil {
     public static void plainprint(IExecutionGraph graph) {
         for (IExecutionGraphVertex vertex : graph.getVertices()) {
             System.out.println("---------------------------------");
-            System.out.println("Vertex Id: " + vertex.id());
-            System.out.println("Name: " + vertex.name());
-            System.out.println("Alias: " + vertex.alias());
-            System.out.println("Type: " + vertex.type());
-            System.out.println("Formula Expression: " + vertex.formula());
-            System.out.println("Value: " + vertex.value());
-            System.out.println("Source Object Id: " + vertex.sourceObjectId());
+            System.out.println("Vertex Id: " + vertex.getId());
+            System.out.println("Name: " + vertex.getName());
+            System.out.println("Alias: " + vertex.getAlias());
+            System.out.println("Type: " + vertex.getType());
+            System.out.println("Formula Expression: " + vertex.getFormula());
+            System.out.println("Value: " + vertex.getValue());
+            System.out.println("Source Object Id: " + vertex.getSourceObjectId());
         }
         System.out.println("Number of vertices: " + graph.getVertices().size());
     }
@@ -82,34 +82,34 @@ public class DemoUtil {
                 /* {id: a, label: b, ...}, */
 
                 verticesJson.append("{id: '")
-                            .append(vertex.id())
+                            .append(vertex.getId())
                             .append("', label: '")
-                            .append(vertex.name())
+                            .append(vertex.getName())
                             .append("\\n")
-                            .append(vertex.value() == null || vertex.value().toString().length() > 55 ? "..." : vertex.value().toString())
+                            .append(vertex.getValue() == null || vertex.getValue().toString().length() > 55 ? "..." : vertex.getValue().toString())
                             .append("', color: '")
-                            .append(vertex.type() == Type.OPERATOR || vertex.type() == Type.FUNCTION || vertex.type() == Type.IF ? "#f0ad4e" : "#31b0d5")
+                            .append(vertex.getType() == Type.OPERATOR || vertex.getType() == Type.FUNCTION || vertex.getType() == Type.IF ? "#f0ad4e" : "#31b0d5")
                             .append("', title: '")
                                 .append("Name: ")
-                                .append(vertex.name())
+                                .append(vertex.getName())
                                 .append("<br>")
                                 .append("Alias: ")
-                                .append(vertex.alias())
+                                .append(vertex.getAlias())
                                 .append("<br>")
                                 .append("Value: ")
-                                .append(vertex.value())
+                                .append(vertex.getValue())
                                 .append("<br>")
                                 .append("Type: ")
-                                .append(vertex.type())
+                                .append(vertex.getType())
                                 .append("<br>")
                                 .append("Id: ")
-                                .append(vertex.id())
+                                .append(vertex.getId())
                                 .append("<br>")
                                 .append("Formula Expression: ")
-                                .append(vertex.formula())
+                                .append(vertex.getFormula())
                                 .append("<br>")
                                 .append("Source Object Id: ")
-                                .append(vertex.sourceObjectId())
+                                .append(vertex.getSourceObjectId())
                             .append("'},\n");
             }
             verticesJson.setLength(verticesJson.length() > 0 ? verticesJson.length() - 2 : 0);
@@ -121,9 +121,9 @@ public class DemoUtil {
                 IExecutionGraphVertex to = graph.getEdgeTarget(edge);
                 
                 edgesJson.append("{from: '")
-                         .append(from.id())
+                         .append(from.getId())
                          .append("', to: '")
-                         .append(to.id())
+                         .append(to.getId())
                          .append("'},\n");
             }
 

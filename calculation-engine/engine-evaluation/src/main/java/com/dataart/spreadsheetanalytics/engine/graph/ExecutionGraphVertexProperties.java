@@ -18,11 +18,11 @@ package com.dataart.spreadsheetanalytics.engine.graph;
 import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.ptgToVertexType;
 
 import org.apache.poi.common.fork.ExecutionGraphBuilderUtils;
+import org.apache.poi.common.fork.IExecutionGraphVertex.Type;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
 import org.apache.poi.ss.formula.ptg.Ptg;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
 
 /**
  * Class represent ony property of {@link IExecutionGraphVertex}.
@@ -76,15 +76,14 @@ class ExecutionGraphVertexProperties implements IExecutionGraphVertexProperties 
     }
 
     @Override public void setType(Object value) {
-        if (this.parent.type != null && Type.CELL_WITH_FORMULA == this.parent.type) {
-            return;
-        }
-        //TODO: check if we need all this logic, this might be obsolette
-        this.parent.type = value instanceof Type
-                ? (Type) value
-                : value instanceof Ptg
-                        ? ptgToVertexType((Ptg) value)
-                        : Enum.valueOf(Type.class, (String) value);
+        if (this.parent.type != null && Type.CELL_WITH_FORMULA == this.parent.type)
+            { return; }
+        else if (value instanceof Type)
+            { this.parent.type = (Type) value; }
+        else if (value instanceof Ptg)
+            { this.parent.type = ptgToVertexType((Ptg) value); }
+        else //TODO: should never happens, but need to prove it.
+            { this.parent.type = Enum.valueOf(Type.class, (String) value); }
     }
 
     @Override public String getFormulaValues() {

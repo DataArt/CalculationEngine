@@ -43,7 +43,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     protected Type type;
     protected Object sourceObjectId;
 
-    protected ExecutionGraphVertexProperties properties = new ExecutionGraphVertexProperties(this);
+    protected final ExecutionGraphVertexProperties properties = new ExecutionGraphVertexProperties(this);
     
     public ExecutionGraphVertex(String name) {
         this.id = ID_RANDOMIZER.get().getAndIncrement();
@@ -58,13 +58,13 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
         return this.properties;
     }
 
-    @Override public int id() { return this.id; }
-    @Override public String name() { return this.name; }
-    @Override public String alias() { return this.alias; }
-    @Override public CellFormulaExpression formula() { return this.formula; }
-    @Override public Object value() { return this.value; }
-    @Override public Type type() { return this.type; }
-    @Override public Object sourceObjectId() { return this.sourceObjectId; }
+    @Override public int getId() { return this.id; }
+    @Override public String getName() { return this.name; }
+    @Override public String getAlias() { return this.alias; }
+    @Override public CellFormulaExpression getFormula() { return this.formula; }
+    @Override public Object getValue() { return this.value; }
+    @Override public Type getType() { return this.type; }
+    @Override public Object getSourceObjectId() { return this.sourceObjectId; }
 
     @Override
     public String toString() {
@@ -76,10 +76,10 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     public int compareTo(IExecutionGraphVertex v) {
         if (v instanceof ExecutionGraphVertex) {
             ExecutionGraphVertex vertex = (ExecutionGraphVertex) v;
-            if (!vertex.name().equals(this.name())) { return -1; }
-            if (!vertex.value().equals(this.value())) { return -1; }
-            if (vertex.formula().formulaStr() == null && this.formula().formulaStr() != null) { return -1; }
-            else if (!vertex.formula().formulaStr().equals(this.formula().formulaStr())) { return -1; }
+            if (!vertex.getName().equals(this.getName())) { return -1; }
+            if (!vertex.getValue().equals(this.getValue())) { return -1; }
+            if (vertex.getFormula().formulaStr() == null && this.getFormula().formulaStr() != null) { return -1; }
+            else if (!vertex.getFormula().formulaStr().equals(this.getFormula().formulaStr())) { return -1; }
             
             return 1;
         }

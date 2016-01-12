@@ -99,10 +99,10 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
 
     private static void createIndexes(ExecutionGraphML graphML) {
         for (ExecutionGraphVertexML v : graphML.getVerticesML()) {
-            List<ExecutionGraphVertexML> set = graphML.verticesIndexName.get(v.name()) != null ? graphML.verticesIndexName.get(v.name()) : new LinkedList<>();
+            List<ExecutionGraphVertexML> set = graphML.verticesIndexName.get(v.getName()) != null ? graphML.verticesIndexName.get(v.getName()) : new LinkedList<>();
             set.add(v);
-            graphML.verticesIndexName.put(v.name(), set);
-            graphML.verticesIndexId.put(v.id(), v);
+            graphML.verticesIndexName.put(v.getName(), set);
+            graphML.verticesIndexId.put(v.getId(), v);
         }
     }
 
