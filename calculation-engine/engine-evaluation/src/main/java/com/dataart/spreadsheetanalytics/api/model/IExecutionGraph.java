@@ -36,12 +36,12 @@ public interface IExecutionGraph {
     /**
      * Returns the set of the graph edges 
      */
-    Set<IExecutionGraphEdge> getEdges();
+    Set<? extends IExecutionGraphEdge> getEdges();
 
     /**
      * Returns the set of the graph vertices
      */
-    Set<IExecutionGraphVertex> getVertices();
+    Set<? extends IExecutionGraphVertex> getVertices();
 
     /**
      * Returns the source vertex of specified edge

@@ -102,8 +102,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     
     protected static final ThreadLocal<AtomicInteger> ID_RANDOMIZER = new ThreadLocal<>();
     
-    IExecutionGraphVertex namedVertexRoot;
-    protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+    protected IExecutionGraphVertex namedVertexRoot;
+    
+    protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>((s, t) -> new ExecutionGraphEdge(s, t));
     protected Deque<Boolean> processName = new LinkedList<>();
     protected final ExecutionGraphConfig config;
     /*
@@ -331,7 +332,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
-                ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).stream().findFirst().get();
+                ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).iterator().next();
                 ExecutionGraphVertex source = state.dgraph.getEdgeSource(edge);
                 vertex.formula = buildFormula(source, state);
                 vertex.value = source.value;
@@ -722,22 +723,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return ExecutionGraph.wrap(emptyGraph);
     }
 
-    @Override
-    public boolean getProcessNameState() { return this.processName.getFirst(); }
-
-    @Override
-    public void popRecentProcessNameState() { this.processName.pop(); }
-
-    @Override
-    public void putProcessNameState(boolean state) { this.processName.push(state); }
-
-    @Override
-    public boolean isProcessNameCacheEmpty() { return this.processName.isEmpty(); }
-
-    @Override
-    public IExecutionGraphVertex getNameVertexRoot() { return this.namedVertexRoot; }
-
-    @Override
-    public void setNameVertexRoot(IExecutionGraphVertex root) { this.namedVertexRoot = root; }
+    @Override public boolean getProcessNameState() { return this.processName.getFirst(); }
+    @Override public void popRecentProcessNameState() { this.processName.pop(); }
+    @Override public void putProcessNameState(boolean state) { this.processName.push(state); }
+    @Override public boolean isProcessNameCacheEmpty() { return this.processName.isEmpty(); }
+    @Override public IExecutionGraphVertex getNameVertexRoot() { return this.namedVertexRoot; }
+    @Override public void setNameVertexRoot(IExecutionGraphVertex root) { this.namedVertexRoot = root; }
 
 }

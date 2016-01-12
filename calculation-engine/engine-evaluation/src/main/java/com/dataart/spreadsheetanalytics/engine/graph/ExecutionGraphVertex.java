@@ -19,6 +19,7 @@ import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBui
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.NAME;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 
 import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
@@ -34,7 +35,9 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 public class ExecutionGraphVertex /* POI Vertex interface (internal) */ 
                                   extends org.apache.poi.common.fork.IExecutionGraphVertex
                                   /* Public API interface */
-                                  implements IExecutionGraphVertex {
+                                  implements IExecutionGraphVertex, Serializable {
+    /** */
+    private static final long serialVersionUID = 577095204336470699L;
     
     protected int id;
     protected String name;
