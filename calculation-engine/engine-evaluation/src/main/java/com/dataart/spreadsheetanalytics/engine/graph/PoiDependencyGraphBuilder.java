@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.ptgToString;
+import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.ptgToString;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
 
 import java.util.ArrayDeque;
