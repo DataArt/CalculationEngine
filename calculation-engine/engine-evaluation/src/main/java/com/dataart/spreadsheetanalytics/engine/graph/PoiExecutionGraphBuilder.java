@@ -31,7 +31,7 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.ptgToString;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.ALIAS;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
+//import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
 import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
@@ -326,9 +326,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         updateVertexType(vertex, state.dgraph);
 
         switch (vertex.type) {
-            case CELL_WITH_VALUE: {
-                return CellFormulaExpression.copyOf(vertex.formula);
-            }
+            case CELL_WITH_VALUE: { return CellFormulaExpression.copyOf(vertex.formula); }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
                 ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).stream().findFirst().get();
@@ -339,28 +337,15 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
             case OPERATOR:
             case FUNCTION: {
-                List<String> formulaStringNodes = new LinkedList<>();
-                List<String> formulaValuesNodes = new LinkedList<>();
-                List<String> formulaPtgNodes = new LinkedList<>();
-                List<String> ptgNodes = new LinkedList<>();
-                Object[] formulaPtg = (Object[]) vertex.property(FORMULA_PTG).get();
                 for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
                     ExecutionGraphVertex ivertex = state.dgraph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, state);
-                    formulaStringNodes.add(formula.formulaStr());
-                    formulaValuesNodes.add(formula.formulaValues());
-                    formulaPtgNodes.add(formula.formulaPtgStr());
-                    ptgNodes.add(formula.ptgStr());
+                    buildFormula(ivertex, state);
                     // if the parent node has error value we leave it as it is
                     // otherwise it will represent the child's node error value
                     if (isErrorValue(ivertex.value()) && inheritsErrorValue(vertex)) {
                         vertex.value = ivertex.value();
                     }
                 }
-                vertex.formula.formulaStr(createFormulaString(formulaPtg[0], formulaStringNodes, vertex));
-                vertex.formula.formulaValues(createFormulaString(formulaPtg[0], formulaValuesNodes, vertex));
-                vertex.formula.formulaPtgStr(createPtgString(formulaPtg[0], formulaPtgNodes, vertex));
-                vertex.formula.ptgStr(createPtgString(formulaPtg[0], ptgNodes, vertex));
                 vertex.formula.formulaPtgStr("");
                 vertex.formula.ptgStr("");
                 return CellFormulaExpression.copyOf(vertex.formula);
@@ -397,7 +382,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             case CONSTANT_VALUE: {
-                vertex.property(NAME).set(CONSTANT_VALUE_NAME);
+//                vertex.property(NAME).set(CONSTANT_VALUE_NAME);
                 vertex.formula.formulaStr(vertex.property(NAME).get().toString());
                 vertex.formula.formulaValues(vertex.value().toString());
                 vertex.formula.formulaPtgStr(vertex.value().toString());
