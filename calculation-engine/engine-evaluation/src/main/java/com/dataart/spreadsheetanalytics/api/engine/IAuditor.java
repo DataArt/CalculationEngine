@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.engine;
 
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
@@ -34,7 +34,7 @@ public interface IAuditor {
     IExecutionGraph buildDependencyGraph();
 
     /** Builds static dependency graph for one cell from {@link IDataModel}. */
-    IExecutionGraph buildDependencyGraph(ICellAddress cell);
+    IExecutionGraph buildDependencyGraph(IA1Address cell);
 
     /** Builds runtime execution graph (execution trace) for {@link IDataModel}. */
     IExecutionGraph buildExecutionGraph();
@@ -47,13 +47,13 @@ public interface IAuditor {
     IExecutionGraph buildExecutionGraph(ExecutionGraphConfig config);
 
     /** Builds runtime execution graph (execution trace) for one cell from {@link IDataModel}. */
-    IExecutionGraph buildExecutionGraph(ICellAddress cell);
+    IExecutionGraph buildExecutionGraph(IA1Address cell);
 
     /**
      * Builds runtime execution graph (execution trace) for one cell from {@link IDataModel}.
      * Allows to specify some configuration parameters that will be used to build graph.
      * @see ExecutionGraphConfig for details.
      */
-    IExecutionGraph buildExecutionGraph(ICellAddress cell, ExecutionGraphConfig config);
+    IExecutionGraph buildExecutionGraph(IA1Address cell, ExecutionGraphConfig config);
 
 }

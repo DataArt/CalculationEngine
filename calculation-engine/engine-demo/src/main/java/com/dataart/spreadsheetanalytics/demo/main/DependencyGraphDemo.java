@@ -46,7 +46,7 @@ public class DependencyGraphDemo {
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(graphCell));
 
         final IAuditor auditor = new SpreadsheetAuditor(model);
-        final IExecutionGraph graph = auditor.buildDependencyGraph(addr);
+        final IExecutionGraph graph = auditor.buildDependencyGraph(addr.a1Address());
         
         //print graph
         DemoUtil.generateVisJsData(graph);

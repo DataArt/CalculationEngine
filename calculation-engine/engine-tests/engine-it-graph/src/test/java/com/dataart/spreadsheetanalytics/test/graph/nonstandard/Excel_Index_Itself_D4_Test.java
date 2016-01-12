@@ -45,7 +45,7 @@ public class Excel_Index_Itself_D4_Test extends SerializedGraphTest {
 
         final IAuditor auditor = new SpreadsheetAuditor(model);
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
-        graph = auditor.buildExecutionGraph(addr);
+        graph = auditor.buildExecutionGraph(addr.a1Address());
 
         //when
         graph.getRootVertex();

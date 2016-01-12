@@ -52,7 +52,7 @@ import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.ExternalServices;
 import com.dataart.spreadsheetanalytics.api.engine.MetaFunctionAccessor;
 import com.dataart.spreadsheetanalytics.api.model.CustomFunctionMeta;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
@@ -113,7 +113,7 @@ public class FuncexecFunction implements ICustomFunction {
             return ErrorEval.VALUE_INVALID;
         }
                 
-        List<ICellAddress> inputAddresses = meta.getInputs();
+        List<IA1Address> inputAddresses = meta.getInputs();
         log.debug("Input Addresses for DEFINE: {}, Input Values for DEFINE: {}.", inputAddresses, inputValues);
         
         if (inputAddresses.size() != inputValues.size()) {

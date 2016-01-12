@@ -80,10 +80,10 @@ public interface IDataModel extends Iterable<IDmRow> {
     void setCell(ICellAddress address, IDmCell cell);
 
     /** Returns {@link ICellAddress} if name is set to this address. */
-    ICellAddress getNamedAddress(String alias);
+    IA1Address getNamedAddress(String alias);
 
     /** Sets name for {@link ICellAddress}. */
-    void setNamedAddress(String alias, ICellAddress address);
+    void setNamedAddress(String alias, IA1Address address);
 
     /** Returns {@link ICellValue} if name is set to this value. */
     ICellValue getNamedValue(String alias);
@@ -92,7 +92,7 @@ public interface IDataModel extends Iterable<IDmRow> {
     void setNamedValue(String alias, ICellValue value);
 
     /** Returns all available Named Addresses. */
-    Map<String, ICellAddress> getNamedAddresses();
+    Map<String, IA1Address> getNamedAddresses();
 
     /** Returns all available Named Values. */
     Map<String, ICellValue> getNamedValues();

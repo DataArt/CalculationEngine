@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
@@ -44,6 +44,7 @@ import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.engine.graph.PoiDependencyGraphBuilder;
 import com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
 
 /**
  * SpreadsheetAuditor is a direct implementation of {@link IAuditor}.
@@ -64,7 +65,7 @@ public class SpreadsheetAuditor implements IAuditor {
     }
 
     @Override
-    public IExecutionGraph buildDependencyGraph(ICellAddress cell) {
+    public IExecutionGraph buildDependencyGraph(IA1Address cell) {
         try {
             this.graphLock.lock();
             log.debug("Building Dependency Graph for address: {}.", cell);
@@ -90,12 +91,12 @@ public class SpreadsheetAuditor implements IAuditor {
     }
     
     @Override
-    public IExecutionGraph buildExecutionGraph(ICellAddress cell) {
+    public IExecutionGraph buildExecutionGraph(IA1Address cell) {
         return buildExecutionGraph(cell, ExecutionGraphConfig.DEFAULT);
     }
     
     @Override
-    public IExecutionGraph buildExecutionGraph(ICellAddress cell, ExecutionGraphConfig config) {
+    public IExecutionGraph buildExecutionGraph(IA1Address cell, ExecutionGraphConfig config) {
         try {
             this.graphLock.lock();
             log.debug("Building Graph for address: {}.", cell);
@@ -117,10 +118,12 @@ public class SpreadsheetAuditor implements IAuditor {
                 graphBuilder.runPostProcessing(false);
                 ExecutionGraph g = graphBuilder.get();
                 
-                if (g.getVertices().isEmpty()) { return buildSingleVertexGraphForCellWithValue(cv, cell); }
+                if (g.getVertices().isEmpty()) { return buildSingleVertexGraphForCellWithValue(cv, new CellAddress(this.evaluator.model.getDataModelId(), cell)); }
                 if (g.getVertices().size() == 1) {
-                    if (VALUE_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, VALUE_INVALID, null); }
-                    if (NAME_INVALID.getErrorString().equals(cv.get())) { return buildSingleVertexGraphForParseException(cell, NAME_INVALID, null); }
+                    if (VALUE_INVALID.getErrorString().equals(cv.get()))
+                        { return buildSingleVertexGraphForParseException(new CellAddress(this.evaluator.model.getDataModelId(), cell), VALUE_INVALID, null); }
+                    if (NAME_INVALID.getErrorString().equals(cv.get()))
+                        { return buildSingleVertexGraphForParseException(new CellAddress(this.evaluator.model.getDataModelId(), cell), NAME_INVALID, null); }
                 }
                 
                 return g;

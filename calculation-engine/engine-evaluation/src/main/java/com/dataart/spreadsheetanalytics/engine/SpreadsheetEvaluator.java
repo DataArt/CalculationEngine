@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -61,7 +61,7 @@ import com.dataart.spreadsheetanalytics.model.EvaluationContext;
 
 /**
  * SpreadsheetEvaluator is a direct implementation of {@link IEvaluator} interface.
- * It allows to do spreadsheets evaluation. It's 2 major methods are {@link #evaluate()} and {@link #evaluate(ICellAddress)}.
+ * It allows to do spreadsheets evaluation. It's 2 major methods are {@link #evaluate()} and {@link #evaluate(IA1Address)}.
  * They do evaluation of one cell, or whole spreadsheet cell, by cell (algorithm can be changed in future).
  * 
  * This version of Evaluator requires an {@link IDataModel} to evaluate. DataModel provides access to POI's proxy workbook object, 
@@ -96,7 +96,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     }
     
     @Override
-    public IEvaluationResult<ICellValue> evaluate(ICellAddress addr) {
+    public IEvaluationResult<ICellValue> evaluate(IA1Address addr) {
         EvaluationCell cell = getEvaluationCell(this.evaluationWorkbook, addr);
         if (cell == null) { return null; }
         
@@ -166,7 +166,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
             { WorkbookEvaluator.registerFunction(en.getKey(), en.getValue().newInstance()); }
     }
     
-    protected static ICellValue handleExceptionForGraphBuilder(IExecutionGraphBuilder builder, ICellAddress cell) {
+    protected static ICellValue handleExceptionForGraphBuilder(IExecutionGraphBuilder builder, IA1Address cell) {
         if (builder instanceof PoiExecutionGraphBuilder) {
             ((PoiExecutionGraphBuilder) builder).getVerticesFromCache(cell.row(), cell.column())
                                                 .forEach(v -> ((ExecutionGraphVertex) v).property(VALUE).set(VALUE_INVALID.getErrorString()));

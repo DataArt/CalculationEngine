@@ -27,15 +27,15 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
 public class CellAddress implements ICellAddress, IA1Address {
 
     protected IDataModelId dataModelId;
-    protected A1Address a1Address;
+    protected IA1Address a1Address;
 
-    public CellAddress(IDataModelId dataModelId, A1Address a1Address) {
+    public CellAddress(IDataModelId dataModelId, IA1Address cell) {
         this.dataModelId = dataModelId;
-        this.a1Address = a1Address;
+        this.a1Address = cell;
     }
 
     @Override public IDataModelId getDataModelId() { return this.dataModelId; }
-    @Override public A1Address a1Address() { return this.a1Address; }
+    @Override public IA1Address a1Address() { return this.a1Address; }
 
     @Override public int row() { return this.a1Address.row(); }
     @Override public int column() { return this.a1Address.column(); }

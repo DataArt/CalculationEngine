@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -51,7 +52,7 @@ public class DataModel implements IDataModel {
     
     protected IDataModelId dataModelId;
     protected String name;
-    protected Map<String, ICellAddress> namedAdresses;
+    protected Map<String, IA1Address> namedAdresses;
     protected Map<String, ICellValue> namedValues;
 
     /** Workbook (table) representation: Row index, Column index, Data {@link IDmCell} */
@@ -88,7 +89,7 @@ public class DataModel implements IDataModel {
 
     @Override
     public IDmRow getRow(ICellAddress address) {
-        return address == null ? null : this.getRow(address.row());
+        return address == null ? null : this.getRow(address.a1Address().row());
     }
 
     @Override
@@ -104,7 +105,7 @@ public class DataModel implements IDataModel {
     
     @Override
     public void setRow(ICellAddress address, IDmRow row) {
-        if (address != null ) { this.setRow(address.row(), row); }
+        if (address != null ) { this.setRow(address.a1Address().row(), row); }
     }
 
     @Override
@@ -115,7 +116,7 @@ public class DataModel implements IDataModel {
     
     @Override
     public IDmCell getCell(ICellAddress address) {
-        return address == null ? null : this.getCell(address.row(), address.column());
+        return address == null ? null : this.getCell(address.a1Address().row(), address.a1Address().column());
     }
 
     @Override
@@ -138,7 +139,7 @@ public class DataModel implements IDataModel {
     
     @Override
     public void setCell(ICellAddress address, IDmCell cell) {
-        if (address != null ) { this.setCell(address.row(), address.column(), cell); }
+        if (address != null ) { this.setCell(address.a1Address().row(), address.a1Address().column(), cell); }
     }
     
     @Override public int rowCount() { return this.table.size(); }
@@ -154,12 +155,12 @@ public class DataModel implements IDataModel {
     }
 
     @Override
-    public ICellAddress getNamedAddress(String alias) {
+    public IA1Address getNamedAddress(String alias) {
         return this.namedAdresses.get(alias);
     }
 
     @Override
-    public void setNamedAddress(String alias, ICellAddress address) {
+    public void setNamedAddress(String alias, IA1Address address) {
         this.namedAdresses.put(alias, address);
     }
 
@@ -174,8 +175,8 @@ public class DataModel implements IDataModel {
     }
 
     @Override
-    public Map<String, ICellAddress> getNamedAddresses() {
-        return Collections.<String, ICellAddress>unmodifiableMap(this.namedAdresses);
+    public Map<String, IA1Address> getNamedAddresses() {
+        return Collections.<String, IA1Address>unmodifiableMap(this.namedAdresses);
     }
 
     @Override

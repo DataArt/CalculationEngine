@@ -76,6 +76,7 @@ import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
@@ -712,8 +713,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         return ExecutionGraph.wrap(emptyGraph);
     }
     
-    public static ExecutionGraph buildSingleVertexGraphForEmptyCell(ICellAddress address) {
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+    public static ExecutionGraph buildSingleVertexGraphForEmptyCell(IA1Address address) {
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.address());
         vertex.property(TYPE).set(EMPTY_CELL);
 
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);

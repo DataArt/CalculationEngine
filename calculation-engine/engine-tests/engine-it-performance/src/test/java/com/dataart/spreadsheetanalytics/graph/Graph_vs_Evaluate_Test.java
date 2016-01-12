@@ -15,7 +15,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.dataart.spreadsheetanalytics.BenchmarkTestParent;
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
@@ -39,7 +39,7 @@ public class Graph_vs_Evaluate_Test extends BenchmarkTestParent {
     IEvaluator evaluator;
     IAuditor auditor;
 
-    ICellAddress[] address;
+    IA1Address[] address;
 
     @Setup(Level.Trial)
     public void initialize() throws Exception {
@@ -49,7 +49,7 @@ public class Graph_vs_Evaluate_Test extends BenchmarkTestParent {
         this.evaluator = new SpreadsheetEvaluator(dataModel);
         this.auditor = new SpreadsheetAuditor(dataModel);
 
-        this.address = new ICellAddress[from + cell_iterations];
+        this.address = new IA1Address[from + cell_iterations];
         for (int i = from; i < from + cell_iterations; i++)
             this.address[i] = fromA1Address(column + i);
     }

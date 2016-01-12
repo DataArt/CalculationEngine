@@ -43,9 +43,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 
 /**
@@ -76,9 +78,9 @@ final class DependencyExtractors {
         if (address instanceof A1RangeAddress) { throw new CalculationEngineException("A1RangeAddress is not supported, only one cell can be converted to DataModel."); }
         
         Sheet s = book.getSheetAt(0); /* TODO: only one sheet is supported */
-        Row r = s.getRow(address.row());
+        Row r = s.getRow(address.a1Address().row());
         if (r == null) { return null; }
-        Cell c = r.getCell(address.column());
+        Cell c = r.getCell(address.a1Address().column());
         if (c == null || CELL_TYPE_FORMULA != c.getCellType()) { return null; }
 
         return createDataModelFromCell(s, create((XSSFWorkbook) book), fromRowColumn(c.getRowIndex(), c.getColumnIndex()));
@@ -164,14 +166,14 @@ final class DependencyExtractors {
     }
 
     /** Based on given cell address creates new {@link IDataModel} with all parsed cell dependencies. */
-    static IDataModel createDataModelFromCell(Sheet sheet, FormulaParsingWorkbook workbook, ICellAddress address) {
+    static IDataModel createDataModelFromCell(Sheet sheet, FormulaParsingWorkbook workbook, IA1Address address) {
         IDataModel dm = new DataModel(randomUUID().toString());
-        resolveCellDependencies(address, sheet, workbook).forEach(cell -> ConverterUtils.copyCell(cell, sheet, dm));
+        resolveCellDependencies(address, sheet, workbook).forEach(cell -> ConverterUtils.copyCell(new CellAddress(dm.getDataModelId(), cell), sheet, dm));
         return dm;
     }
 
     /** For given cell address gives a list of this cell's dependencies. */
-    static List<ICellAddress> resolveCellDependencies(ICellAddress cellAddress, Sheet sheet, FormulaParsingWorkbook workbook) {
+    static List<IA1Address> resolveCellDependencies(IA1Address cellAddress, Sheet sheet, FormulaParsingWorkbook workbook) {
         Row row = sheet.getRow(cellAddress.row());
         if (row == null) { return emptyList(); }
         Cell cell = row.getCell(cellAddress.column());
@@ -179,7 +181,7 @@ final class DependencyExtractors {
         
         if (CELL_TYPE_FORMULA != cell.getCellType()) { return singletonList(cellAddress); }
         
-        List<ICellAddress> dependencies = new LinkedList<>();
+        List<IA1Address> dependencies = new LinkedList<>();
         
         for (Ptg ptg : parse(cell.getCellFormula(), workbook, CELL, 0)) { /* TODO: only one sheet is supported */
             

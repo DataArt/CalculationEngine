@@ -13,12 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.dataart.spreadsheetanalytics.model;
+package com.dataart.spreadsheetanalytics.engine;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
 
 /**
  * Implementation of {@link ICellAddress} which uses A1 format to navigate between cells.
@@ -28,14 +30,15 @@ import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
  */
 public final class A1AddressPool {
 
-    protected static final int POOL_SIZE = 128;
+    static final int POOL_SIZE = 128;
 
-    protected static final A1Address[][] _rc = new A1Address[POOL_SIZE][];
-    protected static final Map<String, A1Address> _a1 = new HashMap<>();
+    static final A1Address[][] _rc = new A1Address[POOL_SIZE][];
+    static final Map<String, A1Address> _a1 = new HashMap<>();
 
     static {
-        for (int i = 0; i < _rc.length; i++) {
-            for (int j = 0; j < _rc[i].length; j++) {
+        for (int i = 0; i < POOL_SIZE; i++) {
+            _rc[i] = new A1Address[POOL_SIZE];
+            for (int j = 0; j < POOL_SIZE; j++) {
                 A1Address address = A1Address.fromRowColumn(i, j);
                 _rc[i][j] = address;
                 _a1.put(address.address(), address);
@@ -44,7 +47,7 @@ public final class A1AddressPool {
     }
 
     public static A1Address get(int r, int c) {
-        return _rc[r][c];
+        return r >= 0 && r < POOL_SIZE && c >= 0 && c < POOL_SIZE ? _rc[r][c] : null;
     }
 
     public static A1Address get(String a1) {

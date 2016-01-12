@@ -20,7 +20,7 @@ import org.apache.poi.ss.formula.EvaluationWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 
 public final class EvaluationWorkbooks {
 
@@ -30,7 +30,7 @@ public final class EvaluationWorkbooks {
         return PoiWorkbookConverters.toEvaluationWorkbook(workbook);
     }
 
-    public static EvaluationCell getEvaluationCell(EvaluationWorkbook evaluationWorkbook, ICellAddress addr) {
+    public static EvaluationCell getEvaluationCell(EvaluationWorkbook evaluationWorkbook, IA1Address addr) {
         return PoiWorkbookConverters.getEvaluationCell(evaluationWorkbook, addr);
     }
 

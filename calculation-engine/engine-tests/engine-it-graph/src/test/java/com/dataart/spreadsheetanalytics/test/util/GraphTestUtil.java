@@ -229,7 +229,7 @@ public class GraphTestUtil {
                 final IAuditor auditor = new SpreadsheetAuditor(model);
                 final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
 
-                final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
+                final IExecutionGraph graph = auditor.buildExecutionGraph(addr.a1Address());
                 final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
                 Writer fw = new FileWriter(filename);
@@ -272,7 +272,7 @@ public class GraphTestUtil {
         final IAuditor auditor = new SpreadsheetAuditor(model);
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
-        final IExecutionGraph graph = auditor.buildExecutionGraph(addr);
+        final IExecutionGraph graph = auditor.buildExecutionGraph(addr.a1Address());
         final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
         Writer fw = new FileWriter(filename);

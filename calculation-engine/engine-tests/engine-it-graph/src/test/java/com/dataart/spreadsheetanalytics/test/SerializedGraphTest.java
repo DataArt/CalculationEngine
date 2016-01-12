@@ -56,7 +56,7 @@ public abstract class SerializedGraphTest {
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
         //build
-        graph = auditor.buildExecutionGraph(addr);
+        graph = auditor.buildExecutionGraph(addr.a1Address());
     }
     
     public void after() throws Exception {

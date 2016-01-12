@@ -42,6 +42,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.api.model.IDsCell;
 import com.dataart.spreadsheetanalytics.api.model.IDsRow;
 import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DmCell;
@@ -91,7 +92,7 @@ final class DataModelConverters {
                 DmCell cell = new DmCell();
                 row.setCell(j, cell);
                 
-                cell.setAddress(A1Address.fromRowColumn(i, j));
+                cell.setAddress(new CellAddress(dm.getDataModelId(), A1Address.fromRowColumn(i, j)));
                 cell.setContent(ConverterUtils.resolveCellValue(c));
             }
         }
@@ -126,7 +127,7 @@ final class DataModelConverters {
             for (IDsCell dsCell : dsRow) {
                 DmCell dmCell = new DmCell();
                 dmCell.setValue(Optional.of(dsCell.getValue()));
-                dmCell.setAddress(A1Address.fromRowColumn(dsRow.index(), dsCell.index()));
+                dmCell.setAddress(new CellAddress(dataModel.getDataModelId(), A1Address.fromRowColumn(dsRow.index(), dsCell.index())));
                 dmCell.setContent(dsCell.getValue());
                 dmRow.setCell(dsCell.index(), dmCell);
             }
@@ -175,7 +176,7 @@ final class DataModelConverters {
             Name name = result.createName();
             name.setNameName(k);
             
-            name.setRefersToFormula(createPoiNameRef(v.a1Address().address(), dataModel.getName()));
+            name.setRefersToFormula(createPoiNameRef(v.address(), dataModel.getName()));
         });
 
         dataModel.getNamedValues().forEach((k, v) -> {

@@ -19,6 +19,7 @@ import org.apache.poi.ss.util.CellReference;
 
 import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.engine.A1AddressPool;
 
 /**
  * Implementation of {@link ICellAddress} which uses A1 format to navigate between cells.
