@@ -299,7 +299,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         updateVertexType(vertex, state.dgraph);
 
         switch (vertex.type) {
-            case CELL_WITH_VALUE: { return CellFormulaExpression.copyOf(vertex.formula); }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
                 ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).iterator().next();
@@ -344,17 +343,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             case RANGE: {
-                vertex.formula.formulaStr(vertex.properties().getName());
-                vertex.formula.formulaValues(vertex.properties().getValue().toString());
-                vertex.formula.formulaPtgStr(vertex.properties().getValue().toString());
-                vertex.formula.ptgStr(vertex.properties().getName());
                 connectValuesToRange(vertex, state);
                 for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
                     buildFormula(state.dgraph.getEdgeSource(edge), state);
                 }
-                return CellFormulaExpression.copyOf(vertex.formula);
-            }
-            case CONSTANT_VALUE: {
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             default: {
