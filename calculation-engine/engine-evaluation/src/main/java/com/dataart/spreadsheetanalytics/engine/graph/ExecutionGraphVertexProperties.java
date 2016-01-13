@@ -139,7 +139,7 @@ class ExecutionGraphVertexProperties implements IExecutionGraphVertexProperties 
     }
 
     @Override public void setFormulaString(String value) {
-        this.parent.formula.formulaStr((value == null) ? "" : PoiExecutionGraphBuilder.removeSymbol(value, '$'));
+        this.parent.formula.formulaStr((value == null) ? "" : GraphBuilderUtils.removeSymbol(value, '$'));
     }
 
     @Override public String getPtgString() {
