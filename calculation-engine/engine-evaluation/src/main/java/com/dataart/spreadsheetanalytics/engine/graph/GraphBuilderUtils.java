@@ -1,8 +1,6 @@
 package com.dataart.spreadsheetanalytics.engine.graph;
 
 import static java.lang.String.join;
-import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.EMPTY_CELL;
@@ -165,20 +163,20 @@ public final class GraphBuilderUtils {
         }
         
         if (optg == null || optg instanceof AbstractFunctionPtg) {
-            return removeBrackets(new StringBuilder()
-                                    .append(opname)
-                                    .append("(")
-                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
-                                    .append(")")
-                                    .toString());
+            return new StringBuilder()
+                    .append(opname)
+                    .append("(")
+                    .append(removeBrackets(ops.toString()))
+                    .append(")")
+                    .toString();
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return removeBrackets(new StringBuilder()
-                                    .append(ops.size() > 1 ? ops.get(1) : "")
-                                    .append(" ")
-                                    .append(opname)
-                                    .append(" ")
-                                    .append(ops.size() > 0 ? ops.get(0) : "")
-                                    .toString());
+            return new StringBuilder()
+                    .append(ops.size() > 1 ? removeBrackets(ops.get(1)) : "")
+                    .append(" ")
+                    .append(opname)
+                    .append(" ")
+                    .append(ops.size() > 0 ? removeBrackets(ops.get(0)) : "")
+                    .toString();
         }
         
         return "";
@@ -188,31 +186,30 @@ public final class GraphBuilderUtils {
         String opname = "";
         
         if (optg == null) {
-            return removeBrackets(new StringBuilder()
-                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
-                                    .append(" IF")
-                                    .toString());
+            return new StringBuilder()
+                    .append(join(", ", ops))
+                    .append(" IF")
+                    .toString();
         } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
             /* if the function was not recognized as internal function we use the node name as the function name */
             if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.getName(); }
         }
         
-        
         if (optg instanceof AbstractFunctionPtg) {
-            return removeBrackets(new StringBuilder()
-                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
-                                    .append(" ")
-                                    .append(opname)
-                                    .toString());
+            return new StringBuilder()
+                    .append(join(", ", ops))
+                    .append(" ")
+                    .append(opname)
+                    .toString();
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return removeBrackets(new StringBuilder()
-                                    .append(ops.size() > 1 ? ops.get(1) : "")
-                                    .append(" ")
-                                    .append(ops.size() > 0 ? ops.get(0) : "")
-                                    .append(" ")
-                                    .append(opname)
-                                    .toString());
+            return new StringBuilder()
+                    .append(ops.size() > 1 ? removeBrackets(ops.get(1)) : "")
+                    .append(" ")
+                    .append(ops.size() > 0 ? removeBrackets(ops.get(0)) : "")
+                    .append(" ")
+                    .append(opname)
+                    .toString();
         }
 
         return "";
