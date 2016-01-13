@@ -15,9 +15,9 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine;
 
-import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.buildSingleVertexGraphForCellWithValue;
-import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.buildSingleVertexGraphForEmptyCell;
-import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.buildSingleVertexGraphForParseException;
+import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.buildSingleVertexGraphForCellWithValue;
+import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.buildSingleVertexGraphForEmptyCell;
+import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.buildSingleVertexGraphForParseException;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
 import static org.apache.poi.ss.formula.eval.ErrorEval.VALUE_INVALID;
 

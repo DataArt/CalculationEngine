@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.poi.common.fork.IExecutionGraphVertex.Type;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -83,7 +84,7 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
             switch (key) {
                 case "name": { this.prev.properties().setName(content.toString()); break; }
                 case "value": { this.prev.properties().setValue(content.toString()); break; } 
-                case "type": { this.prev.properties().setType(content.toString()); break; }
+                case "type": { this.prev.properties().setType(Type.valueOf(Type.class, content.toString())); break; }
                 case "formula": { this.prev.formulaToString = content.toString(); break; }
             }
 
@@ -99,10 +100,10 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
 
     private static void createIndexes(ExecutionGraphML graphML) {
         for (ExecutionGraphVertexML v : graphML.getVerticesML()) {
-            List<ExecutionGraphVertexML> set = graphML.verticesIndexName.get(v.name()) != null ? graphML.verticesIndexName.get(v.name()) : new LinkedList<>();
+            List<ExecutionGraphVertexML> set = graphML.verticesIndexName.get(v.getName()) != null ? graphML.verticesIndexName.get(v.getName()) : new LinkedList<>();
             set.add(v);
-            graphML.verticesIndexName.put(v.name(), set);
-            graphML.verticesIndexId.put(v.id(), v);
+            graphML.verticesIndexName.put(v.getName(), set);
+            graphML.verticesIndexId.put(v.getId(), v);
         }
     }
 

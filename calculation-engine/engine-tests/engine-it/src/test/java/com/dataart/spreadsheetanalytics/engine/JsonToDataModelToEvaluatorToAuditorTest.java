@@ -111,10 +111,10 @@ public class JsonToDataModelToEvaluatorToAuditorTest {
         //then
         for (IExecutionGraphVertex vertex : graph.getVertices()) {
             Map<String, Object> expected;
-            if ((expected = vertices.get(vertex.name())) == null) { continue; }
+            if ((expected = vertices.get(vertex.getName())) == null) { continue; }
             
-            assertThat(vertex.value()).isEqualTo(expected.get("value"));
-            assertThat(vertex.alias()).isEqualTo(expected.get("alias"));
+            assertThat(vertex.getValue()).isEqualTo(expected.get("value"));
+            assertThat(vertex.getAlias()).isEqualTo(expected.get("alias"));
         }
     }
 

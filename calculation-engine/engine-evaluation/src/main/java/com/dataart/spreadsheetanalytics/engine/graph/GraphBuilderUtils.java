@@ -1,68 +1,233 @@
 package com.dataart.spreadsheetanalytics.engine.graph;
 
-import org.apache.poi.ss.formula.ptg.AddPtg;
-import org.apache.poi.ss.formula.ptg.ConcatPtg;
-import org.apache.poi.ss.formula.ptg.DividePtg;
-import org.apache.poi.ss.formula.ptg.EqualPtg;
-import org.apache.poi.ss.formula.ptg.GreaterThanPtg;
-import org.apache.poi.ss.formula.ptg.LessThanPtg;
-import org.apache.poi.ss.formula.ptg.MultiplyPtg;
-import org.apache.poi.ss.formula.ptg.NotEqualPtg;
-import org.apache.poi.ss.formula.ptg.PercentPtg;
-import org.apache.poi.ss.formula.ptg.PowerPtg;
+import static java.lang.String.join;
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.EMPTY_CELL;
+
+import java.util.List;
+import java.util.Set;
+
+import org.apache.poi.common.fork.ExecutionGraphBuilderUtils;
+import org.apache.poi.common.fork.IExecutionGraphVertex;
+import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
+import org.apache.poi.ss.formula.eval.ErrorEval;
+import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
+import org.apache.poi.ss.formula.ptg.ParenthesisPtg;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtgBase;
-import org.apache.poi.ss.formula.ptg.SubtractPtg;
-import org.apache.poi.ss.formula.ptg.UnaryMinusPtg;
-import org.apache.poi.ss.formula.ptg.UnaryPlusPtg;
 import org.apache.poi.ss.formula.ptg.UnionPtg;
+import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
 
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
+import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.engine.A1AddressPool;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 
 public final class GraphBuilderUtils {
     
+    public static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
+    
+    public static final char B_LEFT = '[';
+    public static final char B_RIGHT = ']';
+    
     private GraphBuilderUtils() {}
     
-    public static String ptgToString(Ptg ptg) {
+    static String ptgToString(Ptg ptg) {
         Class<? extends Ptg> ptgCls = ptg.getClass();
 
-        if (ptgCls.isAssignableFrom(AddPtg.class)) {
-            return "+";
-        } else if (ptgCls.isAssignableFrom(SubtractPtg.class)) {
-            return "-";
-        } else if (ptgCls.isAssignableFrom(DividePtg.class)) {
-            return "/";
-        } else if (ptgCls.isAssignableFrom(MultiplyPtg.class)) {
-            return "*";
-        } else if (ptgCls.isAssignableFrom(EqualPtg.class)) {
-            return "=";
-        } else if (ptgCls.isAssignableFrom(GreaterThanPtg.class)) {
-            return ">";
-        } else if (ptgCls.isAssignableFrom(LessThanPtg.class)) {
-            return "<";
-        } else if (ptgCls.isAssignableFrom(NotEqualPtg.class)) {
-            return "<>";
-        } else if (ptgCls.isAssignableFrom(UnaryPlusPtg.class)) {
-            return "+";
-        } else if (ptgCls.isAssignableFrom(UnaryMinusPtg.class)) {
-            return "-";
-        } else if (ptgCls.isAssignableFrom(ConcatPtg.class)) {
-            return "&";
-        } else if (ptgCls.isAssignableFrom(PowerPtg.class)) {
-            return "^";
-        } else if (ptgCls.isAssignableFrom(PercentPtg.class)) {
-            return "%";
-        } else if (ptgCls.isAssignableFrom(UnionPtg.class)) {
-            return ",";
-        } else if (ptgCls.isAssignableFrom(RefPtgBase.class)) {
+        if (ptgCls.isAssignableFrom(RefPtgBase.class)) {
             RefPtgBase refPtgBse = (RefPtgBase) ptg;
             A1Address address = A1AddressPool.get(refPtgBse.getRow(), refPtgBse.getColumn());
             return address == null ? ptg.toFormulaString() : address.address();
         }
 
-        try { return ptg.toFormulaString(); }
-        catch (Exception e) { return ptg.getClass().getSimpleName(); }
+        return ExecutionGraphBuilderUtils.ptgToString(ptg);
+    }
+
+    static boolean isCompareOperand(String name) {
+        return name.contains("=") || name.contains("<") || name.contains(">") || name.contains("<>") || name.contains("=>") || name.contains("<=");
+    }
+
+    public static ExecutionGraph buildSingleVertexGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
+        
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.properties().setType(CELL_WITH_FORMULA);
+        vertex.properties().setValue(error);
+        
+        if (formulaString == null) { vertex.properties().setFormulaString(error.getErrorString()); }
+        else { vertex.properties().setFormulaString(formulaString); }
+        
+        vertex.properties().setFormulaValues(error.getErrorString());
+        vertex.properties().setFormulaPtgString(error.getErrorString());
+        vertex.properties().setPtgString(error.getErrorString());
+        vertex.properties().setSourceObjectId(address.getDataModelId());
+        
+        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        emptyGraph.addVertex(vertex);
+        return ExecutionGraph.wrap(emptyGraph);
+    }
+    
+    public static ExecutionGraph buildSingleVertexGraphForCellWithValue(ICellValue cell, ICellAddress address) {
+        
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        vertex.properties().setValue(cell.get());
+        vertex.properties().setType(CELL_WITH_VALUE);
+        vertex.properties().setFormulaString(address.a1Address().address());
+        vertex.properties().setFormulaValues(cell.get().toString());
+        vertex.properties().setFormulaPtgString("");
+        vertex.properties().setPtgString("");
+        vertex.properties().setSourceObjectId(address.getDataModelId());
+
+        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        emptyGraph.addVertex(vertex);
+        return ExecutionGraph.wrap(emptyGraph);
+    }
+    
+    public static ExecutionGraph buildSingleVertexGraphForEmptyCell(IA1Address address) {
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.address());
+        vertex.properties().setType(EMPTY_CELL);
+
+        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        emptyGraph.addVertex(vertex);
+        return ExecutionGraph.wrap(emptyGraph);
+    }
+
+    /**
+     * Does copy of all properties for every Vertex from @param vertices. the
+     * first @param standard is used as object to copy from.
+     */
+    static void copyProperties(ExecutionGraphVertex standard, Set<IExecutionGraphVertex> vertices) {
+        for (IExecutionGraphVertex vertex : vertices) {
+            if (standard.equals(vertex)) { continue; }
+
+            IExecutionGraphVertexProperties from = standard.properties();
+            IExecutionGraphVertexProperties to = ((ExecutionGraphVertex) vertex).properties();
+
+            //copy all, but: IndexInFormula and VertexId
+            to.setName(from.getName());
+            to.setAlias(from.getAlias());
+            to.setValue(from.getValue());
+            to.setType(from.getType());
+            to.setFormulaString(from.getFormulaString());
+            to.setFormulaValues(from.getFormulaValues());
+            to.setFormulaPtg(from.getFormulaPtg());
+            to.setPtgs(from.getPtgs());
+            to.setSourceObjectId(from.getSourceObjectId());
+            to.setRootFormulaId(from.getRootFormulaId());
+            to.setFormulaPtgString(from.getFormulaPtgString());
+            to.setPtgString(from.getPtgString());
+        }
+    }    
+    
+    static String removeSymbol(String str, char symbol) {
+        if (str.indexOf(symbol) < 0) { return str; }
+        
+        final char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != symbol) 
+                { chars[pos++] = chars[i]; }
+        }
+        return new String(chars, 0, pos);
+    }
+
+    static boolean isErrorValue(Object val) {
+        return val instanceof ErrorEval;
+    }
+
+    static boolean inheritsErrorValue(IExecutionGraphVertex ivertex) {
+        ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+        boolean isNotInherFunction = "ISERROR".equals(vertex.getName());
+        boolean isError = isErrorValue(vertex.getValue());
+        return !(isError || isNotInherFunction);
+    }
+
+    static boolean isSkipVertex(Ptg ptg) {
+        return ptg instanceof ParenthesisPtg;
+    }
+
+    static String createFormulaString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+        String opname = "";
+        if (optg == null) { // IF
+            opname = "IF";
+        } else if (optg instanceof Ptg) {
+            opname = ptgToString((Ptg) optg);
+            /* if the function was not recognized as internal function we use the node name as the function name */
+            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.getName(); }
+        } else {
+            opname = optg.toString();
+        }
+        
+        if (optg == null || optg instanceof AbstractFunctionPtg) {
+            return removeBrackets(new StringBuilder()
+                                    .append(opname)
+                                    .append("(")
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(")")
+                                    .toString());
+        } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
+            return removeBrackets(new StringBuilder()
+                                    .append(ops.size() > 1 ? ops.get(1) : "")
+                                    .append(" ")
+                                    .append(opname)
+                                    .append(" ")
+                                    .append(ops.size() > 0 ? ops.get(0) : "")
+                                    .toString());
+        }
+        
+        return "";
+    }
+
+    static String createPtgString(Object optg, List<String> ops, ExecutionGraphVertex vertex) {
+        String opname = "";
+        
+        if (optg == null) {
+            return removeBrackets(new StringBuilder()
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(" IF")
+                                    .toString());
+        } else {
+            opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
+            /* if the function was not recognized as internal function we use the node name as the function name */
+            if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.getName(); }
+        }
+        
+        
+        if (optg instanceof AbstractFunctionPtg) {
+            return removeBrackets(new StringBuilder()
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(" ")
+                                    .append(opname)
+                                    .toString());
+        } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
+            return removeBrackets(new StringBuilder()
+                                    .append(ops.size() > 1 ? ops.get(1) : "")
+                                    .append(" ")
+                                    .append(ops.size() > 0 ? ops.get(0) : "")
+                                    .append(" ")
+                                    .append(opname)
+                                    .toString());
+        }
+
+        return "";
+    }
+
+    static String removeBrackets(String str) {
+        if (str.indexOf(B_LEFT) < 0) { return str; }
+        
+        final char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != B_LEFT && chars[i] != B_RIGHT) 
+                { chars[pos++] = chars[i]; }
+        }
+        return new String(chars, 0, pos);
     }
 
 }

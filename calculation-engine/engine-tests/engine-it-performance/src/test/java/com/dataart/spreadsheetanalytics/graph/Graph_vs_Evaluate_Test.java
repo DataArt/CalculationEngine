@@ -67,7 +67,7 @@ public class Graph_vs_Evaluate_Test extends BenchmarkTestParent {
     public void graph_ExcelDataModel_ExecutionTimeIsOk(Graph_vs_Evaluate_Test state, Blackhole bh) {
         for (int i = state.from; i < state.from + state.cell_iterations; i++) {
             IExecutionGraph graph = state.auditor.buildExecutionGraph(state.address[i]);
-            assertThat(graph.getRootVertex().value()).isEqualTo(state.expectedValue); /* comment for better performance */
+            assertThat(graph.getRootVertex().getValue()).isEqualTo(state.expectedValue); /* comment for better performance */
             bh.consume(graph);
         }
     }

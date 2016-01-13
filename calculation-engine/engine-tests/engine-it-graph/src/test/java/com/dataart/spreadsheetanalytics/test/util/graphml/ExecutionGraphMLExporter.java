@@ -88,17 +88,17 @@ public class ExecutionGraphMLExporter extends GraphMLExporter {
         // Add all the vertices as <node> elements...
         for (ExecutionGraphVertex v : g.vertexSet()) {
             // <node>
-            String value = v.value() == null ? "" : v.value().toString(); 
+            String value = v.getValue() == null ? "" : v.getValue().toString(); 
             
             attr.clear();
-            attr.addAttribute("", "", "id", "CDATA", Integer.toString(v.id()));
+            attr.addAttribute("", "", "id", "CDATA", Integer.toString(v.getId()));
             handler.startElement("", "", "node", attr);
 
             // name
             attr.clear();
             attr.addAttribute("", "", "key", "CDATA", "name");
             handler.startElement("", "", "data", attr);
-            handler.characters(v.name().toCharArray(), 0, v.name().length()); // Content for <data>
+            handler.characters(v.getName().toCharArray(), 0, v.getName().length()); // Content for <data>
             handler.endElement("", "", "data");
             
             // value
@@ -112,14 +112,14 @@ public class ExecutionGraphMLExporter extends GraphMLExporter {
             attr.clear();
             attr.addAttribute("", "", "key", "CDATA", "type");
             handler.startElement("", "", "data", attr);
-            handler.characters(v.type().toString().toCharArray(), 0, v.type().toString().length()); // Content for <data>
+            handler.characters(v.getType().toString().toCharArray(), 0, v.getType().toString().length()); // Content for <data>
             handler.endElement("", "", "data");
             
             // formula
             attr.clear();
             attr.addAttribute("", "", "key", "CDATA", "formula");
             handler.startElement("", "", "data", attr);
-            handler.characters(GraphTestUtil.formulaToString(v.formula()).toCharArray(), 0, GraphTestUtil.formulaToString(v.formula()).length()); // Content for <data>
+            handler.characters(GraphTestUtil.formulaToString(v.getFormula()).toCharArray(), 0, GraphTestUtil.formulaToString(v.getFormula()).length()); // Content for <data>
             handler.endElement("", "", "data");
 
             handler.endElement("", "", "node");
@@ -130,8 +130,8 @@ public class ExecutionGraphMLExporter extends GraphMLExporter {
             // <edge>
             
             attr.clear();
-            attr.addAttribute("", "", "source", "CDATA", Integer.toString(g.getEdgeSource(e).id()));
-            attr.addAttribute("", "", "target", "CDATA", Integer.toString(g.getEdgeTarget(e).id()));
+            attr.addAttribute("", "", "source", "CDATA", Integer.toString(g.getEdgeSource(e).getId()));
+            attr.addAttribute("", "", "target", "CDATA", Integer.toString(g.getEdgeTarget(e).getId()));
             handler.startElement("", "", "edge", attr);
 
             handler.endElement("", "", "edge");
