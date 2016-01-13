@@ -52,7 +52,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
@@ -78,7 +78,7 @@ final class PoiWorkbookConverters {
      * Returns {@link EvaluationCell} of given {@link EvaluationWorkbook}.
      * {@link EvaluationWorkbook} should be created with {@link #toEvaluationWorkbook(Workbook)} method.
      */
-    public static EvaluationCell getEvaluationCell(EvaluationWorkbook evaluationWorkbook, ICellAddress addr) {
+    public static EvaluationCell getEvaluationCell(EvaluationWorkbook evaluationWorkbook, IA1Address addr) {
         return ((PoiProxyWorkbook) evaluationWorkbook).getSheet(0).getCell(addr.row(), addr.column());
     }
 }

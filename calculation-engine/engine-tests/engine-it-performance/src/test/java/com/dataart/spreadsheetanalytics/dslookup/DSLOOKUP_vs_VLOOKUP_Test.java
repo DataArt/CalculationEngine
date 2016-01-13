@@ -14,7 +14,7 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import com.dataart.spreadsheetanalytics.BenchmarkTestParent;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
@@ -36,8 +36,8 @@ public class DSLOOKUP_vs_VLOOKUP_Test extends BenchmarkTestParent {
     IDataModel dataModel;
     IEvaluator evaluator;
 
-    ICellAddress[] addressA;
-    ICellAddress[] addressB;
+    IA1Address[] addressA;
+    IA1Address[] addressB;
 
     @Setup(Level.Trial)
     public void initialize() throws Exception {
@@ -53,8 +53,8 @@ public class DSLOOKUP_vs_VLOOKUP_Test extends BenchmarkTestParent {
         for (int i = from; i < from + cell_iterations; i++)
             this.expectedValues[i] = evaluator.evaluate(fromA1Address(columnB + i)).getResult().get();
         
-        this.addressA = new ICellAddress[from + cell_iterations];
-        this.addressB = new ICellAddress[from + cell_iterations];
+        this.addressA = new IA1Address[from + cell_iterations];
+        this.addressB = new IA1Address[from + cell_iterations];
         for (int i = from; i < from + cell_iterations; i++) {
             this.addressA[i] = fromA1Address(columnA + i);
             this.addressB[i] = fromA1Address(columnB + i);

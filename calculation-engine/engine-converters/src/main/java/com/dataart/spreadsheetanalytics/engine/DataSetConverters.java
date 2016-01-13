@@ -84,7 +84,7 @@ final class DataSetConverters {
         for (IDmRow dmRow : dataModel) {            
             IDsRow dsRow = dataSet.addRow();
             for (IDmCell dmCell : dmRow) {
-                IDsCell dsCell = dsRow.addCell(dmCell.getAddress().column());
+                IDsCell dsCell = dsRow.addCell(dmCell.getAddress().a1Address().column());
                 if (dmCell.getValue().isPresent()) {
                     dsCell.setValue(dmCell.getValue().get());
                 }

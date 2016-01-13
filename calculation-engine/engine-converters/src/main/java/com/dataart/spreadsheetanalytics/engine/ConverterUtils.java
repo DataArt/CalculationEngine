@@ -149,9 +149,9 @@ public final class ConverterUtils {
     /** Does cell of a given address copy from {@link Sheet} to {@link IDataModel}. */
     static void copyCell(ICellAddress address, Sheet from, IDataModel to) {
         if (from == null) { return; }
-        Row fromRow = from.getRow(address.row());
+        Row fromRow = from.getRow(address.a1Address().row());
         if (fromRow == null) { return; }
-        Cell fromCell = fromRow.getCell(address.column());
+        Cell fromCell = fromRow.getCell(address.a1Address().column());
         if (fromCell == null) { return; }
         
         DmCell toCell = new DmCell();

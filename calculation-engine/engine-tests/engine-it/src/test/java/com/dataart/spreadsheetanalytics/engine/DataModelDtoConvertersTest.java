@@ -177,10 +177,10 @@ public class DataModelDtoConvertersTest {
             assertThat(acRow.cellCount()).isEqualTo(exRow.cellCount());
             
             for (IDmCell exCell : exRow) {
-                IDmCell acCell = acRow.getCell(exCell.getAddress().column());
+                IDmCell acCell = acRow.getCell(exCell.getAddress().a1Address().column());
                 
-                assertThat(acCell.getAddress().row()).isEqualTo(exCell.getAddress().row());
-                assertThat(acCell.getAddress().column()).isEqualTo(exCell.getAddress().column());
+                assertThat(acCell.getAddress().a1Address().row()).isEqualTo(exCell.getAddress().a1Address().row());
+                assertThat(acCell.getAddress().a1Address().column()).isEqualTo(exCell.getAddress().a1Address().column());
                 
                 //TODO: assertThat(acCell.alias()).isEqualTo(exCell.alias());
                 assertThat(acCell.getContent()).isEqualTo(exCell.getContent());

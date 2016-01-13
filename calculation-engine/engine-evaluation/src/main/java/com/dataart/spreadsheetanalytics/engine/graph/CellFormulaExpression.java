@@ -33,7 +33,7 @@ public class CellFormulaExpression {
     protected String ptgStr;
     protected Ptg[] ptgs;
     protected int iptg;    
-    protected Object rootFormulaId;
+    protected int rootFormulaId;
     protected Object[] formulaPtg; //[0] - OperationPtg, [1] - array of values 
     
     /** Represents the original formula from a cell. e.g. A1 + B3 * SUM (A1,A2,A3) */
@@ -61,8 +61,8 @@ public class CellFormulaExpression {
     public void iptg(int iptg) { this.iptg = iptg; }
     
     /** PTGs with values and operand, e.g. 1, 3, + */
-    public Object rootFormulaId() { return this.rootFormulaId; }
-    public void rootFormulaId(Object rootFormulaId) { this.rootFormulaId = rootFormulaId; }
+    public int rootFormulaId() { return this.rootFormulaId; }
+    public void rootFormulaId(int rootFormulaId) { this.rootFormulaId = rootFormulaId; }
     
     /** Link to root formula */
     public Object[] formulaPtg() { return this.formulaPtg == null ? null : Arrays.copyOf(this.formulaPtg, this.formulaPtg.length); }

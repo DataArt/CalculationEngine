@@ -25,4 +25,14 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 public class ExecutionGraphEdge extends DefaultEdge implements IExecutionGraphEdge {
     private static final long serialVersionUID = -1921539278513666672L;
 
+    protected ExecutionGraphVertex source;
+    protected ExecutionGraphVertex target;
+
+    public ExecutionGraphEdge(ExecutionGraphVertex source, ExecutionGraphVertex target) {
+        this.source = source;
+        this.target = target;
+    }
+
+    @Override protected Object getSource() { return this.source; }
+    @Override protected Object getTarget() { return this.target; }
 }

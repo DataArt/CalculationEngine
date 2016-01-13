@@ -31,6 +31,7 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.dto.DataModelDto;
+import com.dataart.spreadsheetanalytics.model.CellAddress;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DataModel;
 import com.dataart.spreadsheetanalytics.model.DataModelId;
@@ -57,7 +58,7 @@ final class DataModelDtoConverters {
                 .stream()
                 .collect(Collectors.toMap(
                             e -> e.getKey(),
-                            e -> e.getValue().a1Address().address()));
+                            e -> e.getValue().address()));
 
         dataModel.getNamedValues().forEach( (k,v) -> names.put(k, v.get()) );
 
@@ -100,7 +101,7 @@ final class DataModelDtoConverters {
         dataModel.setDataModelId(new DataModelId(dto.dataModelId));
         
         for (Entry<String, Object> cell : dto.table.entrySet()) {
-            ICellAddress address = fromA1Address(cell.getKey());
+            ICellAddress address = new CellAddress(dataModel.getDataModelId(), fromA1Address(cell.getKey()));
             Object content = cell.getValue();
             
             DmCell dmcell = new DmCell();
@@ -114,7 +115,7 @@ final class DataModelDtoConverters {
             Object value = cell.getValue();
             if (value == null) { continue; }
             
-            ICellAddress address = fromA1Address(cell.getKey());
+            ICellAddress address = new CellAddress(dataModel.getDataModelId(), fromA1Address(cell.getKey()));
             
             ((DmCell) dataModel.getCell(address)).setValue(Optional.of(CellValue.from(value)));
         }

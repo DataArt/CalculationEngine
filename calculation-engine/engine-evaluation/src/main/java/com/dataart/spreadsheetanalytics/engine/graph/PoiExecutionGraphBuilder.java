@@ -25,21 +25,10 @@ import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.T
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.OPERATOR;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.RANGE;
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type.isCell;
-import static java.lang.String.format;
+import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.ptgToString;
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
-import static org.apache.poi.common.fork.ExecutionGraphBuilderUtils.ptgToString;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.ALIAS;
-//import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_PTG_STRING;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_STRING;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.FORMULA_VALUES;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.NAME;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.PTG_STRING;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.TYPE;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -56,8 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.poi.common.fork.IExecutionGraphBuilder;
 import org.apache.poi.common.fork.IExecutionGraphVertex;
-import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
-import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
+import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.eval.ValueEval;
@@ -77,6 +65,7 @@ import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type;
@@ -97,13 +86,14 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
     protected static final String UNDEFINED_EXTERNAL_FUNCTION = "#external#";
     
-    protected static final String B_LEFT = "[";
-    protected static final String B_RIGHT = "]";
+    protected static final char B_LEFT = '[';
+    protected static final char B_RIGHT = ']';
     
     protected static final ThreadLocal<AtomicInteger> ID_RANDOMIZER = new ThreadLocal<>();
     
-    IExecutionGraphVertex namedVertexRoot;
-    protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+    protected IExecutionGraphVertex namedVertexRoot;
+    
+    protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>((s, t) -> new ExecutionGraphEdge(s, t));
     protected Deque<Boolean> processName = new LinkedList<>();
     protected final ExecutionGraphConfig config;
     /*
@@ -134,7 +124,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     @Override
     public IExecutionGraphVertex createVertex(String address) {
         // create new vertex object
-        ExecutionGraphVertex v = new ExecutionGraphVertex(address.replace("$", ""));
+        ExecutionGraphVertex v = new ExecutionGraphVertex(removeSymbol(address, '$'));
 
         // add vertex to actual graph
         this.dgraph.addVertex(v);
@@ -220,8 +210,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     @Override
-    public IExecutionGraphVertexProperty getVertexProperty(IExecutionGraphVertex vertex, PropertyName property) {
-        return ((ExecutionGraphVertex) vertex).property(property);
+    public IExecutionGraphVertexProperties getVertexProperties(IExecutionGraphVertex vertex) {
+        return ((ExecutionGraphVertex) vertex).properties();
     }
 
     /**
@@ -244,7 +234,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
                 for (IExecutionGraphVertex ivertex : vs) {
                     ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
-                    if (CELL_WITH_FORMULA == (Type) vertex.property(TYPE).get() || null != vertex.property(ALIAS).get())
+                    if (CELL_WITH_FORMULA == (Type) vertex.properties().getType() || null != vertex.properties().getAlias())
                     { standard = vertex; break; }
                 }
 
@@ -260,10 +250,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         for (ExecutionGraphVertex vertex : graph.vertexSet()) {
 
             // restore/add subgraphs to identical vertices
-            Type type = (Type) vertex.property(TYPE).get();
+            Type type = (Type) vertex.properties().getType();
 
             if (isCell(type)) {
-                String address = (String) vertex.property(NAME).get();
+                String address = vertex.properties().getName();
 
                 adressToCount.putIfAbsent(address, new AtomicInteger(0));
 
@@ -275,7 +265,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
                         ExecutionGraphVertex tmpVertex = (ExecutionGraphVertex) itmpVertex;
 
-                        String tmpAddress = (String) tmpVertex.property(NAME).get();
+                        String tmpAddress = tmpVertex.properties().getName();
                         if (address.equals(tmpAddress)) { // check for subgraph
                             for (ExecutionGraphEdge tmpEdge : graph.incomingEdgesOf(tmpVertex)) {
                                 subgraphTops.add(graph.getEdgeSource(tmpEdge));
@@ -301,11 +291,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 for (ExecutionGraphEdge e : two) {
                     ExecutionGraphVertex oneOfTwo = graph.getEdgeSource(e);
                     if (!isCompareOperand(oneOfTwo.name())) {
-                        ifBranchValue = oneOfTwo.property(VALUE).get();
+                        ifBranchValue = oneOfTwo.properties().getValue();
                         break;
                     }
                 }
-                vertex.property(VALUE).set(ifBranchValue);
+                vertex.properties().setValue(ifBranchValue);
             }
 
         }
@@ -321,7 +311,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (this.config.getDuplicatesNumberThreshold() != -1) { removeAllDuplicates(); }
     }
 
-    //TODO: this recursive method call costs about 30-40% of all graph building time, need to fix it.
+    //TODO: this recursive method call costs about 10-15% of all graph building time, need to fix it.
     protected static CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, PoiExecutionGraphBuilder state) {
         updateVertexType(vertex, state.dgraph);
 
@@ -329,7 +319,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             case CELL_WITH_VALUE: { return CellFormulaExpression.copyOf(vertex.formula); }
             case CELL_WITH_REFERENCE:
             case CELL_WITH_FORMULA: {
-                ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).stream().findFirst().get();
+                ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).iterator().next();
                 ExecutionGraphVertex source = state.dgraph.getEdgeSource(edge);
                 vertex.formula = buildFormula(source, state);
                 vertex.value = source.value;
@@ -371,10 +361,10 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             case RANGE: {
-                vertex.formula.formulaStr(vertex.property(NAME).get().toString());
-                vertex.formula.formulaValues(vertex.property(VALUE).get().toString());
-                vertex.formula.formulaPtgStr(vertex.property(VALUE).get().toString());
-                vertex.formula.ptgStr(vertex.property(NAME).get().toString());
+                vertex.formula.formulaStr(vertex.properties().getName());
+                vertex.formula.formulaValues(vertex.properties().getValue().toString());
+                vertex.formula.formulaPtgStr(vertex.properties().getValue().toString());
+                vertex.formula.ptgStr(vertex.properties().getName());
                 connectValuesToRange(vertex, state);
                 for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
                     buildFormula(state.dgraph.getEdgeSource(edge), state);
@@ -382,11 +372,11 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             case CONSTANT_VALUE: {
-//                vertex.property(NAME).set(CONSTANT_VALUE_NAME);
-                vertex.formula.formulaStr(vertex.property(NAME).get().toString());
+//                vertex.property(NAME).set(CONSTANT_VALUE_NAME);            
+                vertex.formula.formulaStr(vertex.properties().getName());
                 vertex.formula.formulaValues(vertex.value().toString());
                 vertex.formula.formulaPtgStr(vertex.value().toString());
-                vertex.formula.ptgStr(vertex.property(NAME).get().toString());
+                vertex.formula.ptgStr(vertex.properties().getName());
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             default: {
@@ -429,15 +419,22 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
         
         if (optg == null || optg instanceof AbstractFunctionPtg) {
-            return removeBrackets(format("%s(%s)", 
-                                                 opname,
-                                                 join(",", asList(ops)
-                                                               .stream()
-                                                               .map(v -> v.toString())
-                                                               .collect(toList()))));
+            return removeBrackets(new StringBuilder()
+                                    .append(opname)
+                                    .append("(")
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(")")
+                                    .toString());
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return removeBrackets(format("%s %s %s", ops.size() > 1 ? ops.get(1) : "", opname, ops.size() > 0 ? ops.get(0) : ""));
+            return removeBrackets(new StringBuilder()
+                                    .append(ops.size() > 1 ? ops.get(1) : "")
+                                    .append(" ")
+                                    .append(opname)
+                                    .append(" ")
+                                    .append(ops.size() > 0 ? ops.get(0) : "")
+                                    .toString());
         }
+        
         return "";
     }
 
@@ -445,31 +442,58 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         String opname = "";
         
         if (optg == null) {
-            return removeBrackets(format("%s %s ",
-                                                join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())), 
-                                                "IF"));
+            return removeBrackets(new StringBuilder()
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(" IF")
+                                    .toString());
         } else {
             opname = optg instanceof Ptg ? ptgToString((Ptg) optg) : optg.toString();
             /* if the function was not recognized as internal function we use the node name as the function name */
             if (UNDEFINED_EXTERNAL_FUNCTION.equals(opname)) { opname = vertex.name(); }
         }
         
+        
         if (optg instanceof AbstractFunctionPtg) {
-            return removeBrackets(format("%s %s ",
-                                                join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())),
-                                                opname));
+            return removeBrackets(new StringBuilder()
+                                    .append(join(",", asList(ops).stream().map(v -> v.toString()).collect(toList())))
+                                    .append(" ")
+                                    .append(opname)
+                                    .toString());
         } else if (optg instanceof ValueOperatorPtg || optg instanceof UnionPtg) {
-            return removeBrackets(format("%s %s %s", 
-                                                  ops.size() > 1 ? ops.get(1) : "",
-                                                  ops.size() > 0 ? ops.get(0) : "",
-                                                  opname));
+            return removeBrackets(new StringBuilder()
+                                    .append(ops.size() > 1 ? ops.get(1) : "")
+                                    .append(" ")
+                                    .append(ops.size() > 0 ? ops.get(0) : "")
+                                    .append(" ")
+                                    .append(opname)
+                                    .toString());
         }
 
         return "";
     }
 
-    protected static String removeBrackets(String inline) {
-        return inline.indexOf(B_LEFT) < 0 ? inline : inline.replace(B_LEFT, "").replace(B_RIGHT, "");
+    protected static String removeBrackets(String str) {
+        if (str.indexOf(B_LEFT) < 0) { return str; }
+        
+        final char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != B_LEFT && chars[i] != B_RIGHT) 
+                { chars[pos++] = chars[i]; }
+        }
+        return new String(chars, 0, pos);
+    }
+    
+    public static String removeSymbol(String str, char symbol) {
+        if (str.indexOf(symbol) < 0) { return str; }
+        
+        final char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != symbol) 
+                { chars[pos++] = chars[i]; }
+        }
+        return new String(chars, 0, pos);
     }
 
     protected static boolean isErrorValue(Object val) {
@@ -508,12 +532,22 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         for (IExecutionGraphVertex vertex : vertices) {
             if (standard.equals(vertex)) { continue; }
 
-            for (PropertyName pname : PropertyName.values()) {
-                if (pname == PropertyName.VERTEX_ID) { continue; }
-                if (pname == PropertyName.INDEX_IN_FORMULA) { continue; }
+            IExecutionGraphVertexProperties from = standard.properties();
+            IExecutionGraphVertexProperties to = ((ExecutionGraphVertex) vertex).properties();
 
-                ((ExecutionGraphVertex) vertex).property(pname).set(standard.property(pname).get());
-            }
+            //copy all, but: IndexInFormula and VertexId
+            to.setName(from.getName());
+            to.setAlias(from.getAlias());
+            to.setValue(from.getValue());
+            to.setType(from.getType());
+            to.setFormulaString(from.getFormulaString());
+            to.setFormulaValues(from.getFormulaValues());
+            to.setFormulaPtg(from.getFormulaPtg());
+            to.setPtgs(from.getPtgs());
+            to.setSourceObjectId(from.getSourceObjectId());
+            to.setRootFormulaId(from.getRootFormulaId());
+            to.setFormulaPtgString(from.getFormulaPtgString());
+            to.setPtgString(from.getPtgString());
         }
     }
 
@@ -631,16 +665,16 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     public static ExecutionGraph buildSingleVertexGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-        vertex.property(TYPE).set(CELL_WITH_FORMULA);
-        vertex.property(VALUE).set(error);
+        vertex.properties().setType(CELL_WITH_FORMULA);
+        vertex.properties().setValue(error);
         
-        if (formulaString == null) { vertex.property(FORMULA_STRING).set(error.getErrorString()); }
-        else { vertex.property(FORMULA_STRING).set(formulaString); }
+        if (formulaString == null) { vertex.properties().setFormulaString(error.getErrorString()); }
+        else { vertex.properties().setFormulaString(formulaString); }
         
-        vertex.property(FORMULA_VALUES).set(error.getErrorString());
-        vertex.property(FORMULA_PTG_STRING).set(error.getErrorString());
-        vertex.property(PTG_STRING).set(error.getErrorString());
-        vertex.property(SOURCE_OBJECT_ID).set(address.getDataModelId());
+        vertex.properties().setFormulaValues(error.getErrorString());
+        vertex.properties().setFormulaPtgString(error.getErrorString());
+        vertex.properties().setPtgString(error.getErrorString());
+        vertex.properties().setSourceObjectId(address.getDataModelId());
         
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         emptyGraph.addVertex(vertex);
@@ -650,44 +684,33 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     public static ExecutionGraph buildSingleVertexGraphForCellWithValue(ICellValue cell, ICellAddress address) {
         
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-        vertex.property(VALUE).set(cell.get());
-        vertex.property(TYPE).set(CELL_WITH_VALUE);
-        vertex.property(FORMULA_STRING).set(address.a1Address().address());
-        vertex.property(FORMULA_VALUES).set(cell.get().toString());
-        vertex.property(FORMULA_PTG_STRING).set("");
-        vertex.property(PTG_STRING).set("");
-        vertex.property(SOURCE_OBJECT_ID).set(address.getDataModelId());
+        vertex.properties().setValue(cell.get());
+        vertex.properties().setType(CELL_WITH_VALUE);
+        vertex.properties().setFormulaString(address.a1Address().address());
+        vertex.properties().setFormulaValues(cell.get().toString());
+        vertex.properties().setFormulaPtgString("");
+        vertex.properties().setPtgString("");
+        vertex.properties().setSourceObjectId(address.getDataModelId());
 
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         emptyGraph.addVertex(vertex);
         return ExecutionGraph.wrap(emptyGraph);
     }
     
-    public static ExecutionGraph buildSingleVertexGraphForEmptyCell(ICellAddress address) {
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
-        vertex.property(TYPE).set(EMPTY_CELL);
+    public static ExecutionGraph buildSingleVertexGraphForEmptyCell(IA1Address address) {
+        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.address());
+        vertex.properties().setType(EMPTY_CELL);
 
         DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
         emptyGraph.addVertex(vertex);
         return ExecutionGraph.wrap(emptyGraph);
     }
 
-    @Override
-    public boolean getProcessNameState() { return this.processName.getFirst(); }
-
-    @Override
-    public void popRecentProcessNameState() { this.processName.pop(); }
-
-    @Override
-    public void putProcessNameState(boolean state) { this.processName.push(state); }
-
-    @Override
-    public boolean isProcessNameCacheEmpty() { return this.processName.isEmpty(); }
-
-    @Override
-    public IExecutionGraphVertex getNameVertexRoot() { return this.namedVertexRoot; }
-
-    @Override
-    public void setNameVertexRoot(IExecutionGraphVertex root) { this.namedVertexRoot = root; }
+    @Override public boolean getProcessNameState() { return this.processName.getFirst(); }
+    @Override public void popRecentProcessNameState() { this.processName.pop(); }
+    @Override public void putProcessNameState(boolean state) { this.processName.push(state); }
+    @Override public boolean isProcessNameCacheEmpty() { return this.processName.isEmpty(); }
+    @Override public IExecutionGraphVertex getNameVertexRoot() { return this.namedVertexRoot; }
+    @Override public void setNameVertexRoot(IExecutionGraphVertex root) { this.namedVertexRoot = root; }
 
 }

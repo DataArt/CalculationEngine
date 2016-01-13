@@ -65,7 +65,7 @@ public class DmRow implements IDmRow {
 
     @Override
     public IDmCell getCell(ICellAddress address) {
-        return address == null ? null : this.getCell(address.column());
+        return address == null ? null : this.getCell(address.a1Address().column());
     }
     
     @Override
@@ -79,7 +79,7 @@ public class DmRow implements IDmRow {
     
     @Override
     public void setCell(ICellAddress address, IDmCell cell) {
-        if (address != null) { this.setCell(address.column(), cell); }        
+        if (address != null) { this.setCell(address.a1Address().column(), cell); }        
     }
 
     @Override public int cellCount() { return this.table.size(); }

@@ -13,7 +13,7 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import com.dataart.spreadsheetanalytics.BenchmarkTestParent;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
@@ -32,7 +32,7 @@ public class Baseline_A1_is_B1_plus_C1_Test extends BenchmarkTestParent {
     IDataModel dataModel;
     IEvaluator evaluator;
 
-    ICellAddress address;
+    IA1Address address;
 
     @Setup(Level.Trial)
     public void initialize() throws Exception {

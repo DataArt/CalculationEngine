@@ -29,16 +29,6 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
 public interface ICellAddress {
 
     /**
-     * Row in a spreadsheet.
-     */
-    int row();
-
-    /**
-     * Column in a spreadsheet. 
-     */
-    int column();
-
-    /**
      * Link to {@link A1Address} address format.
      */
     IA1Address a1Address();

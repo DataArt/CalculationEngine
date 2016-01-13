@@ -19,8 +19,6 @@ import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
 import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.getEvaluationCell;
 import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.toEvaluationWorkbook;
 import static com.dataart.spreadsheetanalytics.model.A1Address.fromRowColumn;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.SOURCE_OBJECT_ID;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VALUE;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NAME_INVALID;
@@ -46,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.ICustomFunction;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -61,7 +59,7 @@ import com.dataart.spreadsheetanalytics.model.EvaluationContext;
 
 /**
  * SpreadsheetEvaluator is a direct implementation of {@link IEvaluator} interface.
- * It allows to do spreadsheets evaluation. It's 2 major methods are {@link #evaluate()} and {@link #evaluate(ICellAddress)}.
+ * It allows to do spreadsheets evaluation. It's 2 major methods are {@link #evaluate()} and {@link #evaluate(IA1Address)}.
  * They do evaluation of one cell, or whole spreadsheet cell, by cell (algorithm can be changed in future).
  * 
  * This version of Evaluator requires an {@link IDataModel} to evaluate. DataModel provides access to POI's proxy workbook object, 
@@ -96,12 +94,12 @@ public class SpreadsheetEvaluator implements IEvaluator {
     }
     
     @Override
-    public IEvaluationResult<ICellValue> evaluate(ICellAddress addr) {
+    public IEvaluationResult<ICellValue> evaluate(IA1Address addr) {
         EvaluationCell cell = getEvaluationCell(this.evaluationWorkbook, addr);
         if (cell == null) { return null; }
         
         EvaluationContext evaluationContext = new EvaluationContext(this.globalContext);
-        evaluationContext.set(SOURCE_OBJECT_ID, this.model.getDataModelId());
+        evaluationContext.set("SOURCE_OBJECT_ID", this.model.getDataModelId());
         
         try { return new EvaluationResult<ICellValue>(evaluationContext, evaluateCell(cell, evaluationContext)); }
         catch (ValuesStackNotEmptyException e) { return new EvaluationResult<ICellValue>(evaluationContext, CellValue.from(VALUE_INVALID.getErrorString())); }
@@ -112,7 +110,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         IDataModel dataModel = this.model;
         
         EvaluationContext evaluationContext = new EvaluationContext(this.globalContext);
-        evaluationContext.set(SOURCE_OBJECT_ID, this.model.getDataModelId());
+        evaluationContext.set("SOURCE_OBJECT_ID", this.model.getDataModelId());
 
         for (int i = this.model.getFirstRowIndex(); i <= this.model.getLastRowIndex(); i++) {
             IDmRow row = this.model.getRow(i);
@@ -166,10 +164,10 @@ public class SpreadsheetEvaluator implements IEvaluator {
             { WorkbookEvaluator.registerFunction(en.getKey(), en.getValue().newInstance()); }
     }
     
-    protected static ICellValue handleExceptionForGraphBuilder(IExecutionGraphBuilder builder, ICellAddress cell) {
+    protected static ICellValue handleExceptionForGraphBuilder(IExecutionGraphBuilder builder, IA1Address cell) {
         if (builder instanceof PoiExecutionGraphBuilder) {
             ((PoiExecutionGraphBuilder) builder).getVerticesFromCache(cell.row(), cell.column())
-                                                .forEach(v -> ((ExecutionGraphVertex) v).property(VALUE).set(VALUE_INVALID.getErrorString()));
+                                                .forEach(v -> ((ExecutionGraphVertex) v).properties().setValue(VALUE_INVALID.getErrorString()));
         }
         return CellValue.from(VALUE_INVALID.getErrorString());
     }

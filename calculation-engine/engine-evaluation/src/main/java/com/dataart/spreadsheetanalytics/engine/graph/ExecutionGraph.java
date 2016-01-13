@@ -18,7 +18,6 @@ package com.dataart.spreadsheetanalytics.engine.graph;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.jgrapht.DirectedGraph;
 
@@ -55,18 +54,13 @@ public class ExecutionGraph implements IExecutionGraph {
     }
 
     @Override
-    public Set<IExecutionGraphVertex> getVertices() {
-        return this.dgraph.vertexSet()
-                          .stream()
-                          .map(s -> s)
-                          .collect(Collectors.<IExecutionGraphVertex>toSet());
+    public Set<ExecutionGraphVertex> getVertices() {
+        return this.dgraph.vertexSet();
     }
 
     @Override
-    public Set<IExecutionGraphEdge> getEdges() {
-        return this.dgraph.edgeSet()
-                          .stream()
-                          .collect(Collectors.<IExecutionGraphEdge>toSet());
+    public Set<ExecutionGraphEdge> getEdges() {
+        return this.dgraph.edgeSet();
     }
 
     @Override

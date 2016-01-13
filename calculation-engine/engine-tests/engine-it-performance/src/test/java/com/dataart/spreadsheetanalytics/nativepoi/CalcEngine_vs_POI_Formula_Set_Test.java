@@ -19,7 +19,7 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import com.dataart.spreadsheetanalytics.BenchmarkTestParent;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
-import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellValue;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
 import com.dataart.spreadsheetanalytics.engine.Converters;
@@ -41,7 +41,7 @@ public class CalcEngine_vs_POI_Formula_Set_Test extends BenchmarkTestParent {
     IEvaluator ccEvaluator;
     WorkbookEvaluator poiEvaluator;
     
-    ICellAddress[] addressA;
+    IA1Address[] addressA;
     EvaluationCell[] addressB;
 
     @Setup(Level.Trial)
@@ -62,7 +62,7 @@ public class CalcEngine_vs_POI_Formula_Set_Test extends BenchmarkTestParent {
         for (int i = from - 1; i < from + cell_iterations - 1; i++)
             this.poiExpectedValues[i] = poiEvaluator.evaluate(ewb.getSheet(0).getCell(i, columnAIndex));
 
-        this.addressA = new ICellAddress[from + cell_iterations];
+        this.addressA = new IA1Address[from + cell_iterations];
         for (int i = from; i < from + cell_iterations; i++)
             this.addressA[i] = fromA1Address(columnA + i);
 

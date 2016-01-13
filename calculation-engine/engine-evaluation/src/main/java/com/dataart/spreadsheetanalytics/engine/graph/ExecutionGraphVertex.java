@@ -16,13 +16,10 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine.graph;
 
 import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.ID_RANDOMIZER;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.NAME;
-import static org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName.VERTEX_ID;
 
-import java.util.EnumMap;
+import java.io.Serializable;
 
-import org.apache.poi.common.fork.IExecutionGraphVertexProperty;
-import org.apache.poi.common.fork.IExecutionGraphVertexProperty.PropertyName;
+import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
@@ -34,35 +31,31 @@ import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 public class ExecutionGraphVertex /* POI Vertex interface (internal) */ 
                                   extends org.apache.poi.common.fork.IExecutionGraphVertex
                                   /* Public API interface */
-                                  implements IExecutionGraphVertex {
+                                  implements IExecutionGraphVertex, Serializable {
+    /** */
+    private static final long serialVersionUID = 577095204336470699L;
     
     protected int id;
     protected String name;
     protected Object value;
     protected String alias;
     protected CellFormulaExpression formula;
-    protected Type type;
+    protected com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type type;
     protected Object sourceObjectId;
 
-    //TODO: change to fields - will be faster
-    protected EnumMap<PropertyName, IExecutionGraphVertexProperty> properties = new EnumMap<>(PropertyName.class);
+    protected ExecutionGraphVertexProperties properties = new ExecutionGraphVertexProperties(this);
     
     public ExecutionGraphVertex(String name) {
         this.id = ID_RANDOMIZER.get().getAndIncrement();
         this.name = name;
         
-        property(VERTEX_ID).set(this.id);
-        property(NAME).set(this.name);
+        this.properties.setVertexId(this.id);
+        this.properties.setName(this.name);
     }
 
     @Override
-    public IExecutionGraphVertexProperty property(PropertyName name) {
-        IExecutionGraphVertexProperty property = this.properties.get(name);
-        if (property == null) {
-            property = new ExecutionGraphVertexProperty(this, name);
-            this.properties.put(name, property);
-        }
-        return property;
+    public IExecutionGraphVertexProperties properties() {
+        return this.properties;
     }
 
     @Override public int id() { return this.id; }
@@ -70,7 +63,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     @Override public String alias() { return this.alias; }
     @Override public CellFormulaExpression formula() { return this.formula; }
     @Override public Object value() { return this.value; }
-    @Override public Type type() { return this.type; }
+    @Override public com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type type() { return this.type; }
     @Override public Object sourceObjectId() { return this.sourceObjectId; }
 
     @Override

@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDataModelId;
@@ -47,14 +48,14 @@ public class DefineFunctionMeta extends FunctionMeta {
     /** Separator for intput and output arguments */
     public static final String IN_OUT_SEPARATOR = "#";
     
-    protected List<ICellAddress> inputs;
-    protected List<ICellAddress> outputs;
+    protected List<IA1Address> inputs;
+    protected List<IA1Address> outputs;
     
-    public List<ICellAddress> getInputs() { return this.inputs; }
-    public void setInputs(List<ICellAddress> inputs) { this.inputs = inputs; }
+    public List<IA1Address> getInputs() { return this.inputs; }
+    public void setInputs(List<IA1Address> inputs) { this.inputs = inputs; }
     
-    public List<ICellAddress> getOutputs() { return this.outputs; }
-    public void setOutputs(List<ICellAddress> outputs) { this.outputs = outputs; }
+    public List<IA1Address> getOutputs() { return this.outputs; }
+    public void setOutputs(List<IA1Address> outputs) { this.outputs = outputs; }
     
     public DefineFunctionMeta parse(String formula) {
 
@@ -72,8 +73,8 @@ public class DefineFunctionMeta extends FunctionMeta {
         DefineFunctionMeta meta = new DefineFunctionMeta();
         meta.setName(ptgs[0].toUpperCase(Locale.getDefault()));
 
-        List<ICellAddress> in = new LinkedList<>();
-        List<ICellAddress> out = new LinkedList<>();
+        List<IA1Address> in = new LinkedList<>();
+        List<IA1Address> out = new LinkedList<>();
         
         boolean passedSeparator = false;
 
@@ -83,11 +84,11 @@ public class DefineFunctionMeta extends FunctionMeta {
 
             if (passedSeparator) {
                 A1Address outAddr = A1Address.fromA1Address(ptgs[i]);
-                if (outAddr instanceof A1RangeAddress) { out.addAll(A1RangeAddress.toCellAddresses((A1RangeAddress) outAddr)); }
+                if (outAddr instanceof A1RangeAddress) { out.addAll(A1RangeAddress.toA1Addresses((A1RangeAddress) outAddr)); }
                 else { out.add(outAddr); }
             } else {
                 A1Address inAddr = A1Address.fromA1Address(ptgs[i]);
-                if (inAddr instanceof A1RangeAddress) { in.addAll(A1RangeAddress.toCellAddresses((A1RangeAddress) inAddr)); }
+                if (inAddr instanceof A1RangeAddress) { in.addAll(A1RangeAddress.toA1Addresses((A1RangeAddress) inAddr)); }
                 else { in.add(inAddr); }
             }
         }
