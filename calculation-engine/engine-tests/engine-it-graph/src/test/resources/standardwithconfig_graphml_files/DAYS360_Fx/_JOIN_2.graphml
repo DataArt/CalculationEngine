@@ -49,12 +49,6 @@
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A3; Formula values: 42184.0;</data>
 </node>
-<node id="10">
-<data key="name">A4</data>
-<data key="value">42347.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A4; Formula values: 42347.0;</data>
-</node>
 <node id="11">
 <data key="name">DAYS360</data>
 <data key="value">160.0</data>
@@ -67,6 +61,12 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: DAYS360(A3, A4); Formula values: DAYS360(42184.0, 42347.0);</data>
 </node>
+<node id="13">
+<data key="name">A4</data>
+<data key="value">42347.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A4; Formula values: 42347.0;</data>
+</node>
 <node id="15">
 <data key="name">DAYS360</data>
 <data key="value">-160.0</data>
@@ -77,13 +77,13 @@
 <edge source="3" target="0"/>
 <edge source="5" target="7"/>
 <edge source="7" target="4"/>
-<edge source="10" target="11"/>
 <edge source="9" target="11"/>
 <edge source="11" target="8"/>
+<edge source="13" target="15"/>
 <edge source="15" target="12"/>
 <edge source="5" target="3"/>
 <edge source="9" target="7"/>
 <edge source="9" target="15"/>
-<edge source="10" target="15"/>
+<edge source="13" target="11"/>
 </graph>
 </graphml>

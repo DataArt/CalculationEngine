@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="JOIN_ALL_">
+<graph edgedefault="directed" id="JOIN_ALL">
 <node id="0">
 <data key="name">A3</data>
 <data key="value">55.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A1 + A2 + C1; Formula values: 20.0 + 30.0 + 5.0;</data>
+</node>
+<node id="1">
+<data key="name">A1</data>
+<data key="value">20.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A1; Formula values: 20.0;</data>
 </node>
 <node id="2">
 <data key="name">A2</data>
@@ -91,12 +97,6 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A1 + C1 + Sheet2!B1; Formula values: 20.0 + 5.0 + #REF!;</data>
 </node>
-<node id="19">
-<data key="name">A1</data>
-<data key="value">20.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A1; Formula values: 20.0;</data>
-</node>
 <node id="21">
 <data key="name">+</data>
 <data key="value">25.0</data>
@@ -115,25 +115,25 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: A1 + C1 + Sheet2!B1; Formula values: 20.0 + 5.0 + #REF!;</data>
 </node>
+<edge source="1" target="3"/>
 <edge source="2" target="3"/>
 <edge source="3" target="5"/>
 <edge source="5" target="0"/>
-<edge source="8" target="9"/>
 <edge source="7" target="9"/>
+<edge source="8" target="9"/>
 <edge source="9" target="11"/>
 <edge source="11" target="6"/>
-<edge source="14" target="15"/>
 <edge source="13" target="15"/>
+<edge source="14" target="15"/>
 <edge source="15" target="17"/>
 <edge source="17" target="12"/>
-<edge source="19" target="21"/>
-<edge source="22" target="23"/>
 <edge source="21" target="23"/>
+<edge source="22" target="23"/>
 <edge source="23" target="18"/>
-<edge source="19" target="3"/>
-<edge source="13" target="11"/>
-<edge source="13" target="5"/>
-<edge source="13" target="21"/>
+<edge source="1" target="21"/>
 <edge source="13" target="17"/>
+<edge source="13" target="5"/>
+<edge source="13" target="11"/>
+<edge source="13" target="21"/>
 </graph>
 </graphml>

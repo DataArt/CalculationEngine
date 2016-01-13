@@ -47,7 +47,7 @@
 <data key="name">C1</data>
 <data key="value">0.7853981633974483</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ATAN(VALUE / VALUE - VALUE - VALUE); Formula values: ATAN(25.0 / 10.0 - 5.0 - 4.0);</data>
+<data key="formula">Formula string: ATAN(B1); Formula values: ATAN(1.0);</data>
 </node>
 <node id="9">
 <data key="name">B1</data>
@@ -59,13 +59,13 @@
 <data key="name">ATAN</data>
 <data key="value">0.7853981633974483</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ATAN(VALUE / VALUE - VALUE - VALUE); Formula values: ATAN(25.0 / 10.0 - 5.0 - 4.0);</data>
+<data key="formula">Formula string: ATAN(B1); Formula values: ATAN(1.0);</data>
 </node>
 <node id="11">
 <data key="name">B2</data>
 <data key="value">1.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: CEILING(VALUE, ATAN(VALUE / VALUE - VALUE - VALUE)); Formula values: CEILING(1.0, ATAN(25.0 / 10.0 - 5.0 - 4.0));</data>
+<data key="formula">Formula string: CEILING(VALUE, C1); Formula values: CEILING(1.0, 0.7853981633974483);</data>
 </node>
 <node id="13">
 <data key="name">VALUE</data>
@@ -77,7 +77,7 @@
 <data key="name">CEILING</data>
 <data key="value">1.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: CEILING(VALUE, ATAN(VALUE / VALUE - VALUE - VALUE)); Formula values: CEILING(1.0, ATAN(25.0 / 10.0 - 5.0 - 4.0));</data>
+<data key="formula">Formula string: CEILING(VALUE, C1); Formula values: CEILING(1.0, 0.7853981633974483);</data>
 </node>
 <node id="15">
 <data key="name">B4</data>
@@ -103,12 +103,12 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: CEILING(VALUE, VALUE); Formula values: CEILING(2.0, 0.5);</data>
 </node>
-<edge source="3" target="4"/>
 <edge source="2" target="4"/>
-<edge source="4" target="5"/>
+<edge source="3" target="4"/>
 <edge source="1" target="5"/>
-<edge source="6" target="7"/>
+<edge source="4" target="5"/>
 <edge source="5" target="7"/>
+<edge source="6" target="7"/>
 <edge source="9" target="10"/>
 <edge source="10" target="8"/>
 <edge source="13" target="14"/>

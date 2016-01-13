@@ -5,7 +5,7 @@
 <data key="name">A1</data>
 <data key="value">2.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0;</data>
+<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula values: 1.0 * 2.0 + SUM([[5.0, 5.0, 5.0]]) / 3.0 - 5.0;</data>
 </node>
 <node id="1">
 <data key="name">B1</data>
@@ -35,7 +35,7 @@
 <data key="name">SUM</data>
 <data key="value">15.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(D1:F1); Formula values: SUM(5.0, 5.0, 5.0);</data>
+<data key="formula">Formula string: SUM(D1:F1); Formula values: SUM([[5.0, 5.0, 5.0]]);</data>
 </node>
 <node id="6">
 <data key="name">G1</data>
@@ -47,13 +47,13 @@
 <data key="name">/</data>
 <data key="value">5.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: SUM(D1:F1) / G1; Formula values: SUM(5.0, 5.0, 5.0) / 3.0;</data>
+<data key="formula">Formula string: SUM(D1:F1) / G1; Formula values: SUM([[5.0, 5.0, 5.0]]) / 3.0;</data>
 </node>
 <node id="8">
 <data key="name">+</data>
 <data key="value">7.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1; Formula values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0;</data>
+<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1; Formula values: 1.0 * 2.0 + SUM([[5.0, 5.0, 5.0]]) / 3.0;</data>
 </node>
 <node id="9">
 <data key="name">H1</data>
@@ -65,17 +65,17 @@
 <data key="name">-</data>
 <data key="value">2.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula values: 1.0 * 2.0 + SUM(5.0, 5.0, 5.0) / 3.0 - 5.0;</data>
+<data key="formula">Formula string: B1 * C1 + SUM(D1:F1) / G1 - H1; Formula values: 1.0 * 2.0 + SUM([[5.0, 5.0, 5.0]]) / 3.0 - 5.0;</data>
 </node>
-<edge source="2" target="3"/>
 <edge source="1" target="3"/>
+<edge source="2" target="3"/>
 <edge source="4" target="5"/>
-<edge source="6" target="7"/>
 <edge source="5" target="7"/>
-<edge source="7" target="8"/>
+<edge source="6" target="7"/>
 <edge source="3" target="8"/>
-<edge source="9" target="10"/>
+<edge source="7" target="8"/>
 <edge source="8" target="10"/>
+<edge source="9" target="10"/>
 <edge source="10" target="0"/>
 </graph>
 </graphml>

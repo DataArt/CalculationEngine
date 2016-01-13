@@ -355,11 +355,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             case CONSTANT_VALUE: {
-//                vertex.property(NAME).set(CONSTANT_VALUE_NAME);            
-                vertex.formula.formulaStr(vertex.properties().getName());
-                vertex.formula.formulaValues(vertex.getValue().toString());
-                vertex.formula.formulaPtgStr(vertex.getValue().toString());
-                vertex.formula.ptgStr(vertex.properties().getName());
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             default: {

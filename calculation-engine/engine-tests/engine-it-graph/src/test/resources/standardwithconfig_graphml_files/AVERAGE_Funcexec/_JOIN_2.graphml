@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_2">
+<node id="0">
+<data key="name">E2</data>
+<data key="value">5.25</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVERAGE(A2:D2); Formula values: AVERAGE([[5.0, 3.0, 9.0, 4.0]]);</data>
+</node>
 <node id="1">
 <data key="name">A2:D2</data>
 <data key="value">[[5.0, 3.0, 9.0, 4.0]]</data>
@@ -11,13 +17,13 @@
 <data key="name">AVERAGE</data>
 <data key="value">5.25</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: AVERAGE(A2:D2); Formula values: AVERAGE(5.0, 3.0, 9.0, 4.0);</data>
+<data key="formula">Formula string: AVERAGE(A2:D2); Formula values: AVERAGE([[5.0, 3.0, 9.0, 4.0]]);</data>
 </node>
 <node id="3">
 <data key="name">E3</data>
 <data key="value">5.5</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: AVERAGE(A3:D3); Formula values: AVERAGE(8.0, 4.0, 8.0, 2.0);</data>
+<data key="formula">Formula string: AVERAGE(A3:D3); Formula values: AVERAGE([[8.0, 4.0, 8.0, 2.0]]);</data>
 </node>
 <node id="4">
 <data key="name">A3:D3</data>
@@ -29,7 +35,7 @@
 <data key="name">AVERAGE</data>
 <data key="value">5.5</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: AVERAGE(A3:D3); Formula values: AVERAGE(8.0, 4.0, 8.0, 2.0);</data>
+<data key="formula">Formula string: AVERAGE(A3:D3); Formula values: AVERAGE([[8.0, 4.0, 8.0, 2.0]]);</data>
 </node>
 <node id="7">
 <data key="name">A4:D4</data>
@@ -41,13 +47,7 @@
 <data key="name">AVERAGE</data>
 <data key="value">3.5</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: AVERAGE(A4:D4); Formula values: AVERAGE(1.0, 8.0, 0.0, 5.0);</data>
-</node>
-<node id="9">
-<data key="name">E5</data>
-<data key="value">6.225</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: AVERAGE(A5:D5); Formula values: AVERAGE(7.0, 8.0, 0.9, 9.0);</data>
+<data key="formula">Formula string: AVERAGE(A4:D4); Formula values: AVERAGE([[1.0, 8.0, 0.0, 5.0]]);</data>
 </node>
 <node id="10">
 <data key="name">A5:D5</data>
@@ -59,7 +59,7 @@
 <data key="name">AVERAGE</data>
 <data key="value">6.225</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: AVERAGE(A5:D5); Formula values: AVERAGE(7.0, 8.0, 0.9, 9.0);</data>
+<data key="formula">Formula string: AVERAGE(A5:D5); Formula values: AVERAGE([[7.0, 8.0, 0.9, 9.0]]);</data>
 </node>
 <node id="12">
 <data key="name">F6</data>
@@ -101,7 +101,7 @@
 <data key="name">A7</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A2:D2), VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(AVERAGE(5.0, 3.0, 9.0, 4.0), #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
+<data key="formula">Formula string: DEFINE(E2, VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(5.25, #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
 </node>
 <node id="22">
 <data key="name">VALUE</data>
@@ -121,17 +121,11 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #;</data>
 </node>
-<node id="28">
-<data key="name">E2</data>
-<data key="value">5.25</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: AVERAGE(A2:D2); Formula values: AVERAGE(5.0, 3.0, 9.0, 4.0);</data>
-</node>
 <node id="29">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A2:D2), VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(AVERAGE(5.0, 3.0, 9.0, 4.0), #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
+<data key="formula">Formula string: DEFINE(E2, VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(5.25, #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
 </node>
 <node id="30">
 <data key="name">F7</data>
@@ -157,18 +151,6 @@
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B3; Formula values: 4.0;</data>
 </node>
-<node id="35">
-<data key="name">C3</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: C3; Formula values: 8.0;</data>
-</node>
-<node id="36">
-<data key="name">D3</data>
-<data key="value">2.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D3; Formula values: 2.0;</data>
-</node>
 <node id="37">
 <data key="name">FUNCEXEC</data>
 <data key="value">5.5</data>
@@ -179,13 +161,25 @@
 <data key="name">A8</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A3:D3), VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(AVERAGE(8.0, 4.0, 8.0, 2.0), #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
+<data key="formula">Formula string: DEFINE(E3, VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(5.5, #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
 </node>
 <node id="40">
 <data key="name">VALUE</data>
 <data key="value">DEVDEF_2</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_2;</data>
+</node>
+<node id="43">
+<data key="name">C3</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: 8.0;</data>
+</node>
+<node id="44">
+<data key="name">D3</data>
+<data key="value">2.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D3; Formula values: 2.0;</data>
 </node>
 <node id="45">
 <data key="name">VALUE</data>
@@ -197,7 +191,7 @@
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A3:D3), VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(AVERAGE(8.0, 4.0, 8.0, 2.0), #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
+<data key="formula">Formula string: DEFINE(E3, VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(5.5, #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
 </node>
 <node id="48">
 <data key="name">F8</data>
@@ -210,12 +204,6 @@
 <data key="value">DEVDEF_3</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_3;</data>
-</node>
-<node id="51">
-<data key="name">A4</data>
-<data key="value">1.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A4; Formula values: 1.0;</data>
 </node>
 <node id="53">
 <data key="name">C4</data>
@@ -233,13 +221,19 @@
 <data key="name">A9</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A4:D4), VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(AVERAGE(1.0, 8.0, 0.0, 5.0), #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
+<data key="formula">Formula string: DEFINE(E4, VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(3.5, #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
 </node>
 <node id="58">
 <data key="name">VALUE</data>
 <data key="value">DEVDEF_3</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_3;</data>
+</node>
+<node id="59">
+<data key="name">A4</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A4; Formula values: 1.0;</data>
 </node>
 <node id="60">
 <data key="name">B4</data>
@@ -263,13 +257,13 @@
 <data key="name">E4</data>
 <data key="value">3.5</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: AVERAGE(A4:D4); Formula values: AVERAGE(1.0, 8.0, 0.0, 5.0);</data>
+<data key="formula">Formula string: AVERAGE(A4:D4); Formula values: AVERAGE([[1.0, 8.0, 0.0, 5.0]]);</data>
 </node>
 <node id="65">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A4:D4), VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(AVERAGE(1.0, 8.0, 0.0, 5.0), #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
+<data key="formula">Formula string: DEFINE(E4, VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(3.5, #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
 </node>
 <node id="66">
 <data key="name">F9</data>
@@ -282,6 +276,12 @@
 <data key="value">DEVDEF_4</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_4;</data>
+</node>
+<node id="69">
+<data key="name">A5</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A5; Formula values: 7.0;</data>
 </node>
 <node id="70">
 <data key="name">B5</data>
@@ -299,19 +299,13 @@
 <data key="name">A10</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A5:D5), VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(AVERAGE(7.0, 8.0, 0.9, 9.0), #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
+<data key="formula">Formula string: DEFINE(E5, VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(6.225, #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
 </node>
 <node id="76">
 <data key="name">VALUE</data>
 <data key="value">DEVDEF_4</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_4;</data>
-</node>
-<node id="77">
-<data key="name">A5</data>
-<data key="value">7.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A5; Formula values: 7.0;</data>
 </node>
 <node id="79">
 <data key="name">C5</data>
@@ -331,70 +325,76 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #;</data>
 </node>
+<node id="82">
+<data key="name">E5</data>
+<data key="value">6.225</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: AVERAGE(A5:D5); Formula values: AVERAGE([[7.0, 8.0, 0.9, 9.0]]);</data>
+</node>
 <node id="83">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(AVERAGE(A5:D5), VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(AVERAGE(7.0, 8.0, 0.9, 9.0), #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
+<data key="formula">Formula string: DEFINE(E5, VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(6.225, #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
 </node>
 <edge source="1" target="2"/>
+<edge source="2" target="0"/>
 <edge source="4" target="5"/>
 <edge source="5" target="3"/>
 <edge source="7" target="8"/>
 <edge source="10" target="11"/>
-<edge source="11" target="9"/>
 <edge source="18" target="19"/>
 <edge source="17" target="19"/>
 <edge source="15" target="19"/>
 <edge source="14" target="19"/>
 <edge source="19" target="12"/>
-<edge source="28" target="29"/>
 <edge source="27" target="29"/>
 <edge source="24" target="29"/>
 <edge source="22" target="29"/>
 <edge source="29" target="20"/>
-<edge source="36" target="37"/>
-<edge source="35" target="37"/>
 <edge source="34" target="37"/>
 <edge source="33" target="37"/>
 <edge source="32" target="37"/>
 <edge source="37" target="30"/>
 <edge source="45" target="47"/>
+<edge source="44" target="47"/>
+<edge source="43" target="47"/>
 <edge source="40" target="47"/>
 <edge source="47" target="38"/>
 <edge source="53" target="55"/>
-<edge source="51" target="55"/>
 <edge source="50" target="55"/>
 <edge source="55" target="48"/>
 <edge source="64" target="65"/>
 <edge source="63" target="65"/>
 <edge source="62" target="65"/>
 <edge source="60" target="65"/>
+<edge source="59" target="65"/>
 <edge source="58" target="65"/>
 <edge source="65" target="56"/>
 <edge source="70" target="73"/>
+<edge source="69" target="73"/>
 <edge source="68" target="73"/>
 <edge source="73" target="66"/>
+<edge source="82" target="83"/>
 <edge source="81" target="83"/>
 <edge source="80" target="83"/>
 <edge source="79" target="83"/>
-<edge source="77" target="83"/>
 <edge source="76" target="83"/>
 <edge source="83" target="74"/>
-<edge source="2" target="28"/>
 <edge source="8" target="64"/>
+<edge source="11" target="82"/>
+<edge source="0" target="29"/>
 <edge source="3" target="47"/>
 <edge source="17" target="29"/>
-<edge source="9" target="83"/>
-<edge source="35" target="47"/>
+<edge source="43" target="37"/>
 <edge source="15" target="29"/>
 <edge source="53" target="65"/>
 <edge source="33" target="47"/>
 <edge source="79" target="73"/>
-<edge source="51" target="65"/>
-<edge source="77" target="73"/>
+<edge source="59" target="55"/>
+<edge source="69" target="83"/>
 <edge source="18" target="29"/>
-<edge source="36" target="47"/>
+<edge source="44" target="37"/>
 <edge source="24" target="19"/>
 <edge source="62" target="55"/>
 <edge source="34" target="47"/>

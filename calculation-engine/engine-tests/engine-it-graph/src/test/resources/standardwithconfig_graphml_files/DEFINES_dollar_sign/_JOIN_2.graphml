@@ -13,6 +13,12 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_1;</data>
 </node>
+<node id="3">
+<data key="name">A2</data>
+<data key="value">$1000</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: $1000;</data>
+</node>
 <node id="4">
 <data key="name">B2</data>
 <data key="value">$1500</data>
@@ -48,12 +54,6 @@
 <data key="value">DEVDEF_1</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_1;</data>
-</node>
-<node id="11">
-<data key="name">A2</data>
-<data key="value">$1000</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A2; Formula values: $1000;</data>
 </node>
 <node id="13">
 <data key="name">FUNCEXEC</data>
@@ -133,12 +133,6 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_3;</data>
 </node>
-<node id="31">
-<data key="name">A4</data>
-<data key="value">$1002</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A4; Formula values: $1002;</data>
-</node>
 <node id="32">
 <data key="name">B4</data>
 <data key="value">$1502</data>
@@ -175,6 +169,12 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_3;</data>
 </node>
+<node id="39">
+<data key="name">A4</data>
+<data key="value">$1002</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A4; Formula values: $1002;</data>
+</node>
 <node id="41">
 <data key="name">FUNCEXEC</data>
 <data key="value">$1802</data>
@@ -184,9 +184,9 @@
 <edge source="6" target="7"/>
 <edge source="5" target="7"/>
 <edge source="4" target="7"/>
+<edge source="3" target="7"/>
 <edge source="2" target="7"/>
 <edge source="7" target="0"/>
-<edge source="11" target="13"/>
 <edge source="10" target="13"/>
 <edge source="13" target="8"/>
 <edge source="20" target="21"/>
@@ -200,16 +200,16 @@
 <edge source="34" target="35"/>
 <edge source="33" target="35"/>
 <edge source="32" target="35"/>
-<edge source="31" target="35"/>
 <edge source="30" target="35"/>
 <edge source="35" target="28"/>
+<edge source="39" target="41"/>
 <edge source="38" target="41"/>
 <edge source="41" target="36"/>
 <edge source="4" target="13"/>
-<edge source="11" target="7"/>
+<edge source="3" target="13"/>
 <edge source="18" target="27"/>
 <edge source="17" target="27"/>
 <edge source="32" target="41"/>
-<edge source="31" target="41"/>
+<edge source="39" target="35"/>
 </graph>
 </graphml>

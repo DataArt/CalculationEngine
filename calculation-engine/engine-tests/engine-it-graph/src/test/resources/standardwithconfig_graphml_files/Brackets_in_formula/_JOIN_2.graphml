@@ -77,7 +77,7 @@
 <data key="name">C8</data>
 <data key="value">173177.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(C2:C7); Formula values: SUM(61950.0, 6311.0, 1963.0, 66298.0, 4348.0, 32307.0);</data>
+<data key="formula">Formula string: SUM(C2:C7); Formula values: SUM([[61950.0], [6311.0], [1963.0], [66298.0], [4348.0], [32307.0]]);</data>
 </node>
 <node id="13">
 <data key="name">C2:C7</data>
@@ -89,13 +89,13 @@
 <data key="name">SUM</data>
 <data key="value">173177.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(C2:C7); Formula values: SUM(61950.0, 6311.0, 1963.0, 66298.0, 4348.0, 32307.0);</data>
+<data key="formula">Formula string: SUM(C2:C7); Formula values: SUM([[61950.0], [6311.0], [1963.0], [66298.0], [4348.0], [32307.0]]);</data>
 </node>
 <node id="15">
 <data key="name">D8</data>
 <data key="value">188015.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(D2:D7); Formula values: SUM(62500.0, 9832.0, 2130.0, 70202.0, 7702.0, 35649.0);</data>
+<data key="formula">Formula string: SUM(D2:D7); Formula values: SUM([[62500.0], [9832.0], [2130.0], [70202.0], [7702.0], [35649.0]]);</data>
 </node>
 <node id="16">
 <data key="name">D2:D7</data>
@@ -107,13 +107,13 @@
 <data key="name">SUM</data>
 <data key="value">188015.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(D2:D7); Formula values: SUM(62500.0, 9832.0, 2130.0, 70202.0, 7702.0, 35649.0);</data>
+<data key="formula">Formula string: SUM(D2:D7); Formula values: SUM([[62500.0], [9832.0], [2130.0], [70202.0], [7702.0], [35649.0]]);</data>
 </node>
 <node id="18">
 <data key="name">E8</data>
 <data key="value">736.61</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(E2:E7); Formula values: SUM(101.9, 144.2, 77.7, 107.3, 189.1, 116.41);</data>
+<data key="formula">Formula string: SUM(E2:E7); Formula values: SUM([[101.9], [144.2], [77.7], [107.3], [189.1], [116.41]]);</data>
 </node>
 <node id="19">
 <data key="name">E2:E7</data>
@@ -125,7 +125,7 @@
 <data key="name">SUM</data>
 <data key="value">736.61</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(E2:E7); Formula values: SUM(101.9, 144.2, 77.7, 107.3, 189.1, 116.41);</data>
+<data key="formula">Formula string: SUM(E2:E7); Formula values: SUM([[101.9], [144.2], [77.7], [107.3], [189.1], [116.41]]);</data>
 </node>
 <node id="21">
 <data key="name">E9</data>
@@ -144,6 +144,12 @@
 <data key="value">144.2</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: E3; Formula values: 144.2;</data>
+</node>
+<node id="24">
+<data key="name">E4</data>
+<data key="value">77.7</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: E4; Formula values: 77.7;</data>
 </node>
 <node id="26">
 <data key="name">E6</data>
@@ -175,12 +181,6 @@
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: E5; Formula values: 107.3;</data>
 </node>
-<node id="31">
-<data key="name">E4</data>
-<data key="value">77.7</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: E4; Formula values: 77.7;</data>
-</node>
 <node id="32">
 <data key="name">VALUE</data>
 <data key="value">0.2</data>
@@ -199,16 +199,16 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: E5 * E4 / VALUE; Formula values: 107.3 * 77.7 / 0.2;</data>
 </node>
-<edge source="2" target="3"/>
 <edge source="1" target="3"/>
-<edge source="4" target="5"/>
+<edge source="2" target="3"/>
 <edge source="3" target="5"/>
-<edge source="6" target="7"/>
+<edge source="4" target="5"/>
 <edge source="5" target="7"/>
-<edge source="8" target="9"/>
+<edge source="6" target="7"/>
 <edge source="7" target="9"/>
-<edge source="10" target="11"/>
+<edge source="8" target="9"/>
 <edge source="9" target="11"/>
+<edge source="10" target="11"/>
 <edge source="11" target="0"/>
 <edge source="13" target="14"/>
 <edge source="14" target="12"/>
@@ -218,15 +218,15 @@
 <edge source="20" target="18"/>
 <edge source="27" target="28"/>
 <edge source="26" target="28"/>
+<edge source="24" target="28"/>
 <edge source="23" target="28"/>
 <edge source="22" target="28"/>
 <edge source="28" target="21"/>
 <edge source="32" target="33"/>
-<edge source="31" target="33"/>
-<edge source="33" target="34"/>
 <edge source="30" target="34"/>
+<edge source="33" target="34"/>
 <edge source="34" target="29"/>
-<edge source="31" target="28"/>
+<edge source="24" target="33"/>
 <edge source="30" target="28"/>
 </graph>
 </graphml>

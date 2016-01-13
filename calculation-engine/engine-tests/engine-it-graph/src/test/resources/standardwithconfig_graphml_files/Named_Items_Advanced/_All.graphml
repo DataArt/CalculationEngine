@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="All_">
+<graph edgedefault="directed" id="All">
 <node id="0">
 <data key="name">D2</data>
 <data key="value">FALSE</data>
@@ -95,7 +95,7 @@
 <data key="name">D5</data>
 <data key="value">15.8</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: MEDIAN(SUM(VALUE, A3, A2) , F8); Formula values: MEDIAN(SUM(2.0, 30.0, 1200.0) , );</data>
+<data key="formula">Formula string: MEDIAN([, 1232.0, FALSE, 15.8, , 5.0, 1200.0, 10.8]); Formula values: MEDIAN([, 1232.0, FALSE, 15.8, , 5.0, 1200.0, 10.8]);</data>
 </node>
 <node id="25">
 <data key="name">C1</data>
@@ -113,16 +113,16 @@
 <data key="name">,</data>
 <data key="value">[, 1232.0, FALSE, 15.8, , 5.0, 1200.0, 10.8]</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(VALUE, A3, A2) , F8; Formula values: SUM(2.0, 30.0, 1200.0) , ;</data>
+<data key="formula">Formula string: [, 1232.0, FALSE, 15.8, , 5.0, 1200.0, 10.8]; Formula values: [, 1232.0, FALSE, 15.8, , 5.0, 1200.0, 10.8];</data>
 </node>
 <node id="35">
 <data key="name">MEDIAN</data>
 <data key="value">15.8</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: MEDIAN(SUM(VALUE, A3, A2) , F8); Formula values: MEDIAN(SUM(2.0, 30.0, 1200.0) , );</data>
+<data key="formula">Formula string: MEDIAN([, 1232.0, FALSE, 15.8, , 5.0, 1200.0, 10.8]); Formula values: MEDIAN([, 1232.0, FALSE, 15.8, , 5.0, 1200.0, 10.8]);</data>
 </node>
-<edge source="5" target="6"/>
 <edge source="3" target="6"/>
+<edge source="5" target="6"/>
 <edge source="6" target="2"/>
 <edge source="2" target="7"/>
 <edge source="7" target="0"/>

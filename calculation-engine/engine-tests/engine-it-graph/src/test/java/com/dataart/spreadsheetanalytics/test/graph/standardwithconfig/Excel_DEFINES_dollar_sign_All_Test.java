@@ -32,7 +32,7 @@ import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 public class Excel_DEFINES_dollar_sign_All_Test extends SerializedGraphTest {
-
+    
     static String file = "DEFINES_dollar_sign";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     static String graphml = file + "/";
@@ -41,7 +41,7 @@ public class Excel_DEFINES_dollar_sign_All_Test extends SerializedGraphTest {
     static String suffix2 = "JOIN_2";
     static String suffix3 = "JOIN_5";
     static String suffix4 = "JOIN_10";
-
+    
     IAuditor auditor = null;
 
     @Before

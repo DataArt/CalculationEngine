@@ -32,7 +32,7 @@ import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 public class Excel_Iseven_Fx_All_Test extends SerializedGraphTest {
-
+    
     static String file = "Iseven_Fx";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     static String graphml = file + "/";
@@ -41,7 +41,7 @@ public class Excel_Iseven_Fx_All_Test extends SerializedGraphTest {
     static String suffix2 = "JOIN_2";
     static String suffix3 = "JOIN_5";
     static String suffix4 = "JOIN_10";
-
+    
     IAuditor auditor = null;
 
     @Before

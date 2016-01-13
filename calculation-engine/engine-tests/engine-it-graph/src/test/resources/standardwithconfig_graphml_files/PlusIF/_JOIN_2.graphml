@@ -5,7 +5,7 @@
 <data key="name">A1</data>
 <data key="value">6.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
+<data key="formula">Formula string: IF(A3&gt;A4,B3,B4); Formula values: null;</data>
 </node>
 <node id="1">
 <data key="name">A3</data>
@@ -41,10 +41,10 @@
 <data key="name">+</data>
 <data key="value">6.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string:  + IF(A3&gt;A4,B3,B4); Formula values:  + IF(3.0 &gt; 5.0, 6.0);</data>
+<data key="formula">Formula string: IF(A3&gt;A4,B3,B4); Formula values: null;</data>
 </node>
-<edge source="2" target="3"/>
 <edge source="1" target="3"/>
+<edge source="2" target="3"/>
 <edge source="5" target="4"/>
 <edge source="3" target="4"/>
 <edge source="4" target="7"/>

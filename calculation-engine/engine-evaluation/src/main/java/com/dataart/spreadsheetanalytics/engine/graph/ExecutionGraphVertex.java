@@ -40,7 +40,7 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
     protected Object value;
     protected String alias;
     protected CellFormulaExpression formula;
-    protected com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.Type type;
+    protected org.apache.poi.common.fork.IExecutionGraphVertex.Type type;
     protected Object sourceObjectId;
 
     protected final ExecutionGraphVertexProperties properties = new ExecutionGraphVertexProperties(this);

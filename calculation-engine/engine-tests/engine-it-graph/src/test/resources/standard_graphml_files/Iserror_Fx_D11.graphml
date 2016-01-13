@@ -5,13 +5,13 @@
 <data key="name">D11</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(SUM(A2:A5)); Formula values: ISERROR(SUM(2.0, 6.0, 5.0, 7.0));</data>
+<data key="formula">Formula string: ISERROR(SUM(A2:A5)); Formula values: ISERROR(SUM([[2.0], [6.0], [5.0], [7.0]]));</data>
 </node>
 <node id="1">
 <data key="name">E2</data>
 <data key="value">20.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(2.0, 6.0, 5.0, 7.0);</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM([[2.0], [6.0], [5.0], [7.0]]);</data>
 </node>
 <node id="2">
 <data key="name">A2:A5</data>
@@ -23,13 +23,13 @@
 <data key="name">SUM</data>
 <data key="value">20.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM(2.0, 6.0, 5.0, 7.0);</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM([[2.0], [6.0], [5.0], [7.0]]);</data>
 </node>
 <node id="4">
 <data key="name">ISERROR</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(SUM(A2:A5)); Formula values: ISERROR(SUM(2.0, 6.0, 5.0, 7.0));</data>
+<data key="formula">Formula string: ISERROR(SUM(A2:A5)); Formula values: ISERROR(SUM([[2.0], [6.0], [5.0], [7.0]]));</data>
 </node>
 <edge source="2" target="3"/>
 <edge source="3" target="1"/>

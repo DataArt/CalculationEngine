@@ -32,8 +32,8 @@ import com.dataart.spreadsheetanalytics.test.SerializedGraphTest;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 public class Excel_ACOSH_Funcexec_All_Test extends SerializedGraphTest {
-
-    static String file = "ACOSH_FUNCEXEC";
+    
+    static String file = "ACOSH_Funcexec";
     static String path = STANDARD_EXCELS_DIR + file + ".xlsx";
     static String graphml = file + "/";
     static String suffix = "All";
@@ -41,7 +41,7 @@ public class Excel_ACOSH_Funcexec_All_Test extends SerializedGraphTest {
     static String suffix2 = "JOIN_2";
     static String suffix3 = "JOIN_5";
     static String suffix4 = "JOIN_10";
-
+    
     IAuditor auditor = null;
 
     @Before

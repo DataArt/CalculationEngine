@@ -11,7 +11,13 @@
 <data key="name">SUM</data>
 <data key="value">21.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(A2:C2); Formula values: SUM(5.0, 7.0, 9.0);</data>
+<data key="formula">Formula string: SUM(A2:C2); Formula values: SUM([[5.0, 7.0, 9.0]]);</data>
+</node>
+<node id="3">
+<data key="name">D3</data>
+<data key="value">20.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(A3:C3); Formula values: SUM([[8.0, 4.0, 8.0]]);</data>
 </node>
 <node id="4">
 <data key="name">A3:C3</data>
@@ -23,7 +29,13 @@
 <data key="name">SUM</data>
 <data key="value">20.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(A3:C3); Formula values: SUM(8.0, 4.0, 8.0);</data>
+<data key="formula">Formula string: SUM(A3:C3); Formula values: SUM([[8.0, 4.0, 8.0]]);</data>
+</node>
+<node id="6">
+<data key="name">D4</data>
+<data key="value">9.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(A4:C4); Formula values: SUM([[1.0, 8.0, 0.0]]);</data>
 </node>
 <node id="7">
 <data key="name">A4:C4</data>
@@ -35,13 +47,13 @@
 <data key="name">SUM</data>
 <data key="value">9.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(A4:C4); Formula values: SUM(1.0, 8.0, 0.0);</data>
+<data key="formula">Formula string: SUM(A4:C4); Formula values: SUM([[1.0, 8.0, 0.0]]);</data>
 </node>
 <node id="9">
 <data key="name">D5</data>
 <data key="value">15.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(A5:C5); Formula values: SUM(7.0, 8.0, );</data>
+<data key="formula">Formula string: SUM(A5:C5); Formula values: SUM([[7.0, 8.0, ]]);</data>
 </node>
 <node id="10">
 <data key="name">A5:C5</data>
@@ -53,13 +65,13 @@
 <data key="name">SUM</data>
 <data key="value">15.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(A5:C5); Formula values: SUM(7.0, 8.0, );</data>
+<data key="formula">Formula string: SUM(A5:C5); Formula values: SUM([[7.0, 8.0, ]]);</data>
 </node>
 <node id="12">
 <data key="name">E6</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(SUM(A2:C2), VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(SUM(5.0, 7.0, 9.0), #, 9.0, 7.0, 5.0, DEVDEF_1);</data>
+<data key="formula">Formula string: DEFINE(D2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(21.0, #, 9.0, 7.0, 5.0, DEVDEF_1);</data>
 </node>
 <node id="14">
 <data key="name">VALUE</data>
@@ -83,13 +95,13 @@
 <data key="name">D2</data>
 <data key="value">21.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(A2:C2); Formula values: SUM(5.0, 7.0, 9.0);</data>
+<data key="formula">Formula string: SUM(A2:C2); Formula values: SUM([[5.0, 7.0, 9.0]]);</data>
 </node>
 <node id="20">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(SUM(A2:C2), VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(SUM(5.0, 7.0, 9.0), #, 9.0, 7.0, 5.0, DEVDEF_1);</data>
+<data key="formula">Formula string: DEFINE(D2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(21.0, #, 9.0, 7.0, 5.0, DEVDEF_1);</data>
 </node>
 <node id="21">
 <data key="name">F6</data>
@@ -125,7 +137,7 @@
 <data key="name">E7</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(SUM(A3:C3), VALUE, C3, B3, A3, VALUE); Formula values: DEFINE(SUM(8.0, 4.0, 8.0), #, 8.0, 4.0, 8.0, DEVDEF_2);</data>
+<data key="formula">Formula string: DEFINE(D3, VALUE, C3, B3, A3, VALUE); Formula values: DEFINE(20.0, #, 8.0, 4.0, 8.0, DEVDEF_2);</data>
 </node>
 <node id="30">
 <data key="name">VALUE</data>
@@ -133,11 +145,11 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_2;</data>
 </node>
-<node id="31">
-<data key="name">A3</data>
-<data key="value">8.0</data>
+<node id="32">
+<data key="name">B3</data>
+<data key="value">4.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A3; Formula values: 8.0;</data>
+<data key="formula">Formula string: B3; Formula values: 4.0;</data>
 </node>
 <node id="33">
 <data key="name">C3</data>
@@ -151,17 +163,11 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #;</data>
 </node>
-<node id="35">
-<data key="name">D3</data>
-<data key="value">20.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(A3:C3); Formula values: SUM(8.0, 4.0, 8.0);</data>
-</node>
 <node id="36">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(SUM(A3:C3), VALUE, C3, B3, A3, VALUE); Formula values: DEFINE(SUM(8.0, 4.0, 8.0), #, 8.0, 4.0, 8.0, DEVDEF_2);</data>
+<data key="formula">Formula string: DEFINE(D3, VALUE, C3, B3, A3, VALUE); Formula values: DEFINE(20.0, #, 8.0, 4.0, 8.0, DEVDEF_2);</data>
 </node>
 <node id="37">
 <data key="name">F7</data>
@@ -175,11 +181,11 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_2;</data>
 </node>
-<node id="41">
-<data key="name">B3</data>
-<data key="value">4.0</data>
+<node id="40">
+<data key="name">A3</data>
+<data key="value">8.0</data>
 <data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: B3; Formula values: 4.0;</data>
+<data key="formula">Formula string: A3; Formula values: 8.0;</data>
 </node>
 <node id="43">
 <data key="name">FUNCEXEC</data>
@@ -191,7 +197,7 @@
 <data key="name">E8</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(SUM(A4:C4), VALUE, C4, B4, A4, VALUE); Formula values: DEFINE(SUM(1.0, 8.0, 0.0), #, 0.0, 8.0, 1.0, DEVDEF_3);</data>
+<data key="formula">Formula string: DEFINE(D4, VALUE, C4, B4, A4, VALUE); Formula values: DEFINE(9.0, #, 0.0, 8.0, 1.0, DEVDEF_3);</data>
 </node>
 <node id="46">
 <data key="name">VALUE</data>
@@ -205,23 +211,29 @@
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A4; Formula values: 1.0;</data>
 </node>
+<node id="48">
+<data key="name">B4</data>
+<data key="value">8.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B4; Formula values: 8.0;</data>
+</node>
+<node id="49">
+<data key="name">C4</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C4; Formula values: 0.0;</data>
+</node>
 <node id="50">
 <data key="name">VALUE</data>
 <data key="value">#</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #;</data>
 </node>
-<node id="51">
-<data key="name">D4</data>
-<data key="value">9.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(A4:C4); Formula values: SUM(1.0, 8.0, 0.0);</data>
-</node>
 <node id="52">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(SUM(A4:C4), VALUE, C4, B4, A4, VALUE); Formula values: DEFINE(SUM(1.0, 8.0, 0.0), #, 0.0, 8.0, 1.0, DEVDEF_3);</data>
+<data key="formula">Formula string: DEFINE(D4, VALUE, C4, B4, A4, VALUE); Formula values: DEFINE(9.0, #, 0.0, 8.0, 1.0, DEVDEF_3);</data>
 </node>
 <node id="53">
 <data key="name">F8</data>
@@ -235,18 +247,6 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_3;</data>
 </node>
-<node id="57">
-<data key="name">B4</data>
-<data key="value">8.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: B4; Formula values: 8.0;</data>
-</node>
-<node id="58">
-<data key="name">C4</data>
-<data key="value">0.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: C4; Formula values: 0.0;</data>
-</node>
 <node id="59">
 <data key="name">FUNCEXEC</data>
 <data key="value">9.0</data>
@@ -257,7 +257,7 @@
 <data key="name">E9</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(SUM(A5:C5), VALUE, C5, B5, A5, VALUE); Formula values: DEFINE(SUM(7.0, 8.0, ), #, , 8.0, 7.0, DEVDEF_4);</data>
+<data key="formula">Formula string: DEFINE(D5, VALUE, C5, B5, A5, VALUE); Formula values: DEFINE(15.0, #, , 8.0, 7.0, DEVDEF_4);</data>
 </node>
 <node id="62">
 <data key="name">VALUE</data>
@@ -265,17 +265,17 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_4;</data>
 </node>
-<node id="63">
-<data key="name">A5</data>
-<data key="value">7.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A5; Formula values: 7.0;</data>
-</node>
 <node id="64">
 <data key="name">B5</data>
 <data key="value">8.0</data>
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: B5; Formula values: 8.0;</data>
+</node>
+<node id="65">
+<data key="name">C5</data>
+<data key="value"/>
+<data key="type">EMPTY_CELL</data>
+<data key="formula">Formula string: C5; Formula values: ;</data>
 </node>
 <node id="66">
 <data key="name">VALUE</data>
@@ -287,7 +287,7 @@
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(SUM(A5:C5), VALUE, C5, B5, A5, VALUE); Formula values: DEFINE(SUM(7.0, 8.0, ), #, , 8.0, 7.0, DEVDEF_4);</data>
+<data key="formula">Formula string: DEFINE(D5, VALUE, C5, B5, A5, VALUE); Formula values: DEFINE(15.0, #, , 8.0, 7.0, DEVDEF_4);</data>
 </node>
 <node id="69">
 <data key="name">F9</data>
@@ -301,11 +301,11 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF_4;</data>
 </node>
-<node id="74">
-<data key="name">C5</data>
-<data key="value"/>
-<data key="type">EMPTY_CELL</data>
-<data key="formula">Formula string: C5; Formula values: ;</data>
+<node id="72">
+<data key="name">A5</data>
+<data key="value">7.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A5; Formula values: 7.0;</data>
 </node>
 <node id="75">
 <data key="name">FUNCEXEC</data>
@@ -315,7 +315,9 @@
 </node>
 <edge source="1" target="2"/>
 <edge source="4" target="5"/>
+<edge source="5" target="3"/>
 <edge source="7" target="8"/>
+<edge source="8" target="6"/>
 <edge source="10" target="11"/>
 <edge source="11" target="9"/>
 <edge source="19" target="20"/>
@@ -327,47 +329,45 @@
 <edge source="25" target="27"/>
 <edge source="23" target="27"/>
 <edge source="27" target="21"/>
-<edge source="35" target="36"/>
 <edge source="34" target="36"/>
 <edge source="33" target="36"/>
-<edge source="31" target="36"/>
+<edge source="32" target="36"/>
 <edge source="30" target="36"/>
 <edge source="36" target="28"/>
-<edge source="41" target="43"/>
+<edge source="40" target="43"/>
 <edge source="39" target="43"/>
 <edge source="43" target="37"/>
-<edge source="51" target="52"/>
 <edge source="50" target="52"/>
+<edge source="49" target="52"/>
+<edge source="48" target="52"/>
 <edge source="47" target="52"/>
 <edge source="46" target="52"/>
 <edge source="52" target="44"/>
-<edge source="58" target="59"/>
-<edge source="57" target="59"/>
 <edge source="55" target="59"/>
 <edge source="59" target="53"/>
 <edge source="66" target="68"/>
+<edge source="65" target="68"/>
 <edge source="64" target="68"/>
-<edge source="63" target="68"/>
 <edge source="62" target="68"/>
 <edge source="68" target="60"/>
-<edge source="74" target="75"/>
+<edge source="72" target="75"/>
 <edge source="71" target="75"/>
 <edge source="75" target="69"/>
 <edge source="2" target="19"/>
-<edge source="5" target="35"/>
-<edge source="8" target="51"/>
+<edge source="3" target="36"/>
 <edge source="26" target="20"/>
+<edge source="6" target="52"/>
 <edge source="25" target="20"/>
 <edge source="33" target="43"/>
 <edge source="9" target="68"/>
 <edge source="15" target="27"/>
-<edge source="41" target="36"/>
-<edge source="58" target="52"/>
-<edge source="31" target="43"/>
-<edge source="57" target="52"/>
-<edge source="74" target="68"/>
+<edge source="32" target="43"/>
+<edge source="49" target="59"/>
+<edge source="40" target="36"/>
+<edge source="48" target="59"/>
+<edge source="65" target="75"/>
 <edge source="47" target="59"/>
 <edge source="64" target="75"/>
-<edge source="63" target="75"/>
+<edge source="72" target="68"/>
 </graph>
 </graphml>

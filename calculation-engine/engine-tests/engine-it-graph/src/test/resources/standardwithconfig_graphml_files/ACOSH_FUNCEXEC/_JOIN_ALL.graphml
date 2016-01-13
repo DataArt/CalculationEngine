@@ -19,11 +19,11 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ACOSH(VALUE); Formula values: ACOSH(10.0);</data>
 </node>
-<node id="4">
-<data key="name">C2</data>
-<data key="value">90.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: C2; Formula values: 90.0;</data>
+<node id="3">
+<data key="name">E5</data>
+<data key="value">5.192925985263684</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ACOSH(C2); Formula values: ACOSH(90.0);</data>
 </node>
 <node id="5">
 <data key="name">ACOSH</data>
@@ -35,7 +35,7 @@
 <data key="name">E7</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(ACOSH(C2), VALUE, C2, VALUE); Formula values: DEFINE(ACOSH(90.0), #, 90.0, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(E5, VALUE, C2, VALUE); Formula values: DEFINE(5.192925985263684, #, 90.0, DEVDEF);</data>
 </node>
 <node id="8">
 <data key="name">VALUE</data>
@@ -49,17 +49,11 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #;</data>
 </node>
-<node id="11">
-<data key="name">E5</data>
-<data key="value">5.192925985263684</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ACOSH(C2); Formula values: ACOSH(90.0);</data>
-</node>
 <node id="12">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(ACOSH(C2), VALUE, C2, VALUE); Formula values: DEFINE(ACOSH(90.0), #, 90.0, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(E5, VALUE, C2, VALUE); Formula values: DEFINE(5.192925985263684, #, 90.0, DEVDEF);</data>
 </node>
 <node id="13">
 <data key="name">F7</data>
@@ -73,6 +67,12 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
 </node>
+<node id="16">
+<data key="name">C2</data>
+<data key="value">90.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C2; Formula values: 90.0;</data>
+</node>
 <node id="17">
 <data key="name">FUNCEXEC</data>
 <data key="value">5.192925985263684</data>
@@ -81,15 +81,15 @@
 </node>
 <edge source="1" target="2"/>
 <edge source="2" target="0"/>
-<edge source="4" target="5"/>
-<edge source="11" target="12"/>
+<edge source="5" target="3"/>
 <edge source="10" target="12"/>
 <edge source="8" target="12"/>
 <edge source="12" target="6"/>
+<edge source="16" target="17"/>
 <edge source="15" target="17"/>
 <edge source="17" target="13"/>
-<edge source="5" target="11"/>
-<edge source="4" target="12"/>
-<edge source="4" target="17"/>
+<edge source="3" target="12"/>
+<edge source="16" target="5"/>
+<edge source="16" target="12"/>
 </graph>
 </graphml>
