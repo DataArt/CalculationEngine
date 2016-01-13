@@ -364,8 +364,9 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected static void updateVertexType(ExecutionGraphVertex vertex, DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
-        if (vertex.type == CELL_WITH_VALUE && !dgraph.incomingEdgesOf(vertex).isEmpty()) {
-            vertex.type = dgraph.incomingEdgesOf(vertex).size() == 1 ? CELL_WITH_REFERENCE : CELL_WITH_FORMULA;        
+        final Set<ExecutionGraphEdge> incoming;
+        if (vertex.type == CELL_WITH_VALUE && !(incoming = dgraph.incomingEdgesOf(vertex)).isEmpty()) {
+            vertex.type = incoming.size() == 1 ? CELL_WITH_REFERENCE : CELL_WITH_FORMULA;        
         }
     }
 
