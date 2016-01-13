@@ -74,7 +74,7 @@ class ExecutionGraphVertexProperties implements IExecutionGraphVertexProperties 
     }
 
     @Override public void setType(Type value) {
-        if (this.parent.type != null && Type.CELL_WITH_FORMULA == this.parent.type) { return; }
+        if (Type.CELL_WITH_FORMULA == this.parent.type) { return; }
         this.parent.type = value;
     }
 
