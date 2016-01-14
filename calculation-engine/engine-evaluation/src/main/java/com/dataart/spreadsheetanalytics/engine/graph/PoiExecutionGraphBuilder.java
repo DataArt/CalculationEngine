@@ -17,11 +17,7 @@ package com.dataart.spreadsheetanalytics.engine.graph;
 
 import static com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex.isCell;
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.copyProperties;
-import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.createFormulaString;
-import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.createPtgString;
-import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.inheritsErrorValue;
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.isCompareOperand;
-import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.isErrorValue;
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.isSkipVertex;
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.ptgToString;
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.removeSymbol;
@@ -29,10 +25,8 @@ import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_FO
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.IF;
-import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.OPERATOR;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -50,13 +44,15 @@ import org.apache.poi.common.fork.IExecutionGraphVertex.Type;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
 import org.apache.poi.ss.formula.WorkbookEvaluator;
 import org.apache.poi.ss.formula.eval.ValueEval;
-import org.apache.poi.ss.formula.functions.Area2DValues;
 import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtg;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
+import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
+import com.dataart.spreadsheetanalytics.model.A1Address;
+import com.dataart.spreadsheetanalytics.model.A1RangeAddress;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
 
 /**
@@ -312,32 +308,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
                     ExecutionGraphVertex ivertex = state.dgraph.getEdgeSource(edge);
                     buildFormula(ivertex, state);
-                    // if the parent node has error value we leave it as it is
-                    // otherwise it will represent the child's node error value
-                    if (isErrorValue(ivertex.getValue()) && inheritsErrorValue(vertex)) {
-                        vertex.value = ivertex.getValue();
-                    }
                 }
-                vertex.formula.formulaPtgStr("");
-                vertex.formula.ptgStr("");
-                return CellFormulaExpression.copyOf(vertex.formula);
-            }
-            case IF: {
-                List<String> formulaValuesNodes = new LinkedList<>();
-                List<String> formulaPtgNodes = new LinkedList<>();
-                List<String> ptgNodes = new LinkedList<>();
-                for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
-                    ExecutionGraphVertex ivertex = state.dgraph.getEdgeSource(edge);
-                    CellFormulaExpression formula = buildFormula(ivertex, state);
-                    formulaValuesNodes.add(formula.formulaValues());
-                    formulaPtgNodes.add(formula.formulaPtgStr());
-                    ptgNodes.add(formula.ptgStr());
-                    if (OPERATOR != ivertex.type) { vertex.value = ivertex.value; }
-                }
-                Collections.sort(formulaValuesNodes, (n1, n2) -> isCompareOperand(n1) ? -1 : 0);
-                vertex.formula.formulaValues(createFormulaString(null, formulaValuesNodes, vertex));
-                vertex.formula.formulaPtgStr(createPtgString(null, formulaPtgNodes, vertex));
-                vertex.formula.ptgStr(createPtgString(null, ptgNodes, vertex));
                 vertex.formula.formulaPtgStr("");
                 vertex.formula.ptgStr("");
                 return CellFormulaExpression.copyOf(vertex.formula);
@@ -363,13 +334,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected static void connectValuesToRange(ExecutionGraphVertex rangeVertex, PoiExecutionGraphBuilder state) {
-        Object cellValue = rangeVertex.getValue();
-        if (!(cellValue instanceof Area2DValues)) { return; }
-        
-        for (String adress : ((Area2DValues) cellValue).getRangeCellAddresses()) {
-            if (state.addressToVertices.get(adress) == null) { continue; }
-            
-            state.addressToVertices.get(adress).forEach(cellVertex -> state.connect(cellVertex, rangeVertex));
+        A1Address address = A1Address.fromA1Address(rangeVertex.getName());
+        if (address instanceof A1RangeAddress) {
+            List<IA1Address> addresses = A1RangeAddress.toA1Addresses((A1RangeAddress) address);
+            for (IA1Address addr : addresses) {
+                if (state.addressToVertices.get(addr.address()) == null) { continue; }
+                state.addressToVertices.get(addr.address()).forEach(cellVertex -> state.connect(cellVertex, rangeVertex));
+            }
         }
     }
 
