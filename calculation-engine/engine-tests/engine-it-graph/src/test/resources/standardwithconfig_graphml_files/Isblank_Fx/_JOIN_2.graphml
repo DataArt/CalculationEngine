@@ -65,7 +65,7 @@
 <data key="name">D5</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISBLANK(D2); Formula values: ISBLANK(FALSE);</data>
+<data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
 </node>
 <node id="12">
 <data key="name">D2</data>
@@ -77,7 +77,7 @@
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISBLANK(D2); Formula values: ISBLANK(FALSE);</data>
+<data key="formula">Formula string: ISBLANK(ISBLANK(A6)); Formula values: ISBLANK(ISBLANK(4.0));</data>
 </node>
 <node id="14">
 <data key="name">D6</data>
@@ -101,13 +101,13 @@
 <data key="name">D7</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISBLANK(C5); Formula values: ISBLANK(#NAME?);</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(#NAME?);</data>
 </node>
 <node id="19">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISBLANK(C5); Formula values: ISBLANK(#NAME?);</data>
+<data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(#NAME?);</data>
 </node>
 <edge source="1" target="2"/>
 <edge source="4" target="5"/>

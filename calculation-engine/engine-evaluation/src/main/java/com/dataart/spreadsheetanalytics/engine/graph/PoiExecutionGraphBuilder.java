@@ -22,9 +22,8 @@ import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.is
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.ptgToString;
 import static com.dataart.spreadsheetanalytics.engine.graph.GraphBuilderUtils.removeSymbol;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_FORMULA;
-import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_REFERENCE;
-import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.CELL_WITH_VALUE;
 import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.IF;
+import static org.apache.poi.common.fork.IExecutionGraphVertex.Type.RANGE;
 
 import java.util.Collection;
 import java.util.Deque;
@@ -67,11 +66,11 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
 public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
-    
+
     protected static final ThreadLocal<AtomicInteger> ID_RANDOMIZER = new ThreadLocal<>();
-    
+
     protected IExecutionGraphVertex namedVertexRoot;
-    
+
     protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph = new DefaultDirectedGraph<>((s, t) -> new ExecutionGraphEdge(s, t));
     protected Deque<Boolean> processName = new LinkedList<>();
     protected final ExecutionGraphConfig config;
@@ -90,7 +89,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         this.config = config;
         ID_RANDOMIZER.set(new AtomicInteger(0));
     }
-    
+
     public ExecutionGraph get() {
         return ExecutionGraph.wrap(this.dgraph);
     }
@@ -120,7 +119,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     @Override
     public IExecutionGraphVertex createVertex(Ptg ptg) {
         if (isSkipVertex(ptg)) { return null; }
-        
+
         boolean isCell = ptg instanceof RefPtg;
         String name = ptgToString(ptg);
 
@@ -171,12 +170,12 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (!this.addressToVertices.containsKey(address)) { this.addressToVertices.put(address, new HashSet<>()); }
         this.addressToVertices.get(address).add(vertex);
     }
-    
+
     @Override
     public void putVertexToCache(int row, int column, IExecutionGraphVertex vertex) {
         putVertexToCache(CellAddress.toA1Address(row, column), vertex);
     }
-    
+
     @Override
     public Set<IExecutionGraphVertex> getVerticesFromCache(String address) {
         return this.addressToVertices.get(address) == null ?
@@ -261,6 +260,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
             }
 
+            if (RANGE == type) { connectValuesToRange(vertex, this); }
+
             /* Adding IF Value */
             if (IF == type) {
                 Set<ExecutionGraphEdge> two = graph.incomingEdgesOf(vertex);
@@ -279,55 +280,8 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
         }
 
-        for (ExecutionGraphVertex vert : graph.vertexSet()) {
-            if (graph.outgoingEdgesOf(vert).isEmpty()) {
-                ExecutionGraphVertex root = vert;
-                root.formula = buildFormula(root, this);
-                if (!multiRoot) { break; }
-            }
-        }
-
-        if (this.config.getDuplicatesNumberThreshold() != -1) { removeAllDuplicates(); }
-    }
-
-    //TODO: this recursive method call costs about 10-15% of all graph building time, need to fix it.
-    protected static CellFormulaExpression buildFormula(ExecutionGraphVertex vertex, PoiExecutionGraphBuilder state) {
-        updateVertexType(vertex, state.dgraph);
-
-        switch (vertex.type) {
-            case CELL_WITH_REFERENCE:
-            case CELL_WITH_FORMULA: {
-                ExecutionGraphEdge edge = state.dgraph.incomingEdgesOf(vertex).iterator().next();
-                ExecutionGraphVertex source = state.dgraph.getEdgeSource(edge);
-                vertex.formula = buildFormula(source, state);
-                vertex.value = source.value;
-                return CellFormulaExpression.copyOf(vertex.formula);
-            }
-            case OPERATOR:
-            case FUNCTION: {
-                for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
-                    ExecutionGraphVertex ivertex = state.dgraph.getEdgeSource(edge);
-                    buildFormula(ivertex, state);
-                }
-                return CellFormulaExpression.copyOf(vertex.formula);
-            }
-            case RANGE: {
-                connectValuesToRange(vertex, state);
-                for (ExecutionGraphEdge edge : state.dgraph.incomingEdgesOf(vertex)) {
-                    buildFormula(state.dgraph.getEdgeSource(edge), state);
-                }
-                return CellFormulaExpression.copyOf(vertex.formula);
-            }
-            default: {
-                return vertex.formula;
-            }
-        }
-    }
-
-    protected static void updateVertexType(ExecutionGraphVertex vertex, DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
-        final Set<ExecutionGraphEdge> incoming;
-        if (vertex.type == CELL_WITH_VALUE && !(incoming = dgraph.incomingEdgesOf(vertex)).isEmpty()) {
-            vertex.type = incoming.size() == 1 ? CELL_WITH_REFERENCE : CELL_WITH_FORMULA;        
+        if (this.config.getDuplicatesNumberThreshold() != -1) {
+            removeAllDuplicates();
         }
     }
 
@@ -420,8 +374,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     }
 
     protected static ExecutionGraphVertex returnVertexDuplicate(Collection<ExecutionGraphVertex> set, ExecutionGraphVertex value) {
-        for (ExecutionGraphVertex item : set) 
-            { if (item.compareTo(value) == 1) { return item; } }
+        for (ExecutionGraphVertex item : set) { if (item.compareTo(value) == 1) { return item; } }
         return null;
     }
 

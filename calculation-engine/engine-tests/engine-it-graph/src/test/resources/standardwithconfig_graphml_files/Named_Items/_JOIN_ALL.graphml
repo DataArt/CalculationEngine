@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_ALL">
-<node id="0">
-<data key="name">C2</data>
-<data key="value">30.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(VALUE, A4, A2); Formula values: SUM(12.9, 4.5, 12.6);</data>
-</node>
 <node id="1">
 <data key="name">A2</data>
 <data key="value">12.6</data>
@@ -77,13 +71,19 @@
 <data key="name">E5</data>
 <data key="value">6.875</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: C2 - C3 - SUM(A3, A2); Formula values: 30.0 - 7.325 - SUM(3.2, 12.6);</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE) - SUM(A3, A2); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE([[12.6], [3.2], [4.5], [9.0]]) - SUM(3.2, 12.6);</data>
+</node>
+<node id="14">
+<data key="name">C2</data>
+<data key="value">30.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2); Formula values: SUM(12.9, 4.5, 12.6);</data>
 </node>
 <node id="16">
 <data key="name">-</data>
 <data key="value">22.675</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: C2 - C3; Formula values: 30.0 - 7.325;</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE([[12.6], [3.2], [4.5], [9.0]]);</data>
 </node>
 <node id="18">
 <data key="name">A2</data>
@@ -107,12 +107,11 @@
 <data key="name">-</data>
 <data key="value">6.875</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: C2 - C3 - SUM(A3, A2); Formula values: 30.0 - 7.325 - SUM(3.2, 12.6);</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE) - SUM(A3, A2); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE([[12.6], [3.2], [4.5], [9.0]]) - SUM(3.2, 12.6);</data>
 </node>
 <edge source="3" target="4"/>
 <edge source="2" target="4"/>
 <edge source="1" target="4"/>
-<edge source="4" target="0"/>
 <edge source="1" target="6"/>
 <edge source="2" target="6"/>
 <edge source="6" target="7"/>
@@ -120,12 +119,13 @@
 <edge source="11" target="12"/>
 <edge source="10" target="12"/>
 <edge source="12" target="8"/>
+<edge source="14" target="16"/>
 <edge source="19" target="20"/>
 <edge source="18" target="20"/>
 <edge source="16" target="21"/>
 <edge source="20" target="21"/>
 <edge source="21" target="13"/>
+<edge source="4" target="14"/>
 <edge source="5" target="16"/>
-<edge source="0" target="16"/>
 </graph>
 </graphml>

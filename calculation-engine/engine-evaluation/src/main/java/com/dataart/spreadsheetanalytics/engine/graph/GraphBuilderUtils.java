@@ -112,16 +112,20 @@ public final class GraphBuilderUtils {
             to.setAlias(from.getAlias());
             to.setValue(from.getValue());
             to.setType(from.getType());
-            to.setFormulaString(from.getFormulaString());
-            to.setFormulaValues(from.getFormulaValues());
             to.setFormulaPtg(from.getFormulaPtg());
             to.setPtgs(from.getPtgs());
+            if (from.getFormulaString() == null && to.getFormulaString() != null) { from.setFormulaString(to.getFormulaString()); }
+            else { to.setFormulaString(from.getFormulaString()); }
+            if (from.getFormulaValues() == null && to.getFormulaValues() != null) { from.setFormulaValues(to.getFormulaValues()); }
+            else { to.setFormulaValues(from.getFormulaValues()); }
+            if (from.getFormulaPtgString() == null && to.getFormulaPtgString() != null) { from.setFormulaPtgString(to.getFormulaPtgString()); }
+            else { to.setFormulaPtgString(from.getFormulaPtgString()); }
+            if (from.getPtgString() == null && to.getPtgString() != null) { from.setPtgString(to.getPtgString()); }
+            else { to.setPtgString(from.getPtgString()); }
             to.setSourceObjectId(from.getSourceObjectId());
             to.setRootFormulaId(from.getRootFormulaId());
-            to.setFormulaPtgString(from.getFormulaPtgString());
-            to.setPtgString(from.getPtgString());
         }
-    }    
+    }
     
     static String removeSymbol(String str, char symbol) {
         if (str.indexOf(symbol) < 0) { return str; }

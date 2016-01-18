@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="JOIN_2">
-<node id="0">
-<data key="name">D7</data>
-<data key="value">FALSE</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISEVEN(A1); Formula values: ISEVEN(1.0);</data>
-</node>
+<graph edgedefault="directed" id="JOIN_2_">
 <node id="2">
 <data key="name">A1</data>
 <data key="value">1.0</data>
@@ -39,6 +33,12 @@
 </node>
 <node id="8">
 <data key="name">D9</data>
+<data key="value">FALSE</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ; Formula values: null;</data>
+</node>
+<node id="9">
+<data key="name">D7</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISEVEN(A1); Formula values: ISEVEN(1.0);</data>
@@ -98,15 +98,15 @@
 <data key="formula">Formula string: ISEVEN(D3); Formula values: ISEVEN();</data>
 </node>
 <edge source="2" target="3"/>
-<edge source="3" target="0"/>
 <edge source="6" target="7"/>
 <edge source="7" target="4"/>
+<edge source="9" target="8"/>
 <edge source="12" target="13"/>
 <edge source="13" target="10"/>
 <edge source="16" target="17"/>
 <edge source="17" target="14"/>
 <edge source="21" target="22"/>
 <edge source="22" target="18"/>
-<edge source="0" target="8"/>
+<edge source="3" target="9"/>
 </graph>
 </graphml>

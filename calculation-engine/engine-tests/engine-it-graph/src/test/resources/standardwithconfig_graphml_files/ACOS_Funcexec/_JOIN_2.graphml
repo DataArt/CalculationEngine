@@ -7,23 +7,17 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ACOS(A2); Formula values: ACOS(0.0);</data>
 </node>
-<node id="1">
-<data key="name">A2</data>
-<data key="value">0.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A2; Formula values: 0.0;</data>
-</node>
 <node id="2">
 <data key="name">ACOS</data>
 <data key="value">1.5707963267948966</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ACOS(A2); Formula values: ACOS(0.0);</data>
 </node>
-<node id="3">
-<data key="name">B4</data>
-<data key="value">1.0471975511965979</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ACOS(B2); Formula values: ACOS(0.5);</data>
+<node id="4">
+<data key="name">B2</data>
+<data key="value">0.5</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 0.5;</data>
 </node>
 <node id="5">
 <data key="name">ACOS</data>
@@ -35,7 +29,7 @@
 <data key="name">B5</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(A4, VALUE, A2, VALUE); Formula values: DEFINE(1.5707963267948966, #, 0.0, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(ACOS(A2), VALUE, A2, VALUE); Formula values: DEFINE(ACOS(0.0), #, 0.0, DEVDEF);</data>
 </node>
 <node id="8">
 <data key="name">VALUE</data>
@@ -53,7 +47,7 @@
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(A4, VALUE, A2, VALUE); Formula values: DEFINE(1.5707963267948966, #, 0.0, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(ACOS(A2), VALUE, A2, VALUE); Formula values: DEFINE(ACOS(0.0), #, 0.0, DEVDEF);</data>
 </node>
 <node id="13">
 <data key="name">C5</data>
@@ -67,6 +61,12 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
 </node>
+<node id="16">
+<data key="name">A2</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 0.0;</data>
+</node>
 <node id="17">
 <data key="name">FUNCEXEC</data>
 <data key="value">1.5707963267948966</data>
@@ -77,7 +77,7 @@
 <data key="name">B6</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(B4, VALUE, B2, VALUE); Formula values: DEFINE(1.0471975511965979, #, 0.5, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(ACOS(B2), VALUE, B2, VALUE); Formula values: DEFINE(ACOS(0.5), #, 0.5, DEVDEF);</data>
 </node>
 <node id="20">
 <data key="name">VALUE</data>
@@ -85,23 +85,23 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
 </node>
-<node id="21">
-<data key="name">B2</data>
-<data key="value">0.5</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: B2; Formula values: 0.5;</data>
-</node>
 <node id="22">
 <data key="name">VALUE</data>
 <data key="value">#</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #;</data>
 </node>
+<node id="23">
+<data key="name">B4</data>
+<data key="value">1.0471975511965979</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: ACOS(B2); Formula values: ACOS(0.5);</data>
+</node>
 <node id="24">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(B4, VALUE, B2, VALUE); Formula values: DEFINE(1.0471975511965979, #, 0.5, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(ACOS(B2), VALUE, B2, VALUE); Formula values: DEFINE(ACOS(0.5), #, 0.5, DEVDEF);</data>
 </node>
 <node id="25">
 <data key="name">C6</data>
@@ -121,25 +121,25 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: FUNCEXEC(B2, VALUE); Formula values: FUNCEXEC(0.5, DEVDEF);</data>
 </node>
-<edge source="1" target="2"/>
 <edge source="2" target="0"/>
-<edge source="5" target="3"/>
+<edge source="4" target="5"/>
 <edge source="10" target="12"/>
 <edge source="8" target="12"/>
 <edge source="12" target="6"/>
+<edge source="16" target="17"/>
 <edge source="15" target="17"/>
 <edge source="17" target="13"/>
+<edge source="23" target="24"/>
 <edge source="22" target="24"/>
-<edge source="21" target="24"/>
 <edge source="20" target="24"/>
 <edge source="24" target="18"/>
 <edge source="27" target="29"/>
 <edge source="29" target="25"/>
-<edge source="21" target="29"/>
-<edge source="21" target="5"/>
-<edge source="1" target="12"/>
-<edge source="1" target="17"/>
-<edge source="3" target="24"/>
+<edge source="5" target="23"/>
+<edge source="4" target="29"/>
+<edge source="4" target="24"/>
+<edge source="16" target="2"/>
+<edge source="16" target="12"/>
 <edge source="0" target="12"/>
 </graph>
 </graphml>

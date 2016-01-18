@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_ALL">
+<node id="0">
+<data key="name">D2</data>
+<data key="value">790.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: A2 + B2 + C2; Formula values: 250.0 + 240.0 + 300.0;</data>
+</node>
 <node id="3">
 <data key="name">+</data>
 <data key="value">490.0</data>
@@ -17,13 +23,19 @@
 <data key="name">D3</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(D2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(790.0, #, 300.0, 240.0, 250.0, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(A2 + B2 + C2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(250.0 + 240.0 + 300.0, #, 300.0, 240.0, 250.0, DEVDEF);</data>
 </node>
 <node id="8">
 <data key="name">VALUE</data>
 <data key="value">DEVDEF</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
+</node>
+<node id="9">
+<data key="name">A2</data>
+<data key="value">250.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: A2; Formula values: 250.0;</data>
 </node>
 <node id="11">
 <data key="name">C2</data>
@@ -37,17 +49,11 @@
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #;</data>
 </node>
-<node id="13">
-<data key="name">D2</data>
-<data key="value">790.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: A2 + B2 + C2; Formula values: 250.0 + 240.0 + 300.0;</data>
-</node>
 <node id="14">
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(D2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(790.0, #, 300.0, 240.0, 250.0, DEVDEF);</data>
+<data key="formula">Formula string: DEFINE(A2 + B2 + C2, VALUE, C2, B2, A2, VALUE); Formula values: DEFINE(250.0 + 240.0 + 300.0, #, 300.0, 240.0, 250.0, DEVDEF);</data>
 </node>
 <node id="15">
 <data key="name">E3</data>
@@ -60,12 +66,6 @@
 <data key="value">DEVDEF</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: DEVDEF;</data>
-</node>
-<node id="18">
-<data key="name">A2</data>
-<data key="value">250.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A2; Formula values: 250.0;</data>
 </node>
 <node id="19">
 <data key="name">B2</data>
@@ -80,21 +80,21 @@
 <data key="formula">Formula string: FUNCEXEC(C2, B2, A2, VALUE); Formula values: FUNCEXEC(300.0, 240.0, 250.0, DEVDEF);</data>
 </node>
 <edge source="3" target="5"/>
-<edge source="13" target="14"/>
+<edge source="5" target="0"/>
 <edge source="12" target="14"/>
 <edge source="11" target="14"/>
+<edge source="9" target="14"/>
 <edge source="8" target="14"/>
 <edge source="14" target="6"/>
 <edge source="19" target="21"/>
-<edge source="18" target="21"/>
 <edge source="17" target="21"/>
 <edge source="21" target="15"/>
-<edge source="5" target="13"/>
 <edge source="19" target="3"/>
 <edge source="19" target="14"/>
-<edge source="18" target="14"/>
-<edge source="18" target="3"/>
-<edge source="11" target="21"/>
+<edge source="9" target="3"/>
+<edge source="9" target="21"/>
+<edge source="0" target="14"/>
 <edge source="11" target="5"/>
+<edge source="11" target="21"/>
 </graph>
 </graphml>

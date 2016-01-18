@@ -113,25 +113,25 @@
 <data key="name">C9</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISLOGICAL(C2); Formula values: ISLOGICAL(#DIV/0!);</data>
+<data key="formula">Formula string: ISLOGICAL(A3 / D2); Formula values: ISLOGICAL(1.0 / );</data>
 </node>
 <node id="21">
 <data key="name">ISLOGICAL</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISLOGICAL(C2); Formula values: ISLOGICAL(#DIV/0!);</data>
+<data key="formula">Formula string: ISLOGICAL(A3 / D2); Formula values: ISLOGICAL(1.0 / );</data>
 </node>
 <node id="22">
 <data key="name">D9</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISLOGICAL(C6); Formula values: ISLOGICAL(TRUE);</data>
+<data key="formula">Formula string: ISLOGICAL(ISLOGICAL(A2)); Formula values: ISLOGICAL(ISLOGICAL(FALSE));</data>
 </node>
 <node id="24">
 <data key="name">ISLOGICAL</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISLOGICAL(C6); Formula values: ISLOGICAL(TRUE);</data>
+<data key="formula">Formula string: ISLOGICAL(ISLOGICAL(A2)); Formula values: ISLOGICAL(ISLOGICAL(FALSE));</data>
 </node>
 <edge source="1" target="3"/>
 <edge source="2" target="3"/>
