@@ -301,8 +301,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     ExecutionGraphVertex ivertex = state.graph.getEdgeSource(edge);
                     buildFormula(ivertex, state);
                 }
-                vertex.formula.formulaPtgStr("");
-                vertex.formula.ptgStr("");
                 return CellFormulaExpression.copyOf(vertex.formula);
             }
             case RANGE: {
