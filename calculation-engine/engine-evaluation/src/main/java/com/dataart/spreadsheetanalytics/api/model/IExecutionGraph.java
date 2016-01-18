@@ -15,7 +15,7 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.api.model;
 
-import java.util.Set;
+import java.util.Collection;
 
 import com.dataart.spreadsheetanalytics.api.engine.IAuditor;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
@@ -24,33 +24,44 @@ import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
  * Represents execution graph. Can be got from {@link IAuditor} methods.
  * Contains {@link IExecutionGraphVertex} and {@link IExecutionGraphEdge}.
  */
-public interface IExecutionGraph {
+public interface IExecutionGraph<V extends IExecutionGraphVertex, E extends IExecutionGraphEdge> {
 
     /**
      * Returns the root vertex of ExecutionGraph
      *
      * @throws CalculationEngineException if there is no root vertex
      */
-    IExecutionGraphVertex getRootVertex() throws CalculationEngineException;
+    V getRootVertex() throws CalculationEngineException;
 
     /**
      * Returns the set of the graph edges 
      */
-    Set<? extends IExecutionGraphEdge> getEdges();
+    Collection<E> getEdges();
 
     /**
      * Returns the set of the graph vertices
      */
-    Set<? extends IExecutionGraphVertex> getVertices();
+    Collection<V> getVertices();
 
     /**
      * Returns the source vertex of specified edge
      */
-    IExecutionGraphVertex getEdgeSource(IExecutionGraphEdge edge);
+    V getEdgeSource(E edge);
 
     /**
      * Returns the target vertex of specified edge
      */
-    IExecutionGraphVertex getEdgeTarget(IExecutionGraphEdge edge);
+    V getEdgeTarget(E edge);
 
+    void addVertex(V vertex);
+    
+    void addEdge(V from, V to);
+    
+    void removeVertex(V vertex);
+    
+    Collection<E> getIncomingEdgesOf(V vertex);
+    
+    Collection<E> getOutgoingEdgesOf(V vertex);
+    
+    boolean containsVertex(V vertex);
 }

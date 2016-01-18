@@ -15,37 +15,34 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.jgrapht.DirectedGraph;
-
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
-import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
 /**
- * {@link IExecutionGraph} implementation.
+ * {@link IExecutionGraph} implementation based on {@link ExecutionGraphVertex#id} and {@link HashMap}s.
  */
-public class ExecutionGraph implements IExecutionGraph {
+public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, ExecutionGraphEdge> {
 
-    protected DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph;
-
-    public static ExecutionGraph wrap(DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> dgraph) {
-        ExecutionGraph egraph = new ExecutionGraph();
-        egraph.dgraph = dgraph;
-        return egraph;
-    }
-
-    public static DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> unwrap(ExecutionGraph egraph) { return egraph.dgraph; }
+    protected final Map<Integer, ExecutionGraphVertex> vertices = new HashMap<>();
+    protected final Map<EdgeKey, ExecutionGraphEdge> edges = new HashMap<>();
+    protected final Map<Integer, Set<ExecutionGraphEdge>> incoming = new HashMap<>();
+    protected final Map<Integer, Set<ExecutionGraphEdge>> outgoing = new HashMap<>();
 
     @Override
-    public IExecutionGraphVertex getRootVertex() {
-        List<IExecutionGraphVertex> possible = new LinkedList<>();
-        for (ExecutionGraphVertex ivertex : this.dgraph.vertexSet()) {
-            if (this.dgraph.outgoingEdgesOf(ivertex).isEmpty()) { possible.add(ivertex); }
+    public ExecutionGraphVertex getRootVertex() {
+        List<ExecutionGraphVertex> possible = new LinkedList<>();
+        for (ExecutionGraphVertex vertex : getVertices()) {
+            if (getOutgoingEdgesOf(vertex).isEmpty()) { possible.add(vertex); }
         }
         if (possible.isEmpty()) { throw new CalculationEngineException("No graph root found"); }
         if (possible.size() > 1) { throw new CalculationEngineException(String.format("Many graph roots found (%s)", possible.size())); }
@@ -54,23 +51,109 @@ public class ExecutionGraph implements IExecutionGraph {
     }
 
     @Override
-    public Set<ExecutionGraphVertex> getVertices() {
-        return this.dgraph.vertexSet();
+    public Collection<ExecutionGraphVertex> getVertices() {
+        return this.vertices.values();
     }
 
     @Override
-    public Set<ExecutionGraphEdge> getEdges() {
-        return this.dgraph.edgeSet();
+    public Collection<ExecutionGraphEdge> getEdges() {
+        return this.edges.values();
     }
 
     @Override
-    public IExecutionGraphVertex getEdgeSource(IExecutionGraphEdge edge) {
-        return this.dgraph.getEdgeSource((ExecutionGraphEdge) edge);
+    public ExecutionGraphVertex getEdgeSource(ExecutionGraphEdge edge) {
+        return edge.source;
     }
 
     @Override
-    public IExecutionGraphVertex getEdgeTarget(IExecutionGraphEdge edge) {
-        return this.dgraph.getEdgeTarget((ExecutionGraphEdge) edge);
+    public ExecutionGraphVertex getEdgeTarget(ExecutionGraphEdge edge) {
+        return edge.target;
+    }
+
+    @Override
+    public void addVertex(ExecutionGraphVertex vertex) {
+        if (vertex == null) { return; }
+        
+        this.vertices.put(vertex.id, vertex);
+    }
+
+    @Override
+    public void addEdge(ExecutionGraphVertex from, ExecutionGraphVertex to) {
+        if (from == null || to == null) { return; }
+        if (!this.vertices.containsKey(from.id) || !this.vertices.containsKey(from.id)) { return; }
+        
+        ExecutionGraphEdge edge = new ExecutionGraphEdge(from, to);
+        this.edges.put(edge.key, edge);
+        
+        Set<ExecutionGraphEdge> outgoing = this.outgoing.containsKey(from.id) ? this.outgoing.get(from.id) : new HashSet<>();
+        outgoing.add(edge);
+        this.outgoing.put(from.id, outgoing);
+        
+        Set<ExecutionGraphEdge> incoming = this.incoming.containsKey(to.id) ? this.incoming.get(to.id) : new HashSet<>();
+        incoming.add(edge);
+        this.incoming.put(to.id, incoming);
+    }
+
+    @Override
+    public void removeVertex(ExecutionGraphVertex vertex) {
+        if (vertex == null) { return; }
+
+        this.vertices.remove(vertex.id);
+
+        Set<ExecutionGraphEdge> outgoing = this.outgoing.get(vertex.id);
+        if (outgoing != null) { outgoing.stream().forEach(e -> this.edges.remove(e.key)); }
+        this.outgoing.remove(vertex.id);
+
+        Set<ExecutionGraphEdge> incoming = this.incoming.get(vertex.id);
+        if (incoming != null) { incoming.stream().forEach(e -> this.edges.remove(e.key)); }
+        this.incoming.remove(vertex.id);
+    }
+
+    @Override
+    public Collection<ExecutionGraphEdge> getIncomingEdgesOf(ExecutionGraphVertex vertex) {
+        return this.incoming.containsKey(vertex.id) ? this.incoming.get(vertex.id) : Collections.emptySet();
+    }
+
+    @Override
+    public Collection<ExecutionGraphEdge> getOutgoingEdgesOf(ExecutionGraphVertex vertex) {
+        return this.outgoing.containsKey(vertex.id) ? this.outgoing.get(vertex.id) : Collections.emptySet();
+    }
+
+    @Override
+    public boolean containsVertex(ExecutionGraphVertex vertex) {
+        return vertex != null && this.vertices.containsKey(vertex.id);
+    }
+    
+    protected static class EdgeKey implements Serializable {
+        /** */
+        private static final long serialVersionUID = -3478352350059446804L;
+        
+        final int source;
+        final int target;
+        
+        public EdgeKey(int source, int target) {
+            this.source = source;
+            this.target = target;
+        }
+        
+        @Override
+        public int hashCode() {
+            int prime = 31;
+            int result = 1;
+            result = prime * result + this.source;
+            result = prime * result + this.target;
+            return result;
+        }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) { return true; }
+            if (obj == null) { return false; }
+            if (getClass() != obj.getClass()) { return false; }
+            EdgeKey other = (EdgeKey) obj;
+            if (this.source != other.source) { return false; }
+            if (this.target != other.target) { return false; }
+            return true;
+        }
     }
 
 }

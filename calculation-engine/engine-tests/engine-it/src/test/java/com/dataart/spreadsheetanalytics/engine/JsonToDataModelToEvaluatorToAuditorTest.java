@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.dataart.spreadsheetanalytics.api.engine.IEvaluator;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.model.DataModelId;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -106,7 +107,7 @@ public class JsonToDataModelToEvaluatorToAuditorTest {
         
         //when
         IDataModel model = DataModelDtoConverters.toDataModel(json);
-        IExecutionGraph graph = new SpreadsheetAuditor(model).buildExecutionGraph();
+        IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> graph = new SpreadsheetAuditor(model).buildExecutionGraph();
 
         //then
         for (IExecutionGraphVertex vertex : graph.getVertices()) {

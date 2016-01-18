@@ -16,8 +16,8 @@ limitations under the License.
 package com.dataart.spreadsheetanalytics.engine;
 
 import static com.dataart.spreadsheetanalytics.engine.Converters.toWorkbook;
-import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.getEvaluationCell;
-import static com.dataart.spreadsheetanalytics.engine.EvaluationWorkbooks.toEvaluationWorkbook;
+import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.getEvaluationCell;
+import static com.dataart.spreadsheetanalytics.engine.PoiWorkbookConverters.toEvaluationWorkbook;
 import static com.dataart.spreadsheetanalytics.model.A1Address.fromRowColumn;
 import static org.apache.poi.ss.formula.IStabilityClassifier.TOTALLY_IMMUTABLE;
 import static org.apache.poi.ss.formula.eval.ErrorEval.NA;
@@ -51,7 +51,6 @@ import com.dataart.spreadsheetanalytics.api.model.IDataModel;
 import com.dataart.spreadsheetanalytics.api.model.IDmCell;
 import com.dataart.spreadsheetanalytics.api.model.IDmRow;
 import com.dataart.spreadsheetanalytics.api.model.IEvaluationResult;
-import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder;
 import com.dataart.spreadsheetanalytics.model.CellValue;
 import com.dataart.spreadsheetanalytics.model.DmCell;
@@ -167,7 +166,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
     protected static ICellValue handleExceptionForGraphBuilder(IExecutionGraphBuilder builder, IA1Address cell) {
         if (builder instanceof PoiExecutionGraphBuilder) {
             ((PoiExecutionGraphBuilder) builder).getVerticesFromCache(cell.row(), cell.column())
-                                                .forEach(v -> ((ExecutionGraphVertex) v).properties().setValue(VALUE_INVALID.getErrorString()));
+                                                .forEach(v -> v.properties().setValue(VALUE_INVALID.getErrorString()));
         }
         return CellValue.from(VALUE_INVALID.getErrorString());
     }

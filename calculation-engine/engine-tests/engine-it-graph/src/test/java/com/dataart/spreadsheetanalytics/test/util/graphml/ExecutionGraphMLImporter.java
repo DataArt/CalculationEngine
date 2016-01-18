@@ -60,9 +60,12 @@ public class ExecutionGraphMLImporter extends DefaultHandler {
 
         if (elementName.equalsIgnoreCase("edge")) {
 
-            ExecutionGraphEdgeML edgeML = new ExecutionGraphEdgeML();
-            edgeML.sourceId = Integer.valueOf(attributes.getValue("source"));
-            edgeML.targetId = Integer.valueOf(attributes.getValue("target"));
+            ExecutionGraphVertexML v1 = new ExecutionGraphVertexML("");
+            v1.setId(Integer.valueOf(attributes.getValue("source")));
+            ExecutionGraphVertexML v2 = new ExecutionGraphVertexML("");
+            v2.setId(Integer.valueOf(attributes.getValue("target")));
+            
+            ExecutionGraphEdgeML edgeML = new ExecutionGraphEdgeML(v1, v2);
 
             this.graphML.getEdgesML().add(edgeML);
         }

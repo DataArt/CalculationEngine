@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_2">
-<node id="0">
-<data key="name">E13</data>
-<data key="value">1840.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: D13 / VALUE * C3; Formula values: 8000.0 / 100.0 * 23.0;</data>
-</node>
 <node id="2">
 <data key="name">VALUE</data>
 <data key="value">100.0</data>
@@ -19,17 +13,17 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: D13 / VALUE; Formula values: 8000.0 / 100.0;</data>
 </node>
-<node id="5">
-<data key="name">C3</data>
-<data key="value">23.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: C3; Formula values: 23.0;</data>
-</node>
 <node id="6">
 <data key="name">*</data>
 <data key="value">1840.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: D13 / VALUE * C3; Formula values: 8000.0 / 100.0 * 23.0;</data>
+</node>
+<node id="7">
+<data key="name">F13</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: C7 * C13 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
 </node>
 <node id="10">
 <data key="name">C13</data>
@@ -79,12 +73,6 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: C7 * C13 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
 </node>
-<node id="20">
-<data key="name">F13</data>
-<data key="value">0.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: C7 * C13 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
-</node>
 <node id="21">
 <data key="name">G13</data>
 <data key="value">0.2</data>
@@ -121,6 +109,18 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(H13 * D13, G13 * D13, F13, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 0.0, 8000.0);</data>
 </node>
+<node id="28">
+<data key="name">J13</data>
+<data key="value">1890.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: E13 + C5; Formula values: 1840.0 + 50.0;</data>
+</node>
+<node id="29">
+<data key="name">E13</data>
+<data key="value">1840.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D13 / VALUE * C3; Formula values: 8000.0 / 100.0 * 23.0;</data>
+</node>
 <node id="32">
 <data key="name">+</data>
 <data key="value">1890.0</data>
@@ -151,23 +151,17 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: I13 + J13; Formula values: 10000.0 + 1890.0;</data>
 </node>
-<node id="39">
-<data key="name">J13</data>
-<data key="value">1890.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E13 + C5; Formula values: 1840.0 + 50.0;</data>
-</node>
 <node id="40">
 <data key="name">+</data>
 <data key="value">11890.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: I13 + J13; Formula values: 10000.0 + 1890.0;</data>
 </node>
-<node id="42">
-<data key="name">D14</data>
-<data key="value">6000.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: D14; Formula values: 6000.0;</data>
+<node id="41">
+<data key="name">E14</data>
+<data key="value">1380.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D14 / VALUE * C3; Formula values: 6000.0 / 100.0 * 23.0;</data>
 </node>
 <node id="43">
 <data key="name">VALUE</data>
@@ -186,12 +180,6 @@
 <data key="value">1380.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: D14 / VALUE * C3; Formula values: 6000.0 / 100.0 * 23.0;</data>
-</node>
-<node id="48">
-<data key="name">F14</data>
-<data key="value">0.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: C7 * C14 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
 </node>
 <node id="50">
 <data key="name">C7</data>
@@ -247,6 +235,12 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: C7 * C14 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
 </node>
+<node id="61">
+<data key="name">F14</data>
+<data key="value">0.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: C7 * C14 - VALUE * VALUE / VALUE; Formula values: 250.0 * 1.0 - 1.0 * 2.0 / 3.0;</data>
+</node>
 <node id="62">
 <data key="name">G14</data>
 <data key="value">0.25</data>
@@ -265,6 +259,12 @@
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: H14; Formula values: 0.03;</data>
 </node>
+<node id="66">
+<data key="name">D14</data>
+<data key="value">6000.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: D14; Formula values: 6000.0;</data>
+</node>
 <node id="67">
 <data key="name">*</data>
 <data key="value">180.0</data>
@@ -277,11 +277,17 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(H14 * D14, G14 * D14, F14, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 0.0, 6000.0);</data>
 </node>
-<node id="70">
-<data key="name">E14</data>
-<data key="value">1380.0</data>
+<node id="69">
+<data key="name">J14</data>
+<data key="value">1430.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: D14 / VALUE * C3; Formula values: 6000.0 / 100.0 * 23.0;</data>
+<data key="formula">Formula string: E14 + C5; Formula values: 1380.0 + 50.0;</data>
+</node>
+<node id="72">
+<data key="name">C5</data>
+<data key="value">50.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C5; Formula values: 50.0;</data>
 </node>
 <node id="73">
 <data key="name">+</data>
@@ -295,12 +301,6 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: I14 - J14; Formula values: 7680.0 - 1430.0;</data>
 </node>
-<node id="75">
-<data key="name">I14</data>
-<data key="value">7680.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, F14, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 0.0, 6000.0);</data>
-</node>
 <node id="77">
 <data key="name">-</data>
 <data key="value">6250.0</data>
@@ -313,23 +313,17 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: I14 + J14; Formula values: 7680.0 + 1430.0;</data>
 </node>
-<node id="80">
-<data key="name">J14</data>
-<data key="value">1430.0</data>
+<node id="79">
+<data key="name">I14</data>
+<data key="value">7680.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E14 + C5; Formula values: 1380.0 + 50.0;</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, F14, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 0.0, 6000.0);</data>
 </node>
 <node id="81">
 <data key="name">+</data>
 <data key="value">9110.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: I14 + J14; Formula values: 7680.0 + 1430.0;</data>
-</node>
-<node id="82">
-<data key="name">E15</data>
-<data key="value">1035.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: D15 / VALUE * C3; Formula values: 4500.0 / 100.0 * 23.0;</data>
 </node>
 <node id="84">
 <data key="name">VALUE</data>
@@ -342,6 +336,12 @@
 <data key="value">45.0</data>
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: D15 / VALUE; Formula values: 4500.0 / 100.0;</data>
+</node>
+<node id="87">
+<data key="name">C3</data>
+<data key="value">23.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: C3; Formula values: 23.0;</data>
 </node>
 <node id="88">
 <data key="name">*</data>
@@ -439,11 +439,11 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(H15 * D15, G15 * D15, F15, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 333.3333333333333, 4500.0);</data>
 </node>
-<node id="113">
-<data key="name">C5</data>
-<data key="value">50.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: C5; Formula values: 50.0;</data>
+<node id="111">
+<data key="name">E15</data>
+<data key="value">1035.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D15 / VALUE * C3; Formula values: 4500.0 / 100.0 * 23.0;</data>
 </node>
 <node id="114">
 <data key="name">+</data>
@@ -559,122 +559,122 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: SUM(K13:K15) / ROWS(K13:K15); Formula values: SUM([[8110.0], [6250.0], [5188.333333333333]]) / ROWS([[8110.0], [6250.0], [5188.333333333333]]);</data>
 </node>
+<edge source="41" target="73"/>
 <edge source="2" target="3"/>
-<edge source="3" target="6"/>
-<edge source="5" target="6"/>
-<edge source="6" target="0"/>
-<edge source="10" target="12"/>
-<edge source="11" target="12"/>
-<edge source="12" target="13"/>
-<edge source="13" target="15"/>
-<edge source="14" target="15"/>
-<edge source="15" target="17"/>
-<edge source="16" target="17"/>
-<edge source="21" target="23"/>
-<edge source="22" target="23"/>
-<edge source="24" target="26"/>
 <edge source="26" target="27"/>
-<edge source="23" target="27"/>
-<edge source="20" target="27"/>
-<edge source="34" target="36"/>
-<edge source="36" target="33"/>
-<edge source="39" target="40"/>
-<edge source="40" target="37"/>
-<edge source="42" target="44"/>
-<edge source="43" target="44"/>
-<edge source="44" target="47"/>
-<edge source="51" target="53"/>
-<edge source="52" target="53"/>
-<edge source="50" target="54"/>
-<edge source="53" target="54"/>
-<edge source="54" target="56"/>
-<edge source="55" target="56"/>
-<edge source="56" target="58"/>
-<edge source="57" target="58"/>
-<edge source="58" target="48"/>
-<edge source="62" target="64"/>
-<edge source="65" target="67"/>
-<edge source="67" target="68"/>
-<edge source="64" target="68"/>
-<edge source="70" target="73"/>
-<edge source="75" target="77"/>
-<edge source="77" target="74"/>
-<edge source="80" target="81"/>
-<edge source="81" target="78"/>
-<edge source="84" target="85"/>
-<edge source="85" target="88"/>
-<edge source="88" target="82"/>
-<edge source="92" target="94"/>
-<edge source="93" target="94"/>
-<edge source="94" target="95"/>
-<edge source="95" target="97"/>
-<edge source="96" target="97"/>
-<edge source="97" target="99"/>
+<edge source="66" target="67"/>
 <edge source="98" target="99"/>
-<edge source="103" target="105"/>
-<edge source="104" target="105"/>
-<edge source="106" target="108"/>
-<edge source="108" target="109"/>
-<edge source="105" target="109"/>
-<edge source="102" target="109"/>
-<edge source="113" target="114"/>
-<edge source="117" target="118"/>
-<edge source="118" target="115"/>
-<edge source="120" target="122"/>
-<edge source="122" target="119"/>
-<edge source="37" target="124"/>
-<edge source="78" target="124"/>
-<edge source="119" target="124"/>
-<edge source="124" target="125"/>
-<edge source="125" target="123"/>
-<edge source="0" target="127"/>
-<edge source="70" target="127"/>
-<edge source="82" target="127"/>
-<edge source="127" target="128"/>
-<edge source="128" target="126"/>
-<edge source="33" target="130"/>
-<edge source="74" target="130"/>
-<edge source="115" target="130"/>
 <edge source="130" target="131"/>
-<edge source="33" target="132"/>
-<edge source="74" target="132"/>
-<edge source="115" target="132"/>
-<edge source="132" target="133"/>
-<edge source="131" target="134"/>
-<edge source="133" target="134"/>
-<edge source="134" target="129"/>
-<edge source="17" target="20"/>
-<edge source="27" target="34"/>
-<edge source="32" target="39"/>
-<edge source="47" target="70"/>
-<edge source="68" target="75"/>
-<edge source="73" target="80"/>
-<edge source="99" target="102"/>
-<edge source="109" target="120"/>
+<edge source="10" target="12"/>
+<edge source="34" target="36"/>
+<edge source="106" target="108"/>
+<edge source="66" target="68"/>
+<edge source="58" target="61"/>
 <edge source="114" target="117"/>
-<edge source="5" target="47"/>
-<edge source="5" target="88"/>
-<edge source="113" target="32"/>
-<edge source="113" target="73"/>
-<edge source="50" target="13"/>
-<edge source="50" target="95"/>
-<edge source="0" target="32"/>
-<edge source="42" target="68"/>
-<edge source="42" target="64"/>
-<edge source="42" target="67"/>
-<edge source="22" target="3"/>
-<edge source="22" target="27"/>
-<edge source="22" target="26"/>
-<edge source="48" target="68"/>
-<edge source="82" target="114"/>
-<edge source="104" target="85"/>
-<edge source="104" target="109"/>
-<edge source="104" target="108"/>
+<edge source="50" target="54"/>
 <edge source="34" target="40"/>
-<edge source="80" target="77"/>
-<edge source="120" target="118"/>
-<edge source="39" target="36"/>
-<edge source="75" target="81"/>
+<edge source="11" target="12"/>
+<edge source="43" target="44"/>
+<edge source="67" target="68"/>
+<edge source="51" target="53"/>
+<edge source="3" target="6"/>
+<edge source="131" target="134"/>
+<edge source="99" target="102"/>
+<edge source="27" target="34"/>
+<edge source="50" target="95"/>
+<edge source="115" target="130"/>
+<edge source="115" target="132"/>
+<edge source="41" target="127"/>
+<edge source="74" target="130"/>
+<edge source="74" target="132"/>
+<edge source="36" target="33"/>
+<edge source="12" target="13"/>
+<edge source="52" target="53"/>
+<edge source="84" target="85"/>
+<edge source="108" target="109"/>
+<edge source="124" target="125"/>
+<edge source="33" target="130"/>
+<edge source="132" target="133"/>
+<edge source="92" target="94"/>
+<edge source="44" target="47"/>
+<edge source="33" target="132"/>
+<edge source="28" target="36"/>
+<edge source="68" target="79"/>
+<edge source="28" target="40"/>
+<edge source="87" target="6"/>
+<edge source="77" target="74"/>
+<edge source="125" target="123"/>
+<edge source="53" target="54"/>
+<edge source="93" target="94"/>
+<edge source="117" target="118"/>
+<edge source="133" target="134"/>
+<edge source="13" target="15"/>
+<edge source="21" target="23"/>
+<edge source="29" target="32"/>
+<edge source="85" target="88"/>
 <edge source="117" target="122"/>
+<edge source="61" target="68"/>
+<edge source="69" target="77"/>
+<edge source="109" target="120"/>
+<edge source="69" target="81"/>
+<edge source="22" target="3"/>
+<edge source="87" target="47"/>
+<edge source="134" target="129"/>
+<edge source="118" target="115"/>
+<edge source="14" target="15"/>
+<edge source="22" target="23"/>
+<edge source="94" target="95"/>
+<edge source="54" target="56"/>
+<edge source="62" target="64"/>
+<edge source="22" target="26"/>
+<edge source="22" target="27"/>
+<edge source="102" target="109"/>
+<edge source="6" target="29"/>
+<edge source="72" target="32"/>
+<edge source="47" target="41"/>
+<edge source="79" target="77"/>
+<edge source="55" target="56"/>
+<edge source="87" target="88"/>
+<edge source="127" target="128"/>
+<edge source="15" target="17"/>
+<edge source="79" target="81"/>
+<edge source="95" target="97"/>
+<edge source="103" target="105"/>
+<edge source="111" target="114"/>
+<edge source="23" target="27"/>
+<edge source="119" target="124"/>
+<edge source="104" target="85"/>
+<edge source="78" target="124"/>
+<edge source="111" target="127"/>
+<edge source="7" target="27"/>
+<edge source="37" target="124"/>
+<edge source="32" target="28"/>
+<edge source="40" target="37"/>
+<edge source="128" target="126"/>
+<edge source="120" target="118"/>
+<edge source="72" target="73"/>
+<edge source="16" target="17"/>
+<edge source="96" target="97"/>
+<edge source="104" target="105"/>
+<edge source="24" target="26"/>
+<edge source="56" target="58"/>
+<edge source="120" target="122"/>
+<edge source="29" target="127"/>
+<edge source="64" target="68"/>
+<edge source="104" target="108"/>
+<edge source="104" target="109"/>
+<edge source="17" target="7"/>
+<edge source="88" target="111"/>
+<edge source="50" target="13"/>
+<edge source="73" target="69"/>
+<edge source="81" target="78"/>
+<edge source="57" target="58"/>
+<edge source="65" target="67"/>
+<edge source="97" target="99"/>
+<edge source="105" target="109"/>
+<edge source="72" target="114"/>
+<edge source="66" target="44"/>
+<edge source="122" target="119"/>
+<edge source="66" target="64"/>
 </graph>
 </graphml>

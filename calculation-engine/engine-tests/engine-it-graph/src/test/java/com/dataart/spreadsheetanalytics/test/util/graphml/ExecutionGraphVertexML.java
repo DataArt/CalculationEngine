@@ -6,12 +6,15 @@ public class ExecutionGraphVertexML extends ExecutionGraphVertex {
 
     /** */
     private static final long serialVersionUID = 1L;
-    
+
     public String formulaToString;
 
     public ExecutionGraphVertexML(String name) {
         super(name);
     }
-    
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }

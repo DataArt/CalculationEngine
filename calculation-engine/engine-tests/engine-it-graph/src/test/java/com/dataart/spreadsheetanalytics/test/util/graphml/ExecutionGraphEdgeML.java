@@ -5,18 +5,13 @@ import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
 
 public class ExecutionGraphEdgeML extends ExecutionGraphEdge {
     
-    private static final long serialVersionUID = 1L;
-    
-    public ExecutionGraphEdgeML() {
-        this(null, null);
-    }
-
     public ExecutionGraphEdgeML(ExecutionGraphVertex source, ExecutionGraphVertex target) {
         super(source, target);
+        this.sourceId = source.getId();
+        this.targetId = target.getId();
     }
     
     public int sourceId;
     public int targetId;
-    
 
 }

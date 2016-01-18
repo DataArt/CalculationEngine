@@ -116,7 +116,7 @@ public class SpreadsheetAuditor implements IAuditor {
                 ICellValue cv = res.getResult();
                 
                 graphBuilder.runPostProcessing(false);
-                ExecutionGraph g = graphBuilder.get();
+                ExecutionGraph g = graphBuilder.getGraph();
                 
                 if (g.getVertices().isEmpty()) { return buildSingleVertexGraphForCellWithValue(cv, new CellAddress(this.evaluator.model.getDataModelId(), cell)); }
                 if (g.getVertices().size() == 1) {
@@ -129,7 +129,7 @@ public class SpreadsheetAuditor implements IAuditor {
                 return g;
             } catch (FormulaParseException | IncorrectExternalReferenceException e) {
                 log.warn("Caught exception while building a graph, but the graph should be ok.", e);
-                return graphBuilder.get();
+                return graphBuilder.getGraph();
             }
         } finally {
             this.graphLock.unlock();
@@ -157,7 +157,7 @@ public class SpreadsheetAuditor implements IAuditor {
             this.evaluator.evaluate();
 
             graphBuilder.runPostProcessing(true);
-            return graphBuilder.get();
+            return graphBuilder.getGraph();
         } finally {
             this.graphLock.unlock();
             log.debug("Building Graph for DataModel: {} with Config: {} is finished.", this.evaluator.model, config);
