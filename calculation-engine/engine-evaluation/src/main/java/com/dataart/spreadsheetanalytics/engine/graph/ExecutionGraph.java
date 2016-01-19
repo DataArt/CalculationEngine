@@ -135,7 +135,6 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
         Set<ExecutionGraphEdge> incoming = this.incoming.get(parent.id);
         if (incoming != null) {
             Set<ExecutionGraphEdge> chosenEdges = new HashSet<>();
-            incoming.stream().forEach(e -> {if (e.getTarget() == vertex) { chosenEdges.add(e);}});
             for (ExecutionGraphEdge outEdge : incoming) { if (outEdge.getTarget() == vertex) { chosenEdges.add(outEdge); } }
             incoming.removeAll(chosenEdges);
             this.incoming.put(parent.id, incoming);
