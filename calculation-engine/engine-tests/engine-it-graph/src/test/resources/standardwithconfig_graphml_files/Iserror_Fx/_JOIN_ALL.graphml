@@ -55,12 +55,6 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
 </node>
-<node id="10">
-<data key="name">D2</data>
-<data key="value">#REF!</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(B2, VALUE); Formula values: SUM(6.0, #REF!);</data>
-</node>
 <node id="11">
 <data key="name">VALUE</data>
 <data key="value">#REF!</data>
@@ -91,12 +85,6 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(A2:A5); Formula values: SUM([[2.0], [6.0], [5.0], [7.0]]);</data>
 </node>
-<node id="17">
-<data key="name">E3</data>
-<data key="value">#VALUE!</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: A1:D11; Formula values: [[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]];</data>
-</node>
 <node id="18">
 <data key="name">A1:D11</data>
 <data key="value">[[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]]</data>
@@ -126,6 +114,12 @@
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISERROR(SUM(B2, VALUE)); Formula values: ISERROR(SUM(6.0, #REF!));</data>
+</node>
+<node id="23">
+<data key="name">D2</data>
+<data key="value">#REF!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(B2, VALUE); Formula values: SUM(6.0, #REF!);</data>
 </node>
 <node id="24">
 <data key="name">ISERROR</data>
@@ -193,53 +187,59 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISERROR(A1:D11); Formula values: ISERROR([[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]]);</data>
 </node>
+<node id="38">
+<data key="name">E3</data>
+<data key="value">#VALUE!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: A1:D11; Formula values: [[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]];</data>
+</node>
 <node id="39">
 <data key="name">ISERROR</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISERROR(A1:D11); Formula values: ISERROR([[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]]);</data>
 </node>
-<edge source="4" target="3"/>
-<edge source="3" target="5"/>
+<edge source="38" target="39"/>
 <edge source="2" target="5"/>
-<edge source="1" target="5"/>
-<edge source="5" target="0"/>
-<edge source="8" target="9"/>
-<edge source="9" target="6"/>
-<edge source="12" target="13"/>
-<edge source="11" target="13"/>
-<edge source="13" target="10"/>
-<edge source="15" target="16"/>
-<edge source="1" target="18"/>
-<edge source="0" target="18"/>
-<edge source="12" target="18"/>
 <edge source="2" target="18"/>
-<edge source="10" target="18"/>
-<edge source="3" target="18"/>
-<edge source="20" target="21"/>
-<edge source="21" target="19"/>
-<edge source="19" target="18"/>
-<edge source="8" target="18"/>
-<edge source="24" target="22"/>
-<edge source="22" target="18"/>
-<edge source="27" target="25"/>
-<edge source="25" target="18"/>
-<edge source="30" target="28"/>
-<edge source="28" target="18"/>
-<edge source="33" target="31"/>
 <edge source="31" target="18"/>
-<edge source="35" target="36"/>
-<edge source="36" target="34"/>
-<edge source="34" target="18"/>
-<edge source="20" target="18"/>
-<edge source="18" target="17"/>
-<edge source="39" target="37"/>
-<edge source="16" target="35"/>
+<edge source="18" target="38"/>
+<edge source="23" target="18"/>
 <edge source="6" target="33"/>
-<edge source="0" target="30"/>
-<edge source="10" target="24"/>
-<edge source="17" target="39"/>
+<edge source="27" target="25"/>
+<edge source="39" target="37"/>
+<edge source="19" target="18"/>
+<edge source="15" target="16"/>
+<edge source="23" target="24"/>
+<edge source="35" target="36"/>
+<edge source="3" target="5"/>
+<edge source="11" target="13"/>
+<edge source="3" target="18"/>
+<edge source="28" target="18"/>
 <edge source="3" target="27"/>
 <edge source="12" target="9"/>
+<edge source="24" target="22"/>
+<edge source="36" target="34"/>
+<edge source="20" target="18"/>
+<edge source="4" target="3"/>
+<edge source="8" target="9"/>
+<edge source="12" target="13"/>
+<edge source="20" target="21"/>
+<edge source="12" target="18"/>
+<edge source="8" target="18"/>
+<edge source="0" target="18"/>
+<edge source="16" target="35"/>
+<edge source="25" target="18"/>
+<edge source="5" target="0"/>
+<edge source="9" target="6"/>
+<edge source="21" target="19"/>
+<edge source="33" target="31"/>
+<edge source="0" target="30"/>
+<edge source="1" target="5"/>
+<edge source="13" target="23"/>
+<edge source="34" target="18"/>
+<edge source="1" target="18"/>
+<edge source="22" target="18"/>
+<edge source="30" target="28"/>
 </graph>
 </graphml>

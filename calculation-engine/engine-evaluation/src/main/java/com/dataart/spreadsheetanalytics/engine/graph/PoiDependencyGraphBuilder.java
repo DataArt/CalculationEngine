@@ -33,8 +33,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.graph.DefaultDirectedGraph;
 
 import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.IDataModel;
@@ -52,12 +50,12 @@ public class PoiDependencyGraphBuilder {
     
     protected final FormulaParsingWorkbook poiFormulaBook;
     protected final Workbook poiBook;
-    protected final DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> state;
+    protected final ExecutionGraph state;
 
     protected PoiDependencyGraphBuilder(IDataModel model) {
         this.poiBook = Converters.toWorkbook(model);
         this.poiFormulaBook = XSSFEvaluationWorkbook.create((XSSFWorkbook) this.poiBook);
-        this.state = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        this.state = new ExecutionGraph();
     }
     
     public static IExecutionGraph buildDependencyGraph(IDataModel dataModel) {
@@ -81,7 +79,7 @@ public class PoiDependencyGraphBuilder {
         
         if (CELL_TYPE_FORMULA == c.getCellType()) { db.collect(v, c.getCellFormula()); }
         
-        return ExecutionGraph.wrap(db.state);
+        return db.state;
     }
 
     protected void collect(ExecutionGraphVertex parent, String formula) {

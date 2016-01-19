@@ -37,8 +37,6 @@ import javax.cache.expiry.AccessedExpiryPolicy;
 
 import org.apache.poi.common.fork.IExecutionGraphVertex.Type;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.ext.GraphMLExporter;
 
 import com.dataart.spreadsheetanalytics.api.engine.DataModelAccessor;
 import com.dataart.spreadsheetanalytics.api.engine.DataSetAccessor;
@@ -65,7 +63,6 @@ import com.dataart.spreadsheetanalytics.engine.DefineFunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.FunctionMeta;
 import com.dataart.spreadsheetanalytics.engine.SpreadsheetAuditor;
 import com.dataart.spreadsheetanalytics.engine.graph.CellFormulaExpression;
-import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphConfig;
 import com.dataart.spreadsheetanalytics.model.A1Address;
 import com.dataart.spreadsheetanalytics.model.CellAddress;
@@ -167,18 +164,17 @@ public class GraphTestUtil {
 
                 final IAuditor auditor = new SpreadsheetAuditor(model);
 
-                final IExecutionGraph graph = auditor.buildExecutionGraph(config);
-                final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
+                final IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> graph = auditor.buildExecutionGraph(config);
 
                 File file = new File(ALL_CELLS_GRAPHML_DIR + line + "/");
                 file.mkdirs();
                 Writer fw = new FileWriter(filename);
 
-                GraphMLExporter exporter = new ExecutionGraphMLExporter(graphConfigToString.get(config).substring(1));
-                exporter.export(fw, dgraph);
+                ExecutionGraphMLExporter exporter = new ExecutionGraphMLExporter(graphConfigToString.get(config).substring(1));
+                exporter.export(fw, graph);
 
                 System.out.println("GraphML file is written to [" + filename + "]");
-                System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
+                System.out.println("Number of Vertices : " + graph.getVertices().size() );
                 
                 generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, line, graphConfigToString.get(config));
                 System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + line + "_" + graphConfigToString.get(config) + "].");
@@ -229,16 +225,15 @@ public class GraphTestUtil {
                 final IAuditor auditor = new SpreadsheetAuditor(model);
                 final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
 
-                final IExecutionGraph graph = auditor.buildExecutionGraph(addr.a1Address());
-                final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
+                final IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> graph = auditor.buildExecutionGraph(addr.a1Address());
 
                 Writer fw = new FileWriter(filename);
 
-                GraphMLExporter exporter = new ExecutionGraphMLExporter(address);
-                exporter.export(fw, dgraph);
+                ExecutionGraphMLExporter exporter = new ExecutionGraphMLExporter(address);
+                exporter.export(fw, graph);
 
                 System.out.println("GraphML file is written to [" + filename + "]");
-                System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
+                System.out.println("Number of Vertices : " + graph.getVertices().size() );
                 
                 generateVisualizer(graph, VISUALIZER_STANDARD_DATA_JS_FILES, line[0], address);
                 System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARD_DATA_JS_FILES + line[0] + address + "].");
@@ -272,16 +267,15 @@ public class GraphTestUtil {
         final IAuditor auditor = new SpreadsheetAuditor(model);
         final ICellAddress addr = new CellAddress(model.getDataModelId(), A1Address.fromA1Address(address));
         
-        final IExecutionGraph graph = auditor.buildExecutionGraph(addr.a1Address());
-        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
+        final IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> graph = auditor.buildExecutionGraph(addr.a1Address());
 
         Writer fw = new FileWriter(filename);
 
-        GraphMLExporter exporter = new ExecutionGraphMLExporter(address);
-        exporter.export(fw, dgraph);
+        ExecutionGraphMLExporter exporter = new ExecutionGraphMLExporter(address);
+        exporter.export(fw, graph);
 
         System.out.println("GraphML file is written to [" + filename + "]\n\nEnd. One file.");
-        System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
+        System.out.println("Number of Vertices : " + graph.getVertices().size() );
         
         generateVisualizer(graph, VISUALIZER_STANDARD_DATA_JS_FILES, excelFile, address);
         System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARD_DATA_JS_FILES + excelFile + address + "]\n\nEnd. One file.");
@@ -305,16 +299,15 @@ public class GraphTestUtil {
 
         final IAuditor auditor = new SpreadsheetAuditor(model);
 
-        final IExecutionGraph graph = auditor.buildExecutionGraph(config);
-        final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
+        final IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> graph = auditor.buildExecutionGraph(config);
 
         Writer fw = new FileWriter(filename);
 
-        GraphMLExporter exporter = new ExecutionGraphMLExporter(suffix.substring(1)+"_");
-        exporter.export(fw, dgraph);
+        ExecutionGraphMLExporter exporter = new ExecutionGraphMLExporter(suffix.substring(1)+"_");
+        exporter.export(fw, graph);
 
         System.out.println("GraphML file is written to [" + filename + "]");
-        System.out.println("Number of Vertices : " + dgraph.vertexSet().size() );
+        System.out.println("Number of Vertices : " + graph.getVertices().size() );
         
         generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, excelFile, suffix);
         System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + excelFile + suffix + "]\n\nEnd. One file.");
@@ -355,21 +348,18 @@ public class GraphTestUtil {
                     final IAuditor auditor = new SpreadsheetAuditor(model);
 
                     final IExecutionGraph graph = auditor.buildExecutionGraph(config);
-                    final DirectedGraph dgraph = ExecutionGraph.unwrap((ExecutionGraph) graph);
 
                     File file = new File(ADVANCED_CONF_TESTS_DIR + line + "/");
                     file.mkdirs();
                     Writer fw = new FileWriter(filename);
 
-                    GraphMLExporter exporter = new ExecutionGraphMLExporter(graphConfigToString.get(config).substring(1));
-                    exporter.export(fw, dgraph);
+                    ExecutionGraphMLExporter exporter = new ExecutionGraphMLExporter(graphConfigToString.get(config).substring(1));
+                    exporter.export(fw, graph);
 
                     System.out.println("GraphML file is written to [" + filename + "]");
-                    System.out.println("Number of Vertices : " + dgraph.vertexSet().size());
+                    System.out.println("Number of Vertices : " + graph.getVertices().size());
 
-                    // generateVisualizer(graph,
-                    // VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, line,
-                    // graphConfigToString.get(config));
+                    generateVisualizer(graph, VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES, line, graphConfigToString.get(config));
                     System.out.println("Visualizer files as written to [" + VISUALIZER_STANDARDWITHCONFIG_DATA_JS_FILES + line + "_"
                             + graphConfigToString.get(config) + "].");
 
@@ -445,7 +435,7 @@ public class GraphTestUtil {
                               formula.formulaValues());
     }
     
-    public static void generateVisualizer(IExecutionGraph graph, String dir, String file, String address) {
+    public static void generateVisualizer(IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> graph, String dir, String file, String address) {
         try {
             final String fileSuffix = file + "_" + address;
             final String dataGraphJs = dir + VISUALIZER_DATA_TEMPLATE_JS_FILE.replace("XXX", fileSuffix);
@@ -510,7 +500,7 @@ public class GraphTestUtil {
 
             String contentJs = new String(Files.readAllBytes(Paths.get(VISUALIZER_DIR + VISUALIZER_DATA_TEMPLATE_JS_FILE)), StandardCharsets.UTF_8);
             contentJs = contentJs.replace(VERTICES_PLACEHOLDER, verticesJson.toString())
-                             .replace(EDGES_PLACEHOLDER, edgesJson.toString());
+                                 .replace(EDGES_PLACEHOLDER, edgesJson.toString());
             
             String contentHtml = new String(Files.readAllBytes(Paths.get(VISUALIZER_DIR + VISUALIZER_GRAPH_TEMPLATE_HTML_FILE)), StandardCharsets.UTF_8);
             contentHtml = contentHtml.replace("XXX", VISUALIZER_DATA_TEMPLATE_JS_FILE.replace("XXX", fileSuffix));

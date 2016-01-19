@@ -30,7 +30,7 @@ public class ExecutionGraphAssert extends AbstractAssert {
         }
         
         ExecutionGraphML _expected = (ExecutionGraphML) expected;
-        IExecutionGraph _actual = (IExecutionGraph) this.actual;
+        IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> _actual = (IExecutionGraph) this.actual;
 
         //compare vertex by vertex
         Assertions.assertThat(_actual.getVertices().size()).overridingErrorMessage("Number of Vertices expected: <[%s]>, but was in actual: <[%s]>", _expected.getVerticesML().size(), _actual.getVertices().size())

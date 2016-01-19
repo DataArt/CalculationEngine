@@ -18,6 +18,10 @@ package com.dataart.spreadsheetanalytics.api.model;
 /**
  * Edge representation in {@link IExecutionGraph}.
  */
-public interface IExecutionGraphEdge {
+public interface IExecutionGraphEdge<V extends IExecutionGraphVertex> {
+
+    V getSource();
+
+    V getTarget();
 
 }

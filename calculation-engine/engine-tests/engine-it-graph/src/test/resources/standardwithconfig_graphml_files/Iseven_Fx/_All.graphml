@@ -41,7 +41,7 @@
 <data key="name">D9</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ; Formula values: null;</data>
+<data key="formula">Formula string: ISEVEN(A1); Formula values: ISEVEN(1.0);</data>
 </node>
 <node id="9">
 <data key="name">D7</data>
@@ -103,17 +103,17 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISEVEN(D3); Formula values: ISEVEN();</data>
 </node>
-<edge source="2" target="3"/>
-<edge source="3" target="0"/>
-<edge source="6" target="7"/>
-<edge source="7" target="4"/>
 <edge source="9" target="8"/>
+<edge source="2" target="3"/>
+<edge source="6" target="7"/>
 <edge source="12" target="13"/>
-<edge source="13" target="10"/>
 <edge source="16" target="17"/>
-<edge source="17" target="14"/>
 <edge source="21" target="22"/>
-<edge source="22" target="18"/>
 <edge source="3" target="9"/>
+<edge source="22" target="18"/>
+<edge source="3" target="0"/>
+<edge source="7" target="4"/>
+<edge source="13" target="10"/>
+<edge source="17" target="14"/>
 </graph>
 </graphml>

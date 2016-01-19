@@ -15,24 +15,26 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
-import org.jgrapht.graph.DefaultEdge;
-
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
+import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraph.EdgeKey;
 
 /**
  * {@link IExecutionGraphEdge} implementation.
  */
-public class ExecutionGraphEdge extends DefaultEdge implements IExecutionGraphEdge {
-    private static final long serialVersionUID = -1921539278513666672L;
+public class ExecutionGraphEdge implements IExecutionGraphEdge {
 
-    protected ExecutionGraphVertex source;
-    protected ExecutionGraphVertex target;
+    protected final EdgeKey key;
+    
+    protected final ExecutionGraphVertex source;
+    protected final ExecutionGraphVertex target;
 
     public ExecutionGraphEdge(ExecutionGraphVertex source, ExecutionGraphVertex target) {
         this.source = source;
         this.target = target;
+        
+        this.key = new EdgeKey(source.id, target.id);
     }
 
-    @Override protected Object getSource() { return this.source; }
-    @Override protected Object getTarget() { return this.target; }
+    @Override public ExecutionGraphVertex getSource() { return this.source; }
+    @Override public ExecutionGraphVertex getTarget() { return this.target; }
 }

@@ -25,32 +25,27 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.Graph;
-import org.jgrapht.ext.GraphMLExporter;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphEdge;
-import com.dataart.spreadsheetanalytics.engine.graph.ExecutionGraphVertex;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphEdge;
+import com.dataart.spreadsheetanalytics.api.model.IExecutionGraphVertex;
 import com.dataart.spreadsheetanalytics.test.util.GraphTestUtil;
 
 /**
- * Even though this class 'extends' GraphMLExporter its code looks different in 'export' method.
+ * Even though this class 'extends' GraphMLExporter (from jgrapht) its code looks different in 'export' method.
  * This is because we should follow the standards of xml file, but need to add a lot of custom properties
  * in vertex element. Hierarchy used only to show the initila point. 
  */
-public class ExecutionGraphMLExporter extends GraphMLExporter {
+public class ExecutionGraphMLExporter {
     
     final String id;
     
     public ExecutionGraphMLExporter(String id) { this.id = id; }
     
-    @Override
-    public void export(Writer writer, Graph graph) throws SAXException, TransformerConfigurationException {
+    public void export(Writer writer, IExecutionGraph<IExecutionGraphVertex, IExecutionGraphEdge> graph) throws SAXException, TransformerConfigurationException {
 
-        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> g = (DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge>) graph;
-        
         // Prepare an XML file to receive the GraphML data
         PrintWriter out = new PrintWriter(writer);
         StreamResult streamResult = new StreamResult(out);
@@ -86,7 +81,7 @@ public class ExecutionGraphMLExporter extends GraphMLExporter {
         handler.startElement("", "", "graph", attr);
 
         // Add all the vertices as <node> elements...
-        for (ExecutionGraphVertex v : g.vertexSet()) {
+        for (IExecutionGraphVertex v : graph.getVertices()) {
             // <node>
             String value = v.getValue() == null ? "" : v.getValue().toString(); 
             
@@ -126,12 +121,12 @@ public class ExecutionGraphMLExporter extends GraphMLExporter {
         }
 
         // Add all the edges as <edge> elements...
-        for (ExecutionGraphEdge e : g.edgeSet()) {
+        for (IExecutionGraphEdge e : graph.getEdges()) {
+
             // <edge>
-            
             attr.clear();
-            attr.addAttribute("", "", "source", "CDATA", Integer.toString(g.getEdgeSource(e).getId()));
-            attr.addAttribute("", "", "target", "CDATA", Integer.toString(g.getEdgeTarget(e).getId()));
+            attr.addAttribute("", "", "source", "CDATA", Integer.toString(graph.getEdgeSource(e).getId()));
+            attr.addAttribute("", "", "target", "CDATA", Integer.toString(graph.getEdgeTarget(e).getId()));
             handler.startElement("", "", "edge", attr);
 
             handler.endElement("", "", "edge");

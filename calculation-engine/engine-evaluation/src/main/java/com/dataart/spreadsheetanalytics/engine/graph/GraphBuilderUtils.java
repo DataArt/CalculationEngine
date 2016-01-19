@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.poi.common.fork.ExecutionGraphBuilderUtils;
-import org.apache.poi.common.fork.IExecutionGraphVertex;
 import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
 import org.apache.poi.ss.formula.eval.ErrorEval;
 import org.apache.poi.ss.formula.ptg.AbstractFunctionPtg;
@@ -18,8 +17,6 @@ import org.apache.poi.ss.formula.ptg.Ptg;
 import org.apache.poi.ss.formula.ptg.RefPtgBase;
 import org.apache.poi.ss.formula.ptg.UnionPtg;
 import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.graph.DefaultDirectedGraph;
 
 import com.dataart.spreadsheetanalytics.api.model.IA1Address;
 import com.dataart.spreadsheetanalytics.api.model.ICellAddress;
@@ -66,9 +63,9 @@ public final class GraphBuilderUtils {
         vertex.properties().setPtgString(error.getErrorString());
         vertex.properties().setSourceObjectId(address.getDataModelId());
         
-        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        ExecutionGraph emptyGraph = new ExecutionGraph();
         emptyGraph.addVertex(vertex);
-        return ExecutionGraph.wrap(emptyGraph);
+        return emptyGraph;
     }
     
     public static ExecutionGraph buildSingleVertexGraphForCellWithValue(ICellValue cell, ICellAddress address) {
@@ -82,30 +79,30 @@ public final class GraphBuilderUtils {
         vertex.properties().setPtgString("");
         vertex.properties().setSourceObjectId(address.getDataModelId());
 
-        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        ExecutionGraph emptyGraph = new ExecutionGraph();
         emptyGraph.addVertex(vertex);
-        return ExecutionGraph.wrap(emptyGraph);
+        return emptyGraph;
     }
     
     public static ExecutionGraph buildSingleVertexGraphForEmptyCell(IA1Address address) {
         ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.address());
         vertex.properties().setType(EMPTY_CELL);
 
-        DirectedGraph<ExecutionGraphVertex, ExecutionGraphEdge> emptyGraph = new DefaultDirectedGraph<>(ExecutionGraphEdge.class);
+        ExecutionGraph emptyGraph = new ExecutionGraph();
         emptyGraph.addVertex(vertex);
-        return ExecutionGraph.wrap(emptyGraph);
+        return emptyGraph;
     }
 
     /**
      * Does copy of all properties for every Vertex from @param vertices. the
      * first @param standard is used as object to copy from.
      */
-    static void copyProperties(ExecutionGraphVertex standard, Set<IExecutionGraphVertex> vertices) {
-        for (IExecutionGraphVertex vertex : vertices) {
+    static void copyProperties(ExecutionGraphVertex standard, Set<ExecutionGraphVertex> vertices) {
+        for (ExecutionGraphVertex vertex : vertices) {
             if (standard.equals(vertex)) { continue; }
 
             IExecutionGraphVertexProperties from = standard.properties();
-            IExecutionGraphVertexProperties to = ((ExecutionGraphVertex) vertex).properties();
+            IExecutionGraphVertexProperties to = vertex.properties();
 
             //copy all, but: IndexInFormula and VertexId
             to.setName(from.getName());
@@ -143,8 +140,7 @@ public final class GraphBuilderUtils {
         return val instanceof ErrorEval;
     }
 
-    static boolean inheritsErrorValue(IExecutionGraphVertex ivertex) {
-        ExecutionGraphVertex vertex = (ExecutionGraphVertex) ivertex;
+    static boolean inheritsErrorValue(ExecutionGraphVertex vertex) {
         boolean isNotInherFunction = "ISERROR".equals(vertex.getName());
         boolean isError = isErrorValue(vertex.getValue());
         return !(isError || isNotInherFunction);
