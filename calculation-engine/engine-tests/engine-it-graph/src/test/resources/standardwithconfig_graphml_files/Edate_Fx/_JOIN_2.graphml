@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
 <graph edgedefault="directed" id="JOIN_2">
-<node id="0">
-<data key="name">B3</data>
-<data key="value">40589.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: EDATE(VALUE, A1); Formula values: EDATE(1.0, 40558.0);</data>
-</node>
 <node id="2">
 <data key="name">A1</data>
 <data key="value">40558.0</data>
@@ -31,6 +25,12 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: EDATE(VALUE, EDATE(VALUE, A1)); Formula values: EDATE(-1.0, EDATE(1.0, 40558.0));</data>
 </node>
+<node id="7">
+<data key="name">B3</data>
+<data key="value">40589.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: EDATE(VALUE, A1); Formula values: EDATE(1.0, 40558.0);</data>
+</node>
 <node id="8">
 <data key="name">VALUE</data>
 <data key="value">-1.0</data>
@@ -44,10 +44,10 @@
 <data key="formula">Formula string: EDATE(VALUE, EDATE(VALUE, A1)); Formula values: EDATE(-1.0, EDATE(1.0, 40558.0));</data>
 </node>
 <edge source="3" target="4"/>
-<edge source="2" target="4"/>
-<edge source="4" target="0"/>
 <edge source="8" target="9"/>
+<edge source="2" target="4"/>
+<edge source="7" target="9"/>
+<edge source="4" target="7"/>
 <edge source="9" target="5"/>
-<edge source="0" target="9"/>
 </graph>
 </graphml>

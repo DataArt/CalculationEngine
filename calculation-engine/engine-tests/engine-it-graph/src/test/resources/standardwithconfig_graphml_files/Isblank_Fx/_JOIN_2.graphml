@@ -49,12 +49,6 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISBLANK(C4); Formula values: ISBLANK();</data>
 </node>
-<node id="9">
-<data key="name">C5</data>
-<data key="value">#NAME?</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: VALUE; Formula values: #NAME?;</data>
-</node>
 <node id="10">
 <data key="name">VALUE</data>
 <data key="value">#NAME?</data>
@@ -103,6 +97,12 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: ISBLANK(VALUE); Formula values: ISBLANK(#NAME?);</data>
 </node>
+<node id="18">
+<data key="name">C5</data>
+<data key="value">#NAME?</data>
+<data key="type">CELL_WITH_REFERENCE</data>
+<data key="formula">Formula string: VALUE; Formula values: #NAME?;</data>
+</node>
 <node id="19">
 <data key="name">ISBLANK</data>
 <data key="value">FALSE</data>
@@ -111,16 +111,16 @@
 </node>
 <edge source="1" target="2"/>
 <edge source="4" target="5"/>
-<edge source="5" target="3"/>
 <edge source="7" target="8"/>
-<edge source="8" target="6"/>
-<edge source="10" target="9"/>
 <edge source="12" target="13"/>
-<edge source="13" target="11"/>
 <edge source="15" target="16"/>
+<edge source="18" target="19"/>
+<edge source="10" target="18"/>
+<edge source="2" target="12"/>
+<edge source="5" target="3"/>
+<edge source="8" target="6"/>
+<edge source="13" target="11"/>
 <edge source="16" target="14"/>
 <edge source="19" target="17"/>
-<edge source="2" target="12"/>
-<edge source="9" target="19"/>
 </graph>
 </graphml>

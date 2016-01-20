@@ -4,13 +4,19 @@
 <node id="0">
 <data key="name">C1</data>
 <data key="value">1.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
+<data key="formula">Formula string: A1; Formula values: 1.0;</data>
+</node>
+<node id="1">
+<data key="name">A1</data>
+<data key="value">1.0</data>
+<data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: A1; Formula values: 1.0;</data>
 </node>
 <node id="2">
 <data key="name">C2</data>
 <data key="value">2.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: A2; Formula values: 2.0;</data>
 </node>
 <node id="3">
@@ -22,7 +28,7 @@
 <node id="4">
 <data key="name">C3</data>
 <data key="value">3.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: A3; Formula values: 3.0;</data>
 </node>
 <node id="5">
@@ -34,7 +40,7 @@
 <node id="6">
 <data key="name">C4</data>
 <data key="value">4.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: A4; Formula values: 4.0;</data>
 </node>
 <node id="7">
@@ -46,7 +52,7 @@
 <node id="8">
 <data key="name">C5</data>
 <data key="value">5.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: A5; Formula values: 5.0;</data>
 </node>
 <node id="9">
@@ -58,7 +64,7 @@
 <node id="10">
 <data key="name">D6</data>
 <data key="value">#N/A</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: VALUE; Formula values: #N/A;</data>
 </node>
 <node id="11">
@@ -73,12 +79,6 @@
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: SUM(B1, A1); Formula values: SUM(A, 1.0);</data>
 </node>
-<node id="13">
-<data key="name">A1</data>
-<data key="value">1.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: A1; Formula values: 1.0;</data>
-</node>
 <node id="14">
 <data key="name">B1</data>
 <data key="value">A</data>
@@ -91,14 +91,14 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(B1, A1); Formula values: SUM(A, 1.0);</data>
 </node>
+<edge source="1" target="0"/>
 <edge source="3" target="2"/>
 <edge source="5" target="4"/>
 <edge source="7" target="6"/>
 <edge source="9" target="8"/>
 <edge source="11" target="10"/>
 <edge source="14" target="15"/>
-<edge source="13" target="15"/>
 <edge source="15" target="12"/>
-<edge source="13" target="0"/>
+<edge source="1" target="15"/>
 </graph>
 </graphml>

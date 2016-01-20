@@ -4,7 +4,7 @@
 <node id="0">
 <data key="name">D9</data>
 <data key="value">FALSE</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: ISEVEN(A1); Formula values: ISEVEN(1.0);</data>
 </node>
 <node id="1">
@@ -25,8 +25,8 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: ISEVEN(A1); Formula values: ISEVEN(1.0);</data>
 </node>
+<edge source="1" target="0"/>
 <edge source="3" target="4"/>
 <edge source="4" target="1"/>
-<edge source="1" target="0"/>
 </graph>
 </graphml>

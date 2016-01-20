@@ -316,7 +316,7 @@
 <node id="52">
 <data key="name">A10</data>
 <data key="value">0.15</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: B1; Formula values: 0.15;</data>
 </node>
 <node id="53">
@@ -334,7 +334,7 @@
 <node id="56">
 <data key="name">A11</data>
 <data key="value">0.06</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: B2; Formula values: 0.06;</data>
 </node>
 <node id="57">
@@ -346,7 +346,7 @@
 <node id="58">
 <data key="name">B11</data>
 <data key="value">0.07</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: D2; Formula values: 0.07;</data>
 </node>
 <node id="59">
@@ -358,7 +358,7 @@
 <node id="60">
 <data key="name">A12</data>
 <data key="value">1.1</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: B4; Formula values: 1.1;</data>
 </node>
 <node id="61">
@@ -370,7 +370,7 @@
 <node id="62">
 <data key="name">B12</data>
 <data key="value">1.25</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: D3; Formula values: 1.25;</data>
 </node>
 <node id="63">
@@ -394,7 +394,7 @@
 <node id="66">
 <data key="name">A12</data>
 <data key="value">1.1</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: B4; Formula values: 1.1;</data>
 </node>
 <node id="67">
@@ -424,7 +424,7 @@
 <node id="72">
 <data key="name">B12</data>
 <data key="value">1.25</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: D3; Formula values: 1.25;</data>
 </node>
 <node id="73">
@@ -448,7 +448,7 @@
 <node id="76">
 <data key="name">A14</data>
 <data key="value">0.06</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: D4; Formula values: 0.06;</data>
 </node>
 <node id="77">
@@ -474,6 +474,12 @@
 <data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="81">
+<data key="name">B10</data>
+<data key="value">0.2</data>
+<data key="type">CELL_WITH_REFERENCE</data>
+<data key="formula">Formula string: D1; Formula values: 0.2;</data>
 </node>
 <node id="82">
 <data key="name">+</data>
@@ -534,12 +540,6 @@
 <data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
-</node>
-<node id="93">
-<data key="name">B10</data>
-<data key="value">0.2</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: D1; Formula values: 0.2;</data>
 </node>
 <node id="94">
 <data key="name">+</data>
@@ -634,7 +634,7 @@
 <node id="111">
 <data key="name">B11</data>
 <data key="value">0.07</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: D2; Formula values: 0.07;</data>
 </node>
 <node id="112">
@@ -652,7 +652,7 @@
 <node id="115">
 <data key="name">B11</data>
 <data key="value">0.07</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: D2; Formula values: 0.07;</data>
 </node>
 <node id="116">
@@ -708,6 +708,12 @@
 <data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
+</node>
+<node id="126">
+<data key="name">B13</data>
+<data key="value">0.12875</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: D4 + D3 * D5; Formula values: 0.06 + 1.25 * 0.055;</data>
 </node>
 <node id="127">
 <data key="name">+</data>
@@ -792,12 +798,6 @@
 <data key="value">1.0</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: 1.0;</data>
-</node>
-<node id="142">
-<data key="name">B13</data>
-<data key="value">0.12875</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: D4 + D3 * D5; Formula values: 0.06 + 1.25 * 0.055;</data>
 </node>
 <node id="143">
 <data key="name">+</data>
@@ -939,19 +939,17 @@
 <edge source="132" target="138"/>
 <edge source="140" target="146"/>
 <edge source="107" target="148"/>
+<edge source="75" target="126"/>
 <edge source="59" target="111"/>
-<edge source="93" target="82"/>
 <edge source="117" target="108"/>
 <edge source="59" target="115"/>
 <edge source="69" target="64"/>
 <edge source="101" target="96"/>
-<edge source="93" target="88"/>
 <edge source="53" target="52"/>
 <edge source="61" target="60"/>
 <edge source="77" target="76"/>
 <edge source="21" target="22"/>
 <edge source="29" target="30"/>
-<edge source="93" target="94"/>
 <edge source="149" target="150"/>
 <edge source="5" target="7"/>
 <edge source="13" target="15"/>
@@ -961,16 +959,11 @@
 <edge source="133" target="135"/>
 <edge source="141" target="143"/>
 <edge source="101" target="103"/>
-<edge source="75" target="142"/>
 <edge source="85" target="89"/>
 <edge source="109" target="113"/>
 <edge source="61" target="66"/>
-<edge source="142" target="116"/>
-<edge source="93" target="100"/>
-<edge source="142" target="122"/>
-<edge source="93" target="106"/>
-<edge source="142" target="127"/>
-<edge source="142" target="135"/>
+<edge source="126" target="116"/>
+<edge source="126" target="122"/>
 <edge source="117" target="149"/>
 <edge source="30" target="31"/>
 <edge source="14" target="15"/>
@@ -979,13 +972,15 @@
 <edge source="38" target="39"/>
 <edge source="46" target="47"/>
 <edge source="94" target="95"/>
-<edge source="142" target="143"/>
+<edge source="126" target="127"/>
 <edge source="86" target="88"/>
 <edge source="110" target="112"/>
 <edge source="150" target="156"/>
 <edge source="101" target="140"/>
-<edge source="142" target="153"/>
+<edge source="126" target="135"/>
+<edge source="126" target="143"/>
 <edge source="95" target="90"/>
+<edge source="126" target="153"/>
 <edge source="63" target="62"/>
 <edge source="23" target="24"/>
 <edge source="47" target="48"/>
@@ -1004,6 +999,7 @@
 <edge source="119" target="123"/>
 <edge source="63" target="72"/>
 <edge source="15" target="25"/>
+<edge source="55" target="81"/>
 <edge source="48" target="49"/>
 <edge source="24" target="25"/>
 <edge source="32" target="33"/>
@@ -1019,15 +1015,15 @@
 <edge source="104" target="106"/>
 <edge source="120" target="122"/>
 <edge source="95" target="132"/>
-<edge source="55" target="93"/>
 <edge source="25" target="0"/>
 <edge source="16" target="24"/>
 <edge source="89" target="84"/>
 <edge source="57" target="56"/>
-<edge source="129" target="130"/>
+<edge source="81" target="82"/>
 <edge source="9" target="10"/>
 <edge source="49" target="50"/>
 <edge source="73" target="74"/>
+<edge source="129" target="130"/>
 <edge source="137" target="138"/>
 <edge source="145" target="146"/>
 <edge source="153" target="155"/>
@@ -1038,6 +1034,10 @@
 <edge source="97" target="101"/>
 <edge source="113" target="117"/>
 <edge source="17" target="23"/>
+<edge source="81" target="88"/>
 <edge source="41" target="51"/>
+<edge source="81" target="94"/>
+<edge source="81" target="100"/>
+<edge source="81" target="106"/>
 </graph>
 </graphml>
