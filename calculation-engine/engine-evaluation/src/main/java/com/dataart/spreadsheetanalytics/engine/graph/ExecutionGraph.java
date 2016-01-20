@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
@@ -123,8 +124,9 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
         ExecutionGraphVertex parent = edge.getSource();
         Set<ExecutionGraphEdge> outgoing = this.outgoing.get(parent.id);
         if (outgoing != null) {
-            Set<ExecutionGraphEdge> chosenEdges = new HashSet<>();
-            for (ExecutionGraphEdge outEdge : outgoing) { if (outEdge.getTarget() == vertex) { chosenEdges.add(outEdge); } }
+            Set<ExecutionGraphEdge> chosenEdges = outgoing.stream()
+                                                          .filter(e -> e.getTarget() == vertex)
+                                                          .collect(Collectors.toSet());
             outgoing.removeAll(chosenEdges);
             this.outgoing.put(parent.id, outgoing);
         }
@@ -134,8 +136,9 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
         ExecutionGraphVertex parent = edge.getTarget();
         Set<ExecutionGraphEdge> incoming = this.incoming.get(parent.id);
         if (incoming != null) {
-            Set<ExecutionGraphEdge> chosenEdges = new HashSet<>();
-            for (ExecutionGraphEdge outEdge : incoming) { if (outEdge.getTarget() == vertex) { chosenEdges.add(outEdge); } }
+            Set<ExecutionGraphEdge> chosenEdges = incoming.stream()
+                                                          .filter(e -> e.getTarget() == vertex)
+                                                          .collect(Collectors.toSet());
             incoming.removeAll(chosenEdges);
             this.incoming.put(parent.id, incoming);
         }
