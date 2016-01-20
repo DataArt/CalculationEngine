@@ -122,8 +122,8 @@ public class ExecutionGraphMLExporter {
 
         // Add all the edges as <edge> elements...
         for (IExecutionGraphEdge e : graph.getEdges()) {
+
             // <edge>
-            
             attr.clear();
             attr.addAttribute("", "", "source", "CDATA", Integer.toString(graph.getEdgeSource(e).getId()));
             attr.addAttribute("", "", "target", "CDATA", Integer.toString(graph.getEdgeTarget(e).getId()));

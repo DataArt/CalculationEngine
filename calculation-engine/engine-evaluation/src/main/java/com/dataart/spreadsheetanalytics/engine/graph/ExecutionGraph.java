@@ -101,12 +101,44 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
         this.vertices.remove(vertex.id);
 
         Set<ExecutionGraphEdge> outgoing = this.outgoing.get(vertex.id);
-        if (outgoing != null) { outgoing.stream().forEach(e -> this.edges.remove(e.key)); }
+        if (outgoing != null) {
+            outgoing.stream().forEach(e -> {
+                this.edges.remove(e.key);
+                cleanOutgoingEdgesFrom(e, vertex);
+            });
+        }
         this.outgoing.remove(vertex.id);
 
         Set<ExecutionGraphEdge> incoming = this.incoming.get(vertex.id);
-        if (incoming != null) { incoming.stream().forEach(e -> this.edges.remove(e.key)); }
+        if (incoming != null) {
+            incoming.stream().forEach(e -> {
+                this.edges.remove(e.key);
+                cleanIncomingEdgesFrom(e, vertex);
+            });
+        }
         this.incoming.remove(vertex.id);
+    }
+
+    protected void cleanIncomingEdgesFrom(ExecutionGraphEdge edge, ExecutionGraphVertex vertex) {
+        ExecutionGraphVertex parent = edge.getSource();
+        Set<ExecutionGraphEdge> outgoing = this.outgoing.get(parent.id);
+        if (outgoing != null) {
+            Set<ExecutionGraphEdge> chosenEdges = new HashSet<>();
+            for (ExecutionGraphEdge outEdge : outgoing) { if (outEdge.getTarget() == vertex) { chosenEdges.add(outEdge); } }
+            outgoing.removeAll(chosenEdges);
+            this.outgoing.put(parent.id, outgoing);
+        }
+    }
+
+    protected void cleanOutgoingEdgesFrom(ExecutionGraphEdge edge, ExecutionGraphVertex vertex) {
+        ExecutionGraphVertex parent = edge.getTarget();
+        Set<ExecutionGraphEdge> incoming = this.incoming.get(parent.id);
+        if (incoming != null) {
+            Set<ExecutionGraphEdge> chosenEdges = new HashSet<>();
+            for (ExecutionGraphEdge outEdge : incoming) { if (outEdge.getTarget() == vertex) { chosenEdges.add(outEdge); } }
+            incoming.removeAll(chosenEdges);
+            this.incoming.put(parent.id, incoming);
+        }
     }
 
     @Override

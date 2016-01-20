@@ -77,13 +77,13 @@
 <data key="name">E5</data>
 <data key="value">6.875</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: C2 - C3 - SUM(A3, A2); Formula values: 30.0 - 7.325 - SUM(3.2, 12.6);</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE) - SUM(A3, A2); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE([[12.6], [3.2], [4.5], [9.0]]) - SUM(3.2, 12.6);</data>
 </node>
 <node id="16">
 <data key="name">-</data>
 <data key="value">22.675</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: C2 - C3; Formula values: 30.0 - 7.325;</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE([[12.6], [3.2], [4.5], [9.0]]);</data>
 </node>
 <node id="18">
 <data key="name">A2</data>
@@ -107,7 +107,7 @@
 <data key="name">-</data>
 <data key="value">6.875</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: C2 - C3 - SUM(A3, A2); Formula values: 30.0 - 7.325 - SUM(3.2, 12.6);</data>
+<data key="formula">Formula string: SUM(VALUE, A4, A2) - AVERAGE(VALUE) - SUM(A3, A2); Formula values: SUM(12.9, 4.5, 12.6) - AVERAGE([[12.6], [3.2], [4.5], [9.0]]) - SUM(3.2, 12.6);</data>
 </node>
 <edge source="3" target="4"/>
 <edge source="2" target="4"/>

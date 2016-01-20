@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="JOIN_2_">
+<graph edgedefault="directed" id="JOIN_2">
 <node id="0">
 <data key="name">B8</data>
 <data key="value">170784.0</data>
@@ -145,6 +145,12 @@
 <data key="type">CELL_WITH_VALUE</data>
 <data key="formula">Formula string: E3; Formula values: 144.2;</data>
 </node>
+<node id="24">
+<data key="name">E4</data>
+<data key="value">77.7</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: E4; Formula values: 77.7;</data>
+</node>
 <node id="25">
 <data key="name">E5</data>
 <data key="value">107.3</data>
@@ -174,12 +180,6 @@
 <data key="value">41686.049999999996</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: E5 * E4 / VALUE; Formula values: 107.3 * 77.7 / 0.2;</data>
-</node>
-<node id="31">
-<data key="name">E4</data>
-<data key="value">77.7</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: E4; Formula values: 77.7;</data>
 </node>
 <node id="32">
 <data key="name">VALUE</data>
@@ -219,20 +219,20 @@
 <edge source="27" target="28"/>
 <edge source="26" target="28"/>
 <edge source="25" target="28"/>
+<edge source="24" target="28"/>
 <edge source="23" target="28"/>
 <edge source="22" target="28"/>
 <edge source="28" target="21"/>
-<edge source="31" target="33"/>
 <edge source="32" target="33"/>
 <edge source="33" target="34"/>
 <edge source="34" target="29"/>
 <edge source="22" target="19"/>
 <edge source="23" target="19"/>
-<edge source="31" target="19"/>
+<edge source="24" target="19"/>
 <edge source="25" target="19"/>
 <edge source="26" target="19"/>
 <edge source="27" target="19"/>
-<edge source="31" target="28"/>
+<edge source="24" target="33"/>
 <edge source="25" target="34"/>
 </graph>
 </graphml>

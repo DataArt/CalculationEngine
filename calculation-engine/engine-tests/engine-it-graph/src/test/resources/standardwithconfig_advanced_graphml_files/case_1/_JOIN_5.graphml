@@ -101,7 +101,7 @@
 <data key="name">I13</data>
 <data key="value">10000.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, F13, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 0.0, 8000.0);</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
 </node>
 <node id="19">
 <data key="name">D13</data>
@@ -155,13 +155,13 @@
 <data key="name">SUM</data>
 <data key="value">10000.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, F13, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 0.0, 8000.0);</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
 </node>
 <node id="28">
 <data key="name">J13</data>
 <data key="value">1890.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E13 + C5; Formula values: 1840.0 + 50.0;</data>
+<data key="formula">Formula string: D13 / VALUE * C3 + C5; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="29">
 <data key="name">E13</data>
@@ -179,55 +179,55 @@
 <data key="name">+</data>
 <data key="value">1890.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: E13 + C5; Formula values: 1840.0 + 50.0;</data>
+<data key="formula">Formula string: D13 / VALUE * C3 + C5; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="33">
 <data key="name">K13</data>
 <data key="value">8110.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: I13 - J13; Formula values: 10000.0 - 1890.0;</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13) - D13 / VALUE * C3 + C5; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) - 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="34">
 <data key="name">I13</data>
 <data key="value">10000.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, F13, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 0.0, 8000.0);</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
 </node>
 <node id="35">
 <data key="name">J13</data>
 <data key="value">1890.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E13 + C5; Formula values: 1840.0 + 50.0;</data>
+<data key="formula">Formula string: D13 / VALUE * C3 + C5; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="36">
 <data key="name">-</data>
 <data key="value">8110.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: I13 - J13; Formula values: 10000.0 - 1890.0;</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13) - D13 / VALUE * C3 + C5; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) - 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="37">
 <data key="name">L13</data>
 <data key="value">11890.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: I13 + J13; Formula values: 10000.0 + 1890.0;</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13) + D13 / VALUE * C3 + C5; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) + 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="38">
 <data key="name">I13</data>
 <data key="value">10000.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, F13, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 0.0, 8000.0);</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13); Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0);</data>
 </node>
 <node id="39">
 <data key="name">J13</data>
 <data key="value">1890.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E13 + C5; Formula values: 1840.0 + 50.0;</data>
+<data key="formula">Formula string: D13 / VALUE * C3 + C5; Formula values: 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="40">
 <data key="name">+</data>
 <data key="value">11890.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: I13 + J13; Formula values: 10000.0 + 1890.0;</data>
+<data key="formula">Formula string: SUM(H13 * D13, G13 * D13, C7 * C13 - VALUE * VALUE / VALUE, D13) + D13 / VALUE * C3 + C5; Formula values: SUM(0.05 * 8000.0, 0.2 * 8000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 8000.0) + 8000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="41">
 <data key="name">E14</data>
@@ -329,7 +329,7 @@
 <data key="name">I14</data>
 <data key="value">7680.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, F14, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 0.0, 6000.0);</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
 </node>
 <node id="60">
 <data key="name">D14</data>
@@ -383,13 +383,13 @@
 <data key="name">SUM</data>
 <data key="value">7680.0</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, F14, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 0.0, 6000.0);</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
 </node>
 <node id="69">
 <data key="name">J14</data>
 <data key="value">1430.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E14 + C5; Formula values: 1380.0 + 50.0;</data>
+<data key="formula">Formula string: D14 / VALUE * C3 + C5; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="70">
 <data key="name">E14</data>
@@ -407,55 +407,55 @@
 <data key="name">+</data>
 <data key="value">1430.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: E14 + C5; Formula values: 1380.0 + 50.0;</data>
+<data key="formula">Formula string: D14 / VALUE * C3 + C5; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="74">
 <data key="name">K14</data>
 <data key="value">6250.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: I14 - J14; Formula values: 7680.0 - 1430.0;</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14) - D14 / VALUE * C3 + C5; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) - 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="75">
 <data key="name">I14</data>
 <data key="value">7680.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, F14, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 0.0, 6000.0);</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
 </node>
 <node id="76">
 <data key="name">J14</data>
 <data key="value">1430.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E14 + C5; Formula values: 1380.0 + 50.0;</data>
+<data key="formula">Formula string: D14 / VALUE * C3 + C5; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="77">
 <data key="name">-</data>
 <data key="value">6250.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: I14 - J14; Formula values: 7680.0 - 1430.0;</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14) - D14 / VALUE * C3 + C5; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) - 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="78">
 <data key="name">L14</data>
 <data key="value">9110.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: I14 + J14; Formula values: 7680.0 + 1430.0;</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14) + D14 / VALUE * C3 + C5; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) + 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="79">
 <data key="name">I14</data>
 <data key="value">7680.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, F14, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 0.0, 6000.0);</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14); Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0);</data>
 </node>
 <node id="80">
 <data key="name">J14</data>
 <data key="value">1430.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E14 + C5; Formula values: 1380.0 + 50.0;</data>
+<data key="formula">Formula string: D14 / VALUE * C3 + C5; Formula values: 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="81">
 <data key="name">+</data>
 <data key="value">9110.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: I14 + J14; Formula values: 7680.0 + 1430.0;</data>
+<data key="formula">Formula string: SUM(H14 * D14, G14 * D14, C7 * C14 - VALUE * VALUE / VALUE, D14) + D14 / VALUE * C3 + C5; Formula values: SUM(0.03 * 6000.0, 0.25 * 6000.0, 250.0 * 1.0 - 1.0 * 2.0 / 3.0, 6000.0) + 6000.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="82">
 <data key="name">E15</data>
@@ -557,7 +557,7 @@
 <data key="name">I15</data>
 <data key="value">6273.333333333333</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, F15, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 333.3333333333333, 4500.0);</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
 </node>
 <node id="101">
 <data key="name">D15</data>
@@ -611,13 +611,13 @@
 <data key="name">SUM</data>
 <data key="value">6273.333333333333</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, F15, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 333.3333333333333, 4500.0);</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
 </node>
 <node id="110">
 <data key="name">J15</data>
 <data key="value">1085.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E15 + C5; Formula values: 1035.0 + 50.0;</data>
+<data key="formula">Formula string: D15 / VALUE * C3 + C5; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="111">
 <data key="name">E15</data>
@@ -635,55 +635,55 @@
 <data key="name">+</data>
 <data key="value">1085.0</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: E15 + C5; Formula values: 1035.0 + 50.0;</data>
+<data key="formula">Formula string: D15 / VALUE * C3 + C5; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="115">
 <data key="name">K15</data>
 <data key="value">5188.333333333333</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: I15 - J15; Formula values: 6273.333333333333 - 1085.0;</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15) - D15 / VALUE * C3 + C5; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) - 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="116">
 <data key="name">I15</data>
 <data key="value">6273.333333333333</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, F15, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 333.3333333333333, 4500.0);</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
 </node>
 <node id="117">
 <data key="name">J15</data>
 <data key="value">1085.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E15 + C5; Formula values: 1035.0 + 50.0;</data>
+<data key="formula">Formula string: D15 / VALUE * C3 + C5; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="118">
 <data key="name">-</data>
 <data key="value">5188.333333333333</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: I15 - J15; Formula values: 6273.333333333333 - 1085.0;</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15) - D15 / VALUE * C3 + C5; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) - 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="119">
 <data key="name">L15</data>
 <data key="value">7358.333333333333</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: I15 + J15; Formula values: 6273.333333333333 + 1085.0;</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15) + D15 / VALUE * C3 + C5; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) + 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="120">
 <data key="name">I15</data>
 <data key="value">6273.333333333333</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, F15, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 333.3333333333333, 4500.0);</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15); Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0);</data>
 </node>
 <node id="121">
 <data key="name">J15</data>
 <data key="value">1085.0</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: E15 + C5; Formula values: 1035.0 + 50.0;</data>
+<data key="formula">Formula string: D15 / VALUE * C3 + C5; Formula values: 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="122">
 <data key="name">+</data>
 <data key="value">7358.333333333333</data>
 <data key="type">OPERATOR</data>
-<data key="formula">Formula string: I15 + J15; Formula values: 6273.333333333333 + 1085.0;</data>
+<data key="formula">Formula string: SUM(H15 * D15, G15 * D15, C7 * C15 - VALUE * VALUE / VALUE, D15) + D15 / VALUE * C3 + C5; Formula values: SUM(0.07 * 4500.0, 0.25 * 4500.0, 250.0 * 3.0 - 1.0 * 2.0 / 3.0, 4500.0) + 4500.0 / 100.0 * 23.0 + 50.0;</data>
 </node>
 <node id="123">
 <data key="name">C17</data>

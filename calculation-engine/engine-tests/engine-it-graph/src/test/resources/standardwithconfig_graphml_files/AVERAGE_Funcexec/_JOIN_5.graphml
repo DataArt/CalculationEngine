@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <key id="vertex_label" for="node" attr.name="Vertex Label" attr.type="string"/>
-<graph edgedefault="directed" id="JOIN_5_">
+<graph edgedefault="directed" id="JOIN_5">
 <node id="0">
 <data key="name">E2</data>
 <data key="value">5.25</data>
@@ -119,7 +119,7 @@
 <data key="name">A7</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(E2, VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(5.25, #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A2:D2), VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(AVERAGE([[5.0, 3.0, 9.0, 4.0]]), #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
 </node>
 <node id="22">
 <data key="name">VALUE</data>
@@ -167,7 +167,7 @@
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(E2, VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(5.25, #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A2:D2), VALUE, D2, C2, B2, A2, VALUE); Formula values: DEFINE(AVERAGE([[5.0, 3.0, 9.0, 4.0]]), #, 4.0, 9.0, 3.0, 5.0, DEVDEF_1);</data>
 </node>
 <node id="30">
 <data key="name">F7</data>
@@ -215,7 +215,7 @@
 <data key="name">A8</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(E3, VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(5.5, #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A3:D3), VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(AVERAGE([[8.0, 4.0, 8.0, 2.0]]), #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
 </node>
 <node id="40">
 <data key="name">VALUE</data>
@@ -263,7 +263,7 @@
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(E3, VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(5.5, #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A3:D3), VALUE, D3, C3, B3, A3, VALUE); Formula values: DEFINE(AVERAGE([[8.0, 4.0, 8.0, 2.0]]), #, 2.0, 8.0, 4.0, 8.0, DEVDEF_2);</data>
 </node>
 <node id="48">
 <data key="name">F8</data>
@@ -311,7 +311,7 @@
 <data key="name">A9</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(E4, VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(3.5, #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A4:D4), VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(AVERAGE([[1.0, 8.0, 0.0, 5.0]]), #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
 </node>
 <node id="58">
 <data key="name">VALUE</data>
@@ -359,7 +359,7 @@
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(E4, VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(3.5, #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A4:D4), VALUE, D4, C4, B4, A4, VALUE); Formula values: DEFINE(AVERAGE([[1.0, 8.0, 0.0, 5.0]]), #, 5.0, 0.0, 8.0, 1.0, DEVDEF_3);</data>
 </node>
 <node id="66">
 <data key="name">F9</data>
@@ -407,7 +407,7 @@
 <data key="name">A10</data>
 <data key="value">DEFINE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: DEFINE(E5, VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(6.225, #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A5:D5), VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(AVERAGE([[7.0, 8.0, 0.9, 9.0]]), #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
 </node>
 <node id="76">
 <data key="name">VALUE</data>
@@ -455,7 +455,7 @@
 <data key="name">DEFINE</data>
 <data key="value">DEFINE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: DEFINE(E5, VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(6.225, #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
+<data key="formula">Formula string: DEFINE(AVERAGE(A5:D5), VALUE, D5, C5, B5, A5, VALUE); Formula values: DEFINE(AVERAGE([[7.0, 8.0, 0.9, 9.0]]), #, 9.0, 0.9, 8.0, 7.0, DEVDEF_4);</data>
 </node>
 <edge source="1" target="2"/>
 <edge source="2" target="0"/>
@@ -521,41 +521,41 @@
 <edge source="77" target="83"/>
 <edge source="76" target="83"/>
 <edge source="83" target="74"/>
-<edge source="2" target="28"/>
-<edge source="5" target="46"/>
-<edge source="8" target="64"/>
-<edge source="11" target="82"/>
 <edge source="23" target="1"/>
 <edge source="15" target="1"/>
-<edge source="24" target="1"/>
 <edge source="16" target="1"/>
+<edge source="24" target="1"/>
 <edge source="25" target="1"/>
 <edge source="17" target="1"/>
 <edge source="26" target="1"/>
 <edge source="18" target="1"/>
-<edge source="33" target="4"/>
 <edge source="41" target="4"/>
-<edge source="34" target="4"/>
+<edge source="33" target="4"/>
 <edge source="42" target="4"/>
-<edge source="35" target="4"/>
+<edge source="34" target="4"/>
 <edge source="43" target="4"/>
-<edge source="36" target="4"/>
+<edge source="35" target="4"/>
 <edge source="44" target="4"/>
-<edge source="51" target="7"/>
+<edge source="36" target="4"/>
 <edge source="59" target="7"/>
+<edge source="51" target="7"/>
 <edge source="60" target="7"/>
 <edge source="52" target="7"/>
-<edge source="53" target="7"/>
 <edge source="61" target="7"/>
-<edge source="62" target="7"/>
+<edge source="53" target="7"/>
 <edge source="54" target="7"/>
-<edge source="77" target="10"/>
+<edge source="62" target="7"/>
 <edge source="69" target="10"/>
+<edge source="77" target="10"/>
 <edge source="70" target="10"/>
 <edge source="78" target="10"/>
 <edge source="71" target="10"/>
 <edge source="79" target="10"/>
 <edge source="80" target="10"/>
 <edge source="72" target="10"/>
+<edge source="2" target="28"/>
+<edge source="5" target="46"/>
+<edge source="8" target="64"/>
+<edge source="11" target="82"/>
 </graph>
 </graphml>

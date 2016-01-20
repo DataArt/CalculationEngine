@@ -16,7 +16,7 @@
 <node id="3">
 <data key="name">D3</data>
 <data key="value">#NAME?</data>
-<data key="type">CELL_WITH_FORMULA</data>
+<data key="type">CELL_WITH_REFERENCE</data>
 <data key="formula">Formula string: VALUE; Formula values: #NAME?;</data>
 </node>
 <node id="4">
@@ -31,18 +31,6 @@
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(VALUE, C2, C1); Formula values: SUM(#NAME?, 5.0, 7.0);</data>
 </node>
-<node id="6">
-<data key="name">E1</data>
-<data key="value">#DIV/0!</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
-</node>
-<node id="7">
-<data key="name">B2</data>
-<data key="value">6.0</data>
-<data key="type">CELL_WITH_VALUE</data>
-<data key="formula">Formula string: B2; Formula values: 6.0;</data>
-</node>
 <node id="8">
 <data key="name">B7</data>
 <data key="value"/>
@@ -55,17 +43,35 @@
 <data key="type">OPERATOR</data>
 <data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
 </node>
+<node id="10">
+<data key="name">D2</data>
+<data key="value">#REF!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(B2, VALUE); Formula values: SUM(6.0, #REF!);</data>
+</node>
 <node id="11">
 <data key="name">VALUE</data>
 <data key="value">#REF!</data>
 <data key="type">CONSTANT_VALUE</data>
 <data key="formula">Formula string: VALUE; Formula values: #REF!;</data>
 </node>
+<node id="12">
+<data key="name">B2</data>
+<data key="value">6.0</data>
+<data key="type">CELL_WITH_VALUE</data>
+<data key="formula">Formula string: B2; Formula values: 6.0;</data>
+</node>
 <node id="13">
 <data key="name">SUM</data>
 <data key="value">#REF!</data>
 <data key="type">FUNCTION</data>
 <data key="formula">Formula string: SUM(B2, VALUE); Formula values: SUM(6.0, #REF!);</data>
+</node>
+<node id="14">
+<data key="name">E2</data>
+<data key="value">20.0</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM([[2.0], [6.0], [5.0], [7.0]]);</data>
 </node>
 <node id="15">
 <data key="name">A2:A5</data>
@@ -81,7 +87,7 @@
 </node>
 <node id="17">
 <data key="name">E3</data>
-<data key="value">[[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]]</data>
+<data key="value">#VALUE!</data>
 <data key="type">CELL_WITH_FORMULA</data>
 <data key="formula">Formula string: A1:D11; Formula values: [[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]];</data>
 </node>
@@ -113,37 +119,31 @@
 <data key="name">D7</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(D2); Formula values: ISERROR(#REF!);</data>
-</node>
-<node id="23">
-<data key="name">D2</data>
-<data key="value">#REF!</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(B2, VALUE); Formula values: SUM(6.0, #REF!);</data>
+<data key="formula">Formula string: ISERROR(SUM(B2, VALUE)); Formula values: ISERROR(SUM(6.0, #REF!));</data>
 </node>
 <node id="24">
 <data key="name">ISERROR</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(D2); Formula values: ISERROR(#REF!);</data>
+<data key="formula">Formula string: ISERROR(SUM(B2, VALUE)); Formula values: ISERROR(SUM(6.0, #REF!));</data>
 </node>
 <node id="25">
 <data key="name">D8</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(D3); Formula values: ISERROR(#NAME?);</data>
+<data key="formula">Formula string: ISERROR(VALUE); Formula values: ISERROR(#NAME?);</data>
 </node>
 <node id="27">
 <data key="name">ISERROR</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(D3); Formula values: ISERROR(#NAME?);</data>
+<data key="formula">Formula string: ISERROR(VALUE); Formula values: ISERROR(#NAME?);</data>
 </node>
 <node id="28">
 <data key="name">D9</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(D1); Formula values: ISERROR(#NAME?);</data>
+<data key="formula">Formula string: ISERROR(SUM(VALUE, C2, C1)); Formula values: ISERROR(SUM(#NAME?, 5.0, 7.0));</data>
 </node>
 <node id="29">
 <data key="name">D1</data>
@@ -155,89 +155,89 @@
 <data key="name">ISERROR</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(D1); Formula values: ISERROR(#NAME?);</data>
+<data key="formula">Formula string: ISERROR(SUM(VALUE, C2, C1)); Formula values: ISERROR(SUM(#NAME?, 5.0, 7.0));</data>
 </node>
 <node id="31">
 <data key="name">D10</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(E1); Formula values: ISERROR(#DIV/0!);</data>
+<data key="formula">Formula string: ISERROR(B2 / B7); Formula values: ISERROR(6.0 / );</data>
+</node>
+<node id="32">
+<data key="name">E1</data>
+<data key="value">#DIV/0!</data>
+<data key="type">CELL_WITH_FORMULA</data>
+<data key="formula">Formula string: B2 / B7; Formula values: 6.0 / ;</data>
 </node>
 <node id="33">
 <data key="name">ISERROR</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(E1); Formula values: ISERROR(#DIV/0!);</data>
+<data key="formula">Formula string: ISERROR(B2 / B7); Formula values: ISERROR(6.0 / );</data>
 </node>
 <node id="34">
 <data key="name">D11</data>
 <data key="value">FALSE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(E2); Formula values: ISERROR(20.0);</data>
-</node>
-<node id="35">
-<data key="name">E2</data>
-<data key="value">20.0</data>
-<data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: SUM(A2:A5); Formula values: SUM([[2.0], [6.0], [5.0], [7.0]]);</data>
+<data key="formula">Formula string: ISERROR(SUM(A2:A5)); Formula values: ISERROR(SUM([[2.0], [6.0], [5.0], [7.0]]));</data>
 </node>
 <node id="36">
 <data key="name">ISERROR</data>
 <data key="value">FALSE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(E2); Formula values: ISERROR(20.0);</data>
+<data key="formula">Formula string: ISERROR(SUM(A2:A5)); Formula values: ISERROR(SUM([[2.0], [6.0], [5.0], [7.0]]));</data>
 </node>
 <node id="37">
 <data key="name">D12</data>
 <data key="value">TRUE</data>
 <data key="type">CELL_WITH_FORMULA</data>
-<data key="formula">Formula string: ISERROR(E3); Formula values: ISERROR(#VALUE!);</data>
+<data key="formula">Formula string: ISERROR(A1:D11); Formula values: ISERROR([[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]]);</data>
 </node>
 <node id="39">
 <data key="name">ISERROR</data>
 <data key="value">TRUE</data>
 <data key="type">FUNCTION</data>
-<data key="formula">Formula string: ISERROR(E3); Formula values: ISERROR(#VALUE!);</data>
+<data key="formula">Formula string: ISERROR(A1:D11); Formula values: ISERROR([[5.0, 67.0, 7.0, #NAME?], [2.0, 6.0, 5.0, #REF!], [6.0, 7.0, 989.0, #NAME?], [5.0, 8.0, 52.0, ], [7.0, 91.0, 7.0, ], [, , , FALSE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , TRUE], [, , , FALSE]]);</data>
 </node>
 <edge source="18" target="17"/>
 <edge source="2" target="5"/>
+<edge source="10" target="18"/>
+<edge source="10" target="24"/>
 <edge source="2" target="18"/>
 <edge source="31" target="18"/>
-<edge source="23" target="18"/>
-<edge source="6" target="33"/>
+<edge source="14" target="36"/>
 <edge source="27" target="25"/>
 <edge source="39" target="37"/>
 <edge source="19" target="18"/>
 <edge source="15" target="16"/>
-<edge source="23" target="24"/>
-<edge source="35" target="36"/>
 <edge source="3" target="5"/>
-<edge source="7" target="9"/>
 <edge source="11" target="13"/>
-<edge source="7" target="13"/>
-<edge source="7" target="18"/>
 <edge source="3" target="18"/>
 <edge source="28" target="18"/>
 <edge source="3" target="27"/>
+<edge source="12" target="9"/>
+<edge source="16" target="14"/>
 <edge source="24" target="22"/>
 <edge source="36" target="34"/>
 <edge source="20" target="18"/>
 <edge source="4" target="3"/>
 <edge source="8" target="9"/>
+<edge source="12" target="13"/>
 <edge source="20" target="21"/>
+<edge source="32" target="33"/>
+<edge source="12" target="18"/>
 <edge source="8" target="18"/>
-<edge source="16" target="35"/>
 <edge source="29" target="18"/>
 <edge source="25" target="18"/>
-<edge source="9" target="6"/>
+<edge source="13" target="10"/>
 <edge source="21" target="19"/>
 <edge source="33" target="31"/>
 <edge source="29" target="30"/>
 <edge source="1" target="5"/>
-<edge source="13" target="23"/>
 <edge source="34" target="18"/>
 <edge source="1" target="18"/>
 <edge source="17" target="39"/>
+<edge source="9" target="32"/>
 <edge source="5" target="29"/>
 <edge source="22" target="18"/>
 <edge source="30" target="28"/>
