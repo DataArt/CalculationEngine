@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
@@ -33,11 +34,19 @@ import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
  */
 public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, ExecutionGraphEdge> {
 
+    protected static final AtomicInteger ID_RANDOMIZER = new AtomicInteger(0);
+    
     protected final Map<Integer, ExecutionGraphVertex> vertices = new HashMap<>();
     protected final Map<EdgeKey, ExecutionGraphEdge> edges = new HashMap<>();
     protected final Map<Integer, Set<ExecutionGraphEdge>> incoming = new HashMap<>();
     protected final Map<Integer, Set<ExecutionGraphEdge>> outgoing = new HashMap<>();
 
+    public static ExecutionGraphVertex createVertex(String name) {
+        ExecutionGraphVertex v = new ExecutionGraphVertex(name);
+        v.properties.setVertexId(ID_RANDOMIZER.getAndIncrement());
+        return v;
+    }
+    
     @Override
     public ExecutionGraphVertex getRootVertex() {
         List<ExecutionGraphVertex> possible = new LinkedList<>();

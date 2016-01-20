@@ -15,8 +15,6 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
-import static com.dataart.spreadsheetanalytics.engine.graph.PoiExecutionGraphBuilder.ID_RANDOMIZER;
-
 import java.io.Serializable;
 
 import org.apache.poi.common.fork.IExecutionGraphVertexProperties;
@@ -45,12 +43,8 @@ public class ExecutionGraphVertex /* POI Vertex interface (internal) */
 
     protected final ExecutionGraphVertexProperties properties = new ExecutionGraphVertexProperties(this);
     
-    public ExecutionGraphVertex(String name) {
-        this.id = ID_RANDOMIZER.get().getAndIncrement();
-        this.name = name;
-        
-        this.properties.setVertexId(this.id);
-        this.properties.setName(this.name);
+    protected ExecutionGraphVertex(String name) {
+        this.properties.setName(name);
     }
 
     @Override

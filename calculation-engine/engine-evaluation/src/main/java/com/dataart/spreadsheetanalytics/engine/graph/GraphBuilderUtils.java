@@ -51,7 +51,7 @@ public final class GraphBuilderUtils {
 
     public static ExecutionGraph buildSingleVertexGraphForParseException(ICellAddress address, ErrorEval error, String formulaString) {
         
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        ExecutionGraphVertex vertex = ExecutionGraph.createVertex(address.a1Address().address());
         vertex.properties().setType(CELL_WITH_FORMULA);
         vertex.properties().setValue(error);
         
@@ -70,7 +70,7 @@ public final class GraphBuilderUtils {
     
     public static ExecutionGraph buildSingleVertexGraphForCellWithValue(ICellValue cell, ICellAddress address) {
         
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.a1Address().address());
+        ExecutionGraphVertex vertex = ExecutionGraph.createVertex(address.a1Address().address());
         vertex.properties().setValue(cell.get());
         vertex.properties().setType(CELL_WITH_VALUE);
         vertex.properties().setFormulaString(address.a1Address().address());
@@ -85,7 +85,7 @@ public final class GraphBuilderUtils {
     }
     
     public static ExecutionGraph buildSingleVertexGraphForEmptyCell(IA1Address address) {
-        ExecutionGraphVertex vertex = new ExecutionGraphVertex(address.address());
+        ExecutionGraphVertex vertex = ExecutionGraph.createVertex(address.address());
         vertex.properties().setType(EMPTY_CELL);
 
         ExecutionGraph emptyGraph = new ExecutionGraph();

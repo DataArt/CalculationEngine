@@ -65,8 +65,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     protected static final String CONSTANT_VALUE_NAME = "VALUE";
 
-    protected static final ThreadLocal<AtomicInteger> ID_RANDOMIZER = new ThreadLocal<>();
-
     protected IExecutionGraphVertex namedVertexRoot;
     
     protected ExecutionGraph graph = new ExecutionGraph();
@@ -85,7 +83,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
     public PoiExecutionGraphBuilder(ExecutionGraphConfig config) {
         this.config = config;
-        ID_RANDOMIZER.set(new AtomicInteger(0));
     }
     
     public ExecutionGraph getGraph() { return this.graph; }
@@ -98,7 +95,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
     @Override
     public ExecutionGraphVertex createVertex(String address) {
         // create new vertex object
-        ExecutionGraphVertex v = new ExecutionGraphVertex(removeSymbol(address, '$'));
+        ExecutionGraphVertex v = ExecutionGraph.createVertex(removeSymbol(address, '$'));
 
         // add vertex to actual graph
         this.graph.addVertex(v);
@@ -122,7 +119,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         if (isCell) { // cell
             return createVertex(name);
         } else { // operation
-            ExecutionGraphVertex v = new ExecutionGraphVertex(name);
+            ExecutionGraphVertex v = ExecutionGraph.createVertex(name);
             this.graph.addVertex(v);
             return v;
         }

@@ -28,7 +28,7 @@ public class ExecutionGraphEdge implements IExecutionGraphEdge {
     protected final ExecutionGraphVertex source;
     protected final ExecutionGraphVertex target;
 
-    public ExecutionGraphEdge(ExecutionGraphVertex source, ExecutionGraphVertex target) {
+    protected ExecutionGraphEdge(ExecutionGraphVertex source, ExecutionGraphVertex target) {
         this.source = source;
         this.target = target;
         

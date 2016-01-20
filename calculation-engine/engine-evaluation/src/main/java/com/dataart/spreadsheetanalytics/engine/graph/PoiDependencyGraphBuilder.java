@@ -74,7 +74,7 @@ public class PoiDependencyGraphBuilder {
         Cell c = r.getCell(cell.column());
         if (c == null) { return null; }
         
-        ExecutionGraphVertex v = new ExecutionGraphVertex(A1Address.fromRowColumn(c.getRowIndex(), c.getColumnIndex()).address());
+        ExecutionGraphVertex v = ExecutionGraph.createVertex(A1Address.fromRowColumn(c.getRowIndex(), c.getColumnIndex()).address());
         db.state.addVertex(v);
         
         if (CELL_TYPE_FORMULA == c.getCellType()) { db.collect(v, c.getCellFormula()); }
@@ -89,7 +89,7 @@ public class PoiDependencyGraphBuilder {
         for (Ptg ptg : ptgs) {
             String name = ptgToString(ptg);
 
-            ExecutionGraphVertex v = new ExecutionGraphVertex(name);
+            ExecutionGraphVertex v = ExecutionGraph.createVertex(name);
             this.state.addVertex(v);
 
             if (ptg instanceof OperandPtg) { //operand (cell)
