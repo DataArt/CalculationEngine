@@ -22,9 +22,6 @@ dependencies:
 
 #Run tests (no performance tests)
 test:
-  pre:
-    - mvn clean
-        pwd: engine-tests
   override:
     - mvn clean test:
         pwd: engine-tests
