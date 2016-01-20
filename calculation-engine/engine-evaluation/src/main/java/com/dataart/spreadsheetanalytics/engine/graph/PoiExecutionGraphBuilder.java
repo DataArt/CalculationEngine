@@ -265,7 +265,6 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                 }
                 vertex.properties().setValue(ifBranchValue);
             }
-
         }
 
         if (this.config.getDuplicatesNumberThreshold() != -1) {

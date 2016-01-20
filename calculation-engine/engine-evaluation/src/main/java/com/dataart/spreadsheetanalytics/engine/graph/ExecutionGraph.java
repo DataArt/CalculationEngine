@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.dataart.spreadsheetanalytics.engine.graph;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -113,7 +115,11 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
         if (outgoing != null) {
             outgoing.stream().forEach(e -> {
                 this.edges.remove(e.key);
-                cleanOutgoingEdgesFrom(e, vertex);
+                
+                if (this.incoming.containsKey(e.key.target)) {
+                    Set<ExecutionGraphEdge> moreIn = this.incoming.get(e.key.target);
+                    moreIn.removeAll(moreIn.stream().filter(ie -> ie.getTarget() == vertex).collect(toSet()));
+                }
             });
         }
         this.outgoing.remove(vertex.id);
@@ -122,32 +128,14 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
         if (incoming != null) {
             incoming.stream().forEach(e -> {
                 this.edges.remove(e.key);
-                cleanIncomingEdgesFrom(e, vertex);
+
+                if (this.outgoing.containsKey(e.key.source)) {
+                    Set<ExecutionGraphEdge> moreOut = this.outgoing.get(e.key.source);
+                    moreOut.removeAll(moreOut.stream().filter(oe -> oe.getTarget() == vertex).collect(toSet()));
+                }
             });
         }
         this.incoming.remove(vertex.id);
-    }
-
-    protected void cleanIncomingEdgesFrom(ExecutionGraphEdge edge, ExecutionGraphVertex vertex) {
-        ExecutionGraphVertex parent = edge.getSource();
-        Set<ExecutionGraphEdge> outgoing = this.outgoing.get(parent.id);
-        if (outgoing != null) {
-            Set<ExecutionGraphEdge> chosenEdges = new HashSet<>();
-            for (ExecutionGraphEdge outEdge : outgoing) { if (outEdge.getTarget() == vertex) { chosenEdges.add(outEdge); } }
-            outgoing.removeAll(chosenEdges);
-            this.outgoing.put(parent.id, outgoing);
-        }
-    }
-
-    protected void cleanOutgoingEdgesFrom(ExecutionGraphEdge edge, ExecutionGraphVertex vertex) {
-        ExecutionGraphVertex parent = edge.getTarget();
-        Set<ExecutionGraphEdge> incoming = this.incoming.get(parent.id);
-        if (incoming != null) {
-            Set<ExecutionGraphEdge> chosenEdges = new HashSet<>();
-            for (ExecutionGraphEdge outEdge : incoming) { if (outEdge.getTarget() == vertex) { chosenEdges.add(outEdge); } }
-            incoming.removeAll(chosenEdges);
-            this.incoming.put(parent.id, incoming);
-        }
     }
 
     @Override
