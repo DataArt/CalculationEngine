@@ -31,9 +31,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-
 /**
  * {@link IExecutionGraph} implementation based on {@link ExecutionGraphVertex#id} and {@link HashMap}s.
  */
@@ -41,10 +38,10 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
 
     protected static final AtomicInteger ID_RANDOMIZER = new AtomicInteger(0);
     
-    protected final Int2ObjectMap<ExecutionGraphVertex> vertices = new Int2ObjectArrayMap<>();
+    protected final Map<Integer, ExecutionGraphVertex> vertices = new HashMap<>();
     protected final Map<EdgeKey, ExecutionGraphEdge> edges = new HashMap<>();
-    protected final Int2ObjectMap<Set<ExecutionGraphEdge>> incoming = new Int2ObjectArrayMap<>();
-    protected final Int2ObjectMap<Set<ExecutionGraphEdge>> outgoing = new Int2ObjectArrayMap<>();
+    protected final Map<Integer, Set<ExecutionGraphEdge>> incoming = new HashMap<>();
+    protected final Map<Integer, Set<ExecutionGraphEdge>> outgoing = new HashMap<>();
 
     public static ExecutionGraphVertex createVertex(String name) {
         ExecutionGraphVertex v = new ExecutionGraphVertex(name);
