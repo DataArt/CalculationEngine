@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import org.apache.poi.common.fork.IExecutionGraphBuilder;
 import org.apache.poi.common.fork.IExecutionGraphVertex;
@@ -63,19 +64,17 @@ import com.dataart.spreadsheetanalytics.model.CellAddress;
  */
 public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
-    protected static final String CONSTANT_VALUE_NAME = "VALUE";
-
     protected IExecutionGraphVertex namedVertexRoot;
     
-    protected ExecutionGraph graph = new ExecutionGraph();
-    protected Deque<Boolean> processName = new LinkedList<>();
+    protected final ExecutionGraph graph = new ExecutionGraph();
+    protected final Deque<Boolean> processName = new LinkedList<>();
     protected final ExecutionGraphConfig config;
     /*
      * The map is used to store vertices using value field as a key
      * One value may correspond to several vertices. That's why we use Deques instead of single values.
      */
-    protected Map<ValueEval, Deque<ExecutionGraphVertex>> valueToVertex = new HashMap<>();
-    protected Map<String, Set<ExecutionGraphVertex>> addressToVertices = new HashMap<>();
+    protected final Map<ValueEval, Deque<ExecutionGraphVertex>> valueToVertex = new HashMap<>();
+    protected final Map<String, Set<ExecutionGraphVertex>> addressToVertices = new HashMap<>();
 
     public PoiExecutionGraphBuilder() {
         this(ExecutionGraphConfig.DEFAULT);
@@ -202,13 +201,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
 
                 for (ExecutionGraphVertex ivertex : vs) {
                     ExecutionGraphVertex vertex = ivertex;
-                    if (CELL_WITH_FORMULA == vertex.properties().getType() || null != vertex.properties().getAlias())
-                    { standard = vertex; break; }
+                    if (CELL_WITH_FORMULA == vertex.properties().getType() || null != vertex.properties().getAlias()) {
+                        standard = vertex;
+                        break;
+                    }
                 }
 
-                if (standard != null) {
-                    copyProperties(standard, vs);
-                }
+                if (standard != null) { copyProperties(standard, vs); }
             }
         }
 
@@ -229,21 +228,13 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     // need to link
                     Set<ExecutionGraphVertex> subgraphTops = new HashSet<>();
 
-                    for (ExecutionGraphVertex tmpVertex : this.graph.getVertices()) {
-
-                        String tmpAddress = tmpVertex.properties().getName();
-                        if (address.equals(tmpAddress)) { // check for subgraph
-                            for (ExecutionGraphEdge tmpEdge : this.graph.getIncomingEdgesOf(tmpVertex)) {
-                                subgraphTops.add(this.graph.getEdgeSource(tmpEdge));
-                            }
-                        }
-                    }
+                    this.graph.getVertices().stream()
+                                            .filter(v -> address.equals(v.properties.getName())) // check for subgraph
+                                            .forEach(v -> this.graph.getIncomingEdgesOf(v).forEach(e -> subgraphTops.add(this.graph.getEdgeSource(e))));
 
                     for (ExecutionGraphVertex subVertex : subgraphTops) {
                         if (!this.addressToVertices.containsKey(address)) { continue; }
-                        for (ExecutionGraphVertex vertexOfAddress : this.addressToVertices.get(address)) {
-                            this.graph.addEdge(subVertex, vertexOfAddress);
-                        }
+                        this.addressToVertices.get(address).forEach(v -> this.graph.addEdge(subVertex, v));
                     }
                 }
             }
@@ -267,9 +258,7 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
             }
         }
 
-        if (this.config.getDuplicatesNumberThreshold() != -1) {
-            removeAllDuplicates();
-        }
+        if (this.config.getDuplicatesNumberThreshold() != -1) { removeAllDuplicates(this); }
     }
 
     protected static void connectValuesToRange(ExecutionGraphVertex rangeVertex, PoiExecutionGraphBuilder state) {
@@ -283,40 +272,38 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
         }
     }
 
-    protected Set<ExecutionGraphVertex> getParents(ExecutionGraphVertex vertex) {
-        Set<ExecutionGraphVertex> retvals = new HashSet<>();
-        Collection<ExecutionGraphEdge> edges = this.graph.getOutgoingEdgesOf(vertex);
-        for (ExecutionGraphEdge edge : edges) { retvals.add(this.graph.getEdgeTarget(edge)); }
-        return retvals;
+    protected static Set<ExecutionGraphVertex> getParents(ExecutionGraphVertex vertex, PoiExecutionGraphBuilder state) {
+        return state.graph.getOutgoingEdgesOf(vertex).stream()
+                                                     .map(e -> state.graph.getEdgeTarget(e))
+                                                     .collect(Collectors.toSet());
     }
 
-    protected Set<ExecutionGraphVertex> getChildren(ExecutionGraphVertex vertex) {
-        Set<ExecutionGraphVertex> retvals = new HashSet<>();
-        Collection<ExecutionGraphEdge> edges = this.graph.getIncomingEdgesOf(vertex);
-        for (ExecutionGraphEdge edge : edges) { retvals.add(this.graph.getEdgeSource(edge)); }
-        return retvals;
+    protected static Set<ExecutionGraphVertex> getChildren(ExecutionGraphVertex vertex, PoiExecutionGraphBuilder state) {
+        return state.graph.getIncomingEdgesOf(vertex).stream()
+                                                     .map(e -> state.graph.getEdgeSource(e))
+                                                     .collect(Collectors.toSet());
     }
 
-    protected void removeAllDuplicates() {
-        Set<ExecutionGraphVertex> leaves = new HashSet<>();
-        for (String address : this.addressToVertices.keySet()) {
-            leaves.add(removeLeafDublicates(address, this.config.getDuplicatesNumberThreshold()));
-        }
-        processLeaves(leaves, this.config.getDuplicatesNumberThreshold());
+    protected static void removeAllDuplicates(PoiExecutionGraphBuilder state) {
+        processLeaves(state.addressToVertices.keySet().stream()
+                                                      .map(a -> removeLeafDublicates(a, state))
+                                                      .collect(Collectors.toSet()),
+                      state);
     }
 
-    protected void processLeaves(Set<ExecutionGraphVertex> leaves, int allowedNum) {
+    protected static void processLeaves(Set<ExecutionGraphVertex> leaves, PoiExecutionGraphBuilder state) {
         Iterator<ExecutionGraphVertex> it = leaves.iterator();
         while (it.hasNext()) {
             ExecutionGraphVertex leaf = it.next();
-            if (!this.graph.containsVertex(leaf)) {
+            if (!state.graph.containsVertex(leaf)) {
                 it.remove();
                 continue;
             }
-            Set<ExecutionGraphVertex> parents = getParents(leaf);
+            Set<ExecutionGraphVertex> parents = getParents(leaf, state);
             Map<ExecutionGraphVertex, List<ExecutionGraphVertex>> chosen = new HashMap<>();
             for (ExecutionGraphVertex parent : parents) {
-                if (isCyclicRef(parent, leaf)) { continue; }
+                if (isCyclicRef(parent, leaf, state)) { continue; }
+                
                 ExecutionGraphVertex found = returnVertexDuplicate(chosen.keySet(), parent);
                 if (found == null) {
                     chosen.put(parent, new LinkedList<>());
@@ -326,64 +313,62 @@ public class PoiExecutionGraphBuilder implements IExecutionGraphBuilder {
                     chosen.put(found, duplicates);
                 }
             }
-            reduceDuplicates(chosen, allowedNum);
-            processLeaves(chosen.keySet(), allowedNum);
+            reduceDuplicates(chosen, state);
+            processLeaves(chosen.keySet(), state);
         }
     }
 
-    protected void reduceDuplicates(Map<ExecutionGraphVertex, List<ExecutionGraphVertex>> verticesMap, int allowedNum) {
+    protected static void reduceDuplicates(Map<ExecutionGraphVertex, List<ExecutionGraphVertex>> verticesMap, PoiExecutionGraphBuilder state) {
         Set<ExecutionGraphVertex> childrenToRemove = new HashSet<>();
-        Iterator<Entry<ExecutionGraphVertex, List<ExecutionGraphVertex>>> enterator = verticesMap.entrySet().iterator();
-        while (enterator.hasNext()) {
-            Entry<ExecutionGraphVertex, List<ExecutionGraphVertex>> entry = enterator.next();
-            List<ExecutionGraphVertex> values = entry.getValue();
-            if (values.size() > allowedNum) {
-                for (ExecutionGraphVertex vertex : values) {
-                    reassignOutgoingEdges(entry.getKey(), vertex);
-                    for (ExecutionGraphEdge edge : this.graph.getIncomingEdgesOf(vertex)) {
-                        ExecutionGraphVertex child = this.graph.getEdgeSource(edge);
-                        if (Type.CONSTANT_VALUE.equals(child.getType())) {
-                            childrenToRemove.add(child);
-                        }
-                    }
-                    this.graph.removeVertex(vertex);
+        
+        
+        for (Iterator<Entry<ExecutionGraphVertex, List<ExecutionGraphVertex>>> it = verticesMap.entrySet().iterator(); it.hasNext();) {
+            Entry<ExecutionGraphVertex, List<ExecutionGraphVertex>> entry = it.next();
+        
+            if (entry.getValue().size() <= state.config.getDuplicatesNumberThreshold()) { continue; }
+                
+            for (ExecutionGraphVertex vertex : entry.getValue()) {
+                reassignOutgoingEdges(state, entry.getKey(), vertex);
+                
+                for (ExecutionGraphEdge edge : state.graph.getIncomingEdgesOf(vertex)) {
+                    ExecutionGraphVertex child = state.graph.getEdgeSource(edge);
+                    if (Type.CONSTANT_VALUE == child.getType()) { childrenToRemove.add(child); }
                 }
+                state.graph.removeVertex(vertex);
             }
         }
-        for (ExecutionGraphVertex child : childrenToRemove) {
-            this.graph.removeVertex(child);
+        
+        childrenToRemove.forEach(child -> state.graph.removeVertex(child));
+    }
+
+    protected static boolean isCyclicRef(ExecutionGraphVertex parent, ExecutionGraphVertex child, PoiExecutionGraphBuilder state) {
+        return getParents(parent, state).contains(child);
+    }
+
+    protected static ExecutionGraphVertex returnVertexDuplicate(Set<ExecutionGraphVertex> set, ExecutionGraphVertex value) {
+        for (ExecutionGraphVertex item : set) {
+            if (item.compareTo(value) == 1) { return item; }
         }
-    }
-
-    protected boolean isCyclicRef(ExecutionGraphVertex parent, ExecutionGraphVertex child) {
-        Set<ExecutionGraphVertex> grandParents = getParents(parent);
-        return grandParents.contains(child);
-    }
-
-    protected static ExecutionGraphVertex returnVertexDuplicate(Collection<ExecutionGraphVertex> set, ExecutionGraphVertex value) {
-        for (ExecutionGraphVertex item : set) { if (item.compareTo(value) == 1) { return item; } }
         return null;
     }
 
-    protected void reassignOutgoingEdges(ExecutionGraphVertex to, ExecutionGraphVertex from) {
-        for (ExecutionGraphEdge item : this.graph.getOutgoingEdgesOf(from))
-            { this.graph.addEdge(to, this.graph.getEdgeTarget(item)); }
+    protected static void reassignOutgoingEdges(PoiExecutionGraphBuilder state, ExecutionGraphVertex to, ExecutionGraphVertex from) {
+        state.graph.getOutgoingEdgesOf(from).forEach(e -> state.graph.addEdge(to, state.graph.getEdgeTarget(e)));
     }
 
-    protected ExecutionGraphVertex removeLeafDublicates(String address, int num) {
-        Set<ExecutionGraphVertex> vertices = getVerticesFromCache(address);
-        ExecutionGraphVertex result = null;
-        if (vertices.size() >= num) {
-            Iterator<ExecutionGraphVertex> it = vertices.iterator();
-            result = it.next();
-            while (it.hasNext()) {
-                ExecutionGraphVertex value = it.next();
-                if (this.graph.containsVertex(value) && this.graph.containsVertex(result)) {
-                    reassignOutgoingEdges(result, value);
-                    this.graph.removeVertex(value);
-                } else {
-                    it.remove();
-                }
+    protected static ExecutionGraphVertex removeLeafDublicates(String address, PoiExecutionGraphBuilder state) {
+        Set<ExecutionGraphVertex> vertices = state.getVerticesFromCache(address);
+        if (vertices.size() < state.config.getDuplicatesNumberThreshold()) { return null; }
+        
+        Iterator<ExecutionGraphVertex> it = vertices.iterator();
+        ExecutionGraphVertex result = it.next();
+        while (it.hasNext()) {
+            ExecutionGraphVertex value = it.next();
+            if (state.graph.containsVertex(value) && state.graph.containsVertex(result)) {
+                reassignOutgoingEdges(state, result, value);
+                state.graph.removeVertex(value);
+            } else {
+                it.remove();
             }
         }
         return result;
