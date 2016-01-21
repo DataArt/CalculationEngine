@@ -22,11 +22,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import com.dataart.spreadsheetanalytics.api.model.IExecutionGraph;
 import com.dataart.spreadsheetanalytics.engine.CalculationEngineException;
@@ -51,10 +51,10 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
     
     @Override
     public ExecutionGraphVertex getRootVertex() {
-        List<ExecutionGraphVertex> possible = new LinkedList<>();
-        for (ExecutionGraphVertex vertex : getVertices()) {
-            if (getOutgoingEdgesOf(vertex).isEmpty()) { possible.add(vertex); }
-        }
+        List<ExecutionGraphVertex> possible = getVertices().stream()
+                                                           .filter(v -> getOutgoingEdgesOf(v).isEmpty())
+                                                           .collect(Collectors.toList());
+        
         if (possible.isEmpty()) { throw new CalculationEngineException("No graph root found"); }
         if (possible.size() > 1) { throw new CalculationEngineException(String.format("Many graph roots found (%s)", possible.size())); }
         
@@ -62,24 +62,16 @@ public class ExecutionGraph implements IExecutionGraph<ExecutionGraphVertex, Exe
     }
 
     @Override
-    public Collection<ExecutionGraphVertex> getVertices() {
-        return this.vertices.values();
-    }
+    public Collection<ExecutionGraphVertex> getVertices() { return this.vertices.values(); }
 
     @Override
-    public Collection<ExecutionGraphEdge> getEdges() {
-        return this.edges.values();
-    }
+    public Collection<ExecutionGraphEdge> getEdges() { return this.edges.values(); }
 
     @Override
-    public ExecutionGraphVertex getEdgeSource(ExecutionGraphEdge edge) {
-        return edge.source;
-    }
+    public ExecutionGraphVertex getEdgeSource(ExecutionGraphEdge edge) { return edge.source; }
 
     @Override
-    public ExecutionGraphVertex getEdgeTarget(ExecutionGraphEdge edge) {
-        return edge.target;
-    }
+    public ExecutionGraphVertex getEdgeTarget(ExecutionGraphEdge edge) { return edge.target; }
 
     @Override
     public void addVertex(ExecutionGraphVertex vertex) {
