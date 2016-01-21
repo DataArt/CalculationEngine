@@ -141,9 +141,7 @@ public final class GraphBuilderUtils {
     }
 
     static boolean inheritsErrorValue(ExecutionGraphVertex vertex) {
-        boolean isNotInherFunction = "ISERROR".equals(vertex.getName());
-        boolean isError = isErrorValue(vertex.getValue());
-        return !(isError || isNotInherFunction);
+        return !(isErrorValue(vertex.getValue()) || "ISERROR".equals(vertex.getName()));
     }
 
     static boolean isSkipVertex(Ptg ptg) {

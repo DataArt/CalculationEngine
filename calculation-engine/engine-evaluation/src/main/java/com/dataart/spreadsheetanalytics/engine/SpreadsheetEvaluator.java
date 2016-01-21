@@ -158,7 +158,7 @@ public class SpreadsheetEvaluator implements IEvaluator {
         Map<String, Class<? extends ICustomFunction>> map = Functions.getCustomFunctions();
         AnalysisToolPak._saFunctionsByName = new HashMap<>();
         map.forEach((k, v) -> AnalysisToolPak._saFunctionsByName.put(k, null));
-        
+
         for (Entry<String, Class<? extends ICustomFunction>> en : map.entrySet())
             { WorkbookEvaluator.registerFunction(en.getKey(), en.getValue().newInstance()); }
     }
