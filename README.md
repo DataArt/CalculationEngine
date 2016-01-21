@@ -63,7 +63,7 @@ Also the above jars required jars from Apache POI fork to be included as depende
 * poi-ooxml-fork-[version].jar    
 Current version: **3.13-beta1.ce.0.7.0.x.dev**.  
 
-To add Calculation Engine as dependency to project use:
+Calculation Engine jars are available in [Maven Central](http://mvnrepository.com/artifact/com.dataart/spreadsheetanalytics-evaluation), so to add full Calculation Engine library as dependency to project use:
 ```
 <dependency>
   <groupId>com.dataart</groupId>
